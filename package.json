@@ -4,7 +4,7 @@
   "description": "Space impact game",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -14,9 +14,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/zenoviy/Space-Impact/issues"
-  },
-  "scripts": {
-    "start": "nodemon app.js"
   },
   "homepage": "https://github.com/zenoviy/Space-Impact#readme",
   "devDependencies": {
