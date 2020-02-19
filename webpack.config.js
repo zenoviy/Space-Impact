@@ -2,14 +2,8 @@ const path = require('path');
 
 
 module.exports = {
-    mode: 'development',  // development   production
+    mode: 'production',  // development   production
     devtool: 'inline-source-map',
-    entry: __dirname+ '/client/src/index.ts',
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000
-    },
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'public/dist'),
