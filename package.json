@@ -1,0 +1,28 @@
+{
+  "name": "game-server",
+  "version": "1.0.0",
+  "description": "Space impact game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zenoviy/Space-Impact.git"
+  },
+  "author": "Zen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zenoviy/Space-Impact/issues"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "homepage": "https://github.com/zenoviy/Space-Impact#readme",
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "nodemon": "^2.0.2"
+  }
+}
