@@ -1,7 +1,9 @@
 const path = require('path');
 
+
 module.exports = {
-    mode: 'production',
+    mode: 'development',  // development   production
+    devtool: 'inline-source-map',
     entry: __dirname+ '/client/src/index.ts',
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
@@ -11,6 +13,7 @@ module.exports = {
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'public/dist'),
+        publicPath: "/public/dist"
     },
     module:{
         rules:[
@@ -24,9 +27,20 @@ module.exports = {
             test: /\.tsx?$/,
             use: 'ts-loader',
             exclude: /node_modules/,
-          },
+          },{
+            test: /\.s[ac]ss$/i,
+            use: [
+              'style-loader',
+              'css-loader',
+              {
+                loader: 'sass-loader',
+              },
+            ]
+          }
       ]
   },
+  plugins: [
+  ],
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
