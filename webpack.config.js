@@ -4,6 +4,7 @@ const path = require('path');
 module.exports = {
     mode: 'production',  // development   production
     devtool: 'inline-source-map',
+    entry: './src/index.ts',
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'public/dist'),

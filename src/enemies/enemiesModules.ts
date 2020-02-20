@@ -1,6 +1,5 @@
 function displayData(data: string){
-    let res = data + ' My World';
-    alert(res);
+    let res = data + ' My World 111';
     return res
 }
 

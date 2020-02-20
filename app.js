@@ -12,10 +12,20 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 
+app.use('/game', (err, req, res, next) => {
+    if(err) throw new Error(err)
+    next()
+})
 app.get('/game', (req, res) => {
+    if(!req) throw new Error('problem with request')
     res.render('gameField', {
         title: "Games"
     })
+})
+app.get('/api/levelData', (req, res) => {
+    if(!req) throw new Error('no propper request')
+
+
 })
 
 app.listen(3000, function(){
