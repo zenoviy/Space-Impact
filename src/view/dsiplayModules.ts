@@ -12,8 +12,7 @@ function clearField(field){
 }
 
 
-module.exports.viewModules = function (){
-    return {
+module.exports.viewModules = {
         initField: initField,
-    }
+        clearField: clearField
 }
