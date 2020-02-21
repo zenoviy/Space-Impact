@@ -1,6 +1,13 @@
 [
     {
         "level" : 1,
-        "enemyType" : ["type1"]
+        "enemyType" : [1],
+        "enemyProbability" : 500,
+        "otherObjects" : [],
+        "levelMap" : "vhoa0.jpg",
+        "levelBackgroundElements" : [],
+        "levelDetails" : {
+            "levelPoints" : 2000
+        }
     }
 ]

@@ -5,7 +5,7 @@
   "private": true,
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon  app.js ",
     "watch": "npx webpack --watch --config webpack.config.js",
     "build": "npx webpack --config webpack.config.js"
   },
