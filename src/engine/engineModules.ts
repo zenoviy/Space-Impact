@@ -1,21 +1,49 @@
-const {objectConstructor} = require('../constructors/enemyConstructor');
-const {createField} = require('../view/dsiplayModules');
+const {levelConstructor} = require('../constructors/levelConstructors');
 
-const enemy = new objectConstructor.EnemyObject(34, 45, 'Ene_text')
-console.log(enemy)
 
-function doSmths(data: string){
-    return data
+function initField(screenWidth = window.innerWidth, screenHeight = window.innerHeight){
+    let gameField = this.gameInitData.gameField
+    if(!gameField) throw Error(ERROR_LIST.noObject);
+
+    gameField.width = screenWidth-4;
+    gameField.height = screenHeight-4;
 }
-module.exports.gameRuning = function engineRuning(el){
-    console.log(el)
-   // createField()
+
+
+
+function levelInit(backgroundConstructor, ctx){
+    let gameData = this.showLevelData();
+    let backgrundImages = gameData.levelMap;
+
+    let map = new backgroundConstructor(
+        backgrundImages,
+        3,
+        this.gameInitData.screen,
+        ctx,
+        (this.gameInitData.mapBackgroundObjects.length > 0)? true : null
+    );
+    this.gameInitData.mapBackgroundObjects = this.gameInitData.mapBackgroundObjects.concat(map) ;
+    console.log(this.gameInitData.mapBackgroundObjects)
 }
-module.exports.stopEngine = function(engineName){
+
+function createContext(){
+    this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
+}
+
+
+function stopEngine(engineName){
     clearInterval(engineName);
-    console.log('interval has stopping');
 }
+
+
+
+
 
 module.exports.engineModule = {
-    doSmths: doSmths
+    stopEngine: stopEngine
 };
+module.exports.gameMethods = {
+    initField: initField,
+    levelInit: levelInit,
+    createContext: createContext
+}

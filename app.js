@@ -16,6 +16,10 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 
+function fileReader(header){
+  
+}
+
 app.use('/game', (err, req, res, next) => {
     if(err) return console.log(err)
     next()
@@ -26,13 +30,23 @@ app.get('/game', (req, res) => {
         title: "Games"
     })
 })
-app.get('/api/level-data', cors(), (req, res) => {
+app.get('/api/level-data', cors(), async (req, res) => {
     if(!req) return console.log('no propper request')
 
     fs.readFile(__dirname + '/public/db/gameLevelData.json', (err, data) => {
+        let headers = req.headers;
+        if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+        readObject = JSON.parse(data) //
+        let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
+        res.send(responseItem);
+    })
+})
+app.get('/api/game-ettings', cors(), (req, res) => {
+    fs.readFile(__dirname + '/public/db/gameSettings.json', (err, data) => {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
 
         let readObject = JSON.parse(data)
+        console.log(readObject)
         res.send(readObject)
     })
 })

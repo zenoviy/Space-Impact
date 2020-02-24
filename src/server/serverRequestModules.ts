@@ -1,9 +1,10 @@
-function getData({url, method, data}){
+function getData({url, method, data, headerLevel}){
     return fetch(url, {
         method: method,
         mode: 'cors',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'mapLevel': headerLevel
         },
         body: (data)? JSON.stringify(data) : null
     }).then(res => res.json()

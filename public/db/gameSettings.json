@@ -1,0 +1,14 @@
+[
+    {
+        "soundLevel": 50,
+        "soundOn": true,
+        "autoshoot": false,
+        "keyControls": {
+            "forward": [87, 38, 104],
+            "right": [68, 39, 102],
+            "backward": [83, 40, 98],
+            "left": [65, 37, 100]
+        },
+        "records": []
+    }
+]

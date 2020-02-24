@@ -3,4 +3,4 @@ function displayData(data: string){
     return res
 }
 
-module.exports.display = displayData;
+module.exports.enemies = displayData;

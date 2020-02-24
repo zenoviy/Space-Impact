@@ -7,7 +7,17 @@
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [],
         "levelDetails" : {
-            "levelPoints" : 2000
+            "levelTime" : 250
+        }
+    },{
+        "level" : 2,
+        "enemyType" : [1, 2],
+        "enemyProbability" : 600,
+        "otherObjects" : [],
+        "levelMap" : "canyon.png",
+        "levelBackgroundElements" : [],
+        "levelDetails" : {
+            "levelPoints" : 300
         }
     }
 ]

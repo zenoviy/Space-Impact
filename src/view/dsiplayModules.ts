@@ -1,18 +1,23 @@
 const {ERROR_LIST} = require('../engine/appErrorListModule')
 
-function initField(gameField){
-    if(!gameField) throw Error(ERROR_LIST.noObject);
 
-    const {screenWidth, screenHeight} = {screenWidth: screen.width, screenHeight: screen.height};
-    gameField.width = screenWidth;
-    gameField.height = screenWidth;
-}
-function clearField(field){
-    console.log('clear field')
+function draw(context, element, ...property){
+    context[element](...property);
 }
 
+
+function createImage(ctx, pictureName, ...props){
+    draw(ctx, 'drawImage', pictureName, ...props);
+}
+
+
+function clearField(ctx, width, height){
+    draw(ctx, 'clearRect', 0, 0,  width, height)
+}
 
 module.exports.viewModules = {
-        initField: initField,
-        clearField: clearField
+        clearField: clearField,
+        draw: draw,
+        clear: clearField,
+        createImage: createImage
 }
