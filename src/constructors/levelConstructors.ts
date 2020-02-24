@@ -44,9 +44,6 @@ class GameBackground{
         };
          this.img.src = this.img.src || location.origin + '/images/locations/' + this.backgroundTexture;
     }
-    mapAnimation(){
-
-    }
 }
 interface gameData{
     gameField: any,
@@ -110,6 +107,9 @@ class Game {
     }
     showLevelData(){
         return this.gameInitData.levelData;
+    }
+    getServerLevelData(){
+
     }
 }
 Game.prototype.initField = gameMethods.initField;

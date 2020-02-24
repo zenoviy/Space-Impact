@@ -1,7 +1,7 @@
 import '../sass/main.sass';
 
 const {levelConstructor} = require('./constructors/levelConstructors');
-const PlayerObject = require('./constructors/userConstructor');
+const {playerModules} = require('./constructors/userConstructor');
 const {engineModule} = require('./engine/engineModules');
 const {serverModules} = require('./server/serverRequestModules');
 const {enemies} = require('./enemies/enemiesModules');
@@ -11,7 +11,11 @@ const {viewModules} = require('./view/dsiplayModules');
 
 (async function init(){
     async function gameDataInit(){
-        //console.log(playerObject)
+        let gameField = document.querySelector('#gamefield'),
+        gameActionField = document.querySelector('#gameObjectsfield'),
+        gameUIfield = document.querySelector('#gameUifield');
+
+
         let serverLocation = {
                 host: (document.location.hostname === "localhost")? "http://localhost:3000/" : "",
                 picturesDirection: location.origin + '/images/',
@@ -22,11 +26,34 @@ const {viewModules} = require('./view/dsiplayModules');
                 enemylData: {
                     method: "GET",
                     url: "api/level-data"
+                },
+                gameSetings: {
+                    method: "GET",
+                    url: "api/game-ettings"
+                },
+                userShip: {
+                    method: "GET",
+                    url: "api/user-ship"
                 }
         }
-        let gameField = document.querySelector('#gamefield'),
-        gameActionField = document.querySelector('#gameObjectsfield'),
-        gameUIfield = document.querySelector('#gameUifield');
+        const levelData = await serverModules.getData({
+            url: serverLocation.host + serverLocation.levelData.url,
+            method: serverLocation.levelData.method,
+            data: null,
+            headers:{ 'maplevel': 2}
+        })
+        const gameSetings = await serverModules.getData({
+            url: serverLocation.host + serverLocation.gameSetings.url,
+            method: serverLocation.gameSetings.method,
+            data: null,
+            headers: null
+        })
+        const userData = await serverModules.getData({
+            url: serverLocation.host + serverLocation.userShip.url,
+            method: serverLocation.userShip.method,
+            data: null,
+            headers:{ 'usership': 1}
+        })
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,
@@ -35,7 +62,9 @@ const {viewModules} = require('./view/dsiplayModules');
             gameData:{
                 currentLevel: 2,
                 currentPoint: 0,
-                playerObject: null//new PlayerObject()
+                playerObject: new playerModules.PlayerShip(userData, 0, 3),
+                gameSetings: gameSetings,
+                constrollers: null
             },
             screen:{
                 width: window.innerWidth,
@@ -49,12 +78,7 @@ const {viewModules} = require('./view/dsiplayModules');
             backScreenPause: true,
             gameStatus: false,
             gameEngine: setInterval(gameInterval, 20),
-            levelData: await serverModules.getData({
-                url: serverLocation.host + serverLocation.levelData.url,
-                method: serverLocation.levelData.method,
-                data: null,
-                headers:{ 'mapLevel': 2}
-            })
+            levelData: levelData
         }, locations: serverLocation
     }
 }
@@ -62,12 +86,12 @@ const {viewModules} = require('./view/dsiplayModules');
 
     /*  gameEngineInit  */
     var gameState = await gameDataInit(),
-    gameObject = new levelConstructor.Game(gameState.data, gameState.locations); // new levelConstructor.Game(gd); gameState.locations
+    gameObject = new levelConstructor.Game(gameState.data, gameState.locations);
 
     gameObject.initField();
     gameObject.createContext();
 
-    console.log(gameObject.gameInitData)
+    console.log(gameObject)
 
     function gameInterval(){
         /*viewModules.clearField(gameObject.gameInitData.ctx,
@@ -79,9 +103,10 @@ const {viewModules} = require('./view/dsiplayModules');
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx);
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx);
         }
-        for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-
+        if(!gameObject.gameInitData.backScreenPause){
+            for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                 backgroundMap.updateMap()
+            }
         }
     }
 })()

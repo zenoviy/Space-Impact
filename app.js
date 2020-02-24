@@ -36,6 +36,7 @@ app.get('/api/level-data', cors(), async (req, res) => {
     fs.readFile(__dirname + '/public/db/gameLevelData.json', (err, data) => {
         let headers = req.headers;
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+
         let readObject = JSON.parse(data) //
         let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
         res.send(responseItem);
@@ -47,8 +48,9 @@ app.get('/api/user-ship', cors(), async (req, res) => {
     fs.readFile(__dirname + '/public/db/playerShipsData.json', (err, data) => {
         let headers = req.headers;
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+
         let readObject = JSON.parse(data) //
-        let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
+        let responseItem = readObject.find((data) => { return data.id == headers['usership']})
         res.send(responseItem);
     })
 })

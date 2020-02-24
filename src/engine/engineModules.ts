@@ -22,19 +22,17 @@ function levelInit(backgroundConstructor, ctx){
     let gameData = this.showLevelData();
     let backgrundImages = gameData.levelMap;
 
-    let map = new backgroundConstructor(
-        backgrundImages,
-        3,
-        this.gameInitData.screen,
-        ctx,
-        (this.gameInitData.mapBackgroundObjects.length > 0)? true : null
+    let mapObject = new backgroundConstructor(
+        backgrundImages, 1, this.gameInitData.screen, ctx,
+        (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null  ///   %2
     );
-    this.gameInitData.mapBackgroundObjects = this.gameInitData.mapBackgroundObjects.concat(map) ;
-    console.log(this.gameInitData.mapBackgroundObjects)
+    this.gameInitData.mapBackgroundObjects = this.gameInitData.mapBackgroundObjects.concat(mapObject);
 }
 
 function createContext(){
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
+    this.gameInitData.ctxActionField = this.gameInitData.gameActionField.getContext('2d');
+    this.gameInitData.ctxUIField = this.gameInitData.gameUIField.getContext('2d');
 }
 
 

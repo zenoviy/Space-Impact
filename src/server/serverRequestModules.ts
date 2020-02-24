@@ -1,8 +1,7 @@
 function getData({url, method, data, headers}){
     let resultHeader = Object.assign({
-        'Content-Type': 'application/json'}, headers)/**/
+        'Content-Type': 'application/json'}, headers || false)
 
-        console.log(resultHeader)
     return fetch(url, {
         method: method,
         mode: 'cors',

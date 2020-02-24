@@ -14,7 +14,10 @@ class PlayerShip{
     showInformation(){
         console.log(this)
     }
+
 }
 
 
-module.exports.PlayerShip = PlayerShip;
+module.exports.playerModules = {
+    PlayerShip: PlayerShip
+};
