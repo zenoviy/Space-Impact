@@ -50,10 +50,12 @@ class GameBackground{
 }
 interface gameData{
     gameField: any,
+    gameActionField: any,
+    gameUIField: any,
     gameData:{
         currentLevel: number,
         currentPoint: number,
-        playerInformation: any
+        playerObject: any
     },
     screen:{
         width: number,
@@ -74,14 +76,28 @@ interface gameData{
         level: number,
     }
 }
+interface serverLocation{
+    host: string,
+    picturesDirection: string,
+    levelData: {
+        method: string,
+        url: string
+    },
+    enemylData: {
+        method: string,
+        url: string
+    }
+}
 class Game {
     initField;
     levelInit;
     createContext;
     constructor(
-        private gameInitData: gameData
+        private gameInitData: gameData,
+        private serverLocation: serverLocation
     ){
         this.gameInitData = gameInitData;
+        this.serverLocation = serverLocation;
     }
     changeLevel(nextLevel: number){
         this.gameInitData.gameData.currentLevel = nextLevel;

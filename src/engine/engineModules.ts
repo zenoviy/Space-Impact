@@ -2,11 +2,18 @@ const {levelConstructor} = require('../constructors/levelConstructors');
 
 
 function initField(screenWidth = window.innerWidth, screenHeight = window.innerHeight){
-    let gameField = this.gameInitData.gameField
+    let gameField = [].concat(
+        this.gameInitData.gameField,
+        this.gameInitData.gameActionField,
+        this.gameInitData.gameUIField
+        )
     if(!gameField) throw Error(ERROR_LIST.noObject);
 
-    gameField.width = screenWidth-4;
-    gameField.height = screenHeight-4;
+    for(let screen of gameField){
+        screen.width = screenWidth-4;
+        screen.height = screenHeight-4;
+    }
+
 }
 
 
