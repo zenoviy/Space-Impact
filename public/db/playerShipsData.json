@@ -2,9 +2,9 @@
     {
         "id": 1,
         "name": "Interceptor",
-        "texture": "space_ship.png",
+        "texture": "spaceShips/space_ship.png",
         "armor": 65,
-        "speed": 2,
+        "speed": 5,
         "size":{
             "width": 35,
             "height": 16

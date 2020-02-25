@@ -1,11 +1,11 @@
 import '../sass/main.sass';
 
-const {levelConstructor} = require('./constructors/levelConstructors');
-const {playerModules} = require('./constructors/userConstructor');
-const {engineModule} = require('./engine/engineModules');
-const {serverModules} = require('./server/serverRequestModules');
-const {enemies} = require('./enemies/enemiesModules');
-const {viewModules} = require('./view/dsiplayModules');
+var {levelConstructor} = require('./constructors/levelConstructors');
+var {playerModules} = require('./constructors/userConstructor');
+var {engineModule} = require('./engine/engineModules');
+var {serverModules} = require('./server/serverRequestModules');
+var {enemies} = require('./enemies/enemiesModules');
+var {viewModules} = require('./view/displayModules');
 
 
 
@@ -62,7 +62,7 @@ const {viewModules} = require('./view/dsiplayModules');
             gameData:{
                 currentLevel: 2,
                 currentPoint: 0,
-                playerObject: new playerModules.PlayerShip(userData, 0, 3),
+                playerObject: new playerModules.PlayerShip(userData, 0, 3, 0, 0),
                 gameSetings: gameSetings,
                 constrollers: null
             },
@@ -86,26 +86,35 @@ const {viewModules} = require('./view/dsiplayModules');
 
     /*  gameEngineInit  */
     var gameState = await gameDataInit(),
-    gameObject = new levelConstructor.Game(gameState.data, gameState.locations);
+    gameObject = new levelConstructor.Game(gameState.data, gameState.locations),
+    playerShipData = gameObject.gameInitData.gameData.playerObject;
 
-    gameObject.initField();
-    gameObject.createContext();
+    gameObject.setGameFields();
+    gameObject.setGameFields();
+    let contexts = gameObject.returnContext();
+    playerShipData.ctx = contexts.gameActionField;
+    playerShipData.parrent = gameObject;
 
-    console.log(gameObject)
-
+    playerShipData.initPlayerShip()
+  
+    playerShipData.shipControl()
     function gameInterval(){
-        /*viewModules.clearField(gameObject.gameInitData.ctx,
-            gameObject.gameInitData.screen.width,
-            gameObject.gameInitData.screen.height);*/
-
+        //
+            if(gameObject.gameInitData.ctxActionField){
+                viewModules.clearField(gameObject.gameInitData.ctxActionField,
+                    gameObject.gameInitData.screen.width,
+                    gameObject.gameInitData.screen.height);
+            }
+            playerShipData.placeShip();
+            playerShipData.displayPlayerShip();
         if(gameObject.gameInitData.backScreenPause){
             gameObject.gameInitData.backScreenPause = false;
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx);
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx);
+            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
+            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
         if(!gameObject.gameInitData.backScreenPause){
             for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                backgroundMap.updateMap()
+                backgroundMap.updateMap();
             }
         }
     }

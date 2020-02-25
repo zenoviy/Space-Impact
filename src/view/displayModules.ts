@@ -1,4 +1,4 @@
-const {ERROR_LIST} = require('../engine/appErrorListModule')
+var {ERROR_LIST} = require('../engine/appErrorListModule')
 
 
 function draw(context, element, ...property){

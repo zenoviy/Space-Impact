@@ -39,6 +39,7 @@ app.get('/api/level-data', cors(), async (req, res) => {
 
         let readObject = JSON.parse(data) //
         let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
+        responseItem.allLevels = readObject.length;
         res.send(responseItem);
     })
 })
@@ -59,7 +60,6 @@ app.get('/api/game-ettings', cors(), (req, res) => {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
 
         let readObject = JSON.parse(data)
-        console.log(readObject)
         res.send(readObject)
     })
 })

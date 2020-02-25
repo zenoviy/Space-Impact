@@ -1,5 +1,5 @@
-const {viewModules} = require('../view/dsiplayModules');
-const {gameMethods} = require('../engine/engineModules');
+var {viewModules} = require('../view/displayModules');
+var {gameMethods} = require('../engine/engineModules');
 
 class GameBackground{
     x: number = 0;
@@ -26,6 +26,9 @@ class GameBackground{
             this.img.src = location.origin + '/images/locations/' + this.backgroundTexture;
 
         }
+        setContext(context){
+            this.ctx = context;
+        }
     updateMap(){
         this.img = this.img || new Image();
         let backgroundObject = this;
@@ -37,7 +40,8 @@ class GameBackground{
 
         this.img.onload = function() {
            //viewModules.clearField(backgroundObject.ctx, backgroundObject.screenData.width, backgroundObject.screenData.height);
-            viewModules.createImage(backgroundObject.ctx,
+            //console.log(backgroundObject.ctx, backgroundObject.img)
+           viewModules.createImage(backgroundObject.ctx,
                 backgroundObject.img, backgroundObject.x, 0,
                 backgroundObject.screenData.width+2,
                 backgroundObject.screenData.height)
@@ -46,6 +50,9 @@ class GameBackground{
     }
 }
 interface gameData{
+    ctx: any,
+    ctxActionField: any,
+    ctxUIField: any,
     gameField: any,
     gameActionField: any,
     gameUIField: any,
@@ -87,6 +94,9 @@ interface serverLocation{
 }
 class Game {
     initField;
+    placePlayerShip;
+    initPlayerShip;
+    setGameFields;
     levelInit;
     createContext;
     constructor(
@@ -111,9 +121,25 @@ class Game {
     getServerLevelData(){
 
     }
+    returnContext(){
+        if(this.gameInitData.gameField&&
+            this.gameInitData.gameActionField&&
+            this.gameInitData.gameUIField){
+                return {
+                    gameField: this.gameInitData.gameField,
+                    gameActionField: this.gameInitData.ctxActionField,
+                    gameUIField: this.gameInitData.gameUIField,
+                }
+            }else{
+                return null
+            }
+    }
 }
 Game.prototype.initField = gameMethods.initField;
-Game.prototype.levelInit = gameMethods.levelInit;   // createContext
+Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerShip
+Game.prototype.initPlayerShip = gameMethods.initPlayerShip;
+Game.prototype.setGameFields = gameMethods.setGameFields;
+Game.prototype.placePlayerShip = gameMethods.placePlayerShip;
 Game.prototype.createContext = gameMethods.createContext;
 
 module.exports.levelConstructor = {
