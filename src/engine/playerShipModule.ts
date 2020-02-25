@@ -5,13 +5,12 @@ function initPlayerShip(){
     if(this.ctx){
         let image = this.data.texture,
         imageLocation = this.parrent.serverLocation.picturesDirection;
-
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){
                 this.placePlayerShip()
             }
-           return this.img
+            return this.img
         }
         this.img.src = imageLocation + image;
     }
@@ -21,21 +20,19 @@ function displayPlayerShip(){
         if(this.ctx && this.img){
             let width = this.ctx.width,
             height = this.ctx.height;
-
-            viewModules.createImage(this.ctx, this.img, this.x, this.y);
+            viewModules.createImage(this.ctx, this.img, this.x-30, this.y-30);
         }
     }
 }
 function shipControl(){
     let controlKeys = this.parrent.gameInitData.gameData.gameSetings.keyControls;
     document.addEventListener("keydown"||"keyup",(e)=>{
-        console.log(e.key)
         if(controlKeys.down.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed});
         if(controlKeys.left.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed * -1, yPos: 0}) ;
         if(controlKeys.right.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed, yPos:0}) ;
         if(controlKeys.up.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed * -1}) ;
     })
-    console.log(this)
+
     document.addEventListener("mousemove", (e: any) => {
         if(e.target.tagName === "CANVAS"){
             let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
@@ -45,9 +42,38 @@ function shipControl(){
         }
     })
 }
+function showInformation(){
+    console.log(this)
+}
+function setContext(context){
+    this.ctx = context;
+}
+function placeShip(){
+    let xAdj = (this.xFinal - this.x)/this.data.speed;
+    let yAdj = (this.yFinal - this.y)/this.data.speed;
+
+    xAdj = (Math.sign(xAdj) > 0)? xAdj: xAdj * -1;
+    yAdj = (Math.sign(yAdj) > 0)? yAdj: yAdj * -1;
+
+    this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
+    (this.x < this.xFinal)? this.x + xAdj : this.xFinal;
+
+    this.y = (this.y > this.yFinal)? this.y - yAdj:
+    (this.y < this.yFinal)? this.y + yAdj : this.yFinal;
+}
+function moveShip({xPos=0, yPos=0}){
+    this.x += xPos;
+    this.y += yPos;
+}
+
+
 
 module.exports.playerShipModule = {
     displayPlayerShip: displayPlayerShip,
     initPlayerShip: initPlayerShip,
-    shipControl: shipControl
+    shipControl: shipControl,
+    moveShip: moveShip,
+    placeShip: placeShip,
+    setContext: setContext,
+    showInformation: showInformation
 }

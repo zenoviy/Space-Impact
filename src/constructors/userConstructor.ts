@@ -13,6 +13,10 @@ class PlayerShip{
     initPlayerShip: any;
     displayPlayerShip: any;
     shipControl: any;
+    showInformation: any;
+    setContext: any;
+    placeShip: any;
+    moveShip: any;
     constructor(
         data: any,
         points: number,
@@ -26,35 +30,16 @@ class PlayerShip{
         this.x = x;
         this.y = y;
     }
-    showInformation(){
-        console.log(this)
-    }
-    setContext(context){
-        this.ctx = context;
-    }
-    placeShip(){
-        let xAdj = (this.xFinal - this.x)/this.data.speed;
-        let yAdj = (this.yFinal - this.y)/this.data.speed;
-
-        xAdj = (Math.sign(xAdj) > 0)? xAdj: xAdj * -1;
-        yAdj = (Math.sign(yAdj) > 0)? yAdj: yAdj * -1;
-        //console.log(xAdj, yAdj)
-        this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
-        (this.x < this.xFinal)? this.x + xAdj : this.xFinal;
-
-        this.y = (this.y > this.yFinal)? this.y - yAdj:
-        (this.y < this.yFinal)? this.y + yAdj : this.yFinal;
-    }
-    moveShip({xPos=0, yPos=0}){
-        this.x += xPos;
-        this.y += yPos;
-    }
 
 }
 
 PlayerShip.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 PlayerShip.prototype.displayPlayerShip = playerShipModule.displayPlayerShip;
 PlayerShip.prototype.shipControl = playerShipModule.shipControl;
+PlayerShip.prototype.moveShip = playerShipModule.moveShip;
+PlayerShip.prototype.placeShip = playerShipModule.placeShip;
+PlayerShip.prototype.setContext = playerShipModule.setContext;
+
 
 module.exports.playerModules = {
     PlayerShip: PlayerShip

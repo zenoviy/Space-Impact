@@ -1,6 +1,7 @@
 var {viewModules} = require('../view/displayModules');
 var {gameMethods} = require('../engine/engineModules');
 var {playerShipModule} = require('../engine/playerShipModule');
+var {backgroundMapModule} = require('../engine/backgroundModule');
 
 class GameBackground{
     x: number = 0;
@@ -10,6 +11,7 @@ class GameBackground{
     screenData: any;
     ctx: any;
     img: any;
+    updateMap: any;
     constructor(
         backgroundTexture: string,
         backgroundSpeed: number,
@@ -30,27 +32,9 @@ class GameBackground{
         setContext(context){
             this.ctx = context;
         }
-    updateMap(){
-        this.img = this.img || new Image();
-        let backgroundObject = this;
-
-        this.x -= this.backgroundSpeed;
-        if(this.x + this.screenData.width < 0){
-            this.x = this.screenData.width;
-        }
-
-        this.img.onload = function() {
-           //viewModules.clearField(backgroundObject.ctx, backgroundObject.screenData.width, backgroundObject.screenData.height);
-            //console.log(backgroundObject.ctx, backgroundObject.img)
-           viewModules.createImage(backgroundObject.ctx,
-                backgroundObject.img, backgroundObject.x, 0,
-                backgroundObject.screenData.width+2,
-                backgroundObject.screenData.height)
-        };
-         this.img.src = this.img.src || location.origin + '/images/locations/' + this.backgroundTexture;
-    }
+    
 }
-
+GameBackground.prototype.updateMap = backgroundMapModule.updateMap;
 
 module.exports.levelConstructor = {
     GameBackground: GameBackground

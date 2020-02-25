@@ -16,7 +16,6 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
     }
 }
 
-/// Background
 function setGameFields(){
     this.initField();
     this.createContext();
@@ -34,9 +33,6 @@ function levelInit(backgroundConstructor, ctx, parrent){
     mapObject.parrent = parrent;
     this.gameInitData.mapBackgroundObjects = this.gameInitData.mapBackgroundObjects.concat(mapObject);
 }
-
-/// Player Ship
-
 
 /// engine  6a 13кабінет до 12:30
 function createContext(){
