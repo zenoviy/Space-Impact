@@ -2,6 +2,7 @@ import '../sass/main.sass';
 
 var {levelConstructor} = require('./constructors/levelConstructors');
 var {playerModules} = require('./constructors/userConstructor');
+var {gameModule} = require('./constructors/mainGameComponent');
 var {engineModule} = require('./engine/engineModules');
 var {serverModules} = require('./server/serverRequestModules');
 var {enemies} = require('./enemies/enemiesModules');
@@ -86,7 +87,7 @@ var {viewModules} = require('./view/displayModules');
 
     /*  gameEngineInit  */
     var gameState = await gameDataInit(),
-    gameObject = new levelConstructor.Game(gameState.data, gameState.locations),
+    gameObject = new gameModule.Game(gameState.data, gameState.locations),
     playerShipData = gameObject.gameInitData.gameData.playerObject;
 
     gameObject.setGameFields();

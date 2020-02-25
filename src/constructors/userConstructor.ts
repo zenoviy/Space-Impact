@@ -1,5 +1,5 @@
 var {viewModules} = require('../view/displayModules');
-var {playerShip} = require('../engine/playerShipModule');
+var {playerShipModule} = require('../engine/playerShipModule');
 
 class PlayerShip{
     data: any;
@@ -52,9 +52,9 @@ class PlayerShip{
 
 }
 
-PlayerShip.prototype.initPlayerShip = playerShip.initPlayerShip;
-PlayerShip.prototype.displayPlayerShip = playerShip.displayPlayerShip;
-PlayerShip.prototype.shipControl = playerShip.shipControl;
+PlayerShip.prototype.initPlayerShip = playerShipModule.initPlayerShip;
+PlayerShip.prototype.displayPlayerShip = playerShipModule.displayPlayerShip;
+PlayerShip.prototype.shipControl = playerShipModule.shipControl;
 
 module.exports.playerModules = {
     PlayerShip: PlayerShip

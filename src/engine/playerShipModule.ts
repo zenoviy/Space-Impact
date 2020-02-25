@@ -3,9 +3,7 @@ var {levelConstructor} = require('../constructors/levelConstructors');
 
 function initPlayerShip(){
     if(this.ctx){
-        let width = this.ctx.width,
-        height = this.ctx.height,
-        image = this.data.texture,
+        let image = this.data.texture,
         imageLocation = this.parrent.serverLocation.picturesDirection;
 
         this.img = new Image();
@@ -48,7 +46,7 @@ function shipControl(){
     })
 }
 
-module.exports.playerShip = {
+module.exports.playerShipModule = {
     displayPlayerShip: displayPlayerShip,
     initPlayerShip: initPlayerShip,
     shipControl: shipControl
