@@ -5,6 +5,7 @@
         "texture": "spaceShips/space_ship.png",
         "armor": 65,
         "speed": 5,
+        "firespot": 1,
         "size":{
             "width": 35,
             "height": 16

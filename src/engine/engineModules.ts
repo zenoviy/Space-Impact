@@ -46,7 +46,9 @@ function initPlayerShip(){
 
         this.img = new Image();
         this.img.onload = () => {
-            this.placePlayerShip()
+            if(this.placePlayerShip){
+                this.placePlayerShip()
+            }
            return this.img
         }
         this.img.src = imageLocation + image;
@@ -71,9 +73,14 @@ function shipControl(){
         if(controlKeys.right.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed, yPos:0}) ;
         if(controlKeys.up.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed * -1}) ;
     })
-    document.addEventListener("mousemove", (e) => {
-        this.xFinal = (e.clientX % this.data.speed == 0)? e.clientX : this.data.speed* Math.floor(e.clientX/this.data.speed);
-        this.yFinal = (e.clientY % this.data.speed == 0)? e.clientY : this.data.speed* Math.floor(e.clientY/this.data.speed);
+    console.log(this)
+    document.addEventListener("mousemove", (e: any) => {
+        if(e.target.tagName === "CANVAS"){
+            let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
+
+            this.xFinal = (x % this.data.speed == 0)? x : this.data.speed* Math.floor(x/this.data.speed);
+            this.yFinal = (y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed);
+        }
     })
 }
 
@@ -87,6 +94,16 @@ function createContext(){
 
 function stopEngine(engineName){
     clearInterval(engineName);
+}
+
+function changeLevel(){
+
+}
+function levelTimer(){
+
+}
+function reloadGame(){
+
 }
 
 

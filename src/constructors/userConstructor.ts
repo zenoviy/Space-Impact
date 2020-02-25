@@ -16,8 +16,8 @@ class PlayerShip{
         data: any,
         points: number,
         lifePoints: number,
-        x: number,
-        y: number
+        x: number = 0,
+        y: number = 0
     ){
         this.data = data;
         this.points = points;
@@ -32,11 +32,17 @@ class PlayerShip{
         this.ctx = context;
     }
     placeShip(){
-        this.x = (this.x > this.xFinal)? this.x - this.data.speed :
-        (this.x < this.xFinal)? this.x + this.data.speed : this.xFinal;
+        let xAdj = (this.xFinal - this.x)/this.data.speed;
+        let yAdj = (this.yFinal - this.y)/this.data.speed;
 
-        this.y = (this.y > this.yFinal)? this.y - this.data.speed :
-        (this.y < this.yFinal)? this.y + this.data.speed : this.yFinal;
+        xAdj = (Math.sign(xAdj) > 0)? xAdj: xAdj * -1;
+        yAdj = (Math.sign(yAdj) > 0)? yAdj: yAdj * -1;
+        //console.log(xAdj, yAdj)
+        this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
+        (this.x < this.xFinal)? this.x + xAdj : this.xFinal;
+
+        this.y = (this.y > this.yFinal)? this.y - yAdj:
+        (this.y < this.yFinal)? this.y + yAdj : this.yFinal;
     }
     moveShip({xPos=0, yPos=0}){
         this.x += xPos;

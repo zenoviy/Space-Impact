@@ -96,7 +96,7 @@ var {viewModules} = require('./view/displayModules');
     playerShipData.parrent = gameObject;
 
     playerShipData.initPlayerShip()
-  
+
     playerShipData.shipControl()
     function gameInterval(){
         //
