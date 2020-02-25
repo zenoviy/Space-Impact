@@ -1,5 +1,6 @@
 var {viewModules} = require('../view/displayModules');
 var {gameMethods} = require('../engine/engineModules');
+var {playerShip} = require('../engine/playerShipModule');
 
 class GameBackground{
     x: number = 0;
@@ -135,12 +136,13 @@ class Game {
             }
     }
 }
+
+Game.prototype.createContext = gameMethods.createContext;
 Game.prototype.initField = gameMethods.initField;
 Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerShip
-Game.prototype.initPlayerShip = gameMethods.initPlayerShip;
 Game.prototype.setGameFields = gameMethods.setGameFields;
-Game.prototype.placePlayerShip = gameMethods.placePlayerShip;
-Game.prototype.createContext = gameMethods.createContext;
+Game.prototype.initPlayerShip = playerShip.initPlayerShip;
+Game.prototype.placePlayerShip = playerShip.placePlayerShip;
 
 module.exports.levelConstructor = {
     Game: Game,

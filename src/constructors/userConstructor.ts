@@ -1,5 +1,6 @@
 var {viewModules} = require('../view/displayModules');
-var {gameMethods} = require('../engine/engineModules');
+var {playerShip} = require('../engine/playerShipModule');
+
 class PlayerShip{
     data: any;
     points: number;
@@ -51,9 +52,9 @@ class PlayerShip{
 
 }
 
-PlayerShip.prototype.initPlayerShip = gameMethods.initPlayerShip;
-PlayerShip.prototype.displayPlayerShip = gameMethods.displayPlayerShip;
-PlayerShip.prototype.shipControl = gameMethods.shipControl;
+PlayerShip.prototype.initPlayerShip = playerShip.initPlayerShip;
+PlayerShip.prototype.displayPlayerShip = playerShip.displayPlayerShip;
+PlayerShip.prototype.shipControl = playerShip.shipControl;
 
 module.exports.playerModules = {
     PlayerShip: PlayerShip
