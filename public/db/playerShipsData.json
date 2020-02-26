@@ -1,0 +1,25 @@
+[
+    {
+        "id": 1,
+        "name": "Interceptor",
+        "texture": "spaceShips/space_ship.png",
+        "armor": 65,
+        "speed": 5,
+        "firespot": 1,
+        "size":{
+            "width": 35,
+            "height": 16
+        },
+        "guns":[
+            {
+                "name": "blaster",
+                "fireRepead": 3,
+                "speed": 4,
+                "texture": null,
+                "color": "rgba(81, 255, 0, 1)",
+                "width": 60,
+                "height": 5
+            }
+        ]
+    }
+]

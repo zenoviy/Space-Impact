@@ -1,0 +1,23 @@
+[
+    {
+        "level" : 1,
+        "enemyType" : [1],
+        "enemyProbability" : 500,
+        "otherObjects" : [],
+        "levelMap" : "vhoa0.jpg",
+        "levelBackgroundElements" : [],
+        "levelDetails" : {
+            "levelTime" : 250
+        }
+    },{
+        "level" : 2,
+        "enemyType" : [1, 2],
+        "enemyProbability" : 600,
+        "otherObjects" : [],
+        "levelMap" : "canyon.png",
+        "levelBackgroundElements" : [],
+        "levelDetails" : {
+            "levelPoints" : 300
+        }
+    }
+]
