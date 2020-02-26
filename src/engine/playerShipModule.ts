@@ -3,10 +3,10 @@ var {levelConstructor} = require('../constructors/levelConstructors');
 var {bulletModule} = require('../constructors/bulletConstructor');
 
 
-function initPlayerShip(){
+function initPlayerShip(mainGameObject: any){
     if(this.ctx){
         let image = this.data.texture,
-        imageLocation = this.parrent.serverLocation.picturesDirection;
+        imageLocation = mainGameObject.serverLocation.picturesDirection;
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){
@@ -56,7 +56,8 @@ function shipControl(mainGameObject: any){
                 );
             mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
         }
-        //console.log(mainGameObject.gameInitData.allGameBullets)
+        //console.log(mainGameObject)
+        console.log(mainGameObject.gameInitData)
 
     })
 }
@@ -72,6 +73,8 @@ function placeShip(){
 
     xAdj = (Math.sign(xAdj) > 0)? xAdj: xAdj * -1;
     yAdj = (Math.sign(yAdj) > 0)? yAdj: yAdj * -1;
+    xAdj = (xAdj > this.data.minSpeed)? this.data.minSpeed : xAdj;
+    yAdj = (yAdj > this.data.minSpeed)? this.data.minSpeed : yAdj;
 
     this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
     (this.x < this.xFinal)? this.x + xAdj : this.xFinal;

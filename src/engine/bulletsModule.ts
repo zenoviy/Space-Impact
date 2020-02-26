@@ -1,7 +1,6 @@
 var {viewModules} = require('../view/displayModules');
 
 function createBullets(mainGameObject){
-    //console.log(mainGameObject)
     viewModules.createLaserBullet({
         ctx: mainGameObject.gameInitData.ctxActionField,
         x: this.x,

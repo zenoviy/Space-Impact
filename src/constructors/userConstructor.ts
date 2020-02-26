@@ -21,14 +21,16 @@ class PlayerShip{
         data: any,
         points: number,
         lifePoints: number,
-        x: number = 0,
-        y: number = 0
+        x: number = 100,
+        y: number = 100
     ){
         this.data = data;
         this.points = points;
         this.lifePoints = lifePoints;
         this.x = x;
         this.y = y;
+        this.xFinal = x;
+        this.yFinal = y;
     }
 
 }

@@ -3,6 +3,8 @@
         "level" : 1,
         "enemyType" : [1],
         "enemyProbability" : 500,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
         "otherObjects" : [],
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [],
@@ -12,12 +14,26 @@
     },{
         "level" : 2,
         "enemyType" : [1, 2],
-        "enemyProbability" : 600,
+        "enemyProbability" : 400,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 50,
         "otherObjects" : [],
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [],
         "levelDetails" : {
-            "levelPoints" : 300
+            "levelTime" : 300
+        }
+    },{
+        "level" : 2,
+        "enemyType" : [1, 2, 3],
+        "enemyProbability" : 300,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 50,
+        "otherObjects" : [],
+        "levelMap" : "canyon.png",
+        "levelBackgroundElements" : [],
+        "levelDetails" : {
+            "levelTime" : 600
         }
     }
 ]

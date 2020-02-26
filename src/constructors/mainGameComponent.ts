@@ -1,6 +1,7 @@
 var {viewModules} = require('../view/displayModules');
 var {gameMethods} = require('../engine/engineModules');
 var {playerShipModule} = require('../engine/playerShipModule');
+var {regularAiModule} = require('../ai/regularEnemyAiModules');
 
 interface gameData{
     ctx: any,
@@ -9,11 +10,6 @@ interface gameData{
     gameField: any,
     gameActionField: any,
     gameUIField: any,
-    gameData:{
-        currentLevel: number,
-        currentPoint: number,
-        playerObject: any
-    },
     screen:{
         width: number,
         height: number
@@ -23,15 +19,23 @@ interface gameData{
     allGameMapOBjects: object[],
     mapBackgroundObjects: object[],
     gamePause: boolean,
+    levelChange: boolean,
     backScreenPause: boolean,
     gameStatus: boolean,
     gameEngine: any
-    levelData: {
-        enemyProbability: number,
-        levelMap: string,
-        enemyType: number[],
-        level: number,
-    }
+    
+    gameData:{
+        currentLevel: number,
+        currentPoint: number,
+        playerObject: any,
+        levelData: {
+            enemyProbability: number,
+            levelMap: string,
+            enemyType: number[],
+            level: number,
+            currentLevel: any
+        },
+    },
 }
 interface serverLocation{
     host: string,
@@ -53,12 +57,13 @@ class Game {
     levelInit: any;
     createContext: any;
     delateBullet: any;
+    spawnEnemyLogic: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
     }
     changeLevel(nextLevel: number){
-        this.gameInitData.gameData.currentLevel = nextLevel;
+        this.gameInitData.gameData.levelData.currentLevel = nextLevel;
     }
     showGameInfo(){
         return {
@@ -67,7 +72,7 @@ class Game {
         }
     }
     showLevelData(){
-        return this.gameInitData.levelData;
+        return this.gameInitData.gameData.levelData;
     }
     getServerLevelData(){
 
@@ -94,6 +99,8 @@ Game.prototype.setGameFields = gameMethods.setGameFields;
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
 Game.prototype.delateBullet = gameMethods.delateBullet;
+
+Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 
 module.exports.gameModule = {
     Game: Game,

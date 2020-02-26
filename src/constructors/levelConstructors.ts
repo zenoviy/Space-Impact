@@ -32,7 +32,6 @@ class GameBackground{
         setContext(context){
             this.ctx = context;
         }
-    
 }
 GameBackground.prototype.updateMap = backgroundMapModule.updateMap;
 
