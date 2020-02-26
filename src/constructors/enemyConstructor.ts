@@ -1,17 +1,14 @@
 class EnemyObject {
     shipPresent: boolean = true;
+    x;
+    y;
     constructor(
-        private pos_X: number,
-        private pos_Y: number,
-        private shipTexture: string
+        x: number,
+        y: number,
+        shipTexture: string
         ){
-    }
-    move(shiftX: number, shiftY: number){
-        this.pos_X += shiftX;
-        this.pos_X += shiftY;
-    }
-    shoot(){
-
+            this.x = x;
+            this.y = y;
     }
 }
 

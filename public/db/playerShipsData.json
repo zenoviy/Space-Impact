@@ -4,7 +4,7 @@
         "name": "Interceptor",
         "texture": "spaceShips/space_ship.png",
         "armor": 65,
-        "speed": 5,
+        "speed": 10,
         "firespot": 1,
         "size":{
             "width": 35,
@@ -14,7 +14,7 @@
             {
                 "name": "blaster",
                 "fireRepead": 3,
-                "speed": 4,
+                "speed": 6,
                 "texture": null,
                 "color": "rgba(81, 255, 0, 1)",
                 "width": 60,

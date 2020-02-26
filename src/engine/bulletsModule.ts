@@ -8,7 +8,8 @@ function createBullets(mainGameObject){
         y: this.y,
         color: this.bulletTexture,
         width: this.width,
-        height: this.height
+        height: this.height,
+        radius: 5
     })
 }
 function placeBullets(){
