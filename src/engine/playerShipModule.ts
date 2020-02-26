@@ -45,8 +45,8 @@ function shipControl(mainGameObject: any){
         let guns = this.data.guns;      /// this.data.firespot
         for(let item of guns){
             let bullet = new bulletModule.BulletConstruct(
-                this.xFinal,
-                this.yFinal,
+                this.x,
+                this.y,
                 item.name,
                 item.color,
                 "player",
