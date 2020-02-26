@@ -86,19 +86,21 @@ var {viewModules} = require('./view/displayModules');
 
 
     /*  gameEngineInit  */
-    var gameState = await gameDataInit(),
-    gameObject = new gameModule.Game(gameState.data, gameState.locations),
-    playerShipData = gameObject.gameInitData.gameData.playerObject;
+    var gameState = await gameDataInit();
+    var gameObject = new gameModule.Game(gameState.data, gameState.locations);
+    var playerShipData = gameObject.gameInitData.gameData.playerObject;
+
 
     gameObject.setGameFields();
-    gameObject.setGameFields();
+    //gameObject.setGameFields();
     let contexts = gameObject.returnContext();
+
+    //  create context
     playerShipData.ctx = contexts.gameActionField;
     playerShipData.parrent = gameObject;
-
+    // ship move
     playerShipData.initPlayerShip()
-
-    playerShipData.shipControl()
+    playerShipData.shipControl(gameObject)
     function gameInterval(){
         //
             if(gameObject.gameInitData.ctxActionField){
@@ -106,8 +108,6 @@ var {viewModules} = require('./view/displayModules');
                     gameObject.gameInitData.screen.width,
                     gameObject.gameInitData.screen.height);
             }
-            playerShipData.placeShip();
-            playerShipData.displayPlayerShip();
         if(gameObject.gameInitData.backScreenPause){
             gameObject.gameInitData.backScreenPause = false;
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
@@ -118,5 +118,18 @@ var {viewModules} = require('./view/displayModules');
                 backgroundMap.updateMap();
             }
         }
+        if(gameObject.gameInitData.allGameBullets.length > 0){
+            for(let bullet of gameObject.gameInitData.allGameBullets){
+                bullet.moveBullets();
+                bullet.createBullets(gameObject);
+                gameObject.delateBullet(bullet);
+            }
+        }
+        playerShipData.placeShip();
+        playerShipData.displayPlayerShip();
+
+        playerShipData.parrent = gameObject;
     }
 })()
+
+

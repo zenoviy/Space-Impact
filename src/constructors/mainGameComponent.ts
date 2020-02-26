@@ -46,16 +46,14 @@ interface serverLocation{
     }
 }
 class Game {
-    initField;
-    placePlayerShip;
-    initPlayerShip;
-    setGameFields;
-    levelInit;
-    createContext;
-    constructor(
-        private gameInitData: gameData,
-        private serverLocation: serverLocation
-    ){
+    initField: any;
+    placePlayerShip: any;
+    initPlayerShip: any;
+    setGameFields: any;
+    levelInit: any;
+    createContext: any;
+    delateBullet: any;
+    constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
     }
@@ -95,6 +93,7 @@ Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerS
 Game.prototype.setGameFields = gameMethods.setGameFields;
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
+Game.prototype.delateBullet = gameMethods.delateBullet;
 
 module.exports.gameModule = {
     Game: Game,

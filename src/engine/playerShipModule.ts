@@ -1,5 +1,7 @@
 var {viewModules} = require('../view/displayModules');
 var {levelConstructor} = require('../constructors/levelConstructors');
+var {bulletModule} = require('../constructors/bulletConstructor');
+
 
 function initPlayerShip(){
     if(this.ctx){
@@ -18,15 +20,13 @@ function initPlayerShip(){
 function displayPlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
-            let width = this.ctx.width,
-            height = this.ctx.height;
             viewModules.createImage(this.ctx, this.img, this.x-30, this.y-30);
         }
     }
 }
-function shipControl(){
-    let controlKeys = this.parrent.gameInitData.gameData.gameSetings.keyControls;
-    document.addEventListener("keydown"||"keyup",(e)=>{
+function shipControl(mainGameObject: any){
+    let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
+    document.addEventListener("keydown",(e: any)=>{
         if(controlKeys.down.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed});
         if(controlKeys.left.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed * -1, yPos: 0}) ;
         if(controlKeys.right.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed, yPos:0}) ;
@@ -36,10 +36,28 @@ function shipControl(){
     document.addEventListener("mousemove", (e: any) => {
         if(e.target.tagName === "CANVAS"){
             let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
-
             this.xFinal = (x % this.data.speed == 0)? x : this.data.speed* Math.floor(x/this.data.speed);
             this.yFinal = (y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed);
         }
+    })
+    document.addEventListener("click", (e: any) => {
+        let width = this.ctx.width, height = this.ctx.height;
+        let guns = this.data.guns;      /// this.data.firespot
+        for(let item of guns){
+            let bullet = new bulletModule.BulletConstruct(
+                this.xFinal,
+                this.yFinal,
+                item.name,
+                item.color,
+                "player",
+                item.speed,
+                item.width,
+                item.height
+                );
+            mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+        }
+        //console.log(mainGameObject.gameInitData.allGameBullets)
+
     })
 }
 function showInformation(){

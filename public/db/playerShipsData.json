@@ -10,12 +10,16 @@
             "width": 35,
             "height": 16
         },
-        "guns":{
-            "blaster": {
+        "guns":[
+            {
+                "name": "blaster",
                 "fireRepead": 3,
+                "speed": 4,
                 "texture": null,
-                "color": "green"
+                "color": "rgba(81, 255, 0, 1)",
+                "width": 50,
+                "height": 5
             }
-        }
+        ]
     }
 ]
