@@ -5,13 +5,11 @@ class PlayerShip{
     data: any;
     points: number;
     lifePoints: number;
-    x: number;
-    y: number;
-    xFinal: number;
-    yFinal: number;
+    x: number; y: number;
+    xFinal: number; yFinal: number;
     ctx: any;
     initPlayerShip: any;
-    displayPlayerShip: any;
+    movePlayerShip: any;
     shipControl: any;
     showInformation: any;
     setContext: any;
@@ -27,16 +25,14 @@ class PlayerShip{
         this.data = data;
         this.points = points;
         this.lifePoints = lifePoints;
-        this.x = x;
-        this.y = y;
-        this.xFinal = x;
-        this.yFinal = y;
+        this.x = x; this.y = y;
+        this.xFinal = x; this.yFinal = y;
     }
 
 }
 
 PlayerShip.prototype.initPlayerShip = playerShipModule.initPlayerShip;
-PlayerShip.prototype.displayPlayerShip = playerShipModule.displayPlayerShip;
+PlayerShip.prototype.movePlayerShip = playerShipModule.movePlayerShip;
 PlayerShip.prototype.shipControl = playerShipModule.shipControl;
 PlayerShip.prototype.moveShip = playerShipModule.moveShip;
 PlayerShip.prototype.placeShip = playerShipModule.placeShip;

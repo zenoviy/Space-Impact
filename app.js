@@ -63,6 +63,23 @@ app.get('/api/game-ettings', cors(), (req, res) => {
         res.send(readObject)
     })
 })
+app.get('/api/enemy-ship', cors(), async (req, res) => {
+    if(!req) return console.log('no propper request')
+
+    fs.readFile(__dirname + '/public/db/enemyTypeData.json', (err, data) => {
+        let headers = req.headers;
+        if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+
+        //console.log(headers['ship-type-number'])
+        let readObject = JSON.parse(data) //
+        let responseItem = readObject.map(item => {
+            if(item.id == headers['ship-type-number']){
+                return item
+            }
+        });
+        res.send(responseItem);
+    })
+})
 
 app.listen(process.env.PORT || 3000, function(){
     console.log(`Server listened at port ${process.env.PORT || 3000}`);

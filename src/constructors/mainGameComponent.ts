@@ -58,6 +58,8 @@ class Game {
     createContext: any;
     delateBullet: any;
     spawnEnemyLogic: any;
+    createNewEnemy: any;
+    gameRandomizer: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -101,6 +103,8 @@ Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
 Game.prototype.delateBullet = gameMethods.delateBullet;
 
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
+Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;
+Game.prototype.gameRandomizer = regularAiModule.gameRandomizer;
 
 module.exports.gameModule = {
     Game: Game,

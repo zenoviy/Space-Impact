@@ -8,7 +8,7 @@ function moveEnemyes(moveX: number, moveY: number){
     this.y += moveX;
 }
 function loadEnemyes(){
-
+    
 }
 function shoot(){
 

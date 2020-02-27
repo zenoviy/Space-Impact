@@ -24,10 +24,6 @@ var {viewModules} = require('./view/displayModules');
                     method: "GET",
                     url: "api/level-data"
                 },
-                enemylData: {
-                    method: "GET",
-                    url: "api/level-data"
-                },
                 gameSetings: {
                     method: "GET",
                     url: "api/game-ettings"
@@ -35,6 +31,10 @@ var {viewModules} = require('./view/displayModules');
                 userShip: {
                     method: "GET",
                     url: "api/user-ship"
+                },
+                enemylData: {
+                    method: "GET",
+                    url: "api/enemy-ship"
                 }
         }
         const levelData = await serverModules.getData({
@@ -55,6 +55,12 @@ var {viewModules} = require('./view/displayModules');
             data: null,
             headers:{ 'usership': 1}
         })
+        const enemyData = await serverModules.getData({
+            url: serverLocation.host + serverLocation.enemylData.url,
+            method: serverLocation.enemylData.method,
+            data: null,
+            headers:{ 'ship-type-number': 1}
+        })
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,
@@ -66,6 +72,7 @@ var {viewModules} = require('./view/displayModules');
                 playerObject: new playerModules.PlayerShip(userData, 0, 3, 100, 100),
                 levelData: levelData,
                 gameSetings: gameSetings,
+                enemyData: enemyData,
                 constrollers: null
             },
             screen:{
@@ -103,7 +110,6 @@ var {viewModules} = require('./view/displayModules');
     playerShipData.initPlayerShip(gameObject);
     playerShipData.shipControl(gameObject);
 
-    
     function gameInterval(){
         gameObject.spawnEnemyLogic(gameObject);
         if(gameObject.gameInitData.ctxActionField){
@@ -129,8 +135,13 @@ var {viewModules} = require('./view/displayModules');
                 gameObject.delateBullet(bullet);
             }
         }
+        if(gameObject.gameInitData.allGameEnemies.length > 0){
+            for(let enemy of gameObject.gameInitData.allGameEnemies){
+                
+            }
+        }
         playerShipData.placeShip();
-        playerShipData.displayPlayerShip();
+        playerShipData.movePlayerShip();
 
     }
 })()

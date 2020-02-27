@@ -11,8 +11,7 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
     if(!gameField) throw Error(ERROR_LIST.noObject);
 
     for(let screen of gameField){
-        screen.width = screenWidth-4;
-        screen.height = screenHeight-4;
+        screen = Object.assign(screen, {width: screenWidth-4, height: screenHeight-4})
     }
 }
 
@@ -28,13 +27,13 @@ function levelInit(backgroundConstructor, ctx, parrent){
 
     let mapObject = new backgroundConstructor(
         backgrundImages, 1, this.gameInitData.screen, ctx,
-        (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null  ///   %2
+        (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
     );
     mapObject.parrent = parrent;
     this.gameInitData.mapBackgroundObjects = this.gameInitData.mapBackgroundObjects.concat(mapObject);
 }
 
-/// engine  6a 13кабінет до 12:30
+
 function createContext(){
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
     this.gameInitData.ctxActionField = this.gameInitData.gameActionField.getContext('2d');

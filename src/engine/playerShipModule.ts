@@ -17,7 +17,7 @@ function initPlayerShip(mainGameObject: any){
         this.img.src = imageLocation + image;
     }
 }
-function displayPlayerShip(){
+function movePlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
             viewModules.createImage(this.ctx, this.img, this.x-30, this.y-30);
@@ -90,7 +90,7 @@ function moveShip({xPos=0, yPos=0}){
 
 
 module.exports.playerShipModule = {
-    displayPlayerShip: displayPlayerShip,
+    movePlayerShip: movePlayerShip,
     initPlayerShip: initPlayerShip,
     shipControl: shipControl,
     moveShip: moveShip,
