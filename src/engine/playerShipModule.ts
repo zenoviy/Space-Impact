@@ -57,7 +57,7 @@ function shipControl(mainGameObject: any){
             mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
         }
         //console.log(mainGameObject)
-        console.log(mainGameObject.gameInitData)
+        //console.log(mainGameObject.gameInitData)
 
     })
 }

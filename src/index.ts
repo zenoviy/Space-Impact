@@ -135,15 +135,18 @@ var {viewModules} = require('./view/displayModules');
                 gameObject.deleteBullet(bullet);
             }
         }
-        if(gameObject.gameInitData.allGameEnemies.length > 0){
-            for(let enemy of gameObject.gameInitData.allGameEnemies){
-                enemy.placeEnemyes(gameObject);
-                enemy.moveEnemyes();
+        if(!gameObject.gamePause){
+            if(gameObject.gameInitData.allGameEnemies.length > 0){
+                for(let enemy of gameObject.gameInitData.allGameEnemies){
+                    enemy.placeEnemyes(gameObject);
+                    enemy.moveEnemyes();
+                    enemy.enemyAnimation();
+                    gameObject.deleteObjects(enemy);
+                }
             }
+            playerShipData.placeShip();
+            playerShipData.movePlayerShip();
         }
-        playerShipData.placeShip();
-        playerShipData.movePlayerShip();
-
     }
 })()
 

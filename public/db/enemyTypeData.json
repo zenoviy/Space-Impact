@@ -7,17 +7,16 @@
             "healthPoint": 10,
             "bulletType": 1,
             "rapidFire": 30,
-            "animationStep": 1,
             "imageWidth": 2880,
             "imageHeight":125,
             "animationSteps": 5,
             "numberOfItems": 20,
             "sx": 0,
             "sy": 0,
-            "width": 30,
-            "height": 30,
+            "width": 50,
+            "height": 50,
             "skinName": "enemy_ship_1.png",
-            "speed": 5,
+            "speed": 4,
             "pointsPerUnit": 5
         }
     }

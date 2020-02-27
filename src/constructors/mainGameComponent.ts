@@ -23,7 +23,7 @@ interface gameData{
     backScreenPause: boolean,
     gameStatus: boolean,
     gameEngine: any
-    
+
     gameData:{
         currentLevel: number,
         currentPoint: number,
@@ -58,6 +58,7 @@ class Game {
     levelInit: any;
     createContext: any;
     deleteBullet: any;
+    deleteObjects: any;
     spawnEnemyLogic: any;
     createNewEnemy: any;
     gameRandomizer: any;
@@ -99,9 +100,12 @@ Game.prototype.createContext = gameMethods.createContext;
 Game.prototype.initField = gameMethods.initField;
 Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerShip
 Game.prototype.setGameFields = gameMethods.setGameFields;
+
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
+
 Game.prototype.deleteBullet = gameMethods.deleteBullet;
+Game.prototype.deleteObjects = gameMethods.deleteObjects;
 
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;

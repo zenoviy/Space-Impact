@@ -18,6 +18,7 @@ function spawnEnemyLogic(mainGameObject: any){
                 this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
             }
             console.log(this.gameInitData.allGameEnemies)
+            //alert(1)
         }
     }
 }
@@ -29,25 +30,19 @@ function createNewEnemy(enemyData){
         x, y,
         shipDetails.sx, shipDetails.sy,
         shipDetails.imageWidth/shipDetails.numberOfItems, shipDetails.imageHeight,
-        shipDetails.imageWidth/shipDetails.numberOfItems,
+        shipDetails.imageWidth,
         shipDetails.width, shipDetails.height,
         shipDetails.skinName,
         shipDetails.speed,
         shipDetails.status, shipDetails.name,
         shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
-        shipDetails.healthPoint
+        shipDetails.healthPoint, shipDetails.animationSteps
         );
 }
 function gameRandomizer(maxNumber: number, minNumber: number = 0){
     return Math.floor(Math.random() * maxNumber + minNumber);
 }
 
-/*
-shipDetails.speed,
-        shipDetails.status, shipDetails.name,
-        shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
-        shipDetails.healthPoint
-             */
 
 module.exports.regularAiModule = {
     dartShipLogic: dartShipLogic,

@@ -55,13 +55,16 @@ function reloadGame(){
 
 }
 function deleteBullet(bullet){
-    if(bullet.x > this.gameInitData.screen.width || bullet.x < -100){
+    if(bullet.x > this.gameInitData.screen.width || bullet.x < bullet.width * -1){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
 }
 function deleteObjects(object){
-
+    if(object.x + object.sWidth < 0 ){
+        let index = this.gameInitData.allGameEnemies.indexOf(object);
+        this.gameInitData.allGameEnemies.splice(index, 1);
+    }
 }
 
 
@@ -70,5 +73,6 @@ module.exports.gameMethods = {
     setGameFields: setGameFields,
     levelInit: levelInit,
     createContext: createContext,
-    deleteBullet: deleteBullet
+    deleteBullet: deleteBullet,
+    deleteObjects: deleteObjects
 }
