@@ -132,12 +132,13 @@ var {viewModules} = require('./view/displayModules');
             for(let bullet of gameObject.gameInitData.allGameBullets){
                 bullet.moveBullets();
                 bullet.createBullets(gameObject);
-                gameObject.delateBullet(bullet);
+                gameObject.deleteBullet(bullet);
             }
         }
         if(gameObject.gameInitData.allGameEnemies.length > 0){
             for(let enemy of gameObject.gameInitData.allGameEnemies){
-                
+                enemy.placeEnemyes(gameObject);
+                enemy.moveEnemyes();
             }
         }
         playerShipData.placeShip();

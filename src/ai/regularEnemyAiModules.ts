@@ -14,33 +14,40 @@ function spawnEnemyLogic(mainGameObject: any){
             for(let i = numberEnemyPerSpawn; i< levelData.enemyMaxNumber; i++){
                 let enemyShip = enemyData[ this.gameRandomizer(enemyData.length) ];
                 let enemyShipObject = this.createNewEnemy(enemyShip);
+                enemyShipObject.loadEnemyes();
                 this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
             }
-            //console.log("spawn enemy", this.gameInitData.allGameEnemies);
             console.log(this.gameInitData.allGameEnemies)
         }
     }
 }
-/* */
 function createNewEnemy(enemyData){
     let x = this.gameInitData.screen.width + 300,
     y = this.gameRandomizer(this.gameInitData.screen.height),
     shipDetails = enemyData.details;
-    console.log(enemyData)
     return new objectConstructor.EnemyObject(
         x, y,
         shipDetails.sx, shipDetails.sy,
-        shipDetails.imageWidth, shipDetails.imageHeight,
+        shipDetails.imageWidth/shipDetails.numberOfItems, shipDetails.imageHeight,
         shipDetails.imageWidth/shipDetails.numberOfItems,
         shipDetails.width, shipDetails.height,
-        enemyData.details.skinName,
+        shipDetails.skinName,
+        shipDetails.speed,
+        shipDetails.status, shipDetails.name,
+        shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
+        shipDetails.healthPoint
         );
 }
 function gameRandomizer(maxNumber: number, minNumber: number = 0){
     return Math.floor(Math.random() * maxNumber + minNumber);
 }
 
-
+/*
+shipDetails.speed,
+        shipDetails.status, shipDetails.name,
+        shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
+        shipDetails.healthPoint
+             */
 
 module.exports.regularAiModule = {
     dartShipLogic: dartShipLogic,

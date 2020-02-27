@@ -9,6 +9,7 @@ class GameBackground{
     screenData: any;
     ctx: any;
     img: any;
+
     updateMap: any;
     constructor(
         backgroundTexture: string,
@@ -23,7 +24,6 @@ class GameBackground{
             this.x = (partOfScreenStatus)? 0 : screenData.width; this.y = 0;
             this.img = new Image();
             this.img.src = location.origin + '/images/locations/' + this.backgroundTexture;
-
         }
 
 }

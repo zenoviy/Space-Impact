@@ -54,11 +54,14 @@ function levelTimer(){
 function reloadGame(){
 
 }
-function delateBullet(bullet){
+function deleteBullet(bullet){
     if(bullet.x > this.gameInitData.screen.width || bullet.x < -100){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
+}
+function deleteObjects(object){
+
 }
 
 
@@ -67,5 +70,5 @@ module.exports.gameMethods = {
     setGameFields: setGameFields,
     levelInit: levelInit,
     createContext: createContext,
-    delateBullet: delateBullet
+    deleteBullet: deleteBullet
 }

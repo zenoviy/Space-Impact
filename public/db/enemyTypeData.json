@@ -1,10 +1,10 @@
 [
     {
         "id": 1,
-        "name": "Dart",
-        "status": "enemy ship",
-        "healthPoint": 10,
         "details": {
+            "name": "Dart",
+            "status": "enemy ship",
+            "healthPoint": 10,
             "bulletType": 1,
             "rapidFire": 30,
             "animationStep": 1,
@@ -16,7 +16,9 @@
             "sy": 0,
             "width": 30,
             "height": 30,
-            "skinName": "enemy_ship_1.png"
+            "skinName": "enemy_ship_1.png",
+            "speed": 5,
+            "pointsPerUnit": 5
         }
     }
 ]

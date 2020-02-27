@@ -52,11 +52,12 @@ interface serverLocation{
 class Game {
     initField: any;
     placePlayerShip: any;
+
     initPlayerShip: any;
     setGameFields: any;
     levelInit: any;
     createContext: any;
-    delateBullet: any;
+    deleteBullet: any;
     spawnEnemyLogic: any;
     createNewEnemy: any;
     gameRandomizer: any;
@@ -100,7 +101,7 @@ Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerS
 Game.prototype.setGameFields = gameMethods.setGameFields;
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
-Game.prototype.delateBullet = gameMethods.delateBullet;
+Game.prototype.deleteBullet = gameMethods.deleteBullet;
 
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;

@@ -8,6 +8,7 @@ class PlayerShip{
     x: number; y: number;
     xFinal: number; yFinal: number;
     ctx: any;
+
     initPlayerShip: any;
     movePlayerShip: any;
     shipControl: any;

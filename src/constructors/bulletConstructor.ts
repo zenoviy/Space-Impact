@@ -7,6 +7,7 @@ class BulletConstruct{
     bulletDirection: string;
     bulletSpeed: number;
     width: number; height: number;
+
     createBullets: any;
     placeBullets: any;
     moveBullets: any;
