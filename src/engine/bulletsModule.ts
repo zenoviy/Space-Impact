@@ -1,4 +1,4 @@
-var {viewModules} = require('../view/displayModules');
+var { viewModules } = require('../view/displayModules');
 
 function createBullets(mainGameObject){
     viewModules.createLaserBullet({

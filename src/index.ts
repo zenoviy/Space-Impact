@@ -1,12 +1,12 @@
 import '../sass/main.sass';
 
-var {levelConstructor} = require('./constructors/levelConstructors');
-var {playerModules} = require('./constructors/userConstructor');
-var {gameModule} = require('./constructors/mainGameComponent');
-var {engineModule} = require('./engine/engineModules');
-var {serverModules} = require('./server/serverRequestModules');
-var {enemies} = require('./enemies/enemiesModules');
-var {viewModules} = require('./view/displayModules');
+var { levelConstructor } = require('./constructors/levelConstructors');
+var { playerModules } = require('./constructors/userConstructor');
+var { gameModule } = require('./constructors/mainGameComponent');
+var { engineModule } = require('./engine/engineModules');
+var { serverModules } = require('./server/serverRequestModules');
+var { enemies } = require('./enemies/enemiesModules');
+var { viewModules } = require('./view/displayModules');
 
 
 
@@ -133,6 +133,7 @@ var {viewModules} = require('./view/displayModules');
                 bullet.moveBullets();
                 bullet.createBullets(gameObject);
                 gameObject.deleteBullet(bullet);
+                gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
             }
         }
         if(!gameObject.gamePause){

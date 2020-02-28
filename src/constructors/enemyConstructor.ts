@@ -1,48 +1,57 @@
 var { enemiesModel } = require('../enemies/enemiesModules');
+var { gameMethods } = require('../engine/engineModules');
 
 class EnemyObject {
+    id: number;
     shipPresent: boolean = true;
     x: number; y: number;
     sx: number; sy: number;
     sWidth: number; sHeight: number;
-    picturesWidth: number;
-    shipWidth: number; shipHeight: number;
+    picturesWidth: number; numberOfItems: number;
+    width: number; height: number;
     shipTexture: string;
     shipDirectory: string;
     enemySpeed: number;
     status: string; name: string;
-    bulletType: number; rapidFire: number; pointsPerUnit: number;
+    bulletTypeNumber: number; rapidFire: number; pointsPerUnit: number;
     healthPoint: number; animationSteps: number;
-    detectFrame: number;
+    detectFrame: number; objectPresent: boolean;
+    damage: number;
 
     placeEnemyes: any;
     moveEnemyes: any;
     loadEnemyes: any;
     shoot: any;
     enemyAnimation: any;
+    getObjectPosition: any;
+    takeDamage: any;
     constructor(
         x: number, y: number,
         sx: number, sy: number,
         sWidth: number, sHeight: number,
-        picturesWidth: number,
-        shipWidth: number, shipHeight: number,
+        picturesWidth: number, numberOfItems: number,
+        width: number, height: number,
         shipTexture: string,
         speed: number,
         status: string, name: string,
-        bulletType: number, rapidFire: number, pointsPerUnit: number,
+        bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
         healthPoint: number, animationSteps: number,
+        damage: number
         ){
+            this.id = new Date().getTime();
             this.x = x; this.y = y;
             this.sx = sx; this.sy = sy;
             this.sWidth = sWidth; this.sHeight = sHeight;
-            this.picturesWidth = picturesWidth;
-            this.shipWidth = shipWidth; this.shipHeight = shipHeight;
+            this.picturesWidth = picturesWidth; this.numberOfItems = numberOfItems;
+            this.width = width; this.height = height;
             this.shipTexture = location.origin + '/images/spaceShips/' + shipTexture;
             this.enemySpeed = speed;
             this.status = status; this.name = name;
-            this.bulletType = bulletType; this.rapidFire = rapidFire; this.pointsPerUnit = pointsPerUnit;
+            this.bulletTypeNumber = bulletTypeNumber; this.rapidFire = rapidFire; this.pointsPerUnit = pointsPerUnit;
             this.healthPoint = healthPoint; this.animationSteps = animationSteps;
+            this.damage = damage;
             this.detectFrame = 0;
+            this.objectPresent = true;
     }
 }
 
@@ -51,6 +60,9 @@ EnemyObject.prototype.moveEnemyes = enemiesModel.moveEnemyes;
 EnemyObject.prototype.loadEnemyes = enemiesModel.loadEnemyes;
 EnemyObject.prototype.shoot = enemiesModel.shoot;
 EnemyObject.prototype.enemyAnimation = enemiesModel.enemyAnimation;
+EnemyObject.prototype.getObjectPosition = gameMethods.getObjectPosition;
+
+EnemyObject.prototype.takeDamage = enemiesModel.takeDamage;
 
 module.exports.objectConstructor = {
     EnemyObject: EnemyObject,

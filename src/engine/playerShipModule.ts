@@ -1,6 +1,6 @@
-var {viewModules} = require('../view/displayModules');
-var {levelConstructor} = require('../constructors/levelConstructors');
-var {bulletModule} = require('../constructors/bulletConstructor');
+var { viewModules } = require('../view/displayModules');
+var { levelConstructor } = require('../constructors/levelConstructors');
+var { bulletModule } = require('../constructors/bulletConstructor');
 
 
 function initPlayerShip(mainGameObject: any){
@@ -45,20 +45,14 @@ function shipControl(mainGameObject: any){
         let guns = this.data.guns;      /// this.data.firespot
         for(let item of guns){
             let bullet = new bulletModule.BulletConstruct(
-                this.x,
-                this.y,
-                item.name,
-                item.color,
-                "player",
-                item.speed,
-                item.width,
-                item.height
+                this.x, this.y,
+                item.name, item.color,
+                "player", item.speed,
+                item.width, item.height,
+                item.damage
                 );
             mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
         }
-        //console.log(mainGameObject)
-        //console.log(mainGameObject.gameInitData)
-
     })
 }
 function showInformation(){

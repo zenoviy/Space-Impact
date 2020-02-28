@@ -1,7 +1,7 @@
-var {viewModules} = require('../view/displayModules');
-var {gameMethods} = require('../engine/engineModules');
-var {playerShipModule} = require('../engine/playerShipModule');
-var {backgroundMapModule} = require('../engine/backgroundModule');
+var { viewModules } = require('../view/displayModules');
+var { gameMethods } = require('../engine/engineModules');
+var { playerShipModule } = require('../engine/playerShipModule');
+var { backgroundMapModule } = require('../engine/backgroundModule');
 
 class GameBackground{
     x: number = 0; y: number = 0;

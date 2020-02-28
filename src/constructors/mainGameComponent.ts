@@ -1,7 +1,8 @@
-var {viewModules} = require('../view/displayModules');
-var {gameMethods} = require('../engine/engineModules');
-var {playerShipModule} = require('../engine/playerShipModule');
-var {regularAiModule} = require('../ai/regularEnemyAiModules');
+var { viewModules } = require('../view/displayModules');
+var { gameMethods } = require('../engine/engineModules');
+var { playerShipModule } = require('../engine/playerShipModule');
+var { regularAiModule } = require('../ai/regularEnemyAiModules');
+var { enemiesModel } = require('../enemies/enemiesModules');
 
 interface gameData{
     ctx: any,
@@ -59,6 +60,7 @@ class Game {
     createContext: any;
     deleteBullet: any;
     deleteObjects: any;
+    hitDetection: any;
     spawnEnemyLogic: any;
     createNewEnemy: any;
     gameRandomizer: any;
@@ -106,6 +108,7 @@ Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
 
 Game.prototype.deleteBullet = gameMethods.deleteBullet;
 Game.prototype.deleteObjects = gameMethods.deleteObjects;
+Game.prototype.hitDetection = enemiesModel.hitDetection;
 
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;

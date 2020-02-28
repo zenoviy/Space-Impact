@@ -1,6 +1,6 @@
-var {viewModules} = require('../view/displayModules');
-var {gameMethods} = require('../engine/engineModules');
-var {playerShipModule} = require('../engine/playerShipModule');
+var { viewModules } = require('../view/displayModules');
+var { gameMethods } = require('../engine/engineModules');
+var { playerShipModule } = require('../engine/playerShipModule');
 
 function updateMap(){
     this.img = this.img || new Image();

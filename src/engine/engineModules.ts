@@ -1,5 +1,5 @@
-var {viewModules} = require('../view/displayModules');
-var {levelConstructor} = require('../constructors/levelConstructors');
+var { viewModules } = require('../view/displayModules');
+var { levelConstructor } = require('../constructors/levelConstructors');
 
 
 function initField(screenWidth = window.innerWidth, screenHeight = window.innerHeight){
@@ -55,18 +55,29 @@ function reloadGame(){
 
 }
 function deleteBullet(bullet){
-    if(bullet.x > this.gameInitData.screen.width || bullet.x < bullet.width * -1){
+    if(bullet.x > this.gameInitData.screen.width
+        || bullet.x < bullet.width * -1
+        || !bullet.objectPresent){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
 }
 function deleteObjects(object){
-    if(object.x + object.sWidth < 0 ){
+    if(object.x + object.sWidth < 0 || !object.objectPresent){
         let index = this.gameInitData.allGameEnemies.indexOf(object);
         this.gameInitData.allGameEnemies.splice(index, 1);
     }
 }
-
+function getObjectPosition(){
+    let mainObject = this;
+    let position = {
+        x: mainObject.x,
+        y: mainObject.y,
+        width: mainObject.width,
+        height: mainObject.height,
+    }
+    return position
+}
 
 module.exports.gameMethods = {
     initField: initField,
@@ -74,5 +85,6 @@ module.exports.gameMethods = {
     levelInit: levelInit,
     createContext: createContext,
     deleteBullet: deleteBullet,
-    deleteObjects: deleteObjects
+    deleteObjects: deleteObjects,
+    getObjectPosition: getObjectPosition
 }
