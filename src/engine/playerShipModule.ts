@@ -9,6 +9,7 @@ function initPlayerShip(mainGameObject: any){
         imageLocation = mainGameObject.serverLocation.picturesDirection;
         this.img = new Image();
         this.img.onload = () => {
+            alert(1)
             if(this.placePlayerShip){
                 this.placePlayerShip()
             }

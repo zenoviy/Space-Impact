@@ -101,6 +101,7 @@ var { viewModules } = require('./view/displayModules');
 
     gameObject.uiController()
     gameObject.setGameFields();
+    gameObject.gameButonController();
     //gameObject.setGameFields();
     let contexts = gameObject.returnContext();
 
@@ -128,7 +129,10 @@ var { viewModules } = require('./view/displayModules');
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                     backgroundMap.updateMap();
                 }
+                playerShipData.placeShip();
+                playerShipData.movePlayerShip();
             }
+
             if(gameObject.gameInitData.allGameBullets.length > 0){
                 for(let bullet of gameObject.gameInitData.allGameBullets){
                     bullet.moveBullets();
@@ -137,7 +141,6 @@ var { viewModules } = require('./view/displayModules');
                     gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
                 }
             }
-            if(!gameObject.gamePause){
                 if(gameObject.gameInitData.allGameEnemies.length > 0){
                     for(let enemy of gameObject.gameInitData.allGameEnemies){
                         enemy.placeEnemyes(gameObject);
@@ -145,7 +148,7 @@ var { viewModules } = require('./view/displayModules');
                         enemy.enemyAnimation();
                         gameObject.deleteObjects(enemy);
                     }
-                }
+
                 playerShipData.placeShip();
                 playerShipData.movePlayerShip();
             }
