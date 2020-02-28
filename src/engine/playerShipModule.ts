@@ -1,12 +1,12 @@
-var {viewModules} = require('../view/displayModules');
-var {levelConstructor} = require('../constructors/levelConstructors');
-var {bulletModule} = require('../constructors/bulletConstructor');
+var { viewModules } = require('../view/displayModules');
+var { levelConstructor } = require('../constructors/levelConstructors');
+var { bulletModule } = require('../constructors/bulletConstructor');
 
 
-function initPlayerShip(){
+function initPlayerShip(mainGameObject: any){
     if(this.ctx){
         let image = this.data.texture,
-        imageLocation = this.parrent.serverLocation.picturesDirection;
+        imageLocation = mainGameObject.serverLocation.picturesDirection;
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){
@@ -17,7 +17,7 @@ function initPlayerShip(){
         this.img.src = imageLocation + image;
     }
 }
-function displayPlayerShip(){
+function movePlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
             viewModules.createImage(this.ctx, this.img, this.x-30, this.y-30);
@@ -45,19 +45,14 @@ function shipControl(mainGameObject: any){
         let guns = this.data.guns;      /// this.data.firespot
         for(let item of guns){
             let bullet = new bulletModule.BulletConstruct(
-                this.x,
-                this.y,
-                item.name,
-                item.color,
-                "player",
-                item.speed,
-                item.width,
-                item.height
+                this.x, this.y,
+                item.name, item.color,
+                "player", item.speed,
+                item.width, item.height,
+                item.damage
                 );
             mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
         }
-        //console.log(mainGameObject.gameInitData.allGameBullets)
-
     })
 }
 function showInformation(){
@@ -72,6 +67,8 @@ function placeShip(){
 
     xAdj = (Math.sign(xAdj) > 0)? xAdj: xAdj * -1;
     yAdj = (Math.sign(yAdj) > 0)? yAdj: yAdj * -1;
+    xAdj = (xAdj > this.data.minSpeed)? this.data.minSpeed : xAdj;
+    yAdj = (yAdj > this.data.minSpeed)? this.data.minSpeed : yAdj;
 
     this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
     (this.x < this.xFinal)? this.x + xAdj : this.xFinal;
@@ -87,7 +84,7 @@ function moveShip({xPos=0, yPos=0}){
 
 
 module.exports.playerShipModule = {
-    displayPlayerShip: displayPlayerShip,
+    movePlayerShip: movePlayerShip,
     initPlayerShip: initPlayerShip,
     shipControl: shipControl,
     moveShip: moveShip,

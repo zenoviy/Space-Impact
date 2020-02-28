@@ -1,5 +1,5 @@
-var {viewModules} = require('../view/displayModules');
-var {levelConstructor} = require('../constructors/levelConstructors');
+var { viewModules } = require('../view/displayModules');
+var { levelConstructor } = require('../constructors/levelConstructors');
 
 
 function initField(screenWidth = window.innerWidth, screenHeight = window.innerHeight){
@@ -11,8 +11,7 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
     if(!gameField) throw Error(ERROR_LIST.noObject);
 
     for(let screen of gameField){
-        screen.width = screenWidth-4;
-        screen.height = screenHeight-4;
+        screen = Object.assign(screen, {width: screenWidth-4, height: screenHeight-4})
     }
 }
 
@@ -28,13 +27,13 @@ function levelInit(backgroundConstructor, ctx, parrent){
 
     let mapObject = new backgroundConstructor(
         backgrundImages, 1, this.gameInitData.screen, ctx,
-        (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null  ///   %2
+        (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
     );
     mapObject.parrent = parrent;
     this.gameInitData.mapBackgroundObjects = this.gameInitData.mapBackgroundObjects.concat(mapObject);
 }
 
-/// engine  6a 13кабінет до 12:30
+
 function createContext(){
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
     this.gameInitData.ctxActionField = this.gameInitData.gameActionField.getContext('2d');
@@ -55,18 +54,37 @@ function levelTimer(){
 function reloadGame(){
 
 }
-function delateBullet(bullet){
-    if(bullet.x > this.gameInitData.screen.width || bullet.x < -100){
+function deleteBullet(bullet){
+    if(bullet.x > this.gameInitData.screen.width
+        || bullet.x < bullet.width * -1
+        || !bullet.objectPresent){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
 }
-
+function deleteObjects(object){
+    if(object.x + object.sWidth < 0 || !object.objectPresent){
+        let index = this.gameInitData.allGameEnemies.indexOf(object);
+        this.gameInitData.allGameEnemies.splice(index, 1);
+    }
+}
+function getObjectPosition(){
+    let mainObject = this;
+    let position = {
+        x: mainObject.x,
+        y: mainObject.y,
+        width: mainObject.width,
+        height: mainObject.height,
+    }
+    return position
+}
 
 module.exports.gameMethods = {
     initField: initField,
     setGameFields: setGameFields,
     levelInit: levelInit,
     createContext: createContext,
-    delateBullet: delateBullet
+    deleteBullet: deleteBullet,
+    deleteObjects: deleteObjects,
+    getObjectPosition: getObjectPosition
 }

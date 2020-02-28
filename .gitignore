@@ -41,6 +41,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# test script directoryes
+public/script-test-area
+
 # TypeScript v1 declaration files
 typings/
 
