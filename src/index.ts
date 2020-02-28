@@ -99,7 +99,7 @@ var { viewModules } = require('./view/displayModules');
     var gameObject = new gameModule.Game(gameState.data, gameState.locations);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
 
-
+    gameObject.uiController()
     gameObject.setGameFields();
     //gameObject.setGameFields();
     let contexts = gameObject.returnContext();

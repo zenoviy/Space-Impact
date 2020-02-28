@@ -1,5 +1,5 @@
 # Space-Impact
-Arcade web game 
+Arcade web game
 
 building technology
     1. - NodeJS
