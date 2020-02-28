@@ -101,6 +101,7 @@ var { viewModules } = require('./view/displayModules');
 
 
     gameObject.setGameFields();
+    //gameObject.gameButonController();
     //gameObject.setGameFields();
     let contexts = gameObject.returnContext();
 
@@ -112,42 +113,45 @@ var { viewModules } = require('./view/displayModules');
 
     function gameInterval(){
         gameObject.spawnEnemyLogic(gameObject);
-        if(gameObject.gameInitData.ctxActionField){
+        if(gameObject.gamePause == false){
+            if(gameObject.gameInitData.ctxActionField ){
             viewModules.clearField(
                 gameObject.gameInitData.ctxActionField,
                 gameObject.gameInitData.screen.width,
                 gameObject.gameInitData.screen.height);
         }
-        if(gameObject.gameInitData.backScreenPause){
-            gameObject.gameInitData.backScreenPause = false;
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
-        }
-        if(!gameObject.gameInitData.backScreenPause){
-            for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                backgroundMap.updateMap();
+            if(gameObject.gameInitData.backScreenPause){
+                gameObject.gameInitData.backScreenPause = false;
+                gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
+                gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
             }
-        }
-        if(gameObject.gameInitData.allGameBullets.length > 0){
-            for(let bullet of gameObject.gameInitData.allGameBullets){
-                bullet.moveBullets();
-                bullet.createBullets(gameObject);
-                gameObject.deleteBullet(bullet);
-                gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
-            }
-        }
-        if(!gameObject.gamePause){
-            if(gameObject.gameInitData.allGameEnemies.length > 0){
-                for(let enemy of gameObject.gameInitData.allGameEnemies){
-                    enemy.placeEnemyes(gameObject);
-                    enemy.moveEnemyes();
-                    enemy.enemyAnimation();
-                    gameObject.deleteObjects(enemy);
+            if(!gameObject.gameInitData.backScreenPause){
+                for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
+                    backgroundMap.updateMap();
                 }
             }
-            playerShipData.placeShip();
-            playerShipData.movePlayerShip();
+            if(gameObject.gameInitData.allGameBullets.length > 0){
+                for(let bullet of gameObject.gameInitData.allGameBullets){
+                    bullet.moveBullets();
+                    bullet.createBullets(gameObject);
+                    gameObject.deleteBullet(bullet);
+                    gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
+                }
+            }
+           
+                if(gameObject.gameInitData.allGameEnemies.length > 0){
+                    for(let enemy of gameObject.gameInitData.allGameEnemies){
+                        enemy.placeEnemyes(gameObject);
+                        enemy.moveEnemyes();
+                        enemy.enemyAnimation();
+                        gameObject.deleteObjects(enemy);
+                    }
+
+                playerShipData.placeShip();
+                playerShipData.movePlayerShip();
+            }
         }
+            
     }
 })()
 

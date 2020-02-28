@@ -3,6 +3,7 @@ var { gameMethods } = require('../engine/engineModules');
 var { playerShipModule } = require('../engine/playerShipModule');
 var { regularAiModule } = require('../ai/regularEnemyAiModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
+var { gameUiModules } = require('../ui/userInterfaceModule');
 
 interface gameData{
     ctx: any,
@@ -64,6 +65,8 @@ class Game {
     spawnEnemyLogic: any;
     createNewEnemy: any;
     gameRandomizer: any;
+    gamePause: any;
+    gameButonController: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -113,6 +116,8 @@ Game.prototype.hitDetection = enemiesModel.hitDetection;
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;
 Game.prototype.gameRandomizer = regularAiModule.gameRandomizer;
+Game.prototype.gamePause = gameUiModules.gamePause;
+Game.prototype.gameButonController = gameUiModules.gameButonController;
 
 module.exports.gameModule = {
     Game: Game,

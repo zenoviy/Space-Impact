@@ -2,7 +2,7 @@
     {
         "level" : 1,
         "enemyType" : [1],
-        "enemyProbability" : 700,
+        "enemyProbability" : 1000,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "otherObjects" : [],

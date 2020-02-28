@@ -36,14 +36,11 @@ function enemyAnimation(){
     }
 }
 function takeDamage(damage: number = 0){
-    
     if( this.hasOwnProperty('bulletType') ){
         return this.objectPresent = false;
     }
     if(  this.hasOwnProperty('healthPoint') ){
-        console.log(this.healthPoint, damage, " < pre")
         this.healthPoint -= damage;
-        console.log(this.healthPoint, damage, " < after")
         if(this.healthPoint <= 0){
             return this.objectPresent = false;
         }
