@@ -27,6 +27,7 @@ function movePlayerShip(){
 function shipControl(mainGameObject: any){
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
     document.addEventListener("keydown",(e: any)=>{
+        if(mainGameObject.gameInitData.gamePause) return false;
         if(controlKeys.down.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed});
         if(controlKeys.left.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed * -1, yPos: 0}) ;
         if(controlKeys.right.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed, yPos:0}) ;
@@ -34,6 +35,7 @@ function shipControl(mainGameObject: any){
     })
 
     document.addEventListener("mousemove", (e: any) => {
+        if(mainGameObject.gameInitData.gamePause) return false;
         if(e.target.tagName === "CANVAS"){
             let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
             this.xFinal = (x % this.data.speed == 0)? x : this.data.speed* Math.floor(x/this.data.speed);
@@ -41,8 +43,8 @@ function shipControl(mainGameObject: any){
         }
     })
     document.addEventListener("click", (e: any) => {
-        let width = this.ctx.width, height = this.ctx.height;
-        let guns = this.data.guns;      /// this.data.firespot
+        if(mainGameObject.gameInitData.gamePause) return false;
+        let guns = this.data.guns;
         for(let item of guns){
             let bullet = new bulletModule.BulletConstruct(
                 this.x, this.y,

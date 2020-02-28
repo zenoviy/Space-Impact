@@ -24,7 +24,7 @@ interface gameData{
     levelChange: boolean,
     backScreenPause: boolean,
     gameStatus: boolean,
-    gameEngine: any
+    gameEngine: any,
 
     gameData:{
         currentLevel: number,
@@ -66,6 +66,7 @@ class Game {
     createNewEnemy: any;
     gameRandomizer: any;
     uiController: any;
+    gameUiPause: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -117,6 +118,7 @@ Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;
 Game.prototype.gameRandomizer = regularAiModule.gameRandomizer;
 
 Game.prototype.uiController = uiModules.uiController;
+Game.prototype.gameUiPause = uiModules.gameUiPause;
 
 module.exports.gameModule = {
     Game: Game,
