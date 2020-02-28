@@ -101,7 +101,7 @@ var { viewModules } = require('./view/displayModules');
 
 
     gameObject.setGameFields();
-    //gameObject.gameButonController();
+    gameObject.gameButonController();
     //gameObject.setGameFields();
     let contexts = gameObject.returnContext();
 
@@ -113,13 +113,13 @@ var { viewModules } = require('./view/displayModules');
 
     function gameInterval(){
         gameObject.spawnEnemyLogic(gameObject);
-        if(gameObject.gamePause == false){
+        if(gameObject.gamePause ){
             if(gameObject.gameInitData.ctxActionField ){
-            viewModules.clearField(
-                gameObject.gameInitData.ctxActionField,
-                gameObject.gameInitData.screen.width,
-                gameObject.gameInitData.screen.height);
-        }
+                viewModules.clearField(
+                    gameObject.gameInitData.ctxActionField,
+                    gameObject.gameInitData.screen.width,
+                    gameObject.gameInitData.screen.height);
+            }
             if(gameObject.gameInitData.backScreenPause){
                 gameObject.gameInitData.backScreenPause = false;
                 gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
@@ -138,7 +138,6 @@ var { viewModules } = require('./view/displayModules');
                     gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
                 }
             }
-           
                 if(gameObject.gameInitData.allGameEnemies.length > 0){
                     for(let enemy of gameObject.gameInitData.allGameEnemies){
                         enemy.placeEnemyes(gameObject);
@@ -151,7 +150,6 @@ var { viewModules } = require('./view/displayModules');
                 playerShipData.movePlayerShip();
             }
         }
-            
     }
 })()
 
