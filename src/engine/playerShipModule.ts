@@ -64,6 +64,7 @@ function setContext(context){
     this.ctx = context;
 }
 function placeShip(){
+    console.log(1)
     let xAdj = (this.xFinal - this.x)/this.data.speed;
     let yAdj = (this.yFinal - this.y)/this.data.speed;
 

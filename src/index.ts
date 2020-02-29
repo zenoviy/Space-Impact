@@ -125,9 +125,11 @@ var { uiStateModules } = require('./ui/gameUiStateModuels');
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
-        if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+        if(gameObject.gameInitData.backScreenPause == false || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+            if(gameObject.gameInitData.gamePause == false || !gameObject.gameInitData.gameStatus){
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                    backgroundMap.updateMap();
+                        backgroundMap.updateMap();
+                    }
                 }
             }
         if(gameObject.gameInitData.gamePause == false && gameObject.gameInitData.gameStatus == true ){
@@ -155,9 +157,9 @@ var { uiStateModules } = require('./ui/gameUiStateModuels');
                         enemy.enemyAnimation();
                         gameObject.deleteObjects(enemy);
                     }
-                    playerShipData.placeShip();
-                    playerShipData.movePlayerShip();
                 }
+                playerShipData.placeShip();
+                playerShipData.movePlayerShip();
             }else if(gameObject.gameInitData.gameStatus == false){
             //     gameObject.showStartWindow()
             }
