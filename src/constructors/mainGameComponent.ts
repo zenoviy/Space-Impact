@@ -3,7 +3,7 @@ var { gameMethods } = require('../engine/engineModules');
 var { playerShipModule } = require('../engine/playerShipModule');
 var { regularAiModule } = require('../ai/regularEnemyAiModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
-var { uiModules } = require('../ui/userInterfaceModule');
+var { uiModules } = require('../ui/gameUiModules');
 
 interface gameData{
     ctx: any,
@@ -21,6 +21,7 @@ interface gameData{
     allGameMapOBjects: object[],
     mapBackgroundObjects: object[],
     gamePause: boolean,
+    gameUiPause: boolean,
     levelChange: boolean,
     backScreenPause: boolean,
     gameStatus: boolean,
@@ -59,6 +60,7 @@ class Game {
     setGameFields: any;
     levelInit: any;
     createContext: any;
+    getScreenSize: any;
     deleteBullet: any;
     deleteObjects: any;
     hitDetection: any;
@@ -67,7 +69,8 @@ class Game {
     gameRandomizer: any;
     uiController: any;
     gameUiPause: any;
-
+    showUiPopupWindow: any;
+    showStartWindow: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -106,6 +109,7 @@ Game.prototype.createContext = gameMethods.createContext;
 Game.prototype.initField = gameMethods.initField;
 Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerShip
 Game.prototype.setGameFields = gameMethods.setGameFields;
+Game.prototype.getScreenSize = gameMethods.getScreenSize;
 
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
@@ -117,11 +121,11 @@ Game.prototype.hitDetection = enemiesModel.hitDetection;
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;
 Game.prototype.gameRandomizer = regularAiModule.gameRandomizer;
-//Game.prototype.gamePause = gameUiModules.gamePause;
-//Game.prototype.gameButonController = gameUiModules.gameButonController;
 
 Game.prototype.uiController = uiModules.uiController;
 Game.prototype.gameUiPause = uiModules.gameUiPause;
+Game.prototype.showUiPopupWindow = uiModules.showUiPopupWindow;
+Game.prototype.showStartWindow = uiModules.showStartWindow;
 
 module.exports.gameModule = {
     Game: Game,

@@ -7,6 +7,7 @@ var { engineModule } = require('./engine/engineModules');
 var { serverModules } = require('./server/serverRequestModules');
 var { enemies } = require('./enemies/enemiesModules');
 var { viewModules } = require('./view/displayModules');
+var { uiStateModules } = require('./ui/gameUiStateModuels');
 
 
 
@@ -86,8 +87,9 @@ var { viewModules } = require('./view/displayModules');
             mapBackgroundObjects: [],
             levelChange: false,
             gamePause: false,
+            gameUiPause: false,
             backScreenPause: true,
-            gameStatus: false,
+            gameStatus: true,
             gameEngine: setInterval(gameInterval, 20),
         }, locations: serverLocation
     }
@@ -101,8 +103,8 @@ var { viewModules } = require('./view/displayModules');
 
     gameObject.uiController()
     gameObject.setGameFields();
-    gameObject.gameButonController();
-    //gameObject.setGameFields();
+    gameObject.getScreenSize();
+
     let contexts = gameObject.returnContext();
 
     //  create context
@@ -112,35 +114,40 @@ var { viewModules } = require('./view/displayModules');
     playerShipData.shipControl(gameObject);
 
     function gameInterval(){
-        if(!gameObject.gameInitData.gamePause){
-            gameObject.spawnEnemyLogic(gameObject);
-            if(gameObject.gameInitData.ctxActionField){
-                viewModules.clearField(
-                    gameObject.gameInitData.ctxActionField,
-                    gameObject.gameInitData.screen.width,
-                    gameObject.gameInitData.screen.height);
-            }
-            if(gameObject.gameInitData.backScreenPause){
-                gameObject.gameInitData.backScreenPause = false;
-                gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
-                gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
-            }
-            if(!gameObject.gameInitData.backScreenPause){
+        if(gameObject.gameInitData.ctxUIField){
+            viewModules.clearField(
+                gameObject.gameInitData.ctxUIField,
+                gameObject.gameInitData.screen.width,
+                gameObject.gameInitData.screen.height);
+        }
+        if(gameObject.gameInitData.backScreenPause){
+            gameObject.gameInitData.backScreenPause = false;
+            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
+            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
+        }
+        if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                     backgroundMap.updateMap();
                 }
-                playerShipData.placeShip();
-                playerShipData.movePlayerShip();
             }
+        if(gameObject.gameInitData.gamePause == false && gameObject.gameInitData.gameStatus == true ){
 
-            if(gameObject.gameInitData.allGameBullets.length > 0){
-                for(let bullet of gameObject.gameInitData.allGameBullets){
-                    bullet.moveBullets();
-                    bullet.createBullets(gameObject);
-                    gameObject.deleteBullet(bullet);
-                    gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
+            if(gameObject.gameInitData.gameStatus == true){
+                gameObject.spawnEnemyLogic(gameObject);
+                if(gameObject.gameInitData.ctxActionField){
+                    viewModules.clearField(
+                        gameObject.gameInitData.ctxActionField,
+                        gameObject.gameInitData.screen.width,
+                        gameObject.gameInitData.screen.height);
                 }
-            }
+                if(gameObject.gameInitData.allGameBullets.length > 0){
+                    for(let bullet of gameObject.gameInitData.allGameBullets){
+                        bullet.moveBullets();
+                        bullet.createBullets(gameObject);
+                        gameObject.deleteBullet(bullet);
+                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
+                    }
+                }
                 if(gameObject.gameInitData.allGameEnemies.length > 0){
                     for(let enemy of gameObject.gameInitData.allGameEnemies){
                         enemy.placeEnemyes(gameObject);
@@ -148,11 +155,17 @@ var { viewModules } = require('./view/displayModules');
                         enemy.enemyAnimation();
                         gameObject.deleteObjects(enemy);
                     }
-
-                playerShipData.placeShip();
-                playerShipData.movePlayerShip();
+                    playerShipData.placeShip();
+                    playerShipData.movePlayerShip();
+                }
+            }else if(gameObject.gameInitData.gameStatus == false){
+            //     gameObject.showStartWindow()
             }
+        }else if(gameObject.gameInitData.gameStatus == false){
+            alert(1)
+            gameObject.showStartWindow(uiStateModules.gameLoadMenu)
         }
+
     }
 })()
 
