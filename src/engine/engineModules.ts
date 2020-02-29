@@ -41,8 +41,10 @@ function createContext(){
 }
 
 
-function stopEngine(engineName){
-    clearInterval(engineName);
+function getScreenSize(){
+    let width = this.gameInitData.screen.width,
+    height = this.gameInitData.screen.height;
+    return {width: width, height: height}
 }
 
 function changeLevel(){
@@ -84,6 +86,7 @@ module.exports.gameMethods = {
     setGameFields: setGameFields,
     levelInit: levelInit,
     createContext: createContext,
+    getScreenSize: getScreenSize,
     deleteBullet: deleteBullet,
     deleteObjects: deleteObjects,
     getObjectPosition: getObjectPosition
