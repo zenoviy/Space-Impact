@@ -79,7 +79,7 @@ function showPauseWindow(){
 }
 function showGameStats(){
     let data = this.getLevelUserData();
-    //console.log(data)
+    
     let drawMethods = [
         uiElements.uiImage,
         uiElements.uiText,

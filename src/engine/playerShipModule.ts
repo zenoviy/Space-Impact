@@ -62,6 +62,7 @@ function shipControl(mainGameObject: any){
 function showInformation(){
     console.log(this)
 }
+
 function setContext(context){
     this.ctx = context;
 }

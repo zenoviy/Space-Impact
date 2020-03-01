@@ -80,6 +80,11 @@ function deleteObjects(object){
         this.gameInitData.allGameEnemies.splice(index, 1);
     }
 }
+function collectPoints(point){
+    let player = this.gameInitData.gameData.playerObject;
+    this.gameInitData.gameData.currentPoint += point;
+    console.log(this.gameInitData.gameData)
+}
 function getObjectPosition(){
     let mainObject = this;
     let position = {
@@ -100,5 +105,6 @@ module.exports.gameMethods = {
     getLevelUserData: getLevelUserData,
     deleteBullet: deleteBullet,
     deleteObjects: deleteObjects,
-    getObjectPosition: getObjectPosition
+    getObjectPosition: getObjectPosition,
+    collectPoints: collectPoints
 }

@@ -35,20 +35,23 @@ function enemyAnimation(){
         }
     }
 }
-function takeDamage(damage: number = 0){
+async function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') ){
         return this.objectPresent = false;
     }
     if(  this.hasOwnProperty('healthPoint') ){
         this.healthPoint -= damage;
         if(this.healthPoint <= 0){
+            if(hitObject.objectOwner == "player"  ){
+                mainGameObject.collectPoints(this.pointsPerUnit)
+            }
             return this.objectPresent = false;
         }
     }else{
         return console.log('no Object')
     }
-}
-function hitDetection(object1, objectsArr){
+}  //this.objectOwner == "player"   collectPoints
+function hitDetection(object1, objectsArr, mainGameObject){
     let collision = null;
     for(let object2 of objectsArr){
 
@@ -65,8 +68,8 @@ function hitDetection(object1, objectsArr){
 
         if(collision == "collision"){
             if(object1.takeDamage && object2.takeDamage){
-                object1.takeDamage((object2.damage)? object2.damage: 0);
-                object2.takeDamage((object1.damage)? object1.damage: 0);
+                object1.takeDamage((object2.damage)? object2.damage: 0, object2, mainGameObject);
+                object2.takeDamage((object1.damage)? object1.damage: 0, object1, mainGameObject);
             }
             break
         }

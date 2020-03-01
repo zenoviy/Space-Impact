@@ -19,7 +19,7 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
     var gameState = await startGameModules.gameDataInit();
     var gameObject = new gameModule.Game(gameState.data, gameState.locations);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
-    var engin = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
+    var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
 
     gameObject.uiController()
     gameObject.setGameFields();
@@ -68,7 +68,7 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
                         bullet.moveBullets();
                         bullet.createBullets(gameObject);
                         gameObject.deleteBullet(bullet);
-                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies);
+                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject);
                     }
                 }
                 if(gameObject.gameInitData.allGameEnemies.length > 0){

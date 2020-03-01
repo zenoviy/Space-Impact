@@ -64,6 +64,7 @@ class Game {
     deleteBullet: any;
     deleteObjects: any;
     hitDetection: any;
+    collectPoints: any;
     spawnEnemyLogic: any;
     createNewEnemy: any;
     gameRandomizer: any;
@@ -125,6 +126,7 @@ Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
 Game.prototype.deleteBullet = gameMethods.deleteBullet;
 Game.prototype.deleteObjects = gameMethods.deleteObjects;
 Game.prototype.hitDetection = enemiesModel.hitDetection;
+Game.prototype.collectPoints = gameMethods.collectPoints;
 
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;

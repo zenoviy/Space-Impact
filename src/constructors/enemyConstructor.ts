@@ -24,7 +24,7 @@ class EnemyObject {
     shoot: any;
     enemyAnimation: any;
     getObjectPosition: any;
-    takeDamage: any;
+    takeDamage: any; objectOwner: string
     constructor(
         x: number, y: number,
         sx: number, sy: number,
@@ -36,7 +36,7 @@ class EnemyObject {
         status: string, name: string,
         bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
         healthPoint: number, animationSteps: number,
-        damage: number
+        damage: number, objectOwner: string
         ){
             this.id = new Date().getTime();
             this.x = x; this.y = y;
@@ -52,6 +52,7 @@ class EnemyObject {
             this.damage = damage;
             this.detectFrame = 0;
             this.objectPresent = true;
+            this.objectOwner = objectOwner;
     }
 }
 

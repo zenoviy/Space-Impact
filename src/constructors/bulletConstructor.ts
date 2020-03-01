@@ -6,7 +6,7 @@ class BulletConstruct{
     x: number; y: number;
     bulletType: string;
     bulletTexture: string;
-    bulletDirection: string;
+    objectOwner: string;
     bulletSpeed: number;
     width: number; height: number;
     damage: number;
@@ -21,7 +21,7 @@ class BulletConstruct{
         x: number, y: number,
         bulletType: string,
         bulletTexture: string,
-        bulletDirection: string,
+        objectOwner: string,
         bulletSpeed: number,
         width: number, height: number,
         damage: number
@@ -29,7 +29,7 @@ class BulletConstruct{
         this.x = x; this.y = y;
         this.bulletType = bulletType;
         this.bulletTexture = bulletTexture;
-        this.bulletDirection = bulletDirection;
+        this.objectOwner = objectOwner;
         this.bulletSpeed = bulletSpeed;
         this.width = width; this.height = height;
         this.damage = damage;

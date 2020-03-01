@@ -15,7 +15,7 @@ function placeBullets(){
 
 }
 function moveBullets(){
-    if(this.bulletDirection == "player"){
+    if(this.objectOwner == "player"){
         this.x  += this.bulletSpeed;
     }else{
         this.x  -= this.bulletSpeed;
