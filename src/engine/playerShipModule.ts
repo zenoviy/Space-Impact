@@ -36,7 +36,9 @@ function shipControl(mainGameObject: any){
 
     document.addEventListener("mousemove", (e: any) => {
         if(mainGameObject.gameInitData.gamePause) return false;
-        if(e.target.tagName === "CANVAS"){
+        if(e.target.tagName === "CANVAS"
+        && !mainGameObject.gameInitData.gamePause
+        && mainGameObject.gameInitData.gameStatus){
             let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
             this.xFinal = (x % this.data.speed == 0)? x : this.data.speed* Math.floor(x/this.data.speed);
             this.yFinal = (y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed);

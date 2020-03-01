@@ -26,8 +26,6 @@ interface gameData{
     levelChange: boolean,
     backScreenPause: boolean,
     gameStatus: boolean,
-    gameEngine: any,
-
     gameData:{
         currentLevel: number,
         currentPoint: number,

@@ -1,5 +1,6 @@
 var { viewModules } = require('../view/displayModules');
-var { uiStateModules } = require('./gameUiStateModuels');
+var { uiStateModules } = require('./gameUiModels/gameUiLoadMenu');
+var { uiSettingsMenu } = require('./gameUiModels/gameUiSettingsMenu');
 var { uiElements } = require('../view/elements/uiElementModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
 
@@ -30,11 +31,14 @@ function uiController(){
             if(this.gameInitData.gameStatus == false){
                 elementsOnScreen = uiStateModules.gameLoadMenu(null, ctx, screenSize.width, screenSize.height);
             }
-
-
+            if(this.gameInitData.gameUiPause){
+                elementsOnScreen = uiSettingsMenu.gameSettingsMenu(null, ctx, screenSize.width, screenSize.height);
+            }
             for(let item in elementsOnScreen){
-                let res = enemiesModel.hitDetection(elementsOnScreen[item], [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"})  )
-                if(res){
+                let res = enemiesModel.hitDetection(elementsOnScreen[item],
+                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"})  )
+                if(res && elementsOnScreen[item].action){
+
                     elementsOnScreen[item].action.call(this);
                     break
                 }
@@ -62,7 +66,7 @@ function showMenuWindow(){
         uiElements.uiText,
         uiElements.uiText
     ];
-    this.initUiElements(drawMethods, uiStateModules.gameSettingsMenu)
+    this.initUiElements(drawMethods, uiSettingsMenu.gameSettingsMenu)
 }
 
 function initUiElements(drawMethods, callback, ...props){

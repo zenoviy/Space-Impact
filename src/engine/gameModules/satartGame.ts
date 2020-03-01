@@ -1,13 +1,13 @@
-var { levelConstructor } = require('./constructors/levelConstructors');
-var { playerModules } = require('./constructors/userConstructor');
-var { gameModule } = require('./constructors/mainGameComponent');
-var { engineModule } = require('./engine/engineModules');
-var { serverModules } = require('./server/serverRequestModules');
-var { enemies } = require('./enemies/enemiesModules');
-var { viewModules } = require('./view/displayModules');
-var { uiStateModules } = require('./ui/gameUiStateModuels');
+var { levelConstructor } = require('../../constructors/levelConstructors');
+var { playerModules } = require('../../constructors/userConstructor');
+var { gameModule } = require('../../constructors/mainGameComponent');
+var { engineModule } = require('../../engine/engineModules');
+var { serverModules } = require('../../server/serverRequestModules');
+var { enemies } = require('../../enemies/enemiesModules');
+var { viewModules } = require('../../view/displayModules');
+var { uiStateModules } = require('../../ui/gameUiModels/gameUiLoadMenu');
 
-async function loadGameInformation(){
+async function gameDataInit(){
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -85,19 +85,31 @@ async function loadGameInformation(){
             gameUiPause: false,
             backScreenPause: true,
             gameStatus: false,
-           // gameEngine: setInterval(gameInterval, 20),
         }, locations: serverLocation
     }
 }
-
+async function gameEngine(gameDataInit){
+     
+}
 function gameStart(){
     this.gameInitData.gameStatus = true;
 }
-function backToStartScreen(){
+async function backToStartScreen(){
+    let newInitdata = await gameDataInit();
+    
+    for(let [key, value] of Object.entries( newInitdata.data)){
+        if(value !== null) {
+                this.gameInitData[key] = value
+        };
+    }
+    console.log(this.gameInitData)
+    alert(1)
     this.gameInitData.gameStatus = false;
 }
 
 module.exports.startGameModules = {
+    gameDataInit: gameDataInit,
+    gameEngine: gameEngine,
     gameStart: gameStart,
     backToStartScreen: backToStartScreen
 }
