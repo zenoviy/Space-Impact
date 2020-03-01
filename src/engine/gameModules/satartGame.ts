@@ -96,14 +96,11 @@ function gameStart(){
 }
 async function backToStartScreen(){
     let newInitdata = await gameDataInit();
-    
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
                 this.gameInitData[key] = value
         };
     }
-    console.log(this.gameInitData)
-    alert(1)
     this.gameInitData.gameStatus = false;
 }
 

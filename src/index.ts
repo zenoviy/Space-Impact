@@ -61,10 +61,8 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
                 }
             }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
-            
             if(gameObject.gameInitData.gameStatus == true){
                 gameObject.spawnEnemyLogic(gameObject);
-                
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
                         bullet.moveBullets();
@@ -91,10 +89,11 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
             gameObject.showStartWindow()
         }
         if(gameObject.gameInitData.gamePause){
-
+            gameObject.showPauseWindow()
         }
         if(gameObject.gameInitData.gameUiPause){
             gameObject.showMenuWindow()
+            gameObject.showPauseWindow()
         }
     }
 })()

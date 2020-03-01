@@ -1,12 +1,14 @@
 var { viewModules } = require('../view/displayModules');
 var { uiStateModules } = require('./gameUiModels/gameUiLoadMenu');
 var { uiSettingsMenu } = require('./gameUiModels/gameUiSettingsMenu');
+var { gamePauseModule } = require('./gameUiModels/gamePauseScreen');
 var { uiElements } = require('../view/elements/uiElementModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
 
 
 function gameUiPause(){
-    if(!this.gameInitData.gameUiPause) this.gameInitData.gamePause = !this.gameInitData.gamePause;
+    //console.log(this.showPauseWindow)
+    if(!this.gameInitData.gameUiPause && this.gameInitData.gameStatus) this.gameInitData.gamePause = !this.gameInitData.gamePause;
 }
 function gameUiMenu(gameUiPause){
     this.gameInitData.gameUiPause = !this.gameInitData.gameUiPause;
@@ -68,6 +70,12 @@ function showMenuWindow(){
     ];
     this.initUiElements(drawMethods, uiSettingsMenu.gameSettingsMenu)
 }
+function showPauseWindow(){
+    let drawMethods = [
+        uiElements.uiText
+    ];
+    this.initUiElements(drawMethods, gamePauseModule.gamePause)
+}
 
 function initUiElements(drawMethods, callback, ...props){
     let ctx = this.gameInitData.ctxUIField,
@@ -88,5 +96,6 @@ module.exports.uiModules = {
     showUiPopupWindow: showUiPopupWindow,
     showStartWindow: showStartWindow,
     showMenuWindow: showMenuWindow,
+    showPauseWindow: showPauseWindow,
     initUiElements: initUiElements
 }
