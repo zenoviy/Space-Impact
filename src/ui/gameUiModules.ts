@@ -5,18 +5,19 @@ var { enemiesModel } = require('../enemies/enemiesModules');
 
 
 function gameUiPause(){
-    this.gameInitData.gamePause = !this.gameInitData.gamePause;
+    if(!this.gameInitData.gameUiPause) this.gameInitData.gamePause = !this.gameInitData.gamePause;
 }
-function gameUiMenu(){
-    this.gameUiPause()
+function gameUiMenu(gameUiPause){
     this.gameInitData.gameUiPause = !this.gameInitData.gameUiPause;
+    this.gameInitData.gamePause = (gameUiPause)? false: true;
 }
 function uiController(){
+
     let controlKeys = this.gameInitData.gameData.gameSetings.keyControls;
     let gameObject = this;
 
     document.addEventListener("keydown",(e: any)=>{
-        if(controlKeys.escape.some(o => e.keyCode == o) ) gameObject.gameUiMenu();
+        if(controlKeys.escape.some(o => e.keyCode == o) ) gameObject.gameUiMenu(this.gameInitData.gameUiPause);
         if(controlKeys.pause.some(o => e.keyCode == o) ) gameObject.gameUiPause();
     })
 
@@ -34,7 +35,6 @@ function uiController(){
             for(let item in elementsOnScreen){
                 let res = enemiesModel.hitDetection(elementsOnScreen[item], [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"})  )
                 if(res){
-                    console.log(this)
                     elementsOnScreen[item].action.call(this);
                     break
                 }
@@ -58,9 +58,9 @@ function showStartWindow(){
 function showMenuWindow(){
     let drawMethods = [
         viewModules.createShapeRoundBorder,
+        viewModules.createShapeRoundBorder,
+        uiElements.uiText,
         uiElements.uiText
-        //uiElements.uiText,
-        //uiElements.uiText
     ];
     this.initUiElements(drawMethods, uiStateModules.gameSettingsMenu)
 }

@@ -76,6 +76,7 @@ class Game {
     initUiElements: any;
     gameUiMenu: any;
     gameStart: any;
+    backToStartScreen: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -136,6 +137,7 @@ Game.prototype.showUiPopupWindow = uiModules.showUiPopupWindow;
 Game.prototype.showStartWindow = uiModules.showStartWindow;
 Game.prototype.initUiElements  = uiModules.initUiElements;
 Game.prototype.gameStart = startGameModules.gameStart;
+Game.prototype.backToStartScreen = startGameModules.backToStartScreen;
 
 module.exports.gameModule = {
     Game: Game,

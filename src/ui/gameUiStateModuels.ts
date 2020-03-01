@@ -115,6 +115,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
 
     ]
 }
+
 function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
     return data || [
         {
@@ -135,8 +136,47 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             },
             init: init,
             getObjectPosition: getUIObjectPosition
-        },{
-            name: "Main game menu",
+        }, {
+            name: "Button end game",
+            text: "",
+            description: "back to start screen",
+            fontSize: "30px Arial",
+            clicked: false,
+            propertyes:{
+                ctx: ctx,
+                width: 200,
+                height: 50,
+                x: width/2 - 150,
+                y: height/2 + 50,
+                background: 'rgba(255, 255, 255, 1)',
+                borderColor: 'rgba(255, 255, 255, 1)',
+                radius: 15,
+            },
+            action(){
+                this.backToStartScreen()
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
+        }, {
+            name: "textin button",
+            text: "go to start",
+            description: "Text in the menu button",
+            fontSize: "25px Roboto",
+            clicked: false,
+            propertyes:{
+                ctx: ctx,
+                width: 45,
+                height: 0,
+                x: width/2 - 150,
+                y: height/2 + 80,
+                background: false,
+                borderColor: '#007BD1',
+                radius: null,
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
+        }, {
+            name: "Main game menu name",
             text: "Menu",
             description: "Text in main top",
             fontSize: "25px Roboto",
