@@ -1,5 +1,4 @@
 var {ERROR_LIST} = require('../engine/appErrorListModule');
-var { buttonsModule } = require('./buttons/displayButtonsModules');
 var { uiWindowModules } = require('./window/displayUiWindowModules');
 
 

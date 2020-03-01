@@ -4,6 +4,7 @@ var { playerShipModule } = require('../engine/playerShipModule');
 var { regularAiModule } = require('../ai/regularEnemyAiModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
 var { uiModules } = require('../ui/gameUiModules');
+var { startGameModules } = require('../engine/gameModules/satartGame');
 
 interface gameData{
     ctx: any,
@@ -70,7 +71,11 @@ class Game {
     uiController: any;
     gameUiPause: any;
     showUiPopupWindow: any;
+    showMenuWindow: any;
     showStartWindow: any;
+    initUiElements: any;
+    gameUiMenu: any;
+    gameStart: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -124,8 +129,13 @@ Game.prototype.gameRandomizer = regularAiModule.gameRandomizer;
 
 Game.prototype.uiController = uiModules.uiController;
 Game.prototype.gameUiPause = uiModules.gameUiPause;
+Game.prototype.gameUiMenu = uiModules.gameUiMenu;
+Game.prototype.showMenuWindow = uiModules.showMenuWindow;
+
 Game.prototype.showUiPopupWindow = uiModules.showUiPopupWindow;
 Game.prototype.showStartWindow = uiModules.showStartWindow;
+Game.prototype.initUiElements  = uiModules.initUiElements;
+Game.prototype.gameStart = startGameModules.gameStart;
 
 module.exports.gameModule = {
     Game: Game,

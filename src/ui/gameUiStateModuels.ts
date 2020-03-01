@@ -1,3 +1,17 @@
+function init(callback, data?){
+    data = (data)? data: this;
+    callback(data)
+}
+function getUIObjectPosition(){
+    let context = this;
+    //console.log(context)
+    return {
+        x: context.propertyes.x,
+        y: context.propertyes.y,
+        width: context.propertyes.width,
+        height: context.propertyes.height,
+    }
+}
 function gameLoadMenu(data: any,ctx: any, width: number, height: number, pictureDirrection: any){
     return data || [
         {
@@ -16,10 +30,11 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: 45,
             },
-            init(callback, data){
-                data = (data)? data: this;
-                callback(data)
-            }
+            action(){
+                this.gameStart()
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Logotype",
             text: "",
@@ -35,13 +50,13 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 y: 50,
                 background: new Image(),
                 borderColor: false,
-                radius: false,
+                radius: null,
             },
-            init(callback, data){
+            loadPicture(){
                 this.propertyes.background.src = pictureDirrection + 'misc/logo-half-white_1.png';
-                data = (data)? data: this;
-                callback(data)
-            }
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Game name",
             text: "Space",
@@ -56,12 +71,10 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 y: 300,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
-                radius: false,
+                radius: null,
             },
-            init(callback, data){
-                data = (data)? data: this;
-                callback(data)
-            }
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Game name",
             text: "Attack",
@@ -76,12 +89,10 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 y: 300,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
-                radius: false,
+                radius: null,
             },
-            init(callback, data){
-                data = (data)? data: this;
-                callback(data)
-            }
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Start button",
             text: "Press Start to begin",
@@ -96,18 +107,57 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 y: height/2,
                 background: false,
                 borderColor: '#007BD1',
-                radius: false,
+                radius: null,
             },
-            init(callback, data){
-                data = (data)? data: this;
-                callback(data)
-            }
+            init: init,
+            getObjectPosition: getUIObjectPosition
         },
 
     ]
 }
-
+function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
+    return data || [
+        {
+            name: "menu background",
+            text: "",
+            description: "back part of menu ",
+            fontSize: "30px Arial",
+            clicked: false,
+            propertyes:{
+                ctx: ctx,
+                width: width,
+                height: height/2,
+                x: 0,
+                y: height/4,
+                background: 'rgba(38, 38, 86, 1)',
+                borderColor: 'rgba(255, 255, 255, 1)',
+                radius: 5,
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
+        },{
+            name: "Main game menu",
+            text: "Menu",
+            description: "Text in main top",
+            fontSize: "25px Roboto",
+            clicked: false,
+            propertyes:{
+                ctx: ctx,
+                width: -45,
+                height: 0,
+                x: width/2 ,
+                y: height/3,
+                background: false,
+                borderColor: 'rgba(255, 255, 255, 1)',
+                radius: null,
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
+        }
+    ]
+}
 
 module.exports.uiStateModules = {
-    gameLoadMenu: gameLoadMenu
+    gameLoadMenu: gameLoadMenu,
+    gameSettingsMenu: gameSettingsMenu
 }

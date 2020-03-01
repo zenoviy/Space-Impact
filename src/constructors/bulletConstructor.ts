@@ -1,5 +1,5 @@
 var { bulletsModule } = require('../engine/bulletsModule');
-var { gameMethods } = require('../engine/engineModules');// getObjectPosition
+var { gameMethods } = require('../engine/engineModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
 class BulletConstruct{
     id: number;

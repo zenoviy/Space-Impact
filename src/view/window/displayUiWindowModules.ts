@@ -2,9 +2,6 @@ var { viewModules } = require('../displayModules');
 function createWindow(){
     let {width, height} = this.getScreenSize();
     let uiCtx = this.gameInitData.ctxUIField;
-
-    //viewModules
-    console.log(width, height)
 }
 interface Shapes{
     name: string,
@@ -26,7 +23,7 @@ interface Shapes{
 
 function createShapeRoundBorder(shapePropertyes: Shapes){
     let propertyes = shapePropertyes.propertyes;
-    propertyes.ctx.fillStyle = "rgba(255, 255, 255)";
+    propertyes.ctx.fillStyle = propertyes.background;
    propertyes.ctx.beginPath();
     propertyes.ctx.moveTo(propertyes.x + propertyes.radius, propertyes.y);
     propertyes.ctx.lineTo(propertyes.x + propertyes.width - propertyes.radius,
@@ -59,10 +56,6 @@ function createShapeRoundBorder(shapePropertyes: Shapes){
         //propertyes.ctx.fillRect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);
     propertyes.ctx.closePath();
     propertyes.ctx.fill()
-
-    //propertyes.ctx.font = shapePropertyes.fontSize;
-   // propertyes.ctx.fillStyle = "#007BD1";
-   // propertyes.ctx.fillText(shapePropertyes.text, propertyes.x + propertyes.width/10, propertyes.y + propertyes.height/1.5);
 
 }
 

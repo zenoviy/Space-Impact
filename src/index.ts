@@ -89,7 +89,7 @@ var { uiStateModules } = require('./ui/gameUiStateModuels');
             gamePause: false,
             gameUiPause: false,
             backScreenPause: true,
-            gameStatus: true,
+            gameStatus: false,
             gameEngine: setInterval(gameInterval, 20),
         }, locations: serverLocation
     }
@@ -163,9 +163,12 @@ var { uiStateModules } = require('./ui/gameUiStateModuels');
             }else if(gameObject.gameInitData.gameStatus == false){
             //     gameObject.showStartWindow()
             }
+
         }else if(gameObject.gameInitData.gameStatus == false){
-            alert(1)
-            gameObject.showStartWindow(uiStateModules.gameLoadMenu)
+            gameObject.showStartWindow()
+        }
+        if(gameObject.gameInitData.gameUiPause){
+            gameObject.showMenuWindow()
         }
 
     }

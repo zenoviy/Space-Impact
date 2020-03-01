@@ -49,23 +49,29 @@ function takeDamage(damage: number = 0){
     }
 }
 function hitDetection(object1, objectsArr){
+    let collision = null;
     for(let object2 of objectsArr){
-        let object1Position = object1.getObjectPosition();
-        var xMin = Math.max( object1Position.x, object2.x );
-        var yMin = Math.max( object1Position.y, object2.y );
-        var xMax = Math.min( object1Position.x + object1Position.width, object2.x + object2.width );
-        var yMax = Math.min( object1Position.y + object1.height, object2.y + object2.height);
+
+        let object1Position = object1.getObjectPosition.call(object1);
+
+        let xMin = Math.max( object1Position.x, object2.x );
+        let yMin = Math.max( object1Position.y, object2.y );
+        let xMax = Math.min( object1Position.x + (object1.width || object1Position.width), object2.x + object2.width );
+        let yMax = Math.min( object1Position.y + (object1.height || object1Position.height), object2.y + object2.height);
 
         let resX = xMax - xMin;
         let resY = yMax - yMin;
-        let collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
+        collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
 
         if(collision == "collision"){
-            object1.takeDamage((object2.damage)? object2.damage: 0);
-            object2.takeDamage((object1.damage)? object1.damage: 0);
+            if(object1.takeDamage && object2.takeDamage){
+                object1.takeDamage((object2.damage)? object2.damage: 0);
+                object2.takeDamage((object1.damage)? object1.damage: 0);
+            }
             break
         }
     }
+    return (collision == "collision")? object1: false;
 }
 module.exports.enemiesModel = {
     placeEnemyes: placeEnemyes,
