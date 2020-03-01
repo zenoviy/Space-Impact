@@ -19,7 +19,7 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
     var gameState = await startGameModules.gameDataInit();
     var gameObject = new gameModule.Game(gameState.data, gameState.locations);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
-    var engin = setInterval(gameInterval, 20);
+    var engin = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
 
     gameObject.uiController()
     gameObject.setGameFields();
@@ -85,8 +85,14 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
             //     gameObject.showStartWindow()
             }
 
-        }else if(!gameObject.gameInitData.gameStatus ){
+        }
+
+        ///   game UI load
+        if(!gameObject.gameInitData.gameStatus ){
             gameObject.showStartWindow()
+        }
+        if(gameObject.gameInitData.gameStatus){
+            gameObject.showGameStats()
         }
         if(gameObject.gameInitData.gamePause){
             gameObject.showPauseWindow()

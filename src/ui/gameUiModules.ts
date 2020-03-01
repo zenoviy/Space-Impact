@@ -2,6 +2,7 @@ var { viewModules } = require('../view/displayModules');
 var { uiStateModules } = require('./gameUiModels/gameUiLoadMenu');
 var { uiSettingsMenu } = require('./gameUiModels/gameUiSettingsMenu');
 var { gamePauseModule } = require('./gameUiModels/gamePauseScreen');
+var { gameStatsScreens } = require('./gameUiModels/gameStatsScreen');
 var { uiElements } = require('../view/elements/uiElementModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
 
@@ -76,12 +77,22 @@ function showPauseWindow(){
     ];
     this.initUiElements(drawMethods, gamePauseModule.gamePause)
 }
+function showGameStats(){
+    let data = this.getLevelUserData();
+    //console.log(data)
+    let drawMethods = [
+        uiElements.uiImage,
+        uiElements.uiText,
+        uiElements.uiText,
+        uiElements.uiText
+    ];
+    this.initUiElements(drawMethods, gameStatsScreens.gameInformationScreen, data)
+}
 
 function initUiElements(drawMethods, callback, ...props){
     let ctx = this.gameInitData.ctxUIField,
     screenSize = this.getScreenSize(),
     picDirection = this.serverLocation.picturesDirection;
-
     let screenObjects = callback(null, ctx, screenSize.width, screenSize.height, picDirection, ...props);
     for(let itemIndex = 0;  itemIndex < screenObjects.length; itemIndex++){
         if(screenObjects[itemIndex].hasOwnProperty('loadPicture')) screenObjects[itemIndex].loadPicture();
@@ -97,5 +108,6 @@ module.exports.uiModules = {
     showStartWindow: showStartWindow,
     showMenuWindow: showMenuWindow,
     showPauseWindow: showPauseWindow,
+    showGameStats: showGameStats,
     initUiElements: initUiElements
 }

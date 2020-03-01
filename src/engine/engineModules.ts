@@ -53,8 +53,18 @@ function changeLevel(){
 function levelTimer(){
 
 }
-function reloadGame(){
+function getLevelUserData(){
+    let dataSourse = this.gameInitData.gameData;
+    let levelTime = dataSourse.levelData.levelDetails.levelTime;
+    let gameSecond = 1000/this.gameInitData.intervalCount;
+    levelTime = levelTime * gameSecond;
 
+    return {
+        level: dataSourse.currentLevel,
+        allLevels: dataSourse.levelData.allLevels,
+        points: dataSourse.currentPoint,
+        life:  dataSourse.playerObject.numberOflife //dataSourse.playerObject.healthPoint
+    }
 }
 function deleteBullet(bullet){
     if(bullet.x > this.gameInitData.screen.width
@@ -87,6 +97,7 @@ module.exports.gameMethods = {
     levelInit: levelInit,
     createContext: createContext,
     getScreenSize: getScreenSize,
+    getLevelUserData: getLevelUserData,
     deleteBullet: deleteBullet,
     deleteObjects: deleteObjects,
     getObjectPosition: getObjectPosition

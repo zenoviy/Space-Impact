@@ -60,6 +60,7 @@ class Game {
     levelInit: any;
     createContext: any;
     getScreenSize: any;
+    getLevelUserData: any;
     deleteBullet: any;
     deleteObjects: any;
     hitDetection: any;
@@ -71,6 +72,7 @@ class Game {
     showUiPopupWindow: any;
     showMenuWindow: any;
     showStartWindow: any;
+    showGameStats: any;
     initUiElements: any;
     gameUiMenu: any;
     gameStart: any;
@@ -115,6 +117,7 @@ Game.prototype.initField = gameMethods.initField;
 Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerShip
 Game.prototype.setGameFields = gameMethods.setGameFields;
 Game.prototype.getScreenSize = gameMethods.getScreenSize;
+Game.prototype.getLevelUserData = gameMethods.getLevelUserData;
 
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
@@ -134,6 +137,7 @@ Game.prototype.showMenuWindow = uiModules.showMenuWindow;
 Game.prototype.showUiPopupWindow = uiModules.showUiPopupWindow;
 Game.prototype.showStartWindow = uiModules.showStartWindow;
 Game.prototype.showPauseWindow = uiModules.showPauseWindow;
+Game.prototype.showGameStats = uiModules.showGameStats;
 
 Game.prototype.initUiElements  = uiModules.initUiElements;
 Game.prototype.gameStart = startGameModules.gameStart;

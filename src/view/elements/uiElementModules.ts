@@ -36,9 +36,18 @@ function uiText(shapePropertyes: ImageShapes){
         propertyes.x + propertyes.width,
         propertyes.y + propertyes.height);
 }
-
+function uiRepeatImage(shapePropertyes: ImageShapes){
+    let propertyes = shapePropertyes.propertyes;
+    let pat = propertyes.ctx.createPattern(propertyes.background, 'repeat-x');
+    
+    //propertyes.ctx.rect(propertyes.x, propertyes.x, propertyes.width, propertyes.height);
+    propertyes.ctx.rect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);
+    propertyes.ctx.fillStyle = pat;
+    propertyes.ctx.fill();
+}
 
 module.exports.uiElements = {
     uiImage: uiImage,
-    uiText: uiText
+    uiText: uiText,
+    uiRepeatImage: uiRepeatImage
 }

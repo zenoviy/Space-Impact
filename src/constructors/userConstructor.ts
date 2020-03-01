@@ -22,6 +22,7 @@ class PlayerShip{
     data: shipData;
     points: number;
     healthPoint: number;
+    numberOflife: number;
     x: number; y: number;
     xFinal: number; yFinal: number;
     ctx: any;
@@ -39,11 +40,13 @@ class PlayerShip{
         data: shipData,
         points: number,
         healthPoint: number,
+        numberOflife: number,
         x: number = 100,
         y: number = 100
     ){
         this.data = data;
         this.points = points;
+        this.numberOflife = numberOflife;
         this.healthPoint = healthPoint;
         this.x = x; this.y = y;
         this.xFinal = x; this.yFinal = y;

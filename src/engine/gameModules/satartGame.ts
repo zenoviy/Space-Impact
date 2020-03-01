@@ -65,16 +65,17 @@ async function gameDataInit(){
             gameData:{
                 currentLevel: 1,
                 currentPoint: 0,
-                playerObject: new playerModules.PlayerShip(userData, 0, 3, 100, 100),
+                playerObject: new playerModules.PlayerShip(userData, 0, 300, 5, 100, 100),
                 levelData: levelData,
                 gameSetings: gameSetings,
                 enemyData: enemyData,
-                constrollers: null
+                controllers: null
             },
             screen:{
                 width: window.innerWidth,
                 height: window.innerHeight
             },
+            intervalCount: 20,
             enemyType: null,
             allGameEnemies: [],
             allGameBullets: [],
