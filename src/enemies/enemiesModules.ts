@@ -29,9 +29,10 @@ function shoot(bulletConstructor, mainGameObject){
     let shootProbability = mainGameObject.gameRandomizer( this.rapidFire );
     if(randomShoot < shootProbability){
        let guns = this.guns;
+       console.log(this)
        for(let item of guns){
            let bullet = new bulletConstructor(
-               this.x, this.y,
+               this.x, this.y + item.firePosition,
                item.name, item.color,
                "enemy", item.speed,
                item.width, item.height,
@@ -39,7 +40,6 @@ function shoot(bulletConstructor, mainGameObject){
                );
            mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
        }
-
     }
 }
 function enemyAnimation(){

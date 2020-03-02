@@ -20,7 +20,18 @@
                 "color": "rgba(81, 255, 0, 1)",
                 "width": 60,
                 "height": 6,
-                "damage": 30
+                "damage": 30,
+                "firePosition": 20
+            }, {
+                "name": "blaster",
+                "fireRepead": 3,
+                "speed": 6,
+                "texture": null,
+                "color": "rgba(81, 255, 0, 1)",
+                "width": 60,
+                "height": 6,
+                "damage": 30,
+                "firePosition": 40
             }
         ]
     }
