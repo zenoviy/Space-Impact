@@ -1,4 +1,5 @@
 var { viewModules } = require('../displayModules');
+
 function createWindow(){
     let {width, height} = this.getScreenSize();
     let uiCtx = this.gameInitData.ctxUIField;

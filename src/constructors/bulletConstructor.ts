@@ -11,6 +11,7 @@ class BulletConstruct{
     width: number; height: number;
     damage: number;
     objectPresent: boolean;
+    type: number;
 
     createBullets: any;
     initBullets: any;
@@ -24,7 +25,7 @@ class BulletConstruct{
         objectOwner: string,
         bulletSpeed: number,
         width: number, height: number,
-        damage: number
+        damage: number, type: number
     ){
         this.x = x; this.y = y;
         this.bulletType = bulletType;
@@ -35,6 +36,7 @@ class BulletConstruct{
         this.damage = damage;
         this.id = new Date().getTime();
         this.objectPresent = true;
+        this.type = type;
     }
 }
 

@@ -23,6 +23,7 @@
             "guns":[
                 {
                     "name": "blaster",
+                    "type": 1,
                     "fireRepead": 3,
                     "speed": 6,
                     "texture": null,
@@ -33,6 +34,7 @@
                     "firePosition": 5
                 }, {
                     "name": "blaster",
+                    "type": 1,
                     "fireRepead": 3,
                     "speed": 6,
                     "texture": null,

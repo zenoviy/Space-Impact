@@ -1,5 +1,6 @@
 var {ERROR_LIST} = require('../engine/appErrorListModule');
 var { uiWindowModules } = require('./window/displayUiWindowModules');
+var { weaponModules } = require('./weapons/weaponsDisplayModule');
 
 
 function draw(context, element, ...property){
@@ -8,23 +9,8 @@ function draw(context, element, ...property){
 
 function createLaserBullet(data){
     if(!data.ctx) return new Error("no context");
-    data.ctx.fillStyle = "rgba(255, 255, 255)";
-    draw(data.ctx, 'beginPath');
-    draw(data.ctx, 'moveTo', data.x + data.radius, data.y + data.height/2);
-    draw(data.ctx, 'lineTo', data.x + data.radius, data.y);
-
-    draw(data.ctx, 'lineTo', data.x + data.width - data.radius, data.y);
-    draw(data.ctx, 'quadraticCurveTo', data.x + data.width, data.y, data.x + data.width, data.y + data.radius);
-
-    draw(data.ctx, 'lineTo', data.x + data.width, data.y + data.height - data.radius);
-    draw(data.ctx, 'quadraticCurveTo', data.x + data.width, data.y + data.height, data.x + data.width - data.radius, data.y + data.height);
-
-    draw(data.ctx, 'closePath');
-
-    draw(data.ctx, 'fill');
-    data.ctx.lineWidth = 2;
-    data.ctx.strokeStyle = data.color;
-    draw(data.ctx, 'stroke');
+    if(data.objectOwner == "player" && data.type == 1) weaponModules.weapon1forward(data, draw);
+    if(data.objectOwner == "enemy" && data.type == 1) weaponModules.weapon1backward(data, draw);
 }
 
 function createImage(ctx, pictureName, ...props){

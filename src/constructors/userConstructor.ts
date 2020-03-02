@@ -28,6 +28,7 @@ class PlayerShip{
     xFinal: number; yFinal: number;
     ctx: any; collisionAllow: boolean;
     objectOwner: string; width: number; height: number;
+    xAdj: number;
 
     initPlayerShip: any;
     movePlayerShip: any;
@@ -57,6 +58,7 @@ class PlayerShip{
         this.collisionAllow = true;
         this.objectOwner = "player";
         this.width = width; this.height = height;
+        this.xAdj = 0;
     }
 
 }

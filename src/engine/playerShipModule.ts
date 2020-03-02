@@ -51,9 +51,9 @@ function shipControl(mainGameObject: any){
             let bullet = new bulletModule.BulletConstruct(
                 this.x, this.y + item.firePosition,
                 item.name, item.color,
-                "player", item.speed,
+                "player", item.speed + this.xAdj,
                 item.width, item.height,
-                item.damage
+                item.damage, item.type
                 );
             mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
         }
@@ -75,6 +75,7 @@ function placeShip(){
     xAdj = (xAdj > this.data.minSpeed)? this.data.minSpeed : xAdj;
     yAdj = (yAdj > this.data.minSpeed)? this.data.minSpeed : yAdj;
 
+    this.xAdj = (this.x > this.xFinal)? 0 : xAdj;
     this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
     (this.x < this.xFinal)? this.x + xAdj : this.xFinal;
 

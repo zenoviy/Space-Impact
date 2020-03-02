@@ -57,7 +57,13 @@ function levelTimer(){
         // when timer goes out > change level
 }
 function getSecondMeasure(){
-   return 1000/this.gameInitData.intervalCount;
+    this.gameInitData.gemeExtraSeconds += 1;
+    let gameSecond = 1000/this.gameInitData.intervalCount;
+    if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
+        this.gameInitData.gemeExtraSeconds = 0;
+        console.log("second")
+        return 1000/this.gameInitData.intervalCount;
+    }
 }
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
