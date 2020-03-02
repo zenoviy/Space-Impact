@@ -9,7 +9,8 @@
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [],
         "levelDetails" : {
-            "levelTime" : 250
+            "levelMinutes": 3,
+            "levelSeconds": 43
         }
     },{
         "level" : 2,
@@ -21,7 +22,8 @@
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [],
         "levelDetails" : {
-            "levelTime" : 300
+            "levelMinutes": 3,
+            "levelSeconds": 43
         }
     },{
         "level" : 2,
@@ -33,7 +35,8 @@
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [],
         "levelDetails" : {
-            "levelTime" : 600
+            "levelMinutes": 3,
+            "levelSeconds": 43
         }
     }
 ]

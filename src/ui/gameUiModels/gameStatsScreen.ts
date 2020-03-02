@@ -37,7 +37,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: uiModelsMethods.getUIObjectPosition
         }, {
             name: "level",
-            text: `Current Level ${info.level}/${info.allLevels}`,
+            text: `Current Level ${info.level}/${info.allLevels} `,
             description: "Game part the name",
             clicked: false,
             fontSize: "bold 16px Roboto",
@@ -55,7 +55,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: uiModelsMethods.getUIObjectPosition
         }, {
             name: "Time to end f level",
-            text: `Time to end ${info.minutes}:${info.secons}`,
+            text: `Time to end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >=0)? '': 0}${info.seconds}`,
             description: "Game part the name",
             clicked: false,
             fontSize: "lighter 16px Roboto",

@@ -82,6 +82,7 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                         gameObject.deleteObjects(enemy);
                     }
                 }
+                gameObject.levelTimer()
                 playerShipData.placeShip();
                 playerShipData.movePlayerShip();
             }else if(gameObject.gameInitData.gameStatus == false){

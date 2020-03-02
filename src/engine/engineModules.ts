@@ -55,29 +55,39 @@ function changeLevel(){
 function levelTimer(){
         // set timer
         // when timer goes out > change level
+        let data = this.getLevelUserData()
+        let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
+
+        this.getSecondMeasure(levelTimeAction, data.sourse.levelData.levelDetails )
+        function levelTimeAction(time){
+            if(time.levelSeconds <= 0){
+                time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes-1 : 0;
+                if(time.levelMinutes == 0 && time.levelSeconds == 0) alert("level change")
+            }
+            time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 : 59;
+        }
 }
-function getSecondMeasure(){
+function getSecondMeasure(callback, ...data){
     this.gameInitData.gemeExtraSeconds += 1;
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
         this.gameInitData.gemeExtraSeconds = 0;
-        console.log("second")
-        return 1000/this.gameInitData.intervalCount;
+        if(callback) callback(...data);
+        return gameSecond;
     }
 }
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
-    let levelTime = dataSourse.levelData.levelDetails.levelTime;
+    let levelTime = dataSourse.levelData.levelDetails;
     let gameSecond = this.getSecondMeasure();
-    levelTime = levelTime * gameSecond;
-
     return {
         sourse: dataSourse,
         level: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
-        life:  dataSourse.playerObject.numberOflife //dataSourse.playerObject.healthPoint
-
+        life:  dataSourse.playerObject.numberOflife, //dataSourse.playerObject.healthPoint
+        minutes: levelTime.levelMinutes,
+        seconds: levelTime.levelSeconds
     }
 }
 function deleteBullet(bullet){
@@ -115,6 +125,7 @@ module.exports.gameMethods = {
     createContext: createContext,
     getScreenSize: getScreenSize,
     getLevelUserData: getLevelUserData,
+    levelTimer: levelTimer,
     getSecondMeasure: getSecondMeasure,
     deleteBullet: deleteBullet,
     deleteObjects: deleteObjects,
