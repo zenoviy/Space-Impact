@@ -70,6 +70,7 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                         bullet.createBullets(gameObject);
                         gameObject.deleteBullet(bullet);
                         gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject);
+                        gameObject.hitDetection(playerShipData, [bullet], gameObject);
                     }
                 }
                 if(gameObject.gameInitData.allGameEnemies.length > 0){
