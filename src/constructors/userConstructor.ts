@@ -48,11 +48,11 @@ class PlayerShip{
     ){
         this.data = data;
         this.points = points;
-        this.numberOflife = numberOflife;
+        this.numberOflife = numberOflife + data.armor;
         this.healthPoint = healthPoint;
         this.x = x; this.y = y;
         this.xFinal = x; this.yFinal = y;
-        this.collisionAllow = false;
+        this.collisionAllow = true;
         this.objectOwner = "player";
         this.width = width; this.height = height;
     }

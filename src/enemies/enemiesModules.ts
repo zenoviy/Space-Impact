@@ -68,9 +68,9 @@ async function takeDamage(damage: number, hitObject, mainGameObject){
             return this.objectPresent = false;
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
-        //console.log(this, hitObject.objectOwner)
-        //alert("hit player")
         if(this.collisionAllow){
+            console.log(this ,damage)
+            alert(1)
             this.healthPoint -= damage;
             if(this.healthPoint <= 0){
                 return this.objectPresent = false;
@@ -96,7 +96,6 @@ function hitDetection(object1, objectsArr, mainGameObject){
         collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
 
         if(collision == "collision"){
-            //console.log(xMin, yMin, xMax, yMax, object1, object2)
             if(object1.takeDamage && object2.takeDamage){
                 object1.takeDamage((object2.damage)? object2.damage: 0, object2, mainGameObject);
                 object2.takeDamage((object1.damage)? object1.damage: 0, object1, mainGameObject);
