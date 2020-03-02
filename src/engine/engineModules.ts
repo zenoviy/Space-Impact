@@ -41,18 +41,38 @@ function createContext(){
 }
 
 
-function stopEngine(engineName){
-    clearInterval(engineName);
+function getScreenSize(){
+    let width = this.gameInitData.screen.width,
+    height = this.gameInitData.screen.height;
+    return {width: width, height: height}
 }
 
 function changeLevel(){
-
+    // animation for warp, http request for level and enemyes, 10 levels must be
+    // some levels must contain boss at least 2 boss
+    // last level is final titles the end save score
 }
 function levelTimer(){
-
+        // set timer
+        // when timer goes out > change level
 }
-function reloadGame(){
+function getSecondMeasure(){
+   return 1000/this.gameInitData.intervalCount;
+}
+function getLevelUserData(){
+    let dataSourse = this.gameInitData.gameData;
+    let levelTime = dataSourse.levelData.levelDetails.levelTime;
+    let gameSecond = this.getSecondMeasure();
+    levelTime = levelTime * gameSecond;
 
+    return {
+        sourse: dataSourse,
+        level: dataSourse.currentLevel,
+        allLevels: dataSourse.levelData.allLevels,
+        points: dataSourse.currentPoint,
+        life:  dataSourse.playerObject.numberOflife //dataSourse.playerObject.healthPoint
+
+    }
 }
 function deleteBullet(bullet){
     if(bullet.x > this.gameInitData.screen.width
@@ -67,6 +87,9 @@ function deleteObjects(object){
         let index = this.gameInitData.allGameEnemies.indexOf(object);
         this.gameInitData.allGameEnemies.splice(index, 1);
     }
+}
+function collectPoints(point){
+    this.gameInitData.gameData.currentPoint += point;
 }
 function getObjectPosition(){
     let mainObject = this;
@@ -84,7 +107,11 @@ module.exports.gameMethods = {
     setGameFields: setGameFields,
     levelInit: levelInit,
     createContext: createContext,
+    getScreenSize: getScreenSize,
+    getLevelUserData: getLevelUserData,
+    getSecondMeasure: getSecondMeasure,
     deleteBullet: deleteBullet,
     deleteObjects: deleteObjects,
-    getObjectPosition: getObjectPosition
+    getObjectPosition: getObjectPosition,
+    collectPoints: collectPoints
 }

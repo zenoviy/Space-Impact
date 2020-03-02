@@ -20,13 +20,14 @@ function initPlayerShip(mainGameObject: any){
 function movePlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
-            viewModules.createImage(this.ctx, this.img, this.x-30, this.y-30);
+            viewModules.createImage(this.ctx, this.img, this.x-(this.width/2), this.y-(this.height/2), this.width, this.height);
         }
     }
 }
 function shipControl(mainGameObject: any){
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
     document.addEventListener("keydown",(e: any)=>{
+        if(mainGameObject.gameInitData.gamePause) return false;
         if(controlKeys.down.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed});
         if(controlKeys.left.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed * -1, yPos: 0}) ;
         if(controlKeys.right.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed, yPos:0}) ;
@@ -34,15 +35,18 @@ function shipControl(mainGameObject: any){
     })
 
     document.addEventListener("mousemove", (e: any) => {
-        if(e.target.tagName === "CANVAS"){
+        if(mainGameObject.gameInitData.gamePause) return false;
+        if(e.target.tagName === "CANVAS"
+        && !mainGameObject.gameInitData.gamePause
+        && mainGameObject.gameInitData.gameStatus){
             let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
             this.xFinal = (x % this.data.speed == 0)? x : this.data.speed* Math.floor(x/this.data.speed);
             this.yFinal = (y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed);
         }
     })
     document.addEventListener("click", (e: any) => {
-        let width = this.ctx.width, height = this.ctx.height;
-        let guns = this.data.guns;      /// this.data.firespot
+        if(mainGameObject.gameInitData.gamePause) return false;
+        let guns = this.data.guns;
         for(let item of guns){
             let bullet = new bulletModule.BulletConstruct(
                 this.x, this.y,
@@ -58,6 +62,7 @@ function shipControl(mainGameObject: any){
 function showInformation(){
     console.log(this)
 }
+
 function setContext(context){
     this.ctx = context;
 }

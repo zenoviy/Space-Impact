@@ -3,6 +3,8 @@ var { gameMethods } = require('../engine/engineModules');
 var { playerShipModule } = require('../engine/playerShipModule');
 var { regularAiModule } = require('../ai/regularEnemyAiModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
+var { uiModules } = require('../ui/gameUiModules');
+var { startGameModules } = require('../engine/gameModules/satartGame');
 
 interface gameData{
     ctx: any,
@@ -20,11 +22,10 @@ interface gameData{
     allGameMapOBjects: object[],
     mapBackgroundObjects: object[],
     gamePause: boolean,
+    gameUiPause: boolean,
     levelChange: boolean,
     backScreenPause: boolean,
     gameStatus: boolean,
-    gameEngine: any
-
     gameData:{
         currentLevel: number,
         currentPoint: number,
@@ -58,12 +59,27 @@ class Game {
     setGameFields: any;
     levelInit: any;
     createContext: any;
+    getScreenSize: any;
+    getLevelUserData: any;
+    getSecondMeasure: any;
     deleteBullet: any;
     deleteObjects: any;
     hitDetection: any;
+    collectPoints: any;
     spawnEnemyLogic: any;
     createNewEnemy: any;
     gameRandomizer: any;
+    uiController: any;
+    gameUiPause: any;
+    showUiPopupWindow: any;
+    showMenuWindow: any;
+    showStartWindow: any;
+    showGameStats: any;
+    initUiElements: any;
+    gameUiMenu: any;
+    gameStart: any;
+    backToStartScreen: any;
+    showPauseWindow: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -102,6 +118,9 @@ Game.prototype.createContext = gameMethods.createContext;
 Game.prototype.initField = gameMethods.initField;
 Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerShip
 Game.prototype.setGameFields = gameMethods.setGameFields;
+Game.prototype.getScreenSize = gameMethods.getScreenSize;
+Game.prototype.getLevelUserData = gameMethods.getLevelUserData;
+Game.prototype.getSecondMeasure = gameMethods.getSecondMeasure;
 
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
@@ -109,10 +128,24 @@ Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
 Game.prototype.deleteBullet = gameMethods.deleteBullet;
 Game.prototype.deleteObjects = gameMethods.deleteObjects;
 Game.prototype.hitDetection = enemiesModel.hitDetection;
+Game.prototype.collectPoints = gameMethods.collectPoints;
 
 Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
 Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;
 Game.prototype.gameRandomizer = regularAiModule.gameRandomizer;
+
+Game.prototype.uiController = uiModules.uiController;
+Game.prototype.gameUiPause = uiModules.gameUiPause;
+Game.prototype.gameUiMenu = uiModules.gameUiMenu;
+Game.prototype.showMenuWindow = uiModules.showMenuWindow;
+Game.prototype.showUiPopupWindow = uiModules.showUiPopupWindow;
+Game.prototype.showStartWindow = uiModules.showStartWindow;
+Game.prototype.showPauseWindow = uiModules.showPauseWindow;
+Game.prototype.showGameStats = uiModules.showGameStats;
+
+Game.prototype.initUiElements  = uiModules.initUiElements;
+Game.prototype.gameStart = startGameModules.gameStart;
+Game.prototype.backToStartScreen = startGameModules.backToStartScreen;
 
 module.exports.gameModule = {
     Game: Game,

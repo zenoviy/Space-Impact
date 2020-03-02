@@ -1,4 +1,5 @@
-var {ERROR_LIST} = require('../engine/appErrorListModule')
+var {ERROR_LIST} = require('../engine/appErrorListModule');
+var { uiWindowModules } = require('./window/displayUiWindowModules');
 
 
 function draw(context, element, ...property){
@@ -32,7 +33,7 @@ function createImage(ctx, pictureName, ...props){
 
 
 function clearField(ctx, width, height){
-    draw(ctx, 'clearRect', 0, 0,  width, height)
+    draw(ctx, 'clearRect', 0, 0,  width, height);
 }
 
 module.exports.viewModules = {
@@ -40,5 +41,7 @@ module.exports.viewModules = {
         draw: draw,
         createLaserBullet: createLaserBullet,
         clear: clearField,
-        createImage: createImage
+        createImage: createImage,
+        createWindow: uiWindowModules.createWindow,
+        createShapeRoundBorder: uiWindowModules.createShapeRoundBorder
 }

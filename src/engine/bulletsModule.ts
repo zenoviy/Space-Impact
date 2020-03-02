@@ -11,11 +11,11 @@ function createBullets(mainGameObject){
         radius: 5
     })
 }
-function placeBullets(){
+function initBullets(){
 
 }
 function moveBullets(){
-    if(this.bulletDirection == "player"){
+    if(this.objectOwner == "player"){
         this.x  += this.bulletSpeed;
     }else{
         this.x  -= this.bulletSpeed;
@@ -24,6 +24,6 @@ function moveBullets(){
 
 module.exports.bulletsModule = {
     createBullets: createBullets,
-    placeBullets: placeBullets,
+    initBullets: initBullets,
     moveBullets: moveBullets
 }

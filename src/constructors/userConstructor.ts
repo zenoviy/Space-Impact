@@ -22,9 +22,12 @@ class PlayerShip{
     data: shipData;
     points: number;
     healthPoint: number;
+    maxHealth: number;
+    numberOflife: number;
     x: number; y: number;
     xFinal: number; yFinal: number;
-    ctx: any;
+    ctx: any; collisionAllow: boolean;
+    objectOwner: string; width: number; height: number;
 
     initPlayerShip: any;
     movePlayerShip: any;
@@ -39,14 +42,21 @@ class PlayerShip{
         data: shipData,
         points: number,
         healthPoint: number,
+        numberOflife: number,
         x: number = 100,
-        y: number = 100
+        y: number = 100,
+        width: number, height: number
     ){
         this.data = data;
         this.points = points;
-        this.healthPoint = healthPoint;
+        this.numberOflife = numberOflife;
+        this.healthPoint = healthPoint + data.armor;
+        this.maxHealth = healthPoint + data.armor;
         this.x = x; this.y = y;
         this.xFinal = x; this.yFinal = y;
+        this.collisionAllow = true;
+        this.objectOwner = "player";
+        this.width = width; this.height = height;
     }
 
 }

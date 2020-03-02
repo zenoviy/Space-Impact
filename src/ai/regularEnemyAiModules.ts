@@ -22,7 +22,7 @@ function spawnEnemyLogic(mainGameObject: any){
 }
 function createNewEnemy(enemyData){
     let x = this.gameInitData.screen.width + 300,
-    y = this.gameRandomizer(this.gameInitData.screen.height),
+    y = this.gameRandomizer(this.gameInitData.screen.height - 200, 100),
     shipDetails = enemyData.details;
     return new objectConstructor.EnemyObject(
         x, y,
@@ -34,9 +34,11 @@ function createNewEnemy(enemyData){
         shipDetails.speed,
         shipDetails.status, shipDetails.name,
         shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
-        shipDetails.healthPoint, shipDetails.animationSteps, shipDetails.damage
+        shipDetails.healthPoint, shipDetails.animationSteps, shipDetails.damage,
+        shipDetails.objectOwner, shipDetails.guns
         );
 }
+
 function gameRandomizer(maxNumber: number, minNumber: number = 0){
     return Math.floor(Math.random() * maxNumber + minNumber);
 }
