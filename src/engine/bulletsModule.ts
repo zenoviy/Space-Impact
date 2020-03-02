@@ -11,7 +11,7 @@ function createBullets(mainGameObject){
         radius: 5
     })
 }
-function placeBullets(){
+function initBullets(){
 
 }
 function moveBullets(){
@@ -24,6 +24,6 @@ function moveBullets(){
 
 module.exports.bulletsModule = {
     createBullets: createBullets,
-    placeBullets: placeBullets,
+    initBullets: initBullets,
     moveBullets: moveBullets
 }

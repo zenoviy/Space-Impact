@@ -35,7 +35,7 @@ function createNewEnemy(enemyData){
         shipDetails.status, shipDetails.name,
         shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
         shipDetails.healthPoint, shipDetails.animationSteps, shipDetails.damage,
-        shipDetails.objectOwner
+        shipDetails.objectOwner, shipDetails.guns
         );
 }
 function gameRandomizer(maxNumber: number, minNumber: number = 0){

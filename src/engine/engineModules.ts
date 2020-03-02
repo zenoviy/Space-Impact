@@ -48,10 +48,13 @@ function getScreenSize(){
 }
 
 function changeLevel(){
-
+    // animation for warp, http request for level and enemyes, 10 levels must be
+    // some levels must contain boss at least 2 boss
+    // last level is final titles the end save score
 }
 function levelTimer(){
-
+        // set timer
+        // when timer goes out > change level
 }
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
@@ -64,6 +67,7 @@ function getLevelUserData(){
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
         life:  dataSourse.playerObject.numberOflife //dataSourse.playerObject.healthPoint
+
     }
 }
 function deleteBullet(bullet){
@@ -81,9 +85,8 @@ function deleteObjects(object){
     }
 }
 function collectPoints(point){
-    let player = this.gameInitData.gameData.playerObject;
+    //let player = this.gameInitData.gameData.playerObject;
     this.gameInitData.gameData.currentPoint += point;
-    console.log(this.gameInitData.gameData)
 }
 function getObjectPosition(){
     let mainObject = this;

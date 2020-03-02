@@ -13,7 +13,7 @@ class BulletConstruct{
     objectPresent: boolean;
 
     createBullets: any;
-    placeBullets: any;
+    initBullets: any;
     moveBullets: any;
     getObjectPosition: any;
     takeDamage: any;
@@ -39,7 +39,7 @@ class BulletConstruct{
 }
 
 BulletConstruct.prototype.createBullets = bulletsModule.createBullets;
-BulletConstruct.prototype.placeBullets = bulletsModule.placeBullets;
+BulletConstruct.prototype.initBullets = bulletsModule.initBullets;
 BulletConstruct.prototype.moveBullets = bulletsModule.moveBullets;
 BulletConstruct.prototype.getObjectPosition = gameMethods.getObjectPosition;
 

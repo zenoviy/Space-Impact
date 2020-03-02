@@ -76,6 +76,7 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
                         enemy.placeEnemyes(gameObject);
                         enemy.moveEnemyes();
                         enemy.enemyAnimation();
+                        enemy.enemyShoot(gameObject);
                         gameObject.deleteObjects(enemy);
                     }
                 }

@@ -1,6 +1,17 @@
 var { enemiesModel } = require('../enemies/enemiesModules');
 var { gameMethods } = require('../engine/engineModules');
+var { bulletModule } = require('./bulletConstructor');
 
+interface Guns{
+    name: string,
+    fireRepead: number,
+    speed: number,
+    texture: any,
+    color: string,
+    width: number,
+    height: number,
+    damage: number
+}
 class EnemyObject {
     id: number;
     shipPresent: boolean = true;
@@ -16,7 +27,7 @@ class EnemyObject {
     bulletTypeNumber: number; rapidFire: number; pointsPerUnit: number;
     healthPoint: number; animationSteps: number;
     detectFrame: number; objectPresent: boolean;
-    damage: number;
+    damage: number; guns: Guns[];
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -24,7 +35,8 @@ class EnemyObject {
     shoot: any;
     enemyAnimation: any;
     getObjectPosition: any;
-    takeDamage: any; objectOwner: string
+    takeDamage: any; objectOwner: string;
+    enemyShoot: any;
     constructor(
         x: number, y: number,
         sx: number, sy: number,
@@ -36,7 +48,7 @@ class EnemyObject {
         status: string, name: string,
         bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
         healthPoint: number, animationSteps: number,
-        damage: number, objectOwner: string
+        damage: number, objectOwner: string, guns: Guns[]
         ){
             this.id = new Date().getTime();
             this.x = x; this.y = y;
@@ -53,6 +65,7 @@ class EnemyObject {
             this.detectFrame = 0;
             this.objectPresent = true;
             this.objectOwner = objectOwner;
+            this.guns = guns
     }
 }
 
@@ -64,6 +77,7 @@ EnemyObject.prototype.enemyAnimation = enemiesModel.enemyAnimation;
 EnemyObject.prototype.getObjectPosition = gameMethods.getObjectPosition;
 
 EnemyObject.prototype.takeDamage = enemiesModel.takeDamage;
+EnemyObject.prototype.enemyShoot = enemiesModel.enemyShoot;
 
 module.exports.objectConstructor = {
     EnemyObject: EnemyObject,
