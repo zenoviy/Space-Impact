@@ -53,10 +53,13 @@ function changeLevel(){
 function levelTimer(){
 
 }
+function getSecondMeasure(){
+   return 1000/this.gameInitData.intervalCount;
+}
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = dataSourse.levelData.levelDetails.levelTime;
-    let gameSecond = 1000/this.gameInitData.intervalCount;
+    let gameSecond = this.getSecondMeasure();
     levelTime = levelTime * gameSecond;
 
     return {
@@ -83,7 +86,6 @@ function deleteObjects(object){
 function collectPoints(point){
     let player = this.gameInitData.gameData.playerObject;
     this.gameInitData.gameData.currentPoint += point;
-    console.log(this.gameInitData.gameData)
 }
 function getObjectPosition(){
     let mainObject = this;
@@ -103,6 +105,7 @@ module.exports.gameMethods = {
     createContext: createContext,
     getScreenSize: getScreenSize,
     getLevelUserData: getLevelUserData,
+    getSecondMeasure: getSecondMeasure,
     deleteBullet: deleteBullet,
     deleteObjects: deleteObjects,
     getObjectPosition: getObjectPosition,

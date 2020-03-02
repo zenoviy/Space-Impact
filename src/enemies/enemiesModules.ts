@@ -1,7 +1,7 @@
 var { viewModules } = require('../view/displayModules');
+var { bulletModule } = require('../constructors/bulletConstructor');
 
 function placeEnemyes(mainGameObject){
-
     viewModules.createImage(
         mainGameObject.gameInitData.ctxActionField,
         this.img,
@@ -22,8 +22,25 @@ function loadEnemyes(){
     this.img = new Image();
     this.img.src = this.shipTexture;
 }
-function shoot(){
+function shoot(bulletConstructor, mainGameObject){
+    if(mainGameObject.gameInitData.gamePause) return false;
 
+    let randomShoot = mainGameObject.gameRandomizer( Math.pow(this.rapidFire, 2) );
+    let shootProbability = mainGameObject.gameRandomizer( this.rapidFire );
+    if(randomShoot < shootProbability){
+       let guns = this.guns;
+       for(let item of guns){
+           let bullet = new bulletConstructor(
+               this.x, this.y,
+               item.name, item.color,
+               "enemy", item.speed,
+               item.width, item.height,
+               item.damage
+               );
+           mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+       }
+
+    }
 }
 function enemyAnimation(){
     this.detectFrame += 1;
@@ -36,21 +53,26 @@ function enemyAnimation(){
     }
 }
 async function takeDamage(damage: number, hitObject, mainGameObject){
-    if( this.hasOwnProperty('bulletType') ){
+    if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
+    this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"
+    ){
         return this.objectPresent = false;
     }
-    if(  this.hasOwnProperty('healthPoint') ){
+    if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
         this.healthPoint -= damage;
         if(this.healthPoint <= 0){
-            if(hitObject.objectOwner == "player"  ){
-                mainGameObject.collectPoints(this.pointsPerUnit)
-            }
+            mainGameObject.collectPoints(this.pointsPerUnit)
+            return this.objectPresent = false;
+        }
+    }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
+        this.healthPoint -= damage;
+        if(this.healthPoint <= 0){
             return this.objectPresent = false;
         }
     }else{
-        return console.log('no Object')
+        return false
     }
-}  //this.objectOwner == "player"   collectPoints
+}
 function hitDetection(object1, objectsArr, mainGameObject){
     let collision = null;
     for(let object2 of objectsArr){
@@ -76,6 +98,7 @@ function hitDetection(object1, objectsArr, mainGameObject){
     }
     return (collision == "collision")? object1: false;
 }
+
 module.exports.enemiesModel = {
     placeEnemyes: placeEnemyes,
     moveEnemyes: moveEnemyes,

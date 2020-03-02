@@ -61,6 +61,7 @@ class Game {
     createContext: any;
     getScreenSize: any;
     getLevelUserData: any;
+    getSecondMeasure: any;
     deleteBullet: any;
     deleteObjects: any;
     hitDetection: any;
@@ -119,6 +120,7 @@ Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerS
 Game.prototype.setGameFields = gameMethods.setGameFields;
 Game.prototype.getScreenSize = gameMethods.getScreenSize;
 Game.prototype.getLevelUserData = gameMethods.getLevelUserData;
+Game.prototype.getSecondMeasure = gameMethods.getSecondMeasure;
 
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;

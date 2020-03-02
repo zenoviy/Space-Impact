@@ -1,9 +1,18 @@
 var { enemiesModel } = require('../enemies/enemiesModules');
 var { gameMethods } = require('../engine/engineModules');
-
+interface enemyGuns{
+    name: string,
+    fireRepead: number,
+    speed: number,
+    texture: any,
+    color: string,
+    width: number,
+    height: number,
+    damage: number
+}
 class EnemyObject {
     id: number;
-    shipPresent: boolean = true;
+    shipPresent: boolean;
     x: number; y: number;
     sx: number; sy: number;
     sWidth: number; sHeight: number;
@@ -16,7 +25,7 @@ class EnemyObject {
     bulletTypeNumber: number; rapidFire: number; pointsPerUnit: number;
     healthPoint: number; animationSteps: number;
     detectFrame: number; objectPresent: boolean;
-    damage: number;
+    damage: number; guns: any; objectOwner: string;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -24,7 +33,7 @@ class EnemyObject {
     shoot: any;
     enemyAnimation: any;
     getObjectPosition: any;
-    takeDamage: any; objectOwner: string
+    takeDamage: any;
     constructor(
         x: number, y: number,
         sx: number, sy: number,
@@ -36,7 +45,7 @@ class EnemyObject {
         status: string, name: string,
         bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
         healthPoint: number, animationSteps: number,
-        damage: number, objectOwner: string
+        damage: number, objectOwner: string, guns: any
         ){
             this.id = new Date().getTime();
             this.x = x; this.y = y;
@@ -49,7 +58,7 @@ class EnemyObject {
             this.status = status; this.name = name;
             this.bulletTypeNumber = bulletTypeNumber; this.rapidFire = rapidFire; this.pointsPerUnit = pointsPerUnit;
             this.healthPoint = healthPoint; this.animationSteps = animationSteps;
-            this.damage = damage;
+            this.damage = damage; this.guns = guns;
             this.detectFrame = 0;
             this.objectPresent = true;
             this.objectOwner = objectOwner;

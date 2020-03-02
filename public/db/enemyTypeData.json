@@ -19,7 +19,19 @@
             "height": 50,
             "skinName": "enemy_ship_1.png",
             "speed": 4,
-            "pointsPerUnit": 5
+            "pointsPerUnit": 5,
+            "guns":[
+                {
+                    "name": "blaster",
+                    "fireRepead": 3,
+                    "speed": 6,
+                    "texture": null,
+                    "color": "rgba(255, 0, 0, 1)",
+                    "width": 60,
+                    "height": 6,
+                    "damage": 30
+                }
+            ]
         }
     }
 ]

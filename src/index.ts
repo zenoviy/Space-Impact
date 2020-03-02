@@ -9,6 +9,7 @@ var { enemies } = require('./enemies/enemiesModules');
 var { viewModules } = require('./view/displayModules');
 var { uiStateModules } = require('./ui/gameUiModels/gameUiLoadMenu');
 var { startGameModules } = require('./engine/gameModules/satartGame');
+var { bulletModule } = require('./constructors/bulletConstructor');
 
 
 
@@ -76,6 +77,7 @@ var { startGameModules } = require('./engine/gameModules/satartGame');
                         enemy.placeEnemyes(gameObject);
                         enemy.moveEnemyes();
                         enemy.enemyAnimation();
+                        enemy.shoot(bulletModule.BulletConstruct, gameObject);
                         gameObject.deleteObjects(enemy);
                     }
                 }
