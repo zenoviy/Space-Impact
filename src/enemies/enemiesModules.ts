@@ -61,23 +61,29 @@ async function takeDamage(damage: number, hitObject, mainGameObject){
     }
 
     if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
-        this.healthPoint -= damage;
-        //  launch animation for damage (for other units)
-        if(this.healthPoint <= 0){
-            mainGameObject.collectPoints(this.pointsPerUnit)
-            return this.objectPresent = false;
-        }
+        unitDamage.call(this);
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
         if(this.collisionAllow){
-            console.log(this ,damage)
-            alert(1)
-            this.healthPoint -= damage;
-            if(this.healthPoint <= 0){
-                return this.objectPresent = false;
-            }
+            unitDamage.call(this, mainGameObject.getLevelUserData())
         }
     }else{
         return false
+    }
+    function unitDamage(data){
+        this.healthPoint -= damage;
+        if(this.healthPoint <= 0){
+            if(data && data.life > 0){
+                data.sourse.playerObject.numberOflife -= 1;
+                if(data.sourse.playerObject.numberOflife <= 0){
+                    alert("Game Over");
+                    mainGameObject.backToStartScreen()
+                }
+                this.healthPoint = data.sourse.playerObject.maxHealth;
+                return false
+            }
+            mainGameObject.collectPoints(this.pointsPerUnit)
+            return this.objectPresent = false;
+        }
     }
 }
 function hitDetection(object1, objectsArr, mainGameObject){

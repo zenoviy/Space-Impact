@@ -86,6 +86,7 @@ async function gameDataInit(){
             gameUiPause: false,
             backScreenPause: true,
             gameStatus: false,
+            gemeExtraSeconds: 0,
         }, locations: serverLocation
     }
 }

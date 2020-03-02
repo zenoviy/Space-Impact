@@ -66,6 +66,7 @@ function getLevelUserData(){
     levelTime = levelTime * gameSecond;
 
     return {
+        sourse: dataSourse,
         level: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
@@ -88,7 +89,6 @@ function deleteObjects(object){
     }
 }
 function collectPoints(point){
-    //let player = this.gameInitData.gameData.playerObject;
     this.gameInitData.gameData.currentPoint += point;
 }
 function getObjectPosition(){
