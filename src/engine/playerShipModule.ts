@@ -20,7 +20,7 @@ function initPlayerShip(mainGameObject: any){
 function movePlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
-            viewModules.createImage(this.ctx, this.img, this.x-30, this.y-30);
+            viewModules.createImage(this.ctx, this.img, this.x-(this.width/2), this.y-(this.height/2), this.width, this.height);
         }
     }
 }

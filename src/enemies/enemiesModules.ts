@@ -1,9 +1,7 @@
 var { viewModules } = require('../view/displayModules');
 var { bulletModule } = require('../constructors/bulletConstructor');
-var { regularAiModule } = require('../ai/regularEnemyAiModules');
 
 function placeEnemyes(mainGameObject){
-
     viewModules.createImage(
         mainGameObject.gameInitData.ctxActionField,
         this.img,
@@ -24,8 +22,25 @@ function loadEnemyes(){
     this.img = new Image();
     this.img.src = this.shipTexture;
 }
-function shoot(){
+function shoot(bulletConstructor, mainGameObject){
+    if(mainGameObject.gameInitData.gamePause) return false;
 
+    let randomShoot = mainGameObject.gameRandomizer( Math.pow(this.rapidFire, 2) );
+    let shootProbability = mainGameObject.gameRandomizer( this.rapidFire );
+    if(randomShoot < shootProbability){
+       let guns = this.guns;
+       for(let item of guns){
+           let bullet = new bulletConstructor(
+               this.x, this.y,
+               item.name, item.color,
+               "enemy", item.speed,
+               item.width, item.height,
+               item.damage
+               );
+           mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+       }
+
+    }
 }
 function enemyAnimation(){
     this.detectFrame += 1;
@@ -39,20 +54,30 @@ function enemyAnimation(){
 }
 // complex enemy animation for damage
 async function takeDamage(damage: number, hitObject, mainGameObject){
-    if( this.hasOwnProperty('bulletType') ){
+    if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
+    this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"
+    ){
         return this.objectPresent = false;
     }
-    if(  this.hasOwnProperty('healthPoint') ){
+
+    if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
         this.healthPoint -= damage;
         //  launch animation for damage (for other units)
         if(this.healthPoint <= 0){
-            if(hitObject.objectOwner == "player"  ){
-                mainGameObject.collectPoints(this.pointsPerUnit)
-            }
+            mainGameObject.collectPoints(this.pointsPerUnit)
             return this.objectPresent = false;
         }
+    }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
+        //console.log(this, hitObject.objectOwner)
+        //alert("hit player")
+        if(this.collisionAllow){
+            this.healthPoint -= damage;
+            if(this.healthPoint <= 0){
+                return this.objectPresent = false;
+            }
+        }
     }else{
-        return console.log('no Object')
+        return false
     }
 }
 function hitDetection(object1, objectsArr, mainGameObject){
@@ -71,6 +96,7 @@ function hitDetection(object1, objectsArr, mainGameObject){
         collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
 
         if(collision == "collision"){
+            //console.log(xMin, yMin, xMax, yMax, object1, object2)
             if(object1.takeDamage && object2.takeDamage){
                 object1.takeDamage((object2.damage)? object2.damage: 0, object2, mainGameObject);
                 object2.takeDamage((object1.damage)? object1.damage: 0, object1, mainGameObject);
@@ -80,25 +106,7 @@ function hitDetection(object1, objectsArr, mainGameObject){
     }
     return (collision == "collision")? object1: false;
 }
-function enemyShoot(mainGameObject){
-    if(mainGameObject.gameInitData.gamePause) return false;
-        /*let { bulletModule } = require('../constructors/bulletConstructor');
-        let shoot = 100//regularAiModule.gameRandomizer(1000);
-        if(shoot <10){
-            let guns = this.guns;
-            for(let item of guns){
-                let bullet = new bulletModule.BulletConstruct(
-                    this.x, this.y,
-                    item.name, item.color,
-                    "enemy", item.speed,
-                    item.width, item.height,
-                    item.damage
-                    );
-                //console.log(bullet)
-                mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
-            }
-        }*/
-}
+
 module.exports.enemiesModel = {
     placeEnemyes: placeEnemyes,
     moveEnemyes: moveEnemyes,
@@ -106,6 +114,5 @@ module.exports.enemiesModel = {
     shoot: shoot,
     enemyAnimation: enemyAnimation,
     hitDetection: hitDetection,
-    takeDamage: takeDamage,
-    enemyShoot: enemyShoot
+    takeDamage: takeDamage
 };

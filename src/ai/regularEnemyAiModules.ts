@@ -38,6 +38,7 @@ function createNewEnemy(enemyData){
         shipDetails.objectOwner, shipDetails.guns
         );
 }
+
 function gameRandomizer(maxNumber: number, minNumber: number = 0){
     return Math.floor(Math.random() * maxNumber + minNumber);
 }

@@ -25,7 +25,8 @@ class PlayerShip{
     numberOflife: number;
     x: number; y: number;
     xFinal: number; yFinal: number;
-    ctx: any;
+    ctx: any; collisionAllow: boolean;
+    objectOwner: string; width: number; height: number;
 
     initPlayerShip: any;
     movePlayerShip: any;
@@ -42,7 +43,8 @@ class PlayerShip{
         healthPoint: number,
         numberOflife: number,
         x: number = 100,
-        y: number = 100
+        y: number = 100,
+        width: number, height: number
     ){
         this.data = data;
         this.points = points;
@@ -50,6 +52,9 @@ class PlayerShip{
         this.healthPoint = healthPoint;
         this.x = x; this.y = y;
         this.xFinal = x; this.yFinal = y;
+        this.collisionAllow = false;
+        this.objectOwner = "player";
+        this.width = width; this.height = height;
     }
 
 }

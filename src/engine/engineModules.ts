@@ -56,10 +56,13 @@ function levelTimer(){
         // set timer
         // when timer goes out > change level
 }
+function getSecondMeasure(){
+   return 1000/this.gameInitData.intervalCount;
+}
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = dataSourse.levelData.levelDetails.levelTime;
-    let gameSecond = 1000/this.gameInitData.intervalCount;
+    let gameSecond = this.getSecondMeasure();
     levelTime = levelTime * gameSecond;
 
     return {
@@ -106,6 +109,7 @@ module.exports.gameMethods = {
     createContext: createContext,
     getScreenSize: getScreenSize,
     getLevelUserData: getLevelUserData,
+    getSecondMeasure: getSecondMeasure,
     deleteBullet: deleteBullet,
     deleteObjects: deleteObjects,
     getObjectPosition: getObjectPosition,
