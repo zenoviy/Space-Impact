@@ -47,24 +47,38 @@ function getScreenSize(){
     return {width: width, height: height}
 }
 
-function changeLevel(){
+function changeLevelProcedure(){
     // animation for warp, http request for level and enemyes, 10 levels must be
     // some levels must contain boss at least 2 boss
     // last level is final titles the end save score
+    let levelData = this.showLevelData();
+
+    let level = this.changeLevel(levelData.level + 1)
+ //   console.log(levelData)
+    if(level <= levelData.allLevels){
+        this.nextLevelDataReload(levelData)
+    }else{
+        alert("Win Game Screen ")
+    }
+
 }
 function levelTimer(){
         // set timer
         // when timer goes out > change level
         let data = this.getLevelUserData()
         let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
+        if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails );
 
-        this.getSecondMeasure(levelTimeAction, data.sourse.levelData.levelDetails )
         function levelTimeAction(time){
             if(time.levelSeconds <= 0){
                 time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes-1 : 0;
-                if(time.levelMinutes == 0 && time.levelSeconds == 0) alert("level change")
+                if(time.levelMinutes == 0 && time.levelSeconds == 0){
+                    time.levelSeconds = 0;
+                    this.gameInitData.levelChange = true;
+                    this.changeLevelProcedure()
+                }
             }
-            time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 : 59;
+            time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
         }
 }
 function getSecondMeasure(callback, ...data){
@@ -72,7 +86,7 @@ function getSecondMeasure(callback, ...data){
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
         this.gameInitData.gemeExtraSeconds = 0;
-        if(callback) callback(...data);
+        if(callback) callback.call(this, ...data);
         return gameSecond;
     }
 }
@@ -82,7 +96,7 @@ function getLevelUserData(){
     let gameSecond = this.getSecondMeasure();
     return {
         sourse: dataSourse,
-        level: dataSourse.currentLevel,
+        currentLevel: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
         life:  dataSourse.playerObject.numberOflife, //dataSourse.playerObject.healthPoint
@@ -125,6 +139,7 @@ module.exports.gameMethods = {
     createContext: createContext,
     getScreenSize: getScreenSize,
     getLevelUserData: getLevelUserData,
+    changeLevelProcedure: changeLevelProcedure,
     levelTimer: levelTimer,
     getSecondMeasure: getSecondMeasure,
     deleteBullet: deleteBullet,

@@ -5,6 +5,7 @@ var { regularAiModule } = require('../ai/regularEnemyAiModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
 var { uiModules } = require('../ui/gameUiModules');
 var { startGameModules } = require('../engine/gameModules/satartGame');
+var { levelDataReload } = require('../engine/gameModules/changeLevels');
 
 interface gameData{
     ctx: any,
@@ -70,6 +71,7 @@ class Game {
     spawnEnemyLogic: any;
     createNewEnemy: any;
     gameRandomizer: any;
+    changeLevelProcedure: any;
     uiController: any;
     gameUiPause: any;
     showUiPopupWindow: any;
@@ -81,12 +83,14 @@ class Game {
     gameStart: any;
     backToStartScreen: any;
     showPauseWindow: any;
+    nextLevelDataReload: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
     }
     changeLevel(nextLevel: number){
-        this.gameInitData.gameData.levelData.currentLevel = nextLevel;
+        this.gameInitData.gameData.currentLevel = nextLevel;
+        return this.gameInitData.gameData.currentLevel;
     }
     showGameInfo(){
         return {
@@ -123,6 +127,7 @@ Game.prototype.getScreenSize = gameMethods.getScreenSize;
 Game.prototype.getLevelUserData = gameMethods.getLevelUserData;
 Game.prototype.levelTimer = gameMethods.levelTimer;
 Game.prototype.getSecondMeasure = gameMethods.getSecondMeasure;
+Game.prototype.changeLevelProcedure = gameMethods.changeLevelProcedure;
 
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
@@ -148,6 +153,7 @@ Game.prototype.showGameStats = uiModules.showGameStats;
 Game.prototype.initUiElements  = uiModules.initUiElements;
 Game.prototype.gameStart = startGameModules.gameStart;
 Game.prototype.backToStartScreen = startGameModules.backToStartScreen;
+Game.prototype.nextLevelDataReload = levelDataReload.nextLevelDataReload
 
 module.exports.gameModule = {
     Game: Game,

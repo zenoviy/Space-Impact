@@ -9,8 +9,8 @@
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [],
         "levelDetails" : {
-            "levelMinutes": 3,
-            "levelSeconds": 43
+            "levelMinutes": 0,
+            "levelSeconds": 10
         }
     },{
         "level" : 2,

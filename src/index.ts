@@ -26,8 +26,6 @@ var { bulletModule } = require('./constructors/bulletConstructor');
     gameObject.setGameFields();
     gameObject.getScreenSize();
 
-
-
     let contexts = gameObject.returnContext();
 
     //  create context
@@ -58,12 +56,14 @@ var { bulletModule } = require('./constructors/bulletConstructor');
             if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                         backgroundMap.updateMap();
+                        if(gameObject.gameInitData.levelChange) backgroundMap.warpEffect(gameObject);
                     }
                 }
             }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus == true){
-                gameObject.spawnEnemyLogic(gameObject);
+                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject);
+
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
                         bullet.moveBullets();

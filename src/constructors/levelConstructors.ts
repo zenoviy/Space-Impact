@@ -11,6 +11,7 @@ class GameBackground{
     img: any;
 
     updateMap: any;
+    warpEffect: any;
     constructor(
         backgroundTexture: string,
         backgroundSpeed: number,
@@ -21,13 +22,16 @@ class GameBackground{
             this.backgroundTexture = backgroundTexture; this.backgroundSpeed = backgroundSpeed;
             this.screenData = screenData;
             this.ctx = ctx;
-            this.x = (partOfScreenStatus)? 0 : screenData.width; this.y = 0;
+            this.x = (partOfScreenStatus)? 0 : screenData.width;
+            this.y = 0;
             this.img = new Image();
             this.img.src = location.origin + '/images/locations/' + this.backgroundTexture;
         }
 
 }
 GameBackground.prototype.updateMap = backgroundMapModule.updateMap;
+GameBackground.prototype.warpEffect = backgroundMapModule.warpEffect;
+
 
 module.exports.levelConstructor = {
     GameBackground: GameBackground

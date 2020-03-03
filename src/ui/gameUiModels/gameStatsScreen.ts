@@ -37,7 +37,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: uiModelsMethods.getUIObjectPosition
         }, {
             name: "level",
-            text: `Current Level ${info.level}/${info.allLevels} `,
+            text: `Current Level ${info.currentLevel}/${info.allLevels} `,
             description: "Game part the name",
             clicked: false,
             fontSize: "bold 16px Roboto",
