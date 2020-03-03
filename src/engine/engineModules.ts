@@ -9,7 +9,6 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
         this.gameInitData.gameUIField
         )
     if(!gameField) throw Error(ERROR_LIST.noObject);
-
     for(let screen of gameField){
         screen = Object.assign(screen, {width: screenWidth-4, height: screenHeight-4})
     }
@@ -21,16 +20,26 @@ function setGameFields(){
     this.initPlayerShip();
 }
 
-function levelInit(backgroundConstructor, ctx, parrent){
+function levelMapCreate(){
+
+}
+
+function levelInit(backgroundConstructor, ctx, mainGameObject){
     let gameData = this.showLevelData();
     let backgrundImages = gameData.levelMap;
+    let allBackgroundElements = gameData.levelBackgroundElements;
+    mainGameObject.gameInitData.backScreenPause = false;
 
-    let mapObject = new backgroundConstructor(
-        backgrundImages, 1, this.gameInitData.screen, ctx,
-        (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
-    );
-    mapObject.parrent = parrent;
-    this.gameInitData.mapBackgroundObjects = this.gameInitData.mapBackgroundObjects.concat(mapObject);
+    for(let mapObject of allBackgroundElements){
+        let mapItem = new backgroundConstructor(
+            mapObject.levelMap, mapObject.speed, this.gameInitData.screen, ctx,
+            (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
+        );
+        //mapItem.img.onload = function(){
+            mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
+        //}
+        mapItem.img.src = location.origin + '/images/' + mapItem.backgroundTexture;
+    }
 }
 
 
@@ -46,6 +55,7 @@ function getScreenSize(){
     height = this.gameInitData.screen.height;
     return {width: width, height: height}
 }
+
 
 function changeLevelProcedure(){
     // animation for warp, http request for level and enemyes, 10 levels must be
@@ -134,6 +144,7 @@ function getObjectPosition(){
 
 module.exports.gameMethods = {
     initField: initField,
+    levelMapCreate: levelMapCreate,
     setGameFields: setGameFields,
     levelInit: levelInit,
     createContext: createContext,

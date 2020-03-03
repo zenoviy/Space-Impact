@@ -59,6 +59,7 @@ class Game {
     initPlayerShip: any;
     setGameFields: any;
     levelInit: any;
+    levelMapCreate: any;
     createContext: any;
     getScreenSize: any;
     getLevelUserData: any;
@@ -121,13 +122,15 @@ class Game {
 
 Game.prototype.createContext = gameMethods.createContext;
 Game.prototype.initField = gameMethods.initField;
-Game.prototype.levelInit = gameMethods.levelInit;   // createContext initPlayerShip
+Game.prototype.levelInit = gameMethods.levelInit;           // createContext initPlayerShip
+
 Game.prototype.setGameFields = gameMethods.setGameFields;
+Game.prototype.levelMapCreate = gameMethods.levelMapCreate;
+
 Game.prototype.getScreenSize = gameMethods.getScreenSize;
 Game.prototype.getLevelUserData = gameMethods.getLevelUserData;
 Game.prototype.levelTimer = gameMethods.levelTimer;
 Game.prototype.getSecondMeasure = gameMethods.getSecondMeasure;
-Game.prototype.changeLevelProcedure = gameMethods.changeLevelProcedure;
 
 Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
 Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
@@ -149,11 +152,12 @@ Game.prototype.showUiPopupWindow = uiModules.showUiPopupWindow;
 Game.prototype.showStartWindow = uiModules.showStartWindow;
 Game.prototype.showPauseWindow = uiModules.showPauseWindow;
 Game.prototype.showGameStats = uiModules.showGameStats;
-
 Game.prototype.initUiElements  = uiModules.initUiElements;
+
 Game.prototype.gameStart = startGameModules.gameStart;
 Game.prototype.backToStartScreen = startGameModules.backToStartScreen;
-Game.prototype.nextLevelDataReload = levelDataReload.nextLevelDataReload
+Game.prototype.nextLevelDataReload = levelDataReload.nextLevelDataReload;
+Game.prototype.changeLevelProcedure = gameMethods.changeLevelProcedure;
 
 module.exports.gameModule = {
     Game: Game,

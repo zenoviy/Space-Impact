@@ -35,6 +35,7 @@ var { bulletModule } = require('./constructors/bulletConstructor');
     playerShipData.shipControl(gameObject);
 
     async function gameInterval(){
+
         if(gameObject.gameInitData.ctxUIField){
             viewModules.clearField(
                 gameObject.gameInitData.ctxUIField,
@@ -48,12 +49,17 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                 gameObject.gameInitData.screen.height);
         }
         if(gameObject.gameInitData.backScreenPause){
-            gameObject.gameInitData.backScreenPause = false;
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
         if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
             if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+                
+                /*if(gameObject.gameInitData.ctx){
+                    viewModules.clearField(
+                        gameObject.gameInitData.ctx,
+                        gameObject.gameInitData.screen.width,
+                        gameObject.gameInitData.screen.height);
+                }*/
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                         backgroundMap.updateMap();
                         if(gameObject.gameInitData.levelChange) backgroundMap.warpEffect(gameObject);

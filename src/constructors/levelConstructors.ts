@@ -19,13 +19,13 @@ class GameBackground{
         ctx: any,
         partOfScreenStatus: boolean
         ){
-            this.backgroundTexture = backgroundTexture; this.backgroundSpeed = backgroundSpeed;
+            this.backgroundTexture = backgroundTexture;
+            this.backgroundSpeed = backgroundSpeed;
             this.screenData = screenData;
             this.ctx = ctx;
             this.x = (partOfScreenStatus)? 0 : screenData.width;
             this.y = 0;
             this.img = new Image();
-            this.img.src = location.origin + '/images/locations/' + this.backgroundTexture;
         }
 
 }

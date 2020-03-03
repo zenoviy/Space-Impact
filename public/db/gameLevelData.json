@@ -7,7 +7,25 @@
         "enemyRandomizerIndex": 5,
         "otherObjects" : [],
         "levelMap" : "vhoa0.jpg",
-        "levelBackgroundElements" : [],
+        "levelBackgroundElements" : [
+            {
+                "levelMap" : "locations/vhoa0.jpg",
+                "speed": 0.5,
+                "description": "first frame"
+            },{
+                "levelMap" : "locations/vhoa0.jpg",
+                "speed": 0.5,
+                "description": "second frame"
+            },{
+                "levelMap" : "locations/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame"
+            },{
+                "levelMap" : "locations/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame"
+            }
+        ],
         "levelDetails" : {
             "levelMinutes": 0,
             "levelSeconds": 10
