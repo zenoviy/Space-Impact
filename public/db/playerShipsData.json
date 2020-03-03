@@ -19,7 +19,7 @@
                 "speed": 6,
                 "texture": null,
                 "color": "rgba(81, 255, 0, 1)",
-                "width": 60,
+                "width": 40,
                 "height": 6,
                 "damage": 30,
                 "firePosition": -10
@@ -30,7 +30,7 @@
                 "speed": 6,
                 "texture": null,
                 "color": "rgba(81, 255, 0, 1)",
-                "width": 60,
+                "width": 40,
                 "height": 6,
                 "damage": 30,
                 "firePosition": 10

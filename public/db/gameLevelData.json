@@ -9,21 +9,37 @@
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
-                "levelMap" : "locations/vhoa0.jpg",
-                "speed": 0.5,
+                "levelMap" : "locations/vhoa0.png",
+                "speed": 0.2,
                 "description": "first frame"
             },{
-                "levelMap" : "locations/vhoa0.jpg",
+                "levelMap" : "locations/vhoa0.png",
+                "speed": 0.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "locations/mountains.png",
+                "speed": 0.3,
+                "description": "first frame"
+            },{
+                "levelMap" : "locations/mountains.png",
+                "speed": 0.3,
+                "description": "second frame"
+            },{
+                "levelMap" : "locations/vhoa0_build_section_2.png",
                 "speed": 0.5,
-                "description": "second frame"
+                "description": "second frame back building"
+            },{
+                "levelMap" : "locations/vhoa0_build_section_2.png",
+                "speed": 0.5,
+                "description": "second frame back building"
             },{
                 "levelMap" : "locations/vhoa0_build_section_1.png",
                 "speed": 1,
-                "description": "second frame"
+                "description": "second frame back building"
             },{
                 "levelMap" : "locations/vhoa0_build_section_1.png",
                 "speed": 1,
-                "description": "second frame"
+                "description": "second frame back building"
             }
         ],
         "levelDetails" : {
