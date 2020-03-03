@@ -35,9 +35,7 @@ function levelInit(backgroundConstructor, ctx, mainGameObject){
             mapObject.levelMap, mapObject.speed, this.gameInitData.screen, ctx,
             (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
         );
-        //mapItem.img.onload = function(){
             mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
-        //}
         mapItem.img.src = location.origin + '/images/' + mapItem.backgroundTexture;
     }
 }
@@ -73,11 +71,9 @@ function changeLevelProcedure(){
 
 }
 function levelTimer(){
-        // set timer
-        // when timer goes out > change level
         let data = this.getLevelUserData()
         let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
-        if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails );
+        if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails,  );
 
         function levelTimeAction(time){
             if(time.levelSeconds <= 0){
@@ -92,18 +88,20 @@ function levelTimer(){
         }
 }
 function getSecondMeasure(callback, ...data){
-    this.gameInitData.gemeExtraSeconds += 1;
+        this.gameInitData.gemeExtraSeconds += 1;
+
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
         this.gameInitData.gemeExtraSeconds = 0;
-        if(callback) callback.call(this, ...data);
+        console.log(gameSecond)
+        if(callback) return callback.call(this, ...data);
         return gameSecond;
     }
 }
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = dataSourse.levelData.levelDetails;
-    let gameSecond = this.getSecondMeasure();
+    //let gameSecond = this.getSecondMeasure();
     return {
         sourse: dataSourse,
         currentLevel: dataSourse.currentLevel,

@@ -81,6 +81,7 @@ async function gameDataInit(){
             allGameBullets: [],
             allGameMapOBjects: [],
             mapBackgroundObjects: [],
+            warpObjects: [],
             levelChange: false,
             gamePause: false,
             gameUiPause: false,

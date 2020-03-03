@@ -3,30 +3,54 @@ var { gameMethods } = require('../engine/engineModules');
 var { playerShipModule } = require('../engine/playerShipModule');
 
 function updateMap(){
-    //this.img = this.img || new Image();
     let backgroundObject = this;
-
     this.x -= this.backgroundSpeed;
     if(this.x + this.screenData.width < 0){
         this.x = this.screenData.width;
     }
-    //this.img.onload = function() {
        viewModules.createImage(backgroundObject.ctx,
             backgroundObject.img, backgroundObject.x, 0,
             backgroundObject.screenData.width+2,
             backgroundObject.screenData.height)
-    //};
-
-    //this.img.src = this.img.src || location.origin + '/images/' + this.backgroundTexture;
 }
 
 function warpEffect(mainGameObject){
-    let random = mainGameObject.gameRandomizer(100)
-    mainGameObject.getSecondMeasure(a, random)
+    let screenSiz = mainGameObject.getScreenSize();
+    let gameWarpObjects = mainGameObject.gameInitData.warpObjects;
+    mainGameObject.getSecondMeasure(a, {background: this, ctx: this.ctx, screenSize: mainGameObject.getScreenSize()})
 
-    function a(data){
-        console.log(data)
+    mainGameObject.gameInitData.warpObjects = (gameWarpObjects.length < 350)? mainGameObject.gameInitData.warpObjects.concat({
+        x: screenSiz.width,
+        y: mainGameObject.gameRandomizer(screenSiz.height),
+        height: mainGameObject.gameRandomizer(20, 10),
+        width: 10,
+        speed: mainGameObject.gameRandomizer(10, 5),
+        background: (gameWarpObjects.length < 100)? getRandomColor()
+        :(gameWarpObjects.length < 200)? getRandomColor(): getRandomColor(),
+    }) : mainGameObject.gameInitData.warpObjects
+
+    if(gameWarpObjects.length > 0){
+        for(let warper of gameWarpObjects){
+            warper.x -= (warper.x > 0)? warper.speed: 0;
+            warper.width = (gameWarpObjects.length < 150)?  warper.width - warper.speed
+            :(gameWarpObjects.length > 150 && gameWarpObjects.length < 350)? warper.width + warper.speed: warper.width - warper.speed;
+
+            this.ctx.fillStyle = warper.background;
+            viewModules.draw(this.ctx, 'fillRect', warper.x, warper.y, warper.width, warper.height);
+            this.ctx.fill();
+        }
     }
+    function a(data){
+        if(data.background.timeToEressLevel >=0 ) data.background.timeToEressLevel -=1;
+    }
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
 }
 
 

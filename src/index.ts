@@ -53,13 +53,12 @@ var { bulletModule } = require('./constructors/bulletConstructor');
         }
         if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
             if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
-                
-                /*if(gameObject.gameInitData.ctx){
+                if(gameObject.gameInitData.ctx){
                     viewModules.clearField(
                         gameObject.gameInitData.ctx,
                         gameObject.gameInitData.screen.width,
                         gameObject.gameInitData.screen.height);
-                }*/
+                }/**/
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                         backgroundMap.updateMap();
                         if(gameObject.gameInitData.levelChange) backgroundMap.warpEffect(gameObject);

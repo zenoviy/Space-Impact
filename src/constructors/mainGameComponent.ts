@@ -22,6 +22,7 @@ interface gameData{
     allGameBullets: object[],
     allGameMapOBjects: object[],
     mapBackgroundObjects: object[],
+    warpObjects: object[];
     gamePause: boolean,
     gameUiPause: boolean,
     levelChange: boolean,

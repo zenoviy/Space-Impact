@@ -9,6 +9,8 @@ class GameBackground{
     screenData: any;
     ctx: any;
     img: any;
+    timeToEressLevel: any;
+    warpObjects: any[];
 
     updateMap: any;
     warpEffect: any;
@@ -17,7 +19,8 @@ class GameBackground{
         backgroundSpeed: number,
         screenData: any,
         ctx: any,
-        partOfScreenStatus: boolean
+        partOfScreenStatus: boolean,
+        timeToEressLevel: any
         ){
             this.backgroundTexture = backgroundTexture;
             this.backgroundSpeed = backgroundSpeed;
@@ -26,6 +29,8 @@ class GameBackground{
             this.x = (partOfScreenStatus)? 0 : screenData.width;
             this.y = 0;
             this.img = new Image();
+            this.timeToEressLevel = 4;
+            this.warpObjects = [];
         }
 
 }

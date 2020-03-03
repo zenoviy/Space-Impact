@@ -1,8 +1,8 @@
 var { viewModules } = require('../displayModules');
 
-function createWindow(){
+function createWindow(ctx, propertyes){
     let {width, height} = this.getScreenSize();
-    let uiCtx = this.gameInitData.ctxUIField;
+    ctx.fillRect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);;
 }
 interface Shapes{
     name: string,
