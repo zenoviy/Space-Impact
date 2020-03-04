@@ -7,12 +7,8 @@ var { enemies } = require('../../enemies/enemiesModules');
 var { viewModules } = require('../../view/displayModules');
 var { uiStateModules } = require('../../ui/gameUiModels/gameUiLoadMenu');
 
-async function gameDataInit(){
-    let gameField = document.querySelector('#gamefield'),
-        gameActionField = document.querySelector('#gameObjectsfield'),
-        gameUIfield = document.querySelector('#gameUifield');
 
-
+async function serverRequest(){
         let serverLocation = {
                 host: (document.location.hostname === "localhost")? "http://localhost:3000/" : "",
                 picturesDirection: location.origin + '/images/',
@@ -57,6 +53,24 @@ async function gameDataInit(){
             data: null,
             headers:{ 'ship-type-number': 1}
         })
+        return {
+            levelData: levelData,
+            gameSetings: gameSetings,
+            userData: userData,
+            enemyData: enemyData
+        }
+}
+async function gameDataInit(){
+    let gameField = document.querySelector('#gamefield'),
+        gameActionField = document.querySelector('#gameObjectsfield'),
+        gameUIfield = document.querySelector('#gameUifield');
+
+
+        let res = await serverRequest()
+        const levelData = res.levelData;
+        const gameSetings = res.gameSetings;
+        const userData = res.userData;
+        const enemyData = res.enemyData
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,
@@ -89,7 +103,7 @@ async function gameDataInit(){
             backScreenPause: true,
             gameStatus: false,
             gemeExtraSeconds: 0,
-        }, locations: serverLocation
+        }, locations: null
     }
 }
 async function gameEngine(gameDataInit){

@@ -92,7 +92,7 @@ function showGameStats(){
 function initUiElements(drawMethods, callback, ...props){
     let ctx = this.gameInitData.ctxUIField,
     screenSize = this.getScreenSize(),
-    picDirection = this.serverLocation.picturesDirection;
+    picDirection = this.showGameInfo().imageDirrection;
     let screenObjects = callback(null, ctx, screenSize.width, screenSize.height, picDirection, ...props);
     for(let itemIndex = 0;  itemIndex < screenObjects.length; itemIndex++){
         if(screenObjects[itemIndex].hasOwnProperty('loadPicture')) screenObjects[itemIndex].loadPicture();

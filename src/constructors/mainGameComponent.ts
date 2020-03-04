@@ -88,9 +88,9 @@ class Game {
     showPauseWindow: any;
     nextLevelDataReload: any;
     getRandomColor: any;
-    constructor(private gameInitData: gameData,private serverLocation: serverLocation){
+    constructor(private gameInitData: gameData){
         this.gameInitData = gameInitData;
-        this.serverLocation = serverLocation;
+        //this.serverLocation = serverLocation;
     }
     changeLevel(nextLevel: number){
         this.gameInitData.gameData.currentLevel = nextLevel;
@@ -98,8 +98,10 @@ class Game {
     }
     showGameInfo(){
         return {
-            currentLevel: this.gameInitData.gameData.currentLevel,
+            levelToChange: this.gameInitData.gameData.currentLevel,
             currentPoint: this.gameInitData.gameData.currentPoint,
+            gameData: this.gameInitData.gameData,
+            imageDirrection: location.origin + '/images/'
         }
     }
     showLevelData(){

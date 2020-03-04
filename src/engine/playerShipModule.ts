@@ -6,7 +6,7 @@ var { bulletModule } = require('../constructors/bulletConstructor');
 function initPlayerShip(mainGameObject: any){
     if(this.ctx){
         let image = this.data.texture,
-        imageLocation = mainGameObject.serverLocation.picturesDirection;
+        imageLocation = mainGameObject.showGameInfo().imageDirrection;
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){

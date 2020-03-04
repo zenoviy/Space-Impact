@@ -1,6 +1,38 @@
 async function nextLevelDataReload(levelData){
-    
-    console.log(levelData)
+    let nextLevel = levelData.gameData.currentLevel
+    let refreshLevel = {
+        ctx: null,
+        gameField:null, // (gameField)? gameField: null,
+        gameActionField : null, //(gameActionField)? gameActionField: null,
+        gameUIField : null, //(gameUIfield)? gameUIfield: null,
+        gameData:{
+            currentLevel: 1,
+            currentPoint: 0,
+            playerObject: null, // new playerModules.PlayerShip(userData, 0, 300, 5, 100, 100, userData.size.width, userData.size.height),
+            levelData: levelData,
+            gameSetings: null,//gameSetings,
+            enemyData: null, // enemyData,
+            controllers: null
+        },
+        screen:{
+            width: window.innerWidth,
+            height: window.innerHeight
+        },
+        intervalCount: 20,
+        enemyType: null,
+        allGameEnemies: [],
+        allGameBullets: [],
+        allGameMapOBjects: [],
+        mapBackgroundObjects: [],
+        warpObjects: [],
+        levelChange: false,
+        gamePause: false,
+        gameUiPause: false,
+        backScreenPause: true,
+        gameStatus: false,
+        gemeExtraSeconds: 0,
+    }
+    console.log(levelData, " <||> ")
 }
 
 

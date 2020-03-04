@@ -25,10 +25,10 @@ function warpEffect(){
     let screenSiz = this.getScreenSize();
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
-    let seconds = this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
+    this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
 
-    console.log(ctx, gameWarpObjects)
-    alert(1)
+    //console.log(ctx, gameWarpObjects)
+    //alert(1)
     this.gameInitData.warpObjects = (gameWarpObjects.length < 350)? this.gameInitData.warpObjects.concat({
         x: screenSiz.width,
         y: this.gameRandomizer(screenSiz.height),
@@ -49,8 +49,13 @@ function warpEffect(){
             ctx.fill();
         }
     }
-    function warpTimer(timeToEressLevel){
-        if(timeToEressLevel >=0 ) timeToEressLevel -=1;
+    function warpTimer(levelData){
+        //if(levelData.timeToEressLevel >=0 ) levelData.timeToEressLevel -=1;
+        //console.log(levelData, this)
+        let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
+        if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
+        if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus) this.changeLevelProcedure();
+
     }
 }
 
@@ -66,7 +71,7 @@ function levelInit(backgroundConstructor, ctx, mainGameObject){
             (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
         );
             mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
-        mapItem.img.src = location.origin + '/images/' + mapItem.backgroundTexture;
+        mapItem.img.src = this.showGameInfo().imageDirrection + mapItem.backgroundTexture;
     }
 }
 
@@ -89,10 +94,10 @@ function changeLevelProcedure(){
     // animation for warp, http request for level and enemyes, 10 levels must be
     // some levels must contain boss at least 2 boss
     // last level is final titles the end save score
-    let levelData = this.showLevelData();
+    let levelData = this.showGameInfo();
 
-    let level = this.changeLevel(levelData.level + 1)
-    if(level <= levelData.allLevels){
+    let level = this.changeLevel(levelData.gameData.currentLevel + 1)
+    if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
         alert("Win Game Screen ")
@@ -109,7 +114,7 @@ function levelTimer(){
                 if(time.levelMinutes == 0 && time.levelSeconds == 0){
                     time.levelSeconds = 0;
                     this.gameInitData.levelChange = true;
-                    this.changeLevelProcedure()
+                    //this.changeLevelProcedure()
                 }
             }
             time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
