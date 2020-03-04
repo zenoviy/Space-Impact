@@ -21,14 +21,12 @@ function setGameFields(){
 }
 
 function warpEffect(){
-    // Animation 
+    // Animation
     let screenSiz = this.getScreenSize();
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
     this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
 
-    //console.log(ctx, gameWarpObjects)
-    //alert(1)
     this.gameInitData.warpObjects = (gameWarpObjects.length < 350)? this.gameInitData.warpObjects.concat({
         x: screenSiz.width,
         y: this.gameRandomizer(screenSiz.height),
@@ -70,7 +68,7 @@ function levelInit(backgroundConstructor, ctx, mainGameObject){
             mapObject.levelMap, mapObject.speed, this.gameInitData.screen, ctx,
             (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
         );
-            mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
+        mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
         mapItem.img.src = this.showGameInfo().imageDirrection + mapItem.backgroundTexture;
     }
 }
@@ -110,12 +108,13 @@ function levelTimer(){
 
         function levelTimeAction(time){
             if(time.levelSeconds <= 0){
-                time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes-1 : 0;
+
                 if(time.levelMinutes == 0 && time.levelSeconds == 0){
                     time.levelSeconds = 0;
                     this.gameInitData.levelChange = true;
                     //this.changeLevelProcedure()
                 }
+                time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes-1 :0;
             }
             time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
         }

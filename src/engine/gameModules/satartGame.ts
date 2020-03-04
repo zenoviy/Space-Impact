@@ -8,7 +8,7 @@ var { viewModules } = require('../../view/displayModules');
 var { uiStateModules } = require('../../ui/gameUiModels/gameUiLoadMenu');
 
 
-async function serverRequest(){
+async function serverRequest(gameInformation){
         let serverLocation = {
                 host: (document.location.hostname === "localhost")? "http://localhost:3000/" : "",
                 picturesDirection: location.origin + '/images/',
@@ -33,7 +33,7 @@ async function serverRequest(){
             url: serverLocation.host + serverLocation.levelData.url,
             method: serverLocation.levelData.method,
             data: null,
-            headers:{ 'maplevel': 1}
+            headers:{ 'maplevel': gameInformation.level}
         })
         const gameSetings = await serverModules.getData({
             url: serverLocation.host + serverLocation.gameSetings.url,
@@ -45,13 +45,13 @@ async function serverRequest(){
             url: serverLocation.host + serverLocation.userShip.url,
             method: serverLocation.userShip.method,
             data: null,
-            headers:{ 'usership': 1}
+            headers:{ 'usership': gameInformation.shipConfiguration}
         })
         const enemyData = await serverModules.getData({
             url: serverLocation.host + serverLocation.enemylData.url,
             method: serverLocation.enemylData.method,
             data: null,
-            headers:{ 'ship-type-number': 1}
+            headers:{ 'ship-type-number': gameInformation.enemyType}
         })
         return {
             levelData: levelData,
@@ -66,7 +66,7 @@ async function gameDataInit(){
         gameUIfield = document.querySelector('#gameUifield');
 
 
-        let res = await serverRequest()
+        let res = await serverRequest({level: 1,  shipConfiguration: 1, enemyType: 1})
         const levelData = res.levelData;
         const gameSetings = res.gameSetings;
         const userData = res.userData;
@@ -96,7 +96,7 @@ async function gameDataInit(){
             allGameMapOBjects: [],
             mapBackgroundObjects: [],
             warpObjects: [],
-            timeToEressLevel: 4,
+            timeToEressLevel: 6,
             levelChange: false,
             gamePause: false,
             gameUiPause: false,
@@ -107,7 +107,7 @@ async function gameDataInit(){
     }
 }
 async function gameEngine(gameDataInit){
-     
+
 }
 function gameStart(){
     this.gameInitData.gameStatus = true;
@@ -124,6 +124,7 @@ async function backToStartScreen(){
 
 module.exports.startGameModules = {
     gameDataInit: gameDataInit,
+    serverRequest: serverRequest,
     gameEngine: gameEngine,
     gameStart: gameStart,
     backToStartScreen: backToStartScreen

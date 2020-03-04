@@ -48,13 +48,21 @@
         }
     },{
         "level" : 2,
-        "enemyType" : [1, 2],
-        "enemyProbability" : 400,
+        "enemyType" : [1],
+        "enemyProbability" : 900,
         "enemyMaxNumber": 4,
-        "enemyRandomizerIndex": 50,
+        "enemyRandomizerIndex": 5,
         "otherObjects" : [],
         "levelMap" : "canyon.png",
-        "levelBackgroundElements" : [],
+        "levelBackgroundElements" : [ {
+            "levelMap" : "locations/canyon.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/canyon.png",
+            "speed": 0.2,
+            "description": "second frame"
+        }],
         "levelDetails" : {
             "levelMinutes": 3,
             "levelSeconds": 43
