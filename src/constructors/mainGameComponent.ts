@@ -23,6 +23,7 @@ interface gameData{
     allGameMapOBjects: object[],
     mapBackgroundObjects: object[],
     warpObjects: object[];
+    timeToEressLevel: number;
     gamePause: boolean,
     gameUiPause: boolean,
     levelChange: boolean,
@@ -60,7 +61,7 @@ class Game {
     initPlayerShip: any;
     setGameFields: any;
     levelInit: any;
-    levelMapCreate: any;
+    warpEffect: any;
     createContext: any;
     getScreenSize: any;
     getLevelUserData: any;
@@ -86,6 +87,7 @@ class Game {
     backToStartScreen: any;
     showPauseWindow: any;
     nextLevelDataReload: any;
+    getRandomColor: any;
     constructor(private gameInitData: gameData,private serverLocation: serverLocation){
         this.gameInitData = gameInitData;
         this.serverLocation = serverLocation;
@@ -126,7 +128,7 @@ Game.prototype.initField = gameMethods.initField;
 Game.prototype.levelInit = gameMethods.levelInit;           // createContext initPlayerShip
 
 Game.prototype.setGameFields = gameMethods.setGameFields;
-Game.prototype.levelMapCreate = gameMethods.levelMapCreate;
+Game.prototype.warpEffect = gameMethods.warpEffect;  // warpEffect
 
 Game.prototype.getScreenSize = gameMethods.getScreenSize;
 Game.prototype.getLevelUserData = gameMethods.getLevelUserData;
@@ -159,6 +161,8 @@ Game.prototype.gameStart = startGameModules.gameStart;
 Game.prototype.backToStartScreen = startGameModules.backToStartScreen;
 Game.prototype.nextLevelDataReload = levelDataReload.nextLevelDataReload;
 Game.prototype.changeLevelProcedure = gameMethods.changeLevelProcedure;
+
+Game.prototype.getRandomColor = gameMethods.getRandomColor;
 
 module.exports.gameModule = {
     Game: Game,

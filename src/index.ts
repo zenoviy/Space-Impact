@@ -58,12 +58,12 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                         gameObject.gameInitData.ctx,
                         gameObject.gameInitData.screen.width,
                         gameObject.gameInitData.screen.height);
-                }/**/
+                }
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                         backgroundMap.updateMap();
-                        if(gameObject.gameInitData.levelChange) backgroundMap.warpEffect(gameObject);
                     }
                 }
+                if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
             }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus == true){

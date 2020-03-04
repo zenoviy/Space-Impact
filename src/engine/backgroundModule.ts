@@ -14,7 +14,7 @@ function updateMap(){
             backgroundObject.screenData.height)
 }
 
-function warpEffect(mainGameObject){
+/*function warpEffect(mainGameObject){
     let screenSiz = mainGameObject.getScreenSize();
     let gameWarpObjects = mainGameObject.gameInitData.warpObjects;
     mainGameObject.getSecondMeasure(a, {background: this, ctx: this.ctx, screenSize: mainGameObject.getScreenSize()})
@@ -25,9 +25,8 @@ function warpEffect(mainGameObject){
         height: mainGameObject.gameRandomizer(20, 10),
         width: 10,
         speed: mainGameObject.gameRandomizer(10, 5),
-        background: (gameWarpObjects.length < 100)? getRandomColor()
-        :(gameWarpObjects.length < 200)? getRandomColor(): getRandomColor(),
-    }) : mainGameObject.gameInitData.warpObjects
+        background:  mainGameObject.getRandomColor(),
+    }) : mainGameObject.gameInitData.warpObjects;
 
     if(gameWarpObjects.length > 0){
         for(let warper of gameWarpObjects){
@@ -43,18 +42,10 @@ function warpEffect(mainGameObject){
     function a(data){
         if(data.background.timeToEressLevel >=0 ) data.background.timeToEressLevel -=1;
     }
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-          color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-      }
-}
+}*/
 
 
 module.exports.backgroundMapModule = {
     updateMap: updateMap,
-    warpEffect: warpEffect
+    //warpEffect: warpEffect
 }

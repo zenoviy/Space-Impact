@@ -20,8 +20,38 @@ function setGameFields(){
     this.initPlayerShip();
 }
 
-function levelMapCreate(){
+function warpEffect(){
+    // Animation 
+    let screenSiz = this.getScreenSize();
+    let ctx = this.gameInitData.ctx;
+    let gameWarpObjects = this.gameInitData.warpObjects;
+    let seconds = this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
 
+    console.log(ctx, gameWarpObjects)
+    alert(1)
+    this.gameInitData.warpObjects = (gameWarpObjects.length < 350)? this.gameInitData.warpObjects.concat({
+        x: screenSiz.width,
+        y: this.gameRandomizer(screenSiz.height),
+        height: this.gameRandomizer(20, 10),
+        width: 10,
+        speed: this.gameRandomizer(10, 5),
+        background:  this.getRandomColor(),
+    }) : this.gameInitData.warpObjects;
+
+    if(gameWarpObjects.length > 0){
+        for(let warper of gameWarpObjects){
+            warper.x -= (warper.x > 0)? warper.speed: 0;
+            warper.width = (gameWarpObjects.length < 150)?  warper.width - warper.speed
+            :(gameWarpObjects.length > 150 && gameWarpObjects.length < 350)? warper.width + warper.speed: warper.width - warper.speed;
+
+            ctx.fillStyle = warper.background;
+            viewModules.draw(ctx, 'fillRect', warper.x, warper.y, warper.width, warper.height);
+            ctx.fill();
+        }
+    }
+    function warpTimer(timeToEressLevel){
+        if(timeToEressLevel >=0 ) timeToEressLevel -=1;
+    }
 }
 
 function levelInit(backgroundConstructor, ctx, mainGameObject){
@@ -62,13 +92,11 @@ function changeLevelProcedure(){
     let levelData = this.showLevelData();
 
     let level = this.changeLevel(levelData.level + 1)
- //   console.log(levelData)
     if(level <= levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
         alert("Win Game Screen ")
     }
-
 }
 function levelTimer(){
         let data = this.getLevelUserData()
@@ -93,7 +121,6 @@ function getSecondMeasure(callback, ...data){
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
         this.gameInitData.gemeExtraSeconds = 0;
-        console.log(gameSecond)
         if(callback) return callback.call(this, ...data);
         return gameSecond;
     }
@@ -101,7 +128,6 @@ function getSecondMeasure(callback, ...data){
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = dataSourse.levelData.levelDetails;
-    //let gameSecond = this.getSecondMeasure();
     return {
         sourse: dataSourse,
         currentLevel: dataSourse.currentLevel,
@@ -140,13 +166,23 @@ function getObjectPosition(){
     return position
 }
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
 module.exports.gameMethods = {
     initField: initField,
-    levelMapCreate: levelMapCreate,
+    warpEffect: warpEffect,
     setGameFields: setGameFields,
     levelInit: levelInit,
     createContext: createContext,
     getScreenSize: getScreenSize,
+    getRandomColor: getRandomColor,
     getLevelUserData: getLevelUserData,
     changeLevelProcedure: changeLevelProcedure,
     levelTimer: levelTimer,
