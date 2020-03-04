@@ -11,7 +11,9 @@ function createBullets(mainGameObject){
         width: this.width,
         height: this.height,
         radius: 5,
-        type: this.type
+        type: this.type,
+        img: this.img,
+        sx: this.sx, sy: this.sy, sWidth: this.sWidth, sHeight: this.sHeight
     })
 }
 function initBullets(){

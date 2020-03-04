@@ -35,9 +35,13 @@ function shoot(bulletConstructor, mainGameObject){
                item.name, item.color,
                "enemy", item.speed + this.enemySpeed,
                item.width, item.height,
-               item.damage, item.type
+               item.damage, item.type, item.texture,
+               item.sx, item.sy, item.sWidth, item.sHeight
                );
-           mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+               bullet.img.src = bullet.texture;
+               bullet.img.onload = () => {
+                   mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+               }
        }
     }
 }

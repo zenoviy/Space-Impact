@@ -9,35 +9,35 @@
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
-                "levelMap" : "locations/vhoa0.png",
+                "levelMap" : "locations/night city/vhoa0.png",
                 "speed": 0.2,
                 "description": "first frame"
             },{
-                "levelMap" : "locations/vhoa0.png",
+                "levelMap" : "locations/night city/vhoa0.png",
                 "speed": 0.2,
                 "description": "second frame"
             },{
-                "levelMap" : "locations/mountains.png",
+                "levelMap" : "locations/night city/mountains.png",
                 "speed": 0.3,
                 "description": "first frame"
             },{
-                "levelMap" : "locations/mountains.png",
+                "levelMap" : "locations/night city/mountains.png",
                 "speed": 0.3,
                 "description": "second frame"
             },{
-                "levelMap" : "locations/vhoa0_build_section_2.png",
+                "levelMap" : "locations/night city/vhoa0_build_section_2.png",
                 "speed": 0.5,
                 "description": "second frame back building"
             },{
-                "levelMap" : "locations/vhoa0_build_section_2.png",
+                "levelMap" : "locations/night city/vhoa0_build_section_2.png",
                 "speed": 0.5,
                 "description": "second frame back building"
             },{
-                "levelMap" : "locations/vhoa0_build_section_1.png",
+                "levelMap" : "locations/night city/vhoa0_build_section_1.png",
                 "speed": 1,
                 "description": "second frame back building"
             },{
-                "levelMap" : "locations/vhoa0_build_section_1.png",
+                "levelMap" : "locations/night city/vhoa0_build_section_1.png",
                 "speed": 1,
                 "description": "second frame back building"
             }
@@ -55,27 +55,83 @@
         "otherObjects" : [],
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
-            "levelMap" : "locations/canyon.png",
+            "levelMap" : "locations/canyon/canyon.png",
             "speed": 0.2,
             "description": "first frame"
         },{
-            "levelMap" : "locations/canyon.png",
+            "levelMap" : "locations/canyon/canyon.png",
             "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_mountain.png",
+            "speed": 0.3,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_mountain.png",
+            "speed": 0.3,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_2nd_mountain.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_2nd_mountain.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_3nd_mountain.png",
+            "speed": 0.7,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_3nd_mountain.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_4nd_mountain.png",
+            "speed": 0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_4nd_mountain.png",
+            "speed": 0.8,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_5nd_mountain.png",
+            "speed": 1.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_5nd_mountain.png",
+            "speed": 1.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_6nd_mountain.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/canyon/canyon_back_6nd_mountain.png",
+            "speed": 2,
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 3,
+            "levelMinutes": 0,
             "levelSeconds": 43
         }
     },{
-        "level" : 2,
-        "enemyType" : [1, 2, 3],
-        "enemyProbability" : 300,
-        "enemyMaxNumber": 4,
+        "level" : 3,
+        "enemyType" : [1],
+        "enemyProbability" : 650,
+        "enemyMaxNumber": 1,
         "enemyRandomizerIndex": 50,
         "otherObjects" : [],
         "levelMap" : "canyon.png",
-        "levelBackgroundElements" : [],
+        "levelBackgroundElements" : [{
+            "levelMap" : "locations/desert.jpg",
+            "speed": 0.3,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/desert.jpg",
+            "speed": 0.3,
+            "description": "second frame"
+        }],
         "levelDetails" : {
             "levelMinutes": 3,
             "levelSeconds": 43

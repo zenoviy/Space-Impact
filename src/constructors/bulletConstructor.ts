@@ -11,7 +11,8 @@ class BulletConstruct{
     width: number; height: number;
     damage: number;
     objectPresent: boolean;
-    type: number;
+    type: number; texture: string;
+    img: any; sx: number; sy: number; sWidth: number; sHeight: number;
 
     createBullets: any;
     initBullets: any;
@@ -25,7 +26,8 @@ class BulletConstruct{
         objectOwner: string,
         bulletSpeed: number,
         width: number, height: number,
-        damage: number, type: number
+        damage: number, type: number, texture: string,
+        sx: number, sy: number, sWidth: number, sHeight: number
     ){
         this.x = x; this.y = y;
         this.bulletType = bulletType;
@@ -37,6 +39,10 @@ class BulletConstruct{
         this.id = new Date().getTime();
         this.objectPresent = true;
         this.type = type;
+        this.img = new Image();
+        this.texture = location.origin + '/images/' +  texture;
+        this.sx = sx, this.sy = sy, this.sWidth = sWidth, this.sHeight = sHeight
+
     }
 }
 

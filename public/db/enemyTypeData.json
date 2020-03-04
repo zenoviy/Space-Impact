@@ -23,10 +23,14 @@
             "guns":[
                 {
                     "name": "blaster",
+                    "texture": "misc/bullets/red-laser.png",
                     "type": 1,
                     "fireRepead": 3,
                     "speed": 6,
-                    "texture": null,
+                    "sx": 0,
+                    "sy": 20,
+                    "sWidth": 305,
+                    "sHeight": 80,
                     "color": "rgba(255, 0, 0, 1)",
                     "width": 40,
                     "height": 6,
@@ -34,10 +38,14 @@
                     "firePosition": 5
                 }, {
                     "name": "blaster",
+                    "texture": "misc/bullets/red-laser.png",
                     "type": 1,
                     "fireRepead": 3,
                     "speed": 6,
-                    "texture": null,
+                    "sx": 0,
+                    "sy": 20,
+                    "sWidth": 305,
+                    "sHeight": 80,
                     "color": "rgba(255, 0, 0, 1)",
                     "width": 60,
                     "height": 6,

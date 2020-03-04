@@ -51,20 +51,7 @@ var { bulletModule } = require('./constructors/bulletConstructor');
         if(gameObject.gameInitData.backScreenPause){
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
-        if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
-            if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
-                if(gameObject.gameInitData.ctx){
-                    viewModules.clearField(
-                        gameObject.gameInitData.ctx,
-                        gameObject.gameInitData.screen.width,
-                        gameObject.gameInitData.screen.height);
-                }
-                for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                        backgroundMap.updateMap();
-                    }
-                }
-                if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
-            }
+        
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus == true){
                 if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject);
@@ -94,6 +81,20 @@ var { bulletModule } = require('./constructors/bulletConstructor');
             //     gameObject.showStartWindow()
             }
 
+        }
+        if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+            if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+                if(gameObject.gameInitData.ctx){
+                    viewModules.clearField(
+                        gameObject.gameInitData.ctx,
+                        gameObject.gameInitData.screen.width,
+                        gameObject.gameInitData.screen.height);
+                }
+                for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
+                        backgroundMap.updateMap();
+                }
+            }
+                if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
         }
 
         ///   game UI load

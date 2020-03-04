@@ -112,7 +112,6 @@ function levelTimer(){
                 if(time.levelMinutes == 0 && time.levelSeconds == 0){
                     time.levelSeconds = 0;
                     this.gameInitData.levelChange = true;
-                    //this.changeLevelProcedure()
                 }
                 time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes-1 :0;
             }
