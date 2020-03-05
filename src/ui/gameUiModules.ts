@@ -1,10 +1,10 @@
-var { viewModules } = require('../view/displayModules');
-var { uiStateModules } = require('./gameUiModels/gameUiLoadMenu');
-var { uiSettingsMenu } = require('./gameUiModels/gameUiSettingsMenu');
-var { gamePauseModule } = require('./gameUiModels/gamePauseScreen');
-var { gameStatsScreens } = require('./gameUiModels/gameStatsScreen');
-var { uiElements } = require('../view/elements/uiElementModules');
-var { enemiesModel } = require('../enemies/enemiesModules');
+import { createWindow, createShapeRoundBorder } from '../view/displayModules';
+import { gameLoadMenu } from './gameUiModels/gameUiLoadMenu';
+import { gameSettingsMenu } from './gameUiModels/gameUiSettingsMenu';
+import { gamePause } from './gameUiModels/gamePauseScreen';
+import { gameInformationScreen } from './gameUiModels/gameStatsScreen';
+import { uiImage, uiText } from '../view/elements/uiElementModules';
+import { hitDetection } from '../enemies/enemiesModules';
 
 
 function gameUiPause(){
@@ -32,14 +32,14 @@ function uiController(){
             let ctx = this.gameInitData.ctxUIField,
             screenSize = this.getScreenSize();
             if(this.gameInitData.gameStatus == false){
-                elementsOnScreen = uiStateModules.gameLoadMenu(null, ctx, screenSize.width, screenSize.height);
+                elementsOnScreen = gameLoadMenu(null, ctx, screenSize.width, screenSize.height, null);
             }
             if(this.gameInitData.gameUiPause){
-                elementsOnScreen = uiSettingsMenu.gameSettingsMenu(null, ctx, screenSize.width, screenSize.height);
+                elementsOnScreen = gameSettingsMenu(null, ctx, screenSize.width, screenSize.height);
             }
             for(let item in elementsOnScreen){
-                let res = enemiesModel.hitDetection(elementsOnScreen[item],
-                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"})  )
+                let res = hitDetection(elementsOnScreen[item],
+                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}), this)
                 if(res && elementsOnScreen[item].action){
 
                     elementsOnScreen[item].action.call(this);
@@ -50,43 +50,42 @@ function uiController(){
     })
 }
 function showUiPopupWindow(){
-    viewModules.createWindow.call(this)
+    createWindow.call(this)
 }
 function showStartWindow(){
    let drawMethods = [
-        viewModules.createShapeRoundBorder,
-        uiElements.uiImage,
-        uiElements.uiText,
-        uiElements.uiText,
-        uiElements.uiText
+        createShapeRoundBorder,
+        uiImage,
+        uiText,
+        uiText,
+        uiText
     ];
-    this.initUiElements(drawMethods, uiStateModules.gameLoadMenu)
+    this.initUiElements(drawMethods, gameLoadMenu)
 }
 function showMenuWindow(){
     let drawMethods = [
-        viewModules.createShapeRoundBorder,
-        viewModules.createShapeRoundBorder,
-        uiElements.uiText,
-        uiElements.uiText
+        createShapeRoundBorder,
+        createShapeRoundBorder,
+        uiText,
+        uiText
     ];
-    this.initUiElements(drawMethods, uiSettingsMenu.gameSettingsMenu)
+    this.initUiElements(drawMethods, gameSettingsMenu)
 }
 function showPauseWindow(){
     let drawMethods = [
-        uiElements.uiText
+        uiText
     ];
-    this.initUiElements(drawMethods, gamePauseModule.gamePause)
+    this.initUiElements(drawMethods, gamePause)
 }
 function showGameStats(){
     let data = this.getLevelUserData();
-    //console.log(data)
     let drawMethods = [
-        uiElements.uiImage,
-        uiElements.uiText,
-        uiElements.uiText,
-        uiElements.uiText
+        uiImage,
+        uiText,
+        uiText,
+        uiText
     ];
-    this.initUiElements(drawMethods, gameStatsScreens.gameInformationScreen, data)
+    this.initUiElements(drawMethods, gameInformationScreen, data)
 }
 
 function initUiElements(drawMethods, callback, ...props){
@@ -100,14 +99,14 @@ function initUiElements(drawMethods, callback, ...props){
     }
 }
 
-module.exports.uiModules = {
-    gameUiPause: gameUiPause,
-    gameUiMenu: gameUiMenu,
-    uiController: uiController,
-    showUiPopupWindow: showUiPopupWindow,
-    showStartWindow: showStartWindow,
-    showMenuWindow: showMenuWindow,
-    showPauseWindow: showPauseWindow,
-    showGameStats: showGameStats,
-    initUiElements: initUiElements
+export {
+    gameUiPause,
+    gameUiMenu,
+    uiController,
+    showUiPopupWindow,
+    showStartWindow,
+    showMenuWindow,
+    showPauseWindow,
+    showGameStats,
+    initUiElements
 }

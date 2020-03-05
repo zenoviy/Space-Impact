@@ -1,5 +1,5 @@
 //  points   life, time to ends, level
-var { uiModelsMethods } = require('./uiModelMethods');
+import { init, getUIObjectPosition } from './uiModelMethods';
 
 function gameInformationScreen(extra: any, ctx: any, width: number, height: number, pictureDirrection: any, info: any){
     return [
@@ -34,7 +34,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                     callback(data)
                 }
             },
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "level",
             text: `Current Level ${info.currentLevel}/${info.allLevels} `,
@@ -51,8 +51,8 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Time to end f level",
             text: `Time to end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >=0)? '': 0}${info.seconds}`,
@@ -69,8 +69,8 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Game points",
             text: info.points,
@@ -87,13 +87,13 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }
 
     ]
 }
 
-module.exports.gameStatsScreens = {
-    gameInformationScreen: gameInformationScreen
+export {
+    gameInformationScreen
 }

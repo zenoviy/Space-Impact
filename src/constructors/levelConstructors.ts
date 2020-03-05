@@ -1,7 +1,7 @@
-var { viewModules } = require('../view/displayModules');
-var { gameMethods } = require('../engine/engineModules');
-var { playerShipModule } = require('../engine/playerShipModule');
-var { backgroundMapModule } = require('../engine/backgroundModule');
+//import { viewModules } from '../view/displayModules';
+import { warpEffect } from '../engine/engineModules';
+//import { playerShipModule } from '../engine/playerShipModule';
+import { updateMap } from '../engine/backgroundModule';
 
 class GameBackground{
     x: number = 0; y: number = 0;
@@ -34,10 +34,10 @@ class GameBackground{
         }
 
 }
-GameBackground.prototype.updateMap = backgroundMapModule.updateMap;
-GameBackground.prototype.warpEffect = backgroundMapModule.warpEffect;
+GameBackground.prototype.updateMap = updateMap;
+GameBackground.prototype.warpEffect = warpEffect;
 
 
-module.exports.levelConstructor = {
-    GameBackground: GameBackground
+export {  // levelConstructor
+    GameBackground
 }

@@ -6,6 +6,6 @@ function warpElement(){
     gradient.addColorStop("1.0", "red");
 }
 
-module.exports.warpModule = {
-    warpElement: warpElement
+export {
+    warpElement
 }

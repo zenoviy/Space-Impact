@@ -1,6 +1,8 @@
-var { sideObjectsConstructor } = require('../constructors/gameSideObjectConstructor');
+//import { SideObject } from '../constructors/gameSideObjectConstructor';
+//import * as cons from '../constructors';
 
-function explosionFire(targetData, mainGameObject, hitObject ){
+//console.log(cons)
+function explosionFire(targetData, mainGameObject, hitObject, SideObject){
     //console.log(targetData, mainGameObject, hitObject)
     let explosionData = {
         x: targetData.x,
@@ -16,21 +18,16 @@ function explosionFire(targetData, mainGameObject, hitObject ){
         numberOfItems: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
         texture: targetData.explosion.texture
     }
-    let sideObject = new sideObjectsConstructor.SideObject({...explosionData});
+    let sideObject = new SideObject({...explosionData});
     sideObject.img.src = sideObject.texture;
     sideObject.img.onload = () => {
         mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
     }
     console.log(mainGameObject.gameInitData.allGameSideObjects)
 }
-function fireAnimationEnded( allGameSideObjects ){
-    //this.enemyAnimation(this.animationState)
-    //if(this.sx >= this.picturesWidth){
-      //  this.animationState = false;
-    //}
-}
+var test = "test";
 
-module.exports.sideObjectsModules = {
-    explosionFire: explosionFire,
-    fireAnimationEnded: fireAnimationEnded
+export {
+    explosionFire,
+    test
 }

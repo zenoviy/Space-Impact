@@ -1,4 +1,4 @@
-var { uiModelsMethods } = require('./uiModelMethods');
+import { init, getUIObjectPosition } from './uiModelMethods';
 
 function gamePause(data: any,ctx: any, width: number, height: number, pictureDirrection: any){
     return data || [
@@ -18,12 +18,12 @@ function gamePause(data: any,ctx: any, width: number, height: number, pictureDir
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: 45,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }
     ]
 }
 
-module.exports.gamePauseModule = {
-    gamePause: gamePause
+export {
+    gamePause
 }

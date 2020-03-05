@@ -1,4 +1,5 @@
-var { uiModelsMethods } = require('./uiModelMethods');
+
+import { init, getUIObjectPosition } from './uiModelMethods';
 
 function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
     return data || [
@@ -18,8 +19,8 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: 5,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Button end game",
             text: "",
@@ -39,8 +40,8 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             action(){
                 this.backToStartScreen.call(this)
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "textin button",
             text: "go to start",
@@ -57,8 +58,8 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 borderColor: '#007BD1',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Main game menu name",
             text: "Menu",
@@ -75,12 +76,12 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }
     ]
 }
 
-module.exports.uiSettingsMenu = {
-    gameSettingsMenu: gameSettingsMenu
+export {
+    gameSettingsMenu
 }

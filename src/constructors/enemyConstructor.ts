@@ -1,6 +1,18 @@
-var { enemiesModel } = require('../enemies/enemiesModules');
-var { gameMethods } = require('../engine/engineModules');
+import { placeEnemyes, moveEnemyes, loadEnemyes, shoot, enemyAnimation, takeDamage } from '../enemies/enemiesModules';
+import { getObjectPosition } from '../engine/engineModules';
 
+
+interface explosionAnimation{
+    texture: string,
+    imageWidth: number,
+    imageHeight: number,
+    animationSteps: number,
+    numberOfItems: number,
+    sx: number,
+    sy: number,
+    width: number,
+    height: number
+}
 interface enemyGuns{
     name: string,
     fireRepead: number,
@@ -68,15 +80,15 @@ class EnemyObject {
     }
 }
 
-EnemyObject.prototype.placeEnemyes = enemiesModel.placeEnemyes;
-EnemyObject.prototype.moveEnemyes = enemiesModel.moveEnemyes;
-EnemyObject.prototype.loadEnemyes = enemiesModel.loadEnemyes;
-EnemyObject.prototype.shoot = enemiesModel.shoot;
-EnemyObject.prototype.enemyAnimation = enemiesModel.enemyAnimation;
-EnemyObject.prototype.getObjectPosition = gameMethods.getObjectPosition;
+EnemyObject.prototype.placeEnemyes = placeEnemyes;
+EnemyObject.prototype.moveEnemyes = moveEnemyes;
+EnemyObject.prototype.loadEnemyes = loadEnemyes;
+EnemyObject.prototype.shoot = shoot;
+EnemyObject.prototype.enemyAnimation = enemyAnimation;
+EnemyObject.prototype.getObjectPosition = getObjectPosition;
 
-EnemyObject.prototype.takeDamage = enemiesModel.takeDamage;
+EnemyObject.prototype.takeDamage = takeDamage;
 
-module.exports.objectConstructor = {
-    EnemyObject: EnemyObject,
+export {       // objectConstructor
+    EnemyObject
 };

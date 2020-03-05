@@ -1,4 +1,5 @@
-var { uiModelsMethods } = require('./uiModelMethods');
+import { init, getUIObjectPosition } from './uiModelMethods';
+
 function gameLoadMenu(data: any,ctx: any, width: number, height: number, pictureDirrection: any){
     return data || [
         {
@@ -20,8 +21,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             action(){
                 this.gameStart()
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Logotype",
             text: "",
@@ -42,8 +43,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             loadPicture(){
                 this.propertyes.background.src = pictureDirrection + 'misc/logo-half-white_1.png';
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Game name",
             text: "Space",
@@ -60,8 +61,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Game name",
             text: "Attack",
@@ -78,8 +79,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Start button",
             text: "Press Start to begin",
@@ -96,14 +97,14 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 borderColor: '#007BD1',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         },
 
     ]
 }
 
 
-module.exports.uiStateModules = {
-    gameLoadMenu: gameLoadMenu
+export {
+    gameLoadMenu
 }

@@ -1,5 +1,5 @@
-var { viewModules } = require('../view/displayModules');
-var { levelConstructor } = require('../constructors/levelConstructors');
+import { draw } from '../view/displayModules';
+//import { levelConstructor } from '../constructors/levelConstructors';
 
 
 function initField(screenWidth = window.innerWidth, screenHeight = window.innerHeight){
@@ -8,7 +8,7 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
         this.gameInitData.gameActionField,
         this.gameInitData.gameUIField
         )
-    if(!gameField) throw Error(ERROR_LIST.noObject);
+    if(!gameField) throw Error('Error');
     for(let screen of gameField){
         screen = Object.assign(screen, {width: screenWidth-4, height: screenHeight-4})
     }
@@ -43,7 +43,7 @@ function warpEffect(){
             :(gameWarpObjects.length > 150 && gameWarpObjects.length < 350)? warper.width + warper.speed: warper.width - warper.speed;
 
             ctx.fillStyle = warper.background;
-            viewModules.draw(ctx, 'fillRect', warper.x, warper.y, warper.width, warper.height);
+            draw(ctx, 'fillRect', warper.x, warper.y, warper.width, warper.height);
             ctx.fill();
         }
     }
@@ -176,21 +176,29 @@ function getRandomColor() {
     }
     return color;
   }
+function fireAnimationEnded( allGameSideObjects ){
+    console.log('fire')
+    //this.enemyAnimation(this.animationState)
+    //if(this.sx >= this.picturesWidth){
+      //  this.animationState = false;
+    //}
+}
 
-module.exports.gameMethods = {
-    initField: initField,
-    warpEffect: warpEffect,
-    setGameFields: setGameFields,
-    levelInit: levelInit,
-    createContext: createContext,
-    getScreenSize: getScreenSize,
-    getRandomColor: getRandomColor,
-    getLevelUserData: getLevelUserData,
-    changeLevelProcedure: changeLevelProcedure,
-    levelTimer: levelTimer,
-    getSecondMeasure: getSecondMeasure,
-    deleteBullet: deleteBullet,
-    deleteObjects: deleteObjects,
-    getObjectPosition: getObjectPosition,
-    collectPoints: collectPoints
+export  {
+    initField,
+    warpEffect,
+    setGameFields,
+    levelInit,
+    createContext,
+    getScreenSize,
+    getRandomColor,
+    getLevelUserData,
+    changeLevelProcedure,
+    levelTimer,
+    getSecondMeasure,
+    deleteBullet,
+    deleteObjects,
+    getObjectPosition,
+    collectPoints,
+    fireAnimationEnded
 }

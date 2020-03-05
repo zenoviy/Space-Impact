@@ -1,7 +1,7 @@
-var { viewModules } = require('../view/displayModules');
+import { createLaserBullet } from '../view/displayModules';
 
 function createBullets(mainGameObject){
-    viewModules.createLaserBullet({
+    createLaserBullet({
         source: this,
         objectOwner: this.objectOwner,
         ctx: mainGameObject.gameInitData.ctxActionField,
@@ -20,15 +20,12 @@ function initBullets(){
 
 }
 function moveBullets(){
-    if(this.objectOwner == "player"){
-        this.x  += this.bulletSpeed;
-    }else{
-        this.x  -= this.bulletSpeed;
-    }
+    if(this.objectOwner == "player") this.x  += this.bulletSpeed;
+    else this.x  -= this.bulletSpeed;
 }
 
-module.exports.bulletsModule = {
-    createBullets: createBullets,
-    initBullets: initBullets,
-    moveBullets: moveBullets
+export {
+    createBullets,
+    initBullets,
+    moveBullets
 }

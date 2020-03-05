@@ -1,6 +1,8 @@
-var {ERROR_LIST} = require('../engine/appErrorListModule');
-var { uiWindowModules } = require('./window/displayUiWindowModules');
-var { weaponModules } = require('./weapons/weaponsDisplayModule');
+//import { ERROR_LIST } from '../engine/appErrorListModule';
+import { createWindow, createShapeRoundBorder } from './window/displayUiWindowModules';
+import { weapon1 } from './weapons/weaponsDisplayModule';
+
+
 
 
 function draw(context, element, ...property){
@@ -8,10 +10,9 @@ function draw(context, element, ...property){
 }
 
 function createLaserBullet(data){
-    
     if(!data.ctx) return new Error("no context");
-    if(data.objectOwner == "player" && data.type == 1) weaponModules.weapon1(data, draw);
-    if(data.objectOwner == "enemy" && data.type == 1) weaponModules.weapon1(data, draw);
+    if(data.objectOwner == "player" && data.type == 1) weapon1(data, draw);
+    if(data.objectOwner == "enemy" && data.type == 1) weapon1(data, draw);
 }
 
 function createImage(ctx, pictureName, ...props){
@@ -23,12 +24,11 @@ function clearField(ctx, width, height){
     draw(ctx, 'clearRect', 0, 0,  width, height);
 }
 
-module.exports.viewModules = {
-        clearField: clearField,
-        draw: draw,
-        createLaserBullet: createLaserBullet,
-        clear: clearField,
-        createImage: createImage,
-        createWindow: uiWindowModules.createWindow,
-        createShapeRoundBorder: uiWindowModules.createShapeRoundBorder
+export {
+        clearField,
+        draw,
+        createLaserBullet,
+        createImage,
+        createWindow,
+        createShapeRoundBorder
 }

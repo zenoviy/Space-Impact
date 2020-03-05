@@ -1,4 +1,4 @@
-var { viewModules } = require('../displayModules');
+//import { viewModules } from '../displayModules';
 
 function createWindow(ctx, propertyes){
     let {width, height} = this.getScreenSize();
@@ -61,7 +61,7 @@ function createShapeRoundBorder(shapePropertyes: Shapes){
 }
 
 
-module.exports.uiWindowModules = {
-    createWindow: createWindow,
-    createShapeRoundBorder: createShapeRoundBorder
+export {
+    createWindow,
+    createShapeRoundBorder
 }

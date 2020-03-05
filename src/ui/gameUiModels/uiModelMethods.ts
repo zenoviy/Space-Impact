@@ -12,7 +12,7 @@ function getUIObjectPosition(){
     }
 }
 
-module.exports.uiModelsMethods = {
-    init: init,
-    getUIObjectPosition: getUIObjectPosition
+export {
+    init,
+    getUIObjectPosition
 }
