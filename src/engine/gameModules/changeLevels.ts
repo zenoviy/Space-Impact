@@ -15,6 +15,7 @@ async function nextLevelDataReload(levelData){
             controllers: context.gameInitData.gameData.controllers
         },
         enemyType: null,
+        allGameSideObjects: [],
         allGameEnemies: [],
         allGameBullets: [],
         allGameMapOBjects: [],

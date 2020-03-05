@@ -1,6 +1,17 @@
 var { bulletsModule } = require('../engine/bulletsModule');
 var { gameMethods } = require('../engine/engineModules');
 var { enemiesModel } = require('../enemies/enemiesModules');
+interface explosionAnimation{
+    texture: string,
+    imageWidth: number,
+    imageHeight: number,
+    animationSteps: number,
+    numberOfItems: number,
+    sx: number,
+    sy: number,
+    width: number,
+    height: number
+}
 class BulletConstruct{
     id: number;
     x: number; y: number;
@@ -13,6 +24,7 @@ class BulletConstruct{
     objectPresent: boolean;
     type: number; texture: string;
     img: any; sx: number; sy: number; sWidth: number; sHeight: number;
+    explosion: explosionAnimation;
 
     createBullets: any;
     initBullets: any;
@@ -27,7 +39,7 @@ class BulletConstruct{
         bulletSpeed: number,
         width: number, height: number,
         damage: number, type: number, texture: string,
-        sx: number, sy: number, sWidth: number, sHeight: number
+        sx: number, sy: number, sWidth: number, sHeight: number, explosion: explosionAnimation
     ){
         this.x = x; this.y = y;
         this.bulletType = bulletType;
@@ -41,7 +53,8 @@ class BulletConstruct{
         this.type = type;
         this.img = new Image();
         this.texture = location.origin + '/images/' +  texture;
-        this.sx = sx, this.sy = sy, this.sWidth = sWidth, this.sHeight = sHeight
+        this.sx = sx; this.sy = sy; this.sWidth = sWidth; this.sHeight = sHeight;
+        this.explosion = explosion;
 
     }
 }

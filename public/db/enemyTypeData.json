@@ -24,6 +24,17 @@
                 {
                     "name": "blaster",
                     "texture": "misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 5,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50
+                    },
                     "type": 1,
                     "fireRepead": 3,
                     "speed": 6,
@@ -39,6 +50,17 @@
                 }, {
                     "name": "blaster",
                     "texture": "misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 5,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50
+                    },
                     "type": 1,
                     "fireRepead": 3,
                     "speed": 6,

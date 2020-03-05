@@ -91,6 +91,7 @@ async function gameDataInit(){
             },
             intervalCount: 20,
             enemyType: null,
+            allGameSideObjects: [],
             allGameEnemies: [],
             allGameBullets: [],
             allGameMapOBjects: [],

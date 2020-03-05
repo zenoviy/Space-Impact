@@ -54,7 +54,8 @@ function shipControl(mainGameObject: any){
                 "player", item.speed + this.xAdj,
                 item.width, item.height,
                 item.damage, item.type, item.texture,
-                item.sx, item.sy, item.sWidth, item.sHeight
+                item.sx, item.sy, item.sWidth, item.sHeight,
+                item.explosionAnimation
                 );
             bullet.img.src = bullet.texture;
             bullet.img.onload = () => {

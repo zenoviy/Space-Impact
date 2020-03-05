@@ -27,6 +27,7 @@ class EnemyObject {
     healthPoint: number; animationSteps: number;
     detectFrame: number; objectPresent: boolean;
     damage: number; guns: any; objectOwner: string;
+    explosion: explosionAnimation;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -63,7 +64,7 @@ class EnemyObject {
             this.detectFrame = 0;
             this.objectPresent = true;
             this.objectOwner = objectOwner;
-            this.guns = guns
+            this.guns = guns;
     }
 }
 

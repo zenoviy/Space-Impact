@@ -69,9 +69,15 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                     for(let enemy of gameObject.gameInitData.allGameEnemies){
                         enemy.placeEnemyes(gameObject);
                         enemy.moveEnemyes();
-                        enemy.enemyAnimation();
+                        enemy.enemyAnimation(true);
                         enemy.shoot(bulletModule.BulletConstruct, gameObject);
                         gameObject.deleteObjects(enemy);
+                    }
+                }
+                if(gameObject.gameInitData.allGameSideObjects.length > 0){
+                    for(let object of gameObject.gameInitData.allGameSideObjects){
+                        //object.placeEnemyes(gameObject);
+                        //object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
                     }
                 }
                 gameObject.levelTimer()
@@ -93,8 +99,8 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                         backgroundMap.updateMap();
                 }
+            if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
             }
-                if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
         }
 
         ///   game UI load

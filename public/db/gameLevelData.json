@@ -88,11 +88,11 @@
             "description": "second frame"
         },{
             "levelMap" : "locations/canyon/canyon_back_4nd_mountain.png",
-            "speed": 0.8,
+            "speed": 0.9,
             "description": "first frame"
         },{
             "levelMap" : "locations/canyon/canyon_back_4nd_mountain.png",
-            "speed": 0.8,
+            "speed": 0.9,
             "description": "second frame"
         },{
             "levelMap" : "locations/canyon/canyon_back_5nd_mountain.png",

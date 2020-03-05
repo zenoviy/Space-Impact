@@ -1,24 +1,21 @@
 var { viewModules } = require('../view/displayModules');
 var { bulletModule } = require('../constructors/bulletConstructor');
+var { sideObjectsModules } = require('../engine/gameSideObjectsModule');
 
 function placeEnemyes(mainGameObject){
     viewModules.createImage(
         mainGameObject.gameInitData.ctxActionField,
         this.img,
-        this.sx,
-        this.sy,
-        this.sWidth,
-        this.sHeight,
-        this.x,
-        this.y,
-        this.width,
-        this.height)
+        this.sx, this.sy,
+        this.sWidth, this.sHeight,
+        this.x, this.y,
+        this.width,this.height)
 }
 function moveEnemyes(moveX: number, moveY: number = 0){
     this.x -= this.enemySpeed;
     this.y -= moveY;
 }
-function loadEnemyes(){
+function loadEnemyes(){         ///  need replace  and remove
     this.img = new Image();
     this.img.src = this.shipTexture;
 }
@@ -36,7 +33,8 @@ function shoot(bulletConstructor, mainGameObject){
                "enemy", item.speed + this.enemySpeed,
                item.width, item.height,
                item.damage, item.type, item.texture,
-               item.sx, item.sy, item.sWidth, item.sHeight
+               item.sx, item.sy, item.sWidth, item.sHeight,
+               item.explosionAnimation
                );
                bullet.img.src = bullet.texture;
                bullet.img.onload = () => {
@@ -45,9 +43,9 @@ function shoot(bulletConstructor, mainGameObject){
        }
     }
 }
-function enemyAnimation(){
+function enemyAnimation(state = true){
     this.detectFrame += 1;
-    if(this.detectFrame % this.animationSteps == 0){
+    if(this.detectFrame % this.animationSteps == 0 && state){
         this.detectFrame = 0;
         this.sx += this.sWidth;
         if(this.sx >= this.picturesWidth){
@@ -56,10 +54,11 @@ function enemyAnimation(){
     }
 }
 // complex enemy animation for damage
-async function takeDamage(damage: number, hitObject, mainGameObject){
+function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"
     ){
+        sideObjectsModules.explosionFire(this, mainGameObject, hitObject)
         return this.objectPresent = false;
     }
 
@@ -69,9 +68,8 @@ async function takeDamage(damage: number, hitObject, mainGameObject){
         if(this.collisionAllow){
             unitDamage.call(this, mainGameObject.getLevelUserData())
         }
-    }else{
-        return false
-    }
+    }else return false
+
     function unitDamage(data){
         this.healthPoint -= damage;
         if(this.healthPoint <= 0){
