@@ -67,6 +67,6 @@ BulletConstruct.prototype.getObjectPosition = getObjectPosition;
 BulletConstruct.prototype.takeDamage = takeDamage;
 
 
-export {     // bulletModule
+export {
     BulletConstruct
 }

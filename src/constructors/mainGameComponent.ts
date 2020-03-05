@@ -1,4 +1,7 @@
 //import { viewModules } from '../view/displayModules';
+import { spawnEnemyLogic, createNewEnemy, gameRandomizer } from '../ai/regularEnemyAiModules';
+import  { hitDetection } from '../enemies/enemiesModules';
+import { nextLevelDataReload } from '../engine/gameModules/changeLevels';
 import {
     createContext,
     initField,
@@ -14,10 +17,7 @@ import {
     collectPoints,
     changeLevelProcedure,
     getRandomColor } from '../engine/engineModules';
-//import { initPlayerShip } from '../engine/playerShipModule';  // placePlayerShip
-import * as engine from '../engine';
-import { spawnEnemyLogic, createNewEnemy, gameRandomizer } from '../ai/regularEnemyAiModules';
-import { hitDetection } from '../enemies/enemiesModules';
+import { initPlayerShip } from '../engine/playerShipModule';
 import {
     uiController,
     gameUiPause,
@@ -29,9 +29,8 @@ import {
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
 import { gameStart, backToStartScreen } from '../engine/gameModules/satartGame';
-import { nextLevelDataReload } from '../engine/gameModules/changeLevels';
 
-console.log(engine)
+
 interface gameData{
     ctx: any,
     ctxActionField: any,
@@ -116,7 +115,6 @@ class Game {
     getRandomColor: any;
     constructor(gameInitData: any){
         this.gameInitData = gameInitData;
-        //this.serverLocation = serverLocation;
     }
     changeLevel(nextLevel: number){
         this.gameInitData.gameData.currentLevel = nextLevel;
@@ -163,7 +161,7 @@ Game.prototype.getLevelUserData = getLevelUserData;
 Game.prototype.levelTimer = levelTimer;
 Game.prototype.getSecondMeasure = getSecondMeasure;
 
-Game.prototype.initPlayerShip = engine.initPlayerShip;
+Game.prototype.initPlayerShip = initPlayerShip;
 //Game.prototype.placePlayerShip = placePlayerShip;
 
 Game.prototype.deleteBullet = deleteBullet;

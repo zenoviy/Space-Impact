@@ -1,4 +1,3 @@
-//import { ERROR_LIST } from '../engine/appErrorListModule';
 import { createWindow, createShapeRoundBorder } from './window/displayUiWindowModules';
 import { weapon1 } from './weapons/weaponsDisplayModule';
 

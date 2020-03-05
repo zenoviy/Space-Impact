@@ -1,5 +1,6 @@
 
 import { init, getUIObjectPosition } from './uiModelMethods';
+import * as constructors from '../../constructors';
 
 function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
     return data || [
@@ -38,7 +39,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 radius: 15,
             },
             action(){
-                this.backToStartScreen.call(this)
+                this.backToStartScreen.call(this, constructors.PlayerShip)
             },
             init: init,
             getObjectPosition: getUIObjectPosition

@@ -89,6 +89,6 @@ EnemyObject.prototype.getObjectPosition = getObjectPosition;
 
 EnemyObject.prototype.takeDamage = takeDamage;
 
-export {       // objectConstructor
+export {
     EnemyObject
 };

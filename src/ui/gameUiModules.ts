@@ -8,7 +8,6 @@ import { hitDetection } from '../enemies/enemiesModules';
 
 
 function gameUiPause(){
-    //console.log(this.showPauseWindow)
     if(!this.gameInitData.gameUiPause && this.gameInitData.gameStatus) this.gameInitData.gamePause = !this.gameInitData.gamePause;
 }
 function gameUiMenu(gameUiPause){

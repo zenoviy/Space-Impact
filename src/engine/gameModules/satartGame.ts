@@ -1,13 +1,4 @@
-//import { levelConstructor } from '../../constructors/levelConstructors';
-import { PlayerShip } from '../../constructors/userConstructor'; //'../../constructors/userConstructor';
-//import { gameModule } from '../../constructors/mainGameComponent';
-//import { engineModule } from '../../engine/engineModules';
 import { getData } from '../../server/serverRequestModules';
-
-//import { enemies } from '../../enemies/enemiesModules';
-//import { viewModules } from '../../view/displayModules';
-//import { uiStateModules } from '../../ui/gameUiModels/gameUiLoadMenu';
-
 
 async function serverRequest(gameInformation){
         let serverLocation = {
@@ -61,7 +52,7 @@ async function serverRequest(gameInformation){
             enemyData: enemyData
         }
 }
-async function gameDataInit(){
+async function gameDataInit(PlayerShip){
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -114,8 +105,8 @@ async function gameEngine(gameDataInit){
 function gameStart(){
     this.gameInitData.gameStatus = true;
 }
-async function backToStartScreen(){
-    let newInitdata = await gameDataInit();
+async function backToStartScreen(PlayerShip){
+    let newInitdata = await gameDataInit(PlayerShip);
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
                 this.gameInitData[key] = value

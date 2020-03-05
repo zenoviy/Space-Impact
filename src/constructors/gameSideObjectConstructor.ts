@@ -34,6 +34,6 @@ SideObject.prototype.enemyAnimation = enemyModules.enemyAnimation;
 SideObject.prototype.placeEnemyes = enemyModules.placeEnemyes;
 SideObject.prototype.fireAnimationEnded = fireAnimationEnded;
 
-export {      // sideObjectsConstructor
+export {
    SideObject
 }

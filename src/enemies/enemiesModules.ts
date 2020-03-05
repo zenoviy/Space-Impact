@@ -1,5 +1,4 @@
 import { createImage } from '../view/displayModules';
-//import { bulletModule } from '../constructors/bulletConstructor';
 import { explosionFire } from '../engine/gameSideObjectsModule';
 import * as costructors from '../constructors';
 
@@ -59,7 +58,6 @@ function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"
     ){
-
         explosionFire(this, mainGameObject, hitObject, costructors.SideObject)
         return this.objectPresent = false;
     }
@@ -79,7 +77,7 @@ function takeDamage(damage: number, hitObject, mainGameObject){
                 data.sourse.playerObject.numberOflife -= 1;
                 if(data.sourse.playerObject.numberOflife <= 0){
                     alert("Game Over");
-                    mainGameObject.backToStartScreen()
+                    mainGameObject.backToStartScreen(costructors.PlayerShip)
                 }
                 this.healthPoint = data.sourse.playerObject.maxHealth;
                 return false

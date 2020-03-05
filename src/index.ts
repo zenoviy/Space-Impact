@@ -1,34 +1,18 @@
 import '../sass/main.sass';
 
-
-import * as methods from './engine';
 import * as gameDataModules from './engine/gameModules'
 import * as constructors from './constructors';
-import * as enemy from './enemies';
-
-
-//var { playerModules } = require('./constructors/userConstructor');
-//var { }
-//var { engineModule } = require('./engine/engineModules');
-//var { serverModules } = require('./server/serverRequestModules');
-//var { enemies } = require('./enemies/enemiesModules');
 import { clearField } from './view/displayModules';
-//var { uiStateModules } = require('./ui/gameUiModels/gameUiLoadMenu');
-//import { gameDataInit } from './engine/gameModules/satartGame';
-//import { BulletConstruct } from './constructors/bulletConstructor';
 
 
 
 (async function init(){
-    //startGameModules.gameEngine(startGameModules.gameDataInit)
     /*  gameEngineInit  */
-    var gameState = await gameDataModules.gameDataInit();
-    //console.log(gameState)
+    var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip);
     var gameObject = await new constructors.Game(gameState.data);
-    console.log(gameObject)
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
-/*
+/**/
     gameObject.uiController()
     gameObject.setGameFields();
     gameObject.getScreenSize();
@@ -39,10 +23,10 @@ import { clearField } from './view/displayModules';
     playerShipData.ctx = contexts.gameActionField;
     // ship move
     playerShipData.initPlayerShip(gameObject);
-    playerShipData.shipControl(gameObject);*/
+    playerShipData.shipControl(gameObject);
 
     async function gameInterval(){
-/*
+
         if(gameObject.gameInitData.ctxUIField){
             clearField(
                 gameObject.gameInitData.ctxUIField,
@@ -122,8 +106,7 @@ import { clearField } from './view/displayModules';
         if(gameObject.gameInitData.gameUiPause){
             gameObject.showMenuWindow()
             gameObject.showPauseWindow()
-        }*/
+        }
     }
 })()
-
 

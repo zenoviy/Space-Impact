@@ -1,6 +1,4 @@
 import { createImage } from '../view/displayModules';
-//import { gameMethods } from '../engine/engineModules';
-//import { playerShipModule } from '../engine/playerShipModule';
 
 function updateMap(){
     let backgroundObject = this;

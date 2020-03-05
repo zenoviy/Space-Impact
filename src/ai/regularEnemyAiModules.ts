@@ -46,7 +46,7 @@ function gameRandomizer(maxNumber: number, minNumber: number = 0){
 }
 
 
-export {    // regularAiModule
+export {
     dartShipLogic,
     spawnEnemyLogic,
     createNewEnemy,

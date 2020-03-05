@@ -1,7 +1,8 @@
-import { createImage } from '../view/displayModules';
-//import { levelConstructor } from '../constructors/levelConstructors';
-import { BulletConstruct } from '../constructors/bulletConstructor';
 
+import * as methods from '../engine';
+
+import * as constructors from '../constructors/';
+import * as view from '../view/';
 
 function initPlayerShip(mainGameObject: any){
     if(this.ctx){
@@ -20,7 +21,7 @@ function initPlayerShip(mainGameObject: any){
 function movePlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
-            createImage(this.ctx, this.img, this.x-(this.width/2), this.y-(this.height/2), this.width, this.height);
+            view.createImage(this.ctx, this.img, this.x-(this.width/2), this.y-(this.height/2), this.width, this.height);
         }
     }
 }
@@ -48,7 +49,7 @@ function shipControl(mainGameObject: any){
         if(mainGameObject.gameInitData.gamePause) return false;
         let guns = this.data.guns;
         for(let item of guns){
-            let bullet = new BulletConstruct(
+            let bullet = new constructors.BulletConstruct(
                 this.x, this.y + item.firePosition,
                 item.name, item.color,
                 "player", item.speed + this.xAdj,
@@ -81,7 +82,7 @@ function placeShip(){
     yAdj = (yAdj > this.data.minSpeed)? this.data.minSpeed : yAdj;
 
     this.xAdj = (this.x > this.xFinal)? 0 : xAdj;
-    this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
+    this.x = (this.x > this.xFinal)? this.x - xAdj:
     (this.x < this.xFinal)? this.x + xAdj : this.xFinal;
 
     this.y = (this.y > this.yFinal)? this.y - yAdj:
@@ -92,14 +93,12 @@ function moveShip({xPos=0, yPos=0}){
     this.y += yPos;
 }
 
-alert(1)
-
 export {
     movePlayerShip,
     initPlayerShip,
     shipControl,
     moveShip,
-    placeShip,
+   placeShip,
     setContext,
     showInformation
 }

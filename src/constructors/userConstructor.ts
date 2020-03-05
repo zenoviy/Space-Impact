@@ -1,10 +1,11 @@
-//import { viewModules } from '../view/displayModules';
+
 import { initPlayerShip,
     movePlayerShip,
     shipControl,
     moveShip,
     placeShip,
-    setContext } from '../engine/playerShipModule';
+    setContext 
+} from '../engine/playerShipModule';
 import { getObjectPosition } from '../engine/engineModules';
 import { takeDamage } from '../enemies/enemiesModules';
 

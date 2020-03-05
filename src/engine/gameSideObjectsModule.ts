@@ -1,9 +1,4 @@
-//import { SideObject } from '../constructors/gameSideObjectConstructor';
-//import * as cons from '../constructors';
-
-//console.log(cons)
 function explosionFire(targetData, mainGameObject, hitObject, SideObject){
-    //console.log(targetData, mainGameObject, hitObject)
     let explosionData = {
         x: targetData.x,
         y: targetData.y,

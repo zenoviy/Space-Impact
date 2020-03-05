@@ -1,4 +1,3 @@
-//import { viewModules } from '../displayModules';
 
 function createWindow(ctx, propertyes){
     let {width, height} = this.getScreenSize();

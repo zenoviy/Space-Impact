@@ -1,6 +1,4 @@
-//import { viewModules } from '../view/displayModules';
 import { warpEffect } from '../engine/engineModules';
-//import { playerShipModule } from '../engine/playerShipModule';
 import { updateMap } from '../engine/backgroundModule';
 
 class GameBackground{
@@ -38,6 +36,6 @@ GameBackground.prototype.updateMap = updateMap;
 GameBackground.prototype.warpEffect = warpEffect;
 
 
-export {  // levelConstructor
+export {
     GameBackground
 }
