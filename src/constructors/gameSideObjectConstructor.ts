@@ -1,8 +1,7 @@
 
 //var { sideObjectsModules } = require('../engine/gameSideObjectsModule');
 //var { enemiesModel } = require('../enemies/enemiesModules');
-var { levelConstructor } = require('./levelConstructors');
-
+//var { levelConstructor } = require('./levelConstructors');
 class SideObject{
     x: number; y: number;
     sx: number; sy: number;
@@ -29,8 +28,6 @@ class SideObject{
             this.animationState = true;
     }
 }
-console.log(levelConstructor)
-alert(1)
 //SideObject.prototype.enemyAnimation = enemiesModel.enemyAnimation;
 //SideObject.prototype.placeEnemyes = enemiesModel.placeEnemyes;
 //SideObject.prototype.fireAnimationEnded = sideObjectsModules.fireAnimationEnded;

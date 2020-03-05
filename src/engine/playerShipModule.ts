@@ -2,7 +2,6 @@ var { viewModules } = require('../view/displayModules');
 var { levelConstructor } = require('../constructors/levelConstructors');
 var { bulletModule } = require('../constructors/bulletConstructor');
 
-
 function initPlayerShip(mainGameObject: any){
     if(this.ctx){
         let image = this.data.texture,

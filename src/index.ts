@@ -51,7 +51,6 @@ var { bulletModule } = require('./constructors/bulletConstructor');
         if(gameObject.gameInitData.backScreenPause){
             gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
-        
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus == true){
                 if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject);
