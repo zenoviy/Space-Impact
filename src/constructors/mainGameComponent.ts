@@ -1,11 +1,35 @@
-var { viewModules } = require('../view/displayModules');
-var { gameMethods } = require('../engine/engineModules');
-var { playerShipModule } = require('../engine/playerShipModule');
-var { regularAiModule } = require('../ai/regularEnemyAiModules');
-var { enemiesModel } = require('../enemies/enemiesModules');
-var { uiModules } = require('../ui/gameUiModules');
-var { startGameModules } = require('../engine/gameModules/satartGame');
-var { levelDataReload } = require('../engine/gameModules/changeLevels');
+//import { viewModules } from '../view/displayModules';
+import { spawnEnemyLogic, createNewEnemy, gameRandomizer } from '../ai/regularEnemyAiModules';
+import  { hitDetection } from '../enemies/enemiesModules';
+import { nextLevelDataReload } from '../engine/gameModules/changeLevels';
+import {
+    createContext,
+    initField,
+    levelInit,
+    setGameFields,
+    warpEffect,
+    getScreenSize,
+    getLevelUserData,
+    levelTimer,
+    getSecondMeasure,
+    deleteBullet,
+    deleteObjects,
+    collectPoints,
+    changeLevelProcedure,
+    getRandomColor } from '../engine/engineModules';
+import { initPlayerShip } from '../engine/playerShipModule';
+import {
+    uiController,
+    gameUiPause,
+    gameUiMenu,
+    showMenuWindow,
+    showUiPopupWindow,
+    showStartWindow,
+    showPauseWindow,
+    showGameStats,
+    initUiElements } from '../ui/gameUiModules';
+import { gameStart, backToStartScreen } from '../engine/gameModules/satartGame';
+
 
 interface gameData{
     ctx: any,
@@ -18,6 +42,7 @@ interface gameData{
         width: number,
         height: number
     },
+    allGameSideObjects: object[],
     allGameEnemies: object[],
     allGameBullets: object[],
     allGameMapOBjects: object[],
@@ -55,9 +80,9 @@ interface serverLocation{
     }
 }
 class Game {
+    gameInitData: any;
+    //placePlayerShip: any;
     initField: any;
-    placePlayerShip: any;
-
     initPlayerShip: any;
     setGameFields: any;
     levelInit: any;
@@ -88,9 +113,8 @@ class Game {
     showPauseWindow: any;
     nextLevelDataReload: any;
     getRandomColor: any;
-    constructor(private gameInitData: gameData){
+    constructor(gameInitData: any){
         this.gameInitData = gameInitData;
-        //this.serverLocation = serverLocation;
     }
     changeLevel(nextLevel: number){
         this.gameInitData.gameData.currentLevel = nextLevel;
@@ -125,47 +149,47 @@ class Game {
     }
 }
 
-Game.prototype.createContext = gameMethods.createContext;
-Game.prototype.initField = gameMethods.initField;
-Game.prototype.levelInit = gameMethods.levelInit;           // createContext initPlayerShip
+Game.prototype.createContext = createContext;
+Game.prototype.initField = initField;
+Game.prototype.levelInit = levelInit;           // createContext initPlayerShip
 
-Game.prototype.setGameFields = gameMethods.setGameFields;
-Game.prototype.warpEffect = gameMethods.warpEffect;  // warpEffect
+Game.prototype.setGameFields = setGameFields;
+Game.prototype.warpEffect = warpEffect;  // warpEffect
 
-Game.prototype.getScreenSize = gameMethods.getScreenSize;
-Game.prototype.getLevelUserData = gameMethods.getLevelUserData;
-Game.prototype.levelTimer = gameMethods.levelTimer;
-Game.prototype.getSecondMeasure = gameMethods.getSecondMeasure;
+Game.prototype.getScreenSize = getScreenSize;
+Game.prototype.getLevelUserData = getLevelUserData;
+Game.prototype.levelTimer = levelTimer;
+Game.prototype.getSecondMeasure = getSecondMeasure;
 
-Game.prototype.initPlayerShip = playerShipModule.initPlayerShip;
-Game.prototype.placePlayerShip = playerShipModule.placePlayerShip;
+Game.prototype.initPlayerShip = initPlayerShip;
+//Game.prototype.placePlayerShip = placePlayerShip;
 
-Game.prototype.deleteBullet = gameMethods.deleteBullet;
-Game.prototype.deleteObjects = gameMethods.deleteObjects;
-Game.prototype.hitDetection = enemiesModel.hitDetection;
-Game.prototype.collectPoints = gameMethods.collectPoints;
+Game.prototype.deleteBullet = deleteBullet;
+Game.prototype.deleteObjects = deleteObjects;
+Game.prototype.hitDetection = hitDetection;
+Game.prototype.collectPoints = collectPoints;
 
-Game.prototype.spawnEnemyLogic = regularAiModule.spawnEnemyLogic;
-Game.prototype.createNewEnemy = regularAiModule.createNewEnemy;
-Game.prototype.gameRandomizer = regularAiModule.gameRandomizer;
+Game.prototype.spawnEnemyLogic = spawnEnemyLogic;
+Game.prototype.createNewEnemy = createNewEnemy;
+Game.prototype.gameRandomizer = gameRandomizer;
 
-Game.prototype.uiController = uiModules.uiController;
-Game.prototype.gameUiPause = uiModules.gameUiPause;
-Game.prototype.gameUiMenu = uiModules.gameUiMenu;
-Game.prototype.showMenuWindow = uiModules.showMenuWindow;
-Game.prototype.showUiPopupWindow = uiModules.showUiPopupWindow;
-Game.prototype.showStartWindow = uiModules.showStartWindow;
-Game.prototype.showPauseWindow = uiModules.showPauseWindow;
-Game.prototype.showGameStats = uiModules.showGameStats;
-Game.prototype.initUiElements  = uiModules.initUiElements;
+Game.prototype.uiController = uiController;
+Game.prototype.gameUiPause = gameUiPause;
+Game.prototype.gameUiMenu = gameUiMenu;
+Game.prototype.showMenuWindow = showMenuWindow;
+Game.prototype.showUiPopupWindow = showUiPopupWindow;
+Game.prototype.showStartWindow = showStartWindow;
+Game.prototype.showPauseWindow = showPauseWindow;
+Game.prototype.showGameStats = showGameStats;
+Game.prototype.initUiElements  = initUiElements;
 
-Game.prototype.gameStart = startGameModules.gameStart;
-Game.prototype.backToStartScreen = startGameModules.backToStartScreen;
-Game.prototype.nextLevelDataReload = levelDataReload.nextLevelDataReload;
-Game.prototype.changeLevelProcedure = gameMethods.changeLevelProcedure;
+Game.prototype.gameStart = gameStart;
+Game.prototype.backToStartScreen = backToStartScreen;
+Game.prototype.nextLevelDataReload = nextLevelDataReload;
+Game.prototype.changeLevelProcedure = changeLevelProcedure;
 
-Game.prototype.getRandomColor = gameMethods.getRandomColor;
+Game.prototype.getRandomColor = getRandomColor;
 
-module.exports.gameModule = {
-    Game: Game,
+export {
+    Game,
 }

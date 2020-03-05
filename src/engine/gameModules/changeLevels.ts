@@ -1,8 +1,8 @@
-var { startGameModules } = require('./satartGame');
+import { serverRequest } from './satartGame';
 
 async function nextLevelDataReload(levelData){
     let nextLevel = levelData.gameData.currentLevel;
-    let serverNewData = await startGameModules.serverRequest({level: nextLevel,  shipConfiguration: 1, enemyType: 1});
+    let serverNewData = await serverRequest({level: nextLevel,  shipConfiguration: 1, enemyType: 1});
     let context = this;
     let refreshLevel = {
         gameData: {
@@ -56,6 +56,6 @@ function changeWeapon(){
 
 }
 
-module.exports.levelDataReload = {
-    nextLevelDataReload: nextLevelDataReload
+export {
+    nextLevelDataReload
 }

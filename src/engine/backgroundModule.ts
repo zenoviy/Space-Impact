@@ -1,6 +1,4 @@
-var { viewModules } = require('../view/displayModules');
-var { gameMethods } = require('../engine/engineModules');
-var { playerShipModule } = require('../engine/playerShipModule');
+import { createImage } from '../view/displayModules';
 
 function updateMap(){
     let backgroundObject = this;
@@ -8,13 +6,13 @@ function updateMap(){
     if(this.x + this.screenData.width < 0){
         this.x = this.screenData.width;
     }
-       viewModules.createImage(backgroundObject.ctx,
+       createImage(backgroundObject.ctx,
             backgroundObject.img, backgroundObject.x, 0,
             backgroundObject.screenData.width+2,
             backgroundObject.screenData.height)
 }
 
 
-module.exports.backgroundMapModule = {
-    updateMap: updateMap
+export {
+    updateMap
 }

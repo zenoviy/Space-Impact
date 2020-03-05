@@ -1,7 +1,9 @@
 
-//var { sideObjectsModules } = require('../engine/gameSideObjectsModule');
-//var { enemiesModel } = require('../enemies/enemiesModules');
-//var { levelConstructor } = require('./levelConstructors');
+
+
+import * as enemyModules from '../enemies';
+import { fireAnimationEnded } from '../engine/engineModules';
+
 class SideObject{
     x: number; y: number;
     sx: number; sy: number;
@@ -14,8 +16,8 @@ class SideObject{
     animationState: boolean;
 
     fireAnimationEnded: any;
-    enemyAnimation: any;
     placeEnemyes: any;
+    enemyAnimation: any;
     constructor({...data}){
             this.x = data.x; this.y = data.y;
             this.sx = data.sx; this.sy = data.sy;
@@ -28,10 +30,11 @@ class SideObject{
             this.animationState = true;
     }
 }
-//SideObject.prototype.enemyAnimation = enemiesModel.enemyAnimation;
-//SideObject.prototype.placeEnemyes = enemiesModel.placeEnemyes;
-//SideObject.prototype.fireAnimationEnded = sideObjectsModules.fireAnimationEnded;
 
-module.exports.sideObjectsConstructor = {
-    SideObject: SideObject
+SideObject.prototype.enemyAnimation = enemyModules.enemyAnimation;
+SideObject.prototype.placeEnemyes = enemyModules.placeEnemyes;
+SideObject.prototype.fireAnimationEnded = fireAnimationEnded;
+
+export {
+   SideObject
 }

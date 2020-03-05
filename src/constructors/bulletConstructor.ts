@@ -1,6 +1,6 @@
-var { bulletsModule } = require('../engine/bulletsModule');
-var { gameMethods } = require('../engine/engineModules');
-var { enemiesModel } = require('../enemies/enemiesModules');
+import { createBullets, initBullets, moveBullets } from '../engine/bulletsModule';
+import { getObjectPosition } from '../engine/engineModules';
+import { takeDamage } from '../enemies/enemiesModules';
 interface explosionAnimation{
     texture: string,
     imageWidth: number,
@@ -59,14 +59,14 @@ class BulletConstruct{
     }
 }
 
-BulletConstruct.prototype.createBullets = bulletsModule.createBullets;
-BulletConstruct.prototype.initBullets = bulletsModule.initBullets;
-BulletConstruct.prototype.moveBullets = bulletsModule.moveBullets;
-BulletConstruct.prototype.getObjectPosition = gameMethods.getObjectPosition;
+BulletConstruct.prototype.createBullets = createBullets;
+BulletConstruct.prototype.initBullets = initBullets;
+BulletConstruct.prototype.moveBullets = moveBullets;
+BulletConstruct.prototype.getObjectPosition = getObjectPosition;
 
-BulletConstruct.prototype.takeDamage = enemiesModel.takeDamage;
+BulletConstruct.prototype.takeDamage = takeDamage;
 
 
-module.exports.bulletModule = {
-    BulletConstruct : BulletConstruct
+export {
+    BulletConstruct
 }

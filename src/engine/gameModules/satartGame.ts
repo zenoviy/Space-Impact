@@ -1,12 +1,4 @@
-var { levelConstructor } = require('../../constructors/levelConstructors');
-var { playerModules } = require('../../constructors/userConstructor');
-var { gameModule } = require('../../constructors/mainGameComponent');
-var { engineModule } = require('../../engine/engineModules');
-var { serverModules } = require('../../server/serverRequestModules');
-var { enemies } = require('../../enemies/enemiesModules');
-var { viewModules } = require('../../view/displayModules');
-var { uiStateModules } = require('../../ui/gameUiModels/gameUiLoadMenu');
-
+import { getData } from '../../server/serverRequestModules';
 
 async function serverRequest(gameInformation){
         let serverLocation = {
@@ -29,25 +21,25 @@ async function serverRequest(gameInformation){
                     url: "api/enemy-ship"
                 }
         }
-        const levelData = await serverModules.getData({
+        const levelData = await getData({
             url: serverLocation.host + serverLocation.levelData.url,
             method: serverLocation.levelData.method,
             data: null,
             headers:{ 'maplevel': gameInformation.level}
         })
-        const gameSetings = await serverModules.getData({
+        const gameSetings = await getData({
             url: serverLocation.host + serverLocation.gameSetings.url,
             method: serverLocation.gameSetings.method,
             data: null,
             headers: null
         })
-        const userData = await serverModules.getData({
+        const userData = await getData({
             url: serverLocation.host + serverLocation.userShip.url,
             method: serverLocation.userShip.method,
             data: null,
             headers:{ 'usership': gameInformation.shipConfiguration}
         })
-        const enemyData = await serverModules.getData({
+        const enemyData = await getData({
             url: serverLocation.host + serverLocation.enemylData.url,
             method: serverLocation.enemylData.method,
             data: null,
@@ -60,7 +52,7 @@ async function serverRequest(gameInformation){
             enemyData: enemyData
         }
 }
-async function gameDataInit(){
+async function gameDataInit(PlayerShip){
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -79,7 +71,7 @@ async function gameDataInit(){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                playerObject: new playerModules.PlayerShip(userData, 0, 300, 5, 100, 100, userData.size.width, userData.size.height),
+                playerObject: new PlayerShip(userData, 0, 300, 5, 100, 100, userData.size.width, userData.size.height),
                 levelData: levelData,
                 gameSetings: gameSetings,
                 enemyData: enemyData,
@@ -104,7 +96,7 @@ async function gameDataInit(){
             backScreenPause: true,
             gameStatus: false,
             gemeExtraSeconds: 0,
-        }, locations: null
+        }
     }
 }
 async function gameEngine(gameDataInit){
@@ -113,8 +105,8 @@ async function gameEngine(gameDataInit){
 function gameStart(){
     this.gameInitData.gameStatus = true;
 }
-async function backToStartScreen(){
-    let newInitdata = await gameDataInit();
+async function backToStartScreen(PlayerShip){
+    let newInitdata = await gameDataInit(PlayerShip);
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
                 this.gameInitData[key] = value
@@ -123,10 +115,10 @@ async function backToStartScreen(){
     this.gameInitData.gameStatus = false;
 }
 
-module.exports.startGameModules = {
-    gameDataInit: gameDataInit,
-    serverRequest: serverRequest,
-    gameEngine: gameEngine,
-    gameStart: gameStart,
-    backToStartScreen: backToStartScreen
+export {
+    gameDataInit,
+    serverRequest,
+    gameEngine,
+    gameStart,
+    backToStartScreen
 }

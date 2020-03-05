@@ -1,27 +1,18 @@
 import '../sass/main.sass';
 
-var { levelConstructor } = require('./constructors/levelConstructors');
-var { playerModules } = require('./constructors/userConstructor');
-var { gameModule } = require('./constructors/mainGameComponent');
-var { engineModule } = require('./engine/engineModules');
-var { serverModules } = require('./server/serverRequestModules');
-var { enemies } = require('./enemies/enemiesModules');
-var { viewModules } = require('./view/displayModules');
-var { uiStateModules } = require('./ui/gameUiModels/gameUiLoadMenu');
-var { startGameModules } = require('./engine/gameModules/satartGame');
-var { bulletModule } = require('./constructors/bulletConstructor');
+import * as gameDataModules from './engine/gameModules'
+import * as constructors from './constructors';
+import { clearField } from './view/displayModules';
 
 
 
 (async function init(){
-    //startGameModules.gameEngine(startGameModules.gameDataInit)
-
     /*  gameEngineInit  */
-    var gameState = await startGameModules.gameDataInit();
-    var gameObject = new gameModule.Game(gameState.data, gameState.locations);
+    var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip);
+    var gameObject = await new constructors.Game(gameState.data);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
-
+/**/
     gameObject.uiController()
     gameObject.setGameFields();
     gameObject.getScreenSize();
@@ -37,19 +28,19 @@ var { bulletModule } = require('./constructors/bulletConstructor');
     async function gameInterval(){
 
         if(gameObject.gameInitData.ctxUIField){
-            viewModules.clearField(
+            clearField(
                 gameObject.gameInitData.ctxUIField,
                 gameObject.gameInitData.screen.width,
                 gameObject.gameInitData.screen.height);
         }
         if(gameObject.gameInitData.ctxActionField &&  !gameObject.gameInitData.gamePause){
-                viewModules.clearField(
+                clearField(
                 gameObject.gameInitData.ctxActionField,
                 gameObject.gameInitData.screen.width,
                 gameObject.gameInitData.screen.height);
         }
         if(gameObject.gameInitData.backScreenPause){
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
+            gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus == true){
@@ -69,14 +60,14 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                         enemy.placeEnemyes(gameObject);
                         enemy.moveEnemyes();
                         enemy.enemyAnimation(true);
-                        enemy.shoot(bulletModule.BulletConstruct, gameObject);
+                        enemy.shoot(constructors.BulletConstruct, gameObject);
                         gameObject.deleteObjects(enemy);
                     }
                 }
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){
                         //object.placeEnemyes(gameObject);
-                        //object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                        object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
                     }
                 }
                 gameObject.levelTimer()
@@ -90,7 +81,7 @@ var { bulletModule } = require('./constructors/bulletConstructor');
         if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
             if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
                 if(gameObject.gameInitData.ctx){
-                    viewModules.clearField(
+                    clearField(
                         gameObject.gameInitData.ctx,
                         gameObject.gameInitData.screen.width,
                         gameObject.gameInitData.screen.height);
@@ -118,5 +109,4 @@ var { bulletModule } = require('./constructors/bulletConstructor');
         }
     }
 })()
-
 

@@ -1,7 +1,13 @@
-var { viewModules } = require('../view/displayModules');
-var { playerShipModule } = require('../engine/playerShipModule');
-var { gameMethods } = require('../engine/engineModules');
-var { enemiesModel } = require('../enemies/enemiesModules');
+
+import { initPlayerShip,
+    movePlayerShip,
+    shipControl,
+    moveShip,
+    placeShip,
+    setContext 
+} from '../engine/playerShipModule';
+import { getObjectPosition } from '../engine/engineModules';
+import { takeDamage } from '../enemies/enemiesModules';
 
 
 interface shipData{
@@ -63,16 +69,16 @@ class PlayerShip{
 
 }
 
-PlayerShip.prototype.initPlayerShip = playerShipModule.initPlayerShip;
-PlayerShip.prototype.movePlayerShip = playerShipModule.movePlayerShip;
-PlayerShip.prototype.shipControl = playerShipModule.shipControl;
-PlayerShip.prototype.moveShip = playerShipModule.moveShip;
-PlayerShip.prototype.placeShip = playerShipModule.placeShip;
-PlayerShip.prototype.setContext = playerShipModule.setContext;
-PlayerShip.prototype.getObjectPosition = gameMethods.getObjectPosition;
+PlayerShip.prototype.initPlayerShip = initPlayerShip;
+PlayerShip.prototype.movePlayerShip = movePlayerShip;
+PlayerShip.prototype.shipControl = shipControl;
+PlayerShip.prototype.moveShip = moveShip;
+PlayerShip.prototype.placeShip = placeShip;
+PlayerShip.prototype.setContext = setContext;
+PlayerShip.prototype.getObjectPosition = getObjectPosition;
 
-PlayerShip.prototype.takeDamage = enemiesModel.takeDamage;
+PlayerShip.prototype.takeDamage = takeDamage;
 
-module.exports.playerModules = {
-    PlayerShip: PlayerShip
+export {
+    PlayerShip
 };

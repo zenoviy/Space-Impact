@@ -1,9 +1,9 @@
-var { viewModules } = require('../view/displayModules');
-var { bulletModule } = require('../constructors/bulletConstructor');
-var { sideObjectsModules } = require('../engine/gameSideObjectsModule');
+import { createImage } from '../view/displayModules';
+import { explosionFire } from '../engine/gameSideObjectsModule';
+import * as costructors from '../constructors';
 
 function placeEnemyes(mainGameObject){
-    viewModules.createImage(
+    createImage(
         mainGameObject.gameInitData.ctxActionField,
         this.img,
         this.sx, this.sy,
@@ -58,7 +58,7 @@ function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"
     ){
-        sideObjectsModules.explosionFire(this, mainGameObject, hitObject)
+        explosionFire(this, mainGameObject, hitObject, costructors.SideObject)
         return this.objectPresent = false;
     }
 
@@ -77,7 +77,7 @@ function takeDamage(damage: number, hitObject, mainGameObject){
                 data.sourse.playerObject.numberOflife -= 1;
                 if(data.sourse.playerObject.numberOflife <= 0){
                     alert("Game Over");
-                    mainGameObject.backToStartScreen()
+                    mainGameObject.backToStartScreen(costructors.PlayerShip)
                 }
                 this.healthPoint = data.sourse.playerObject.maxHealth;
                 return false
@@ -113,12 +113,12 @@ function hitDetection(object1, objectsArr, mainGameObject){
     return (collision == "collision")? object1: false;
 }
 
-module.exports.enemiesModel = {
-    placeEnemyes: placeEnemyes,
-    moveEnemyes: moveEnemyes,
-    loadEnemyes: loadEnemyes,
-    shoot: shoot,
-    enemyAnimation: enemyAnimation,
-    hitDetection: hitDetection,
-    takeDamage: takeDamage
+export  {
+    placeEnemyes,
+    moveEnemyes,
+    loadEnemyes,
+    shoot,
+    enemyAnimation,
+    hitDetection,
+    takeDamage
 };

@@ -1,6 +1,9 @@
-var { viewModules } = require('../view/displayModules');
-var { levelConstructor } = require('../constructors/levelConstructors');
-var { bulletModule } = require('../constructors/bulletConstructor');
+
+
+import * as methods from '../engine';
+
+import * as constructors from '../constructors/';
+import * as view from '../view/';
 
 function initPlayerShip(mainGameObject: any){
     if(this.ctx){
@@ -19,7 +22,7 @@ function initPlayerShip(mainGameObject: any){
 function movePlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
-            viewModules.createImage(this.ctx, this.img, this.x-(this.width/2), this.y-(this.height/2), this.width, this.height);
+            view.createImage(this.ctx, this.img, this.x-(this.width/2), this.y-(this.height/2), this.width, this.height);
         }
     }
 }
@@ -47,7 +50,7 @@ function shipControl(mainGameObject: any){
         if(mainGameObject.gameInitData.gamePause) return false;
         let guns = this.data.guns;
         for(let item of guns){
-            let bullet = new bulletModule.BulletConstruct(
+            let bullet = new constructors.BulletConstruct(
                 this.x, this.y + item.firePosition,
                 item.name, item.color,
                 "player", item.speed + this.xAdj,
@@ -80,7 +83,7 @@ function placeShip(){
     yAdj = (yAdj > this.data.minSpeed)? this.data.minSpeed : yAdj;
 
     this.xAdj = (this.x > this.xFinal)? 0 : xAdj;
-    this.x = (this.x > this.xFinal)? this.x - xAdj:   //this.x - this.data.speed :
+    this.x = (this.x > this.xFinal)? this.x - xAdj:
     (this.x < this.xFinal)? this.x + xAdj : this.xFinal;
 
     this.y = (this.y > this.yFinal)? this.y - yAdj:
@@ -91,14 +94,12 @@ function moveShip({xPos=0, yPos=0}){
     this.y += yPos;
 }
 
-
-
-module.exports.playerShipModule = {
-    movePlayerShip: movePlayerShip,
-    initPlayerShip: initPlayerShip,
-    shipControl: shipControl,
-    moveShip: moveShip,
-    placeShip: placeShip,
-    setContext: setContext,
-    showInformation: showInformation
+export {
+    movePlayerShip,
+    initPlayerShip,
+    shipControl,
+    moveShip,
+   placeShip,
+    setContext,
+    showInformation
 }
