@@ -48,8 +48,6 @@ function warpEffect(){
         }
     }
     function warpTimer(levelData){
-        //if(levelData.timeToEressLevel >=0 ) levelData.timeToEressLevel -=1;
-        //console.log(levelData, this)
         let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus) this.changeLevelProcedure();
@@ -65,7 +63,9 @@ function levelInit(backgroundConstructor, ctx, mainGameObject){
     for(let mapObject of allBackgroundElements){
         let mapItem = new backgroundConstructor(
             mapObject.levelMap, mapObject.speed, this.gameInitData.screen, ctx,
-            (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null
+            (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
+            (mapObject.extraMap)? mapObject.extraMap : null, (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,
+            (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null
         );
         mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
         mapItem.img.src = this.showGameInfo().imageDirrection + mapItem.backgroundTexture;

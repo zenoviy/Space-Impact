@@ -88,7 +88,8 @@ import { clearField } from './view/displayModules';
                         gameObject.gameInitData.screen.height);
                 }
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                        backgroundMap.updateMap();
+                    backgroundMap.updateMap();
+                    backgroundMap.changePartOfTexture(gameObject, gameObject.gameInitData.mapBackgroundObjects);
                 }
             if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
             }

@@ -21,7 +21,7 @@
             "speed": 4,
             "pointsPerUnit": 5,
             "explosionAnimation": {
-                "texture": "misc/fire/explosion.png",
+                "texture": "misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
                 "imageHeight":294,
                 "animationSteps": 2,

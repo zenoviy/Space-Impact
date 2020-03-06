@@ -2,7 +2,6 @@ import { timingSafeEqual } from "crypto";
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject){
     //console.log(targetData, mainGameObject, hitObject, SideObject)
-    console.log(targetData)
     let explosionData = {
         x: targetData.x - targetData.width/2,
         y: targetData.y - targetData.width/2,
@@ -32,7 +31,6 @@ function fireAnimationEnded( allGameSideObjects ){
     if(this.detectFrame % this.animationSteps == 0){
         this.detectFrame = 0;
         this.sx += this.sWidth;
-        
         if(this.sx >= this.picturesWidth){
             this.objectPresent = false;
             this.sx = 0;
