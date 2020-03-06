@@ -14,6 +14,7 @@ import {
     getSecondMeasure,
     deleteBullet,
     deleteObjects,
+    delateSideObject,
     collectPoints,
     changeLevelProcedure,
     getRandomColor } from '../engine/engineModules';
@@ -94,6 +95,7 @@ class Game {
     getSecondMeasure: any;
     deleteBullet: any;
     deleteObjects: any;
+    delateSideObject: any;
     hitDetection: any;
     collectPoints: any;
     spawnEnemyLogic: any;
@@ -166,6 +168,7 @@ Game.prototype.initPlayerShip = initPlayerShip;
 
 Game.prototype.deleteBullet = deleteBullet;
 Game.prototype.deleteObjects = deleteObjects;
+Game.prototype.delateSideObject = delateSideObject;
 Game.prototype.hitDetection = hitDetection;
 Game.prototype.collectPoints = collectPoints;
 

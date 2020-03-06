@@ -135,7 +135,7 @@ function getLevelUserData(){
         currentLevel: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
-        life:  dataSourse.playerObject.numberOflife, //dataSourse.playerObject.healthPoint
+        life:  dataSourse.playerObject.numberOflife,
         minutes: levelTime.levelMinutes,
         seconds: levelTime.levelSeconds
     }
@@ -152,6 +152,12 @@ function deleteObjects(object){
     if(object.x + object.sWidth < 0 || !object.objectPresent){
         let index = this.gameInitData.allGameEnemies.indexOf(object);
         this.gameInitData.allGameEnemies.splice(index, 1);
+    }
+}
+function delateSideObject(object){
+    if(!object.objectPresent){
+        let index = this.gameInitData.allGameSideObjects.indexOf(object);
+        this.gameInitData.allGameSideObjects.splice(index, 1);
     }
 }
 function collectPoints(point){
@@ -175,14 +181,8 @@ function getRandomColor() {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
-  }
-function fireAnimationEnded( allGameSideObjects ){
-    console.log('fire')
-    //this.enemyAnimation(this.animationState)
-    //if(this.sx >= this.picturesWidth){
-      //  this.animationState = false;
-    //}
 }
+
 
 export  {
     initField,
@@ -198,7 +198,7 @@ export  {
     getSecondMeasure,
     deleteBullet,
     deleteObjects,
+    delateSideObject,
     getObjectPosition,
-    collectPoints,
-    fireAnimationEnded
+    collectPoints
 }

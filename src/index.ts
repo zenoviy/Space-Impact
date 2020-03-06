@@ -66,8 +66,9 @@ import { clearField } from './view/displayModules';
                 }
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){
-                        //object.placeEnemyes(gameObject);
+                        object.placeEnemyes(gameObject);
                         object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                        gameObject.delateSideObject(object);
                     }
                 }
                 gameObject.levelTimer()
