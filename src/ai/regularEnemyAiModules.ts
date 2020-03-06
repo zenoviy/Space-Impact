@@ -37,7 +37,7 @@ function createNewEnemy(enemyData){
         shipDetails.status, shipDetails.name,
         shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
         shipDetails.healthPoint, shipDetails.animationSteps, shipDetails.damage,
-        shipDetails.objectOwner, shipDetails.guns
+        shipDetails.objectOwner, shipDetails.guns, shipDetails.explosionAnimation
         );
 }
 

@@ -59,7 +59,7 @@ class EnemyObject {
         status: string, name: string,
         bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
         healthPoint: number, animationSteps: number,
-        damage: number, objectOwner: string, guns: any
+        damage: number, objectOwner: string, guns: any, explosion: any
         ){
             this.id = new Date().getTime();
             this.x = x; this.y = y;
@@ -76,7 +76,7 @@ class EnemyObject {
             this.detectFrame = 0;
             this.objectPresent = true;
             this.objectOwner = objectOwner;
-            this.guns = guns;
+            this.guns = guns; this.explosion = explosion;
     }
 }
 

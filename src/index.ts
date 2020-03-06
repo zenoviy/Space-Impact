@@ -64,6 +64,8 @@ import { clearField } from './view/displayModules';
                         gameObject.deleteObjects(enemy);
                     }
                 }
+                playerShipData.placeShip();
+                playerShipData.movePlayerShip();
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){
                         object.placeEnemyes(gameObject);
@@ -72,8 +74,6 @@ import { clearField } from './view/displayModules';
                     }
                 }
                 gameObject.levelTimer()
-                playerShipData.placeShip();
-                playerShipData.movePlayerShip();
             }else if(gameObject.gameInitData.gameStatus == false){
             //     gameObject.showStartWindow()
             }

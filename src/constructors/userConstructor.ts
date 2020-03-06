@@ -18,6 +18,7 @@ interface shipData{
     speed: number,
     minSpeed: number,
     firespot: number,
+    explosion: any,
     size:{
             width: number,
             height: number
@@ -34,7 +35,7 @@ class PlayerShip{
     xFinal: number; yFinal: number;
     ctx: any; collisionAllow: boolean;
     objectOwner: string; width: number; height: number;
-    xAdj: number;
+    xAdj: number; speed: number; explosion: any;
 
     initPlayerShip: any;
     movePlayerShip: any;
@@ -52,7 +53,7 @@ class PlayerShip{
         numberOflife: number,
         x: number = 100,
         y: number = 100,
-        width: number, height: number
+        width: number, height: number, explosion: any
     ){
         this.data = data;
         this.points = points;
@@ -64,7 +65,8 @@ class PlayerShip{
         this.collisionAllow = true;
         this.objectOwner = "player";
         this.width = width; this.height = height;
-        this.xAdj = 0;
+        this.xAdj = 0; this.speed = data.speed;
+        this.explosion = data.explosion;
     }
 
 }

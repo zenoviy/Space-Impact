@@ -63,6 +63,7 @@ function takeDamage(damage: number, hitObject, mainGameObject){
     }
 
     if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
+        explosionFire(this, mainGameObject, hitObject, costructors.SideObject)
         unitDamage.call(this);
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
         if(this.collisionAllow){
