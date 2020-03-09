@@ -53,6 +53,20 @@ function enemyAnimation(state = true){
         }
     }
 }
+
+function enemyDamageAnimation(){
+    let damageAnimationPoint = this.originalHealthPoint/this.numberOfVerticalItems;
+    let damagePoint = new Array(this.numberOfVerticalItems).fill(null)
+    damagePoint = damagePoint.map((item, index) =>damageAnimationPoint*(index+1)).sort((a, b) => a - b).reverse();
+    for(let i = 0; i < damagePoint.length; i++){
+        if(this.healthPoint < damagePoint[i] && this.healthPoint > damagePoint[i+1] && damagePoint[i+1]){
+            this.sy = this.sHeight*(i);
+            break
+        }else if(!damagePoint[i+1]){
+            this.sy = this.sHeight * (this.numberOfVerticalItems - 1)
+        }
+    }
+}
 // complex enemy animation for damage
 function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
@@ -63,8 +77,11 @@ function takeDamage(damage: number, hitObject, mainGameObject){
     }
 
     if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
-        explosionFire(this, mainGameObject, hitObject, costructors.SideObject)
         unitDamage.call(this);
+        this.enemyDamageAnimation()
+        if(this.healthPoint <= 0) {
+            explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
+        }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
         if(this.collisionAllow){
             unitDamage.call(this, mainGameObject.getLevelUserData())
@@ -121,5 +138,6 @@ export  {
     shoot,
     enemyAnimation,
     hitDetection,
-    takeDamage
+    takeDamage,
+    enemyDamageAnimation
 };

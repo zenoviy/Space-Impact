@@ -92,7 +92,7 @@ function changeLevelProcedure(){
     // some levels must contain boss at least 2 boss
     // last level is final titles the end save score
     let levelData = this.showGameInfo();
-
+//console.log(levelData)
     let level = this.changeLevel(levelData.gameData.currentLevel + 1)
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)

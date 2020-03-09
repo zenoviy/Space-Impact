@@ -12,6 +12,7 @@
             "imageHeight":125,
             "animationSteps": 5,
             "numberOfItems": 20,
+            "numberOfVerticalItems": 1,
             "damage": 30,
             "sx": 0,
             "sy": 0,
@@ -19,6 +20,69 @@
             "height": 50,
             "skinName": "enemy_ship_1.png",
             "speed": 4,
+            "pointsPerUnit": 5,
+            "explosionAnimation": {
+                "texture": "misc/fire/explosion-blue.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50
+            },
+            "guns":[
+                {
+                    "name": "blaster",
+                    "texture": "misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50
+                    },
+                    "type": 1,
+                    "fireRepead": 3,
+                    "speed": 6,
+                    "sx": 0,
+                    "sy": 20,
+                    "sWidth": 305,
+                    "sHeight": 80,
+                    "color": "rgba(255, 0, 0, 1)",
+                    "width": 40,
+                    "height": 6,
+                    "damage": 30,
+                    "firePosition": 25
+                }
+            ]
+        }
+    }, {
+        "id": 2,
+        "details": {
+            "name": "Scorpio",
+            "status": "enemy ship",
+            "objectOwner": "enemy",
+            "healthPoint": 260,
+            "bulletType": 1,
+            "rapidFire": 30,
+            "imageWidth": 5280,
+            "imageHeight":460,
+            "animationSteps": 5,
+            "numberOfItems": 10,
+            "numberOfVerticalItems": 3,
+            "damage": 30,
+            "sx": 0,
+            "sy": 0,
+            "width": 55,
+            "height": 55,
+            "skinName": "enemy_ship_2_full.png",
+            "speed": 3,
             "pointsPerUnit": 5,
             "explosionAnimation": {
                 "texture": "misc/fire/explosion-blue.png",

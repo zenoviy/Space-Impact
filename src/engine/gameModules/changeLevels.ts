@@ -2,7 +2,7 @@ import { serverRequest } from './satartGame';
 
 async function nextLevelDataReload(levelData){
     let nextLevel = levelData.gameData.currentLevel;
-    let serverNewData = await serverRequest({level: nextLevel,  shipConfiguration: 1, enemyType: 1});
+    let serverNewData = await serverRequest({level: nextLevel, shipConfiguration: 1});
     let context = this;
     let refreshLevel = {
         gameData: {

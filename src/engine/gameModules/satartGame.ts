@@ -27,6 +27,7 @@ async function serverRequest(gameInformation){
             data: null,
             headers:{ 'maplevel': gameInformation.level}
         })
+        //console.log(levelData)
         const gameSetings = await getData({
             url: serverLocation.host + serverLocation.gameSetings.url,
             method: serverLocation.gameSetings.method,
@@ -43,7 +44,7 @@ async function serverRequest(gameInformation){
             url: serverLocation.host + serverLocation.enemylData.url,
             method: serverLocation.enemylData.method,
             data: null,
-            headers:{ 'ship-type-number': gameInformation.enemyType}
+            headers:{ 'ship-type-number': levelData.enemyType}
         })
         return {
             levelData: levelData,
@@ -57,8 +58,8 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 3, shipType = 1, enemyType = 1;
-        let res = await serverRequest({level: level,  shipConfiguration: shipType, enemyType: enemyType})
+        let level = 1, shipType = 1;
+        let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const gameSetings = res.gameSetings;
         const userData = res.userData;
