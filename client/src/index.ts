@@ -1,5 +1,6 @@
 import '../sass/main.sass';
 
+var path = require('path');
 import * as gameDataModules from './engine/gameModules'
 import * as constructors from './constructors';
 import { clearField } from './view/displayModules';
@@ -11,8 +12,10 @@ import { clearField } from './view/displayModules';
     var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip);
     var gameObject = await new constructors.Game(gameState.data);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
-    var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
-/**/
+
+    console.log(gameObject, path, __dirname)
+   var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
+
     gameObject.uiController()
     gameObject.setGameFields();
     gameObject.getScreenSize();
@@ -24,7 +27,7 @@ import { clearField } from './view/displayModules';
     // ship move
     playerShipData.initPlayerShip(gameObject);
     playerShipData.shipControl(gameObject);
-
+/* */
     async function gameInterval(){
 
         if(gameObject.gameInitData.ctxUIField){

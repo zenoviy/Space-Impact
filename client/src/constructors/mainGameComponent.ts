@@ -127,7 +127,7 @@ class Game {
             levelToChange: this.gameInitData.gameData.currentLevel,
             currentPoint: this.gameInitData.gameData.currentPoint,
             gameData: this.gameInitData.gameData,
-            imageDirrection: location.origin + '/images/',
+            imageDirrection: __dirname + '/public/images/',
         }
     }
     showLevelData(){

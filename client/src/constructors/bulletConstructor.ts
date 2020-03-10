@@ -52,7 +52,7 @@ class BulletConstruct{
         this.objectPresent = true;
         this.type = type;
         this.img = new Image();
-        this.texture = location.origin + '/images/' +  texture;
+        this.texture = __dirname + '/public/images/' +  texture;
         this.sx = sx; this.sy = sy; this.sWidth = sWidth; this.sHeight = sHeight;
         this.explosion = explosion;
 

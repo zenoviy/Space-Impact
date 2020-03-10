@@ -2,15 +2,15 @@ import { getData } from '../../server/serverRequestModules';
 
 async function serverRequest(gameInformation){
         let serverLocation = {
-                host: (document.location.hostname === "localhost")? "http://localhost:3000/" : "",
-                picturesDirection: location.origin + '/images/',
+                host: "http://localhost:3000/",
+                picturesDirection: __dirname + '/public/images/',
                 levelData: {
                     method: "GET",
                     url: "api/level-data"
                 },
                 gameSetings: {
                     method: "GET",
-                    url: "api/game-ettings"
+                    url: "api/game-settings"
                 },
                 userShip: {
                     method: "GET",

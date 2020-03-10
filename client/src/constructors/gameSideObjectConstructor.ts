@@ -24,7 +24,7 @@ class SideObject{
             this.sWidth = data.sWidth; this.sHeight = data.sHeight;
             this.width = data.width; this.height = data.height;
             this.img = new Image();
-            this.texture = location.origin + '/images/' + data.texture;
+            this.texture = __dirname + '/public/images/' + data.texture;
             this.animationSteps = data.animationSteps; this.numberOfItems = data.numberOfItems;
             this.target = data.target;
             this.animationState = true;

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+body{
+    background: #000;
+}
+canvas{
+    background: #fff;
+}
+</style>
+<body>
+    <img width="100%" src="../images/spaceShips/enemy_ship_1.png">
+    <canvas id="display"></canvas>
+</body>
+<script>
+    var display = document.querySelector("#display");
+    var ctx = display.getContext('2d');
+    display = Object.assign(display, {width: 1000, height: 500});
+
+    var shipInformation = { // 20
+       /* imageInfo: {
+            animationSteps: 5,
+            numberOfItems: 20,
+            imageHeight: 125,
+            imageWidth: 2880,
+            singleFrame: this.imageWidth/this.numberOfItems
+        },
+        width: 70,
+        height: 70,
+        x: 100,
+        y: 50,
+        sx: 0,
+        sy: 0,
+        sWidth:  125,
+        sHeight: 2880/20,
+        img: new Image(),
+        texture: '../images/spaceShips/enemy_ship_1.png',
+        animation: setInterval(animateShip, 20),
+        detectFrame: 0*/
+        imageInfo: {
+            animationSteps: 5,
+            numberOfItems: 44,
+            imageHeight: 294,
+            imageWidth: 12891,
+            singleFrame: this.imageWidth/this.numberOfItems
+        },
+        width: 70,
+        height: 70,
+        x: 100,
+        y: 50,
+        sx: 0,
+        sy: 0,
+        sWidth:  294,
+        sHeight: 12891/44,
+        img: new Image(),
+        texture: __dirname +'/images/misc/fire/explosion.png',
+        animation: setInterval(animateShip, 20),
+        detectFrame: 0
+    }
+    crateShip.call(shipInformation)
+    function crateShip(){
+        this.imageInfo.singleFrame = this.imageInfo.imageWidth/this.imageInfo.numberOfItems;
+        this.sWidth = this.imageInfo.singleFrame;
+        this.sHeight = this.imageInfo.imageHeight;
+        console.log(this.sHeight, this.sWidt)
+
+        this.img.src = this.texture;
+        this.img.addEventListener("load", (e) => {
+            initLoad.call(this)
+        })
+        //
+    }
+    function initLoad(){
+         draw(
+                ctx,
+                'drawImage',
+                this.img,
+                this.sx,
+                this.sy,
+                this.sWidth,
+                this.sHeight,
+                this.x,
+                this.y,
+                this.width,
+                this.height)
+    }
+    function animateShip(obj){
+        clear()
+        shipInformation.detectFrame += 1;
+        if(shipInformation.detectFrame % shipInformation.imageInfo.animationSteps == 0){
+            shipInformation.sx += shipInformation.imageInfo.singleFrame;
+            if(shipInformation.sx >= shipInformation.imageInfo.imageWidth){
+                shipInformation.sx = 0;
+            };
+        }
+        initLoad.call(shipInformation)
+    }
+    function clear(){
+        ctx.fillStyle = "rgba(22,44,11,1)";
+        draw(ctx, 'clearRect', 0, 0, display.width, display.height);
+        ctx.fill()
+    }
+    document.addEventListener("mousemove", (e) => {
+        shipInformation.x = e.pageX;
+        shipInformation.y = e.pageY;
+
+    })
+    function draw(context, propName, ...rest){
+        context[propName](...rest);
+    }
+
+</script>
+</html>

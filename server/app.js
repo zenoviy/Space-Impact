@@ -16,26 +16,22 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 
-function fileReader(header){
-  
-}
 
-app.use('/game', (err, req, res, next) => {
+app.use('/game', cors(), (err, req, res, next) => {
     if(err) return console.log(err)
     next()
 })
-app.get('/game', (req, res) => {
+app.get('/game', cors(), (req, res) => {
     if(!req) return console.log('problem with request')
     res.render('gameField', {
         title: "Games"
     })
 })
 app.get('/api/level-data', cors(), async (req, res) => {
-    if(!req) return console.log('no propper request')
-
+    if(!req ) return console.log('no propper request')
     fs.readFile(__dirname + '/public/db/gameLevelData.json', (err, data) => {
-        let headers = req.headers;
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+        let headers = req.headers;
 
         let readObject = JSON.parse(data) //
         let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
@@ -55,7 +51,7 @@ app.get('/api/user-ship', cors(), async (req, res) => {
         res.send(responseItem);
     })
 })
-app.get('/api/game-ettings', cors(), (req, res) => {
+app.get('/api/game-settings', cors(), (req, res) => {
     fs.readFile(__dirname + '/public/db/gameSettings.json', (err, data) => {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
 
