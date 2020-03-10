@@ -1,24 +1,21 @@
-var { viewModules } = require('../view/displayModules');
-var { bulletModule } = require('../constructors/bulletConstructor');
+import { createImage } from '../view/displayModules';
+import { explosionFire } from '../engine/gameSideObjectsModule';
+import * as costructors from '../constructors';
 
 function placeEnemyes(mainGameObject){
-    viewModules.createImage(
+    createImage(
         mainGameObject.gameInitData.ctxActionField,
         this.img,
-        this.sx,
-        this.sy,
-        this.sWidth,
-        this.sHeight,
-        this.x,
-        this.y,
-        this.width,
-        this.height)
+        this.sx, this.sy,
+        this.sWidth, this.sHeight,
+        this.x, this.y,
+        this.width,this.height)
 }
 function moveEnemyes(moveX: number, moveY: number = 0){
     this.x -= this.enemySpeed;
     this.y -= moveY;
 }
-function loadEnemyes(){
+function loadEnemyes(){         ///  need replace  and remove
     this.img = new Image();
     this.img.src = this.shipTexture;
 }
@@ -31,20 +28,24 @@ function shoot(bulletConstructor, mainGameObject){
        let guns = this.guns;
        for(let item of guns){
            let bullet = new bulletConstructor(
-               this.x, this.y,
+               this.x, this.y + item.firePosition,
                item.name, item.color,
-               "enemy", item.speed,
+               "enemy", item.speed + this.enemySpeed,
                item.width, item.height,
-               item.damage
+               item.damage, item.type, item.texture,
+               item.sx, item.sy, item.sWidth, item.sHeight,
+               item.explosionAnimation
                );
-           mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+               bullet.img.src = bullet.texture;
+               bullet.img.onload = () => {
+                   mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+               }
        }
-
     }
 }
-function enemyAnimation(){
+function enemyAnimation(state = true){
     this.detectFrame += 1;
-    if(this.detectFrame % this.animationSteps == 0){
+    if(this.detectFrame % this.animationSteps == 0 && state){
         this.detectFrame = 0;
         this.sx += this.sWidth;
         if(this.sx >= this.picturesWidth){
@@ -52,23 +53,41 @@ function enemyAnimation(){
         }
     }
 }
+
+function enemyDamageAnimation(){
+    let damageAnimationPoint = this.originalHealthPoint/this.numberOfVerticalItems;
+    let damagePoint = new Array(this.numberOfVerticalItems).fill(null)
+    damagePoint = damagePoint.map((item, index) =>damageAnimationPoint*(index+1)).sort((a, b) => a - b).reverse();
+    for(let i = 0; i < damagePoint.length; i++){
+        if(this.healthPoint < damagePoint[i] && this.healthPoint > damagePoint[i+1] && damagePoint[i+1]){
+            this.sy = this.sHeight*(i);
+            break
+        }else if(!damagePoint[i+1]){
+            this.sy = this.sHeight * (this.numberOfVerticalItems - 1)
+        }
+    }
+}
 // complex enemy animation for damage
-async function takeDamage(damage: number, hitObject, mainGameObject){
+function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"
     ){
+        explosionFire(this, mainGameObject, hitObject, costructors.SideObject)
         return this.objectPresent = false;
     }
 
     if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
         unitDamage.call(this);
+        this.enemyDamageAnimation()
+        if(this.healthPoint <= 0) {
+            explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
+        }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
         if(this.collisionAllow){
             unitDamage.call(this, mainGameObject.getLevelUserData())
         }
-    }else{
-        return false
-    }
+    }else return false
+
     function unitDamage(data){
         this.healthPoint -= damage;
         if(this.healthPoint <= 0){
@@ -76,7 +95,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject){
                 data.sourse.playerObject.numberOflife -= 1;
                 if(data.sourse.playerObject.numberOflife <= 0){
                     alert("Game Over");
-                    mainGameObject.backToStartScreen()
+                    mainGameObject.backToStartScreen(costructors.PlayerShip)
                 }
                 this.healthPoint = data.sourse.playerObject.maxHealth;
                 return false
@@ -112,12 +131,13 @@ function hitDetection(object1, objectsArr, mainGameObject){
     return (collision == "collision")? object1: false;
 }
 
-module.exports.enemiesModel = {
-    placeEnemyes: placeEnemyes,
-    moveEnemyes: moveEnemyes,
-    loadEnemyes: loadEnemyes,
-    shoot: shoot,
-    enemyAnimation: enemyAnimation,
-    hitDetection: hitDetection,
-    takeDamage: takeDamage
+export  {
+    placeEnemyes,
+    moveEnemyes,
+    loadEnemyes,
+    shoot,
+    enemyAnimation,
+    hitDetection,
+    takeDamage,
+    enemyDamageAnimation
 };

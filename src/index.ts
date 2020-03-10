@@ -1,32 +1,21 @@
 import '../sass/main.sass';
 
-var { levelConstructor } = require('./constructors/levelConstructors');
-var { playerModules } = require('./constructors/userConstructor');
-var { gameModule } = require('./constructors/mainGameComponent');
-var { engineModule } = require('./engine/engineModules');
-var { serverModules } = require('./server/serverRequestModules');
-var { enemies } = require('./enemies/enemiesModules');
-var { viewModules } = require('./view/displayModules');
-var { uiStateModules } = require('./ui/gameUiModels/gameUiLoadMenu');
-var { startGameModules } = require('./engine/gameModules/satartGame');
-var { bulletModule } = require('./constructors/bulletConstructor');
+import * as gameDataModules from './engine/gameModules'
+import * as constructors from './constructors';
+import { clearField } from './view/displayModules';
 
 
 
 (async function init(){
-    //startGameModules.gameEngine(startGameModules.gameDataInit)
-
     /*  gameEngineInit  */
-    var gameState = await startGameModules.gameDataInit();
-    var gameObject = new gameModule.Game(gameState.data, gameState.locations);
+    var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip);
+    var gameObject = await new constructors.Game(gameState.data);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
-
+/**/
     gameObject.uiController()
     gameObject.setGameFields();
     gameObject.getScreenSize();
-
-
 
     let contexts = gameObject.returnContext();
 
@@ -37,33 +26,26 @@ var { bulletModule } = require('./constructors/bulletConstructor');
     playerShipData.shipControl(gameObject);
 
     async function gameInterval(){
+
         if(gameObject.gameInitData.ctxUIField){
-            viewModules.clearField(
+            clearField(
                 gameObject.gameInitData.ctxUIField,
                 gameObject.gameInitData.screen.width,
                 gameObject.gameInitData.screen.height);
         }
         if(gameObject.gameInitData.ctxActionField &&  !gameObject.gameInitData.gamePause){
-                viewModules.clearField(
+                clearField(
                 gameObject.gameInitData.ctxActionField,
                 gameObject.gameInitData.screen.width,
                 gameObject.gameInitData.screen.height);
         }
         if(gameObject.gameInitData.backScreenPause){
-            gameObject.gameInitData.backScreenPause = false;
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
+            gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
-        if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
-            if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
-                for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                        backgroundMap.updateMap();
-                    }
-                }
-            }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus == true){
-                gameObject.spawnEnemyLogic(gameObject);
+                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject);
+
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
                         bullet.moveBullets();
@@ -77,17 +59,40 @@ var { bulletModule } = require('./constructors/bulletConstructor');
                     for(let enemy of gameObject.gameInitData.allGameEnemies){
                         enemy.placeEnemyes(gameObject);
                         enemy.moveEnemyes();
-                        enemy.enemyAnimation();
-                        enemy.shoot(bulletModule.BulletConstruct, gameObject);
+                        enemy.enemyAnimation(true);
+                        enemy.shoot(constructors.BulletConstruct, gameObject);
                         gameObject.deleteObjects(enemy);
                     }
                 }
                 playerShipData.placeShip();
                 playerShipData.movePlayerShip();
+                if(gameObject.gameInitData.allGameSideObjects.length > 0){
+                    for(let object of gameObject.gameInitData.allGameSideObjects){
+                        object.placeEnemyes(gameObject);
+                        object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                        gameObject.delateSideObject(object);
+                    }
+                }
+                gameObject.levelTimer()
             }else if(gameObject.gameInitData.gameStatus == false){
             //     gameObject.showStartWindow()
             }
 
+        }
+        if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+            if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+                if(gameObject.gameInitData.ctx){
+                    clearField(
+                        gameObject.gameInitData.ctx,
+                        gameObject.gameInitData.screen.width,
+                        gameObject.gameInitData.screen.height);
+                }
+                for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
+                    backgroundMap.updateMap();
+                    backgroundMap.changePartOfTexture(gameObject, gameObject.gameInitData.mapBackgroundObjects);
+                }
+            if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
+            }
         }
 
         ///   game UI load
@@ -106,5 +111,4 @@ var { bulletModule } = require('./constructors/bulletConstructor');
         }
     }
 })()
-
 

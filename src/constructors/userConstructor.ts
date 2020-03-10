@@ -1,7 +1,13 @@
-var { viewModules } = require('../view/displayModules');
-var { playerShipModule } = require('../engine/playerShipModule');
-var { gameMethods } = require('../engine/engineModules');
-var { enemiesModel } = require('../enemies/enemiesModules');
+
+import { initPlayerShip,
+    movePlayerShip,
+    shipControl,
+    moveShip,
+    placeShip,
+    setContext 
+} from '../engine/playerShipModule';
+import { getObjectPosition } from '../engine/engineModules';
+import { takeDamage } from '../enemies/enemiesModules';
 
 
 interface shipData{
@@ -12,6 +18,7 @@ interface shipData{
     speed: number,
     minSpeed: number,
     firespot: number,
+    explosion: any,
     size:{
             width: number,
             height: number
@@ -28,6 +35,7 @@ class PlayerShip{
     xFinal: number; yFinal: number;
     ctx: any; collisionAllow: boolean;
     objectOwner: string; width: number; height: number;
+    xAdj: number; speed: number; explosion: any;
 
     initPlayerShip: any;
     movePlayerShip: any;
@@ -45,7 +53,7 @@ class PlayerShip{
         numberOflife: number,
         x: number = 100,
         y: number = 100,
-        width: number, height: number
+        width: number, height: number, explosion: any
     ){
         this.data = data;
         this.points = points;
@@ -57,20 +65,22 @@ class PlayerShip{
         this.collisionAllow = true;
         this.objectOwner = "player";
         this.width = width; this.height = height;
+        this.xAdj = 0; this.speed = data.speed;
+        this.explosion = data.explosion;
     }
 
 }
 
-PlayerShip.prototype.initPlayerShip = playerShipModule.initPlayerShip;
-PlayerShip.prototype.movePlayerShip = playerShipModule.movePlayerShip;
-PlayerShip.prototype.shipControl = playerShipModule.shipControl;
-PlayerShip.prototype.moveShip = playerShipModule.moveShip;
-PlayerShip.prototype.placeShip = playerShipModule.placeShip;
-PlayerShip.prototype.setContext = playerShipModule.setContext;
-PlayerShip.prototype.getObjectPosition = gameMethods.getObjectPosition;
+PlayerShip.prototype.initPlayerShip = initPlayerShip;
+PlayerShip.prototype.movePlayerShip = movePlayerShip;
+PlayerShip.prototype.shipControl = shipControl;
+PlayerShip.prototype.moveShip = moveShip;
+PlayerShip.prototype.placeShip = placeShip;
+PlayerShip.prototype.setContext = setContext;
+PlayerShip.prototype.getObjectPosition = getObjectPosition;
 
-PlayerShip.prototype.takeDamage = enemiesModel.takeDamage;
+PlayerShip.prototype.takeDamage = takeDamage;
 
-module.exports.playerModules = {
-    PlayerShip: PlayerShip
+export {
+    PlayerShip
 };

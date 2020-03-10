@@ -1,4 +1,5 @@
-var { uiModelsMethods } = require('./uiModelMethods');
+import { init, getUIObjectPosition } from './uiModelMethods';
+
 function gameLoadMenu(data: any,ctx: any, width: number, height: number, pictureDirrection: any){
     return data || [
         {
@@ -11,7 +12,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 ctx: ctx,
                 width: 400,
                 height: 90,
-                x: width/2 - 150,
+                x: width/2 - 200,
                 y: height/2 + 50,
                 background: 'rgba(255, 255, 255, 1)',
                 borderColor: 'rgba(255, 255, 255, 1)',
@@ -20,8 +21,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             action(){
                 this.gameStart()
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Logotype",
             text: "",
@@ -33,7 +34,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 height: 140,
                 sWidth: 503,
                 sHeight: 669,
-                x: width/2 - 50,
+                x: width/2 - 80,
                 y: 50,
                 background: new Image(),
                 borderColor: false,
@@ -42,8 +43,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             loadPicture(){
                 this.propertyes.background.src = pictureDirrection + 'misc/logo-half-white_1.png';
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Game name",
             text: "Space",
@@ -52,7 +53,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             fontSize: "bold 100px Roboto",
             propertyes:{
                 ctx: ctx,
-                width: -240,
+                width: -290,
                 height: 0,
                 x: width/2,
                 y: 300,
@@ -60,8 +61,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Game name",
             text: "Attack",
@@ -70,7 +71,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             fontSize: "lighter 100px Roboto",
             propertyes:{
                 ctx: ctx,
-                width: 50,
+                width: 0,
                 height: 0,
                 x: width/2,
                 y: 300,
@@ -78,8 +79,8 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         }, {
             name: "Start button",
             text: "Press Start to begin",
@@ -88,7 +89,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             clicked: false,
             propertyes:{
                 ctx: ctx,
-                width: -90,
+                width: -130,
                 height: 105,
                 x: width/2 ,
                 y: height/2,
@@ -96,14 +97,14 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 borderColor: '#007BD1',
                 radius: null,
             },
-            init: uiModelsMethods.init,
-            getObjectPosition: uiModelsMethods.getUIObjectPosition
+            init: init,
+            getObjectPosition: getUIObjectPosition
         },
 
     ]
 }
 
 
-module.exports.uiStateModules = {
-    gameLoadMenu: gameLoadMenu
+export {
+    gameLoadMenu
 }

@@ -1,6 +1,18 @@
-var { enemiesModel } = require('../enemies/enemiesModules');
-var { gameMethods } = require('../engine/engineModules');
+import { placeEnemyes, moveEnemyes, loadEnemyes, shoot, enemyAnimation, takeDamage, enemyDamageAnimation } from '../enemies/enemiesModules';
+import { getObjectPosition } from '../engine/engineModules';
 
+
+interface explosionAnimation{
+    texture: string,
+    imageWidth: number,
+    imageHeight: number,
+    animationSteps: number,
+    numberOfItems: number,
+    sx: number,
+    sy: number,
+    width: number,
+    height: number
+}
 interface enemyGuns{
     name: string,
     fireRepead: number,
@@ -27,6 +39,8 @@ class EnemyObject {
     healthPoint: number; animationSteps: number;
     detectFrame: number; objectPresent: boolean;
     damage: number; guns: any; objectOwner: string;
+    explosion: explosionAnimation; numberOfVerticalItems: number;
+    originalHealthPoint: number;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -35,6 +49,7 @@ class EnemyObject {
     enemyAnimation: any;
     getObjectPosition: any;
     takeDamage: any;
+    enemyDamageAnimation: any;
     constructor(
         x: number, y: number,
         sx: number, sy: number,
@@ -46,7 +61,7 @@ class EnemyObject {
         status: string, name: string,
         bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
         healthPoint: number, animationSteps: number,
-        damage: number, objectOwner: string, guns: any
+        damage: number, objectOwner: string, guns: any, explosion: any, numberOfVerticalItems: number
         ){
             this.id = new Date().getTime();
             this.x = x; this.y = y;
@@ -63,19 +78,22 @@ class EnemyObject {
             this.detectFrame = 0;
             this.objectPresent = true;
             this.objectOwner = objectOwner;
-            this.guns = guns
+            this.guns = guns; this.explosion = explosion;
+            this.numberOfVerticalItems = numberOfVerticalItems;
+            this.originalHealthPoint = healthPoint
     }
 }
 
-EnemyObject.prototype.placeEnemyes = enemiesModel.placeEnemyes;
-EnemyObject.prototype.moveEnemyes = enemiesModel.moveEnemyes;
-EnemyObject.prototype.loadEnemyes = enemiesModel.loadEnemyes;
-EnemyObject.prototype.shoot = enemiesModel.shoot;
-EnemyObject.prototype.enemyAnimation = enemiesModel.enemyAnimation;
-EnemyObject.prototype.getObjectPosition = gameMethods.getObjectPosition;
+EnemyObject.prototype.placeEnemyes = placeEnemyes;
+EnemyObject.prototype.moveEnemyes = moveEnemyes;
+EnemyObject.prototype.loadEnemyes = loadEnemyes;
+EnemyObject.prototype.shoot = shoot;
+EnemyObject.prototype.enemyAnimation = enemyAnimation;
+EnemyObject.prototype.getObjectPosition = getObjectPosition;
+EnemyObject.prototype.enemyDamageAnimation = enemyDamageAnimation;
 
-EnemyObject.prototype.takeDamage = enemiesModel.takeDamage;
+EnemyObject.prototype.takeDamage = takeDamage;
 
-module.exports.objectConstructor = {
-    EnemyObject: EnemyObject,
+export {
+    EnemyObject
 };

@@ -1,4 +1,6 @@
-var { objectConstructor } = require('../constructors/enemyConstructor');
+import { EnemyObject } from '../constructors/enemyConstructor';
+
+
 function dartShipLogic(){
 
 }
@@ -24,7 +26,7 @@ function createNewEnemy(enemyData){
     let x = this.gameInitData.screen.width + 300,
     y = this.gameRandomizer(this.gameInitData.screen.height - 200, 100),
     shipDetails = enemyData.details;
-    return new objectConstructor.EnemyObject(
+    return new EnemyObject(
         x, y,
         shipDetails.sx, shipDetails.sy,
         shipDetails.imageWidth/shipDetails.numberOfItems, shipDetails.imageHeight,
@@ -35,7 +37,8 @@ function createNewEnemy(enemyData){
         shipDetails.status, shipDetails.name,
         shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
         shipDetails.healthPoint, shipDetails.animationSteps, shipDetails.damage,
-        shipDetails.objectOwner, shipDetails.guns
+        shipDetails.objectOwner, shipDetails.guns, shipDetails.explosionAnimation,
+        shipDetails.numberOfVerticalItems
         );
 }
 
@@ -44,9 +47,9 @@ function gameRandomizer(maxNumber: number, minNumber: number = 0){
 }
 
 
-module.exports.regularAiModule = {
-    dartShipLogic: dartShipLogic,
-    spawnEnemyLogic: spawnEnemyLogic,
-    createNewEnemy: createNewEnemy,
-    gameRandomizer: gameRandomizer
+export {
+    dartShipLogic,
+    spawnEnemyLogic,
+    createNewEnemy,
+    gameRandomizer
 }

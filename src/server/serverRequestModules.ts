@@ -11,6 +11,6 @@ function getData({url, method, data, headers}){
     ).then(data => data)
 }
 
-module.exports.serverModules = {
-    getData: getData
+export {
+    getData
 };

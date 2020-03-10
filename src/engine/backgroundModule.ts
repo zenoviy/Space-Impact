@@ -1,25 +1,31 @@
-var { viewModules } = require('../view/displayModules');
-var { gameMethods } = require('../engine/engineModules');
-var { playerShipModule } = require('../engine/playerShipModule');
+import { createImage } from '../view/displayModules';
 
 function updateMap(){
-    this.img = this.img || new Image();
     let backgroundObject = this;
-
     this.x -= this.backgroundSpeed;
     if(this.x + this.screenData.width < 0){
         this.x = this.screenData.width;
     }
-    this.img.onload = function() {
-       viewModules.createImage(backgroundObject.ctx,
+       createImage(backgroundObject.ctx,
             backgroundObject.img, backgroundObject.x, 0,
             backgroundObject.screenData.width+2,
             backgroundObject.screenData.height)
-    };
-     this.img.src = this.img.src || location.origin + '/images/locations/' + this.backgroundTexture;
+}
+function changePartOfTexture(mainGameObject, backgroundArray){
+    let levelData = mainGameObject.getLevelUserData();
+    let screenData = mainGameObject.getScreenSize();
+    //console.log(levelData.minutes, levelData.seconds, this.timeToExtraMapMinutes, this.timeToExtraMapSeconds)
+    if(levelData.minutes <= this.timeToExtraMapMinutes
+    && levelData.seconds <= this.timeToExtraMapSeconds
+    && this.extraMap && this.x >= screenData.width - 200){
+        //alert(1)
+        let info = mainGameObject.showGameInfo();
+        this.img.src = info.imageDirrection + this.extraMap;
+    }
 }
 
 
-module.exports.backgroundMapModule = {
-    updateMap: updateMap
+export {
+    updateMap,
+    changePartOfTexture
 }

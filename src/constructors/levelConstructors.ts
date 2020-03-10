@@ -1,7 +1,5 @@
-var { viewModules } = require('../view/displayModules');
-var { gameMethods } = require('../engine/engineModules');
-var { playerShipModule } = require('../engine/playerShipModule');
-var { backgroundMapModule } = require('../engine/backgroundModule');
+import { warpEffect } from '../engine/engineModules';
+import { updateMap, changePartOfTexture } from '../engine/backgroundModule';
 
 class GameBackground{
     x: number = 0; y: number = 0;
@@ -9,26 +7,42 @@ class GameBackground{
     screenData: any;
     ctx: any;
     img: any;
+    timeToEressLevel: any;
+    warpObjects: any[];
+    extraMap: string; timeToExtraMapSeconds: number; timeToExtraMapMinutes: number
 
     updateMap: any;
+    warpEffect: any;
+    changePartOfTexture: any;
     constructor(
         backgroundTexture: string,
         backgroundSpeed: number,
         screenData: any,
         ctx: any,
-        partOfScreenStatus: boolean
+        partOfScreenStatus: boolean,
+        extraMap: string,
+        timeToExtraMapSeconds: number, timeToExtraMapMinutes: number
         ){
-            this.backgroundTexture = backgroundTexture; this.backgroundSpeed = backgroundSpeed;
+            this.backgroundTexture = backgroundTexture;
+            this.backgroundSpeed = backgroundSpeed;
             this.screenData = screenData;
             this.ctx = ctx;
-            this.x = (partOfScreenStatus)? 0 : screenData.width; this.y = 0;
+            this.x = (partOfScreenStatus)? 0 : screenData.width;
+            this.y = 0;
             this.img = new Image();
-            this.img.src = location.origin + '/images/locations/' + this.backgroundTexture;
+            this.extraMap = extraMap;
+            this.timeToEressLevel = 4;
+            this.warpObjects = [];
+            this.timeToExtraMapSeconds = timeToExtraMapSeconds;
+            this.timeToExtraMapMinutes = timeToExtraMapMinutes;
         }
 
 }
-GameBackground.prototype.updateMap = backgroundMapModule.updateMap;
+GameBackground.prototype.updateMap = updateMap;
+GameBackground.prototype.warpEffect = warpEffect;
+GameBackground.prototype.changePartOfTexture = changePartOfTexture;
 
-module.exports.levelConstructor = {
-    GameBackground: GameBackground
+
+export {
+    GameBackground
 }

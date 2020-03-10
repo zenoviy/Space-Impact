@@ -70,13 +70,14 @@ app.get('/api/enemy-ship', cors(), async (req, res) => {
         let headers = req.headers;
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
 
-        //console.log(headers['ship-type-number'])
-        let readObject = JSON.parse(data) //
-        let responseItem = readObject.map(item => {
-            if(item.id == headers['ship-type-number']){
-                return item
-            }
+        let readObject = JSON.parse(data)
+        let enemyType = headers['ship-type-number'];
+        enemyType = enemyType.split(/,/).map(item => parseInt(item));
+
+        let responseItem = readObject.filter(item => {
+                return enemyType.some(obj => obj == item.id)
         });
+
         res.send(responseItem);
     })
 })

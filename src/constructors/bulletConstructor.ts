@@ -1,6 +1,17 @@
-var { bulletsModule } = require('../engine/bulletsModule');
-var { gameMethods } = require('../engine/engineModules');
-var { enemiesModel } = require('../enemies/enemiesModules');
+import { createBullets, initBullets, moveBullets } from '../engine/bulletsModule';
+import { getObjectPosition } from '../engine/engineModules';
+import { takeDamage } from '../enemies/enemiesModules';
+interface explosionAnimation{
+    texture: string,
+    imageWidth: number,
+    imageHeight: number,
+    animationSteps: number,
+    numberOfItems: number,
+    sx: number,
+    sy: number,
+    width: number,
+    height: number
+}
 class BulletConstruct{
     id: number;
     x: number; y: number;
@@ -11,6 +22,9 @@ class BulletConstruct{
     width: number; height: number;
     damage: number;
     objectPresent: boolean;
+    type: number; texture: string;
+    img: any; sx: number; sy: number; sWidth: number; sHeight: number;
+    explosion: explosionAnimation;
 
     createBullets: any;
     initBullets: any;
@@ -24,7 +38,8 @@ class BulletConstruct{
         objectOwner: string,
         bulletSpeed: number,
         width: number, height: number,
-        damage: number
+        damage: number, type: number, texture: string,
+        sx: number, sy: number, sWidth: number, sHeight: number, explosion: explosionAnimation
     ){
         this.x = x; this.y = y;
         this.bulletType = bulletType;
@@ -35,17 +50,23 @@ class BulletConstruct{
         this.damage = damage;
         this.id = new Date().getTime();
         this.objectPresent = true;
+        this.type = type;
+        this.img = new Image();
+        this.texture = location.origin + '/images/' +  texture;
+        this.sx = sx; this.sy = sy; this.sWidth = sWidth; this.sHeight = sHeight;
+        this.explosion = explosion;
+
     }
 }
 
-BulletConstruct.prototype.createBullets = bulletsModule.createBullets;
-BulletConstruct.prototype.initBullets = bulletsModule.initBullets;
-BulletConstruct.prototype.moveBullets = bulletsModule.moveBullets;
-BulletConstruct.prototype.getObjectPosition = gameMethods.getObjectPosition;
+BulletConstruct.prototype.createBullets = createBullets;
+BulletConstruct.prototype.initBullets = initBullets;
+BulletConstruct.prototype.moveBullets = moveBullets;
+BulletConstruct.prototype.getObjectPosition = getObjectPosition;
 
-BulletConstruct.prototype.takeDamage = enemiesModel.takeDamage;
+BulletConstruct.prototype.takeDamage = takeDamage;
 
 
-module.exports.bulletModule = {
-    BulletConstruct : BulletConstruct
+export {
+    BulletConstruct
 }
