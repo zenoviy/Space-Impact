@@ -1,135 +1,114 @@
 import '../sass/main.sass';
 
-var {levelConstructor} = require('./constructors/levelConstructors');
-var {playerModules} = require('./constructors/userConstructor');
-var {gameModule} = require('./constructors/mainGameComponent');
-var {engineModule} = require('./engine/engineModules');
-var {serverModules} = require('./server/serverRequestModules');
-var {enemies} = require('./enemies/enemiesModules');
-var {viewModules} = require('./view/displayModules');
+import * as gameDataModules from './engine/gameModules'
+import * as constructors from './constructors';
+import { clearField } from './view/displayModules';
 
 
 
 (async function init(){
-    async function gameDataInit(){
-        let gameField = document.querySelector('#gamefield'),
-        gameActionField = document.querySelector('#gameObjectsfield'),
-        gameUIfield = document.querySelector('#gameUifield');
-
-
-        let serverLocation = {
-                host: (document.location.hostname === "localhost")? "http://localhost:3000/" : "",
-                picturesDirection: location.origin + '/images/',
-                levelData: {
-                    method: "GET",
-                    url: "api/level-data"
-                },
-                enemylData: {
-                    method: "GET",
-                    url: "api/level-data"
-                },
-                gameSetings: {
-                    method: "GET",
-                    url: "api/game-ettings"
-                },
-                userShip: {
-                    method: "GET",
-                    url: "api/user-ship"
-                }
-        }
-        const levelData = await serverModules.getData({
-            url: serverLocation.host + serverLocation.levelData.url,
-            method: serverLocation.levelData.method,
-            data: null,
-            headers:{ 'maplevel': 2}
-        })
-        const gameSetings = await serverModules.getData({
-            url: serverLocation.host + serverLocation.gameSetings.url,
-            method: serverLocation.gameSetings.method,
-            data: null,
-            headers: null
-        })
-        const userData = await serverModules.getData({
-            url: serverLocation.host + serverLocation.userShip.url,
-            method: serverLocation.userShip.method,
-            data: null,
-            headers:{ 'usership': 1}
-        })
-        return {data: {
-            ctx: null,
-            gameField: (gameField)? gameField: null,
-            gameActionField : (gameActionField)? gameActionField: null,
-            gameUIField : (gameUIfield)? gameUIfield: null,
-            gameData:{
-                currentLevel: 2,
-                currentPoint: 0,
-                playerObject: new playerModules.PlayerShip(userData, 0, 3, 0, 0),
-                gameSetings: gameSetings,
-                constrollers: null
-            },
-            screen:{
-                width: window.innerWidth,
-                height: window.innerHeight
-            },
-            allGameEnemies: [],
-            allGameBullets: [],
-            allGameMapOBjects: [],
-            mapBackgroundObjects: [],
-            gamePause: false,
-            backScreenPause: true,
-            gameStatus: false,
-            gameEngine: setInterval(gameInterval, 20),
-            levelData: levelData
-        }, locations: serverLocation
-    }
-}
-
-
     /*  gameEngineInit  */
-    var gameState = await gameDataInit();
-    var gameObject = new gameModule.Game(gameState.data, gameState.locations);
+    var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip);
+    var gameObject = await new constructors.Game(gameState.data);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
-
-
+    var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
+/**/
+    gameObject.uiController()
     gameObject.setGameFields();
-    //gameObject.setGameFields();
+    gameObject.getScreenSize();
+
     let contexts = gameObject.returnContext();
 
     //  create context
     playerShipData.ctx = contexts.gameActionField;
-    playerShipData.parrent = gameObject;
     // ship move
-    playerShipData.initPlayerShip()
-    playerShipData.shipControl(gameObject)
-    function gameInterval(){
-        //
-            if(gameObject.gameInitData.ctxActionField){
-                viewModules.clearField(gameObject.gameInitData.ctxActionField,
-                    gameObject.gameInitData.screen.width,
-                    gameObject.gameInitData.screen.height);
-            }
-        if(gameObject.gameInitData.backScreenPause){
-            gameObject.gameInitData.backScreenPause = false;
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
-            gameObject.levelInit(levelConstructor.GameBackground, gameObject.gameInitData.ctx, gameObject);
-        }
-        if(!gameObject.gameInitData.backScreenPause){
-            for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                backgroundMap.updateMap();
-            }
-        }
-        if(gameObject.gameInitData.allGameBullets.length > 0){
-            for(let bullet of gameObject.gameInitData.allGameBullets){
-                bullet.moveBullets();
-                bullet.createBullets(gameObject);
-                gameObject.delateBullet(bullet);
-            }
-        }
-        playerShipData.placeShip();
-        playerShipData.displayPlayerShip();
+    playerShipData.initPlayerShip(gameObject);
+    playerShipData.shipControl(gameObject);
 
-        playerShipData.parrent = gameObject;
+    async function gameInterval(){
+
+        if(gameObject.gameInitData.ctxUIField){
+            clearField(
+                gameObject.gameInitData.ctxUIField,
+                gameObject.gameInitData.screen.width,
+                gameObject.gameInitData.screen.height);
+        }
+        if(gameObject.gameInitData.ctxActionField &&  !gameObject.gameInitData.gamePause){
+                clearField(
+                gameObject.gameInitData.ctxActionField,
+                gameObject.gameInitData.screen.width,
+                gameObject.gameInitData.screen.height);
+        }
+        if(gameObject.gameInitData.backScreenPause){
+            gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject);
+        }
+        if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
+            if(gameObject.gameInitData.gameStatus == true){
+                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject);
+
+                if(gameObject.gameInitData.allGameBullets.length > 0){
+                    for(let bullet of gameObject.gameInitData.allGameBullets){
+                        bullet.moveBullets();
+                        bullet.createBullets(gameObject);
+                        gameObject.deleteBullet(bullet);
+                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject);
+                        gameObject.hitDetection(playerShipData, [bullet], gameObject);
+                    }
+                }
+                if(gameObject.gameInitData.allGameEnemies.length > 0){
+                    for(let enemy of gameObject.gameInitData.allGameEnemies){
+                        enemy.placeEnemyes(gameObject);
+                        enemy.moveEnemyes();
+                        enemy.enemyAnimation(true);
+                        enemy.shoot(constructors.BulletConstruct, gameObject);
+                        gameObject.deleteObjects(enemy);
+                    }
+                }
+                playerShipData.placeShip();
+                playerShipData.movePlayerShip();
+                if(gameObject.gameInitData.allGameSideObjects.length > 0){
+                    for(let object of gameObject.gameInitData.allGameSideObjects){
+                        object.placeEnemyes(gameObject);
+                        object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                        gameObject.delateSideObject(object);
+                    }
+                }
+                gameObject.levelTimer()
+            }else if(gameObject.gameInitData.gameStatus == false){
+            //     gameObject.showStartWindow()
+            }
+
+        }
+        if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+            if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+                if(gameObject.gameInitData.ctx){
+                    clearField(
+                        gameObject.gameInitData.ctx,
+                        gameObject.gameInitData.screen.width,
+                        gameObject.gameInitData.screen.height);
+                }
+                for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
+                    backgroundMap.updateMap();
+                    backgroundMap.changePartOfTexture(gameObject, gameObject.gameInitData.mapBackgroundObjects);
+                }
+            if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
+            }
+        }
+
+        ///   game UI load
+        if(!gameObject.gameInitData.gameStatus ){
+            gameObject.showStartWindow()
+        }
+        if(gameObject.gameInitData.gameStatus){
+            gameObject.showGameStats()
+        }
+        if(gameObject.gameInitData.gamePause){
+            gameObject.showPauseWindow()
+        }
+        if(gameObject.gameInitData.gameUiPause){
+            gameObject.showMenuWindow()
+            gameObject.showPauseWindow()
+        }
     }
 })()
-
 
