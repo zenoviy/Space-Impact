@@ -77,25 +77,31 @@ function takeDamage(damage: number, hitObject, mainGameObject){
     }
 
     if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
-        unitDamage.call(this);
+        unitDamage.call(this, null, mainGameObject);
         this.enemyDamageAnimation()
         if(this.healthPoint <= 0) {
             explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
         if(this.collisionAllow){
-            unitDamage.call(this, mainGameObject.getLevelUserData())
+            unitDamage.call(this, mainGameObject.getLevelUserData(), mainGameObject)
         }
     }else return false
 
-    function unitDamage(data){
+    function unitDamage(data, mainGameObject){
+
         this.healthPoint -= damage;
         if(this.healthPoint <= 0){
             if(data && data.life > 0){
                 data.sourse.playerObject.numberOflife -= 1;
                 if(data.sourse.playerObject.numberOflife <= 0){
-                    alert("Game Over");
-                    mainGameObject.backToStartScreen(costructors.PlayerShip)
+                    //alert("Game Over");
+                    mainGameObject.gameOverWindow()
+                    mainGameObject.gameInitData.gameOver = true;
+                    setTimeout(function(){
+                        //mainGameObject.gameInitData.gameOver = false;
+                        mainGameObject.backToStartScreen(costructors.PlayerShip)
+                    }, 3000)
                 }
                 this.healthPoint = data.sourse.playerObject.maxHealth;
                 return false

@@ -46,7 +46,7 @@ import { clearField } from './view/displayModules';
             gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject);
         }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
-            if(gameObject.gameInitData.gameStatus == true){
+            if(gameObject.gameInitData.gameStatus){
                 if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject);
 
                 if(gameObject.gameInitData.allGameBullets.length > 0){
@@ -67,8 +67,10 @@ import { clearField } from './view/displayModules';
                         gameObject.deleteObjects(enemy);
                     }
                 }
-                playerShipData.placeShip();
-                playerShipData.movePlayerShip();
+                if(!gameObject.gameInitData.gameOver){
+                    playerShipData.placeShip();
+                    playerShipData.movePlayerShip();
+                }
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){
                         object.placeEnemyes(gameObject);
@@ -77,10 +79,9 @@ import { clearField } from './view/displayModules';
                     }
                 }
                 gameObject.levelTimer()
-            }else if(gameObject.gameInitData.gameStatus == false){
+            }else if(!gameObject.gameInitData.gameStatus){
             //     gameObject.showStartWindow()
             }
-
         }
         if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
             if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
@@ -111,6 +112,9 @@ import { clearField } from './view/displayModules';
         if(gameObject.gameInitData.gameUiPause){
             gameObject.showMenuWindow()
             gameObject.showPauseWindow()
+        }
+        if(gameObject.gameInitData.gameOver){
+            gameObject.gameOverWindow()
         }
     }
 })()

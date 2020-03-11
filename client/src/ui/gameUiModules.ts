@@ -3,6 +3,7 @@ import { gameLoadMenu } from './gameUiModels/gameUiLoadMenu';
 import { gameSettingsMenu } from './gameUiModels/gameUiSettingsMenu';
 import { gamePause } from './gameUiModels/gamePauseScreen';
 import { gameInformationScreen } from './gameUiModels/gameStatsScreen';
+import { gameOverScreen } from './gameUiModels/gameGameOverScreen';
 import { uiImage, uiText } from '../view/elements/uiElementModules';
 import { hitDetection } from '../enemies/enemiesModules';
 
@@ -30,7 +31,7 @@ function uiController(){
             let elementsOnScreen = null;
             let ctx = this.gameInitData.ctxUIField,
             screenSize = this.getScreenSize();
-            if(this.gameInitData.gameStatus == false){
+            if(!this.gameInitData.gameStatus){
                 elementsOnScreen = gameLoadMenu(null, ctx, screenSize.width, screenSize.height, null);
             }
             if(this.gameInitData.gameUiPause){
@@ -87,6 +88,15 @@ function showGameStats(){
     this.initUiElements(drawMethods, gameInformationScreen, data)
 }
 
+function gameOverWindow(){
+    let drawMethods = [
+        uiText,
+        uiText,
+        uiText
+    ];
+    this.initUiElements(drawMethods, gameOverScreen)
+}
+
 function initUiElements(drawMethods, callback, ...props){
     let ctx = this.gameInitData.ctxUIField,
     screenSize = this.getScreenSize(),
@@ -106,6 +116,7 @@ export {
     showStartWindow,
     showMenuWindow,
     showPauseWindow,
+    gameOverWindow,
     showGameStats,
     initUiElements
 }

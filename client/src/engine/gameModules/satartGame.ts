@@ -58,7 +58,7 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 1, shipType = 1;
+        let level = 1, shipType = 1, shipLife = 2;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const gameSetings = res.gameSetings;
@@ -72,7 +72,7 @@ async function gameDataInit(PlayerShip){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                playerObject: new PlayerShip(userData, 0, 300, 5, 100, 100, userData.size.width, userData.size.height),
+                playerObject: new PlayerShip(userData, 0, 300, shipLife, 100, 100, userData.size.width, userData.size.height),
                 levelData: levelData,
                 gameSetings: gameSetings,
                 enemyData: enemyData,
@@ -96,6 +96,7 @@ async function gameDataInit(PlayerShip){
             gameUiPause: false,
             backScreenPause: true,
             gameStatus: false,
+            gameOver: false,
             gemeExtraSeconds: 0,
         }
     }
@@ -104,6 +105,7 @@ async function gameEngine(gameDataInit){
 
 }
 function gameStart(){
+    this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = true;
 }
 async function backToStartScreen(PlayerShip){
@@ -113,6 +115,7 @@ async function backToStartScreen(PlayerShip){
                 this.gameInitData[key] = value
         };
     }
+    this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = false;
 }
 

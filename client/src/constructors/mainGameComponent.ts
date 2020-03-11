@@ -27,6 +27,7 @@ import {
     showUiPopupWindow,
     showStartWindow,
     showPauseWindow,
+    gameOverWindow,
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
 import { gameStart, backToStartScreen } from '../engine/gameModules/satartGame';
@@ -55,6 +56,7 @@ interface gameData{
     levelChange: boolean,
     backScreenPause: boolean,
     gameStatus: boolean,
+    gameOver: boolean,
     gameData:{
         currentLevel: number,
         currentPoint: number,
@@ -107,6 +109,7 @@ class Game {
     showUiPopupWindow: any;
     showMenuWindow: any;
     showStartWindow: any;
+    gameOverWindow: any;
     showGameStats: any;
     initUiElements: any;
     gameUiMenu: any;
@@ -183,6 +186,7 @@ Game.prototype.showMenuWindow = showMenuWindow;
 Game.prototype.showUiPopupWindow = showUiPopupWindow;
 Game.prototype.showStartWindow = showStartWindow;
 Game.prototype.showPauseWindow = showPauseWindow;
+Game.prototype.gameOverWindow = gameOverWindow;
 Game.prototype.showGameStats = showGameStats;
 Game.prototype.initUiElements  = initUiElements;
 

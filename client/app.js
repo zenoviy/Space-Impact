@@ -15,6 +15,7 @@ function createWindow(){
         webPreferences: {
             nodeIntegration: true
         },
+        icon: path.join(__dirname, 'public/icons/png/64x64.png')
     })
     win.loadURL(`file://${__dirname}/index.html`);
     win.webContents.openDevTools()
