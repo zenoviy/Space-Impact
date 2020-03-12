@@ -1,4 +1,4 @@
-import { createWindow, createShapeRoundBorder } from './window/displayUiWindowModules';
+import { createWindow, createShapeRoundBorder, createRoundButton } from './window/displayUiWindowModules';
 import { weapon1 } from './weapons/weaponsDisplayModule';
 
 
@@ -29,5 +29,6 @@ export {
         createLaserBullet,
         createImage,
         createWindow,
-        createShapeRoundBorder
+        createShapeRoundBorder,
+        createRoundButton
 }

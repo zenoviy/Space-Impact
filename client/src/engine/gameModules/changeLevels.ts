@@ -23,7 +23,7 @@ async function nextLevelDataReload(levelData){
         gamePause: false,
         gameUiPause: false,
         backScreenPause: true,
-        gameOver: true,
+        gameOver: false,
         gemeExtraSeconds: 0,
     }
     setTimeout(()=>{

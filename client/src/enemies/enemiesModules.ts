@@ -83,6 +83,7 @@ function takeDamage(damage: number, hitObject, mainGameObject){
             explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
+        //alert("collision")
         if(this.collisionAllow){
             unitDamage.call(this, mainGameObject.getLevelUserData(), mainGameObject)
         }

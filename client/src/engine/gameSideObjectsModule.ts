@@ -22,7 +22,6 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject){
     sideObject.img.src = sideObject.texture;
     sideObject.img.onload = () => {
         mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
-        //console.log(mainGameObject.gameInitData.allGameSideObjects)
     }
 }
 function fireAnimationEnded( allGameSideObjects ){
@@ -40,7 +39,6 @@ function fireAnimationEnded( allGameSideObjects ){
         this.animationState = false;
     }
 }
-var test = "test";
 
 export {
     explosionFire,

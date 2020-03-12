@@ -12,10 +12,17 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 ctx: ctx,
                 width: 400,
                 height: 90,
-                x: width/2 - 200,
-                y: height/2 + 50,
+                x: width/2 - 165,
+                y: height/2 + 150,
                 background: 'rgba(255, 255, 255, 1)',
                 borderColor: 'rgba(255, 255, 255, 1)',
+                textProperty: {
+                    textColor: '#007BD1',
+                    topPadding: 10,
+                    rightPadding: 40,
+                    bottomPadding: 10,
+                    leftPadding: 40,
+                },
                 radius: 45,
             },
             action(){
@@ -30,18 +37,18 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             clicked: false,
             propertyes:{
                 ctx: ctx,
-                width: 100,
-                height: 140,
-                sWidth: 503,
-                sHeight: 669,
-                x: width/2 - 80,
-                y: 50,
+                width: 180,
+                height: 180,
+                sWidth: 1024,
+                sHeight: 1024,
+                x: width/2 - 90,
+                y: 90,
                 background: new Image(),
                 borderColor: false,
                 radius: null,
             },
             loadPicture(){
-                this.propertyes.background.src = pictureDirrection + 'misc/logo-half-white_1.png';
+                this.propertyes.background.src = pictureDirrection + 'misc/logo-1024x1024.png';
             },
             init: init,
             getObjectPosition: getUIObjectPosition
@@ -56,7 +63,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 width: -290,
                 height: 0,
                 x: width/2,
-                y: 300,
+                y: 370,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
@@ -74,14 +81,14 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 width: 0,
                 height: 0,
                 x: width/2,
-                y: 300,
+                y: 370,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
                 radius: null,
             },
             init: init,
             getObjectPosition: getUIObjectPosition
-        }, {
+        }/*, {
             name: "Start button",
             text: "Press Start to begin",
             description: "Text in main button",
@@ -99,7 +106,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             },
             init: init,
             getObjectPosition: getUIObjectPosition
-        },
+        },*/
 
     ]
 }

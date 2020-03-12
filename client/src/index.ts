@@ -65,6 +65,7 @@ import { clearField } from './view/displayModules';
                         enemy.enemyAnimation(true);
                         enemy.shoot(constructors.BulletConstruct, gameObject);
                         gameObject.deleteObjects(enemy);
+                        gameObject.hitDetection(playerShipData, [enemy], gameObject);
                     }
                 }
                 if(!gameObject.gameInitData.gameOver){

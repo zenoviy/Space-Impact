@@ -1,4 +1,4 @@
-import { createWindow, createShapeRoundBorder } from '../view/displayModules';
+import { createWindow, createShapeRoundBorder, createRoundButton } from '../view/displayModules';
 import { gameLoadMenu } from './gameUiModels/gameUiLoadMenu';
 import { gameSettingsMenu } from './gameUiModels/gameUiSettingsMenu';
 import { gamePause } from './gameUiModels/gamePauseScreen';
@@ -54,9 +54,8 @@ function showUiPopupWindow(){
 }
 function showStartWindow(){
    let drawMethods = [
-        createShapeRoundBorder,
+        createRoundButton,
         uiImage,
-        uiText,
         uiText,
         uiText
     ];
@@ -65,8 +64,7 @@ function showStartWindow(){
 function showMenuWindow(){
     let drawMethods = [
         createShapeRoundBorder,
-        createShapeRoundBorder,
-        uiText,
+        createRoundButton,
         uiText
     ];
     this.initUiElements(drawMethods, gameSettingsMenu)

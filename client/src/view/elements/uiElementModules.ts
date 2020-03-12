@@ -29,6 +29,7 @@ function uiImage(shapePropertyes: ImageShapes){
 }
 function uiText(shapePropertyes: ImageShapes){
     let propertyes = shapePropertyes.propertyes;
+    let textWidth = propertyes.ctx.measureText(shapePropertyes.text).width/3.2;
     propertyes.ctx.font = shapePropertyes.fontSize ;
     propertyes.ctx.fillStyle = propertyes.borderColor;
     propertyes.ctx.fillText(

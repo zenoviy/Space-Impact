@@ -99,7 +99,7 @@ export {
     initPlayerShip,
     shipControl,
     moveShip,
-   placeShip,
+    placeShip,
     setContext,
     showInformation
 }

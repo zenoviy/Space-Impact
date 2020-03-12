@@ -35,7 +35,7 @@ class PlayerShip{
     xFinal: number; yFinal: number;
     ctx: any; collisionAllow: boolean;
     objectOwner: string; width: number; height: number;
-    xAdj: number; speed: number; explosion: any;
+    xAdj: number; speed: number; explosion: any; damage: number;
 
     initPlayerShip: any;
     movePlayerShip: any;
@@ -53,7 +53,7 @@ class PlayerShip{
         numberOflife: number,
         x: number = 100,
         y: number = 100,
-        width: number, height: number, explosion: any
+        width: number, height: number, damage: number
     ){
         this.data = data;
         this.points = points;
@@ -66,7 +66,7 @@ class PlayerShip{
         this.objectOwner = "player";
         this.width = width; this.height = height;
         this.xAdj = 0; this.speed = data.speed;
-        this.explosion = data.explosion;
+        this.explosion = data.explosion; this.damage = damage;
     }
 
 }
