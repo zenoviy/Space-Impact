@@ -2,14 +2,15 @@
     {
         "id": 1,
         "name": "Interceptor",
-        "texture": "spaceShips/space_ship.png",
+        "texture": "spaceShips/space_ship_interceptor.png",
         "armor": 65,
         "speed": 10,
         "minSpeed": 5,
         "firespot": 1,
+        "damage": 260,
         "size":{
-            "width": 65,
-            "height": 40
+            "width": 95,
+            "height": 35
         },
         "explosionAnimation": {
             "texture": "misc/fire/explosion-blue.png",

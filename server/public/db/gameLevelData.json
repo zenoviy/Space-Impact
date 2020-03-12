@@ -190,5 +190,82 @@
             "levelMinutes": 2,
             "levelSeconds": 43
         }
+    },{
+        "level" : 4,
+        "enemyType" : [1, 2],
+        "enemyProbability" : 900,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 5,
+        "otherObjects" : [],
+        "levelMap" : "skyCity.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/cyty-far-region.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/cyty-far-region.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/cyty-far-build-1.png",
+            "speed": 0.25,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/cyty-far-build-1.png",
+            "speed": 0.25,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/city-meedle-1.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/city-meedle-2.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/build-close-1.png",
+            "speed": 0.7,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/build-close-2.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/clouds_map.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/clouds_map.png",
+            "speed": 1,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/empty.png",
+            "speed": 1.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/build-1.png",
+            "speed": 1.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/clouds_map_2a.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/clouds_map_2b.png",
+            "speed": 2,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 0,
+            "levelSeconds": 43
+        }
     }
 ]
