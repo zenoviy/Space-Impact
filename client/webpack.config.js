@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     mode: 'production',  // development   production
-    devtool: 'inline-cheap-source-map', // inline-cheap-source-map
+    devtool: 'inline-source-map', // inline-cheap-source-map
     entry: './src/index.ts',
     output: {
         filename: 'main.js',

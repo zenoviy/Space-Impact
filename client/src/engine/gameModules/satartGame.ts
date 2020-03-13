@@ -76,7 +76,6 @@ async function gameDataInit(PlayerShip){
         const userData = res.userData;
         const enemyData = res.enemyData;
 
-        //console.log(levelObjects, " < LO ||")
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,

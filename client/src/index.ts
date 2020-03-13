@@ -56,6 +56,8 @@ import { clearField } from './view/displayModules';
                         gameObject.deleteBullet(bullet);
                         gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject);
                         gameObject.hitDetection(playerShipData, [bullet], gameObject);
+
+                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameSideObjects, gameObject);
                     }
                 }
                 if(gameObject.gameInitData.allGameEnemies.length > 0){
@@ -77,7 +79,10 @@ import { clearField } from './view/displayModules';
                         object.placeEnemyes(gameObject);
                         if (object.objectOwner == "explosion"){
                              object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                        }else if(object.objectOwner == "environment"){
+                            object.enemyAnimation()
                         }
+                        object.mapObjectMove()
                         gameObject.delateSideObject(object);
                     }
                 }

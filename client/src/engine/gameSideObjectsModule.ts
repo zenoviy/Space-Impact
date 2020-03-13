@@ -1,33 +1,31 @@
 import { timingSafeEqual } from "crypto";
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject){
-    //console.log(targetData, mainGameObject, hitObject, SideObject)
-    let explosionData = {
-        x: targetData.x - targetData.width/2,
-        y: targetData.y - targetData.width/2,
-        sx: 0,
-        sy: 0,
-        objectOwner: "explosion",
-        sWidth: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
-        sHeight: targetData.explosion.imageHeight,//targetData.explosion.height,
-        width: targetData.width*2,
-        height: targetData.width*2,
-        animationSteps: targetData.explosion.animationSteps,
-        target: hitObject.objectOwner,
-        numberOfItems: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
-        texture: targetData.explosion.texture,
-        speed: hitObject.enemySpeed/2,
-        picturesWidth: targetData.explosion.imageWidth
-    }
-    let sideObject = new SideObject({...explosionData});
-    sideObject.img.src = sideObject.texture;
-    sideObject.img.onload = () => {
-        mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
-    }
+        let explosionData = {
+            x: targetData.x - targetData.width/2,
+            y: targetData.y - targetData.width/2,
+            sx: 0,
+            sy: 0,
+            objectOwner: "explosion",
+            sWidth: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
+            sHeight: targetData.explosion.imageHeight,//targetData.explosion.height,
+            width: targetData.width*2,
+            height: targetData.width*2,
+            animationSteps: targetData.explosion.animationSteps,
+            target: hitObject.objectOwner,
+            numberOfItems: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
+            texture: targetData.explosion.texture,
+            speed: hitObject.enemySpeed/2,
+            picturesWidth: targetData.explosion.imageWidth
+        }
+        let sideObject = new SideObject({...explosionData});
+        sideObject.img.src = sideObject.texture;
+        sideObject.img.onload = () => {
+            mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
+        }
 }
 function fireAnimationEnded( allGameSideObjects ){
     this.detectFrame += 1;
-    this.x -= (this.speed)? this.speed: 3;
     if(this.detectFrame % this.animationSteps == 0){
         this.detectFrame = 0;
         this.sx += this.sWidth;
@@ -40,6 +38,9 @@ function fireAnimationEnded( allGameSideObjects ){
         this.animationState = false;
     }
 }
+function mapObjectMove(){
+    this.x -= (this.speed)? this.speed: 3;
+}
 
 function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideObjects: any[]){
     this.getSecondMeasure( mapObjectSpawner, levelObjects, SideObject, allGameSideObjects)
@@ -51,39 +52,42 @@ function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideOb
         if(spawnProbability < levelData.objectMinTimeSpawn){
             let screenData  = this.getScreenSize();
             let levelObjectProps = levelObjects[this.gameRandomizer(levelObjects.length)];
+
             let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")
-            ? this.gameRandomizer(screenData.height - screenData.height/3)
+            ? screenData.height - this.gameRandomizer(levelObjectProps.height)
             :(levelObjectProps.spawnDetails.position == "top" && typeof levelObjectProps.spawnDetails.position === "string")
-            ? this.gameRandomizer(screenData.height/3)
+            ? this.gameRandomizer(levelObjectProps.height)
             :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(screenData.height)
             : levelObjectProps.spawnDetails.position ;
-            
-            /*let explosionData = {
-                x: targetData.x - screenData.width + 200,
+
+            let explosionData = {
+                x: screenData.width,
                 y: yPosition,
                 sx: 0,
                 sy: 0,
                 objectOwner: levelObjectProps.objectOwner,
-                sWidth: objectOwner.imageWidth/objectOwner.numberOfItems,
-                sHeight: objectOwner.imageHeight,
-                width: objectOwner.width,
-                height: objectOwner.height,
-                animationSteps: objectOwner.animationSteps,
+                sWidth: levelObjectProps.imageWidth/levelObjectProps.numberOfItems,
+                sHeight: levelObjectProps.imageHeight,
+                width: levelObjectProps.width,
+                height: levelObjectProps.height,
+                animationSteps: levelObjectProps.animationSteps,
                 target: null,
-                numberOfItems: objectOwner.numberOfItems,
-                texture: objectOwner.skinName,
-                speed: objectOwner.speed,
-                picturesWidth: objectOwner.imageWidth
+                numberOfItems: levelObjectProps.numberOfItems,
+                texture: levelObjectProps.skinName,
+                speed: levelObjectProps.speed,
+                picturesWidth: levelObjectProps.imageWidth,
+                healthPoint: levelObjectProps.healthPoint,
+                damage: levelObjectProps.damage,
+                isBackground: levelObjectProps.isBackground,
+                explosion: levelObjectProps.explosionAnimation
             }
             let sideObject = new SideObject({...explosionData});
             sideObject.img.src = sideObject.texture;
             sideObject.img.onload = () => {
-                mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
-            }*/
+                this.gameInitData.allGameSideObjects = this.gameInitData.allGameSideObjects.concat(sideObject);
+            }/**/
 
-
-            //let levelObject = new SideObject()
-            console.log(levelObjectProps)
+           // console.log(this.gameInitData.allGameSideObjects)
         }
     }
 }
@@ -91,5 +95,6 @@ function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideOb
 export {
     explosionFire,
     fireAnimationEnded,
-    mapRanomObjectSpawn
+    mapRanomObjectSpawn,
+    mapObjectMove
 }

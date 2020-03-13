@@ -55,31 +55,36 @@ function enemyAnimation(state = true){
 }
 
 function enemyDamageAnimation(){
-    let damageAnimationPoint = this.originalHealthPoint/this.numberOfVerticalItems;
-    let damagePoint = new Array(this.numberOfVerticalItems).fill(null)
-    damagePoint = damagePoint.map((item, index) =>damageAnimationPoint*(index+1)).sort((a, b) => a - b).reverse();
-    for(let i = 0; i < damagePoint.length; i++){
-        if(this.healthPoint < damagePoint[i] && this.healthPoint > damagePoint[i+1] && damagePoint[i+1]){
-            this.sy = this.sHeight*(i);
-            break
-        }else if(!damagePoint[i+1]){
-            this.sy = this.sHeight * (this.numberOfVerticalItems - 1)
+    if(this.numberOfVerticalItems > 1){
+        let damageAnimationPoint = this.originalHealthPoint/this.numberOfVerticalItems;
+        let damagePoint = new Array(this.numberOfVerticalItems).fill(null)
+        damagePoint = damagePoint.map((item, index) =>damageAnimationPoint*(index+1)).sort((a, b) => a - b).reverse();
+        for(let i = 0; i < damagePoint.length; i++){
+            if(this.healthPoint < damagePoint[i] && this.healthPoint > damagePoint[i+1] && damagePoint[i+1]){
+                this.sy = this.sHeight*(i);
+                break
+            }else if(!damagePoint[i+1]){
+                this.sy = this.sHeight * (this.numberOfVerticalItems - 1)
+            }
         }
     }
 }
 // complex enemy animation for damage
 function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
-    this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"
+        this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"||
+        this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "environment"
     ){
         explosionFire(this, mainGameObject, hitObject, costructors.SideObject)
         return this.objectPresent = false;
     }
 
-    if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"){
+    if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player"||
+    this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "player"){
         unitDamage.call(this, null, mainGameObject);
         this.enemyDamageAnimation()
         if(this.healthPoint <= 0) {
+            this.objectPresent = false; 
             explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
@@ -95,11 +100,9 @@ function takeDamage(damage: number, hitObject, mainGameObject){
             if(data && data.life > 0){
                 data.sourse.playerObject.numberOflife -= 1;
                 if(data.sourse.playerObject.numberOflife <= 0){
-                    //alert("Game Over");
                     mainGameObject.gameOverWindow()
                     mainGameObject.gameInitData.gameOver = true;
                     setTimeout(function(){
-                        //mainGameObject.gameInitData.gameOver = false;
                         mainGameObject.backToStartScreen(costructors.PlayerShip)
                     }, 3000)
                 }
