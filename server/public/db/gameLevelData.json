@@ -199,7 +199,7 @@
     },{
         "level" : 4,
         "enemyType" : [1, 2],
-        "levelOBjects" : [1, 2],
+        "levelOBjects" : [1, 2, 3],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "objectMinTimeSpawn": 200,
@@ -231,12 +231,44 @@
             "speed": 0.25,
             "description": "second frame"
         },{
+            "levelMap" : "locations/skyCity/ship-2a.png",
+            "speed": 0.6,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/ship-2.png",
+            "speed": 0.43,
+            "description": "second frame"
+        },{
             "levelMap" : "locations/skyCity/city-meedle-1.png",
             "speed": 0.4,
             "description": "first frame"
         },{
             "levelMap" : "locations/skyCity/city-meedle-2.png",
             "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/empty.png",
+            "speed": -0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/ship-1.png",
+            "speed": -0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/city-car-1.png",
+            "speed": -0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/city-car-2.png",
+            "speed": -0.8,
+            "description": "second frame"
+        },{
+            "levelMap" : "locations/skyCity/city-car-1.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/city-car-2.png",
+            "speed": 1,
             "description": "second frame"
         },{
             "levelMap" : "locations/skyCity/build-close-1.png",

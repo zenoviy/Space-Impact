@@ -9,8 +9,8 @@
         "firespot": 1,
         "damage": 260,
         "size":{
-            "width": 95,
-            "height": 35
+            "width": 75,
+            "height": 25
         },
         "explosionAnimation": {
             "texture": "misc/fire/explosion-blue.png",

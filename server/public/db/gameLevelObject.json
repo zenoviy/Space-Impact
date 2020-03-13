@@ -64,4 +64,26 @@
         "width": 10,
         "height": 10
     }
+}, {
+    "id": 3,
+    "name": "Cloud",
+    "objectOwner": "nature",
+    "damage": null,
+    "healthPoint": null,
+    "imageWidth": 1032,
+    "imageHeight": 366,
+    "animationSteps": 40,
+    "numberOfItems": 1,
+    "numberOfVerticalItems": 1,
+    "sx": 0,
+    "sy": 0,
+    "width": 1050,
+    "height": 400,
+    "skinName": "misc/sky-city build/cloud-1.png",
+    "speed": 4,
+    "isBackground": false,
+    "pointsPerUnit": null,
+    "spawnDetails": {
+        "position": "bottom"
+    }
 }]
