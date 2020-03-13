@@ -57,44 +57,33 @@ class EnemyObject {
     enemyShipLogicVertical: any;
     enemyVerticalMoveCalculation: any;
     constructor(
-        x: number, y: number,
-        sx: number, sy: number,
-        sWidth: number, sHeight: number,
-        picturesWidth: number, numberOfItems: number,
-        width: number, height: number,
-        shipTexture: string,
-        speed: number,
-        status: string, name: string,
-        bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
-        healthPoint: number, animationSteps: number,
-        damage: number, objectOwner: string, guns: any, explosion: any, numberOfVerticalItems: number,
-        isMove: boolean, isShoot: boolean, spotDistance: number, behavior: string
+        {...data}
         ){
             this.id = new Date().getTime();
-            this.x = x; this.y = y;
-            this.sx = sx; this.sy = sy;
-            this.sWidth = sWidth; this.sHeight = sHeight;
-            this.picturesWidth = picturesWidth; this.numberOfItems = numberOfItems;
-            this.width = width; this.height = height;
-            this.shipTexture = __dirname + '/public/images/spaceShips/' + shipTexture;
-            this.enemySpeed = speed;
-            this.status = status; this.name = name;
-            this.bulletTypeNumber = bulletTypeNumber; this.rapidFire = rapidFire; this.pointsPerUnit = pointsPerUnit;
-            this.healthPoint = healthPoint; this.animationSteps = animationSteps;
-            this.damage = damage; this.guns = guns;
+            this.x = data.x; this.y = data.y;
+            this.sx = data.sx; this.sy = data.sy;
+            this.sWidth = data.sWidth; this.sHeight = data.sHeight;
+            this.picturesWidth = data.picturesWidth; this.numberOfItems = data.numberOfItems;
+            this.width = data.width; this.height = data.height;
+            this.shipTexture = __dirname + '/public/images/spaceShips/' + data.shipTexture;
+            this.enemySpeed = data.speed;
+            this.status = data.status; this.name = data.name;
+            this.bulletTypeNumber = data.bulletTypeNumber; this.rapidFire = data.rapidFire; this.pointsPerUnit = data.pointsPerUnit;
+            this.healthPoint = data.healthPoint; this.animationSteps = data.animationSteps;
+            this.damage = data.damage; this.guns = data.guns;
             this.detectFrame = 0;
             this.objectPresent = true;
-            this.objectOwner = objectOwner;
-            this.guns = guns; this.explosion = explosion;
-            this.numberOfVerticalItems = numberOfVerticalItems;
-            this.originalHealthPoint = healthPoint;
-            this.isMove = isMove;
-            this.isShoot = isShoot;
-            this.verticalSpeed = Math.floor(Math.random() * speed);
-            this.spotDistance = Math.floor(Math.random() * spotDistance );
+            this.objectOwner = data.objectOwner;
+            this.guns = data.guns; this.explosion = data.explosion;
+            this.numberOfVerticalItems = data.numberOfVerticalItems;
+            this.originalHealthPoint = data.healthPoint;
+            this.isMove = data.isMove;
+            this.isShoot = data.isShoot;
+            this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed:  Math.floor(Math.random() * data.speed);
+            this.spotDistance = Math.floor(Math.random() * data.spotDistance );
             this.yFinal = 0;
             this.xFinal = 0;
-            this.behavior = behavior;
+            this.behavior = data.behavior;
             this.direction = null;
     }
 }

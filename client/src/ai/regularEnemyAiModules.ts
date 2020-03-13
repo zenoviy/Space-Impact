@@ -10,20 +10,24 @@ function enemyShipLogicVertical(target, mainGameObject){
 
     let distanceToTargetX = maxPositionX - minPositionX;
     let distanceToTargetY = maxPositionY - minPositionY;
-    switch (this.behavior) {
-        case 'patrool':
-            if(!this.direction){
-                let dirrectionRandom = mainGameObject.gameRandomizer(2, 1);
-                console.log(dirrectionRandom)
-                this.direction = (dirrectionRandom == 1)? "up" : "down";
-            }
-            patrool.call(this, mainGameObject)
-            break;
-        case 'find':
-            strafe.call(this)
-            break;
-        default:
-            strafe.call(this)
+    if(this.isMove && this.behavior){
+        switch ( this.behavior) {
+            case 'patrool':
+                if(!this.direction){
+                    let dirrectionRandom = mainGameObject.gameRandomizer(2, 1);
+                    this.direction = (dirrectionRandom == 1)? "up" : "down";
+                }
+                patrool.call(this, mainGameObject)
+                break;
+            case 'find':
+                strafe.call(this)
+                break;
+            case 'attack':
+                attack.call(this, distanceToTargetY, distanceToTargetX, target)
+                break;
+            default:
+                strafe.call(this)
+        }
     }
     function strafe(){
         if(this.spotDistance > distanceToTargetX || this.spotDistance > distanceToTargetY){
@@ -31,6 +35,10 @@ function enemyShipLogicVertical(target, mainGameObject){
             this.enemyVerticalMoveCalculation(distanceToTargetY)
             return true
         }
+    }
+    function attack(distanceToTargetY, distanceToTargetX, target){
+        this.yFinal = target.y;
+        if(distanceToTargetX < 100) this.enemyVerticalMoveCalculation(distanceToTargetY)
     }
     function patrool(mainGameObject){
         let screenData = mainGameObject.getScreenSize();
@@ -86,22 +94,23 @@ function createNewEnemy(enemyData, EnemyObject){
     y = this.gameRandomizer(this.gameInitData.screen.height - 200, 100)
     if(enemyData.details){
        let shipDetails = enemyData.details;
-       let behavior = shipDetails.behavior[this.gameRandomizer(shipDetails.behavior.length)];
+       let behavior = (shipDetails.behavior)?shipDetails.behavior[this.gameRandomizer(shipDetails.behavior.length)] : null;
         return new EnemyObject(
-        x, y,
-        shipDetails.sx, shipDetails.sy,
-        shipDetails.imageWidth/shipDetails.numberOfItems, shipDetails.imageHeight,
-        shipDetails.imageWidth, shipDetails.numberOfItems,
-        shipDetails.width, shipDetails.height,
-        shipDetails.skinName,
-        shipDetails.speed,
-        shipDetails.status, shipDetails.name,
-        shipDetails.bulletType, shipDetails.rapidFire, shipDetails.pointsPerUnit,
-        shipDetails.healthPoint, shipDetails.animationSteps, shipDetails.damage,
-        shipDetails.objectOwner, shipDetails.guns, shipDetails.explosionAnimation,
-        shipDetails.numberOfVerticalItems, shipDetails.isMove, shipDetails.isShoot,
-        shipDetails.spotDistance, behavior
-        );
+        {
+            x: x, y: y,
+            sx: shipDetails.sx, sy: shipDetails.sy,
+            sWidth: shipDetails.imageWidth/shipDetails.numberOfItems, sHeight: shipDetails.imageHeight,
+            picturesWidth: shipDetails.imageWidth, numberOfItems: shipDetails.numberOfItems,
+            width: shipDetails.width, height: shipDetails.height,
+            shipTexture: shipDetails.skinName,
+            speed: shipDetails.speed,
+            status: shipDetails.status, name: shipDetails.name,
+            bulletTypeNumber: shipDetails.bulletType, rapidFire: shipDetails.rapidFire, pointsPerUnit: shipDetails.pointsPerUnit,
+            healthPoint: shipDetails.healthPoint, animationSteps: shipDetails.animationSteps, damage: shipDetails.damage,
+            objectOwner: shipDetails.objectOwner, guns: (shipDetails.guns)? shipDetails.guns : [], explosion: shipDetails.explosionAnimation,
+            numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
+            spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null
+        });
     }
 }
 

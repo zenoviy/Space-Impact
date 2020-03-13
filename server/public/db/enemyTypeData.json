@@ -7,7 +7,7 @@
             "objectOwner": "enemy",
             "behavior": ["patrool", "find"],
             "isMove": true,
-            "isShoot": false,
+            "isShoot": true,
             "spotDistance": 500,
             "healthPoint": 60,
             "bulletType": 1,
@@ -156,6 +156,73 @@
                     "height": 6,
                     "damage": 30,
                     "firePosition": 45
+                }
+            ]
+        }
+    }, {
+        "id": 3,
+        "details": {
+            "name": "mine",
+            "status": "enemy ship",
+            "objectOwner": "enemy",
+            "behavior": ["attack"],
+            "isMove": true,
+            "isShoot": false,
+            "spotDistance": 300,
+            "healthPoint": 200,
+            "bulletType": 1,
+            "rapidFire": 30,
+            "imageWidth": 1334,
+            "imageHeight": 190,
+            "animationSteps": 10,
+            "numberOfItems": 6,
+            "numberOfVerticalItems": 2,
+            "damage": 100,
+            "sx": 0,
+            "sy": 0,
+            "width": 30,
+            "height": 30,
+            "skinName": "enemy_ship_mine.png",
+            "speed": 1,
+            "verticalSpeed": 10,
+            "pointsPerUnit": 2,
+            "explosionAnimation": {
+                "texture": "misc/fire/explosion-blue.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50
+            }, "guns":[
+                {
+                    "name": "blaster",
+                    "texture": "misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50
+                    },
+                    "type": 1,
+                    "fireRepead": 3,
+                    "speed": 6,
+                    "sx": 0,
+                    "sy": 20,
+                    "sWidth": 305,
+                    "sHeight": 80,
+                    "color": "rgba(255, 0, 0, 1)",
+                    "width": 40,
+                    "height": 6,
+                    "damage": 30,
+                    "firePosition": 5
                 }
             ]
         }
