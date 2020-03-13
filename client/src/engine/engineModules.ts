@@ -21,7 +21,6 @@ function setGameFields(){
 }
 
 function warpEffect(){
-    // Animation
     let screenSiz = this.getScreenSize();
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
@@ -56,7 +55,6 @@ function warpEffect(){
 
 function levelInit(backgroundConstructor, ctx, mainGameObject){
     let gameData = this.showLevelData();
-    let backgrundImages = gameData.levelMap;
     let allBackgroundElements = gameData.levelBackgroundElements;
     mainGameObject.gameInitData.backScreenPause = false;
 
@@ -118,7 +116,7 @@ function levelTimer(){
         }
 }
 function getSecondMeasure(callback, ...data){
-        this.gameInitData.gemeExtraSeconds += 1;
+
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
@@ -126,6 +124,9 @@ function getSecondMeasure(callback, ...data){
         if(callback) return callback.call(this, ...data);
         return gameSecond;
     }
+}
+function gameSecondsIncrease(){
+    this.gameInitData.gemeExtraSeconds += 1;
 }
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
@@ -155,7 +156,7 @@ function deleteObjects(object){
     }
 }
 function delateSideObject(object){
-    if(!object.objectPresent){
+    if(!object.objectPresent || object.x < 0 - object.width){
         let index = this.gameInitData.allGameSideObjects.indexOf(object);
         this.gameInitData.allGameSideObjects.splice(index, 1);
     }
@@ -196,6 +197,7 @@ export  {
     changeLevelProcedure,
     levelTimer,
     getSecondMeasure,
+    gameSecondsIncrease,
     deleteBullet,
     deleteObjects,
     delateSideObject,

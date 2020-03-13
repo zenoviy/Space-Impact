@@ -12,6 +12,7 @@ import {
     getLevelUserData,
     levelTimer,
     getSecondMeasure,
+    gameSecondsIncrease,
     deleteBullet,
     deleteObjects,
     delateSideObject,
@@ -31,6 +32,7 @@ import {
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
 import { gameStart, backToStartScreen } from '../engine/gameModules/satartGame';
+import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
 
 
 interface gameData{
@@ -95,6 +97,7 @@ class Game {
     getLevelUserData: any;
     levelTimer: any;
     getSecondMeasure: any;
+    gameSecondsIncrease: any;
     deleteBullet: any;
     deleteObjects: any;
     delateSideObject: any;
@@ -118,6 +121,7 @@ class Game {
     showPauseWindow: any;
     nextLevelDataReload: any;
     getRandomColor: any;
+    mapRanomObjectSpawn: any;
     constructor(gameInitData: any){
         this.gameInitData = gameInitData;
     }
@@ -165,6 +169,7 @@ Game.prototype.getScreenSize = getScreenSize;
 Game.prototype.getLevelUserData = getLevelUserData;
 Game.prototype.levelTimer = levelTimer;
 Game.prototype.getSecondMeasure = getSecondMeasure;
+Game.prototype.gameSecondsIncrease = gameSecondsIncrease;
 
 Game.prototype.initPlayerShip = initPlayerShip;
 //Game.prototype.placePlayerShip = placePlayerShip;
@@ -196,6 +201,7 @@ Game.prototype.nextLevelDataReload = nextLevelDataReload;
 Game.prototype.changeLevelProcedure = changeLevelProcedure;
 
 Game.prototype.getRandomColor = getRandomColor;
+Game.prototype.mapRanomObjectSpawn = mapRanomObjectSpawn;
 
 export {
     Game,

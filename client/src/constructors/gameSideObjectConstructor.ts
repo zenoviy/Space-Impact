@@ -1,5 +1,6 @@
 import * as enemyModules from '../enemies';
 import { fireAnimationEnded } from '../engine/gameSideObjectsModule';
+import { placeEnemyes, moveEnemyes, loadEnemyes, shoot, enemyAnimation, takeDamage, enemyDamageAnimation } from '../enemies/enemiesModules';
 
 class SideObject{
     x: number; y: number;
@@ -14,10 +15,12 @@ class SideObject{
     detectFrame: number;
     objectPresent: boolean;
     speed: number; picturesWidth: number;
+    damage: number; objectOwner: string; healthPoint: number;
 
     fireAnimationEnded: any;
     placeEnemyes: any;
     enemyAnimation: any;
+    takeDamage: any;
     constructor({...data}){
             this.x = data.x; this.y = data.y;
             this.sx = data.sx; this.sy = data.sy;
@@ -32,12 +35,17 @@ class SideObject{
             this.objectPresent = true;
             this.speed = data.speed;
             this.picturesWidth = data.picturesWidth;
+            this.damage = (data.damage)? data.damage : null;
+            this.objectOwner = (data.objectOwner)? data.objectOwner : null;
+            this.healthPoint = (data.healthPoint)? data.healthPoint : null
     }
 }
 
 SideObject.prototype.enemyAnimation = enemyModules.enemyAnimation;
 SideObject.prototype.placeEnemyes = enemyModules.placeEnemyes;
 SideObject.prototype.fireAnimationEnded = fireAnimationEnded;
+
+SideObject.prototype.takeDamage = takeDamage;
 
 export {
    SideObject

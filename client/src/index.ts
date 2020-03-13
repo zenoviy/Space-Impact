@@ -36,8 +36,8 @@ import { clearField } from './view/displayModules';
                 gameObject.gameInitData.screen.width,
                 gameObject.gameInitData.screen.height);
         }
-        if(gameObject.gameInitData.ctxActionField &&  !gameObject.gameInitData.gamePause){
-                clearField(
+        if(gameObject.gameInitData.ctxActionField && !gameObject.gameInitData.gamePause){
+            clearField(
                 gameObject.gameInitData.ctxActionField,
                 gameObject.gameInitData.screen.width,
                 gameObject.gameInitData.screen.height);
@@ -75,13 +75,20 @@ import { clearField } from './view/displayModules';
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){
                         object.placeEnemyes(gameObject);
-                        object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                        if (object.objectOwner == "explosion"){
+                             object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                        }
                         gameObject.delateSideObject(object);
                     }
                 }
+                if(gameObject.gameInitData.gameData.levelObjects){
+                    gameObject.mapRanomObjectSpawn(
+                        gameObject.gameInitData.gameData.levelObjects,
+                        constructors.SideObject,
+                        gameObject.gameInitData.allGameSideObjects)
+                }
+                gameObject.gameSecondsIncrease()
                 gameObject.levelTimer()
-            }else if(!gameObject.gameInitData.gameStatus){
-            //     gameObject.showStartWindow()
             }
         }
         if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){

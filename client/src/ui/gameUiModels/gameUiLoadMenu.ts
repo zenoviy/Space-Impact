@@ -37,11 +37,11 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             clicked: false,
             propertyes:{
                 ctx: ctx,
-                width: 180,
-                height: 180,
+                width: 150,
+                height: 150,
                 sWidth: 1024,
                 sHeight: 1024,
-                x: width/2 - 90,
+                x: width/2 - 75,
                 y: 90,
                 background: new Image(),
                 borderColor: false,
@@ -88,26 +88,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             },
             init: init,
             getObjectPosition: getUIObjectPosition
-        }/*, {
-            name: "Start button",
-            text: "Press Start to begin",
-            description: "Text in main button",
-            fontSize: "30px Roboto",
-            clicked: false,
-            propertyes:{
-                ctx: ctx,
-                width: -130,
-                height: 105,
-                x: width/2 ,
-                y: height/2,
-                background: false,
-                borderColor: '#007BD1',
-                radius: null,
-            },
-            init: init,
-            getObjectPosition: getUIObjectPosition
-        },*/
-
+        }
     ]
 }
 

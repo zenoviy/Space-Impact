@@ -8,6 +8,10 @@ async function serverRequest(gameInformation){
                     method: "GET",
                     url: "api/level-data"
                 },
+                levelObjects: {
+                    method: "GET",
+                    url: "api/level-objects"
+                },
                 gameSetings: {
                     method: "GET",
                     url: "api/game-settings"
@@ -27,7 +31,12 @@ async function serverRequest(gameInformation){
             data: null,
             headers:{ 'maplevel': gameInformation.level}
         })
-        //console.log(levelData)
+        const levelObjects = await getData({
+            url: serverLocation.host + serverLocation.levelObjects.url,
+            method: serverLocation.levelObjects.method,
+            data: null,
+            headers:{ 'mapObject': gameInformation.objects}
+        })
         const gameSetings = await getData({
             url: serverLocation.host + serverLocation.gameSetings.url,
             method: serverLocation.gameSetings.method,
@@ -48,6 +57,7 @@ async function serverRequest(gameInformation){
         })
         return {
             levelData: levelData,
+            levelObjects: levelObjects,
             gameSetings: gameSetings,
             userData: userData,
             enemyData: enemyData
@@ -58,12 +68,15 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 4, shipType = 1, shipLife = 2;
-        let res = await serverRequest({level: level,  shipConfiguration: shipType})
+        let level = 4, shipType = 1, shipLife = 2, objects = [1];
+        let res = await serverRequest({level: level,  shipConfiguration: shipType, objects: objects})
         const levelData = res.levelData;
+        const levelObjects = res.levelObjects;
         const gameSetings = res.gameSetings;
         const userData = res.userData;
         const enemyData = res.enemyData;
+
+        //console.log(levelObjects, " < LO ||")
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,
@@ -74,6 +87,7 @@ async function gameDataInit(PlayerShip){
                 currentPoint: 0,
                 playerObject: new PlayerShip(userData, 0, 300, shipLife, 100, 100, userData.size.width, userData.size.height, userData.damage),
                 levelData: levelData,
+                levelObjects: levelObjects,
                 gameSetings: gameSetings,
                 enemyData: enemyData,
                 controllers: null

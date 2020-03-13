@@ -83,7 +83,7 @@
             "height": 55,
             "skinName": "enemy_ship_2_full.png",
             "speed": 3,
-            "pointsPerUnit": 5,
+            "pointsPerUnit": 20,
             "explosionAnimation": {
                 "texture": "misc/fire/explosion-blue.png",
                 "imageWidth": 12891,

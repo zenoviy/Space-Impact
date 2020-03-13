@@ -10,6 +10,7 @@ async function nextLevelDataReload(levelData){
             currentPoint: context.gameInitData.gameData.currentPoint,
             playerObject: context.gameInitData.gameData.playerObject,
             levelData: serverNewData.levelData,
+            levelObjects: serverNewData.levelObjects,
             gameSetings: context.gameInitData.gameData.gameSetings,
             enemyData: serverNewData.enemyData,
             controllers: context.gameInitData.gameData.controllers

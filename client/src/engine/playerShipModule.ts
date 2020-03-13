@@ -22,7 +22,7 @@ function initPlayerShip(mainGameObject: any){
 function movePlayerShip(){
     if(this.img){
         if(this.ctx && this.img){
-            view.createImage(this.ctx, this.img, this.x-(this.width/2), this.y-(this.height/2), this.width, this.height);
+            view.createImage(this.ctx, this.img, this.x, this.y, this.width, this.height);
         }
     }
 }
@@ -42,8 +42,8 @@ function shipControl(mainGameObject: any){
         && !mainGameObject.gameInitData.gamePause
         && mainGameObject.gameInitData.gameStatus){
             let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
-            this.xFinal = (x % this.data.speed == 0)? x : this.data.speed* Math.floor(x/this.data.speed);
-            this.yFinal = (y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed);
+            this.xFinal = ((x % this.data.speed == 0)? x  : this.data.speed* Math.floor(x/this.data.speed)) - (this.width/2);
+            this.yFinal = ((y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed)) - (this.height/2);
         }
     })
     document.addEventListener("click", (e: any) => {
@@ -66,14 +66,12 @@ function shipControl(mainGameObject: any){
         }
     })
 }
-function showInformation(){
-    console.log(this)
-}
 
 function setContext(context){
     this.ctx = context;
 }
 function placeShip(){
+
     let xAdj = (this.xFinal - this.x)/this.data.speed;
     let yAdj = (this.yFinal - this.y)/this.data.speed;
 
@@ -100,6 +98,5 @@ export {
     shipControl,
     moveShip,
     placeShip,
-    setContext,
-    showInformation
+    setContext
 }

@@ -60,7 +60,7 @@ class PlayerShip{
         this.numberOflife = numberOflife;
         this.healthPoint = healthPoint + data.armor;
         this.maxHealth = healthPoint + data.armor;
-        this.x = x; this.y = y;
+        this.x = x - (width/2); this.y = y - (height/2);
         this.xFinal = x; this.yFinal = y;
         this.collisionAllow = true;
         this.objectOwner = "player";

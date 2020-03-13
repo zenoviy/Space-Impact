@@ -1,0 +1,33 @@
+[{
+    "id": 1,
+    "name": "build 1",
+    "objectOwner": "environment",
+    "damage": 30,
+    "healthPoint": 1208,
+    "imageWidth": 960,
+    "imageHeight":1208,
+    "animationSteps": 10,
+    "numberOfItems": 2,
+    "numberOfVerticalItems": 1,
+    "sx": 0,
+    "sy": 0,
+    "width": 100,
+    "height": 300,
+    "skinName": "building1.png",
+    "speed": 4,
+    "pointsPerUnit": 5,
+    "spawnDetails": {
+        "position": "bottom"
+    },
+    "explosionAnimation": {
+        "texture": "misc/fire/explosion-blue.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 50,
+        "height": 50
+    }
+}]
