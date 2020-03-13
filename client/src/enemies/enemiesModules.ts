@@ -84,7 +84,7 @@ function takeDamage(damage: number, hitObject, mainGameObject){
         unitDamage.call(this, null, mainGameObject);
         this.enemyDamageAnimation()
         if(this.healthPoint <= 0) {
-            this.objectPresent = false; 
+            this.objectPresent = false;
             explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){

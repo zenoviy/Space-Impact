@@ -79,7 +79,10 @@ import { clearField } from './view/displayModules';
                         object.placeEnemyes(gameObject);
                         if (object.objectOwner == "explosion"){
                              object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
-                        }else if(object.objectOwner == "environment"){
+                        }else{
+                            if(object.objectOwner == "enemy"){
+                                gameObject.hitDetection(playerShipData, [object], gameObject);
+                            }
                             object.enemyAnimation()
                         }
                         object.mapObjectMove()

@@ -6,7 +6,7 @@
     "healthPoint": 1208,
     "imageWidth": 960,
     "imageHeight":1208,
-    "animationSteps": 20,
+    "animationSteps": 40,
     "numberOfItems": 2,
     "numberOfVerticalItems": 1,
     "sx": 0,
@@ -15,20 +15,53 @@
     "height": 400,
     "skinName": "misc/building1.png",
     "speed": 4,
-    "pointsPerUnit": 5,
     "isBackground": false,
+    "pointsPerUnit": 30,
     "spawnDetails": {
         "position": "bottom"
     },
     "explosionAnimation": {
-        "texture": "misc/fire/explosion-blue.png",
+        "texture": "misc/fire/explosion-building-1.png",
         "imageWidth": 12891,
-        "imageHeight":294,
+        "imageHeight":302,
         "animationSteps": 2,
         "numberOfItems": 44,
         "sx": 0,
         "sy": 0,
-        "width": 50,
-        "height": 50
+        "width": 10,
+        "height": 10
+    }
+}, {
+    "id": 2,
+    "name": "build 2",
+    "objectOwner": "enemy",
+    "damage": 30,
+    "healthPoint": 1208,
+    "imageWidth": 5017,
+    "imageHeight":1208,
+    "animationSteps": 40,
+    "numberOfItems": 11,
+    "numberOfVerticalItems": 1,
+    "sx": 0,
+    "sy": 0,
+    "width": 250,
+    "height": 400,
+    "skinName": "misc/sky-city build/building2.png",
+    "speed": 4,
+    "isBackground": false,
+    "pointsPerUnit": 35,
+    "spawnDetails": {
+        "position": "bottom"
+    },
+    "explosionAnimation": {
+        "texture": "misc/fire/explosion-building.png",
+        "imageWidth": 12891,
+        "imageHeight":302,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 10,
+        "height": 10
     }
 }]

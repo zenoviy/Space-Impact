@@ -16,7 +16,7 @@ class SideObject{
     objectPresent: boolean;
     speed: number; picturesWidth: number;
     damage: number; objectOwner: string; healthPoint: number;
-    isBackground: boolean; explosion: any;
+    isBackground: boolean; explosion: any; pointsPerUnit: number;
 
     fireAnimationEnded: any;
     placeEnemyes: any;
@@ -43,6 +43,7 @@ class SideObject{
             this.healthPoint = (data.healthPoint)? data.healthPoint : null;
             this.isBackground = (data.isBackground)? data.isBackground : null;
             this.explosion = (data.explosion)? data.explosion : null;
+            this.pointsPerUnit = (data.pointsPerUnit)? data.pointsPerUnit : 0
     }
 }
 

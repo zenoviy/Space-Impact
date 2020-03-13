@@ -35,7 +35,7 @@ async function serverRequest(gameInformation){
             url: serverLocation.host + serverLocation.levelObjects.url,
             method: serverLocation.levelObjects.method,
             data: null,
-            headers:{ 'mapObject': gameInformation.objects}
+            headers:{ 'mapObject': levelData.levelOBjects}
         })
         const gameSetings = await getData({
             url: serverLocation.host + serverLocation.gameSetings.url,
@@ -68,8 +68,8 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 4, shipType = 1, shipLife = 2, objects = [1];
-        let res = await serverRequest({level: level,  shipConfiguration: shipType, objects: objects})
+        let level = 4, shipType = 1, shipLife = 2;
+        let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
         const gameSetings = res.gameSetings;

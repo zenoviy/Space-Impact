@@ -79,7 +79,8 @@ function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideOb
                 healthPoint: levelObjectProps.healthPoint,
                 damage: levelObjectProps.damage,
                 isBackground: levelObjectProps.isBackground,
-                explosion: levelObjectProps.explosionAnimation
+                explosion: levelObjectProps.explosionAnimation,
+                pointsPerUnit: levelObjectProps.pointsPerUnit
             }
             let sideObject = new SideObject({...explosionData});
             sideObject.img.src = sideObject.texture;
