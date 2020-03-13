@@ -27,6 +27,7 @@ function createWindow(){
     win.once('ready-to-show', () => {
         win.show()
     })
+    win.setFullScreen(false)
 }
 
 app.on('ready', createWindow)

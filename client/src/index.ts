@@ -47,7 +47,7 @@ import { clearField } from './view/displayModules';
         }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus){
-                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject);
+                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject, constructors.EnemyObject);
 
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
@@ -64,6 +64,10 @@ import { clearField } from './view/displayModules';
                     for(let enemy of gameObject.gameInitData.allGameEnemies){
                         enemy.placeEnemyes(gameObject);
                         enemy.moveEnemyes();
+                        enemy.enemyShipLogicVertical({
+                            x: playerShipData.x,
+                            y: playerShipData.y
+                        }, gameObject);
                         enemy.enemyAnimation(true);
                         enemy.shoot(constructors.BulletConstruct, gameObject);
                         gameObject.deleteObjects(enemy);

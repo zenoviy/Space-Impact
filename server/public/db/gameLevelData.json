@@ -307,5 +307,28 @@
             "levelMinutes": 0,
             "levelSeconds": 43
         }
+    },{
+        "level" : 5,
+        "enemyType" : [0],
+        "levelOBjects" : [3],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "objectMinTimeSpawn": 200,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 5,
+        "levelMap" : "skyClouds.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 3,
+            "levelSeconds": 43
+        }
     }
 ]

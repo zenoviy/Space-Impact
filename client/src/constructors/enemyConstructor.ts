@@ -1,7 +1,9 @@
+import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regularEnemyAiModules';
 import { placeEnemyes, moveEnemyes, loadEnemyes, shoot, enemyAnimation, takeDamage, enemyDamageAnimation } from '../enemies/enemiesModules';
-import { getObjectPosition } from '../engine/engineModules';
+import { getObjectPosition } from '../engine';
 
 
+console.log(enemyShipLogicVertical , " <<<<")
 interface explosionAnimation{
     texture: string,
     imageWidth: number,
@@ -40,7 +42,9 @@ class EnemyObject {
     detectFrame: number; objectPresent: boolean;
     damage: number; guns: any; objectOwner: string;
     explosion: explosionAnimation; numberOfVerticalItems: number;
-    originalHealthPoint: number;
+    originalHealthPoint: number; isMove: boolean; isShoot: boolean;
+    spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
+    direction: string;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -50,6 +54,8 @@ class EnemyObject {
     getObjectPosition: any;
     takeDamage: any;
     enemyDamageAnimation: any;
+    enemyShipLogicVertical: any;
+    enemyVerticalMoveCalculation: any;
     constructor(
         x: number, y: number,
         sx: number, sy: number,
@@ -61,7 +67,8 @@ class EnemyObject {
         status: string, name: string,
         bulletTypeNumber: number, rapidFire: number, pointsPerUnit: number,
         healthPoint: number, animationSteps: number,
-        damage: number, objectOwner: string, guns: any, explosion: any, numberOfVerticalItems: number
+        damage: number, objectOwner: string, guns: any, explosion: any, numberOfVerticalItems: number,
+        isMove: boolean, isShoot: boolean, spotDistance: number, behavior: string
         ){
             this.id = new Date().getTime();
             this.x = x; this.y = y;
@@ -80,7 +87,15 @@ class EnemyObject {
             this.objectOwner = objectOwner;
             this.guns = guns; this.explosion = explosion;
             this.numberOfVerticalItems = numberOfVerticalItems;
-            this.originalHealthPoint = healthPoint
+            this.originalHealthPoint = healthPoint;
+            this.isMove = isMove;
+            this.isShoot = isShoot;
+            this.verticalSpeed = Math.floor(Math.random() * speed);
+            this.spotDistance = Math.floor(Math.random() * spotDistance );
+            this.yFinal = 0;
+            this.xFinal = 0;
+            this.behavior = behavior;
+            this.direction = null;
     }
 }
 
@@ -91,6 +106,8 @@ EnemyObject.prototype.shoot = shoot;
 EnemyObject.prototype.enemyAnimation = enemyAnimation;
 EnemyObject.prototype.getObjectPosition = getObjectPosition;
 EnemyObject.prototype.enemyDamageAnimation = enemyDamageAnimation;
+EnemyObject.prototype.enemyShipLogicVertical = enemyShipLogicVertical;
+EnemyObject.prototype.enemyVerticalMoveCalculation = enemyVerticalMoveCalculation;
 
 EnemyObject.prototype.takeDamage = takeDamage;
 

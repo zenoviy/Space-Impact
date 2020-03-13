@@ -20,7 +20,7 @@ function loadEnemyes(){         ///  need replace  and remove
     this.img.src = this.shipTexture;
 }
 function shoot(bulletConstructor, mainGameObject){
-    if(mainGameObject.gameInitData.gamePause) return false;
+    if(mainGameObject.gameInitData.gamePause || !this.isShoot) return false;
 
     let randomShoot = mainGameObject.gameRandomizer( Math.pow(this.rapidFire, 2) );
     let shootProbability = mainGameObject.gameRandomizer( this.rapidFire );

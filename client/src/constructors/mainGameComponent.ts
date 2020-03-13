@@ -140,9 +140,6 @@ class Game {
     showLevelData(){
         return this.gameInitData.gameData.levelData;
     }
-    getServerLevelData(){
-
-    }
     returnContext(){
         if(this.gameInitData.gameField&&
             this.gameInitData.gameActionField&&
