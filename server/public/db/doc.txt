@@ -1,0 +1,201 @@
+Database for Game object data
+
+==============================================================================================
+enemyTypeData.json   - storage file for enemy type, texture, weapons, other properties
+
+// example
+"id": "dart",                            // id of enemy type, Each level has array with id number of enemy
+        "details": {
+            "name": "Dart",                     // name of enemy model in could be useful to determine type, name of ship
+            "status": "enemy ship",             // it`s a description of the enemy or it can be use something else
+            "objectOwner": "enemy",             // it`s a sign to show type of enemy it could be boss, regular enemy or something else
+            "behavior": ["patrool", "find"],    // flag for different behavior
+            "isMove": true,                     // it`s a switch to prevent or allow enemy to move
+            "isShoot": true,                    // it`s a switch to prevent or allow enemy to shoot
+            "isBoss": false,                    // it`s a switch to prevent or allow enemy to become a boss
+            "spotDistance": 500,                // distance to palayer ship, when enemy spoting it
+            "healthPoint": 60,                  // point of unit health
+            "bulletType": 1,            // not used
+            "rapidFire": 30,            // period of enemy random fire
+            "imageWidth": 2880,         // total width of ship texture in px ( needed for animation )
+            "imageHeight":125,          // height of ship texture in px
+            "animationSteps": 5,        // speed of animation ( depend of engine speed )
+            "numberOfItems": 20,        // number of x-direction frame of pictures ( needed animation )
+            "damage": 30,               // self ship damage while collide
+            "sx": 0,                    // position of frame x-coordination during animation
+            "sy": 0,                    // position of frame y-coordination during animation
+            "width": 50,                // width of block where ship is displayed
+            "height": 50,               // height of block where ship is displayed
+            "skinName": "enemy_ship_1.png", // name of ship background
+            "speed": 4,                 // ship speed
+            "pointsPerUnit": 5,         // cost per unit while damage
+            "explosionAnimation": {                             // object to determine explsion texture of ship
+                "texture": "misc/fire/explosion-blue.png",      // texture of explosion
+                "imageWidth": 12891,                            // texture width size
+                "imageHeight":294,                              // texture height
+                "animationSteps": 2,                            // speed of animation
+                "numberOfItems": 44,                            // number of animation frame
+                "sx": 0,                                        // animation possition x
+                "sy": 0,                                        // animation possition y
+                "width": 50,                                    // animation frame width
+                "height": 50                                    // animation frame height
+            },
+            "guns":[                    // array where we determine weapons
+                {
+                    "name": "blaster",          // name of guns
+                    "texture": "misc/bullets/red-laser.png",        // gun texture
+                    "explosionAnimation": {                         // explosion animation
+                        "texture": "misc/fire/explosion.png",       // texture
+                        "imageWidth": 12891,                        // texture width
+                        "imageHeight":294,                          // texture height
+                        "animationSteps": 2,                        // animetion speed
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50
+                    },
+                    "type": "blaster",                          // type of gun use to determine weapon behawior
+                    "fireRepead": 50,                           // randomize index for enemy random fire
+                    "speed": 6,                                 // speed of bullet
+                    "sx": 0,
+                    "sy": 20,
+                    "sWidth": 305,
+                    "sHeight": 80,
+                    "color": "rgba(255, 0, 0, 1)",
+                    "width": 40,                                 // width of bullet
+                    "height": 6,                                 // height of bullet
+                    "damage": 30,                                // damage of bullet
+                    "firePosition": 5   // null                  // position in y-coord where fire spot located when null fire position will be random
+                }, {
+                    "name": "blaster",
+                    "fireRepead": 3,
+                    "speed": 6,
+                    "texture": null,
+                    "color": "rgba(255, 0, 0, 1)",
+                    "width": 60,
+                    "height": 6,
+                    "damage": 30,
+                    "firePosition": 45
+                }
+            ]
+        }
+
+==============================================================================================
+gameLevelData.json  - storage file for level other properties  array with levels
+[
+    {
+        "level" : 1,                        // level number
+        "enemyType" : ["dart", "scorpio"],                  // type of enemy in this level
+        "levelOBjects" : [1, 2, 3],                         // object on map
+        "enemyProbability" : 1000,                          // randomizer index for enemy spawn
+        "objectProbability": 1000,                          // randomizer  index for map objects spawn
+        "objectMinTimeSpawn": 200,                          // minimum number for random spawn
+        "bosPresents": true,                                // determine oss level
+        "enemyMaxNumber": 2,                                // max number of spawn enemy per turn
+        "enemyRandomizerIndex": 5,
+        "otherObjects" : [],                                // should be other background elements effects ets
+        "levelMap" : "vhoa0.jpg",                           // name of main background texture
+        "levelBackgroundElements" : [                       // array of map layer   each layer contain 2 frame
+        {                                       // first layer with 2 frames
+            "levelMap" : "locations/desert/desert-sky.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "locations/desert/desert-sky.png",         // texture
+            "speed": 0.1,                                           // speed of layer could be + - determine dirrection of layer move
+            "description": "second frame"                           // just a description of layer
+        },{                                                                     // another layer it`s a complex one
+            "levelMap" : "locations/desert/desert-backround.png",
+            "speed": 0.3,
+            "description": "first frame",
+            "extraMap": "locations/desert/lostCity.png",                    // map to load in particular time
+            "timeToExtraMapSeconds": 20,                                    // game seconds to load extra map
+            "timeToExtraMapMinutes": 2                                      // game minutes to load extra map
+        },{
+            "levelMap" : "locations/desert/desert-backround.png",
+            "speed": 0.3,
+            "description": "second frame",
+            "extraMap": "locations/desert/lostCity-2.png",
+            "timeToExtraMapSeconds": 20,
+            "timeToExtraMapMinutes": 2
+        }],
+        "levelDetails" : {
+            "levelMinutes": 2,               // minutes to finish the level
+            "levelSeconds": 43               // seconds to finish the level
+        }
+    },
+
+
+==============================================================================================
+playerShipsData.json  - storage file for player ships data there should be several ship type
+    -   Interceptor
+    -   Fighter
+    -   Drednouth
+    -   Battlecruiser
+
+[
+    {
+        "id": 1,
+        "name": "Interceptor",
+        "texture": "spaceShips/space_ship.png",
+        "armor": 65,
+        "speed": 10,
+        "minSpeed": 5,
+        "firespot": 1,
+        "size":{
+            "width": 65,
+            "height": 40
+        },
+        "guns":[        //  that same as in enemy model
+            {
+                "name": "blaster",
+                "fireRepead": 3,
+                "speed": 6,
+                "texture": null,
+                "color": "rgba(81, 255, 0, 1)",
+                "width": 60,
+                "height": 6,
+                "damage": 30,
+                "firePosition": 20
+            }, {}
+        ]
+
+
+==============================================================================================
+meLevelObject.json  - storage file for map other objects
+
+{
+    "id": 1,                        // id t
+    "name": "build 1",
+    "objectOwner": "environment",
+    "damage": 30,
+    "healthPoint": 1208,
+    "imageWidth": 960,
+    "imageHeight":1208,
+    "animationSteps": 40,
+    "numberOfItems": 2,
+    "numberOfVerticalItems": 1,
+    "sx": 0,
+    "sy": 0,
+    "width": 250,
+    "height": 400,
+    "skinName": "misc/building1.png",
+    "speed": 4,
+    "isBackground": false,
+    "pointsPerUnit": 30,
+    "spawnDetails": {
+        "position": "bottom"
+    },
+    "explosionAnimation": {
+        "texture": "misc/fire/explosion-building-1.png",
+        "imageWidth": 12891,
+        "imageHeight":302,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 250,
+        "height": 650
+    }
+},

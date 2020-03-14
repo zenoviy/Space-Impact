@@ -1,0 +1,335 @@
+[
+    {
+        "level" : 1,
+        "enemyType" : ["dart", "mine", "mine", "mine"],
+        "levelOBjects" : [],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "objectMinTimeSpawn": 200,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelMap" : "vhoa0.jpg",
+        "levelBackgroundElements" : [
+            {
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
+                "speed": 0.2,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
+                "speed": 0.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/mountains.png",
+                "speed": 0.3,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/mountains.png",
+                "speed": 0.3,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_2.png",
+                "speed": 0.5,
+                "description": "second frame back building"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_2.png",
+                "speed": 0.5,
+                "description": "second frame back building"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame back building"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame back building"
+            }
+        ],
+        "levelDetails" : {
+            "levelMinutes": 1,
+            "levelSeconds": 10
+        }
+    },{
+        "level" : 2,
+        "enemyType" : ["dart"],
+        "levelOBjects" : [],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "objectMinTimeSpawn": 200,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 5,
+        "levelMap" : "canyon.png",
+        "levelBackgroundElements" : [ {
+            "levelMap" : "/public/images/locations/canyon/canyon.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_mountain.png",
+            "speed": 0.3,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_mountain.png",
+            "speed": 0.3,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_2nd_mountain.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_2nd_mountain.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_3nd_mountain.png",
+            "speed": 0.7,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_3nd_mountain.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_4nd_mountain.png",
+            "speed": 0.9,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_4nd_mountain.png",
+            "speed": 0.9,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_5nd_mountain.png",
+            "speed": 1.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_5nd_mountain.png",
+            "speed": 1.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_6nd_mountain.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/canyon/canyon_back_6nd_mountain.png",
+            "speed": 2,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 0,
+            "levelSeconds": 43
+        }
+    },{
+        "level" : 3,
+        "enemyType" : ["dart", "scorpio"],
+        "levelOBjects" : [],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "objectMinTimeSpawn": 200,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 5,
+        "levelMap" : "canyon.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/desert/desert-sky.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-sky.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/far-mountains.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/far-mountains.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-backround.png",
+            "speed": 0.3,
+            "description": "first frame",
+            "extraMap": "/public/images/locations/desert/lostCity.png",
+            "timeToExtraMapSeconds": 20,
+            "timeToExtraMapMinutes": 2
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-backround.png",
+            "speed": 0.3,
+            "description": "second frame",
+            "extraMap": "/public/images/locations/desert/lostCity-2.png",
+            "timeToExtraMapSeconds": 20,
+            "timeToExtraMapMinutes": 2
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-1a.png",
+            "speed": 0.5,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-1b.png",
+            "speed": 0.5,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
+            "speed": 0.6,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
+            "speed": 0.6,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-2.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-2.png",
+            "speed": 1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-ground.png",
+            "speed": 1.5,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/desert/desert-ground.png",
+            "speed": 1.5,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 2,
+            "levelSeconds": 43
+        }
+    },{
+        "level" : 4,
+        "enemyType" : ["dart", "scorpio"],
+        "levelOBjects" : ["build_1", "build_2", "cloud_1"],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "objectMinTimeSpawn": 200,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 5,
+        "levelMap" : "skyCity.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "//public/images/locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-region.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-region.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-build-1.png",
+            "speed": 0.25,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-build-1.png",
+            "speed": 0.25,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/ship-2a.png",
+            "speed": 0.6,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/ship-2.png",
+            "speed": 0.43,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-meedle-1.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-meedle-2.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/empty.png",
+            "speed": -0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/ship-1.png",
+            "speed": -0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-1.png",
+            "speed": -0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-2.png",
+            "speed": -0.8,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-1.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-2.png",
+            "speed": 1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/build-close-1.png",
+            "speed": 0.7,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/build-close-2.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
+            "speed": 1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/empty.png",
+            "speed": 1.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/build-1.png",
+            "speed": 1.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map_2a.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map_2b.png",
+            "speed": 2,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 1,
+            "levelSeconds": 43
+        }
+    },{
+        "level" : 5,
+        "enemyType" : ["megalit"],
+        "levelOBjects" : ["cloud_1"],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "objectMinTimeSpawn": 200,
+        "bosPresents": true,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 5,
+        "levelMap" : "skyClouds.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 3,
+            "levelSeconds": 43
+        }
+    }
+]
