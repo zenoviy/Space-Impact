@@ -10,8 +10,9 @@ function draw(context, element, ...property){
 
 function createLaserBullet(data){
     if(!data.ctx) return new Error("no context");
-    if(data.objectOwner == "player" && data.type == 1) weapon1(data, draw);
-    if(data.objectOwner == "enemy" && data.type == 1) weapon1(data, draw);
+    if(data.objectOwner == "player" && data.type == "blaster") weapon1(data, draw);
+    if(data.objectOwner == "enemy" && data.type == "blaster") weapon1(data, draw);
+    if(data.objectOwner == "enemy" && data.type == "beam") weapon1(data, draw);
 }
 
 function createImage(ctx, pictureName, ...props){

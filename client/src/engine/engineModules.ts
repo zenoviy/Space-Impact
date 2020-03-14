@@ -14,11 +14,15 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
     }
 }
 
+
+
 function setGameFields(){
     this.initField();
     this.createContext();
     this.initPlayerShip();
 }
+
+
 
 function warpEffect(){
     let screenSiz = this.getScreenSize();
@@ -53,6 +57,8 @@ function warpEffect(){
     }
 }
 
+
+
 function levelInit(backgroundConstructor, ctx, mainGameObject){
     let gameData = this.showLevelData();
     let allBackgroundElements = gameData.levelBackgroundElements;
@@ -71,6 +77,8 @@ function levelInit(backgroundConstructor, ctx, mainGameObject){
 }
 
 
+
+
 function createContext(){
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
     this.gameInitData.ctxActionField = this.gameInitData.gameActionField.getContext('2d');
@@ -78,11 +86,15 @@ function createContext(){
 }
 
 
+
+
 function getScreenSize(){
     let width = this.gameInitData.screen.width,
     height = this.gameInitData.screen.height;
     return {width: width, height: height}
 }
+
+
 
 
 function changeLevelProcedure(){
@@ -98,23 +110,33 @@ function changeLevelProcedure(){
         alert("Win Game Screen ")
     }
 }
+
+
 function levelTimer(){
         let data = this.getLevelUserData()
-        let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
-        if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails,  );
-
+        //console.log(data, data.sourse.levelData.bosPresents)
+        if(!data.sourse.levelData.bosPresents){
+            let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
+            if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails);
+        }else{
+            data.sourse.levelData.levelDetails.levelSeconds = null;
+            data.sourse.levelData.levelDetails.levelMinutes = null;
+        }
         function levelTimeAction(time){
-            if(time.levelSeconds <= 0){
+                if(time.levelSeconds <= 0){
 
-                if(time.levelMinutes == 0 && time.levelSeconds == 0){
-                    time.levelSeconds = 0;
-                    this.gameInitData.levelChange = true;
+                    if(time.levelMinutes == 0 && time.levelSeconds == 0){
+                        time.levelSeconds = 0;
+                        this.gameInitData.levelChange = true;
+                    }
+                    time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes - 1 :0;
                 }
-                time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes-1 :0;
-            }
-            time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
+                time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
         }
 }
+
+
+
 function getSecondMeasure(callback, ...data){
 
 
@@ -125,9 +147,16 @@ function getSecondMeasure(callback, ...data){
         return gameSecond;
     }
 }
+
+
+
 function gameSecondsIncrease(){
     this.gameInitData.gemeExtraSeconds += 1;
 }
+
+
+
+
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = dataSourse.levelData.levelDetails;
@@ -141,6 +170,11 @@ function getLevelUserData(){
         seconds: levelTime.levelSeconds
     }
 }
+
+
+
+
+
 function deleteBullet(bullet){
     if(bullet.x > this.gameInitData.screen.width
         || bullet.x < bullet.width * -1
@@ -149,21 +183,36 @@ function deleteBullet(bullet){
         this.gameInitData.allGameBullets.splice(index, 1);
     }
 }
+
+
+
+
 function deleteObjects(object){
     if(object.x + object.sWidth < 0 || !object.objectPresent){
         let index = this.gameInitData.allGameEnemies.indexOf(object);
         this.gameInitData.allGameEnemies.splice(index, 1);
     }
 }
+
+
+
+
 function delateSideObject(object){
     if(!object.objectPresent || object.x < 0 - object.width){
         let index = this.gameInitData.allGameSideObjects.indexOf(object);
         this.gameInitData.allGameSideObjects.splice(index, 1);
     }
 }
+
+
+
+
 function collectPoints(point){
     this.gameInitData.gameData.currentPoint += point;
 }
+
+
+
 function getObjectPosition(){
     let mainObject = this;
     let position = {
@@ -174,6 +223,8 @@ function getObjectPosition(){
     }
     return position
 }
+
+
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';

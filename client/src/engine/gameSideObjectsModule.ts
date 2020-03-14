@@ -1,21 +1,25 @@
 import { timingSafeEqual } from "crypto";
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject){
+    let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
+    let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
+    let compensation =(hitObject.x > targetData.x)? adjust : adjust/2;//(hitObject.x + hitObject.width/2) - (targetData.x + targetData.width/2);
+    //compensation = (Math.sign(compensation) > 1)? compensation : compensation * -1;
         let explosionData = {
             x: targetData.x - targetData.width/2,
-            y: targetData.y - targetData.width/2,
+            y: targetData.y - targetData.height/2,
             sx: 0,
             sy: 0,
             objectOwner: "explosion",
             sWidth: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
-            sHeight: targetData.explosion.imageHeight,//targetData.explosion.height,
-            width: targetData.width*2,
-            height: targetData.width*2,
+            sHeight: targetData.explosion.imageHeight,
+            width: targetData.explosion.width*2,
+            height: targetData.explosion.width*2,
             animationSteps: targetData.explosion.animationSteps,
             target: hitObject.objectOwner,
             numberOfItems: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
             texture: targetData.explosion.texture,
-            speed: hitObject.enemySpeed/2,
+            speed: hitObject.speed/2,
             picturesWidth: targetData.explosion.imageWidth
         }
         let sideObject = new SideObject({...explosionData});

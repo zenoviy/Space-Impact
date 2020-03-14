@@ -35,7 +35,7 @@ class EnemyObject {
     width: number; height: number;
     shipTexture: string;
     shipDirectory: string;
-    enemySpeed: number;
+    speed: number;
     status: string; name: string;
     bulletTypeNumber: number; rapidFire: number; pointsPerUnit: number;
     healthPoint: number; animationSteps: number;
@@ -44,7 +44,7 @@ class EnemyObject {
     explosion: explosionAnimation; numberOfVerticalItems: number;
     originalHealthPoint: number; isMove: boolean; isShoot: boolean;
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
-    direction: string;
+    direction: string; isBoss: boolean;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -66,7 +66,7 @@ class EnemyObject {
             this.picturesWidth = data.picturesWidth; this.numberOfItems = data.numberOfItems;
             this.width = data.width; this.height = data.height;
             this.shipTexture = __dirname + '/public/images/spaceShips/' + data.shipTexture;
-            this.enemySpeed = data.speed;
+            this.speed = data.speed;
             this.status = data.status; this.name = data.name;
             this.bulletTypeNumber = data.bulletTypeNumber; this.rapidFire = data.rapidFire; this.pointsPerUnit = data.pointsPerUnit;
             this.healthPoint = data.healthPoint; this.animationSteps = data.animationSteps;
@@ -79,12 +79,13 @@ class EnemyObject {
             this.originalHealthPoint = data.healthPoint;
             this.isMove = data.isMove;
             this.isShoot = data.isShoot;
-            this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed:  Math.floor(Math.random() * data.speed);
-            this.spotDistance = Math.floor(Math.random() * data.spotDistance );
+            this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed:  Math.floor(Math.random() * data.speed +1);
+            this.spotDistance = (data.isBoss)? data.spotDistance : Math.floor(Math.random() * data.spotDistance );
             this.yFinal = 0;
             this.xFinal = 0;
             this.behavior = data.behavior;
             this.direction = null;
+            this.isBoss = data.isBoss
     }
 }
 

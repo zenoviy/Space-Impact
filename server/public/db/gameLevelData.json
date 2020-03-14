@@ -1,7 +1,7 @@
 [
     {
         "level" : 1,
-        "enemyType" : [1, 3, 3, 3],
+        "enemyType" : ["dart", "mine", "mine", "mine"],
         "levelOBjects" : [],
         "enemyProbability" : 900,
         "objectProbability": 1000,
@@ -50,7 +50,7 @@
         }
     },{
         "level" : 2,
-        "enemyType" : [1],
+        "enemyType" : ["dart"],
         "levelOBjects" : [],
         "enemyProbability" : 900,
         "objectProbability": 1000,
@@ -121,7 +121,7 @@
         }
     },{
         "level" : 3,
-        "enemyType" : [1, 2],
+        "enemyType" : ["dart", "scorpio"],
         "levelOBjects" : [],
         "enemyProbability" : 900,
         "objectProbability": 1000,
@@ -198,7 +198,7 @@
         }
     },{
         "level" : 4,
-        "enemyType" : [1, 2],
+        "enemyType" : ["dart", "scorpio"],
         "levelOBjects" : [1, 2, 3],
         "enemyProbability" : 900,
         "objectProbability": 1000,
@@ -304,16 +304,17 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 0,
+            "levelMinutes": 1,
             "levelSeconds": 43
         }
     },{
         "level" : 5,
-        "enemyType" : [0],
+        "enemyType" : ["megalit"],
         "levelOBjects" : [3],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "objectMinTimeSpawn": 200,
+        "bosPresents": true,
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
         "levelMap" : "skyClouds.png",

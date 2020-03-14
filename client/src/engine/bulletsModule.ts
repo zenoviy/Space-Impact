@@ -19,9 +19,34 @@ function createBullets(mainGameObject){
 function initBullets(){
 
 }
-function moveBullets(){
-    if(this.objectOwner == "player") this.x  += this.bulletSpeed;
-    else this.x  -= this.bulletSpeed;
+function moveBullets( playerShipData, gameObject ){
+    switch (this.type){
+        case "blaster":
+            move.call(this)
+            break
+        case "beam":
+            beam.call(this);
+            move.call(this);
+            break
+        default:
+            move.call(this)
+    }
+
+    function move(){
+        if(this.objectOwner == "player") this.x  += this.bulletSpeed;
+        else this.x  -= this.bulletSpeed;
+    }
+    function beam(){
+        let screenData = gameObject.getScreenSize();
+
+        if(this.x > 0){
+            this.width += this.bulletSpeed
+        }else if(this.width > 0){
+            this.x = 0;
+            this.width -= this.bulletSpeed
+        }
+
+    }
 }
 
 export {

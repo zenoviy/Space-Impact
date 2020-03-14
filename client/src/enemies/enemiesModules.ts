@@ -11,38 +11,55 @@ function placeEnemyes(mainGameObject){
         this.x, this.y,
         this.width,this.height)
 }
+
+
+
+
 function moveEnemyes(moveX: number, moveY: number = 0){
-    this.x -= this.enemySpeed;
+    this.x -= this.speed;
     this.y -= moveY;
 }
+
+
+
+
 function loadEnemyes(){         ///  need replace  and remove
     this.img = new Image();
     this.img.src = this.shipTexture;
 }
-function shoot(bulletConstructor, mainGameObject){
+
+
+
+
+function shoot(BulletConstructor, mainGameObject){
     if(mainGameObject.gameInitData.gamePause || !this.isShoot) return false;
 
-    let randomShoot = mainGameObject.gameRandomizer( Math.pow(this.rapidFire, 2) );
-    let shootProbability = mainGameObject.gameRandomizer( this.rapidFire );
-    if(randomShoot < shootProbability){
-       let guns = this.guns;
-       for(let item of guns){
-           let bullet = new bulletConstructor(
-               this.x, this.y + item.firePosition,
-               item.name, item.color,
-               "enemy", item.speed + this.enemySpeed,
-               item.width, item.height,
-               item.damage, item.type, item.texture,
-               item.sx, item.sy, item.sWidth, item.sHeight,
-               item.explosionAnimation
-               );
-               bullet.img.src = bullet.texture;
-               bullet.img.onload = () => {
-                   mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
-               }
-       }
+    //let randomShoot = mainGameObject.gameRandomizer( Math.pow(this.rapidFire, 2) );
+    //let shootProbability = mainGameObject.gameRandomizer( this.rapidFire );
+
+    let guns = this.guns;
+    for(let item of guns){
+        if( 1 > mainGameObject.gameRandomizer( item.fireRepead )){
+            let bullet = new BulletConstructor(
+                this.x, this.y + ((item.firePosition)? item.firePosition : mainGameObject.gameRandomizer(this.height)),
+                item.name, item.color,
+                "enemy", item.speed + this.speed,
+                item.width, item.height,
+                item.damage, item.type, item.texture,
+                item.sx, item.sy, item.sWidth, item.sHeight,
+                item.explosionAnimation
+            );
+            bullet.img.src = bullet.texture;
+            bullet.img.onload = () => {
+                mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+                }
+        }
     }
 }
+
+
+
+
 function enemyAnimation(state = true){
     this.detectFrame += 1;
     if(this.detectFrame % this.animationSteps == 0 && state){
@@ -53,6 +70,10 @@ function enemyAnimation(state = true){
         }
     }
 }
+
+
+
+
 
 function enemyDamageAnimation(){
     if(this.numberOfVerticalItems > 1){
@@ -69,6 +90,10 @@ function enemyDamageAnimation(){
         }
     }
 }
+
+
+
+
 // complex enemy animation for damage
 function takeDamage(damage: number, hitObject, mainGameObject){
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
@@ -86,6 +111,7 @@ function takeDamage(damage: number, hitObject, mainGameObject){
         if(this.healthPoint <= 0) {
             this.objectPresent = false;
             explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
+            if(this.isBoss) bossEnemyDestruction()
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
         if(this.collisionAllow){
@@ -113,7 +139,15 @@ function takeDamage(damage: number, hitObject, mainGameObject){
             return this.objectPresent = false;
         }
     }
+
+    function bossEnemyDestruction(){
+        mainGameObject.gameInitData.levelChange = true;
+    }
 }
+
+
+
+
 function hitDetection(object1, objectsArr, mainGameObject){
     let collision = null;
     for(let object2 of objectsArr){

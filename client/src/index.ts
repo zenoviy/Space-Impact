@@ -47,11 +47,11 @@ import { clearField } from './view/displayModules';
         }
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus){
-                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(gameObject, constructors.EnemyObject);
+                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
 
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
-                        bullet.moveBullets();
+                        bullet.moveBullets(playerShipData, gameObject);
                         bullet.createBullets(gameObject);
                         gameObject.deleteBullet(bullet);
                         gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject);
@@ -115,7 +115,7 @@ import { clearField } from './view/displayModules';
                     backgroundMap.updateMap();
                     backgroundMap.changePartOfTexture(gameObject, gameObject.gameInitData.mapBackgroundObjects);
                 }
-            if(gameObject.gameInitData.levelChange) gameObject.warpEffect(gameObject);
+            if(gameObject.gameInitData.levelChange) gameObject.warpEffect();
             }
         }
 

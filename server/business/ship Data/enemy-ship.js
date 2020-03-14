@@ -9,7 +9,7 @@ async function getEnemyShip (req, res) {
 
         let readObject = JSON.parse(data)
         let enemyType = headers['ship-type-number'];
-        enemyType = enemyType.split(/,/).map(item => parseInt(item));
+        enemyType = enemyType.split(/,/).map(item => item);
 
         let responseItem = readObject.filter(item => {
                 return enemyType.some(obj => obj == item.id)

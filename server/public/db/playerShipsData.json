@@ -38,7 +38,7 @@
                     "width": 50,
                     "height": 50
                 },
-                "type": 1,
+                "type": "blaster",
                 "fireRepead": 3,
                 "speed": 6,
                 "color": "rgba(81, 255, 0, 1)",

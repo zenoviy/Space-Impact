@@ -5,8 +5,8 @@ function enemyShipLogicVertical(target, mainGameObject){
     let maxPositionX = Math.max(target.x, this.x);
     let minPositionX = Math.min(target.x, this.x);
 
-    let maxPositionY = Math.max(target.y, this.y)
-    let minPositionY = Math.min(target.y, this.y)
+    let maxPositionY = Math.max(target.y - this.height/2, this.y)
+    let minPositionY = Math.min(target.y - this.height/2, this.y)
 
     let distanceToTargetX = maxPositionX - minPositionX;
     let distanceToTargetY = maxPositionY - minPositionY;
@@ -25,19 +25,29 @@ function enemyShipLogicVertical(target, mainGameObject){
             case 'attack':
                 attack.call(this, distanceToTargetY, distanceToTargetX, target)
                 break;
+            case 'comeEndFind':
+                strafe.call(this);
+                unitStop.call(this);
+                break;
             default:
                 strafe.call(this)
         }
     }
+    function unitStop(){
+        let screenData = mainGameObject.getScreenSize();
+        if(this.x < screenData.width - this.width * 2){
+            this.speed = 0;
+        }
+    }
     function strafe(){
         if(this.spotDistance > distanceToTargetX || this.spotDistance > distanceToTargetY){
-            this.yFinal = target.y;
+            this.yFinal = target.y - this.height/2;
             this.enemyVerticalMoveCalculation(distanceToTargetY)
             return true
         }
     }
     function attack(distanceToTargetY, distanceToTargetX, target){
-        this.yFinal = target.y;
+        this.yFinal = target.y - this.height/2;
         if(distanceToTargetX < 100) this.enemyVerticalMoveCalculation(distanceToTargetY)
     }
     function patrool(mainGameObject){
@@ -72,15 +82,28 @@ function enemyVerticalMoveCalculation(distanceToTargetY){
     (this.y < this.yFinal)? this.y + yAdj : this.yFinal;
 }
 
-function spawnEnemyLogic(mainGameObject: any, EnemyObject: any){
+function spawnEnemyLogic( EnemyObject: any){
     let gameData = this.gameInitData.gameData,
     levelData = gameData.levelData,
-    enemyData = gameData.enemyData;
-    if(!this.gameInitData.gameData.levelChange){
+    enemyData = gameData.enemyData,
+    levelUserData = this.getLevelUserData(),
+    bosPresent = (levelUserData.sourse.levelData.bosPresents)? levelUserData.sourse.levelData.bosPresents: null;
+
+    if(!this.gameInitData.gameData.levelChange && !bosPresent){
+        enemySpawn.call(this)
+    }else{
+        if(this.gameInitData.allGameEnemies.length ==  0){
+            let enemyShipObject = this.createNewEnemy(enemyData[0], EnemyObject);
+            enemyShipObject.loadEnemyes();
+            this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
+        }
+    }
+
+    function enemySpawn(){
         let checkSpawnType = this.gameRandomizer(levelData.enemyProbability);
         if(checkSpawnType <= levelData.enemyRandomizerIndex){
             let numberEnemyPerSpawn = this.gameRandomizer(levelData.enemyMaxNumber);
-            for(let i = numberEnemyPerSpawn; i< levelData.enemyMaxNumber; i++){
+            for(let i = numberEnemyPerSpawn; i < levelData.enemyMaxNumber; i++){
                 let enemyShip = enemyData[ this.gameRandomizer(enemyData.length) ];
                 let enemyShipObject = this.createNewEnemy(enemyShip, EnemyObject);
                 enemyShipObject.loadEnemyes();
@@ -109,7 +132,8 @@ function createNewEnemy(enemyData, EnemyObject){
             healthPoint: shipDetails.healthPoint, animationSteps: shipDetails.animationSteps, damage: shipDetails.damage,
             objectOwner: shipDetails.objectOwner, guns: (shipDetails.guns)? shipDetails.guns : [], explosion: shipDetails.explosionAnimation,
             numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
-            spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null
+            spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null,
+            isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false
         });
     }
 }

@@ -2,6 +2,7 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 
 function gameInformationScreen(extra: any, ctx: any, width: number, height: number, pictureDirrection: any, info: any){
+   
     return [
         {
             name: "lifePoint",
@@ -55,10 +56,10 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Time to end f level",
-            text: `Time to end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >=0)? '': 0}${info.seconds}`,
+            text: (info.minutes || info.seconds)? `Time to level end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >=0)? '': 0}${info.seconds}`: 'Boss level',
             description: "Game part the name",
             clicked: false,
-            fontSize: "lighter 16px Roboto",
+            fontSize: "light 16px Roboto",
             propertyes:{
                 ctx: ctx,
                 width: 50,
@@ -76,7 +77,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             text: info.points,
             description: "Game part the name",
             clicked: false,
-            fontSize: "lighter 18px Roboto",
+            fontSize: "light 18px Roboto",
             propertyes:{
                 ctx: ctx,
                 width: -50,
