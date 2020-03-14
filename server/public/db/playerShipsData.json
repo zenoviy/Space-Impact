@@ -13,7 +13,7 @@
             "height": 25
         },
         "explosionAnimation": {
-            "texture": "misc/fire/explosion-blue.png",
+            "texture": "/public/images/misc/fire/explosion-blue.png",
             "imageWidth": 12891,
             "imageHeight":294,
             "animationSteps": 2,
@@ -26,9 +26,9 @@
         "guns":[
             {
                 "name": "blaster",
-                "texture": "misc/bullets/green-laser.png",
+                "texture": "/public/images/misc/bullets/green-laser.png",
                 "explosionAnimation": {
-                    "texture": "misc/fire/explosion.png",
+                    "texture": "/public/images/misc/fire/explosion.png",
                     "imageWidth": 12891,
                     "imageHeight":294,
                     "animationSteps": 2,

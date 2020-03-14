@@ -22,11 +22,11 @@
             "sy": 0,
             "width": 50,
             "height": 50,
-            "skinName": "enemy_ship_1.png",
+            "skinName": "/public/images/spaceShips/enemy_ship_1.png",
             "speed": 4,
             "pointsPerUnit": 5,
             "explosionAnimation": {
-                "texture": "misc/fire/explosion-blue.png",
+                "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
                 "imageHeight":294,
                 "animationSteps": 2,
@@ -39,9 +39,9 @@
             "guns":[
                 {
                     "name": "blaster",
-                    "texture": "misc/bullets/red-laser.png",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
                     "explosionAnimation": {
-                        "texture": "misc/fire/explosion.png",
+                        "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
                         "imageHeight":294,
                         "animationSteps": 2,
@@ -89,12 +89,12 @@
             "sy": 0,
             "width": 30,
             "height": 30,
-            "skinName": "enemy_ship_mine.png",
+            "skinName": "/public/images/spaceShips/enemy_ship_mine.png",
             "speed": 1,
             "verticalSpeed": 10,
             "pointsPerUnit": 2,
             "explosionAnimation": {
-                "texture": "misc/fire/explosion-blue.png",
+                "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
                 "imageHeight":294,
                 "animationSteps": 2,
@@ -106,9 +106,9 @@
             }, "guns":[
                 {
                     "name": "blaster",
-                    "texture": "misc/bullets/red-laser.png",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
                     "explosionAnimation": {
-                        "texture": "misc/fire/explosion.png",
+                        "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
                         "imageHeight":294,
                         "animationSteps": 2,
@@ -156,11 +156,11 @@
             "sy": 0,
             "width": 55,
             "height": 55,
-            "skinName": "enemy_ship_2_full.png",
+            "skinName": "/public/images/spaceShips/enemy_ship_2_full.png",
             "speed": 3,
             "pointsPerUnit": 20,
             "explosionAnimation": {
-                "texture": "misc/fire/explosion-blue.png",
+                "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
                 "imageHeight":294,
                 "animationSteps": 2,
@@ -173,9 +173,9 @@
             "guns":[
                 {
                     "name": "blaster",
-                    "texture": "misc/bullets/red-laser.png",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
                     "explosionAnimation": {
-                        "texture": "misc/fire/explosion.png",
+                        "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
                         "imageHeight":294,
                         "animationSteps": 2,
@@ -199,9 +199,9 @@
                     "firePosition": 5
                 }, {
                     "name": "blaster",
-                    "texture": "misc/bullets/red-laser.png",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
                     "explosionAnimation": {
-                        "texture": "misc/fire/explosion.png",
+                        "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
                         "imageHeight":294,
                         "animationSteps": 2,
@@ -251,11 +251,11 @@
             "sy": 0,
             "width": 155,
             "height": 155,
-            "skinName": "ship4.png",
+            "skinName": "/public/images/spaceShips/ship4.png",
             "speed": 3,
             "pointsPerUnit": 200,
             "explosionAnimation": {
-                "texture": "misc/fire/explosion-blue.png",
+                "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
                 "imageHeight":294,
                 "animationSteps": 2,
@@ -268,9 +268,9 @@
             "guns":[
                 {
                     "name": "blaster",
-                    "texture": "misc/bullets/red-laser.png",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
                     "explosionAnimation": {
-                        "texture": "misc/fire/explosion.png",
+                        "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
                         "imageHeight":294,
                         "animationSteps": 2,
@@ -294,9 +294,9 @@
                     "firePosition": null
                 }, {
                     "name": "beam",
-                    "texture": "misc/bullets/red-laser.png",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
                     "explosionAnimation": {
-                        "texture": "misc/fire/explosion.png",
+                        "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
                         "imageHeight":294,
                         "animationSteps": 2,

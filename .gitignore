@@ -43,7 +43,7 @@ node_modules/
 jspm_packages/
 
 # test script directoryes
-public/script-test-area
+client/public/script-test-area
 client/space-attack-client-win32-ia32
 
 # TypeScript v1 declaration files

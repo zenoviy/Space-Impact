@@ -28,10 +28,27 @@ module.exports = {
               'style-loader',
               'css-loader',
               {
+                loader: 'resolve-url-loader',
+                options: {
+                  root: path.resolve(__dirname)
+                }
+              }, {
                 loader: 'sass-loader',
+                options: {
+                  sassOptions: {
+                    indentWidth: 4,
+                    includePaths: [path.resolve(__dirname)],
+                  },
+                },
               },
             ]
-          }
+          },{
+            test: /\.(png|jpe?g|gif)$/i,
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            }
+        }
       ]
   },
   node: {

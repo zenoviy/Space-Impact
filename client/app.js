@@ -2,7 +2,6 @@ const {app, BrowserWindow} = require('electron');
 const path = require('path');
 
 
-console.log(__dirname)
 function createWindow(){
     let win = new BrowserWindow({
         titleBarStyle: 'hidden',

@@ -72,7 +72,7 @@ function levelInit(backgroundConstructor, ctx, mainGameObject){
             (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null
         );
         mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
-        mapItem.img.src = this.showGameInfo().imageDirrection + mapItem.backgroundTexture;
+        mapItem.img.src = __dirname + mapItem.backgroundTexture;
     }
 }
 
@@ -233,6 +233,27 @@ function getRandomColor() {
     return color;
 }
 
+function preloadImage(items){
+
+    let image = document.querySelector("#preloader");
+    loopVertical(items)
+    function loopVertical(object){
+        if(!object) return
+        for(let [key, val] of Object.entries(object)){
+            if(typeof object[key] === "object"){
+                loopVertical(object[key])
+            }
+            assignimage(key, val, image)
+        }
+    }
+
+    function assignimage(key, val, image){
+        if(key == 'skinName' ||  key == 'texture' || key == 'levelMap'){
+            console.log(key, val)
+            if(val) image.src = __dirname + val;
+        }
+    }
+}
 
 export  {
     initField,
@@ -251,5 +272,6 @@ export  {
     deleteObjects,
     delateSideObject,
     getObjectPosition,
-    collectPoints
+    collectPoints,
+    preloadImage
 }

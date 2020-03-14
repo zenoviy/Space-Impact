@@ -64,7 +64,7 @@ class EnemyObject {
             this.sWidth = data.sWidth; this.sHeight = data.sHeight;
             this.picturesWidth = data.picturesWidth; this.numberOfItems = data.numberOfItems;
             this.width = data.width; this.height = data.height;
-            this.shipTexture = __dirname + '/public/images/spaceShips/' + data.shipTexture;
+            this.shipTexture = __dirname + data.shipTexture;
             this.speed = data.speed;
             this.status = data.status; this.name = data.name;
             this.bulletTypeNumber = data.bulletTypeNumber; this.rapidFire = data.rapidFire; this.pointsPerUnit = data.pointsPerUnit;

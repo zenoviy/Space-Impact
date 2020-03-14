@@ -1,4 +1,5 @@
 import { getData } from '../../server/serverRequestModules';
+import { preloadImage } from '../engineModules'
 
 async function serverRequest(gameInformation){
         let serverLocation = {
@@ -55,6 +56,9 @@ async function serverRequest(gameInformation){
             data: null,
             headers:{ 'ship-type-number': levelData.enemyType}
         })
+        preloadImage(enemyData)
+        preloadImage(levelData)
+        preloadImage(levelObjects)
         return {
             levelData: levelData,
             levelObjects: levelObjects,

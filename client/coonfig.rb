@@ -1,4 +1,5 @@
 sass_dir = "sass"
+css_dir = "css"
 images_dir = "public/images"
 output_style = :compressed
 relative_assets = false

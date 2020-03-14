@@ -13,7 +13,7 @@
     "sy": 0,
     "width": 250,
     "height": 400,
-    "skinName": "misc/building1.png",
+    "skinName": "/public/images/misc/building1.png",
     "speed": 4,
     "isBackground": false,
     "pointsPerUnit": 30,
@@ -21,7 +21,7 @@
         "position": "bottom"
     },
     "explosionAnimation": {
-        "texture": "misc/fire/explosion-building-1.png",
+        "texture": "/public/images/misc/fire/explosion-building-1.png",
         "imageWidth": 12891,
         "imageHeight":302,
         "animationSteps": 2,
@@ -46,7 +46,7 @@
     "sy": 0,
     "width": 250,
     "height": 400,
-    "skinName": "misc/sky-city build/building2.png",
+    "skinName": "/public/images/misc/sky-city build/building2.png",
     "speed": 4,
     "isBackground": false,
     "pointsPerUnit": 35,
@@ -54,7 +54,7 @@
         "position": "bottom"
     },
     "explosionAnimation": {
-        "texture": "misc/fire/explosion-building.png",
+        "texture": "/public/images/misc/fire/explosion-building.png",
         "imageWidth": 12891,
         "imageHeight":302,
         "animationSteps": 2,
@@ -79,7 +79,7 @@
     "sy": 0,
     "width": 1050,
     "height": 400,
-    "skinName": "misc/sky-city build/cloud-1.png",
+    "skinName": "/public/images/misc/sky-city build/cloud-1.png",
     "speed": 4,
     "isBackground": false,
     "pointsPerUnit": null,
