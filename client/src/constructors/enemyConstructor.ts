@@ -3,7 +3,6 @@ import { placeEnemyes, moveEnemyes, loadEnemyes, shoot, enemyAnimation, takeDama
 import { getObjectPosition } from '../engine';
 
 
-console.log(enemyShipLogicVertical , " <<<<")
 interface explosionAnimation{
     texture: string,
     imageWidth: number,

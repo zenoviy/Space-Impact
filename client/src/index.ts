@@ -13,7 +13,6 @@ import { clearField } from './view/displayModules';
     var gameObject = await new constructors.Game(gameState.data);
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
 
-    console.log(gameObject, path, __dirname)
    var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount);
 
     gameObject.uiController()
@@ -84,7 +83,7 @@ import { clearField } from './view/displayModules';
                         if (object.objectOwner == "explosion"){
                              object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
                         }else{
-                            if(object.objectOwner == "enemy"){
+                            if(object.objectOwner == "enemy" || object.objectOwner == "collide" ){
                                 gameObject.hitDetection(playerShipData, [object], gameObject);
                             }
                             object.enemyAnimation()

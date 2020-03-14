@@ -199,7 +199,7 @@
     },{
         "level" : 4,
         "enemyType" : ["dart", "scorpio"],
-        "levelOBjects" : [1, 2, 3],
+        "levelOBjects" : ["build_1", "build_2", "cloud_1"],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "objectMinTimeSpawn": 200,
@@ -310,7 +310,7 @@
     },{
         "level" : 5,
         "enemyType" : ["megalit"],
-        "levelOBjects" : [3],
+        "levelOBjects" : ["cloud_1"],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "objectMinTimeSpawn": 200,

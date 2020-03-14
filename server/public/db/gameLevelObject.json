@@ -1,5 +1,5 @@
 [{
-    "id": 1,
+    "id": "build_1",
     "name": "build 1",
     "objectOwner": "environment",
     "damage": 30,
@@ -32,9 +32,9 @@
         "height": 650
     }
 }, {
-    "id": 2,
+    "id": "build_2",
     "name": "build 2",
-    "objectOwner": "enemy",
+    "objectOwner": "collide",
     "damage": 30,
     "healthPoint": 1208,
     "imageWidth": 5017,
@@ -65,7 +65,7 @@
         "height": 850
     }
 }, {
-    "id": 3,
+    "id": "cloud_1",
     "name": "Cloud",
     "objectOwner": "nature",
     "damage": null,

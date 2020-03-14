@@ -102,7 +102,6 @@ function changeLevelProcedure(){
     // some levels must contain boss at least 2 boss
     // last level is final titles the end save score
     let levelData = this.showGameInfo();
-//console.log(levelData)
     let level = this.changeLevel(levelData.gameData.currentLevel + 1)
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
@@ -114,7 +113,6 @@ function changeLevelProcedure(){
 
 function levelTimer(){
         let data = this.getLevelUserData()
-        //console.log(data, data.sourse.levelData.bosPresents)
         if(!data.sourse.levelData.bosPresents){
             let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
             if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails);

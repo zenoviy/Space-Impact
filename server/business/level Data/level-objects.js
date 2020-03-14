@@ -10,7 +10,7 @@ async function getLevelObjects (req, res) {
 
         let objectType = headers['mapobject'];
         if(objectType.length < 1) return res.send(false);
-        objectType = objectType.split(/,/).map(item => parseInt(item));
+        objectType = objectType.split(/,/).map(item => item);
 
         let responseItem = readObject.filter(item => {
                 return objectType.some(obj => obj == item.id)

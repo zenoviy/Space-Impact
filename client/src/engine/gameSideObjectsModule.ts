@@ -5,9 +5,10 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject){
     let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
     let compensation =(hitObject.x > targetData.x)? adjust : adjust/2;//(hitObject.x + hitObject.width/2) - (targetData.x + targetData.width/2);
     //compensation = (Math.sign(compensation) > 1)? compensation : compensation * -1;
-        let explosionData = {
-            x: targetData.x - targetData.width/2,
-            y: targetData.y - targetData.height/2,
+    //console.log(targetData, hitObject)
+    let explosionData = {
+            x: targetData.x - targetData.explosion.width/2,
+            y: (targetData.bulletType)? targetData.y - targetData.explosion.width/2: targetData.y,
             sx: 0,
             sy: 0,
             objectOwner: "explosion",
@@ -91,8 +92,6 @@ function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideOb
             sideObject.img.onload = () => {
                 this.gameInitData.allGameSideObjects = this.gameInitData.allGameSideObjects.concat(sideObject);
             }/**/
-
-           // console.log(this.gameInitData.allGameSideObjects)
         }
     }
 }
