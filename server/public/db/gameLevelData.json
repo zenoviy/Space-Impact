@@ -326,6 +326,14 @@
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
             "speed": 0.1,
             "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_2.png",
+            "speed": 0.2,
+            "description": "second frame"
         }],
         "levelDetails" : {
             "levelMinutes": 3,

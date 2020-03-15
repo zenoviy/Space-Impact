@@ -237,7 +237,7 @@
             "isShoot": true,
             "isBoss": true,
             "spotDistance": 1000,
-            "healthPoint": 15260,
+            "healthPoint": 152,
             "bulletType": 1,
             "rapidFire": 5,
             "imageWidth": 1840,
@@ -262,8 +262,8 @@
                 "numberOfItems": 44,
                 "sx": 0,
                 "sy": 0,
-                "width": 50,
-                "height": 50
+                "width": 155,
+                "height": 155
             },
             "guns":[
                 {
