@@ -17,7 +17,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 background: 'rgba(255, 255, 255, 1)',
                 borderColor: 'rgba(255, 255, 255, 1)',
                 textProperty: {
-                    textColor: '#007BD1',
+                    textColor: '#251536',
                     topPadding: 10,
                     rightPadding: 40,
                     bottomPadding: 10,

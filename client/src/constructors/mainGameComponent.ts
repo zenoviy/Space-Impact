@@ -29,9 +29,10 @@ import {
     showStartWindow,
     showPauseWindow,
     gameOverWindow,
+    gameWinWindow,
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
-import { gameStart, backToStartScreen } from '../engine/gameModules/satartGame';
+import { gameStart, backToStartScreen, exitTheGame } from '../engine/gameModules/satartGame';
 import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
 
 
@@ -113,11 +114,13 @@ class Game {
     showMenuWindow: any;
     showStartWindow: any;
     gameOverWindow: any;
+    gameWinWindow: any;
     showGameStats: any;
     initUiElements: any;
     gameUiMenu: any;
     gameStart: any;
     backToStartScreen: any;
+    exitTheGame: any;
     showPauseWindow: any;
     nextLevelDataReload: any;
     getRandomColor: any;
@@ -189,11 +192,13 @@ Game.prototype.showUiPopupWindow = showUiPopupWindow;
 Game.prototype.showStartWindow = showStartWindow;
 Game.prototype.showPauseWindow = showPauseWindow;
 Game.prototype.gameOverWindow = gameOverWindow;
+Game.prototype.gameWinWindow = gameWinWindow;
 Game.prototype.showGameStats = showGameStats;
 Game.prototype.initUiElements  = initUiElements;
 
 Game.prototype.gameStart = gameStart;
 Game.prototype.backToStartScreen = backToStartScreen;
+Game.prototype.exitTheGame = exitTheGame;
 Game.prototype.nextLevelDataReload = nextLevelDataReload;
 Game.prototype.changeLevelProcedure = changeLevelProcedure;
 

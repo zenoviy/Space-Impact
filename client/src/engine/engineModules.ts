@@ -106,7 +106,8 @@ function changeLevelProcedure(){
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
-        alert("Win Game Screen ")
+        //alert("Win Game Screen ")
+        this.gameInitData.gameWin = true;
     }
 }
 
@@ -246,10 +247,8 @@ function preloadImage(items){
             assignimage(key, val, image)
         }
     }
-
     function assignimage(key, val, image){
         if(key == 'skinName' ||  key == 'texture' || key == 'levelMap'){
-            console.log(key, val)
             if(val) image.src = __dirname + val;
         }
     }

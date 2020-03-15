@@ -1,5 +1,7 @@
 import { getData } from '../../server/serverRequestModules';
-import { preloadImage } from '../engineModules'
+import { preloadImage } from '../engineModules';
+const remote = require('electron').remote
+
 
 async function serverRequest(gameInformation){
         let serverLocation = {
@@ -72,7 +74,7 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 4, shipType = 1, shipLife = 5;
+        let level = 5, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -114,6 +116,7 @@ async function gameDataInit(PlayerShip){
             backScreenPause: true,
             gameStatus: false,
             gameOver: false,
+            gameWin: false,
             gemeExtraSeconds: 0,
         }
     }
@@ -136,10 +139,19 @@ async function backToStartScreen(PlayerShip){
     this.gameInitData.gameStatus = false;
 }
 
+function exitTheGame(){
+    if(confirm("exit?")){
+        let w = remote.getCurrentWindow()
+        w.close()
+    }
+    
+}
+
 export {
     gameDataInit,
     serverRequest,
     gameEngine,
     gameStart,
-    backToStartScreen
+    backToStartScreen,
+    exitTheGame
 }

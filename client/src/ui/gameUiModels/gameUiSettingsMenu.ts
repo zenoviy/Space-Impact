@@ -16,8 +16,14 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 height: height/2,
                 x: 0,
                 y: height/4,
-                background: 'rgba(38, 38, 86, 1)',
-                borderColor: 'rgba(255, 255, 255, 1)',
+                gradient: true,
+                backGroundFinal: "#8C31A3",
+                topX: 0,
+                topY: 0,
+                bottomX: width,
+                bottomY: height/2,
+                background: '#6628A7',
+                borderColor: '#251536',
                 radius: 5,
             },
             init: init,
@@ -37,7 +43,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 background: 'rgba(255, 255, 255, 1)',
                 borderColor: 'rgba(255, 255, 255, 1)',
                 textProperty: {
-                    textColor: '#007BD1',
+                    textColor: '#251536',
                     topPadding: 7,
                     rightPadding: 50,
                     bottomPadding: 10,
@@ -50,25 +56,35 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             },
             init: init,
             getObjectPosition: getUIObjectPosition
-        }, /*{
-            name: "textin button",
-            text: "go to start",
-            description: "Text in the menu button",
+        },  {
+            name: "Button to exit",
+            text: "exit",
+            description: "Exit the game",
             fontSize: "25px Roboto",
             clicked: false,
             propertyes:{
                 ctx: ctx,
-                width: 45,
-                height: 0,
-                x: width/2 - 150,
-                y: height/2 + 80,
-                background: false,
-                borderColor: '#007BD1',
-                radius: null,
+                width: 200,
+                height: 50,
+                x: width/2 + width/3,
+                y: height/2 + 50 ,
+                background: 'rgba(255, 255, 255, 1)',
+                borderColor: 'rgba(255, 255, 255, 1)',
+                textProperty: {
+                    textColor: '#251536',
+                    topPadding: 7,
+                    rightPadding: 50,
+                    bottomPadding: 10,
+                    leftPadding: 20,
+                },
+                radius: 15,
+            },
+            action(gameObject){
+                gameObject.exitTheGame()
             },
             init: init,
             getObjectPosition: getUIObjectPosition
-        },*/ {
+        }, {
             name: "Main game menu name",
             text: "Menu",
             description: "Text in main top",

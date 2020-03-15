@@ -29,6 +29,7 @@ function uiImage(shapePropertyes: ImageShapes){
 }
 function uiText(shapePropertyes: ImageShapes){
     let propertyes = shapePropertyes.propertyes;
+//propertyes.ctx.save();
     let textWidth = propertyes.ctx.measureText(shapePropertyes.text).width/3.2;
     propertyes.ctx.font = shapePropertyes.fontSize ;
     propertyes.ctx.fillStyle = propertyes.borderColor;
@@ -36,6 +37,10 @@ function uiText(shapePropertyes: ImageShapes){
         shapePropertyes.text,
         propertyes.x + propertyes.width,
         propertyes.y + propertyes.height);
+       
+        propertyes.ctx.shadowColor = 'rgba(66, 0, 80, .8)';
+        propertyes.ctx.shadowBlur = 8;
+    //propertyes.ctx.restore(); 
 }
 function uiRepeatImage(shapePropertyes: ImageShapes){
     let propertyes = shapePropertyes.propertyes;

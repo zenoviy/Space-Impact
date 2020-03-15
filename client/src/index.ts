@@ -6,7 +6,6 @@ import * as constructors from './constructors';
 import { clearField } from './view/displayModules';
 
 
-
 (async function init(){
     /*  gameEngineInit  */
     var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip);
@@ -119,7 +118,7 @@ import { clearField } from './view/displayModules';
         }
 
         ///   game UI load
-        if(!gameObject.gameInitData.gameStatus ){
+        if(!gameObject.gameInitData.gameStatus && !gameObject.gameInitData.gameUiPause){
             gameObject.showStartWindow()
         }
         if(gameObject.gameInitData.gameStatus){
@@ -135,6 +134,10 @@ import { clearField } from './view/displayModules';
         if(gameObject.gameInitData.gameOver){
             gameObject.gameOverWindow()
         }
+        if(gameObject.gameInitData.gameWin && !gameObject.gameInitData.gameUiPause && !gameObject.gameInitData.gamePause){
+            gameObject.gameWinWindow()
+        }
+        //
     }
 })()
 

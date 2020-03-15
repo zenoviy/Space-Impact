@@ -1,6 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
 
+const a = "test"
 
 function createWindow(){
     let win = new BrowserWindow({
@@ -43,3 +44,5 @@ app.on('activate', function () {
         createWindow()
     }
 })
+
+exports.test = () => console.log('Yay');

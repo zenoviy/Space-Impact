@@ -17,7 +17,13 @@ interface Shapes{
         height: number,
         x: number,
         y: number,
+        gradient ? : boolean,
         background: string,
+        backGroundFinal ? : string
+        topX ? : number
+        topY ? : number
+        bottomX ? : number
+        bottomY ? : number
         borderColor: string,
         radius: number
     }
@@ -26,7 +32,13 @@ interface Shapes{
 function createShapeRoundBorder(shapePropertyes: Shapes){
     let propertyes = shapePropertyes.propertyes;
     propertyes.ctx.fillStyle = propertyes.background;
-   propertyes.ctx.beginPath();
+    if(propertyes.gradient){
+        var gradient = propertyes.ctx.createLinearGradient(propertyes.topX, propertyes.topY, propertyes.bottomX, propertyes.bottomY);
+        gradient.addColorStop(0, propertyes.background);
+        gradient.addColorStop(1, propertyes.backGroundFinal);
+        propertyes.ctx.fillStyle = gradient;
+    }
+    propertyes.ctx.beginPath();
     propertyes.ctx.moveTo(propertyes.x + propertyes.radius, propertyes.y);
     propertyes.ctx.lineTo(propertyes.x + propertyes.width - propertyes.radius,
         propertyes.y);
@@ -56,9 +68,18 @@ function createShapeRoundBorder(shapePropertyes: Shapes){
         propertyes.x + propertyes.radius,
         propertyes.y); /**/
         //propertyes.ctx.fillRect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);
+
+    
     propertyes.ctx.closePath();
     propertyes.ctx.fill()
+
+
 }
+
+
+
+
+
 
 interface ButtonShape{
     name: string,
@@ -132,7 +153,6 @@ function createRoundButton(shapePropertyes: ButtonShape){
         shapePropertyes.text,
         propertyes.x + propertyes.textProperty.leftPadding,
         propertyes.y + propertyes.height/2+ propertyes.textProperty.topPadding);
-
 }
 export {
     createWindow,
