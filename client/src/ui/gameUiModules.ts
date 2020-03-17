@@ -36,13 +36,18 @@ function uiController(){
             screenSize = this.getScreenSize();
             if(!this.gameInitData.gameStatus){
                 elementsOnScreen = gameLoadMenu(null, ctx, screenSize.width, screenSize.height, null);
+                clickDetection.call(this, elementsOnScreen)
             }
             if(this.gameInitData.gameUiPause){
                 elementsOnScreen = gameSettingsMenu(null, ctx, screenSize.width, screenSize.height);
+                clickDetection.call(this, elementsOnScreen)
             }
             if(this.gameInitData.gameWin){
                 elementsOnScreen = gameWinScreen(null, ctx, screenSize.width, screenSize.height, null, data);
+                clickDetection.call(this, elementsOnScreen)
             }
+        }
+        function clickDetection(elementsOnScreen){
             for(let item in elementsOnScreen){
                 let res = hitDetection(elementsOnScreen[item],
                     [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}), this)

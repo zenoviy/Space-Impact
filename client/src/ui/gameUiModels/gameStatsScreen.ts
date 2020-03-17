@@ -2,7 +2,6 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 
 function gameInformationScreen(extra: any, ctx: any, width: number, height: number, pictureDirrection: any, info: any){
-   
     return [
         {
             name: "lifePoint",
@@ -21,6 +20,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 y: 20,
                 background: new Image(),
                 borderColor: false,
+                shadowColor: 'rgba(0, 0, 0, 1)',
                 radius: null,
             },
             loadPicture(){
@@ -50,6 +50,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 y: 70,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(0, 0, 0, 1)',
                 radius: null,
             },
             init: init,
@@ -68,6 +69,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 y: 30,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(0, 0, 0, 1)',
                 radius: null,
             },
             init: init,
@@ -86,6 +88,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 y: 50,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(0, 0, 0, 1)',
                 radius: null,
             },
             init: init,

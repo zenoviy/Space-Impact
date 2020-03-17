@@ -3,11 +3,43 @@
 
 body
   font-family: 'Roboto'
-  color: $body-color
+  color: $white-color
   background: $main-color
   margin: 0
   padding: 0
   @include canvas-propertyes
+  -khtml-user-select: none;
+  user-select: none;
+
+.static-wrapper
+  display: flex
+  position: absolute
+  top: 0
+  width: 100vw
+  asside
+    z-index: 10
+    .main-menu
+      top: 20px
+      ul
+        display: block
+        top: 80px
+        position: relative
+        li
+          padding: 10px
+          list-style: none
+        li::first-letter
+        text-transform: uppercase
+        a
+          color: $orange-color
+          text-decoration: none
+          font-size: 25px
+        a:active
+          color: red
+
+#wrapper
+  section
+    z-index: 5;
+    top: 0
 
 .gameBackground
   background: #000
@@ -21,3 +53,5 @@ body
   height: 100vh;
   align-items: center;
 
+.hide-menu
+  visibility: hidden

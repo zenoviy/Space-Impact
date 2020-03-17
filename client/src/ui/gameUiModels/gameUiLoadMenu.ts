@@ -15,7 +15,10 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 x: width/2 - 165,
                 y: height/2 + 150,
                 background: 'rgba(255, 255, 255, 1)',
-                borderColor: 'rgba(255, 255, 255, 1)',
+                isBorder: true,
+                borderRadius: 2,
+                borderColor: '#251536',
+                shadowColor: 'rgba(37, 21, 54, 0)',
                 textProperty: {
                     textColor: '#251536',
                     topPadding: 10,
@@ -35,6 +38,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             text: "",
             description: "Game logotype",
             clicked: false,
+            shadowColor: 'rgba(37, 21, 54, 1)',
             propertyes:{
                 ctx: ctx,
                 width: 150,
@@ -45,6 +49,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 y: 90,
                 background: new Image(),
                 borderColor: false,
+                shadowColor: 'rgba(37, 21, 54, 1)',
                 radius: null,
             },
             loadPicture(){
@@ -58,6 +63,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             description: "Game part the name",
             clicked: false,
             fontSize: "bold 100px Roboto",
+            shadowColor: 'rgba(255, 255, 255, 1)',
             propertyes:{
                 ctx: ctx,
                 width: -290,
@@ -66,6 +72,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 y: 370,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(37, 21, 54, 1)',
                 radius: null,
             },
             init: init,
@@ -76,6 +83,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             description: "Game part the name",
             clicked: false,
             fontSize: "lighter 100px Roboto",
+            shadowColor: 'rgba(255, 255, 255, 1)',
             propertyes:{
                 ctx: ctx,
                 width: 0,
@@ -84,6 +92,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 y: 370,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(89, 0, 255, 1)',
                 radius: null,
             },
             init: init,

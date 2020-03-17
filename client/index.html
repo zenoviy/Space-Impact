@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Space Attack Game</title>
     <link rel="stylesheet" href="./css/style.css">
+
+    <link rel="import" href="sections/about.html">
+    <link rel="import" href="sections/dialog.html">
+    <link rel="import" href="sections/settings.html">
 </head>
 <body>
     <div class="game-field-wrapper">
@@ -13,6 +17,21 @@
         <canvas class="game-fields" id="gamefield"></canvas>
         <canvas class="game-fields" id="gameObjectsfield"></canvas>
         <canvas class="game-fields" id="gameUifield"></canvas>
+    </div>
+    <div id="dialog" style="display: none;"></div>
+    <div class="static-wrapper">
+        <asside class="menu-wrapper">
+            <div id="main-menu" class="main-menu">
+                <ul>
+                    <li><a data-section="about" href="#">sbout</a></li>
+                    <li><a data-section="settings" href="#">settings</a></li>
+
+                    <br>
+                    <li data-id="exit">exit</li>
+                </ul>
+            </div>
+        </asside>
+        <div id="wrapper" class="content-wrapper"></div>
     </div>
     <script src="./public/dist/main.js"></script>
 </body>

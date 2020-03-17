@@ -10,6 +10,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             description: "back part of menu ",
             fontSize: "30px Arial",
             clicked: false,
+            shadowColor: 'rgba(255, 255, 255, 1)',
             propertyes:{
                 ctx: ctx,
                 width: width,
@@ -23,7 +24,10 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 bottomX: width,
                 bottomY: height/2,
                 background: '#6628A7',
+                isBorder: false,
+                borderRadius: 2,
                 borderColor: '#251536',
+                shadowColor: 'rgba(0, 0, 0, 1)',
                 radius: 5,
             },
             init: init,
@@ -34,6 +38,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             description: "back to start screen",
             fontSize: "25px Roboto",
             clicked: false,
+            shadowColor: 'rgba(255, 255, 255, 1)',
             propertyes:{
                 ctx: ctx,
                 width: 200,
@@ -41,7 +46,10 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 x: width/2 - 150,
                 y: height/2 + 50,
                 background: 'rgba(255, 255, 255, 1)',
+                isBorder: false,
+                borderRadius: 2,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(0, 0, 0, 0)',
                 textProperty: {
                     textColor: '#251536',
                     topPadding: 7,
@@ -62,6 +70,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             description: "Exit the game",
             fontSize: "25px Roboto",
             clicked: false,
+            shadowColor: 'rgba(255, 255, 255, 1)',
             propertyes:{
                 ctx: ctx,
                 width: 200,
@@ -69,7 +78,10 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 x: width/2 + width/3,
                 y: height/2 + 50 ,
                 background: 'rgba(255, 255, 255, 1)',
+                isBorder: false,
+                borderRadius: 2,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(255, 255, 255, 0)',
                 textProperty: {
                     textColor: '#251536',
                     topPadding: 7,
@@ -90,6 +102,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             description: "Text in main top",
             fontSize: "25px Roboto",
             clicked: false,
+            shadowColor: 'rgba(255, 255, 255, 0)',
             propertyes:{
                 ctx: ctx,
                 width: -45,
@@ -98,6 +111,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 y: height/3,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(255, 255, 255, 0)',
                 radius: null,
             },
             init: init,

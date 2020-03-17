@@ -144,7 +144,6 @@ function exitTheGame(){
         let w = remote.getCurrentWindow()
         w.close()
     }
-    
 }
 
 export {
