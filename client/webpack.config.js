@@ -71,6 +71,7 @@ module.exports = {
         return callback();
       };
     })()
-  ]
+  ],
+  target: 'node'
 };
 

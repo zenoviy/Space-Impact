@@ -140,10 +140,10 @@ async function backToStartScreen(PlayerShip){
 }
 
 function exitTheGame(){
-    if(confirm("exit?")){
+    //if(confirm("exit?")){
         let w = remote.getCurrentWindow()
         w.close()
-    }
+    //}
 }
 
 export {

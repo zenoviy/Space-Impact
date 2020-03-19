@@ -76,7 +76,6 @@ function showMenuWindow(){
     let drawMethods = [
         createShapeRoundBorder,
         createRoundButton,
-        createRoundButton,
         uiText
     ];
     this.initUiElements(drawMethods, gameSettingsMenu)

@@ -4,7 +4,7 @@ var path = require('path');
 import * as gameDataModules from './engine/gameModules';
 import * as constructors from './constructors';
 import { clearField } from './view/displayModules';
-import { appMenu, hideShowMenu } from './appMenu/appMenu';
+import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
 
 (async function init(){
@@ -30,7 +30,7 @@ import { appMenu, hideShowMenu } from './appMenu/appMenu';
     playerShipData.shipControl(gameObject)
 
     /*  init electron App memnu  */
-    const navigation = appMenu(gameObject)
+    const navigation = appMenu(gameObject, dialogWindow)
     navigation.menu.init()
 
 
@@ -127,16 +127,16 @@ import { appMenu, hideShowMenu } from './appMenu/appMenu';
         }
 
         ///   game UI load
-        if(!gameObject.gameInitData.gameStatus && !gameObject.gameInitData.gameUiPause){
+        if(!gameObject.gameInitData.gameStatus ){
             gameObject.showStartWindow()
         }
         if(gameObject.gameInitData.gameStatus){
             gameObject.showGameStats()
         }
-        if(gameObject.gameInitData.gamePause){
+        if(gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
             gameObject.showPauseWindow()
         }
-        if(gameObject.gameInitData.gameUiPause){
+        if(gameObject.gameInitData.gameUiPause && gameObject.gameInitData.gameStatus){
             gameObject.showMenuWindow()
             gameObject.showPauseWindow()
         }
