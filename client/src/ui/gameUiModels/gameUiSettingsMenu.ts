@@ -1,6 +1,7 @@
 
 import { init, getUIObjectPosition } from './uiModelMethods';
 import * as constructors from '../../constructors';
+import { dialogWindow } from '../../appMenu/appMenu';
 
 function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
     return data || [
@@ -60,7 +61,8 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 radius: 15,
             },
             action(){
-                this.backToStartScreen.call(this, constructors.PlayerShip)
+                dialogWindow({textData: 'restart the game?', rejectText: 'cancel', acceptText: 'restart'}, this.backToStartScreen, null, this, constructors.PlayerShip)
+                //this.backToStartScreen.call(this, constructors.PlayerShip)
             },
             init: init,
             getObjectPosition: getUIObjectPosition

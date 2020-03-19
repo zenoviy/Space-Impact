@@ -1,4 +1,4 @@
-import { pageBuilder } from './pagesBuilder';
+import { pageBuilder, createElements } from './pagesBuilder';
 import { getLocalData } from '../server/serverRequestModules';
 
 function show(el){
@@ -52,7 +52,9 @@ function appMenu(gameObject, dialogWindow){
                     menuSelection(event)
                         switch (event.target.dataset.buttonId){
                             case 'exit':
+
                                 toggler(el)
+                                dialogWindow({textData: 'Exit the game?', rejectText: 'cancel', acceptText: 'ok'}, gameObject.exitTheGame, navigation)
                                 break;
                             case 'close':
                                 navigation.menu.hideAllSections()
@@ -63,7 +65,7 @@ function appMenu(gameObject, dialogWindow){
                         }
                     }
                 }
-                dialogWindow(el, `Exit the game?`, gameObject.exitTheGame, navigation)
+                //dialogWindow({textData: 'Exit the game?', rejectText: 'cancel', acceptText: 'ok'}, gameObject.exitTheGame, navigation)
                 function menuSelection(event){
                     if(event.target.parentElement.tagName == "LI"){
                         let menuArea = Array.prototype.slice.call(document.querySelectorAll(".selected-items"));
@@ -119,35 +121,66 @@ function hideShowMenu(mainMenu, navigationMenu, gameWin, gameStatus, gameUiPause
         navigationMenu.hideAllSections()
     }
 }
-function dialogWindow(windowElement, data, callback, navigation){
+function dialogWindow( {textData, rejectText, acceptText}, callback, navigation, ...rest){
+    let windowElement = document.querySelector(`#dialog-box`);
     function dialogButtonEvent(event){
-        let selectedMenuItem = navigation.showSelectedItem()
+            let selectedMenuItem = (navigation)? navigation.showSelectedItem(): false;
             switch (event.target.dataset.buttonId){
                 case 'ok':
                     callback(event)
                     break;
                 case 'cancel':
-                    hide(windowElement)
+                    if(windowElement) hide(windowElement)
                     let menuArea = Array.prototype.slice.call(document.querySelectorAll(".selected-items"));
                     for(let menuItem of menuArea){
                         removeClassList(menuItem, "selected-items")
                     }
                     if(selectedMenuItem.selectedMenuItem){
                         addClassList(selectedMenuItem.selectedMenuItem, "selected-items")
-                        
                     }
+                    break;
+                case 'restart':
+                    callback.call(...rest)
+                    if(windowElement) hide(windowElement)
                     break;
                 default:
                     false
             }
     }
-    show(windowElement)
+    if(windowElement) show(windowElement)
+    const dialogText = document.querySelector('#dialog-text')
     const dialogBody = document.querySelector('#dialog-body')
-    dialogBody.innerHTML = data;
-    windowElement.addEventListener('click', dialogButtonEvent)
-}
-function revertMenu(){
+    dialogBody.innerHTML = "";
 
+    let dialogData = [
+    createElements({
+            tagName: "button",
+            styleClass: "accept-btn btn-main",
+            inlineStyle: null,
+            pictureUrl: null,
+            linkUrl: null,
+            text: acceptText,
+            innerContent: null,
+            attributeName: 'data-button-id',
+            attribute: acceptText}),
+    createElements({
+            tagName: "button",
+            styleClass: "reject-btn btn-main",
+            inlineStyle: null,
+            pictureUrl: null,
+            linkUrl: null,
+            text: "cancel",
+            innerContent: null,
+            attributeName: 'data-button-id',
+            attribute: 'cancel'})
+    ]
+    dialogText.innerHTML = textData;
+    for(let item of dialogData){
+        dialogBody.appendChild(item)
+    }
+
+
+    windowElement.addEventListener('click', dialogButtonEvent)
 }
 
 

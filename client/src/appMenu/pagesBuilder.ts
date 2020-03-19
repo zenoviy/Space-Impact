@@ -13,25 +13,26 @@ async function pageBuilder( {target, data}){
             pictureUrl: item.imageLink,
             linkUrl: item.link,
             text: item.innerText,
-            innerContent: item.html}, null);
+            innerContent: item.html,
+            attributeName: null,
+            attribute: null}, null);
         targetNode.appendChild(newObject)
     }
     })
-
-
-    function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, text, innerContent}, ...rest){
+}
+function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, text, innerContent, attributeName, attribute}, ...rest){
         let element = document.createElement(tagName);
          (styleClass)? element.className = styleClass : false;
          (inlineStyle)? element.style =inlineStyle : false;
          (tagName === "img" && pictureUrl)? element.src = __dirname + pictureUrl : false;
          (text)? element.innerText = text: false;
          (innerContent)? element.innerHTML = innerContent: false;
+        (attributeName && attribute)? element.setAttribute(attributeName, attribute) : false;
 
         return element
     }
-}
-
 
 export {
-    pageBuilder
+    pageBuilder,
+    createElements
 }
