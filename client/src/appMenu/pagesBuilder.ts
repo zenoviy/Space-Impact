@@ -1,18 +1,33 @@
-function pageBuilder({target, data}){
-    if(!target || data) return;
+async function pageBuilder( {target, data}){
+    if(await !target || await !data) throw Error("cant fetch the data");
 
     let targetNode = document.querySelector(target);
-    //let picture = (data)? : ;
+    targetNode.innerHTML = "";
 
-    console.log(targetNode, data, __dirname)
+    data.then(data => {
+        for(let item of data){
+        let newObject = createElements({
+            tagName: item.tag,
+            styleClass: item.classlist,
+            inlineStyle: item.style,
+            pictureUrl: item.imageLink,
+            linkUrl: item.link,
+            text: item.innerText,
+            innerContent: item.html}, null);
+        targetNode.appendChild(newObject)
+    }
+    })
+
 
     function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, text, innerContent}, ...rest){
         let element = document.createElement(tagName);
-        element.className = (styleClass)? styleClass : false;
-        element.style = (inlineStyle)? inlineStyle : false;
-        element.url = (element.url && pictureUrl)? __dirname + pictureUrl : false;
-        element.innerText = (text)? text: false;
-        element.innerHTML = (innerContent)? innerContent: false;
+         (styleClass)? element.className = styleClass : false;
+         (inlineStyle)? element.style =inlineStyle : false;
+         (tagName === "img" && pictureUrl)? element.src = __dirname + pictureUrl : false;
+         (text)? element.innerText = text: false;
+         (innerContent)? element.innerHTML = innerContent: false;
+
+        return element
     }
 }
 

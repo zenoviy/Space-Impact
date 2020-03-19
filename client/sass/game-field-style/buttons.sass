@@ -5,15 +5,17 @@ $dialog-btn-padding: 10px
 @mixin accept-btn
     button.accept-btn
         background: $accept-color
-        border-radius: $border-radius
-        border: 0px
         width: $button-width
-        padding: $dialog-btn-padding
 
 @mixin reject-btn
     button.reject-btn
         background: $reject-color
-        border-radius: $border-radius
-        border: 0px
         width: $button-width
-        padding: $dialog-btn-padding
+
+.btn-main
+    padding: $dialog-btn-padding
+    border: 0px
+    border-radius: $border-radius
+
+.selected-items
+    background: #161325

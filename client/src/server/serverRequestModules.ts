@@ -12,15 +12,17 @@ function getData({url, method, data, headers}){
     ).then(data => data)
 }
 
-function getLocalData({fileName}){
+async function getLocalData({fileName}){
     if(!fileName) throw Error("no local files");
-
-    fs.readFile(__dirname + '/public/data/' + fileName, (err, data) => {
-        if(err) throw Error(err)
-        let info = JSON.parse(data);
-        console.log(info)
-        return info
+    let res = new Promise((resolve, reject) => {
+        fs.readFile(__dirname + '/public/data/' + fileName, (err, data) => {
+            if(err) throw Error(err)
+            let info = JSON.parse(data);
+            if(info) resolve(info)
+            else reject("got some poblem here")
+        })
     })
+    return res
 }
 
 export {

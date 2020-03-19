@@ -1,23 +1,30 @@
 [{
     "sectionDescription": "title",
-    "title": "Space Attack",
+    "innerText": "Space Attack",
     "tag": "h1",
-    "background": null,
+    "style": null,
     "classlist": null,
     "innerHTML": null
 },{
     "sectionDescription": "title pictures",
-    "title": "Space Attack",
-    "tag": "h1",
-    "background": null,
+    "innerText": null,
+    "tag": "img",
+    "style": "width: 100%;",
+    "classlist": null,
+    "innerHTML": null,
+    "imageLink": "/public/images/page/about/logo-1024x1024.png"
+},{
+    "sectionDescription": "title",
+    "tag": "h3",
+    "innerText": "description",
+    "style": null,
     "classlist": null,
     "innerHTML": null
 },{
-    "sectionType": "chess",
-    "title": "Description second",
-    "pictures": "",
-    "text": "arcada game second description",
-    "background": null,
+    "sectionDescription": "title",
+    "tag": "p",
+    "innerText": "A si,ple game based on web technology such as: Webpack, sass/css, Electron, NodeJS/Express, html/Javascript",
+    "style": null,
     "classlist": null,
     "innerHTML": null
 }]
