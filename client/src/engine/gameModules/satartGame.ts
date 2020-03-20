@@ -4,8 +4,9 @@ const remote = require('electron').remote
 
 
 async function serverRequest(gameInformation){
+        console.log(process.env.NODE_ENV, process.env.HOST)
         let serverLocation = {
-                host: "http://localhost:3000/",
+                host: process.env.HOST,
                 picturesDirection: __dirname + '/public/images/',
                 levelData: {
                     method: "GET",
@@ -140,10 +141,8 @@ async function backToStartScreen(PlayerShip){
 }
 
 function exitTheGame(){
-    //if(confirm("exit?")){
         let w = remote.getCurrentWindow()
         w.close()
-    //}
 }
 
 export {

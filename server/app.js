@@ -1,4 +1,11 @@
-const { getLevelData, getUserShip, getEnemyShip, getGameData, getLevelObjects} = require('./business');
+const {
+    getLevelData,
+    getUserShip,
+    getEnemyShip,
+    getGameData,
+    getLevelObjects,
+    getResultlData,
+    postResultlData } = require('./business');
 
 const bodyParser = require('body-parser')
 const express = require('express');
@@ -37,6 +44,10 @@ app.get('/api/level-objects', cors(), getLevelObjects)
 
 app.get('/api/user-ship', cors(), getUserShip)
 app.get('/api/enemy-ship', cors(), getEnemyShip)
+
+app.route("/api/game-result")
+    .get(getResultlData)
+    .post(cors(), postResultlData)
 
 app.listen(process.env.PORT || 3000, function(){
     console.log(`Server listened at port ${process.env.PORT || 3000}`);

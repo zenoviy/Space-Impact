@@ -1,14 +1,20 @@
+const WriteAssetsWebpackPlugin = require('write-assets-webpack-plugin');
 const path = require('path');
 
 
-module.exports = {
-    mode: 'production',  // development   production
+const configuration = {
+    //mode: 'production',  // development   production
     devtool: 'inline-source-map', // inline-cheap-source-map
     entry: './src/index.ts',
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'public/dist'),
         publicPath: "/public/dist"
+    },
+    devServer: {
+      contentBase: path.join(__dirname, 'public/dist'),
+      compress: true,
+      port: 9000
     },
     module:{
         rules:[
@@ -55,6 +61,7 @@ module.exports = {
     __dirname: false
   },
   plugins: [
+    new WriteAssetsWebpackPlugin({ force: true, extension: ['js'] })
   ],
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
@@ -73,5 +80,19 @@ module.exports = {
     })()
   ],
   target: 'node'
+}
+
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    configuration.devtool = 'inline-source-map';
+
+  }
+
+  if (argv.mode === 'production') {
+
+  }
+
+  return configuration;
 };
 

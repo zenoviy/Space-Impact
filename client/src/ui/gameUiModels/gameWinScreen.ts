@@ -1,6 +1,7 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 import * as constructors from '../../constructors';
 import { dialogWindow } from '../../appMenu/appMenu';
+import { initResultScreen } from '../../appMenu/gameResultModule';
 
 function gameWinScreen(data: any,ctx: any, width: number, height: number, pictureDirrection: any, info: any){
     return data || [
@@ -100,7 +101,8 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
                 radius: 15,
             },
             action(){
-
+                initResultScreen(this)
+                this.gameUiMenu(this.gameInitData.gameUiPause)
             },
             init: init,
             getObjectPosition: getUIObjectPosition

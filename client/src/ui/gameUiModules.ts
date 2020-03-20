@@ -20,7 +20,6 @@ function uiController(){
 
     let controlKeys = this.gameInitData.gameData.gameSetings.keyControls;
     let gameObject = this;
-    
 
     document.addEventListener("keydown",(e: any)=>{
         if(controlKeys.escape.some(o => e.keyCode == o) ) gameObject.gameUiMenu(this.gameInitData.gameUiPause);

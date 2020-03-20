@@ -8,6 +8,9 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
 
 (async function init(){
+    if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
+    else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
+
     var wrapper = document.querySelector("#wrapper")
     var mainMenu = document.querySelector("#main-menu")
     /*  gameEngineInit  */

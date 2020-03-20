@@ -1,3 +1,5 @@
+import { text } from "body-parser";
+
 var fs = require('fs');
 
 function getData({url, method, data, headers}){
@@ -8,7 +10,7 @@ function getData({url, method, data, headers}){
         mode: 'cors',
         headers: resultHeader,
         body: (data)? JSON.stringify(data) : null
-    }).then(res => res.json()
+    }).then(res => { console.log(res); return  res.json()}
     ).then(data => data)
 }
 
@@ -25,7 +27,22 @@ async function getLocalData({fileName}){
     return res
 }
 
+function postData({url, method, data, headers}){
+    let resultHeader = Object.assign({
+        'Content-Type': 'application/json'}, headers || false)
+    return fetch(url, {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: resultHeader,
+        body: (data)? JSON.stringify(data) : null
+    }).then(res => res.json()
+    ).then(data => data)
+}
+
+
 export {
     getData,
-    getLocalData
+    getLocalData,
+    postData
 };

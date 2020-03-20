@@ -15,12 +15,13 @@ async function pageBuilder( {target, data}){
             text: item.innerText,
             innerContent: item.html,
             attributeName: null,
-            attribute: null}, null);
+            attribute: null, attributeName1: null,
+            attribute1: null}, null);
         targetNode.appendChild(newObject)
     }
     })
 }
-function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, text, innerContent, attributeName, attribute}, ...rest){
+function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, text, innerContent, attributeName, attribute, attributeName1, attribute1}, ...rest){
         let element = document.createElement(tagName);
          (styleClass)? element.className = styleClass : false;
          (inlineStyle)? element.style =inlineStyle : false;
@@ -28,6 +29,7 @@ function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, 
          (text)? element.innerText = text: false;
          (innerContent)? element.innerHTML = innerContent: false;
         (attributeName && attribute)? element.setAttribute(attributeName, attribute) : false;
+        (attributeName1 && attribute1)? element.setAttribute(attributeName1, attribute1) : false
 
         return element
     }

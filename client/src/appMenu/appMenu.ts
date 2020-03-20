@@ -1,5 +1,6 @@
 import { pageBuilder, createElements } from './pagesBuilder';
 import { getLocalData } from '../server/serverRequestModules';
+import { showResultScreen } from './gameResultModule';
 
 function show(el){
     el.style.display = 'block';
@@ -49,10 +50,18 @@ function appMenu(gameObject, dialogWindow){
                             navigation.menu.hideAllSections()
                             navigation.menu.showSection.call(this, event)
                         }
-                    menuSelection(event)
+                        menuSelection(event)
+                        switch (event.target.dataset.section){
+                            case 'game-results':
+                                showResultScreen()
+                                break;
+                            default:
+                                false
+                        }
                         switch (event.target.dataset.buttonId){
+                            case 'game-results':
+                                break;
                             case 'exit':
-
                                 toggler(el)
                                 dialogWindow({textData: 'Exit the game?', rejectText: 'cancel', acceptText: 'ok'}, gameObject.exitTheGame, navigation)
                                 break;
@@ -122,7 +131,9 @@ function hideShowMenu(mainMenu, navigationMenu, gameWin, gameStatus, gameUiPause
     }
 }
 function dialogWindow( {textData, rejectText, acceptText}, callback, navigation, ...rest){
-    let windowElement = document.querySelector(`#dialog-box`);
+    let windowElement = document.querySelector(`#dialog-box`); 
+    const dialogBody = document.querySelector('#dialog-body')
+    dialogBody.innerHTML = "";
     function dialogButtonEvent(event){
             let selectedMenuItem = (navigation)? navigation.showSelectedItem(): false;
             switch (event.target.dataset.buttonId){
@@ -148,44 +159,41 @@ function dialogWindow( {textData, rejectText, acceptText}, callback, navigation,
             }
     }
     if(windowElement) show(windowElement)
-    const dialogText = document.querySelector('#dialog-text')
-    const dialogBody = document.querySelector('#dialog-body')
-    dialogBody.innerHTML = "";
 
     let dialogData = [
-    createElements({
-            tagName: "button",
+        createElements({
+            tagName: "div",
             styleClass: "accept-btn btn-main",
             inlineStyle: null,
             pictureUrl: null,
             linkUrl: null,
             text: acceptText,
-            innerContent: null,
+            innerContent: `
+            <div class="dialog-text">${textData}</div>
+            <div id="dialog-button-area" class="dialog-btn-area">
+            <button data-button-id=${acceptText} class="accept-btn btn-main">${acceptText}</button>
+           <button data-button-id="cancel" class="reject-btn btn-main">cancel</button>
+       </div>`,
             attributeName: 'data-button-id',
-            attribute: acceptText}),
-    createElements({
-            tagName: "button",
-            styleClass: "reject-btn btn-main",
-            inlineStyle: null,
-            pictureUrl: null,
-            linkUrl: null,
-            text: "cancel",
-            innerContent: null,
-            attributeName: 'data-button-id',
-            attribute: 'cancel'})
-    ]
-    dialogText.innerHTML = textData;
+            attribute: acceptText,
+            attributeName1: null,
+            attribute1: null})
+    ];
     for(let item of dialogData){
         dialogBody.appendChild(item)
     }
-
-
-    windowElement.addEventListener('click', dialogButtonEvent)
+    const dialogButtonArea = document.querySelector('#dialog-button-area');
+    dialogButtonArea.addEventListener('click', dialogButtonEvent)
 }
 
 
 export {
     appMenu,
     hideShowMenu,
-    dialogWindow
+    dialogWindow,
+    show,
+    hide,
+    toggler,
+    addClassList,
+    removeClassList
 }
