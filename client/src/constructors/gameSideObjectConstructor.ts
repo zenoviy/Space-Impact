@@ -43,7 +43,7 @@ class SideObject{
             this.healthPoint = (data.healthPoint)? data.healthPoint : null;
             this.isBackground = (data.isBackground)? data.isBackground : null;
             this.explosion = (data.explosion)? data.explosion : null;
-            this.pointsPerUnit = (data.pointsPerUnit)? data.pointsPerUnit : 0
+            this.pointsPerUnit = (data.pointsPerUnit)? data.pointsPerUnit : 0;
     }
 }
 

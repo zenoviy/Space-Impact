@@ -34,6 +34,7 @@ import {
     initUiElements } from '../ui/gameUiModules';
 import { gameStart, backToStartScreen, exitTheGame } from '../engine/gameModules/satartGame';
 import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
+import { initGrappleObject } from '../engine/gameGrappleObjectsModule';
 
 
 interface gameData{
@@ -125,6 +126,7 @@ class Game {
     nextLevelDataReload: any;
     getRandomColor: any;
     mapRanomObjectSpawn: any;
+    initGrappleObject: any;
     constructor(gameInitData: any){
         this.gameInitData = gameInitData;
     }
@@ -204,6 +206,8 @@ Game.prototype.changeLevelProcedure = changeLevelProcedure;
 
 Game.prototype.getRandomColor = getRandomColor;
 Game.prototype.mapRanomObjectSpawn = mapRanomObjectSpawn;
+
+Game.prototype.initGrappleObject = initGrappleObject;
 
 export {
     Game,

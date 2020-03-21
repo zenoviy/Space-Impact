@@ -4,3 +4,4 @@ export * from './enemyConstructor';
 export * from './userConstructor';
 export * from './bulletConstructor';
 export * from './gameSideObjectConstructor';
+export * from './gameGrappleObjects';

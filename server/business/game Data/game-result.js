@@ -4,14 +4,16 @@ const { dataFinder } = require('../workers/validator')
 async function getResultlData (req, res) {
     fs.readFile(__dirname + '../../../public/userData/gameResults.json', (err, data) => {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
-        console.log(data.length)
         if(data.length === 0){
             res.send({message: 'there is no data'})
             return
         }
 
         let readObject = JSON.parse(data);
-        let publicData = readObject.map(item => { return {userName: item.userName, gamePoints: item.gamePoints}})
+        let publicData = readObject.map(item => { return {
+            userName: item.userName,
+            gamePoints: item.gamePoints,
+            time: item.id}})
         res.send(publicData)
     })
 }

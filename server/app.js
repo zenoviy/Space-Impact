@@ -5,7 +5,9 @@ const {
     getGameData,
     getLevelObjects,
     getResultlData,
-    postResultlData } = require('./business');
+    postResultlData,
+    getGrappleObjects
+} = require('./business');
 
 const bodyParser = require('body-parser')
 const express = require('express');
@@ -41,6 +43,7 @@ app.get('/game', cors(), (req, res) => {
 app.get('/api/game-settings', cors(), getGameData)
 app.get('/api/level-data', cors(), getLevelData)
 app.get('/api/level-objects', cors(), getLevelObjects)
+app.get('/api/grapple-objects', cors(), getGrappleObjects)
 
 app.get('/api/user-ship', cors(), getUserShip)
 app.get('/api/enemy-ship', cors(), getEnemyShip)

@@ -1,0 +1,41 @@
+[
+    {
+        "id": "lifepoint",
+        "name": "lifepoin",
+        "probability": 1000,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 1826,
+        "imageHeight":200,
+        "animationSteps": 10,
+        "numberOfItems": 9,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 30,
+        "height": 30,
+        "skinName": "/public/images/misc/grapple-objects/life.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "life",
+            "description": "add 1 life for player",
+            "value": 1,
+            "methodName": "addPlayerLife"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion.png",
+            "imageWidth": 12891,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 44,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50
+        }
+    }
+]

@@ -59,13 +59,13 @@ function warpEffect(){
 
 
 
-function levelInit(backgroundConstructor, ctx, mainGameObject){
+function levelInit(GameBackground, ctx, mainGameObject){
     let gameData = this.showLevelData();
     let allBackgroundElements = gameData.levelBackgroundElements;
     mainGameObject.gameInitData.backScreenPause = false;
 
     for(let mapObject of allBackgroundElements){
-        let mapItem = new backgroundConstructor(
+        let mapItem = new GameBackground(
             mapObject.levelMap, mapObject.speed, this.gameInitData.screen, ctx,
             (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
             (mapObject.extraMap)? mapObject.extraMap : null, (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,

@@ -10,8 +10,8 @@ function getData({url, method, data, headers}){
         mode: 'cors',
         headers: resultHeader,
         body: (data)? JSON.stringify(data) : null
-    }).then(res => { console.log(res); return  res.json()}
-    ).then(data => data)
+    }).then(res => res.json())
+    .then(data => data)
 }
 
 async function getLocalData({fileName}){
@@ -36,8 +36,8 @@ function postData({url, method, data, headers}){
         cache: 'no-cache',
         headers: resultHeader,
         body: (data)? JSON.stringify(data) : null
-    }).then(res => res.json()
-    ).then(data => data)
+    }).then(res => res.json())
+    .then(data => data)
 }
 
 

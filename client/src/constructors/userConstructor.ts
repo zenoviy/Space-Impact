@@ -29,6 +29,7 @@ class PlayerShip{
     data: shipData;
     points: number;
     healthPoint: number;
+    maxOfLife: number;
     maxHealth: number;
     numberOflife: number;
     x: number; y: number;
@@ -58,6 +59,7 @@ class PlayerShip{
         this.data = data;
         this.points = points;
         this.numberOflife = numberOflife;
+        this.maxOfLife = numberOflife;
         this.healthPoint = healthPoint + data.armor;
         this.maxHealth = healthPoint + data.armor;
         this.x = x - (width/2); this.y = y - (height/2);
@@ -67,6 +69,12 @@ class PlayerShip{
         this.width = width; this.height = height;
         this.xAdj = 0; this.speed = data.speed;
         this.explosion = data.explosion; this.damage = damage;
+    }
+    getPlayerInformation(){
+        return {
+            health: this.healthPoint,
+            maxHealthPoint: this.maxHealth
+        }
     }
 
 }

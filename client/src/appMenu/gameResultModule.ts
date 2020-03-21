@@ -18,6 +18,7 @@ async function showResultScreen(){
     let index = 0;
     for(let item of gameData){
         index += 1;
+        let time = new Date(item.time), year = time.getFullYear(),month = time.getUTCMonth() + 1, day = time.getDate()
         let newElement = createElements({
             tagName: "li",
             styleClass: "winner-list",
@@ -25,7 +26,9 @@ async function showResultScreen(){
             pictureUrl: null,
             linkUrl: null,
             text: null,
-            innerContent: `<p class="single-item"><span class="rate-number">${index}</span>name:<span class="item-name">${item.userName}</span> points:<span class="item-points"> ${item.gamePoints}</span></p>`,
+            innerContent: `<p class="single-item"><span class="rate-number">${index}</span>
+            name:<span class="item-name">${item.userName}</span>
+            points:<span class="item-points"> ${item.gamePoints}</span> <span class="item-date"> ${year}/${month}/${day}</span></p>`,
             attributeName: 'data-button-id',
             attribute: item.id,
             attributeName1: null,
@@ -116,7 +119,6 @@ function transferDataToObject(data: any, mainGameObject: any){
     var obj: resultData = {userName: null, userEmail: null, gamePoints: null};
 
     for(let item of data){
-        console.log(item.name, item.value)
         if(item.name && item.value){
             obj[item.name] = item.value;
         }else if(item.name && !item.value){

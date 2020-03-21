@@ -16,6 +16,10 @@ async function serverRequest(gameInformation){
                     method: "GET",
                     url: "api/level-objects"
                 },
+                grappleObjects: {
+                    method: "GET",
+                    url: "api/grapple-objects"
+                },
                 gameSetings: {
                     method: "GET",
                     url: "api/game-settings"
@@ -41,6 +45,12 @@ async function serverRequest(gameInformation){
             data: null,
             headers:{ 'mapObject': levelData.levelOBjects}
         })
+        const grappleObjects = await getData({
+            url: serverLocation.host + serverLocation.grappleObjects.url,
+            method: serverLocation.grappleObjects.method,
+            data: null,
+            headers:{ 'grappleObject': levelData.grappleObject}
+        })
         const gameSetings = await getData({
             url: serverLocation.host + serverLocation.gameSetings.url,
             method: serverLocation.gameSetings.method,
@@ -65,6 +75,7 @@ async function serverRequest(gameInformation){
         return {
             levelData: levelData,
             levelObjects: levelObjects,
+            grappleObjects : grappleObjects,
             gameSetings: gameSetings,
             userData: userData,
             enemyData: enemyData
@@ -75,10 +86,11 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 5, shipType = 1, shipLife = 5;
+        let level = 1, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
+        const grappleObjects = res.grappleObjects;
         const gameSetings = res.gameSetings;
         const userData = res.userData;
         const enemyData = res.enemyData;
@@ -94,6 +106,7 @@ async function gameDataInit(PlayerShip){
                 playerObject: new PlayerShip(userData, 0, 300, shipLife, 100, 100, userData.size.width, userData.size.height, userData.damage),
                 levelData: levelData,
                 levelObjects: levelObjects,
+                grappleObjects: grappleObjects,
                 gameSetings: gameSetings,
                 enemyData: enemyData,
                 controllers: null
@@ -118,6 +131,7 @@ async function gameDataInit(PlayerShip){
             gameStatus: false,
             gameOver: false,
             gameWin: false,
+            grappleObjectOnScreen: false,
             gemeExtraSeconds: 0,
         }
     }

@@ -21,7 +21,7 @@ function changePartOfTexture(mainGameObject, backgroundArray){
     && levelData.seconds <= this.timeToExtraMapSeconds
     && this.extraMap && this.x >= screenData.width - 200){
         let info = mainGameObject.showGameInfo();
-        this.img.src = info.imageDirrection + this.extraMap;
+        this.img.src = __dirname + this.extraMap;
     }
 }
 

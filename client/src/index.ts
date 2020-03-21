@@ -58,6 +58,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus){
                 if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
+                if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, playerShipData);
 
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
@@ -94,7 +95,9 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                         if (object.objectOwner == "explosion"){
                              object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
                         }else{
-                            if(object.objectOwner == "enemy" || object.objectOwner == "collide" ){
+                            if(object.objectOwner == "enemy" ||
+                             object.objectOwner == "collide" ||
+                             object.objectOwner == "grappleObject"){
                                 gameObject.hitDetection(playerShipData, [object], gameObject);
                             }
                             object.enemyAnimation()

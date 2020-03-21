@@ -11,6 +11,7 @@ async function nextLevelDataReload(levelData){
             playerObject: context.gameInitData.gameData.playerObject,
             levelData: serverNewData.levelData,
             levelObjects: serverNewData.levelObjects,
+            grappleObjects: serverNewData.grappleObjects,
             gameSetings: context.gameInitData.gameData.gameSetings,
             enemyData: serverNewData.enemyData,
             controllers: context.gameInitData.gameData.controllers
@@ -25,6 +26,7 @@ async function nextLevelDataReload(levelData){
         gameUiPause: false,
         backScreenPause: true,
         gameOver: false,
+        grappleObjectOnScreen: false,
         gemeExtraSeconds: 0,
     }
     setTimeout(()=>{

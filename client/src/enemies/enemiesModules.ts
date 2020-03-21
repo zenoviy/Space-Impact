@@ -96,6 +96,7 @@ function enemyDamageAnimation(){
 
 // complex enemy animation for damage
 function takeDamage(damage: number, hitObject, mainGameObject){
+    /* Bullet hit detection */
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
         this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"||
         this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "environment" && hitObject.hasOwnProperty('healthPoint')||
@@ -107,6 +108,16 @@ function takeDamage(damage: number, hitObject, mainGameObject){
         return this.objectPresent = false;
     }
 
+    /* Game grapple object hit detection */
+    if(this.objectOwner == "grappleObject" && hitObject.objectOwner == "player" && !hitObject.hasOwnProperty('bulletType')){
+        this.objectPresent = false;
+        mainGameObject.gameInitData.grappleObjectOnScreen = false;
+        explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
+
+        this.addPlayerLife({allGameSideObjects: mainGameObject, playerShipData: hitObject})
+    }
+
+    /* Hit det dection collision */
     if( this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
         this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "player" ||
         this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "enemy" ||
