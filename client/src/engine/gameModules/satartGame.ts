@@ -86,7 +86,7 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 1, shipType = 1, shipLife = 5;
+        let level = 4, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -103,6 +103,7 @@ async function gameDataInit(PlayerShip){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
+                gameCoins: 0,
                 playerObject: new PlayerShip(userData, 0, 300, shipLife, 100, 100, userData.size.width, userData.size.height, userData.damage),
                 levelData: levelData,
                 levelObjects: levelObjects,

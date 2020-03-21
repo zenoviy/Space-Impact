@@ -37,5 +37,43 @@
             "width": 50,
             "height": 50
         }
+    },{
+        "id": "goldCoin",
+        "name": "goldCoin",
+        "probability": 100,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 700,
+        "imageHeight":200,
+        "animationSteps": 5,
+        "numberOfItems": 6,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 25,
+        "height": 25,
+        "skinName": "/public/images/misc/grapple-objects/animated-coin.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "coin",
+            "description": "coin",
+            "value": 100,
+            "methodName": "collectCoin"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion.png",
+            "imageWidth": 12891,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 44,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50
+        }
     }
 ]

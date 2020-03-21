@@ -106,7 +106,6 @@ function changeLevelProcedure(){
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
-        //alert("Win Game Screen ")
         this.gameInitData.gameWin = true;
     }
 }
@@ -136,13 +135,13 @@ function levelTimer(){
 
 
 
-function getSecondMeasure(callback, ...data){
+async function getSecondMeasure(callback, ...data){
 
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
         this.gameInitData.gemeExtraSeconds = 0;
-        if(callback) return callback.call(this, ...data);
+        if(await callback) return await callback.call(this, ...data);
         return gameSecond;
     }
 }

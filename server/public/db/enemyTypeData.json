@@ -25,6 +25,11 @@
             "skinName": "/public/images/spaceShips/enemy_ship_1.png",
             "speed": 4,
             "pointsPerUnit": 5,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomuizer": 100,
+                "maxNumber": 1
+            }],
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
@@ -93,6 +98,11 @@
             "speed": 1,
             "verticalSpeed": 10,
             "pointsPerUnit": 2,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomuizer": 100,
+                "maxNumber": 3
+            }],
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
@@ -159,6 +169,11 @@
             "skinName": "/public/images/spaceShips/enemy_ship_2_full.png",
             "speed": 3,
             "pointsPerUnit": 20,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomuizer": 100,
+                "maxNumber": 10
+            }],
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
@@ -254,6 +269,11 @@
             "skinName": "/public/images/spaceShips/ship4.png",
             "speed": 3,
             "pointsPerUnit": 200,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomuizer": 100,
+                "maxNumber": 20
+            }],
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,

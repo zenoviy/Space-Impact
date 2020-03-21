@@ -1,4 +1,5 @@
 import { timingSafeEqual } from "crypto";
+import { loadExtraObject } from "../ai/regularEnemyAiModules";
 
 async function explosionFire(targetData, mainGameObject, hitObject, SideObject){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
@@ -47,10 +48,10 @@ function mapObjectMove(){
     this.x -= (this.speed)? this.speed: 3;
 }
 
-function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideObjects: any[]){
+async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideObjects: any[]){
     this.getSecondMeasure( mapObjectSpawner, levelObjects, SideObject, allGameSideObjects)
 
-    function mapObjectSpawner (levelObjects, SideObject, allGameSideObjects){
+    async function mapObjectSpawner (levelObjects, SideObject, allGameSideObjects){
         let gameData = this.showGameInfo().gameData;
         let levelData = gameData.levelData;
         let spawnProbability = this.gameRandomizer(levelData.objectProbability);
@@ -64,6 +65,7 @@ function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideOb
             :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(screenData.height)
             : levelObjectProps.spawnDetails.position ;
 
+            let extraObjects =  (levelObjectProps.extraObjects)? await loadExtraObject.call(this, levelObjectProps.extraObjects): false;
             let explosionData = {
                 x: screenData.width,
                 y: yPosition,
@@ -84,13 +86,14 @@ function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideOb
                 damage: levelObjectProps.damage,
                 isBackground: levelObjectProps.isBackground,
                 explosion: levelObjectProps.explosionAnimation,
-                pointsPerUnit: levelObjectProps.pointsPerUnit
+                pointsPerUnit: levelObjectProps.pointsPerUnit,
+                extraObjects: extraObjects
             }
             let sideObject = new SideObject({...explosionData});
             sideObject.img.src = sideObject.texture;
             sideObject.img.onload = () => {
                 this.gameInitData.allGameSideObjects = this.gameInitData.allGameSideObjects.concat(sideObject);
-            }/**/
+            }
         }
     }
 }

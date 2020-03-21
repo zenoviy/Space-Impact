@@ -1,3 +1,42 @@
+
+async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
+    let gameInfo = mainGameObject.showGameInfo(),
+    gameData = gameInfo.gameData,
+    screenData = mainGameObject.getScreenSize();
+
+    let context = mainGameObject;
+    let sideObject = this;
+        let objectData = {
+            x: (target.x)? target.x + context.gameRandomizer(sideObject.width) : screenData.width + 100,
+            y: (target.y)? target.y + context.gameRandomizer(sideObject.height) :context.gameRandomizer(screenData.height),
+            sx: 0,
+            sy: 0,
+            objectOwner: target.objectOwner,
+            sWidth: target.imageWidth/target.numberOfItems,
+            sHeight: target.imageHeight,
+            width: target.width,
+            height: target.height,
+            animationSteps: target.animationSteps,
+            target: null,
+            numberOfItems: target.numberOfItems,
+            texture: target.skinName,
+            speed: target.speed,
+            picturesWidth: target.imageWidth,
+            healthPoint: target.healthPoint,
+            damage: target.damage,
+            isBackground: null,
+            explosion: target.explosionAnimation,
+            pointsPerUnit: target.pointsPerUnit,
+            isGrapple: target.isGrapple,
+            grapplePower: target.grapplePower
+        }
+        let grappleObject = new GrappleObject({...objectData});
+        grappleObject.img.onload = () => {
+            mainGameObject.gameInitData.grappleObjectOnScreen = true;
+            mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(grappleObject);
+        }
+        grappleObject.img.src = await grappleObject.texture;
+}
 async function initGrappleObject(GrappleObject, playerShipData){
     if(this.gameInitData.grappleObjectOnScreen) return false
 
@@ -19,44 +58,27 @@ async function initGrappleObject(GrappleObject, playerShipData){
                 false
         }
 
-        let context = this;
-        let objectData = {
-            x: screenData.width + 100,
-            y: context.gameRandomizer(screenData.height),
-            sx: 0,
-            sy: 0,
-            objectOwner: randomObject.objectOwner,
-            sWidth: randomObject.imageWidth/randomObject.numberOfItems,
-            sHeight: randomObject.imageHeight,
-            width: randomObject.width,
-            height: randomObject.height,
-            animationSteps: randomObject.animationSteps,
-            target: null,
-            numberOfItems: randomObject.numberOfItems,
-            texture: randomObject.skinName,
-            speed: randomObject.speed,
-            picturesWidth: randomObject.imageWidth,
-            healthPoint: randomObject.healthPoint,
-            damage: randomObject.damage,
-            isBackground: null,
-            explosion: randomObject.explosionAnimation,
-            pointsPerUnit: randomObject.pointsPerUnit
-        }
-        let grappleObject = new GrappleObject({...objectData});
-        grappleObject.img.onload = () => {
-            this.gameInitData.grappleObjectOnScreen = true;
-            this.gameInitData.allGameSideObjects = this.gameInitData.allGameSideObjects.concat(grappleObject);
-        }
-        grappleObject.img.src = await grappleObject.texture;
+        loadGrabbleToSideObject(this, randomObject, GrappleObject)
     }
 }
-function addPlayerLife({ allGameSideObjects, playerShipData }){
-    console.log(allGameSideObjects)
-    console.log(playerShipData)
-    playerShipData.numberOflife += 1;
+
+
+
+function addPlayerLife({ allGameSideObjects, playerShipData, mainGameObject }){
+    playerShipData.numberOflife += this.grapplePower.value;
+}
+function collectCoin({ allGameSideObjects, playerShipData, mainGameObject }){
+    let gameInfo = mainGameObject.showGameInfo(),
+    gameData = gameInfo.gameData,
+    levelData = gameData.levelData,
+    grappleData = gameData.grappleObjects
+
+    gameData.gameCoins += this.grapplePower.value;
 }
 
 export {
     initGrappleObject,
-    addPlayerLife
+    addPlayerLife,
+    collectCoin,
+    loadGrabbleToSideObject
 }

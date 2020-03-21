@@ -19,7 +19,11 @@
     "pointsPerUnit": 30,
     "spawnDetails": {
         "position": "bottom"
-    },
+    },"extraObjects": [{
+        "object": "goldCoin",
+        "randomuizer": 100,
+        "maxNumber": 23
+    }],
     "explosionAnimation": {
         "texture": "/public/images/misc/fire/explosion-building-1.png",
         "imageWidth": 12891,
@@ -53,6 +57,11 @@
     "spawnDetails": {
         "position": "bottom"
     },
+    "extraObjects": [{
+        "object": "goldCoin",
+        "randomuizer": 100,
+        "maxNumber": 23
+    }],
     "explosionAnimation": {
         "texture": "/public/images/misc/fire/explosion-building.png",
         "imageWidth": 12891,

@@ -65,10 +65,10 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                         bullet.moveBullets(playerShipData, gameObject);
                         bullet.createBullets(gameObject)
                         gameObject.deleteBullet(bullet)
-                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject)
-                        gameObject.hitDetection(playerShipData, [bullet], gameObject)
+                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject, constructors.GrappleObject)
+                        gameObject.hitDetection(playerShipData, [bullet], gameObject, constructors.GrappleObject)
 
-                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameSideObjects, gameObject)
+                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
                     }
                 }
                 if(gameObject.gameInitData.allGameEnemies.length > 0){
@@ -82,7 +82,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                         enemy.enemyAnimation(true);
                         enemy.shoot(constructors.BulletConstruct, gameObject)
                         gameObject.deleteObjects(enemy)
-                        gameObject.hitDetection(playerShipData, [enemy], gameObject)
+                        gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
                     }
                 }
                 if(!gameObject.gameInitData.gameOver){
@@ -98,7 +98,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                             if(object.objectOwner == "enemy" ||
                              object.objectOwner == "collide" ||
                              object.objectOwner == "grappleObject"){
-                                gameObject.hitDetection(playerShipData, [object], gameObject);
+                                gameObject.hitDetection(playerShipData, [object], gameObject, constructors.GrappleObject);
                             }
                             object.enemyAnimation()
                         }

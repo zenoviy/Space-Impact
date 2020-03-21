@@ -49,7 +49,7 @@ function uiController(){
         function clickDetection(elementsOnScreen){
             for(let item in elementsOnScreen){
                 let res = hitDetection(elementsOnScreen[item],
-                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}), this)
+                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}), this, null)
                 if(res && elementsOnScreen[item].action){
 
                     elementsOnScreen[item].action.call(this, gameObject);
@@ -91,6 +91,8 @@ function showGameStats(){
         uiImage,
         uiText,
         uiText,
+        uiText,
+        uiImage,
         uiText
     ];
     this.initUiElements(drawMethods, gameInformationScreen, data)

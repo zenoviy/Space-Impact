@@ -9,6 +9,7 @@ async function nextLevelDataReload(levelData){
             currentLevel: nextLevel,
             currentPoint: context.gameInitData.gameData.currentPoint,
             playerObject: context.gameInitData.gameData.playerObject,
+            gameCoins: context.gameInitData.gameData.gameCoins,
             levelData: serverNewData.levelData,
             levelObjects: serverNewData.levelObjects,
             grappleObjects: serverNewData.grappleObjects,

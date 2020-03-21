@@ -1,5 +1,12 @@
 import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regularEnemyAiModules';
-import { placeEnemyes, moveEnemyes, loadEnemyes, shoot, enemyAnimation, takeDamage, enemyDamageAnimation } from '../enemies/enemiesModules';
+import { placeEnemyes,
+    moveEnemyes,
+    loadEnemyes,
+    shoot,
+    enemyAnimation,
+    takeDamage,
+    enemyDamageAnimation,
+    spawnCoin } from '../enemies/enemiesModules';
 import { getObjectPosition } from '../engine';
 
 
@@ -44,6 +51,7 @@ class EnemyObject {
     originalHealthPoint: number; isMove: boolean; isShoot: boolean;
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
     direction: string; isBoss: boolean;
+    extraObjects: any[];
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -55,6 +63,7 @@ class EnemyObject {
     enemyDamageAnimation: any;
     enemyShipLogicVertical: any;
     enemyVerticalMoveCalculation: any;
+    spawnCoin: any;
     constructor(
         {...data}
         ){
@@ -84,7 +93,9 @@ class EnemyObject {
             this.xFinal = 0;
             this.behavior = data.behavior;
             this.direction = null;
-            this.isBoss = data.isBoss
+            this.isBoss = data.isBoss;
+            this.extraObjects = data.extraObjects;
+            /// load amount fo coins, ando coins object from server
     }
 }
 
@@ -99,6 +110,7 @@ EnemyObject.prototype.enemyShipLogicVertical = enemyShipLogicVertical;
 EnemyObject.prototype.enemyVerticalMoveCalculation = enemyVerticalMoveCalculation;
 
 EnemyObject.prototype.takeDamage = takeDamage;
+EnemyObject.prototype.spawnCoin = spawnCoin;
 
 export {
     EnemyObject

@@ -28,6 +28,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             },
             init: function(callback, data?){
                 data = (data)? data: this;
+
                 let steps = Array(info.life).fill(0).map((o, i) => i*30);
                 let marginLeft = 30;
                 for(let i = 0; i < this.number; i++){
@@ -76,7 +77,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Game points",
-            text: info.points,
+            text: `score: ${info.points}`,
             description: "Game part the name",
             clicked: false,
             fontSize: "light 18px Roboto",
@@ -85,7 +86,62 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 width: -50,
                 height: 0,
                 x: width/2,
-                y: 50,
+                y: 70,
+                background: false,
+                borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(0, 0, 0, 1)',
+                radius: null,
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
+        },{
+            name: "coins",
+            text: "",
+            number: info.sourse.gameCoins,///info.source.gameCoins,
+            step: [info.life].map(i => i*50),
+            description: "Game logotype",
+            clicked: false,
+            propertyes:{
+                ctx: ctx,
+                width: 100,
+                height: 100,
+                sWidth: 500,
+                sHeight: 500,
+                x: width/2 -50,
+                y: 25,
+                background: new Image(),
+                borderColor: false,
+                shadowColor: 'rgba(0, 0, 0, 0)',
+                radius: null,
+            },
+            loadPicture(){
+                this.propertyes.background.src = pictureDirrection + 'misc/grapple-objects/coin.png';
+            },
+            init: function(callback, data?){
+                data = (data)? data: this;
+                let cointIndex = Math.floor(this.number/5000),
+                numberOfCoin = ( cointIndex > 0 && cointIndex < 10)? cointIndex :(cointIndex >= 10)? 10 : 1 ;
+
+                let steps = Array(numberOfCoin).fill(0).map((o, i) => i*5);
+                let marginLeft = this.propertyes.x;
+                for(let i = 0; i < numberOfCoin; i++){
+                    this.propertyes.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
+                    callback(data)
+                }
+            },
+            getObjectPosition: getUIObjectPosition
+        }, {
+            name: "Game coins",
+            text: `X${info.sourse.gameCoins}`,
+            description: "Game part the name",
+            clicked: false,
+            fontSize: "light 18px Roboto",
+            propertyes:{
+                ctx: ctx,
+                width: -50,
+                height: 0,
+                x: width/2,
+                y: 20,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
                 shadowColor: 'rgba(0, 0, 0, 1)',
@@ -94,7 +150,6 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             init: init,
             getObjectPosition: getUIObjectPosition
         }
-
     ]
 }
 

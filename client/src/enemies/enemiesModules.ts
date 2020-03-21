@@ -1,5 +1,6 @@
 import { createImage } from '../view/displayModules';
 import { explosionFire } from '../engine/gameSideObjectsModule';
+import { loadGrabbleToSideObject } from '../engine/gameGrappleObjectsModule'
 import * as costructors from '../constructors';
 
 function placeEnemyes(mainGameObject){
@@ -27,7 +28,6 @@ function loadEnemyes(){         ///  need replace  and remove
     this.img = new Image();
     this.img.src = this.shipTexture;
 }
-
 
 
 
@@ -95,7 +95,7 @@ function enemyDamageAnimation(){
 
 
 // complex enemy animation for damage
-function takeDamage(damage: number, hitObject, mainGameObject){
+function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     /* Bullet hit detection */
     if( this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
         this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"||
@@ -109,12 +109,13 @@ function takeDamage(damage: number, hitObject, mainGameObject){
     }
 
     /* Game grapple object hit detection */
-    if(this.objectOwner == "grappleObject" && hitObject.objectOwner == "player" && !hitObject.hasOwnProperty('bulletType')){
+    if(this.objectOwner == "grappleObject" &&
+    hitObject.objectOwner == "player" &&
+    !hitObject.hasOwnProperty('bulletType')){
         this.objectPresent = false;
         mainGameObject.gameInitData.grappleObjectOnScreen = false;
         explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
-
-        this.addPlayerLife({allGameSideObjects: mainGameObject, playerShipData: hitObject})
+        this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 
     /* Hit det dection collision */
@@ -129,6 +130,8 @@ function takeDamage(damage: number, hitObject, mainGameObject){
         if(this.healthPoint <= 0) {
             this.objectPresent = false;
             explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
+            /// load coins
+            if(this.spawnCoin) this.spawnCoin(mainGameObject, costructors.GrappleObject);
             if(this.isBoss) bossEnemyDestruction()
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
@@ -164,9 +167,18 @@ function takeDamage(damage: number, hitObject, mainGameObject){
 }
 
 
+function spawnCoin(mainGameObject, GrappleObject){
+    if(this.hasOwnProperty('extraObjects')){
+        for(let coin of this.extraObjects){
+            coin.x = this.x;
+            coin.y = this.y;
+            loadGrabbleToSideObject.call(this, mainGameObject, coin, GrappleObject)
+        }
+    }
+}
 
 
-function hitDetection(object1, objectsArr, mainGameObject){
+function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
     let collision = null;
     for(let object2 of objectsArr){
 
@@ -183,8 +195,8 @@ function hitDetection(object1, objectsArr, mainGameObject){
 
         if(collision == "collision"){
             if(object1.takeDamage && object2.takeDamage){
-                object1.takeDamage((object2.damage)? object2.damage: 0, object2, mainGameObject);
-                object2.takeDamage((object1.damage)? object1.damage: 0, object1, mainGameObject);
+                object1.takeDamage((object2.damage)? object2.damage: 0, object2, mainGameObject, GrappleObject);
+                object2.takeDamage((object1.damage)? object1.damage: 0, object1, mainGameObject, GrappleObject);
             }
             break
         }
@@ -200,5 +212,6 @@ export  {
     enemyAnimation,
     hitDetection,
     takeDamage,
-    enemyDamageAnimation
+    enemyDamageAnimation,
+    spawnCoin
 };
