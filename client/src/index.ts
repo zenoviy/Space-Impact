@@ -15,6 +15,12 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     var mainMenu = document.querySelector("#main-menu")
     /*  gameEngineInit  */
     var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip)
+    if(!gameState){
+        let navigation = appMenu(gameObject, dialogWindow)
+        navigation.menu.init()
+        throw new Error("There is no data in: gameState");
+    }
+
     var gameObject = await new constructors.Game(gameState.data)
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
 
@@ -35,7 +41,6 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     /*  init electron App memnu  */
     const navigation = appMenu(gameObject, dialogWindow)
     navigation.menu.init()
-
 
     /*   game engin runing   */
     async function gameInterval(){

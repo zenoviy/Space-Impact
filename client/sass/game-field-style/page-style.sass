@@ -1,5 +1,6 @@
 @import '~/../canvas.sass'
 @import '~/../buttons.sass'
+@import '~/../form-style.sass'
 
 
 body
@@ -27,6 +28,7 @@ body
         display: block
         top: 105px
         position: relative
+        text-shadow: 0px 0px 6px rgba(92,2,108, .5)
         li
           min-width: 160px
           padding: 10px
@@ -45,6 +47,7 @@ body
   width: 100%
   max-height: 100vh
   overflow-y: scroll
+  z-index: 1100
   .menu-pages-wrapper
     background: #161325
     margin-top: -20px
@@ -91,6 +94,7 @@ body
       min-width: 300px
       min-height: 80px
       border-radius: $border-radius
+      @include save-form
 
       div
         padding: 10px

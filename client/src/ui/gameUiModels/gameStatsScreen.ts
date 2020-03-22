@@ -39,7 +39,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: getUIObjectPosition
         }, {
             name: "level",
-            text: `Current Level ${info.currentLevel}/${info.allLevels} `,
+            text: ` ${(info.currentLevel <= info.allLevels)? 'Current Level ' + info.currentLevel + '/' + info.allLevels : 'finish game'} `,
             description: "Game part the name",
             clicked: false,
             fontSize: "bold 16px Roboto",

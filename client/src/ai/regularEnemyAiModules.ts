@@ -87,13 +87,13 @@ async function spawnEnemyLogic( EnemyObject: any){
     levelData = gameData.levelData,
     enemyData = gameData.enemyData,
     levelUserData = this.getLevelUserData(),
-    bosPresent = (levelUserData.sourse.levelData.bosPresents)? levelUserData.sourse.levelData.bosPresents: null;
+    bossPresent = (levelUserData.sourse.levelData.bossPresent)? levelUserData.sourse.levelData.bossPresent: null;
 
-    if(!this.gameInitData.gameData.levelChange && !bosPresent){
+    if(!this.gameInitData.gameData.levelChange && !bossPresent){
         enemySpawn.call(this)
     }else{
-        if(this.gameInitData.allGameEnemies.length ==  0){
-            let enemyShipObject = await this.createNewEnemy(enemyData[0], EnemyObject);
+        let enemyShipObject = await this.createNewEnemy(enemyData[0], EnemyObject);
+        if(this.gameInitData.allGameEnemies.length < 1 && !this.gameInitData.levelChange){
             enemyShipObject.loadEnemyes();
             this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
         }

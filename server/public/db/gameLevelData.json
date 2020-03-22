@@ -324,8 +324,8 @@
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "bosPresents": true,
-        "enemyMaxNumber": 4,
+        "bossPresent": true,
+        "enemyMaxNumber": 1,
         "enemyRandomizerIndex": 5,
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
@@ -346,8 +346,8 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 3,
-            "levelSeconds": 43
+            "levelMinutes": null,
+            "levelSeconds": null
         }
     }
 ]

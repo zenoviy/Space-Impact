@@ -1,3 +1,6 @@
 body {
     cursor: url("../public/images/misc/cursor_2.cur"), crosshair;
 }
+.load-circle-image {
+    background-image: url("../public/images/page/icons/loading.png");
+}

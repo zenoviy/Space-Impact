@@ -113,7 +113,7 @@ function changeLevelProcedure(){
 
 function levelTimer(){
         let data = this.getLevelUserData()
-        if(!data.sourse.levelData.bosPresents){
+        if(!data.sourse.levelData.bossPresent){
             let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
             if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails);
         }else{
@@ -122,7 +122,6 @@ function levelTimer(){
         }
         function levelTimeAction(time){
                 if(time.levelSeconds <= 0){
-
                     if(time.levelMinutes == 0 && time.levelSeconds == 0){
                         time.levelSeconds = 0;
                         this.gameInitData.levelChange = true;
@@ -163,6 +162,7 @@ function getLevelUserData(){
         currentLevel: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
+        gameCoins: dataSourse.gameCoins,
         life:  dataSourse.playerObject.numberOflife,
         minutes: levelTime.levelMinutes,
         seconds: levelTime.levelSeconds

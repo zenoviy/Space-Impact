@@ -1,5 +1,6 @@
 import { getData } from '../../server/serverRequestModules';
 import { preloadImage } from '../engineModules';
+import { loadWindow } from '../../ui/loadScreen';
 const remote = require('electron').remote
 
 
@@ -69,6 +70,7 @@ async function serverRequest(gameInformation){
             data: null,
             headers:{ 'ship-type-number': levelData.enemyType}
         })
+
         preloadImage(enemyData)
         preloadImage(levelData)
         preloadImage(levelObjects)
@@ -82,11 +84,12 @@ async function serverRequest(gameInformation){
         }
 }
 async function gameDataInit(PlayerShip){
+    loadWindow({loadStatus: "load"})
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 4, shipType = 1, shipLife = 5;
+        let level = 1, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -94,6 +97,14 @@ async function gameDataInit(PlayerShip){
         const gameSetings = res.gameSetings;
         const userData = res.userData;
         const enemyData = res.enemyData;
+
+        if(levelData.status === "error" || levelObjects === "error" || grappleObjects === "error" ||
+        levelData.gameSetings === "error" || userData === "error" || enemyData === "error"){
+            loadWindow({loadStatus: "serverError"})
+            return null
+        }else{
+            loadWindow({loadStatus: "success"})
+        }
 
         return {data: {
             ctx: null,
@@ -146,6 +157,8 @@ function gameStart(){
 }
 async function backToStartScreen(PlayerShip){
     let newInitdata = await gameDataInit(PlayerShip);
+    if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
+
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
                 this.gameInitData[key] = value

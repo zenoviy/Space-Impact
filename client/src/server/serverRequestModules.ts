@@ -10,8 +10,14 @@ function getData({url, method, data, headers}){
         mode: 'cors',
         headers: resultHeader,
         body: (data)? JSON.stringify(data) : null
-    }).then(res => res.json())
+    }).then(res =>  res.json())
     .then(data => data)
+    .catch( err => {
+        console.log(err)
+        if(err){
+            return {message: "500 No server connection!", status: "error"}
+        }
+    })
 }
 
 async function getLocalData({fileName}){
@@ -21,7 +27,7 @@ async function getLocalData({fileName}){
             if(err) throw Error(err)
             let info = JSON.parse(data);
             if(info) resolve(info)
-            else reject("got some poblem here")
+            else reject("got some problem here")
         })
     })
     return res

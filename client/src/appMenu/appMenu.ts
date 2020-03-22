@@ -1,6 +1,7 @@
 import { pageBuilder, createElements } from './pagesBuilder';
 import { getLocalData } from '../server/serverRequestModules';
 import { showResultScreen } from './gameResultModule';
+import { exitTheGame } from '../engine/gameModules/satartGame';
 
 function show(el){
     el.style.display = 'block';
@@ -63,7 +64,7 @@ function appMenu(gameObject, dialogWindow){
                                 break;
                             case 'exit':
                                 toggler(el)
-                                dialogWindow({textData: 'Exit the game?', rejectText: 'cancel', acceptText: 'ok'}, gameObject.exitTheGame, navigation)
+                                dialogWindow({textData: 'Exit the game?', rejectText: 'cancel', acceptText: 'ok'}, exitTheGame, navigation)
                                 break;
                             case 'close':
                                 navigation.menu.hideAllSections()
@@ -74,7 +75,6 @@ function appMenu(gameObject, dialogWindow){
                         }
                     }
                 }
-                //dialogWindow({textData: 'Exit the game?', rejectText: 'cancel', acceptText: 'ok'}, gameObject.exitTheGame, navigation)
                 function menuSelection(event){
                     if(event.target.parentElement.tagName == "LI"){
                         let menuArea = Array.prototype.slice.call(document.querySelectorAll(".selected-items"));

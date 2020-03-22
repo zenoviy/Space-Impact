@@ -5,15 +5,17 @@ async function getResultlData (req, res) {
     fs.readFile(__dirname + '../../../public/userData/gameResults.json', (err, data) => {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
         if(data.length === 0){
-            res.send({message: 'there is no data'})
+            res.send({message: 'there is no data yet'})
             return
         }
 
         let readObject = JSON.parse(data);
-        let publicData = readObject.map(item => { return {
+        let publicData = readObject.sort((a, b) => a.gamePoints - b.gamePoints ).reverse().map(item => { return {
             userName: item.userName,
             gamePoints: item.gamePoints,
-            time: item.id}})
+            time: item.id,
+            gameCoins: item.gameCoins
+        }})
         res.send(publicData)
     })
 }
@@ -39,20 +41,31 @@ async function postResultlData (req, res) {
             readObject = JSON.parse(data)
             let findUser = dataFinder(readObject, req.body)
 
-            if(!findUser){
+            if(findUser.status === "not-found"){
                 dataArr = dataArr.concat(readObject, req.body).sort((a, b) => a.gamePoints - b.gamePoints).reverse();
                 writeToFile(JSON.stringify(dataArr))
-                res.send({message: "Sucessfully save Result"})
+                res.send({message: `Sucessfully save Result!!! ${req.body.userName} added`, status: "success"})
                 return
             }else{
-                writeToFile(JSON.stringify(findUser))
-                res.send({message: "Name or email already exist or you points les then you have before"})
+                writeToFile(JSON.stringify(findUser.data))
+                let messageText = "";
+                switch(findUser.status){
+                    case "replace":
+                        messageText = `Congratulations ${req.body.userName} your current score is higher than the previous!`
+                        break
+                    case "found":
+                        messageText = `Email already exist or you points les then you have before`
+                        break
+                    default:
+                        "_ - _ - _"
+                }
+                res.send({message: messageText, status: "warning"})
                 return
             }
         }else{
             dataArr = dataArr.concat(dataArr, req.body)
             writeToFile(JSON.stringify(dataArr))
-            res.send(dataArr)
+            res.send({message: `Sucessfully save Result!!! ${req.body.userName} added`, status: "success"})
         }
     })
 
