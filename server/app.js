@@ -6,7 +6,8 @@ const {
     getLevelObjects,
     getResultlData,
     postResultlData,
-    getGrappleObjects
+    getGrappleObjects,
+    updateResultlData
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -51,6 +52,7 @@ app.get('/api/enemy-ship', cors(), getEnemyShip)
 app.route("/api/game-result")
     .get(getResultlData)
     .post(cors(), postResultlData)
+    .put(cors(), updateResultlData)
 
 app.listen(process.env.PORT || 3000, function(){
     console.log(`Server listened at port ${process.env.PORT || 3000}`);

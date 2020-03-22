@@ -204,14 +204,14 @@
         }
     },{
         "level" : 4,
-        "enemyType" : ["dart"],
+        "enemyType" : ["dart", "scorpio"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["build_1", "build_2", "cloud_1"],
-        "enemyProbability" : 1900,
+        "enemyProbability" : 1100,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "enemyMaxNumber": 1,
+        "enemyMaxNumber": 3,
         "enemyRandomizerIndex": 5,
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{

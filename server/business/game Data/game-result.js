@@ -1,5 +1,6 @@
 const fs = require('fs');
-const { dataFinder } = require('../workers/validator')
+const { dataFinder, dataUpdater } = require('../workers/validator');
+const { dataWriter } = require('../workers/fileWorker');
 
 async function getResultlData (req, res) {
     fs.readFile(__dirname + '../../../public/userData/gameResults.json', (err, data) => {
@@ -19,6 +20,8 @@ async function getResultlData (req, res) {
         res.send(publicData)
     })
 }
+
+
 async function postResultlData (req, res) {
     fs.readFile(__dirname + '../../../public/userData/gameResults.json', "utf8", (err, data) => {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
@@ -33,28 +36,32 @@ async function postResultlData (req, res) {
             res.send({message: "Email field is incorect, must be max 30 charackter min 3", status: "warning"})
                 return
         }
+        if(!req.body.userPassword || typeof req.body.userPassword != 'string'){
+            res.send({message: "Password field is incorect, must be max 30 charackter min 3", status: "warning"})
+                return
+        }
         if(!req.body.gamePoints || typeof req.body.gamePoints != 'number'){
                 res.send({message: "name too long or too short"})
                 return
             }
-        if(data){
+        if(data && req.body.gamePoints && req.body.userPassword && req.body.userEmail && req.body.userName && req.body.gameCoins){
             readObject = JSON.parse(data)
             let findUser = dataFinder(readObject, req.body)
 
-            if(findUser.status === "not-found"){
+            if(findUser.status === "not-found" ){
                 dataArr = dataArr.concat(readObject, req.body).sort((a, b) => a.gamePoints - b.gamePoints).reverse();
-                writeToFile(JSON.stringify(dataArr))
+                dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify(dataArr)})
                 res.send({message: `Sucessfully save Result!!! ${req.body.userName} added`, status: "success"})
                 return
             }else{
-                writeToFile(JSON.stringify(findUser.data))
+                dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify(findUser.data)})
                 let messageText = "";
                 switch(findUser.status){
-                    case "replace":
-                        messageText = `Congratulations ${req.body.userName} your current score is higher than the previous!`
+                    case "found-email":
+                        messageText = `Email already exist `;
                         break
-                    case "found":
-                        messageText = `Email already exist or you points les then you have before`
+                    case "found-name":
+                        messageText = `Name already exist `;
                         break
                     default:
                         "_ - _ - _"
@@ -64,20 +71,72 @@ async function postResultlData (req, res) {
             }
         }else{
             dataArr = dataArr.concat(dataArr, req.body)
-            writeToFile(JSON.stringify(dataArr))
+            dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify(dataArr)})
             res.send({message: `Sucessfully save Result!!! ${req.body.userName} added`, status: "success"})
         }
     })
 
 
-    function writeToFile(data){
+    /*function writeToFile(data){
         fs.writeFile(__dirname + '../../../public/userData/gameResults.json', data, (err) => {
             if(err) throw err;
         })
-    }
+    }*/
+}
+
+async function updateResultlData (req, res) {
+    fs.readFile(__dirname + '../../../public/userData/gameResults.json', "utf8", (err, data) => {
+        if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+
+        if(!req.body.userEmail || typeof req.body.userEmail != 'string'){
+            res.send({message: "Emailfield is incorect, must be max 30 charackter min 3", status: "warning"})
+                return
+        }
+
+        if(!req.body.userPassword || typeof req.body.userPassword != 'string'){
+            res.send({message: "Password field is incorect, must be max 30 charackter min 3", status: "warning"})
+                return
+        }
+
+        let readObject = null, dataArr = [];
+        if(data && req.body.gamePoints && req.body.userPassword && req.body.userEmail && req.body.gameCoins){
+            readObject = JSON.parse(data)
+            let findUser = dataUpdater(readObject, req.body)
+
+            let messageText = "", status;
+            switch(findUser.status){
+                case "replace":
+                    messageText = `Congratualation ${findUser.name} your score is saved`;
+                    status = "success";
+                    break
+                case "lo-result":
+                    messageText = `Your score is less than existing one`;
+                    status = "warning";
+                    break
+                case "equil-result":
+                    messageText = `Your score the same as existing one`;
+                    status = "warning";
+                    break
+                case "wrong-password":
+                    messageText = `Wrong password try again`;
+                    status = "reject";
+                    break
+                case "not-exist":
+                    messageText = `There is no such email`;
+                    status = "reject";
+                    break
+                default:
+                    "_ - _ - _"
+            }
+            res.send({message: messageText, status: status})
+            dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify(findUser.data)})
+            return
+        }
+    })
 }
 
 module.exports = {
     getResultlData: getResultlData,
-    postResultlData: postResultlData
+    postResultlData: postResultlData,
+    updateResultlData: updateResultlData
 }

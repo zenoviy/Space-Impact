@@ -16,7 +16,6 @@ async function showResultScreen(){
         windowElement.innerHTML = `<div class="result-message-wrapper"><p>${gameData.message}</p></div>`;
         return false}
     let index = 0;
-    //gameData = gameData.sort((a, b) => {return  a.gamePoints - b.gamePoints}).reverse();
     for(let item of gameData){
         index += 1;
         let time = new Date(item.time), year = time.getFullYear(),month = time.getUTCMonth() + 1, day = time.getDate()
@@ -27,10 +26,10 @@ async function showResultScreen(){
             pictureUrl: null,
             linkUrl: null,
             text: null,
-            innerContent: `<p class="single-item"><span class="rate-number">&nbsp; ${index}</span>
-            name: &nbsp;<span class="item-name"> ${item.userName}</span>
-            coin: &nbsp;<span class="item-coin"> ${item.gameCoins}</span>
-            score: &nbsp;<span class="item-points"> ${item.gamePoints}</span>
+            innerContent: `<p class="single-item"><span class="rate-number">${index}</span>
+            <span>name:</span> <span class="item-name"> ${item.userName}</span>
+            <span>coin:</span> <span class="item-coin"> ${item.gameCoins}</span>
+            <span>score:</span> <span class="item-points"> ${item.gamePoints}</span>
             <span class="item-date"> ${year}/${month}/${day}</span></p>`,
             attributeName: 'data-button-id',
             attribute: item.id,
@@ -42,33 +41,76 @@ async function showResultScreen(){
         }, index * 100)
     }
 }
+
+
+
+
+
+
 function initResultScreen(mainGameObject){
     let windowElement = document.querySelector('#save-result-box');
+    let formBtnSwitcherArea = document.querySelector("#form-btn-switcher-area");
     let formLoadArea = document.querySelector('#form-load-area');
 
     formLoadArea.innerHTML = "";
+    formBtnSwitcherArea.innerHTML = "";
+
     show(windowElement)
+    let buttonSwitcher = [
+        createElements({
+            tagName: "button",
+            styleClass: "accept-btn btn-main",
+            inlineStyle: null,
+            pictureUrl: null,
+            linkUrl: null,
+            text: "update player",
+            innerContent: ``,
+            attributeName: "data-btn-id",
+            attribute: "update-player",
+            attributeName1: null,
+            attribute1: null}),
+        createElements({
+            tagName: "button",
+            styleClass: "accept-btn btn-main selected-form",
+            inlineStyle: null,
+            pictureUrl: null,
+            linkUrl: null,
+            text: "new player",
+            innerContent: ``,
+            attributeName: "data-btn-id",
+            attribute: "new-player",
+            attributeName1: null,
+            attribute1: null})
+    ];
+    for(let item of buttonSwitcher){
+        formBtnSwitcherArea.appendChild(item)
+    }
 
     let dialogData = [
         createElements({
                 tagName: "form",
-                styleClass: "accept-btn btn-main",
+                styleClass: "",
                 inlineStyle: null,
                 pictureUrl: null,
                 linkUrl: null,
                 text: "save result",
                 innerContent: `
-                <p>Please fill newt fields to save your result</p>
+                <h1>Create new player</h1>
+                <p>Please fill the fields to save your result</p>
                 <label for="name">
                     <p>Please enter you name</p>
-                    <input id="name" maxlength="30" minlength="3" name="userName" type="text" require placeholder="Enter you name">
+                    <input id="name" maxlength="30" minlength="3" name="userName" type="text" required placeholder="Enter you name">
                 </label>
                 <label for="mail">
                     <p>Please enter you email</p>
-                    <input id="mail" name="userEmail" type="email" require placeholder="Enter you email address">
+                    <input id="mail" name="userEmail" type="email" required placeholder="Enter you email address">
+                </label>
+                <label for="password">
+                    <p>Create password</p>
+                    <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Enter you email address">
                 </label>
                 <div id="alert-message" class="alert-message"></div>
-                <div id="dialog-bottom-area" class="dialog-btn-area">
+                <div id="dialog-bottom-area" class="dialog-bottom-area">
                     <button type="submit" data-button-id="save-result" class="accept-btn btn-main">save</button>
                     <button data-button-id="cancel" class="reject-btn btn-main">cancel</button>
                 </div>`,
@@ -76,15 +118,68 @@ function initResultScreen(mainGameObject){
                 attribute: "save-result-form",
                 attributeName1: null,
                 attribute1: null}),
+                createElements({
+                    tagName: "form",
+                    styleClass: "",
+                    inlineStyle: "display: none;",
+                    pictureUrl: null,
+                    linkUrl: null,
+                    text: "save result",
+                    innerContent: `
+                    <h1>Update player</h1>
+                    <p>Enter email and password</p>
+                    <label for="mail">
+                        <p>Please enter you email</p>
+                        <input id="mail" name="userEmail" type="email" required placeholder="Enter you email address">
+                    </label>
+                    <label for="password">
+                        <p>Create password</p>
+                        <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Enter you email address">
+                    </label>
+                    <div id="alert-message" class="alert-message"></div>
+                    <div id="dialog-bottom-area" class="dialog-bottom-area">
+                        <button type="submit" data-button-id="save-result" class="accept-btn btn-main">save</button>
+                        <button data-button-id="cancel" class="reject-btn btn-main">cancel</button>
+                    </div>`,
+                    attributeName: 'name',
+                    attribute: "rewrite-result-form",
+                    attributeName1: null,
+                    attribute1: null})
         ]
         for(let item of dialogData){
             formLoadArea.appendChild(item)
         }
 
         let form = document.forms['save-result-form'];
+        let rewriteForm = document.forms['rewrite-result-form'];
+        let formBtnArea = document.querySelectorAll('.dialog-bottom-area')
 
-        document.querySelector('#dialog-bottom-area').addEventListener('click', dialogButtonEvent)
-        form.addEventListener('submit', formAction)
+        formBtnSwitcherArea.addEventListener('click', formSwitcher)
+        Array.prototype.forEach.call(formBtnArea, (button) => {
+            button.addEventListener('click', dialogButtonEvent)
+        })
+
+        form.addEventListener('submit', formActionWrite)
+        rewriteForm.addEventListener('submit', formActionUpdate)
+
+    function formSwitcher(event){
+        switch(event.target.dataset.btnId){
+            case "new-player":
+
+                hide(rewriteForm)
+                show(form)
+                addClassList(event.target, "selected-form")
+                break
+            case "update-player":
+
+                hide(form)
+                show(rewriteForm)
+                addClassList(event.target, "selected-form")
+                break
+            default:
+                false
+        }
+    }
     function dialogButtonEvent(event){
             switch (event.target.dataset.buttonId){
                 case 'save-result':
@@ -97,9 +192,9 @@ function initResultScreen(mainGameObject){
                     false
             }
     }
-    async function formAction(event){
+    async function formActionWrite(event){
         event.preventDefault()
-        let formResult = transferDataToObject(form, mainGameObject)
+        let formResult = transferDataToObject(this, mainGameObject)
 
         if(formResult){
             let res = await getData({
@@ -113,8 +208,25 @@ function initResultScreen(mainGameObject){
             errorFormMessage({message: "I cant send this, please check form again", status: "reject"})
         }
     }
+
+    async function formActionUpdate(event){
+        event.preventDefault()
+        let formResult = transferDataToObject(this, mainGameObject)
+
+        if(formResult){
+            let res = await getData({
+            url: process.env.HOST + 'api/game-result',
+            method: 'PUT',
+            data: formResult,
+            headers: null})
+            errorFormMessage({message: res.message, status: res.status})
+            return
+        }else{
+            errorFormMessage({message: "I cant send this, please check form again", status: "reject"})
+        }
+    }
     function errorFormMessage({message, status}){
-        const element = document.querySelector("#alert-message");
+        const elements = document.querySelectorAll(".alert-message");
         let alertText: string = "";
         switch(status){
             case "reject":
@@ -126,24 +238,32 @@ function initResultScreen(mainGameObject){
             case "success":
                 alertText = `<p class="success-text">${message}</p>`
                 form.reset()
+                rewriteForm.reset()
                 break
             default:
                 alertText = "";
         }
-        element.innerHTML = alertText
+        console.log(elements)
+        Array.prototype.forEach.call(elements, (el) => {
+            el.innerHTML = alertText
+        })
     }
 }
+
+
+
 
 
 interface resultData {
     userName: string,
     userEmail: string,
     gamePoints: number,
-    gameCoins: number
+    gameCoins: number,
+    userPassword: string
 }
 function transferDataToObject(data: any, mainGameObject: any){
     if(!data) throw Error("No data to transform")
-    var obj: resultData = {userName: null, userEmail: null, gamePoints: null, gameCoins: null};
+    var obj: resultData = {userName: null, userEmail: null, gamePoints: null, gameCoins: null, userPassword: null};
 
     for(let item of data){
         if(item.name && item.value){
