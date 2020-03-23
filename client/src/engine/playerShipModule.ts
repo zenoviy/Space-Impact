@@ -50,15 +50,18 @@ function shipControl(mainGameObject: any){
         if(mainGameObject.gameInitData.gamePause) return false;
         let guns = this.data.guns;
         for(let item of guns){
-            let bullet = new constructors.BulletConstruct(
-                this.x, this.y + item.firePosition,
-                item.name, item.color,
-                "player", item.speed + this.xAdj,
-                item.width, item.height,
-                item.damage, item.type, item.texture,
-                item.sx, item.sy, item.sWidth, item.sHeight,
-                item.explosionAnimation
-                );
+            let context = this;
+            let bullet = new constructors.BulletConstruct({
+                x: context.x, y: context.y + item.firePosition,
+                bulletType: item.name, bulletTexture: item.color,
+                objectOwner: "player", bulletSpeed: item.speed + context.xAdj,
+                width: item.width, height: item.height,
+                damage: item.damage, type: item.type, texture: item.texture,
+                sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
+                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
+                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems
+                /**/
+            });
             bullet.img.src = bullet.texture;
             bullet.img.onload = () => {
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
@@ -66,6 +69,7 @@ function shipControl(mainGameObject: any){
         }
     })
 }
+
 
 function setContext(context){
     this.ctx = context;

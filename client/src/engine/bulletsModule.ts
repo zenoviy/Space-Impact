@@ -13,9 +13,13 @@ function createBullets(mainGameObject){
         radius: 5,
         type: this.type,
         img: this.img,
-        sx: this.sx, sy: this.sy, sWidth: this.sWidth, sHeight: this.sHeight
+        sx: this.sx, sy: this.sy, sWidth: this.sWidth, sHeight: this.sHeight,
+        imageWidth: this.imageWidth, imageHeight: this.imageHeight, animationSteps: this.animationSteps,
+        numberOfItems: this.numberOfItems, numberOfVerticalItems: this.numberOfVerticalItems
     })
 }
+
+
 function initBullets(){
 
 }

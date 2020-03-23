@@ -67,13 +67,15 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
+                        bullet.placeEnemyes(gameObject)
                         bullet.moveBullets(playerShipData, gameObject);
-                        bullet.createBullets(gameObject)
+
                         gameObject.deleteBullet(bullet)
                         gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject, constructors.GrappleObject)
                         gameObject.hitDetection(playerShipData, [bullet], gameObject, constructors.GrappleObject)
 
                         gameObject.hitDetection(bullet, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
+                        bullet.enemyAnimation();
                     }
                 }
                 if(gameObject.gameInitData.allGameEnemies.length > 0){

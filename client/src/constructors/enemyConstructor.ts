@@ -64,9 +64,7 @@ class EnemyObject {
     enemyShipLogicVertical: any;
     enemyVerticalMoveCalculation: any;
     spawnCoin: any;
-    constructor(
-        {...data}
-        ){
+    constructor({...data}){
             this.id = new Date().getTime();
             this.x = data.x; this.y = data.y;
             this.sx = data.sx; this.sy = data.sy;
