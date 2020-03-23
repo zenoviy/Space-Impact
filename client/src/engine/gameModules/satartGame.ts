@@ -105,6 +105,31 @@ async function gameDataInit(PlayerShip){
         }else{
             loadWindow({loadStatus: "success"})
         }
+        let shipData = {
+            data: userData,
+            points: 0,
+            numberOflife: shipLife,
+            maxOfLife: shipLife,
+            healthPoint:300,
+            armor: userData.armor,
+            x: 0,
+            y: 0,
+            xFinal: userData.x,
+            yFinal: userData.y,
+            collisionAllow: true,
+            objectOwner: "player",
+            width: userData.width,
+            height: userData.height,
+            xAdj: 0, speed: userData.speed,
+            explosion: userData.explosionAnimation,
+            damage: userData.damage,
+            sx: userData.sx, sy: userData.sy, picturesWidth: userData.imageWidth,
+            imageHeight: userData.imageHeight,
+            sWidth: userData.sWidth, sHeight: userData.sHeight,
+            animationSteps: userData.animationSteps,
+            numberOfItems: userData.numberOfItems,
+            numberOfVerticalItems: userData.numberOfVerticalItems,
+        }
 
         return {data: {
             ctx: null,
@@ -115,7 +140,7 @@ async function gameDataInit(PlayerShip){
                 currentLevel: level,
                 currentPoint: 0,
                 gameCoins: 0,
-                playerObject: new PlayerShip(userData, 0, 300, shipLife, 100, 100, userData.size.width, userData.size.height, userData.damage),
+                playerObject: new PlayerShip(shipData),
                 levelData: levelData,
                 levelObjects: levelObjects,
                 grappleObjects: grappleObjects,

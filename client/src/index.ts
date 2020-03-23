@@ -94,7 +94,8 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                 }
                 if(!gameObject.gameInitData.gameOver){
                     playerShipData.placeShip()
-                    playerShipData.movePlayerShip()
+                    playerShipData.placeEnemyes(gameObject)
+                    playerShipData.enemyAnimation()
                 }
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){

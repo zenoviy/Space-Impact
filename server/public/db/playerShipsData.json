@@ -8,6 +8,17 @@
         "minSpeed": 5,
         "firespot": 1,
         "damage": 260,
+        "width": 75,
+        "height": 25,
+        "sx": 0,
+        "sy": 20,
+        "imageWidth": 2735,
+        "imageHeight":128,
+        "animationSteps": 5,
+        "numberOfItems": 8,
+        "numberOfVerticalItems": 1,
+        "sWidth": 342,
+        "sHeight": 128,
         "size":{
             "width": 75,
             "height": 25

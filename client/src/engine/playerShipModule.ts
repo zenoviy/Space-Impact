@@ -19,13 +19,7 @@ function initPlayerShip(mainGameObject: any){
         this.img.src = imageLocation + image;
     }
 }
-function movePlayerShip(){
-    if(this.img){
-        if(this.ctx && this.img){
-            view.createImage(this.ctx, this.img, this.x, this.y, this.width, this.height);
-        }
-    }
-}
+
 function shipControl(mainGameObject: any){
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
     document.addEventListener("keydown",(e: any)=>{
@@ -91,13 +85,14 @@ function placeShip(){
     this.y = (this.y > this.yFinal)? this.y - yAdj:
     (this.y < this.yFinal)? this.y + yAdj : this.yFinal;
 }
+
+
 function moveShip({xPos=0, yPos=0}){
     this.x += xPos;
     this.y += yPos;
 }
 
 export {
-    movePlayerShip,
     initPlayerShip,
     shipControl,
     moveShip,

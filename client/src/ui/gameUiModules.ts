@@ -108,7 +108,6 @@ function gameOverWindow(){
 }
 function gameWinWindow(){
     let data = this.getLevelUserData();
-    //console.log(data)
     let drawMethods = [
         uiText,
         uiText,

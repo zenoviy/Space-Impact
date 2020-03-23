@@ -243,7 +243,6 @@ function initResultScreen(mainGameObject){
             default:
                 alertText = "";
         }
-        console.log(elements)
         Array.prototype.forEach.call(elements, (el) => {
             el.innerHTML = alertText
         })

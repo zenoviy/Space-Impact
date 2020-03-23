@@ -4,9 +4,8 @@ import { loadExtraObject } from "../ai/regularEnemyAiModules";
 async function explosionFire(targetData, mainGameObject, hitObject, SideObject){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
     let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
-    let compensation =(hitObject.x > targetData.x)? adjust : adjust/2;//(hitObject.x + hitObject.width/2) - (targetData.x + targetData.width/2);
-    //compensation = (Math.sign(compensation) > 1)? compensation : compensation * -1;
-    //console.log(targetData, hitObject)
+    //let compensation =(hitObject.x > targetData.x)? adjust : adjust/2;
+
     let explosionData = {
             x: targetData.x - targetData.explosion.width/2,
             y: (targetData.bulletType)? targetData.y - targetData.explosion.width/2: targetData.y,
