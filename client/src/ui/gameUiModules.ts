@@ -7,6 +7,7 @@ import { gameOverScreen } from './gameUiModels/gameGameOverScreen';
 import { gameWinScreen } from './gameUiModels/gameWinScreen';
 import { uiImage, uiText } from '../view/elements/uiElementModules';
 import { hitDetection } from '../enemies/enemiesModules';
+import { levelChangeScreen } from './gameUiModels/levelChangeScreen';
 
 
 function gameUiPause(){
@@ -97,7 +98,15 @@ function showGameStats(){
     ];
     this.initUiElements(drawMethods, gameInformationScreen, data)
 }
-
+function levelChangeWindow(){
+    let data = this.getLevelUserData();
+    let drawMethods = [
+        uiText,
+        uiText,
+        uiText
+    ];
+    this.initUiElements(drawMethods, levelChangeScreen, data)
+}
 function gameOverWindow(){
     let drawMethods = [
         uiText,
@@ -139,6 +148,7 @@ export {
     showStartWindow,
     showMenuWindow,
     showPauseWindow,
+    levelChangeWindow,
     gameOverWindow,
     gameWinWindow,
     showGameStats,

@@ -136,7 +136,13 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                     backgroundMap.updateMap()
                     backgroundMap.changePartOfTexture(gameObject, gameObject.gameInitData.mapBackgroundObjects);
                 }
-            if(gameObject.gameInitData.levelChange) gameObject.warpEffect()
+                if(gameObject.gameInitData.levelChange){
+                    //gameObject.levelChangeWindow()
+                    gameObject.warpEffect()
+                }
+                if(gameObject.gameInitData.levelWindowDescription){
+                    gameObject.levelChangeWindow()
+                }
             }
         }
 

@@ -43,6 +43,7 @@ class PlayerShip{
     numberOfItems: number;
     numberOfVerticalItems: number;
     detectFrame: number;
+    collideExplosionAnimation: any;
 
     initPlayerShip: any;
     shipControl: any;
@@ -75,6 +76,7 @@ class PlayerShip{
         this.numberOfItems = data.numberOfItems;
         this.numberOfVerticalItems = data.numberOfVerticalItems;
         this.detectFrame = 0;
+        this.collideExplosionAnimation = data.collideExplosionAnimation;
     }
     getPlayerInformation(){
         return {
@@ -84,17 +86,6 @@ class PlayerShip{
     }
 
 }
-/*
- "sx": 0,
-        "sy": 20,
-        "imageWidth": 2735,
-        "imageHeight":128,
-        "animationSteps": 5,
-        "numberOfItems": 8,
-        "numberOfVerticalItems": 1,
-        "sWidth": 342,
-        "sHeight": 128,
-*/
 PlayerShip.prototype.initPlayerShip = initPlayerShip;
 PlayerShip.prototype.shipControl = shipControl;
 PlayerShip.prototype.moveShip = moveShip;

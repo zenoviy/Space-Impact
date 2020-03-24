@@ -31,6 +31,7 @@ class SideObject{
     damage: number; objectOwner: string; healthPoint: number;
     isBackground: boolean; explosion: any; pointsPerUnit: number;
     extraObjects: any;
+    collideExplosionAnimation: any;
 
     fireAnimationEnded: any;
     placeEnemyes: any;
@@ -60,6 +61,7 @@ class SideObject{
             this.explosion = (data.explosion)? data.explosion : null;
             this.pointsPerUnit = (data.pointsPerUnit)? data.pointsPerUnit : 0;
             this.extraObjects = (data.extraObjects)? data.extraObjects : 0;
+            this.collideExplosionAnimation = data.collideExplosionAnimation;
     }
 }
 

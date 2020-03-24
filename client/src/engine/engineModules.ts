@@ -53,7 +53,10 @@ function warpEffect(){
     function warpTimer(levelData){
         let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
-        if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus) this.changeLevelProcedure();
+        if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
+            this.gameInitData.levelWindowDescription = true;
+            this.changeLevelProcedure()
+        }
     }
 }
 
@@ -107,6 +110,7 @@ function changeLevelProcedure(){
         this.nextLevelDataReload(levelData)
     }else{
         this.gameInitData.gameWin = true;
+        this.gameInitData.levelWindowDescription = false;
     }
 }
 
@@ -121,14 +125,14 @@ function levelTimer(){
             data.sourse.levelData.levelDetails.levelMinutes = null;
         }
         function levelTimeAction(time){
-                if(time.levelSeconds <= 0){
-                    if(time.levelMinutes == 0 && time.levelSeconds == 0){
-                        time.levelSeconds = 0;
-                        this.gameInitData.levelChange = true;
-                    }
-                    time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes - 1 :0;
+            if(time.levelSeconds <= 0){
+                if(time.levelMinutes == 0 && time.levelSeconds == 0){
+                    time.levelSeconds = 0;
+                    this.gameInitData.levelChange = true;
                 }
-                time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
+                time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes - 1 :0;
+            }
+            time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
         }
 }
 
@@ -225,7 +229,7 @@ function getObjectPosition(){
 
 
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';
+    var letters = '0123456789ABCDEF';// '0123456789ABCDEF'  '6789ABC';
     var color = '#';
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];

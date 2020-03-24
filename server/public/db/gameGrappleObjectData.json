@@ -35,7 +35,8 @@
             "sx": 0,
             "sy": 0,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "central": true
         }
     },{
         "id": "goldCoin",
@@ -73,7 +74,8 @@
             "sx": 0,
             "sy": 0,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "central": true
         }
     }
 ]

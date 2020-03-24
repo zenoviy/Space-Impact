@@ -30,6 +30,18 @@
                 "randomuizer": 100,
                 "maxNumber": 1
             }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 30,
+                "height": 30,
+                "central": true
+            },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
@@ -39,7 +51,8 @@
                 "sx": 0,
                 "sy": 0,
                 "width": 50,
-                "height": 50
+                "height": 50,
+                "central": true
             },
             "guns":[
                 {
@@ -107,6 +120,18 @@
                 "randomuizer": 100,
                 "maxNumber": 3
             }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 90,
+                "height": 90,
+                "central": true
+            },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
@@ -116,7 +141,8 @@
                 "sx": 0,
                 "sy": 0,
                 "width": 50,
-                "height": 50
+                "height": 50,
+                "central": true
             }, "guns":[
                 {
                     "name": "blaster",
@@ -130,7 +156,8 @@
                         "sx": 0,
                         "sy": 0,
                         "width": 50,
-                        "height": 50
+                        "height": 50,
+                        "central": true
                     },
                     "type": "blaster",
                     "fireRepead": 50,
@@ -182,6 +209,18 @@
                 "randomuizer": 100,
                 "maxNumber": 10
             }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 90,
+                "height": 90,
+                "central": true
+            },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
@@ -191,7 +230,8 @@
                 "sx": 0,
                 "sy": 0,
                 "width": 50,
-                "height": 50
+                "height": 50,
+                "central": true
             },
             "guns":[
                 {
@@ -206,7 +246,8 @@
                         "sx": 0,
                         "sy": 0,
                         "width": 50,
-                        "height": 50
+                        "height": 50,
+                        "central": true
                     },
                     "type": "blaster",
                     "fireRepead": 50,
@@ -236,7 +277,8 @@
                         "sx": 0,
                         "sy": 0,
                         "width": 50,
-                        "height": 50
+                        "height": 50,
+                        "central": true
                     },
                     "type": "blaster",
                     "fireRepead": 50,
@@ -290,6 +332,18 @@
                 "randomuizer": 100,
                 "maxNumber": 20
             }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 70,
+                "height": 70,
+                "central": true
+            },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
                 "imageWidth": 12891,
@@ -299,7 +353,8 @@
                 "sx": 0,
                 "sy": 0,
                 "width": 155,
-                "height": 155
+                "height": 155,
+                "central": true
             },
             "guns":[
                 {
@@ -314,7 +369,8 @@
                         "sx": 0,
                         "sy": 0,
                         "width": 50,
-                        "height": 50
+                        "height": 50,
+                        "central": true
                     },
                     "type": "blaster",
                     "fireRepead": 20,
@@ -344,7 +400,8 @@
                         "sx": 0,
                         "sy": 0,
                         "width": 90,
-                        "height": 90
+                        "height": 90,
+                        "central": true
                     },
                     "type": "beam",
                     "fireRepead": 90,

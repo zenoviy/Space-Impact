@@ -28,6 +28,7 @@ import {
     showUiPopupWindow,
     showStartWindow,
     showPauseWindow,
+    levelChangeWindow,
     gameOverWindow,
     gameWinWindow,
     showGameStats,
@@ -114,6 +115,7 @@ class Game {
     showUiPopupWindow: any;
     showMenuWindow: any;
     showStartWindow: any;
+    levelChangeWindow: any;
     gameOverWindow: any;
     gameWinWindow: any;
     showGameStats: any;
@@ -193,6 +195,7 @@ Game.prototype.showMenuWindow = showMenuWindow;
 Game.prototype.showUiPopupWindow = showUiPopupWindow;
 Game.prototype.showStartWindow = showStartWindow;
 Game.prototype.showPauseWindow = showPauseWindow;
+Game.prototype.levelChangeWindow = levelChangeWindow;
 Game.prototype.gameOverWindow = gameOverWindow;
 Game.prototype.gameWinWindow = gameWinWindow;
 Game.prototype.showGameStats = showGameStats;

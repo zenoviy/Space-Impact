@@ -100,7 +100,7 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "collide" && hitObject.hasOwnProperty('healthPoint')||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "collide" && hitObject.hasOwnProperty('healthPoint')
     ){
-        explosionFire(this, mainGameObject, hitObject, costructors.SideObject)
+        explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion")
         this.objectPresent = false; return
     }
 
@@ -110,7 +110,7 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     !hitObject.hasOwnProperty('bulletType')){
         this.objectPresent = false;
         mainGameObject.gameInitData.grappleObjectOnScreen = false;
-        explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
+        explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion");
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 
@@ -118,14 +118,19 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "enemy" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "collide" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "enemy"
      ){
         unitDamage.call(this, null, mainGameObject);
         this.enemyDamageAnimation()
         if(this.healthPoint <= 0) {
+
             this.objectPresent = false;
-            explosionFire(this, mainGameObject, hitObject, costructors.SideObject);
+            //collideExplosionAnimation
+            explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "collideExplosionAnimation");
+            explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion");
+
             /// load coins
             if(this.spawnCoin) this.spawnCoin(mainGameObject, costructors.GrappleObject);
             if(this.isBoss) bossEnemyDestruction()

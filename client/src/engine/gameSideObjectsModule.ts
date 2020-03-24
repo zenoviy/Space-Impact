@@ -1,33 +1,32 @@
 import { timingSafeEqual } from "crypto";
 import { loadExtraObject } from "../ai/regularEnemyAiModules";
 
-async function explosionFire(targetData, mainGameObject, hitObject, SideObject){
+function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
     let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
-    //let compensation =(hitObject.x > targetData.x)? adjust : adjust/2;
 
     let explosionData = {
-            x: targetData.x - targetData.explosion.width/2,
-            y: (targetData.bulletType)? targetData.y - targetData.explosion.width/2: targetData.y,
+            x: targetData.x - targetData[explosion].width/2,
+            y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
             sx: 0,
             sy: 0,
             objectOwner: "explosion",
-            sWidth: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
-            sHeight: targetData.explosion.imageHeight,
-            width: targetData.explosion.width*2,
-            height: targetData.explosion.width*2,
-            animationSteps: targetData.explosion.animationSteps,
+            sWidth: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
+            sHeight: targetData[explosion].imageHeight,
+            width: targetData[explosion].width*2,
+            height: targetData[explosion].width*2,
+            animationSteps: targetData[explosion].animationSteps,
             target: hitObject.objectOwner,
-            numberOfItems: targetData.explosion.imageWidth/targetData.explosion.numberOfItems,
-            texture: targetData.explosion.texture,
+            numberOfItems: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
+            texture: targetData[explosion].texture,
             speed: hitObject.speed/2,
-            picturesWidth: targetData.explosion.imageWidth
+            picturesWidth: targetData[explosion].imageWidth
         }
         let sideObject = new SideObject({...explosionData});
         sideObject.img.onload = () => {
             mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
         }
-        sideObject.img.src = await sideObject.texture;
+        sideObject.img.src = sideObject.texture;
 }
 function fireAnimationEnded( allGameSideObjects ){
     this.detectFrame += 1;
@@ -86,7 +85,8 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
                 isBackground: levelObjectProps.isBackground,
                 explosion: levelObjectProps.explosionAnimation,
                 pointsPerUnit: levelObjectProps.pointsPerUnit,
-                extraObjects: extraObjects
+                extraObjects: extraObjects,
+                collideExplosionAnimation: (levelObjectProps.collideExplosionAnimation)? levelObjectProps.collideExplosionAnimation: null
             }
             let sideObject = new SideObject({...explosionData});
             sideObject.img.src = sideObject.texture;

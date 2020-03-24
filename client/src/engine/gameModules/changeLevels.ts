@@ -34,6 +34,7 @@ async function nextLevelDataReload(levelData){
         context.gameInitData.warpObjects = [];
         context.gameInitData.timeToEressLevel = 6;
         context.gameInitData.levelChange = false;
+        context.gameInitData.levelWindowDescription = false;
     }, 5000)
 
     horizontalVerticalSearch.call(this, this.gameInitData)

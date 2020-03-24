@@ -23,7 +23,18 @@
         "object": "goldCoin",
         "randomuizer": 100,
         "maxNumber": 23
-    }],
+    }],"collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true
+    },
     "explosionAnimation": {
         "texture": "/public/images/misc/fire/explosion-building-1.png",
         "imageWidth": 12891,
@@ -62,6 +73,18 @@
         "randomuizer": 100,
         "maxNumber": 23
     }],
+    "collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true
+    },
     "explosionAnimation": {
         "texture": "/public/images/misc/fire/explosion-building.png",
         "imageWidth": 12891,

@@ -51,7 +51,7 @@ class EnemyObject {
     originalHealthPoint: number; isMove: boolean; isShoot: boolean;
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
     direction: string; isBoss: boolean;
-    extraObjects: any[];
+    extraObjects: any[]; collideExplosionAnimation: any;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -93,6 +93,7 @@ class EnemyObject {
             this.direction = null;
             this.isBoss = data.isBoss;
             this.extraObjects = data.extraObjects;
+            this.collideExplosionAnimation = data.collideExplosionAnimation;
             /// load amount fo coins, ando coins object from server
     }
 }

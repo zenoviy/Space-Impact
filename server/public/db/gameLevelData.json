@@ -61,6 +61,10 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
+        "description": {
+            "name": "long canyon",
+            "description": "Large canyon full of enemy"
+        },
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
             "levelMap" : "/public/images/locations/canyon/canyon.png",
@@ -121,7 +125,7 @@
         }],
         "levelDetails" : {
             "levelMinutes": 0,
-            "levelSeconds": 43
+            "levelSeconds": 13
         }
     },{
         "level" : 3,
@@ -134,7 +138,11 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
-        "levelMap" : "canyon.png",
+        "description": {
+            "name": "White sand",
+            "description": "Huge desert area with lost city"
+        },
+        "levelMap" : "desert.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/desert/desert-sky.png",
             "speed": 0.1,
@@ -213,6 +221,10 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 3,
         "enemyRandomizerIndex": 5,
+        "description": {
+            "name": "Cloud city",
+            "description": "One of the largest and and modern city of the world"
+        },
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{
             "levelMap" : "//public/images/locations/skyCity/city_background_map.png",
@@ -327,6 +339,10 @@
         "bossPresent": true,
         "enemyMaxNumber": 1,
         "enemyRandomizerIndex": 5,
+        "description": {
+            "name": "In the sky cloud",
+            "description": "One of the space impactors try to escape "
+        },
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",

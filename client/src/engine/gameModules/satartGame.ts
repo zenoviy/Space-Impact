@@ -89,7 +89,7 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 1, shipType = 1, shipLife = 5;
+        let level = 5, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -129,6 +129,7 @@ async function gameDataInit(PlayerShip){
             animationSteps: userData.animationSteps,
             numberOfItems: userData.numberOfItems,
             numberOfVerticalItems: userData.numberOfVerticalItems,
+            collideExplosionAnimation: userData.collideExplosionAnimation
         }
 
         return {data: {
@@ -168,6 +169,7 @@ async function gameDataInit(PlayerShip){
             gameStatus: false,
             gameOver: false,
             gameWin: false,
+            levelWindowDescription: false,
             grappleObjectOnScreen: false,
             gemeExtraSeconds: 0,
         }
