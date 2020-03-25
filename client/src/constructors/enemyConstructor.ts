@@ -2,7 +2,7 @@ import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regu
 import { placeEnemyes,
     moveEnemyes,
     loadEnemyes,
-    shoot,
+    shot,
     enemyAnimation,
     takeDamage,
     enemyDamageAnimation,
@@ -48,7 +48,7 @@ class EnemyObject {
     detectFrame: number; objectPresent: boolean;
     damage: number; guns: any; objectOwner: string;
     explosion: explosionAnimation; numberOfVerticalItems: number;
-    originalHealthPoint: number; isMove: boolean; isShoot: boolean;
+    originalHealthPoint: number; isMove: boolean; isshot: boolean;
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
     direction: string; isBoss: boolean;
     extraObjects: any[]; collideExplosionAnimation: any;
@@ -56,7 +56,7 @@ class EnemyObject {
     placeEnemyes: any;
     moveEnemyes: any;
     loadEnemyes: any;
-    shoot: any;
+    shot: any;
     enemyAnimation: any;
     getObjectPosition: any;
     takeDamage: any;
@@ -84,7 +84,7 @@ class EnemyObject {
             this.numberOfVerticalItems = data.numberOfVerticalItems;
             this.originalHealthPoint = data.healthPoint;
             this.isMove = data.isMove;
-            this.isShoot = data.isShoot;
+            this.isshot = data.isshot;
             this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed:  Math.floor(Math.random() * data.speed +1);
             this.spotDistance = (data.isBoss)? data.spotDistance : Math.floor(Math.random() * data.spotDistance );
             this.yFinal = 0;
@@ -101,7 +101,7 @@ class EnemyObject {
 EnemyObject.prototype.placeEnemyes = placeEnemyes;
 EnemyObject.prototype.moveEnemyes = moveEnemyes;
 EnemyObject.prototype.loadEnemyes = loadEnemyes;
-EnemyObject.prototype.shoot = shoot;
+EnemyObject.prototype.shot = shot;
 EnemyObject.prototype.enemyAnimation = enemyAnimation;
 EnemyObject.prototype.getObjectPosition = getObjectPosition;
 EnemyObject.prototype.enemyDamageAnimation = enemyDamageAnimation;

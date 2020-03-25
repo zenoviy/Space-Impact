@@ -1,14 +1,23 @@
 <template class="section-template">
     <section id="settings" class="menu-pages-wrapper">
-        <div>
-            <h1>settings</h1>
-            <ul>
-                <li>volume</li>
-                <li>fullscreen</li>
-                <li>autoshoot</li>
-            </ul>
-            <button>ok</button>
-            <button>cancel</button>
+        <div class="menu-screen">
+            <form action="" id="menu-settings-form">
+                <h1>settings</h1>
+
+                <p>Sound level</p>
+                <p id="volume-display"></p>
+                <input name="soundLevel" type="range" min="0" max="100" value="50" class="settings-slider" id="soundLevel">
+
+                <p>Enable sound</p>
+                <label class="switch">
+                    <input name="soundOn" id="soundOn" type="checkbox" checked>
+                    <span class="slider round"></span>
+                  </label>
+                <div>
+                    <button>save</button>
+                    <button>cancel</button>
+                </div>
+            </form>
         </div>
 
         <button data-button-id="close" class="close-button btn-main btn-sticky">close</button>

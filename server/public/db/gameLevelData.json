@@ -10,6 +10,7 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
+        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
@@ -65,6 +66,7 @@
             "name": "long canyon",
             "description": "Large canyon full of enemy"
         },
+        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
             "levelMap" : "/public/images/locations/canyon/canyon.png",
@@ -142,6 +144,7 @@
             "name": "White sand",
             "description": "Huge desert area with lost city"
         },
+        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
         "levelMap" : "desert.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/desert/desert-sky.png",
@@ -225,9 +228,10 @@
             "name": "Cloud city",
             "description": "One of the largest and and modern city of the world"
         },
+        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{
-            "levelMap" : "//public/images/locations/skyCity/city_background_map.png",
+            "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
             "speed": 0.1,
             "description": "first frame"
         },{
@@ -343,6 +347,7 @@
             "name": "In the sky cloud",
             "description": "One of the space impactors try to escape "
         },
+        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",

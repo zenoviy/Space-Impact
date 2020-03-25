@@ -32,6 +32,7 @@ class BulletConstruct{
     numberOfItems: number;
     numberOfVerticalItems: number;
     detectFrame: number;
+    sound: any;
 
 
     createBullets: any;
@@ -64,26 +65,16 @@ class BulletConstruct{
         this.detectFrame = 0;
 
         this.sWidth = data.sWidth; this.sHeight = data.sHeight;
+        this.sound = (data.sound)? data.sound: null;
         //this.picturesWidth = data.picturesWidth;
     }
 }
 
 /*
-this.img,
-        this.sx, this.sy,
-        this.sWidth, this.sHeight,
-        this.x, this.y,
-        this.width,this.height
-
-
-this.sx = data.sx; this.sy = data.sy;
-            this.sWidth = data.sWidth; this.sHeight = data.sHeight;
-            this.picturesWidth = data.picturesWidth; this.numberOfItems = data.numberOfItems; 
-"imageWidth": 3587,
-"imageHeight":109,
-                "animationSteps": 5,
-                "numberOfItems": 12,
-                "numberOfVerticalItems": 1,
+"sound": {
+                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
+                        "soundLoop": false
+                    }
             */
 
 BulletConstruct.prototype.createBullets = createBullets;

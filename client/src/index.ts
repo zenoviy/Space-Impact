@@ -13,6 +13,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
     var wrapper = document.querySelector("#wrapper")
     var mainMenu = document.querySelector("#main-menu")
+
     /*  gameEngineInit  */
     var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip)
     if(!gameState){
@@ -30,17 +31,26 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     gameObject.setGameFields()
     gameObject.getScreenSize()
 
+
     let contexts = gameObject.returnContext()
 
     //  create context
     playerShipData.ctx = contexts.gameActionField
+
+
+
     // ship move
     playerShipData.initPlayerShip(gameObject)
     playerShipData.shipControl(gameObject)
 
+
     /*  init electron App memnu  */
     const navigation = appMenu(gameObject, dialogWindow)
     navigation.menu.init()
+
+    gameObject.gameSettingsMenuInit()
+    let levelSound = gameObject.createSound(constructors.SoundCreator)
+
 
     /*   game engin runing   */
     async function gameInterval(){
@@ -87,7 +97,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                             y: playerShipData.y
                         }, gameObject);
                         enemy.enemyAnimation(true);
-                        enemy.shoot(constructors.BulletConstruct, gameObject)
+                        enemy.shot(constructors.BulletConstruct, gameObject)
                         gameObject.deleteObjects(enemy)
                         gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
                     }

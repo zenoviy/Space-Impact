@@ -18,7 +18,7 @@ function gameUiMenu(gameUiPause){
     this.gameInitData.gamePause = (gameUiPause)? false: true;
 }
 function uiController(){
-
+    let gameData = this.showGameInfo()
     let controlKeys = this.gameInitData.gameData.gameSetings.keyControls;
     let gameObject = this;
 

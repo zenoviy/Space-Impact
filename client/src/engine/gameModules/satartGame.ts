@@ -1,4 +1,4 @@
-import { getData } from '../../server/serverRequestModules';
+import { getData, getLocalData } from '../../server/serverRequestModules';
 import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
 const remote = require('electron').remote
@@ -52,12 +52,7 @@ async function serverRequest(gameInformation){
             data: null,
             headers:{ 'grappleObject': levelData.grappleObject}
         })
-        const gameSetings = await getData({
-            url: serverLocation.host + serverLocation.gameSetings.url,
-            method: serverLocation.gameSetings.method,
-            data: null,
-            headers: null
-        })
+        const gameSetings = await getLocalData({ fileName: 'game-settings.json' })
         const userData = await getData({
             url: serverLocation.host + serverLocation.userShip.url,
             method: serverLocation.userShip.method,
@@ -145,6 +140,7 @@ async function gameDataInit(PlayerShip){
                 levelData: levelData,
                 levelObjects: levelObjects,
                 grappleObjects: grappleObjects,
+                levelSounds: null,
                 gameSetings: gameSetings,
                 enemyData: enemyData,
                 controllers: null

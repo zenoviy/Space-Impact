@@ -3,7 +3,7 @@ import { fireAnimationEnded, mapObjectMove } from '../engine/gameSideObjectsModu
 import { placeEnemyes,
     moveEnemyes,
     loadEnemyes,
-    shoot, enemyAnimation,
+    shot, enemyAnimation,
     takeDamage,
     enemyDamageAnimation,
     spawnCoin} from '../enemies/enemiesModules';

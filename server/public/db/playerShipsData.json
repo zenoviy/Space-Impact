@@ -61,6 +61,10 @@
                     "width": 50,
                     "height": 50
                 },
+                "sound": {
+                    "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                    "soundLoop": false
+                },
                 "type": "blaster",
                 "fireRepead": 3,
                 "speed": 6,

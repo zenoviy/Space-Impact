@@ -41,7 +41,7 @@ app.get('/game', cors(), (req, res) => {
     })
 })
 
-app.get('/api/game-settings', cors(), getGameData)
+//app.get('/api/game-settings', cors(), getGameData)
 app.get('/api/level-data', cors(), getLevelData)
 app.get('/api/level-objects', cors(), getLevelObjects)
 app.get('/api/grapple-objects', cors(), getGrappleObjects)

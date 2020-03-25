@@ -36,6 +36,8 @@ import {
 import { gameStart, backToStartScreen, exitTheGame } from '../engine/gameModules/satartGame';
 import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
 import { initGrappleObject } from '../engine/gameGrappleObjectsModule';
+import { gameSettingsMenuInit } from '../appMenu/menuSettings';
+import { createSound } from '../engine/soundModules';
 
 
 interface gameData{
@@ -129,6 +131,8 @@ class Game {
     getRandomColor: any;
     mapRanomObjectSpawn: any;
     initGrappleObject: any;
+    gameSettingsMenuInit: any;
+    createSound: any;
     constructor(gameInitData: any){
         this.gameInitData = gameInitData;
     }
@@ -141,6 +145,8 @@ class Game {
             levelToChange: this.gameInitData.gameData.currentLevel,
             currentPoint: this.gameInitData.gameData.currentPoint,
             gameData: this.gameInitData.gameData,
+            settings: this.gameInitData.gameData.gameSetings,
+            levelSounds: this.gameInitData.gameData.levelSounds,
             imageDirrection: __dirname + '/public/images/',
         }
     }
@@ -211,7 +217,8 @@ Game.prototype.getRandomColor = getRandomColor;
 Game.prototype.mapRanomObjectSpawn = mapRanomObjectSpawn;
 
 Game.prototype.initGrappleObject = initGrappleObject;
-
+Game.prototype.gameSettingsMenuInit = gameSettingsMenuInit;
+Game.prototype.createSound = createSound;
 export {
     Game,
 }

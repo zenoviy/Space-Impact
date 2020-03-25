@@ -7,7 +7,7 @@
             "objectOwner": "enemy",
             "behavior": ["patrool", "find"],
             "isMove": true,
-            "isShoot": true,
+            "isShot": true,
             "spotDistance": 500,
             "healthPoint": 60,
             "bulletType": 1,
@@ -69,6 +69,10 @@
                         "width": 50,
                         "height": 50
                     },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
+                        "soundLoop": false
+                    },
                     "type": "blaster",
                     "fireRepead": 50,
                     "speed": 6,
@@ -96,7 +100,7 @@
             "objectOwner": "enemy",
             "behavior": ["attack"],
             "isMove": true,
-            "isShoot": false,
+            "isShot": false,
             "spotDistance": 300,
             "healthPoint": 200,
             "bulletType": 1,
@@ -159,6 +163,10 @@
                         "height": 50,
                         "central": true
                     },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
+                        "soundLoop": false
+                    },
                     "type": "blaster",
                     "fireRepead": 50,
                     "speed": 6,
@@ -186,7 +194,7 @@
             "objectOwner": "enemy",
             "behavior": ["patrool", "find"],
             "isMove": true,
-            "isShoot": true,
+            "isShot": true,
             "spotDistance": 500,
             "healthPoint": 260,
             "bulletType": 1,
@@ -249,6 +257,10 @@
                         "height": 50,
                         "central": true
                     },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
+                        "soundLoop": false
+                    },
                     "type": "blaster",
                     "fireRepead": 50,
                     "speed": 6,
@@ -280,6 +292,10 @@
                         "height": 50,
                         "central": true
                     },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
+                        "soundLoop": false
+                    },
                     "type": "blaster",
                     "fireRepead": 50,
                     "speed": 6,
@@ -307,7 +323,7 @@
             "objectOwner": "enemy",
             "behavior": ["comeEndFind"],
             "isMove": true,
-            "isShoot": true,
+            "isShot": true,
             "isBoss": true,
             "spotDistance": 1000,
             "healthPoint": 152,
@@ -372,6 +388,10 @@
                         "height": 50,
                         "central": true
                     },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
+                        "soundLoop": false
+                    },
                     "type": "blaster",
                     "fireRepead": 20,
                     "speed": 6,
@@ -402,6 +422,10 @@
                         "width": 90,
                         "height": 90,
                         "central": true
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
+                        "soundLoop": false
                     },
                     "type": "beam",
                     "fireRepead": 90,

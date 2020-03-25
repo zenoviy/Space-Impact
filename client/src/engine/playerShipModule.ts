@@ -3,6 +3,7 @@
 import * as methods from '../engine';
 
 import * as constructors from '../constructors/';
+import { initSoundObject } from './soundModules';
 import * as view from '../view/';
 
 function initPlayerShip(mainGameObject: any){
@@ -53,8 +54,12 @@ function shipControl(mainGameObject: any){
                 damage: item.damage, type: item.type, texture: item.texture,
                 sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
                 explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
-                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems
-                /**/
+                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
+                sound: item.sound
+                /*"sound": {
+                    "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                    "soundLoop": false
+                },*/
             });
             bullet.img.src = bullet.texture;
             bullet.img.onload = () => {

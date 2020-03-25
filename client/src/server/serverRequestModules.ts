@@ -33,6 +33,16 @@ async function getLocalData({fileName}){
     return res
 }
 
+
+async function writeLocalData({fileName, data}){
+    if(!fileName) throw Error("no local files");
+    fs.writeFile(__dirname + '/public/data/' + fileName, data, (err) => {
+        if(err) throw err;
+    })
+}
+
+
+
 function postData({url, method, data, headers}){
     let resultHeader = Object.assign({
         'Content-Type': 'application/json'}, headers || false)
@@ -50,5 +60,6 @@ function postData({url, method, data, headers}){
 export {
     getData,
     getLocalData,
+    writeLocalData,
     postData
 };

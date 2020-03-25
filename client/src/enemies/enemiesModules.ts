@@ -31,8 +31,8 @@ function loadEnemyes(){         ///  need replace  and remove
 
 
 
-function shoot(BulletConstruct, mainGameObject){
-    if(mainGameObject.gameInitData.gamePause || !this.isShoot) return false;
+function shot(BulletConstruct, mainGameObject){
+    if(mainGameObject.gameInitData.gamePause || !this.isshot) return false;
 
     let guns = this.guns;
     for(let item of guns){
@@ -209,7 +209,7 @@ export  {
     placeEnemyes,
     moveEnemyes,
     loadEnemyes,
-    shoot,
+    shot,
     enemyAnimation,
     hitDetection,
     takeDamage,
