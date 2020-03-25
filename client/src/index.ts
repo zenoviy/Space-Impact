@@ -8,6 +8,9 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
 
 (async function init(){
+    process.env.MAIN_GAME_SOUND = '';
+    process.env.MAIN_GAME_SOUND_ON = '';
+    process.env.GAME_STATUS = '';
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
 
@@ -97,7 +100,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                             y: playerShipData.y
                         }, gameObject);
                         enemy.enemyAnimation(true);
-                        enemy.shot(constructors.BulletConstruct, gameObject)
+                        enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator)
                         gameObject.deleteObjects(enemy)
                         gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
                     }

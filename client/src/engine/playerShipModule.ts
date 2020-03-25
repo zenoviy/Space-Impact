@@ -42,7 +42,7 @@ function shipControl(mainGameObject: any){
         }
     })
     document.addEventListener("click", (e: any) => {
-        if(mainGameObject.gameInitData.gamePause) return false;
+        if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
         let guns = this.data.guns;
         for(let item of guns){
             let context = this;
@@ -56,11 +56,14 @@ function shipControl(mainGameObject: any){
                 explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
                 animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
                 sound: item.sound
-                /*"sound": {
-                    "levelSound": "/public/sound/weapons/laser_sms.mp3",
-                    "soundLoop": false
-                },*/
             });
+
+            let soundProps = {
+                soundUrl: bullet.sound.levelSound,
+                soundLoop: bullet.sound.soundLoop,
+            }
+            console.log("Player shoot sound", process.env.MAIN_GAME_SOUND_ON)
+            bullet.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
             bullet.img.src = bullet.texture;
             bullet.img.onload = () => {
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)

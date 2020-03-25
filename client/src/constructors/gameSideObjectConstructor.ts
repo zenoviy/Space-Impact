@@ -32,6 +32,7 @@ class SideObject{
     isBackground: boolean; explosion: any; pointsPerUnit: number;
     extraObjects: any;
     collideExplosionAnimation: any;
+    sound: any;
 
     fireAnimationEnded: any;
     placeEnemyes: any;
@@ -62,6 +63,7 @@ class SideObject{
             this.pointsPerUnit = (data.pointsPerUnit)? data.pointsPerUnit : 0;
             this.extraObjects = (data.extraObjects)? data.extraObjects : 0;
             this.collideExplosionAnimation = data.collideExplosionAnimation;
+            this.sound = (data.sound)? data.sound : null;
     }
 }
 

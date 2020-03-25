@@ -129,7 +129,7 @@ async function createNewEnemy(enemyData, EnemyObject){
             picturesWidth: shipDetails.imageWidth, numberOfItems: shipDetails.numberOfItems,
             width: shipDetails.width, height: shipDetails.height,
             shipTexture: shipDetails.skinName,
-            speed: shipDetails.speed,
+            speed: shipDetails.speed, isShot: shipDetails.isShot,
             status: shipDetails.status, name: shipDetails.name,
             bulletTypeNumber: shipDetails.bulletType, rapidFire: shipDetails.rapidFire, pointsPerUnit: shipDetails.pointsPerUnit,
             healthPoint: shipDetails.healthPoint, animationSteps: shipDetails.animationSteps, damage: shipDetails.damage,
@@ -137,7 +137,6 @@ async function createNewEnemy(enemyData, EnemyObject){
             numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
             spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null,
             isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false, extraObjects: extraObjects, collideExplosionAnimation: shipDetails.collideExplosionAnimation  // load coin element from server 
-        
         });
     }
 }

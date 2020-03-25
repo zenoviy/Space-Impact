@@ -28,6 +28,10 @@ function gameSettingsMenu({...data}){
     settingsMenu.soundLevel['value'] = (data.soundLevel)? data.soundLevel: 0;
 
     settingsMenu.soundOnSwitcher['checked'] = data.soundOn;
+
+
+    process.env.MAIN_GAME_SOUND_ON = data.soundOn.toString()
+    process.env.MAIN_GAME_SOUND = data.soundLevel.toString()
 }
 
 
@@ -51,8 +55,8 @@ function gameSettingsMenuInit(){
     menuSettingsForm.addEventListener('change', function(event){
         event.preventDefault()
         let data = transformMenuData(this)
-        console.log(gameData.gameData.levelSounds)
         gameSettingsMenu(data)
+
         gameData.gameData.levelSounds.changeVolume({volume: data.soundLevel})
         gameData.gameData.levelSounds.turnSoundOff({value: data.soundOn})
 

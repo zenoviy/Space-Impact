@@ -84,7 +84,7 @@ async function gameDataInit(PlayerShip){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 5, shipType = 1, shipLife = 5;
+        let level = 4, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -175,6 +175,8 @@ async function gameEngine(gameDataInit){
 
 }
 function gameStart(){
+    console.log("preload sound stop")
+    console.log("level music")
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = true;
 }

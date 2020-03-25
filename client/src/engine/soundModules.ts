@@ -3,20 +3,13 @@ import { SoundCreator } from "../constructors/soundConstructor";
 function createSound(SoundCreator){
     let gameData = this.showGameInfo().gameData;
     let pageSettings = gameData.gameSetings;
-    /*let levelData = gameData.levelData;
-    let data = {
-        soundUrl: levelData.levelSound,
-        soundLoop: true,
-        soundOn: this.showGameInfo().gameData.gameSetings.soundOn,
-        volume: this.showGameInfo().gameData.gameSetings.soundLevel
-    }
-    gameData.levelSounds = new SoundCreator(data);
-    gameData.levelSounds.initSound({levelSound: levelData.levelSound, volume: this.showGameInfo().gameData.gameSetings.soundLevel})
-    return gameData.levelSounds*/
     let soundProps = {
         soundUrl: '/public/sound/ambiant/01 Born To Be Wild.mp3',
         soundLoop: true,
+        volume: pageSettings.soundLevel
     }
+    process.env.MAIN_GAME_SOUND = pageSettings.soundLevel.toString()
+    console.log("preload sound")
     gameData.levelSounds = initSoundObject({SoundCreator: SoundCreator, mainGameObject: this, soundProps: soundProps })
     return gameData.levelSounds
 }
@@ -26,20 +19,19 @@ function initSoundObject({SoundCreator, mainGameObject, soundProps} ){
     let levelData = gameData.levelData;
 
     let data = {
-        soundUrl: levelData.levelSound,
+        soundUrl: soundProps.soundUrl,
         soundLoop: soundProps.soundLoop,
         soundOn: pageSettings.soundOn,
-        volume: pageSettings.soundLevel
+        volume: process.env.MAIN_GAME_SOUND
     }
     let sound = new SoundCreator(data);
-    console.log(pageSettings)
-    sound.initSound({levelSound: levelData.levelSound, volume: pageSettings.soundLevel})
+    sound.initSound({levelSound: soundProps.soundUrl, volume: data.volume})
     return sound
 }
 
 function changeVolume({volume}){
-    this.volume = volume;
-    this.soundObject.volume = (this.soundOn)?volume/100: 0;
+    this.volume = process.env.MAIN_GAME_SOUND;
+    this.soundObject.volume = (process.env.MAIN_GAME_SOUND_ON === 'true')?volume/1000: 0;
 }
 function changeTrack({url}){
     this.soundObject.src = __dirname + url;

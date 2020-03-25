@@ -48,7 +48,7 @@ class EnemyObject {
     detectFrame: number; objectPresent: boolean;
     damage: number; guns: any; objectOwner: string;
     explosion: explosionAnimation; numberOfVerticalItems: number;
-    originalHealthPoint: number; isMove: boolean; isshot: boolean;
+    originalHealthPoint: number; isMove: boolean; isShot: boolean;
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
     direction: string; isBoss: boolean;
     extraObjects: any[]; collideExplosionAnimation: any;
@@ -84,7 +84,7 @@ class EnemyObject {
             this.numberOfVerticalItems = data.numberOfVerticalItems;
             this.originalHealthPoint = data.healthPoint;
             this.isMove = data.isMove;
-            this.isshot = data.isshot;
+            this.isShot = data.isShot;
             this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed:  Math.floor(Math.random() * data.speed +1);
             this.spotDistance = (data.isBoss)? data.spotDistance : Math.floor(Math.random() * data.spotDistance );
             this.yFinal = 0;

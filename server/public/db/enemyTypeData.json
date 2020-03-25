@@ -40,7 +40,11 @@
                 "sy": 0,
                 "width": 30,
                 "height": 30,
-                "central": true
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                    "soundLoop": false
+                }
             },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
@@ -52,7 +56,11 @@
                 "sy": 0,
                 "width": 50,
                 "height": 50,
-                "central": true
+                "central": true,
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                        "soundLoop": false
+                    }
             },
             "guns":[
                 {
@@ -67,7 +75,11 @@
                         "sx": 0,
                         "sy": 0,
                         "width": 50,
-                        "height": 50
+                        "height": 50,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
                     },
                     "sound": {
                         "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
@@ -134,7 +146,11 @@
                 "sy": 0,
                 "width": 90,
                 "height": 90,
-                "central": true
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                    "soundLoop": false
+                }
             },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
@@ -146,7 +162,11 @@
                 "sy": 0,
                 "width": 50,
                 "height": 50,
-                "central": true
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                    "soundLoop": false
+                }
             }, "guns":[
                 {
                     "name": "blaster",
@@ -161,7 +181,11 @@
                         "sy": 0,
                         "width": 50,
                         "height": 50,
-                        "central": true
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
                     },
                     "sound": {
                         "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
@@ -227,7 +251,11 @@
                 "sy": 0,
                 "width": 90,
                 "height": 90,
-                "central": true
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                    "soundLoop": false
+                }
             },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
@@ -239,7 +267,11 @@
                 "sy": 0,
                 "width": 50,
                 "height": 50,
-                "central": true
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                    "soundLoop": false
+                }
             },
             "guns":[
                 {
@@ -255,7 +287,11 @@
                         "sy": 0,
                         "width": 50,
                         "height": 50,
-                        "central": true
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
                     },
                     "sound": {
                         "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
@@ -290,7 +326,11 @@
                         "sy": 0,
                         "width": 50,
                         "height": 50,
-                        "central": true
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
                     },
                     "sound": {
                         "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
@@ -358,7 +398,11 @@
                 "sy": 0,
                 "width": 70,
                 "height": 70,
-                "central": true
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                    "soundLoop": false
+                }
             },
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion-blue.png",
@@ -370,7 +414,11 @@
                 "sy": 0,
                 "width": 155,
                 "height": 155,
-                "central": true
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                    "soundLoop": false
+                }
             },
             "guns":[
                 {
@@ -386,7 +434,11 @@
                         "sy": 0,
                         "width": 50,
                         "height": 50,
-                        "central": true
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
                     },
                     "sound": {
                         "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
@@ -421,7 +473,11 @@
                         "sy": 0,
                         "width": 90,
                         "height": 90,
-                        "central": true
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
                     },
                     "sound": {
                         "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",

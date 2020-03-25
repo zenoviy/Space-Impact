@@ -9,7 +9,8 @@ class SoundCreator{
     duration: number;
     soundLoop: boolean;
     soundOn: boolean;
-    volume: number
+    volume: string;
+    defaultUrl: string;
 
     soundObject: any;
 
@@ -25,7 +26,8 @@ class SoundCreator{
         this.soundUrl = __dirname + data.soundUrl;
         this.soundLoop = data.soundLoop;
         this.soundOn = data.soundOn;
-        this.volume = data.volume;
+        this.volume = process.env.MAIN_GAME_SOUND;
+        this.defaultUrl = (data.defaultUrl)? data.defaultUrl: null
     }
 }
 

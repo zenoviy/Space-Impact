@@ -1,5 +1,7 @@
 import { timingSafeEqual } from "crypto";
 import { loadExtraObject } from "../ai/regularEnemyAiModules";
+import * as constructors from '../constructors/';
+import { initSoundObject } from './soundModules';
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
@@ -20,9 +22,17 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
             numberOfItems: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
             texture: targetData[explosion].texture,
             speed: hitObject.speed/2,
-            picturesWidth: targetData[explosion].imageWidth
+            picturesWidth: targetData[explosion].imageWidth,
+            sound: targetData[explosion].sound
         }
         let sideObject = new SideObject({...explosionData});
+        console.log("explosion sound", sideObject.sound)
+
+        /**/let soundProps = {
+            soundUrl: sideObject.sound.levelSound,
+            soundLoop: sideObject.sound.soundLoop,
+        }
+        sideObject.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
         sideObject.img.onload = () => {
             mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
         }
@@ -53,6 +63,7 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
         let gameData = this.showGameInfo().gameData;
         let levelData = gameData.levelData;
         let spawnProbability = this.gameRandomizer(levelData.objectProbability);
+        let context = this;
         if(spawnProbability < levelData.objectMinTimeSpawn){
             let screenData  = this.getScreenSize();
             let levelObjectProps = levelObjects[this.gameRandomizer(levelObjects.length)];
@@ -86,7 +97,8 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
                 explosion: levelObjectProps.explosionAnimation,
                 pointsPerUnit: levelObjectProps.pointsPerUnit,
                 extraObjects: extraObjects,
-                collideExplosionAnimation: (levelObjectProps.collideExplosionAnimation)? levelObjectProps.collideExplosionAnimation: null
+                collideExplosionAnimation: (levelObjectProps.collideExplosionAnimation)? levelObjectProps.collideExplosionAnimation: null,
+                sound: levelObjectProps.sound
             }
             let sideObject = new SideObject({...explosionData});
             sideObject.img.src = sideObject.texture;

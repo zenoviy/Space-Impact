@@ -1,7 +1,9 @@
+import * as costructors from '../constructors/index';
 import { createImage } from '../view/displayModules';
 import { explosionFire } from '../engine/gameSideObjectsModule';
-import { loadGrabbleToSideObject } from '../engine/gameGrappleObjectsModule'
-import * as costructors from '../constructors';
+import { loadGrabbleToSideObject } from '../engine/gameGrappleObjectsModule';
+import { initSoundObject } from '../engine/soundModules';
+
 
 function placeEnemyes(mainGameObject){
     createImage(
@@ -31,9 +33,8 @@ function loadEnemyes(){         ///  need replace  and remove
 
 
 
-function shot(BulletConstruct, mainGameObject){
-    if(mainGameObject.gameInitData.gamePause || !this.isshot) return false;
-
+function shot(BulletConstruct, mainGameObject, SoundCreator){
+    if(mainGameObject.gameInitData.gamePause || !this.isShot) return false;
     let guns = this.guns;
     for(let item of guns){
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead )){
@@ -46,9 +47,17 @@ function shot(BulletConstruct, mainGameObject){
                 damage: item.damage, type: item.type, texture: item.texture,
                 sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
                 explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
-                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems
+                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
+                sound: item.sound
             });
             bullet.img.src = bullet.texture;
+            console.log("enemy shoot")
+
+            let soundProps = {
+                soundUrl: bullet.sound.levelSound,
+                soundLoop: bullet.sound.soundLoop,
+            }
+            bullet.sound.soundObject = initSoundObject({SoundCreator: SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
             bullet.img.onload = () => {
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
                 }
