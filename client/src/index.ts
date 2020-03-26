@@ -1,5 +1,7 @@
 import '../sass/main.sass';
 
+
+
 var path = require('path');
 import * as gameDataModules from './engine/gameModules';
 import * as constructors from './constructors';
@@ -33,7 +35,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     const navigation = appMenu(gameObject, dialogWindow)
     navigation.menu.init()
 
-    gameObject.gameSettingsMenuInit()
+    await gameObject.gameSettingsMenuInit()
     gameObject.createSound(constructors.SoundCreator)
    var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
 

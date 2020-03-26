@@ -1,4 +1,4 @@
-import { writeLocalData } from '../server/serverRequestModules';
+import { writeLocalData, getElectronLocalData, writeElectronLocalData } from '../server/serverRequestModules';
 
 interface settingsData {
     soundLevel: number,
@@ -43,21 +43,50 @@ function gameSettingsMenu({...data}){
 }
 
 
-function gameSettingsMenuInit(){
+async function gameSettingsMenuInit(){
+    const defaultData = {
+        "soundLevel":"29",
+        "soundEffect":"9",
+        "soundOn":false,
+        "autoshoot":false,
+        "fullScreen":false,
+        "keyControls":{
+            "up":[87,38,104],
+            "right":[68,39,102],
+            "down":[83,40,98],
+            "left":[65,37,100],
+            "escape":[27],
+            "pause":[80]},
+        "screenResolution":{
+            "title":"800x600",
+            "width":800,
+            "height":600
+        },
+        "screenVariaton":[
+            {
+                "title":"800x600",
+                "width":800,
+                "height":600
+            },{
+                "title":"800x600",
+                "width":1366,
+                "height":685
+            }
+        ]}
     const menuSettingsForm = document.querySelector('#menu-settings-form');
     const context = this;
-    let gameData = this.showGameInfo();
-    let settingsData: settingsData = gameData.settings;
+    let gameData = await this.showGameInfo();
+    let settingsData: settingsData = await gameData.settings;
 
-    let data: settingsData = {
-        soundLevel: settingsData.soundLevel,
-        soundEffect: settingsData.soundEffect,
-        soundOn: settingsData.soundOn,
-        autoshoot: settingsData.autoshoot,
-        fullScreen: settingsData.fullScreen,
-        keyControls: settingsData.keyControls,
-        screenResolution: settingsData.screenResolution,
-        screenVariaton: settingsData.screenVariaton
+    let data: settingsData = await {
+        soundLevel: await settingsData.soundLevel,
+        soundEffect: await settingsData.soundEffect,
+        soundOn: await settingsData.soundOn,
+        autoshoot: await settingsData.autoshoot,
+        fullScreen: await settingsData.fullScreen,
+        keyControls: await settingsData.keyControls,
+        screenResolution: await settingsData.screenResolution,
+        screenVariaton: await settingsData.screenVariaton
     }
 
     gameSettingsMenu(data)
@@ -74,6 +103,7 @@ function gameSettingsMenuInit(){
         event.preventDefault()
         let menuData = transformMenuData(this)
         let settingsResult = replaceData({newData: menuData, settingsData: data});
+        writeElectronLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
         writeLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
     })
 }

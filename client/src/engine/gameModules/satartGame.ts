@@ -1,4 +1,4 @@
-import { getData, getLocalData } from '../../server/serverRequestModules';
+import { getData, getLocalData, getElectronLocalData } from '../../server/serverRequestModules';
 import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
 const remote = require('electron').remote
@@ -53,7 +53,9 @@ async function serverRequest(gameInformation){
             headers:{ 'grappleObject': levelData.grappleObject}
         })
         const preloadData = await getLocalData({ fileName: 'preloadData.json' })
-        const gameSetings = await getLocalData({ fileName: 'game-settings.json' })
+
+        const gameSetings: any = await getElectronLocalData({ fileName: 'game-settings.json' })
+        console.log(gameSetings)
         const userData = await getData({
             url: serverLocation.host + serverLocation.userShip.url,
             method: serverLocation.userShip.method,
@@ -75,7 +77,7 @@ async function serverRequest(gameInformation){
             levelObjects: levelObjects,
             grappleObjects : grappleObjects,
             preloadData: preloadData,
-            gameSetings: gameSetings,
+            gameSetings: await gameSetings,
             userData: userData,
             enemyData: enemyData
         }
@@ -96,6 +98,7 @@ async function gameDataInit(PlayerShip, soundObject){
         const userData = res.userData;
         const enemyData = res.enemyData;
 
+        console.log(gameSetings, "<<")
         if(levelData.status === "error" || levelObjects === "error" || grappleObjects === "error" ||
         levelData.gameSetings === "error" || userData === "error" || enemyData === "error"){
             loadWindow({loadStatus: "serverError"})

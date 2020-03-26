@@ -46,8 +46,11 @@ const configuration = {
                     includePaths: [path.resolve(__dirname)],
                   },
                 },
-              },
+              }
             ]
+          },{
+            test: /\.json$/,
+            loader: 'json-loader'
           },{
             test: /\.(png|jpe?g|gif)$/i,
             loader: 'file-loader',
