@@ -9,6 +9,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
 (async function init(){
     process.env.MAIN_GAME_SOUND = '';
+    process.env.MAIN_GAME_SOUND_EFFECTS = '';
     process.env.MAIN_GAME_SOUND_ON = '';
     process.env.GAME_STATUS = '';
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
@@ -18,7 +19,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     var mainMenu = document.querySelector("#main-menu")
 
     /*  gameEngineInit  */
-    var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip)
+    var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip, null)
     if(!gameState){
         let navigation = appMenu(gameObject, dialogWindow)
         navigation.menu.init()
@@ -28,6 +29,12 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     var gameObject = await new constructors.Game(gameState.data)
     var playerShipData = gameObject.gameInitData.gameData.playerObject;
 
+    /*  init electron App memnu  */
+    const navigation = appMenu(gameObject, dialogWindow)
+    navigation.menu.init()
+
+    gameObject.gameSettingsMenuInit()
+    gameObject.createSound(constructors.SoundCreator)
    var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
 
     gameObject.uiController()
@@ -47,12 +54,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     playerShipData.shipControl(gameObject)
 
 
-    /*  init electron App memnu  */
-    const navigation = appMenu(gameObject, dialogWindow)
-    navigation.menu.init()
 
-    gameObject.gameSettingsMenuInit()
-    let levelSound = gameObject.createSound(constructors.SoundCreator)
 
 
     /*   game engin runing   */

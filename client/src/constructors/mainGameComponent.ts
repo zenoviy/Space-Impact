@@ -33,7 +33,7 @@ import {
     gameWinWindow,
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
-import { gameStart, backToStartScreen, exitTheGame } from '../engine/gameModules/satartGame';
+import { gameStart, backToStartScreen, exitTheGame, mapSoundChanger } from '../engine/gameModules/satartGame';
 import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
 import { initGrappleObject } from '../engine/gameGrappleObjectsModule';
 import { gameSettingsMenuInit } from '../appMenu/menuSettings';
@@ -124,6 +124,7 @@ class Game {
     initUiElements: any;
     gameUiMenu: any;
     gameStart: any;
+    mapSoundChanger: any;
     backToStartScreen: any;
     exitTheGame: any;
     showPauseWindow: any;
@@ -207,6 +208,7 @@ Game.prototype.gameWinWindow = gameWinWindow;
 Game.prototype.showGameStats = showGameStats;
 Game.prototype.initUiElements  = initUiElements;
 
+Game.prototype.mapSoundChanger = mapSoundChanger;
 Game.prototype.gameStart = gameStart;
 Game.prototype.backToStartScreen = backToStartScreen;
 Game.prototype.exitTheGame = exitTheGame;

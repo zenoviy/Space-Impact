@@ -13,6 +13,8 @@ async function nextLevelDataReload(levelData){
             levelData: serverNewData.levelData,
             levelObjects: serverNewData.levelObjects,
             grappleObjects: serverNewData.grappleObjects,
+            levelSounds: context.gameInitData.gameData.levelSounds,
+            preloadData: context.gameInitData.gameData.preloadData,
             gameSetings: context.gameInitData.gameData.gameSetings,
             enemyData: serverNewData.enemyData,
             controllers: context.gameInitData.gameData.controllers
@@ -30,15 +32,17 @@ async function nextLevelDataReload(levelData){
         grappleObjectOnScreen: false,
         gemeExtraSeconds: 0,
     }
+
     setTimeout(()=>{
         context.gameInitData.warpObjects = [];
         context.gameInitData.timeToEressLevel = 6;
         context.gameInitData.levelChange = false;
         context.gameInitData.levelWindowDescription = false;
+        
     }, 5000)
 
     horizontalVerticalSearch.call(this, this.gameInitData)
-
+    this.mapSoundChanger({soundStatus:'regular_level'})
     function horizontalVerticalSearch(mainObject){
         for(let [key, value] of Object.entries(mainObject)){
             if(typeof mainObject[key] == 'object' && value != null && !mainObject[key].length ){

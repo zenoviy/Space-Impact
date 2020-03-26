@@ -52,6 +52,7 @@ async function serverRequest(gameInformation){
             data: null,
             headers:{ 'grappleObject': levelData.grappleObject}
         })
+        const preloadData = await getLocalData({ fileName: 'preloadData.json' })
         const gameSetings = await getLocalData({ fileName: 'game-settings.json' })
         const userData = await getData({
             url: serverLocation.host + serverLocation.userShip.url,
@@ -73,22 +74,24 @@ async function serverRequest(gameInformation){
             levelData: levelData,
             levelObjects: levelObjects,
             grappleObjects : grappleObjects,
+            preloadData: preloadData,
             gameSetings: gameSetings,
             userData: userData,
             enemyData: enemyData
         }
 }
-async function gameDataInit(PlayerShip){
+async function gameDataInit(PlayerShip, soundObject){
     loadWindow({loadStatus: "load"})
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 4, shipType = 1, shipLife = 5;
+        let level = 2, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
         const grappleObjects = res.grappleObjects;
+        const preloadData = res.preloadData;
         const gameSetings = res.gameSetings;
         const userData = res.userData;
         const enemyData = res.enemyData;
@@ -140,7 +143,8 @@ async function gameDataInit(PlayerShip){
                 levelData: levelData,
                 levelObjects: levelObjects,
                 grappleObjects: grappleObjects,
-                levelSounds: null,
+                levelSounds:  (soundObject)? soundObject: null,
+                preloadData: preloadData,
                 gameSetings: gameSetings,
                 enemyData: enemyData,
                 controllers: null
@@ -175,13 +179,37 @@ async function gameEngine(gameDataInit){
 
 }
 function gameStart(){
-    console.log("preload sound stop")
-    console.log("level music")
+    this.mapSoundChanger({soundStatus:'regular_level'})
+
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = true;
 }
+
+function mapSoundChanger({soundStatus}){
+    let gameData = this.showGameInfo().gameData;
+    let mapSound = gameData.levelData.levelSound;
+    let gameSoundObject = gameData.levelSounds;
+
+    switch(soundStatus){
+        case 'start_screen':
+            mapSound = gameData.preloadData.startSound;
+            break
+        case 'regular_level':
+            mapSound = gameData.levelData.levelSound;
+            break
+        default:
+            mapSound
+    }
+    console.log("level musicchange", soundStatus, gameData.levelData)
+
+    gameSoundObject.changeTrack({url: mapSound})
+    gameSoundObject.soundPlay()
+}
+
+
 async function backToStartScreen(PlayerShip){
-    let newInitdata = await gameDataInit(PlayerShip);
+    let soundObject = this.showGameInfo().gameData.levelSounds;
+    let newInitdata = await gameDataInit(PlayerShip, soundObject);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
 
     for(let [key, value] of Object.entries( newInitdata.data)){
@@ -189,6 +217,7 @@ async function backToStartScreen(PlayerShip){
                 this.gameInitData[key] = value
         };
     }
+    this.mapSoundChanger({soundStatus:'start_screen'})
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = false;
 }
@@ -204,5 +233,6 @@ export {
     gameEngine,
     gameStart,
     backToStartScreen,
-    exitTheGame
+    exitTheGame,
+    mapSoundChanger
 }

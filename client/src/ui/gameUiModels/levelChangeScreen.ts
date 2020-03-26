@@ -1,7 +1,6 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 
 function levelChangeScreen(data: any,ctx: any, width: number, height: number, pictureDirrection: any, info: any){
-    console.log(info.sourse.levelData)
     let levelData = info.sourse.levelData;
     return data || [
         {

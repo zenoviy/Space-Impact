@@ -54,8 +54,12 @@ function warpEffect(){
         let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
+            //console.log('change music')
+            
+
             this.gameInitData.levelWindowDescription = true;
             this.changeLevelProcedure()
+            //this.mapSoundChanger({soundStatus:'regular_level'})
         }
     }
 }

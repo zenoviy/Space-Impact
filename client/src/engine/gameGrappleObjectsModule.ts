@@ -28,7 +28,8 @@ async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
             explosion: target.explosionAnimation,
             pointsPerUnit: target.pointsPerUnit,
             isGrapple: target.isGrapple,
-            grapplePower: target.grapplePower
+            grapplePower: target.grapplePower,
+            sound: target.sound
         }
         let grappleObject = new GrappleObject({...objectData});
         grappleObject.img.onload = () => {

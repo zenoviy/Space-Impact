@@ -1,9 +1,10 @@
 import { writeLocalData } from '../server/serverRequestModules';
 
 interface settingsData {
-    soundLevel: number;
-    soundOn: boolean;
-    autoshoot: boolean;
+    soundLevel: number,
+    soundOn: boolean,
+    soundEffect: number,
+    autoshoot: boolean,
     fullScreen: boolean,
     screenResolution: {
         title: string,
@@ -15,6 +16,7 @@ interface settingsData {
 }
 interface returnSettings {
     soundLevel: number;
+    soundEffect: number;
     soundOn: boolean;
 }
 
@@ -22,16 +24,22 @@ function gameSettingsMenu({...data}){
     const settingsMenu = {
         volumeDisplay: document.querySelector('#volume-display'),
         soundLevel: document.querySelector('#soundLevel'),
+        volumeEffectDisplay: document.querySelector('#volume-effect-display'),
+        soundEffectLevel: document.querySelector('#soundEffect'),
         soundOnSwitcher: document.querySelector('#soundOn'),
     }
     settingsMenu.volumeDisplay.innerHTML = (data.soundLevel)? data.soundLevel: "";
     settingsMenu.soundLevel['value'] = (data.soundLevel)? data.soundLevel: 0;
+
+    settingsMenu.volumeEffectDisplay.innerHTML = (data.soundEffect)? data.soundEffect: "";
+    settingsMenu.soundEffectLevel['value'] = (data.soundEffect)? data.soundEffect: 0;
 
     settingsMenu.soundOnSwitcher['checked'] = data.soundOn;
 
 
     process.env.MAIN_GAME_SOUND_ON = data.soundOn.toString()
     process.env.MAIN_GAME_SOUND = data.soundLevel.toString()
+    process.env.MAIN_GAME_SOUND_EFFECTS = data.soundEffect.toString()
 }
 
 
@@ -43,6 +51,7 @@ function gameSettingsMenuInit(){
 
     let data: settingsData = {
         soundLevel: settingsData.soundLevel,
+        soundEffect: settingsData.soundEffect,
         soundOn: settingsData.soundOn,
         autoshoot: settingsData.autoshoot,
         fullScreen: settingsData.fullScreen,
@@ -57,7 +66,7 @@ function gameSettingsMenuInit(){
         let data = transformMenuData(this)
         gameSettingsMenu(data)
 
-        gameData.gameData.levelSounds.changeVolume({volume: data.soundLevel})
+        gameData.gameData.levelSounds.changeVolume({volume: process.env.MAIN_GAME_SOUND})
         gameData.gameData.levelSounds.turnSoundOff({value: data.soundOn})
 
     })
@@ -80,7 +89,7 @@ function replaceData({newData, settingsData}){
 
 function transformMenuData(data: any){
     if(!data) throw Error("No data to transform")
-    var obj: returnSettings = { soundLevel: null, soundOn: null};
+    var obj: returnSettings = { soundLevel: null, soundOn: null, soundEffect: null};
     for(let item of data){
         if(item.name && item.value){
             (item.value === "on")? obj[item.name] = item.checked :obj[item.name] = item.value;

@@ -26,9 +26,7 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
             sound: targetData[explosion].sound
         }
         let sideObject = new SideObject({...explosionData});
-        console.log("explosion sound", sideObject.sound)
-
-        /**/let soundProps = {
+        let soundProps = {
             soundUrl: sideObject.sound.levelSound,
             soundLoop: sideObject.sound.soundLoop,
         }
@@ -75,7 +73,7 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
             : levelObjectProps.spawnDetails.position ;
 
             let extraObjects =  (levelObjectProps.extraObjects)? await loadExtraObject.call(this, levelObjectProps.extraObjects): false;
-            let explosionData = {
+            let extraObjectObjectsData = {
                 x: screenData.width,
                 y: yPosition,
                 sx: 0,
@@ -100,7 +98,11 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
                 collideExplosionAnimation: (levelObjectProps.collideExplosionAnimation)? levelObjectProps.collideExplosionAnimation: null,
                 sound: levelObjectProps.sound
             }
-            let sideObject = new SideObject({...explosionData});
+            let sideObject = new SideObject({...extraObjectObjectsData});
+
+             sideObject.img.onload = () => {
+                context.gameInitData.allGameSideObjects = context.gameInitData.allGameSideObjects.concat(sideObject);
+            }
             sideObject.img.src = sideObject.texture;
             sideObject.img.onload = () => {
                 this.gameInitData.allGameSideObjects = this.gameInitData.allGameSideObjects.concat(sideObject);

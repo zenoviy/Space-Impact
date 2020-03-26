@@ -10,7 +10,7 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
-        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
+        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
@@ -66,7 +66,7 @@
             "name": "long canyon",
             "description": "Large canyon full of enemy"
         },
-        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
+        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
             "levelMap" : "/public/images/locations/canyon/canyon.png",
@@ -141,10 +141,10 @@
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
         "description": {
-            "name": "White sand",
+            "name": "White sands",
             "description": "Huge desert area with lost city"
         },
-        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
+        "levelSound": "/public/sound/ambiant/Ehl-i_Keyif_-_11_-_Hzzam_Sazsemai_Nargile.mp3",
         "levelMap" : "desert.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/desert/desert-sky.png",
@@ -210,8 +210,8 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 2,
-            "levelSeconds": 43
+            "levelMinutes": 0,
+            "levelSeconds": 13
         }
     },{
         "level" : 4,
@@ -228,7 +228,7 @@
             "name": "Cloud city",
             "description": "One of the largest and and modern city of the world"
         },
-        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
+        "levelSound": "/public/sound/ambiant/02_Main Theme.mp3",
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
@@ -347,7 +347,7 @@
             "name": "In the sky cloud",
             "description": "One of the space impactors try to escape "
         },
-        "levelSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
+        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",

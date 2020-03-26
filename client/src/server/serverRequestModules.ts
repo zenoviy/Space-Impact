@@ -26,6 +26,7 @@ async function getLocalData({fileName}){
         fs.readFile(__dirname + '/public/data/' + fileName, (err, data) => {
             if(err) throw Error(err)
             let info = JSON.parse(data);
+            console.log(info)
             if(info) resolve(info)
             else reject("got some problem here")
         })
@@ -36,7 +37,9 @@ async function getLocalData({fileName}){
 
 async function writeLocalData({fileName, data}){
     if(!fileName) throw Error("no local files");
+    console.log(1, __dirname, fs, fileName)
     fs.writeFile(__dirname + '/public/data/' + fileName, data, (err) => {
+        console.error(err)
         if(err) throw err;
     })
 }

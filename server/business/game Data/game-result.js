@@ -75,13 +75,6 @@ async function postResultlData (req, res) {
             res.send({message: `Sucessfully save Result!!! ${req.body.userName} added`, status: "success"})
         }
     })
-
-
-    /*function writeToFile(data){
-        fs.writeFile(__dirname + '../../../public/userData/gameResults.json', data, (err) => {
-            if(err) throw err;
-        })
-    }*/
 }
 
 async function updateResultlData (req, res) {

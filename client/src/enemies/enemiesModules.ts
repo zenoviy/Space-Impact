@@ -51,7 +51,7 @@ function shot(BulletConstruct, mainGameObject, SoundCreator){
                 sound: item.sound
             });
             bullet.img.src = bullet.texture;
-            console.log("enemy shoot")
+            //console.log("enemy shoot")
 
             let soundProps = {
                 soundUrl: bullet.sound.levelSound,
