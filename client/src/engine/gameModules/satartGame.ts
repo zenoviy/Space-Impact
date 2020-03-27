@@ -55,7 +55,6 @@ async function serverRequest(gameInformation){
         const preloadData = await getLocalData({ fileName: 'preloadData.json' })
 
         const gameSetings: any = await getElectronLocalData({ fileName: 'game-settings.json' })
-        console.log(gameSetings)
         const userData = await getData({
             url: serverLocation.host + serverLocation.userShip.url,
             method: serverLocation.userShip.method,
@@ -88,7 +87,7 @@ async function gameDataInit(PlayerShip, soundObject){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 2, shipType = 1, shipLife = 5;
+        let level = 4, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -98,7 +97,6 @@ async function gameDataInit(PlayerShip, soundObject){
         const userData = res.userData;
         const enemyData = res.enemyData;
 
-        console.log(gameSetings, "<<")
         if(levelData.status === "error" || levelObjects === "error" || grappleObjects === "error" ||
         levelData.gameSetings === "error" || userData === "error" || enemyData === "error"){
             loadWindow({loadStatus: "serverError"})
@@ -203,7 +201,6 @@ function mapSoundChanger({soundStatus}){
         default:
             mapSound
     }
-    console.log("level musicchange", soundStatus, gameData.levelData)
 
     gameSoundObject.changeTrack({url: mapSound})
     gameSoundObject.soundPlay()

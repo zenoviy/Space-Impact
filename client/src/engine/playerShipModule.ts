@@ -62,7 +62,6 @@ function shipControl(mainGameObject: any){
                 soundUrl: bullet.sound.levelSound,
                 soundLoop: bullet.sound.soundLoop,
             }
-            //console.log("Player shoot sound", process.env.MAIN_GAME_SOUND_ON)
             bullet.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
             bullet.img.src = bullet.texture;
             bullet.img.onload = () => {

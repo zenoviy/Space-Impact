@@ -42,7 +42,7 @@
                 "height": 30,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/Explosion+7.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/explosions/Explosion+7.mp3",
                     "soundLoop": false
                 }
             },
@@ -58,7 +58,7 @@
                 "height": 50,
                 "central": true,
                     "sound": {
-                        "levelSound": "/public/sound/weapons/Explosion+7_max.mp3",
+                        "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
                         "soundLoop": false
                     }
             },
@@ -77,7 +77,7 @@
                         "width": 50,
                         "height": 50,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
                         }
                     },
@@ -148,7 +148,7 @@
                 "height": 90,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/Explosion+7.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
                     "soundLoop": false
                 }
             },
@@ -164,7 +164,7 @@
                 "height": 50,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/Explosion+7_max.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
                     "soundLoop": false
                 }
             }, "guns":[
@@ -183,7 +183,7 @@
                         "height": 50,
                         "central": true,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
                         }
                     },
@@ -253,7 +253,7 @@
                 "height": 90,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/Explosion+7.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
                     "soundLoop": false
                 }
             },
@@ -269,7 +269,7 @@
                 "height": 50,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/Explosion+7_max.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
                     "soundLoop": false
                 }
             },
@@ -289,7 +289,7 @@
                         "height": 50,
                         "central": true,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
                         }
                     },
@@ -328,7 +328,7 @@
                         "height": 50,
                         "central": true,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
                         }
                     },
@@ -400,7 +400,7 @@
                 "height": 70,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/Explosion+7.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
                     "soundLoop": false
                 }
             },
@@ -416,7 +416,7 @@
                 "height": 155,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/Explosion+7_max.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
                     "soundLoop": false
                 }
             },
@@ -436,7 +436,7 @@
                         "height": 50,
                         "central": true,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
                         }
                     },
@@ -475,7 +475,7 @@
                         "height": 90,
                         "central": true,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
                         }
                     },

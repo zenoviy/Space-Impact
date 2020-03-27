@@ -86,10 +86,16 @@ function getElectronLocalData({fileName}){
     return res
 }
 
-async function writeElectronLocalData({fileName, data}){
-    storage.set(fileName, data, function(error) {
-        if (error) throw error;
-      });
+function writeElectronLocalData({fileName, data}){
+
+    let res = new Promise((resolve, reject) => {
+        storage.set(fileName, data, function(error) {
+            if (error) throw error;
+            resolve({message: 'Settings saved'})
+            return
+        })
+    })
+    return res
 }
 
 async function writeLocalData({fileName, data}){

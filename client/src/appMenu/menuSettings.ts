@@ -1,4 +1,5 @@
 import { writeLocalData, getElectronLocalData, writeElectronLocalData } from '../server/serverRequestModules';
+import { show, hide, toggler, addClassList, removeClassList } from './appMenu';
 
 interface settingsData {
     soundLevel: number,
@@ -26,7 +27,7 @@ function gameSettingsMenu({...data}){
         soundLevel: document.querySelector('#soundLevel'),
         volumeEffectDisplay: document.querySelector('#volume-effect-display'),
         soundEffectLevel: document.querySelector('#soundEffect'),
-        soundOnSwitcher: document.querySelector('#soundOn'),
+        soundOnSwitcher: document.querySelector('#soundOn')
     }
     settingsMenu.volumeDisplay.innerHTML = (data.soundLevel)? data.soundLevel: "";
     settingsMenu.soundLevel['value'] = (data.soundLevel)? data.soundLevel: 0;
@@ -44,50 +45,23 @@ function gameSettingsMenu({...data}){
 
 
 async function gameSettingsMenuInit(){
-    const defaultData = {
-        "soundLevel":"29",
-        "soundEffect":"9",
-        "soundOn":false,
-        "autoshoot":false,
-        "fullScreen":false,
-        "keyControls":{
-            "up":[87,38,104],
-            "right":[68,39,102],
-            "down":[83,40,98],
-            "left":[65,37,100],
-            "escape":[27],
-            "pause":[80]},
-        "screenResolution":{
-            "title":"800x600",
-            "width":800,
-            "height":600
-        },
-        "screenVariaton":[
-            {
-                "title":"800x600",
-                "width":800,
-                "height":600
-            },{
-                "title":"800x600",
-                "width":1366,
-                "height":685
-            }
-        ]}
     const menuSettingsForm = document.querySelector('#menu-settings-form');
     const context = this;
+    let previusSettings;
     let gameData = await this.showGameInfo();
-    let settingsData: settingsData = await gameData.settings;
+    let settingsData: settingsData = gameData.settings;
 
-    let data: settingsData = await {
-        soundLevel: await settingsData.soundLevel,
-        soundEffect: await settingsData.soundEffect,
-        soundOn: await settingsData.soundOn,
-        autoshoot: await settingsData.autoshoot,
-        fullScreen: await settingsData.fullScreen,
-        keyControls: await settingsData.keyControls,
-        screenResolution: await settingsData.screenResolution,
-        screenVariaton: await settingsData.screenVariaton
+    let data: settingsData = {
+        soundLevel: settingsData.soundLevel,
+        soundEffect: settingsData.soundEffect,
+        soundOn: settingsData.soundOn,
+        autoshoot: settingsData.autoshoot,
+        fullScreen: settingsData.fullScreen,
+        keyControls: settingsData.keyControls,
+        screenResolution: settingsData.screenResolution,
+        screenVariaton: settingsData.screenVariaton
     }
+    previusSettings = data;
 
     gameSettingsMenu(data)
     menuSettingsForm.addEventListener('change', function(event){
@@ -99,13 +73,38 @@ async function gameSettingsMenuInit(){
         gameData.gameData.levelSounds.turnSoundOff({value: data.soundOn})
 
     })
-    menuSettingsForm.addEventListener('submit', function(event){
+    menuSettingsForm.addEventListener('submit', async function(event){
         event.preventDefault()
         let menuData = transformMenuData(this)
         let settingsResult = replaceData({newData: menuData, settingsData: data});
-        writeElectronLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
-        writeLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
+        previusSettings = settingsResult;
+        let serverResult: any = await writeElectronLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
+        //writeLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
+
+        saveSettingsText({message: serverResult['message']})
     })
+    menuSettingsForm.addEventListener('click', function(event){
+        //event.preventDefault()
+        if(event.target['dataset'].buttonId === 'cancel-settings'){
+            event.preventDefault()
+            gameSettingsMenu(previusSettings)
+            gameData.gameData.levelSounds.changeVolume({volume: process.env.MAIN_GAME_SOUND})
+            gameData.gameData.levelSounds.turnSoundOff({value: previusSettings.soundOn})
+            saveSettingsText({message: 'Return to previus settings'})
+        }
+    })/**/
+
+    function saveSettingsText({message}){
+        const settingsMessage = document.querySelector('#settings-message')
+        settingsMessage['innerText'] = message
+        show(settingsMessage)
+        removeClassList(settingsMessage, 'show-message')
+        addClassList(settingsMessage, 'show-message')
+        setTimeout(() => {
+            settingsMessage['innerText'] = '';
+            hide(settingsMessage)
+        }, 5000)
+    }
 }
 
 function replaceData({newData, settingsData}){

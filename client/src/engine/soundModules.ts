@@ -10,8 +10,6 @@ async function createSound(SoundCreator){
         volume: pageSettings.soundLevel
     }
     process.env.MAIN_GAME_SOUND = pageSettings.soundLevel.toString()
-    console.log("preload sound")
-
     this.gameInitData.gameData.levelSounds = initSoundObject({SoundCreator: SoundCreator, mainGameObject: this, soundProps: soundProps })
     return gameData.levelSounds
 }
@@ -36,7 +34,6 @@ function changeVolume({volume}){
 }
 function changeTrack({url}){
     this.soundObject.src = __dirname + url;
-    //console.log(__dirname + url, __dirname)
 }
 function soundPlay(){
     this.soundObject.play()
