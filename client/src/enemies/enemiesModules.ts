@@ -157,6 +157,7 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
                 if(data.sourse.playerObject.numberOflife <= 0){
                     mainGameObject.gameOverWindow()
                     mainGameObject.gameInitData.gameOver = true;
+                    mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
                     setTimeout(function(){
                         mainGameObject.backToStartScreen(costructors.PlayerShip)
                     }, 3000)

@@ -1,4 +1,5 @@
 import { draw } from '../view/displayModules';
+const { ipcRenderer, remote } = require( "electron" );
 //import { levelConstructor } from '../constructors/levelConstructors';
 
 
@@ -31,8 +32,8 @@ function warpEffect(){
     this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
 
     this.gameInitData.warpObjects = (gameWarpObjects.length < 350)? this.gameInitData.warpObjects.concat({
-        x: screenSiz.width,
-        y: this.gameRandomizer(screenSiz.height),
+        x: window.innerWidth,
+        y: this.gameRandomizer(window.innerHeight),
         height: this.gameRandomizer(20, 10),
         width: 10,
         speed: this.gameRandomizer(10, 5),
@@ -96,8 +97,8 @@ function createContext(){
 
 
 function getScreenSize(){
-    let width = this.gameInitData.screen.width,
-    height = this.gameInitData.screen.height;
+    let width = window.innerWidth,
+    height = window.innerHeight;
     return {width: width, height: height}
 }
 
@@ -182,7 +183,7 @@ function getLevelUserData(){
 
 
 function deleteBullet(bullet){
-    if(bullet.x > this.gameInitData.screen.width
+    if(bullet.x > window.innerWidth
         || bullet.x < bullet.width * -1
         || !bullet.objectPresent){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
@@ -261,6 +262,15 @@ function preloadImage(items){
     }
 }
 
+
+function fullScreenSwitch({fullscreen}){
+    ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        //console.log(arg) // 
+    })
+    ipcRenderer.send('asynchronous-message', {fullscreen: fullscreen})
+}
+
+
 export  {
     initField,
     warpEffect,
@@ -279,5 +289,6 @@ export  {
     delateSideObject,
     getObjectPosition,
     collectPoints,
-    preloadImage
+    preloadImage,
+    fullScreenSwitch
 }

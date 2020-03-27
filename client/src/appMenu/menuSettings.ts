@@ -1,5 +1,6 @@
 import { writeLocalData, getElectronLocalData, writeElectronLocalData } from '../server/serverRequestModules';
 import { show, hide, toggler, addClassList, removeClassList } from './appMenu';
+import { fullScreenSwitch } from '../engine/engineModules'
 
 interface settingsData {
     soundLevel: number,
@@ -19,6 +20,7 @@ interface returnSettings {
     soundLevel: number;
     soundEffect: number;
     soundOn: boolean;
+    fullScreen: boolean;
 }
 
 function gameSettingsMenu({...data}){
@@ -27,7 +29,8 @@ function gameSettingsMenu({...data}){
         soundLevel: document.querySelector('#soundLevel'),
         volumeEffectDisplay: document.querySelector('#volume-effect-display'),
         soundEffectLevel: document.querySelector('#soundEffect'),
-        soundOnSwitcher: document.querySelector('#soundOn')
+        soundOnSwitcher: document.querySelector('#soundOn'),
+        fullScreenSwitcher: document.querySelector('#fullScreen')
     }
     settingsMenu.volumeDisplay.innerHTML = (data.soundLevel)? data.soundLevel: "";
     settingsMenu.soundLevel['value'] = (data.soundLevel)? data.soundLevel: 0;
@@ -36,8 +39,9 @@ function gameSettingsMenu({...data}){
     settingsMenu.soundEffectLevel['value'] = (data.soundEffect)? data.soundEffect: 0;
 
     settingsMenu.soundOnSwitcher['checked'] = data.soundOn;
+    settingsMenu.fullScreenSwitcher['checked'] = data.fullScreen;
 
-
+    fullScreenSwitch({fullscreen: data.fullScreen})
     process.env.MAIN_GAME_SOUND_ON = data.soundOn.toString()
     process.env.MAIN_GAME_SOUND = data.soundLevel.toString()
     process.env.MAIN_GAME_SOUND_EFFECTS = data.soundEffect.toString()
@@ -79,12 +83,10 @@ async function gameSettingsMenuInit(){
         let settingsResult = replaceData({newData: menuData, settingsData: data});
         previusSettings = settingsResult;
         let serverResult: any = await writeElectronLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
-        //writeLocalData({fileName: 'game-settings.json', data: JSON.stringify(settingsResult)})
 
         saveSettingsText({message: serverResult['message']})
     })
     menuSettingsForm.addEventListener('click', function(event){
-        //event.preventDefault()
         if(event.target['dataset'].buttonId === 'cancel-settings'){
             event.preventDefault()
             gameSettingsMenu(previusSettings)
@@ -118,7 +120,7 @@ function replaceData({newData, settingsData}){
 
 function transformMenuData(data: any){
     if(!data) throw Error("No data to transform")
-    var obj: returnSettings = { soundLevel: null, soundOn: null, soundEffect: null};
+    var obj: returnSettings = { soundLevel: null, soundOn: null, soundEffect: null, fullScreen: null};
     for(let item of data){
         if(item.name && item.value){
             (item.value === "on")? obj[item.name] = item.checked :obj[item.name] = item.value;

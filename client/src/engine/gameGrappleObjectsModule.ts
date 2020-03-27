@@ -7,8 +7,8 @@ async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
     let context = mainGameObject;
     let sideObject = this;
         let objectData = {
-            x: (target.x)? target.x + context.gameRandomizer(sideObject.width) : screenData.width + 100,
-            y: (target.y)? target.y + context.gameRandomizer(sideObject.height) :context.gameRandomizer(screenData.height),
+            x: (target.x)? target.x + context.gameRandomizer(sideObject.width) : window.innerWidth + 100,
+            y: (target.y)? target.y + context.gameRandomizer(sideObject.height) :context.gameRandomizer(window.innerHeight),
             sx: 0,
             sy: 0,
             objectOwner: target.objectOwner,

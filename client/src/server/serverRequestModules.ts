@@ -42,7 +42,7 @@ function getDefaultSettings(){
         "soundEffect":"40",
         "soundOn":true,
         "autoshoot":false,
-        "fullScreen":false,
+        "fullScreen":true,
         "keyControls":{
             "up":[87,38,104],
             "right":[68,39,102],

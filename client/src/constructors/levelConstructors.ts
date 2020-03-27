@@ -27,7 +27,7 @@ class GameBackground{
             this.backgroundSpeed = backgroundSpeed;
             this.screenData = screenData;
             this.ctx = ctx;
-            this.x = (partOfScreenStatus)? 0 : screenData.width;
+            this.x = (partOfScreenStatus)? 0 : window.innerWidth;
             this.y = 0;
             this.img = new Image();
             this.extraMap = extraMap;

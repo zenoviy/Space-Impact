@@ -3,10 +3,10 @@ import { createImage } from '../view/displayModules';
 function updateMap(){
     let backgroundObject = this;
     this.x -= this.backgroundSpeed;
-    if(Math.sign(this.backgroundSpeed) > 0 && this.x + this.screenData.width < 0){
-        this.x = this.screenData.width;
-    }else if(Math.sign(this.backgroundSpeed) < 0 && this.x > this.screenData.width){
-        this.x = 0 - this.screenData.width;
+    if(Math.sign(this.backgroundSpeed) > 0 && this.x + window.innerWidth < 0){
+        this.x = window.innerWidth;
+    }else if(Math.sign(this.backgroundSpeed) < 0 && this.x > window.innerWidth){
+        this.x = 0 - window.innerWidth;
     }
        createImage(backgroundObject.ctx,
             backgroundObject.img, backgroundObject.x, 0,

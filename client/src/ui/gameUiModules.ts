@@ -33,7 +33,7 @@ function uiController(){
             var x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
             let elementsOnScreen = null;
             let ctx = this.gameInitData.ctxUIField,
-            screenSize = this.getScreenSize();
+            screenSize = {width: window.innerWidth, height: window.innerHeight};
             if(!this.gameInitData.gameStatus){
                 elementsOnScreen = gameLoadMenu(null, ctx, screenSize.width, screenSize.height, null);
                 clickDetection.call(this, elementsOnScreen)
@@ -130,7 +130,7 @@ function gameWinWindow(){
 
 function initUiElements(drawMethods, callback, ...props){
     let ctx = this.gameInitData.ctxUIField,
-    screenSize = this.getScreenSize(),
+    screenSize = {width: window.innerWidth, height: window.innerHeight},
     picDirection = this.showGameInfo().imageDirrection;
     let screenObjects = callback(null, ctx, screenSize.width, screenSize.height, picDirection, ...props);
 

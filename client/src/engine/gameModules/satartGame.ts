@@ -1,7 +1,7 @@
 import { getData, getLocalData, getElectronLocalData } from '../../server/serverRequestModules';
 import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
-const remote = require('electron').remote
+const { ipcRenderer, remote } = require( "electron" );
 
 
 async function serverRequest(gameInformation){
@@ -197,6 +197,9 @@ function mapSoundChanger({soundStatus}){
             break
         case 'regular_level':
             mapSound = gameData.levelData.levelSound;
+            break
+        case 'game_over_screen':
+            mapSound = gameData.preloadData.gameOverSound;
             break
         default:
             mapSound

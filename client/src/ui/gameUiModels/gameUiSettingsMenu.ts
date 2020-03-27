@@ -15,7 +15,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             propertyes:{
                 ctx: ctx,
                 width: width,
-                height: 400,
+                height: 500,
                 x: 0,
                 y: 100,
                 gradient: true,
@@ -35,7 +35,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Button end game",
-            text: "go to start",
+            text: "Restart the game",
             description: "back to start screen",
             fontSize: "25px Roboto",
             clicked: false,
@@ -54,7 +54,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 textProperty: {
                     textColor: '#251536',
                     topPadding: 7,
-                    rightPadding: 50,
+                    rightPadding: 80,
                     bottomPadding: 10,
                     leftPadding: 20,
                 },

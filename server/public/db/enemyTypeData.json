@@ -42,7 +42,7 @@
                 "height": 30,
                 "central": true,
                 "sound": {
-                    "levelSound": "/public/sound/weapons/explosions/explosions/Explosion+7.mp3",
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
                     "soundLoop": false
                 }
             },

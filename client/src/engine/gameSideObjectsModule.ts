@@ -66,15 +66,15 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
             let screenData  = this.getScreenSize();
             let levelObjectProps = levelObjects[this.gameRandomizer(levelObjects.length)];
 
-            let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")? screenData.height - this.gameRandomizer(levelObjectProps.height)
+            let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")? window.innerHeight - this.gameRandomizer(levelObjectProps.height)
             :(levelObjectProps.spawnDetails.position == "top" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height/3)
             :(levelObjectProps.spawnDetails.position == "scene" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height)
-            :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(screenData.height)
+            :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(window.innerHeight)
             : levelObjectProps.spawnDetails.position ;
 
             let extraObjects =  (levelObjectProps.extraObjects)? await loadExtraObject.call(this, levelObjectProps.extraObjects): false;
             let extraObjectObjectsData = {
-                x: screenData.width,
+                x: window.innerWidth,
                 y: yPosition,
                 sx: 0,
                 sy: 0,

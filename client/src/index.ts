@@ -1,5 +1,5 @@
 import '../sass/main.sass';
-
+const { ipcRenderer, remote } = require( "electron" );
 
 
 var path = require('path');
@@ -9,11 +9,12 @@ import { clearField } from './view/displayModules';
 import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
 
+
 (async function init(){
     process.env.MAIN_GAME_SOUND = '';
     process.env.MAIN_GAME_SOUND_EFFECTS = '';
     process.env.MAIN_GAME_SOUND_ON = '';
-    process.env.GAME_STATUS = '';
+
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
 
@@ -50,14 +51,16 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     playerShipData.ctx = contexts.gameActionField
 
 
-
     // ship move
     playerShipData.initPlayerShip(gameObject)
     playerShipData.shipControl(gameObject)
 
-
-
-
+    window.addEventListener('resize', ()=>{
+        //console.log('resize')
+        gameObject.getScreenSize()
+        gameObject.setGameFields()
+        gameObject.initField()
+    })
 
     /*   game engin runing   */
     async function gameInterval(){
@@ -65,14 +68,14 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
         if(gameObject.gameInitData.ctxUIField){
             clearField(
                 gameObject.gameInitData.ctxUIField,
-                gameObject.gameInitData.screen.width,
-                gameObject.gameInitData.screen.height)
+                window.innerWidth,
+                window.innerHeight)
         }
         if(gameObject.gameInitData.ctxActionField && !gameObject.gameInitData.gamePause){
             clearField(
                 gameObject.gameInitData.ctxActionField,
-                gameObject.gameInitData.screen.width,
-                gameObject.gameInitData.screen.height)
+                window.innerWidth,
+                window.innerHeight)
         }
         if(gameObject.gameInitData.backScreenPause){
             gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject)
@@ -107,6 +110,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                         enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator)
                         gameObject.deleteObjects(enemy)
                         gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
+                        gameObject.hitDetection(enemy, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
                     }
                 }
                 if(!gameObject.gameInitData.gameOver){
@@ -185,6 +189,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
         }
 
         hideShowMenu(mainMenu, navigation.menu, gameObject.gameInitData.gameWin, gameObject.gameInitData.gameStatus, gameObject.gameInitData.gameUiPause)
+
         //
     }
 })()

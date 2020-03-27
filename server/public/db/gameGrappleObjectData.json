@@ -27,18 +27,18 @@
             "position": "scene"
         },
         "explosionAnimation": {
-            "texture": "/public/images/misc/fire/explosion.png",
-            "imageWidth": 12891,
+            "texture": "/public/images/misc/fire/explosion-life.png",
+            "imageWidth": 4696,
             "imageHeight":294,
             "animationSteps": 2,
-            "numberOfItems": 44,
+            "numberOfItems": 16,
             "sx": 0,
             "sy": 0,
             "width": 50,
             "height": 50,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                "levelSound": "/public/sound/ambiant/collection/little_robot_sound_factory_Jingle_Win_Synth_01.mp3",
                 "soundLoop": false
             }
         }
@@ -70,18 +70,18 @@
             "position": "scene"
         },
         "explosionAnimation": {
-            "texture": "/public/images/misc/fire/explosion.png",
-            "imageWidth": 12891,
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
             "imageHeight":294,
             "animationSteps": 2,
-            "numberOfItems": 44,
+            "numberOfItems": 16,
             "sx": 0,
             "sy": 0,
-            "width": 50,
-            "height": 50,
+            "width": 40,
+            "height": 40,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
                 "soundLoop": false
             }
         }
