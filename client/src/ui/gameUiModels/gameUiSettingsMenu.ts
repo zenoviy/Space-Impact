@@ -1,6 +1,7 @@
 
 import { init, getUIObjectPosition } from './uiModelMethods';
 import * as constructors from '../../constructors';
+import { dialogWindow } from '../../appMenu/appMenu';
 
 function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
     return data || [
@@ -10,24 +11,35 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             description: "back part of menu ",
             fontSize: "30px Arial",
             clicked: false,
+            shadowColor: 'rgba(255, 255, 255, 1)',
             propertyes:{
                 ctx: ctx,
                 width: width,
-                height: height/2,
+                height: 500,
                 x: 0,
-                y: height/4,
-                background: 'rgba(38, 38, 86, 1)',
-                borderColor: 'rgba(255, 255, 255, 1)',
+                y: 100,
+                gradient: true,
+                backGroundFinal: "#380240",
+                topX: 0,
+                topY: 0,
+                bottomX: width,
+                bottomY: 100,
+                background: '#2F2231',
+                isBorder: false,
+                borderRadius: 2,
+                borderColor: '#251536',
+                shadowColor: 'rgba(0, 0, 0, 1)',
                 radius: 5,
             },
             init: init,
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Button end game",
-            text: "go to start",
+            text: "Restart the game",
             description: "back to start screen",
             fontSize: "25px Roboto",
             clicked: false,
+            shadowColor: 'rgba(255, 255, 255, 1)',
             propertyes:{
                 ctx: ctx,
                 width: 200,
@@ -35,53 +47,40 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 x: width/2 - 150,
                 y: height/2 + 50,
                 background: 'rgba(255, 255, 255, 1)',
+                isBorder: false,
+                borderRadius: 2,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(0, 0, 0, 0)',
                 textProperty: {
-                    textColor: '#007BD1',
+                    textColor: '#251536',
                     topPadding: 7,
-                    rightPadding: 50,
+                    rightPadding: 80,
                     bottomPadding: 10,
                     leftPadding: 20,
                 },
                 radius: 15,
             },
             action(){
-                this.backToStartScreen.call(this, constructors.PlayerShip)
+                dialogWindow({textData: 'restart the game?', rejectText: 'cancel', acceptText: 'restart'}, this.backToStartScreen, null, this, constructors.PlayerShip)
             },
             init: init,
             getObjectPosition: getUIObjectPosition
-        }, /*{
-            name: "textin button",
-            text: "go to start",
-            description: "Text in the menu button",
-            fontSize: "25px Roboto",
-            clicked: false,
-            propertyes:{
-                ctx: ctx,
-                width: 45,
-                height: 0,
-                x: width/2 - 150,
-                y: height/2 + 80,
-                background: false,
-                borderColor: '#007BD1',
-                radius: null,
-            },
-            init: init,
-            getObjectPosition: getUIObjectPosition
-        },*/ {
+        }, {
             name: "Main game menu name",
             text: "Menu",
             description: "Text in main top",
             fontSize: "25px Roboto",
             clicked: false,
+            shadowColor: 'rgba(255, 255, 255, 0)',
             propertyes:{
                 ctx: ctx,
                 width: -45,
                 height: 0,
                 x: width/2 ,
-                y: height/3,
+                y: 150,
                 background: false,
                 borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(255, 255, 255, 0)',
                 radius: null,
             },
             init: init,

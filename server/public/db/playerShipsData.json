@@ -8,9 +8,36 @@
         "minSpeed": 5,
         "firespot": 1,
         "damage": 260,
+        "width": 75,
+        "height": 25,
+        "sx": 0,
+        "sy": 20,
+        "imageWidth": 2735,
+        "imageHeight":128,
+        "animationSteps": 5,
+        "numberOfItems": 8,
+        "numberOfVerticalItems": 1,
+        "sWidth": 342,
+        "sHeight": 128,
         "size":{
             "width": 75,
             "height": 25
+        },
+        "collideExplosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion.png",
+            "imageWidth": 12891,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 44,
+            "sx": 0,
+            "sy": 0,
+            "width": 70,
+            "height": 70,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                "soundLoop": false
+            }
         },
         "explosionAnimation": {
             "texture": "/public/images/misc/fire/explosion-blue.png",
@@ -21,7 +48,11 @@
             "sx": 0,
             "sy": 0,
             "width": 50,
-            "height": 50
+            "height": 50,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                "soundLoop": false
+            }
         },
         "guns":[
             {
@@ -36,18 +67,31 @@
                     "sx": 0,
                     "sy": 0,
                     "width": 50,
-                    "height": 50
+                    "height": 50,
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                        "soundLoop": false
+                    }
+                },
+                "sound": {
+                    "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                    "soundLoop": false
                 },
                 "type": "blaster",
                 "fireRepead": 3,
                 "speed": 6,
                 "color": "rgba(81, 255, 0, 1)",
-                "width": 40,
-                "height": 6,
+                "width": 45,
+                "height": 20,
                 "sx": 0,
                 "sy": 20,
-                "sWidth": 305,
-                "sHeight": 80,
+                "imageWidth": 3587,
+                "imageHeight":109,
+                "animationSteps": 5,
+                "numberOfItems": 12,
+                "numberOfVerticalItems": 1,
+                "sWidth": 299,
+                "sHeight": 109,
                 "damage": 30,
                 "firePosition": 15
             }

@@ -1,5 +1,12 @@
 import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regularEnemyAiModules';
-import { placeEnemyes, moveEnemyes, loadEnemyes, shoot, enemyAnimation, takeDamage, enemyDamageAnimation } from '../enemies/enemiesModules';
+import { placeEnemyes,
+    moveEnemyes,
+    loadEnemyes,
+    shot,
+    enemyAnimation,
+    takeDamage,
+    enemyDamageAnimation,
+    spawnCoin } from '../enemies/enemiesModules';
 import { getObjectPosition } from '../engine';
 
 
@@ -41,23 +48,23 @@ class EnemyObject {
     detectFrame: number; objectPresent: boolean;
     damage: number; guns: any; objectOwner: string;
     explosion: explosionAnimation; numberOfVerticalItems: number;
-    originalHealthPoint: number; isMove: boolean; isShoot: boolean;
+    originalHealthPoint: number; isMove: boolean; isShot: boolean;
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
     direction: string; isBoss: boolean;
+    extraObjects: any[]; collideExplosionAnimation: any;
 
     placeEnemyes: any;
     moveEnemyes: any;
     loadEnemyes: any;
-    shoot: any;
+    shot: any;
     enemyAnimation: any;
     getObjectPosition: any;
     takeDamage: any;
     enemyDamageAnimation: any;
     enemyShipLogicVertical: any;
     enemyVerticalMoveCalculation: any;
-    constructor(
-        {...data}
-        ){
+    spawnCoin: any;
+    constructor({...data}){
             this.id = new Date().getTime();
             this.x = data.x; this.y = data.y;
             this.sx = data.sx; this.sy = data.sy;
@@ -77,21 +84,24 @@ class EnemyObject {
             this.numberOfVerticalItems = data.numberOfVerticalItems;
             this.originalHealthPoint = data.healthPoint;
             this.isMove = data.isMove;
-            this.isShoot = data.isShoot;
+            this.isShot = data.isShot;
             this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed:  Math.floor(Math.random() * data.speed +1);
             this.spotDistance = (data.isBoss)? data.spotDistance : Math.floor(Math.random() * data.spotDistance );
             this.yFinal = 0;
             this.xFinal = 0;
             this.behavior = data.behavior;
             this.direction = null;
-            this.isBoss = data.isBoss
+            this.isBoss = data.isBoss;
+            this.extraObjects = data.extraObjects;
+            this.collideExplosionAnimation = data.collideExplosionAnimation;
+            /// load amount fo coins, ando coins object from server
     }
 }
 
 EnemyObject.prototype.placeEnemyes = placeEnemyes;
 EnemyObject.prototype.moveEnemyes = moveEnemyes;
 EnemyObject.prototype.loadEnemyes = loadEnemyes;
-EnemyObject.prototype.shoot = shoot;
+EnemyObject.prototype.shot = shot;
 EnemyObject.prototype.enemyAnimation = enemyAnimation;
 EnemyObject.prototype.getObjectPosition = getObjectPosition;
 EnemyObject.prototype.enemyDamageAnimation = enemyDamageAnimation;
@@ -99,6 +109,7 @@ EnemyObject.prototype.enemyShipLogicVertical = enemyShipLogicVertical;
 EnemyObject.prototype.enemyVerticalMoveCalculation = enemyVerticalMoveCalculation;
 
 EnemyObject.prototype.takeDamage = takeDamage;
+EnemyObject.prototype.spawnCoin = spawnCoin;
 
 export {
     EnemyObject

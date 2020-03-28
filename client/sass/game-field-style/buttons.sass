@@ -1,0 +1,38 @@
+@import '~/../../page-style/page-asets.sass'
+
+$dialog-btn-padding: 10px
+
+@mixin accept-btn
+    button.accept-btn
+        background: $accept-color
+        width: $button-width
+
+@mixin reject-btn
+    button.reject-btn
+        background: $reject-color
+        width: $button-width
+
+.btn-main
+    padding: $dialog-btn-padding
+    border: 0px
+    border-radius: $border-radius
+    cursor: pointer
+
+.selected-items
+    background: #161325
+
+.btn-sticky
+    position: fixed
+    top: 90%
+    z-index: 100
+    left: 0
+    width: 220px
+    cursor: pointer
+    background: $orange-color
+
+.btn-orange
+    background: $orange-color
+    padding: $dialog-btn-padding
+    margin: 0 auto
+    display: block
+    min-width: 250px

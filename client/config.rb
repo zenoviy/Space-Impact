@@ -1,6 +1,7 @@
 sass_dir = "sass"
 css_dir = "css"
 images_dir = "public/images"
+sound_dir = "public/sound"
 output_style = :compressed
 relative_assets = false
 line_comments = true

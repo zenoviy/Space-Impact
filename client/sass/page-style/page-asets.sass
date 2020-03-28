@@ -1,7 +1,27 @@
 $body-color: orange
 $main-color: #333
+$white-color: #ffffff
+$orange-color: #EA6C00
 
-$assetPath : "~/../../../public/images"
+$accept-color: #4bae60
+$reject-color: #b9004f
+$neutral-color: #847079
 
-@function get-path-to-assets($assetPath)
-  @return $assetPath
+$window-color: #340054
+$border-radius: 5px
+
+$button-width: calc(100% / 3)
+
+
+@mixin reject-text
+    border: 1px solid red
+    color: red
+
+@mixin warning-text
+    border: 1px solid yellow
+    color: yellow
+
+@mixin success-text
+    border: 1px solid green
+    color: green
+

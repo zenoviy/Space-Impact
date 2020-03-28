@@ -1,8 +1,10 @@
-const {app, BrowserWindow} = require('electron');
+const {app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
+const a = "test"
 
 function createWindow(){
+
     let win = new BrowserWindow({
         titleBarStyle: 'hidden',
         width: 1300,
@@ -11,6 +13,7 @@ function createWindow(){
         minHeight: 600,
         backgroundColor: '#312450',
         show: false,
+        //frame: false,
         webPreferences: {
             nodeIntegration: true
         },
@@ -26,7 +29,12 @@ function createWindow(){
     win.once('ready-to-show', () => {
         win.show()
     })
-    win.setFullScreen(false)
+    win.setFullScreen(true)
+
+    ipcMain.on('asynchronous-message', (event, arg) => {
+        win.setFullScreen(arg.fullscreen)
+        event.reply('asynchronous-reply', win)
+    })
 }
 
 app.on('ready', createWindow)

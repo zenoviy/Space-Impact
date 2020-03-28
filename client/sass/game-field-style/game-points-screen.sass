@@ -1,0 +1,40 @@
+
+.result-message-wrapper
+    display: flex
+    color: orange
+    justify-content: center
+    height: 80vh
+    align-items: center
+    p
+        text-align: center
+        font-size: 20px
+    p:first-letter
+        text-transform: uppercase
+
+
+ul.show-result-area
+    list-style: none
+    li
+        padding: 10px
+        .rate-number
+            color: red
+            flex-basis: 5%
+        .item-name
+            color: orange
+            flex-basis: 60%
+        .item-coin
+            color: green
+            flex-basis: 15%
+        .item-points
+            color: orange
+            flex-basis: 15%
+        .item-date
+            font-size: 10px
+            color: grey
+            flex-basis: 5%
+        p
+            display: flex
+            font-size: 14px
+            color: #bdbdbd
+    li:nth-child(odd)
+        background: #130517

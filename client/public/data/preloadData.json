@@ -1,0 +1,5 @@
+{
+    "startSound": "/public/sound/ambiant/01 Born To Be Wild.mp3",
+    "gameOverSound": "/public/sound/ambiant/over/zapsplat_multimedia_game_sound_retro_digital_fifths_negative_fail_lose_002_40612.mp3",
+    "gameWinSound": "/public/sound/ambiant/win/texasradiofish_-_Rock_Purple_Wizards_1.mp3"
+}

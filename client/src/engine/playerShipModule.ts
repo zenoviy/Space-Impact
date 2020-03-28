@@ -3,6 +3,7 @@
 import * as methods from '../engine';
 
 import * as constructors from '../constructors/';
+import { initSoundObject } from './soundModules';
 import * as view from '../view/';
 
 function initPlayerShip(mainGameObject: any){
@@ -19,13 +20,7 @@ function initPlayerShip(mainGameObject: any){
         this.img.src = imageLocation + image;
     }
 }
-function movePlayerShip(){
-    if(this.img){
-        if(this.ctx && this.img){
-            view.createImage(this.ctx, this.img, this.x, this.y, this.width, this.height);
-        }
-    }
-}
+
 function shipControl(mainGameObject: any){
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
     document.addEventListener("keydown",(e: any)=>{
@@ -47,18 +42,27 @@ function shipControl(mainGameObject: any){
         }
     })
     document.addEventListener("click", (e: any) => {
-        if(mainGameObject.gameInitData.gamePause) return false;
+        if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
         let guns = this.data.guns;
         for(let item of guns){
-            let bullet = new constructors.BulletConstruct(
-                this.x, this.y + item.firePosition,
-                item.name, item.color,
-                "player", item.speed + this.xAdj,
-                item.width, item.height,
-                item.damage, item.type, item.texture,
-                item.sx, item.sy, item.sWidth, item.sHeight,
-                item.explosionAnimation
-                );
+            let context = this;
+            let bullet = new constructors.BulletConstruct({
+                x: context.x, y: context.y + item.firePosition,
+                bulletType: item.name, bulletTexture: item.color,
+                objectOwner: "player", bulletSpeed: item.speed + context.xAdj,
+                width: item.width, height: item.height,
+                damage: item.damage, type: item.type, texture: item.texture,
+                sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
+                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
+                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
+                sound: item.sound
+            });
+
+            let soundProps = {
+                soundUrl: bullet.sound.levelSound,
+                soundLoop: bullet.sound.soundLoop,
+            }
+            bullet.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
             bullet.img.src = bullet.texture;
             bullet.img.onload = () => {
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
@@ -66,6 +70,7 @@ function shipControl(mainGameObject: any){
         }
     })
 }
+
 
 function setContext(context){
     this.ctx = context;
@@ -87,13 +92,14 @@ function placeShip(){
     this.y = (this.y > this.yFinal)? this.y - yAdj:
     (this.y < this.yFinal)? this.y + yAdj : this.yFinal;
 }
+
+
 function moveShip({xPos=0, yPos=0}){
     this.x += xPos;
     this.y += yPos;
 }
 
 export {
-    movePlayerShip,
     initPlayerShip,
     shipControl,
     moveShip,
