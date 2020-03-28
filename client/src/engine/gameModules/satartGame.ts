@@ -87,7 +87,7 @@ async function gameDataInit(PlayerShip, soundObject){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 5, shipType = 1, shipLife = 5;
+        let level = 3, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -172,6 +172,7 @@ async function gameDataInit(PlayerShip, soundObject){
             gameWin: false,
             levelWindowDescription: false,
             grappleObjectOnScreen: false,
+            shopActive: false,
             gemeExtraSeconds: 0,
         }
     }

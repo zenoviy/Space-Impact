@@ -30,6 +30,7 @@ async function nextLevelDataReload(levelData){
         backScreenPause: true,
         gameOver: false,
         grappleObjectOnScreen: false,
+        shopActive: false,
         gemeExtraSeconds: 0,
     }
 

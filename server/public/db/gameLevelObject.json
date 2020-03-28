@@ -1,4 +1,62 @@
 [{
+    "id": "tradepost_desert",
+    "name": "tradepost",
+    "objectOwner": "hangar",
+    "damage": 0,
+    "healthPoint": 11208,
+    "imageWidth": 5017,
+    "imageHeight":1208,
+    "animationSteps": 40,
+    "numberOfItems": 11,
+    "numberOfVerticalItems": 1,
+    "sx": 0,
+    "sy": 0,
+    "width": 250,
+    "height": 400,
+    "skinName": "/public/images/misc/sky-city build/building2.png",
+    "speed": 4,
+    "isBackground": false,
+    "pointsPerUnit": 35,
+    "spawnDetails": {
+        "position": "scene"
+    },
+    "extraObjects": [{
+        "object": "goldCoin",
+        "randomizer": 100,
+        "maxNumber": 33
+    }],
+    "collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
+    },
+    "explosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion-building.png",
+        "imageWidth": 12891,
+        "imageHeight":302,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 250,
+        "height": 850,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/building_Explosion_R1_SFX.mp3",
+            "soundLoop": false
+        }
+    }
+},{
     "id": "build_1",
     "name": "build 1",
     "objectOwner": "environment",
