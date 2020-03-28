@@ -15,8 +15,8 @@ async function showResultScreen(){
     if(gameData.hasOwnProperty('message')){
         windowElement.innerHTML = `<div class="result-message-wrapper"><p>${gameData.message}</p></div>`;
         return false}
-    let index = 0;
-    for(let item of gameData){
+    let index = 0, displayData = gameData.slice(0, 100);
+    for(let item of displayData){
         index += 1;
         let time = new Date(item.time), year = time.getFullYear(),month = time.getUTCMonth() + 1, day = time.getDate()
         let newElement = createElements({

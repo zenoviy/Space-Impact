@@ -14,6 +14,15 @@ function placeEnemyes(mainGameObject){
         this.x, this.y,
         this.width,this.height)
 }
+function placeBackground(){
+    createImage(
+        this.ctx,
+        this.img,
+        this.sx, this.sy,
+        this.sWidth, this.sHeight,
+        this.x, this.y,
+        this.width,this.height)
+}
 
 
 
@@ -215,6 +224,7 @@ function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
 
 export  {
     placeEnemyes,
+    placeBackground,
     moveEnemyes,
     loadEnemyes,
     shot,

@@ -56,7 +56,6 @@ function warpEffect(){
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
             //console.log('change music')
-            
 
             this.gameInitData.levelWindowDescription = true;
             this.changeLevelProcedure()
@@ -70,22 +69,28 @@ function warpEffect(){
 function levelInit(GameBackground, ctx, mainGameObject){
     let gameData = this.showLevelData();
     let allBackgroundElements = gameData.levelBackgroundElements;
+    let levelStandartMap = gameData.levelStandartMap;
     mainGameObject.gameInitData.backScreenPause = false;
 
     for(let mapObject of allBackgroundElements){
-        let mapItem = new GameBackground(
-            mapObject.levelMap, mapObject.speed, this.gameInitData.screen, ctx,
-            (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
-            (mapObject.extraMap)? mapObject.extraMap : null, (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,
-            (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null
-        );
+
+        let mapItem = new GameBackground({
+            backgroundTexture: mapObject.levelMap, speed: mapObject.speed,
+            screenData: this.gameInitData.screen, ctx: ctx,
+            partOfScreenStatus: (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
+            extraMap: (mapObject.extraMap)? mapObject.extraMap : null,
+            timeToExtraMapSeconds: (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,
+            timeToExtraMapMinutes: (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null,
+            imageWidth: (mapObject.imageWidth)? mapObject.imageWidth: levelStandartMap.imageWidth,
+            imageHeight: (mapObject.imageHeight)? mapObject.imageHeight: levelStandartMap.imageHeight,
+            animationSteps: (mapObject.animationSteps)? mapObject.animationSteps: levelStandartMap.animationSteps,
+            numberOfItems: (mapObject.numberOfItems)? mapObject.numberOfItems: levelStandartMap.numberOfItems,
+            numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems: levelStandartMap.numberOfVerticalItems
+        });
         mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
         mapItem.img.src = __dirname + mapItem.backgroundTexture;
     }
 }
-
-
-
 
 function createContext(){
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
@@ -114,6 +119,7 @@ function changeLevelProcedure(){
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
+        this.mapSoundChanger({soundStatus:'game_win'})
         this.gameInitData.gameWin = true;
         this.gameInitData.levelWindowDescription = false;
     }

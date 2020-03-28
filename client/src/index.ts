@@ -18,7 +18,6 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
 
-    var wrapper = document.querySelector("#wrapper")
     var mainMenu = document.querySelector("#main-menu")
 
     /*  gameEngineInit  */
@@ -71,7 +70,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                 window.innerWidth,
                 window.innerHeight)
         }
-        if(gameObject.gameInitData.ctxActionField && !gameObject.gameInitData.gamePause){
+        if(gameObject.gameInitData.ctxActionField ){
             clearField(
                 gameObject.gameInitData.ctxActionField,
                 window.innerWidth,
@@ -80,73 +79,80 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
         if(gameObject.gameInitData.backScreenPause){
             gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject)
         }
-        if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
-            if(gameObject.gameInitData.gameStatus){
-                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
-                if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, playerShipData);
 
                 if(gameObject.gameInitData.allGameBullets.length > 0){
                     for(let bullet of gameObject.gameInitData.allGameBullets){
                         bullet.placeEnemyes(gameObject)
-                        bullet.moveBullets(playerShipData, gameObject);
+                        if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
+                            bullet.moveBullets(playerShipData, gameObject);
 
-                        gameObject.deleteBullet(bullet)
-                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject, constructors.GrappleObject)
-                        gameObject.hitDetection(playerShipData, [bullet], gameObject, constructors.GrappleObject)
+                            gameObject.deleteBullet(bullet)
+                            gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject, constructors.GrappleObject)
+                            gameObject.hitDetection(playerShipData, [bullet], gameObject, constructors.GrappleObject)
 
-                        gameObject.hitDetection(bullet, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
-                        bullet.enemyAnimation();
+                            gameObject.hitDetection(bullet, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
+                            bullet.enemyAnimation();
+                        }
                     }
                 }
                 if(gameObject.gameInitData.allGameEnemies.length > 0){
                     for(let enemy of gameObject.gameInitData.allGameEnemies){
                         enemy.placeEnemyes(gameObject)
-                        enemy.moveEnemyes();
-                        enemy.enemyShipLogicVertical({
-                            x: playerShipData.x,
-                            y: playerShipData.y
-                        }, gameObject);
-                        enemy.enemyAnimation(true);
-                        enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator)
-                        gameObject.deleteObjects(enemy)
-                        gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
-                        gameObject.hitDetection(enemy, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
+                        if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
+                            enemy.moveEnemyes();
+                            enemy.enemyShipLogicVertical({
+                                x: playerShipData.x,
+                                y: playerShipData.y
+                            }, gameObject);
+                            enemy.enemyAnimation(true);
+                            enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator)
+                            gameObject.deleteObjects(enemy)
+                            gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
+                            gameObject.hitDetection(enemy, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
+                        }
                     }
                 }
                 if(!gameObject.gameInitData.gameOver){
-                    playerShipData.placeShip()
-                    playerShipData.placeEnemyes(gameObject)
-                    playerShipData.enemyAnimation()
+                    if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
+                        playerShipData.placeShip()
+                        playerShipData.enemyAnimation()
+                    }
+                    if(gameObject.gameInitData.gameStatus) playerShipData.placeEnemyes(gameObject)
                 }
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){
                         object.placeEnemyes(gameObject);
-                        if (object.objectOwner == "explosion"){
-                             object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
-                        }else{
-                            if(object.objectOwner == "enemy" ||
-                             object.objectOwner == "collide" ||
-                             object.objectOwner == "grappleObject"){
-                                gameObject.hitDetection(playerShipData, [object], gameObject, constructors.GrappleObject);
+                        if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
+                            if (object.objectOwner == "explosion"){
+                                object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
+                            }else{
+                                if(object.objectOwner == "enemy" ||
+                                object.objectOwner == "collide" ||
+                                object.objectOwner == "grappleObject"){
+                                    gameObject.hitDetection(playerShipData, [object], gameObject, constructors.GrappleObject);
+                                }
+                                object.enemyAnimation()
                             }
-                            object.enemyAnimation()
+                            object.mapObjectMove()
+                            gameObject.delateSideObject(object);
                         }
-                        object.mapObjectMove()
-                        gameObject.delateSideObject(object);
                     }
                 }
+        if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
+            if(gameObject.gameInitData.gameStatus){
                 if(gameObject.gameInitData.gameData.levelObjects){
                     gameObject.mapRanomObjectSpawn(
                         gameObject.gameInitData.gameData.levelObjects,
                         constructors.SideObject,
                         gameObject.gameInitData.allGameSideObjects)
                 }
+                if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
+                if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, playerShipData);
                 gameObject.gameSecondsIncrease()
                 gameObject.levelTimer()
             }
         }
         if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
-            if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
                 if(gameObject.gameInitData.ctx){
                     clearField(
                         gameObject.gameInitData.ctx,
@@ -154,21 +160,23 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                         gameObject.gameInitData.screen.height)
                 }
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
-                    backgroundMap.updateMap()
+                    if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
+                        backgroundMap.updateMap()
+                        backgroundMap.enemyAnimation()
+                    }
+                    backgroundMap.placeBackground()
                     backgroundMap.changePartOfTexture(gameObject, gameObject.gameInitData.mapBackgroundObjects);
                 }
                 if(gameObject.gameInitData.levelChange){
-                    //gameObject.levelChangeWindow()
                     gameObject.warpEffect()
                 }
                 if(gameObject.gameInitData.levelWindowDescription){
                     gameObject.levelChangeWindow()
                 }
-            }
         }
 
         ///   game UI load
-        if(!gameObject.gameInitData.gameStatus ){
+        if(!gameObject.gameInitData.gameStatus){
             gameObject.showStartWindow()
         }
         if(gameObject.gameInitData.gameStatus){

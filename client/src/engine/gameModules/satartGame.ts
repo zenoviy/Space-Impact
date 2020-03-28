@@ -87,7 +87,7 @@ async function gameDataInit(PlayerShip, soundObject){
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 4, shipType = 1, shipLife = 5;
+        let level = 1, shipType = 1, shipLife = 5;
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;
@@ -176,9 +176,6 @@ async function gameDataInit(PlayerShip, soundObject){
         }
     }
 }
-async function gameEngine(gameDataInit){
-
-}
 function gameStart(){
     this.mapSoundChanger({soundStatus:'regular_level'})
 
@@ -200,6 +197,9 @@ function mapSoundChanger({soundStatus}){
             break
         case 'game_over_screen':
             mapSound = gameData.preloadData.gameOverSound;
+            break
+        case 'game_win':
+            mapSound = gameData.preloadData.gameWinSound;
             break
         default:
             mapSound
@@ -233,7 +233,6 @@ function exitTheGame(){
 export {
     gameDataInit,
     serverRequest,
-    gameEngine,
     gameStart,
     backToStartScreen,
     exitTheGame,

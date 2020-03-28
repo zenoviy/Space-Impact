@@ -10,6 +10,13 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 2448,
+            "imageHeight": 1131,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
         "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
@@ -40,11 +47,21 @@
             },{
                 "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
                 "speed": 1,
-                "description": "second frame back building"
+                "description": "second frame back building",
+                "imageWidth": 4896,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 2,
+                "numberOfVerticalItems": 1
             },{
                 "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
                 "speed": 1,
-                "description": "second frame back building"
+                "description": "second frame back building",
+                "imageWidth": 4896,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 2,
+                "numberOfVerticalItems": 1
             }
         ],
         "levelDetails" : {
@@ -62,6 +79,13 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 700,
+            "imageHeight":400,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
         "description": {
             "name": "long canyon",
             "description": "Large canyon full of enemy"
@@ -140,6 +164,13 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 662,
+            "imageHeight": 372,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
         "description": {
             "name": "White sands",
             "description": "Huge desert area with lost city"
@@ -167,14 +198,14 @@
             "speed": 0.3,
             "description": "first frame",
             "extraMap": "/public/images/locations/desert/lostCity.png",
-            "timeToExtraMapSeconds": 20,
+            "timeToExtraMapSeconds": 40,
             "timeToExtraMapMinutes": 2
         },{
             "levelMap" : "/public/images/locations/desert/desert-backround.png",
             "speed": 0.3,
             "description": "second frame",
             "extraMap": "/public/images/locations/desert/lostCity-2.png",
-            "timeToExtraMapSeconds": 20,
+            "timeToExtraMapSeconds": 40,
             "timeToExtraMapMinutes": 2
         },{
             "levelMap" : "/public/images/locations/desert/desert-1a.png",
@@ -183,7 +214,12 @@
         },{
             "levelMap" : "/public/images/locations/desert/desert-1b.png",
             "speed": 0.5,
-            "description": "second frame"
+            "description": "second frame",
+            "imageWidth": 2648,
+            "imageHeight": 372,
+            "animationSteps": 10,
+            "numberOfItems": 4,
+            "numberOfVerticalItems": 1
         },{
             "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
             "speed": 0.6,
@@ -210,7 +246,7 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 2,
+            "levelMinutes": 4,
             "levelSeconds": 13
         }
     },{
@@ -224,6 +260,13 @@
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 3,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
         "description": {
             "name": "Cloud city",
             "description": "One of the largest and and modern city of the world"
@@ -297,7 +340,12 @@
         },{
             "levelMap" : "/public/images/locations/skyCity/build-close-1.png",
             "speed": 0.7,
-            "description": "first frame"
+            "description": "first frame",
+            "imageWidth": 3840,
+            "imageHeight":1080,
+            "animationSteps": 20,
+            "numberOfItems": 2,
+            "numberOfVerticalItems": 1
         },{
             "levelMap" : "/public/images/locations/skyCity/build-close-2.png",
             "speed": 0.7,
@@ -343,6 +391,13 @@
         "bossPresent": true,
         "enemyMaxNumber": 1,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
         "description": {
             "name": "In the sky cloud",
             "description": "One of the space impactors try to escape "
