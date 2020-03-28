@@ -1,4 +1,4 @@
-import { EnemyObject } from '../constructors/enemyConstructor';
+import { getData } from '../server/serverRequestModules';
 
 
 function enemyShipLogicVertical(target, mainGameObject){
@@ -82,43 +82,46 @@ function enemyVerticalMoveCalculation(distanceToTargetY){
     (this.y < this.yFinal)? this.y + yAdj : this.yFinal;
 }
 
-function spawnEnemyLogic( EnemyObject: any){
+async function spawnEnemyLogic( EnemyObject: any){
     let gameData = this.gameInitData.gameData,
     levelData = gameData.levelData,
     enemyData = gameData.enemyData,
     levelUserData = this.getLevelUserData(),
-    bosPresent = (levelUserData.sourse.levelData.bosPresents)? levelUserData.sourse.levelData.bosPresents: null;
+    bossPresent = (levelUserData.sourse.levelData.bossPresent)? levelUserData.sourse.levelData.bossPresent: null;
 
-    if(!this.gameInitData.gameData.levelChange && !bosPresent){
+    if(!this.gameInitData.gameData.levelChange && !bossPresent){
         enemySpawn.call(this)
     }else{
-        if(this.gameInitData.allGameEnemies.length ==  0){
-            let enemyShipObject = this.createNewEnemy(enemyData[0], EnemyObject);
+        let enemyShipObject = await this.createNewEnemy(enemyData[0], EnemyObject);
+        if(this.gameInitData.allGameEnemies.length < 1 && !this.gameInitData.levelChange){
             enemyShipObject.loadEnemyes();
             this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
         }
     }
 
-    function enemySpawn(){
+    async function enemySpawn(){
         let checkSpawnType = this.gameRandomizer(levelData.enemyProbability);
         if(checkSpawnType <= levelData.enemyRandomizerIndex){
             let numberEnemyPerSpawn = this.gameRandomizer(levelData.enemyMaxNumber);
             for(let i = numberEnemyPerSpawn; i < levelData.enemyMaxNumber; i++){
                 let enemyShip = enemyData[ this.gameRandomizer(enemyData.length) ];
-                let enemyShipObject = this.createNewEnemy(enemyShip, EnemyObject);
+                let enemyShipObject = await this.createNewEnemy(enemyShip, EnemyObject);
                 enemyShipObject.loadEnemyes();
                 this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
             }
         }
     }
 }
-function createNewEnemy(enemyData, EnemyObject){
+async function createNewEnemy(enemyData, EnemyObject){
     let x = this.gameInitData.screen.width + 300,
     y = this.gameRandomizer(this.gameInitData.screen.height - 200, 100)
     if(enemyData.details){
-       let shipDetails = enemyData.details;
-       let behavior = (shipDetails.behavior)?shipDetails.behavior[this.gameRandomizer(shipDetails.behavior.length)] : null;
-        return new EnemyObject(
+        let shipDetails = enemyData.details;
+        let behavior = (shipDetails.behavior)?shipDetails.behavior[this.gameRandomizer(shipDetails.behavior.length)] : null;
+        let extraObjects =  (shipDetails.extraObjects)? await loadExtraObject.call(this, shipDetails.extraObjects): false;
+
+        let context = this;
+       return new EnemyObject(
         {
             x: x, y: y,
             sx: shipDetails.sx, sy: shipDetails.sy,
@@ -126,17 +129,28 @@ function createNewEnemy(enemyData, EnemyObject){
             picturesWidth: shipDetails.imageWidth, numberOfItems: shipDetails.numberOfItems,
             width: shipDetails.width, height: shipDetails.height,
             shipTexture: shipDetails.skinName,
-            speed: shipDetails.speed,
+            speed: shipDetails.speed, isShot: shipDetails.isShot,
             status: shipDetails.status, name: shipDetails.name,
             bulletTypeNumber: shipDetails.bulletType, rapidFire: shipDetails.rapidFire, pointsPerUnit: shipDetails.pointsPerUnit,
             healthPoint: shipDetails.healthPoint, animationSteps: shipDetails.animationSteps, damage: shipDetails.damage,
             objectOwner: shipDetails.objectOwner, guns: (shipDetails.guns)? shipDetails.guns : [], explosion: shipDetails.explosionAnimation,
             numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
             spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null,
-            isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false
+            isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false, extraObjects: extraObjects, collideExplosionAnimation: shipDetails.collideExplosionAnimation  // load coin element from server 
         });
     }
 }
+async function loadExtraObject(extraObjects){
+        let randomObject = extraObjects[this.gameRandomizer(extraObjects.length)],
+        loadProbability = this.gameRandomizer(randomObject.randomuizer),
+        numberOfElement = this.gameRandomizer(randomObject.maxNumber + 1);
+        let result = [];
+        let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': randomObject.object}})
+        for(let i = 0; i < numberOfElement; i++){
+            result = result.concat(callObject)
+        }
+        return result
+    }
 
 function gameRandomizer(maxNumber: number, minNumber: number = 0){
     return Math.floor(Math.random() * maxNumber + minNumber);
@@ -148,5 +162,6 @@ export {
     enemyVerticalMoveCalculation,
     spawnEnemyLogic,
     createNewEnemy,
-    gameRandomizer
+    gameRandomizer,
+    loadExtraObject
 }

@@ -4,8 +4,10 @@ import { gameSettingsMenu } from './gameUiModels/gameUiSettingsMenu';
 import { gamePause } from './gameUiModels/gamePauseScreen';
 import { gameInformationScreen } from './gameUiModels/gameStatsScreen';
 import { gameOverScreen } from './gameUiModels/gameGameOverScreen';
+import { gameWinScreen } from './gameUiModels/gameWinScreen';
 import { uiImage, uiText } from '../view/elements/uiElementModules';
 import { hitDetection } from '../enemies/enemiesModules';
+import { levelChangeScreen } from './gameUiModels/levelChangeScreen';
 
 
 function gameUiPause(){
@@ -16,7 +18,7 @@ function gameUiMenu(gameUiPause){
     this.gameInitData.gamePause = (gameUiPause)? false: true;
 }
 function uiController(){
-
+    let gameData = this.showGameInfo()
     let controlKeys = this.gameInitData.gameData.gameSetings.keyControls;
     let gameObject = this;
 
@@ -26,23 +28,32 @@ function uiController(){
     })
 
     document.addEventListener("click", (e: any) => {
+        let data = this.getLevelUserData();
         if(e.target.tagName === "CANVAS"){
             var x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
             let elementsOnScreen = null;
             let ctx = this.gameInitData.ctxUIField,
-            screenSize = this.getScreenSize();
+            screenSize = {width: window.innerWidth, height: window.innerHeight};
             if(!this.gameInitData.gameStatus){
                 elementsOnScreen = gameLoadMenu(null, ctx, screenSize.width, screenSize.height, null);
+                clickDetection.call(this, elementsOnScreen)
             }
             if(this.gameInitData.gameUiPause){
                 elementsOnScreen = gameSettingsMenu(null, ctx, screenSize.width, screenSize.height);
+                clickDetection.call(this, elementsOnScreen)
             }
+            if(this.gameInitData.gameWin){
+                elementsOnScreen = gameWinScreen(null, ctx, screenSize.width, screenSize.height, null, data);
+                clickDetection.call(this, elementsOnScreen)
+            }
+        }
+        function clickDetection(elementsOnScreen){
             for(let item in elementsOnScreen){
                 let res = hitDetection(elementsOnScreen[item],
-                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}), this)
+                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}), this, null)
                 if(res && elementsOnScreen[item].action){
 
-                    elementsOnScreen[item].action.call(this);
+                    elementsOnScreen[item].action.call(this, gameObject);
                     break
                 }
             }
@@ -81,11 +92,21 @@ function showGameStats(){
         uiImage,
         uiText,
         uiText,
+        uiText,
+        uiImage,
         uiText
     ];
     this.initUiElements(drawMethods, gameInformationScreen, data)
 }
-
+function levelChangeWindow(){
+    let data = this.getLevelUserData();
+    let drawMethods = [
+        uiText,
+        uiText,
+        uiText
+    ];
+    this.initUiElements(drawMethods, levelChangeScreen, data)
+}
 function gameOverWindow(){
     let drawMethods = [
         uiText,
@@ -94,12 +115,25 @@ function gameOverWindow(){
     ];
     this.initUiElements(drawMethods, gameOverScreen)
 }
+function gameWinWindow(){
+    let data = this.getLevelUserData();
+    let drawMethods = [
+        uiText,
+        uiText,
+        uiText,
+        createRoundButton,
+        createRoundButton,
+        createRoundButton
+    ];
+    this.initUiElements(drawMethods, gameWinScreen, data)
+}
 
 function initUiElements(drawMethods, callback, ...props){
     let ctx = this.gameInitData.ctxUIField,
-    screenSize = this.getScreenSize(),
+    screenSize = {width: window.innerWidth, height: window.innerHeight},
     picDirection = this.showGameInfo().imageDirrection;
     let screenObjects = callback(null, ctx, screenSize.width, screenSize.height, picDirection, ...props);
+
     for(let itemIndex = 0;  itemIndex < screenObjects.length; itemIndex++){
         if(screenObjects[itemIndex].hasOwnProperty('loadPicture')) screenObjects[itemIndex].loadPicture();
         screenObjects[itemIndex].init(drawMethods[itemIndex]);
@@ -114,7 +148,9 @@ export {
     showStartWindow,
     showMenuWindow,
     showPauseWindow,
+    levelChangeWindow,
     gameOverWindow,
+    gameWinWindow,
     showGameStats,
     initUiElements
 }

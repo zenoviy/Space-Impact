@@ -2,12 +2,22 @@
     {
         "level" : 1,
         "enemyType" : ["dart", "mine", "mine", "mine"],
+        "grappleObject": ["lifepoint"],
         "levelOBjects" : [],
         "enemyProbability" : 900,
         "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 2448,
+            "imageHeight": 1131,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
@@ -37,26 +47,50 @@
             },{
                 "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
                 "speed": 1,
-                "description": "second frame back building"
+                "description": "second frame back building",
+                "imageWidth": 4896,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 2,
+                "numberOfVerticalItems": 1
             },{
                 "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
                 "speed": 1,
-                "description": "second frame back building"
+                "description": "second frame back building",
+                "imageWidth": 4896,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 2,
+                "numberOfVerticalItems": 1
             }
         ],
         "levelDetails" : {
-            "levelMinutes": 1,
+            "levelMinutes": 2,
             "levelSeconds": 10
         }
     },{
         "level" : 2,
         "enemyType" : ["dart"],
+        "grappleObject": ["lifepoint"],
         "levelOBjects" : [],
         "enemyProbability" : 900,
         "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 700,
+            "imageHeight":400,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "long canyon",
+            "description": "Large canyon full of enemy"
+        },
+        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
             "levelMap" : "/public/images/locations/canyon/canyon.png",
@@ -116,19 +150,33 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 0,
-            "levelSeconds": 43
+            "levelMinutes": 2,
+            "levelSeconds": 13
         }
     },{
         "level" : 3,
         "enemyType" : ["dart", "scorpio"],
+        "grappleObject": ["lifepoint"],
         "levelOBjects" : [],
         "enemyProbability" : 900,
         "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
         "enemyRandomizerIndex": 5,
-        "levelMap" : "canyon.png",
+        "levelStandartMap": {
+            "imageWidth": 662,
+            "imageHeight": 372,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "White sands",
+            "description": "Huge desert area with lost city"
+        },
+        "levelSound": "/public/sound/ambiant/Ehl-i_Keyif_-_11_-_Hzzam_Sazsemai_Nargile.mp3",
+        "levelMap" : "desert.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/desert/desert-sky.png",
             "speed": 0.1,
@@ -150,14 +198,14 @@
             "speed": 0.3,
             "description": "first frame",
             "extraMap": "/public/images/locations/desert/lostCity.png",
-            "timeToExtraMapSeconds": 20,
+            "timeToExtraMapSeconds": 40,
             "timeToExtraMapMinutes": 2
         },{
             "levelMap" : "/public/images/locations/desert/desert-backround.png",
             "speed": 0.3,
             "description": "second frame",
             "extraMap": "/public/images/locations/desert/lostCity-2.png",
-            "timeToExtraMapSeconds": 20,
+            "timeToExtraMapSeconds": 40,
             "timeToExtraMapMinutes": 2
         },{
             "levelMap" : "/public/images/locations/desert/desert-1a.png",
@@ -166,7 +214,12 @@
         },{
             "levelMap" : "/public/images/locations/desert/desert-1b.png",
             "speed": 0.5,
-            "description": "second frame"
+            "description": "second frame",
+            "imageWidth": 2648,
+            "imageHeight": 372,
+            "animationSteps": 10,
+            "numberOfItems": 4,
+            "numberOfVerticalItems": 1
         },{
             "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
             "speed": 0.6,
@@ -193,21 +246,35 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 2,
-            "levelSeconds": 43
+            "levelMinutes": 4,
+            "levelSeconds": 13
         }
     },{
         "level" : 4,
         "enemyType" : ["dart", "scorpio"],
+        "grappleObject": ["lifepoint"],
         "levelOBjects" : ["build_1", "build_2", "cloud_1"],
-        "enemyProbability" : 900,
+        "enemyProbability" : 1100,
         "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "enemyMaxNumber": 4,
+        "enemyMaxNumber": 3,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Cloud city",
+            "description": "One of the largest and and modern city of the world"
+        },
+        "levelSound": "/public/sound/ambiant/02_Main Theme.mp3",
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{
-            "levelMap" : "//public/images/locations/skyCity/city_background_map.png",
+            "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
             "speed": 0.1,
             "description": "first frame"
         },{
@@ -273,7 +340,12 @@
         },{
             "levelMap" : "/public/images/locations/skyCity/build-close-1.png",
             "speed": 0.7,
-            "description": "first frame"
+            "description": "first frame",
+            "imageWidth": 3840,
+            "imageHeight":1080,
+            "animationSteps": 20,
+            "numberOfItems": 2,
+            "numberOfVerticalItems": 1
         },{
             "levelMap" : "/public/images/locations/skyCity/build-close-2.png",
             "speed": 0.7,
@@ -304,19 +376,33 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 1,
+            "levelMinutes": 2,
             "levelSeconds": 43
         }
     },{
         "level" : 5,
         "enemyType" : ["megalit"],
+        "grappleObject": ["lifepoint"],
         "levelOBjects" : ["cloud_1"],
         "enemyProbability" : 900,
         "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "bosPresents": true,
-        "enemyMaxNumber": 4,
+        "bossPresent": true,
+        "enemyMaxNumber": 1,
         "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "In the sky cloud",
+            "description": "One of the space impactors try to escape "
+        },
+        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
@@ -326,10 +412,18 @@
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
             "speed": 0.1,
             "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_2.png",
+            "speed": 0.2,
+            "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 3,
-            "levelSeconds": 43
+            "levelMinutes": null,
+            "levelSeconds": null
         }
     }
 ]

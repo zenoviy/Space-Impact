@@ -28,11 +28,16 @@ import {
     showUiPopupWindow,
     showStartWindow,
     showPauseWindow,
+    levelChangeWindow,
     gameOverWindow,
+    gameWinWindow,
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
-import { gameStart, backToStartScreen } from '../engine/gameModules/satartGame';
+import { gameStart, backToStartScreen, exitTheGame, mapSoundChanger } from '../engine/gameModules/satartGame';
 import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
+import { initGrappleObject } from '../engine/gameGrappleObjectsModule';
+import { gameSettingsMenuInit } from '../appMenu/menuSettings';
+import { createSound } from '../engine/soundModules';
 
 
 interface gameData{
@@ -112,16 +117,23 @@ class Game {
     showUiPopupWindow: any;
     showMenuWindow: any;
     showStartWindow: any;
+    levelChangeWindow: any;
     gameOverWindow: any;
+    gameWinWindow: any;
     showGameStats: any;
     initUiElements: any;
     gameUiMenu: any;
     gameStart: any;
+    mapSoundChanger: any;
     backToStartScreen: any;
+    exitTheGame: any;
     showPauseWindow: any;
     nextLevelDataReload: any;
     getRandomColor: any;
     mapRanomObjectSpawn: any;
+    initGrappleObject: any;
+    gameSettingsMenuInit: any;
+    createSound: any;
     constructor(gameInitData: any){
         this.gameInitData = gameInitData;
     }
@@ -134,6 +146,8 @@ class Game {
             levelToChange: this.gameInitData.gameData.currentLevel,
             currentPoint: this.gameInitData.gameData.currentPoint,
             gameData: this.gameInitData.gameData,
+            settings: this.gameInitData.gameData.gameSetings,
+            levelSounds: this.gameInitData.gameData.levelSounds,
             imageDirrection: __dirname + '/public/images/',
         }
     }
@@ -188,18 +202,25 @@ Game.prototype.showMenuWindow = showMenuWindow;
 Game.prototype.showUiPopupWindow = showUiPopupWindow;
 Game.prototype.showStartWindow = showStartWindow;
 Game.prototype.showPauseWindow = showPauseWindow;
+Game.prototype.levelChangeWindow = levelChangeWindow;
 Game.prototype.gameOverWindow = gameOverWindow;
+Game.prototype.gameWinWindow = gameWinWindow;
 Game.prototype.showGameStats = showGameStats;
 Game.prototype.initUiElements  = initUiElements;
 
+Game.prototype.mapSoundChanger = mapSoundChanger;
 Game.prototype.gameStart = gameStart;
 Game.prototype.backToStartScreen = backToStartScreen;
+Game.prototype.exitTheGame = exitTheGame;
 Game.prototype.nextLevelDataReload = nextLevelDataReload;
 Game.prototype.changeLevelProcedure = changeLevelProcedure;
 
 Game.prototype.getRandomColor = getRandomColor;
 Game.prototype.mapRanomObjectSpawn = mapRanomObjectSpawn;
 
+Game.prototype.initGrappleObject = initGrappleObject;
+Game.prototype.gameSettingsMenuInit = gameSettingsMenuInit;
+Game.prototype.createSound = createSound;
 export {
     Game,
 }

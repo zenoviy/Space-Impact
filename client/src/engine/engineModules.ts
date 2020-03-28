@@ -1,4 +1,5 @@
 import { draw } from '../view/displayModules';
+const { ipcRenderer, remote } = require( "electron" );
 //import { levelConstructor } from '../constructors/levelConstructors';
 
 
@@ -31,8 +32,8 @@ function warpEffect(){
     this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
 
     this.gameInitData.warpObjects = (gameWarpObjects.length < 350)? this.gameInitData.warpObjects.concat({
-        x: screenSiz.width,
-        y: this.gameRandomizer(screenSiz.height),
+        x: window.innerWidth,
+        y: this.gameRandomizer(window.innerHeight),
         height: this.gameRandomizer(20, 10),
         width: 10,
         speed: this.gameRandomizer(10, 5),
@@ -53,31 +54,43 @@ function warpEffect(){
     function warpTimer(levelData){
         let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
-        if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus) this.changeLevelProcedure();
+        if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
+            //console.log('change music')
+
+            this.gameInitData.levelWindowDescription = true;
+            this.changeLevelProcedure()
+            //this.mapSoundChanger({soundStatus:'regular_level'})
+        }
     }
 }
 
 
 
-function levelInit(backgroundConstructor, ctx, mainGameObject){
+function levelInit(GameBackground, ctx, mainGameObject){
     let gameData = this.showLevelData();
     let allBackgroundElements = gameData.levelBackgroundElements;
+    let levelStandartMap = gameData.levelStandartMap;
     mainGameObject.gameInitData.backScreenPause = false;
 
     for(let mapObject of allBackgroundElements){
-        let mapItem = new backgroundConstructor(
-            mapObject.levelMap, mapObject.speed, this.gameInitData.screen, ctx,
-            (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
-            (mapObject.extraMap)? mapObject.extraMap : null, (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,
-            (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null
-        );
+
+        let mapItem = new GameBackground({
+            backgroundTexture: mapObject.levelMap, speed: mapObject.speed,
+            screenData: this.gameInitData.screen, ctx: ctx,
+            partOfScreenStatus: (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
+            extraMap: (mapObject.extraMap)? mapObject.extraMap : null,
+            timeToExtraMapSeconds: (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,
+            timeToExtraMapMinutes: (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null,
+            imageWidth: (mapObject.imageWidth)? mapObject.imageWidth: levelStandartMap.imageWidth,
+            imageHeight: (mapObject.imageHeight)? mapObject.imageHeight: levelStandartMap.imageHeight,
+            animationSteps: (mapObject.animationSteps)? mapObject.animationSteps: levelStandartMap.animationSteps,
+            numberOfItems: (mapObject.numberOfItems)? mapObject.numberOfItems: levelStandartMap.numberOfItems,
+            numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems: levelStandartMap.numberOfVerticalItems
+        });
         mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
         mapItem.img.src = __dirname + mapItem.backgroundTexture;
     }
 }
-
-
-
 
 function createContext(){
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
@@ -89,8 +102,8 @@ function createContext(){
 
 
 function getScreenSize(){
-    let width = this.gameInitData.screen.width,
-    height = this.gameInitData.screen.height;
+    let width = window.innerWidth,
+    height = window.innerHeight;
     return {width: width, height: height}
 }
 
@@ -106,14 +119,16 @@ function changeLevelProcedure(){
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
-        alert("Win Game Screen ")
+        this.mapSoundChanger({soundStatus:'game_win'})
+        this.gameInitData.gameWin = true;
+        this.gameInitData.levelWindowDescription = false;
     }
 }
 
 
 function levelTimer(){
         let data = this.getLevelUserData()
-        if(!data.sourse.levelData.bosPresents){
+        if(!data.sourse.levelData.bossPresent){
             let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
             if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails);
         }else{
@@ -121,27 +136,26 @@ function levelTimer(){
             data.sourse.levelData.levelDetails.levelMinutes = null;
         }
         function levelTimeAction(time){
-                if(time.levelSeconds <= 0){
-
-                    if(time.levelMinutes == 0 && time.levelSeconds == 0){
-                        time.levelSeconds = 0;
-                        this.gameInitData.levelChange = true;
-                    }
-                    time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes - 1 :0;
+            if(time.levelSeconds <= 0){
+                if(time.levelMinutes == 0 && time.levelSeconds == 0){
+                    time.levelSeconds = 0;
+                    this.gameInitData.levelChange = true;
                 }
-                time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
+                time.levelMinutes = (time.levelMinutes > 0)? time.levelMinutes - 1 :0;
+            }
+            time.levelSeconds = (time.levelSeconds > 0)? time.levelSeconds-1 :(this.gameInitData.levelChange)? 0 : 59;
         }
 }
 
 
 
-function getSecondMeasure(callback, ...data){
+async function getSecondMeasure(callback, ...data){
 
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
         this.gameInitData.gemeExtraSeconds = 0;
-        if(callback) return callback.call(this, ...data);
+        if(await callback) return await callback.call(this, ...data);
         return gameSecond;
     }
 }
@@ -163,6 +177,7 @@ function getLevelUserData(){
         currentLevel: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
+        gameCoins: dataSourse.gameCoins,
         life:  dataSourse.playerObject.numberOflife,
         minutes: levelTime.levelMinutes,
         seconds: levelTime.levelSeconds
@@ -174,7 +189,7 @@ function getLevelUserData(){
 
 
 function deleteBullet(bullet){
-    if(bullet.x > this.gameInitData.screen.width
+    if(bullet.x > window.innerWidth
         || bullet.x < bullet.width * -1
         || !bullet.objectPresent){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
@@ -225,7 +240,7 @@ function getObjectPosition(){
 
 
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';
+    var letters = '0123456789ABCDEF';// '0123456789ABCDEF'  '6789ABC';
     var color = '#';
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
@@ -246,14 +261,21 @@ function preloadImage(items){
             assignimage(key, val, image)
         }
     }
-
     function assignimage(key, val, image){
         if(key == 'skinName' ||  key == 'texture' || key == 'levelMap'){
-            console.log(key, val)
             if(val) image.src = __dirname + val;
         }
     }
 }
+
+
+function fullScreenSwitch({fullscreen}){
+    ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        //console.log(arg) // 
+    })
+    ipcRenderer.send('asynchronous-message', {fullscreen: fullscreen})
+}
+
 
 export  {
     initField,
@@ -273,5 +295,6 @@ export  {
     delateSideObject,
     getObjectPosition,
     collectPoints,
-    preloadImage
+    preloadImage,
+    fullScreenSwitch
 }

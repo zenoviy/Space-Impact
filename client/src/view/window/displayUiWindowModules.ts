@@ -17,8 +17,17 @@ interface Shapes{
         height: number,
         x: number,
         y: number,
+        gradient ? : boolean,
         background: string,
+        isBorder ? : boolean,
+        borderRadius ? : number,
+        backGroundFinal ? : string,
+        topX ? : number,
+        topY ? : number,
+        bottomX ? : number,
+        bottomY ? : number,
         borderColor: string,
+        shadowColor: string,
         radius: number
     }
 }
@@ -26,7 +35,17 @@ interface Shapes{
 function createShapeRoundBorder(shapePropertyes: Shapes){
     let propertyes = shapePropertyes.propertyes;
     propertyes.ctx.fillStyle = propertyes.background;
-   propertyes.ctx.beginPath();
+    if(propertyes.gradient){
+        var gradient = propertyes.ctx.createLinearGradient(propertyes.topX, propertyes.topY, propertyes.bottomX, propertyes.bottomY);
+        gradient.addColorStop(0, propertyes.background);
+        gradient.addColorStop(1, propertyes.backGroundFinal);
+        propertyes.ctx.fillStyle = gradient;
+    }
+
+    propertyes.ctx.shadowColor = propertyes.shadowColor;
+    propertyes.ctx.shadowBlur = 8;
+
+    propertyes.ctx.beginPath();
     propertyes.ctx.moveTo(propertyes.x + propertyes.radius, propertyes.y);
     propertyes.ctx.lineTo(propertyes.x + propertyes.width - propertyes.radius,
         propertyes.y);
@@ -55,10 +74,21 @@ function createShapeRoundBorder(shapePropertyes: Shapes){
         propertyes.y,
         propertyes.x + propertyes.radius,
         propertyes.y); /**/
-        //propertyes.ctx.fillRect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);
+
+    if(propertyes.isBorder){
+        propertyes.ctx.strokeStyle = propertyes.borderColor;
+        propertyes.ctx.stroke();
+    }
     propertyes.ctx.closePath();
     propertyes.ctx.fill()
+
+
 }
+
+
+
+
+
 
 interface ButtonShape{
     name: string,
@@ -73,12 +103,16 @@ interface ButtonShape{
         x: number,
         y: number,
         background: string,
+        isBorder ?: boolean,
+        borderRadius ?: number,
         borderColor: string,
+        shadowColor: string,
         textProperty: {
             textColor: string,
             topPadding: number,
             rightPadding: number,
             bottomPadding: number,
+            shadowColor ?: string,
             leftPadding: number,
         },
         radius: number
@@ -90,6 +124,9 @@ function createRoundButton(shapePropertyes: ButtonShape){
     let textWidth = propertyes.ctx.measureText(shapePropertyes.text).width/3.2;
 
     let buttonWidth =  propertyes.textProperty.leftPadding + textWidth + propertyes.textProperty.rightPadding;
+    propertyes.ctx.shadowColor = propertyes.shadowColor;
+    propertyes.ctx.shadowBlur = 8;
+   
     propertyes.ctx.fillStyle = propertyes.background;
     propertyes.ctx.beginPath();
     propertyes.ctx.moveTo(propertyes.x + propertyes.radius, propertyes.y);
@@ -124,15 +161,20 @@ function createRoundButton(shapePropertyes: ButtonShape){
     propertyes.ctx.closePath();
     propertyes.ctx.fill()
 
-
+    if(propertyes.isBorder){
+        propertyes.ctx.strokeStyle = propertyes.borderColor;
+        propertyes.ctx.lineWidth = propertyes.borderRadius;
+        propertyes.ctx.stroke();
+    }
 
     propertyes.ctx.font = shapePropertyes.fontSize ;
     propertyes.ctx.fillStyle = propertyes.textProperty.textColor;
+    propertyes.ctx.shadowColor = propertyes.textProperty.shadowColor;
+    propertyes.ctx.shadowBlur = 8;
     propertyes.ctx.fillText(
         shapePropertyes.text,
         propertyes.x + propertyes.textProperty.leftPadding,
         propertyes.y + propertyes.height/2+ propertyes.textProperty.topPadding);
-
 }
 export {
     createWindow,

@@ -1,13 +1,12 @@
 
 import { initPlayerShip,
-    movePlayerShip,
     shipControl,
     moveShip,
     placeShip,
     setContext 
 } from '../engine/playerShipModule';
 import { getObjectPosition } from '../engine/engineModules';
-import { takeDamage } from '../enemies/enemiesModules';
+import { takeDamage, enemyAnimation, placeEnemyes } from '../enemies/enemiesModules';
 
 
 interface shipData{
@@ -29,6 +28,7 @@ class PlayerShip{
     data: shipData;
     points: number;
     healthPoint: number;
+    maxOfLife: number;
     maxHealth: number;
     numberOflife: number;
     x: number; y: number;
@@ -36,9 +36,16 @@ class PlayerShip{
     ctx: any; collisionAllow: boolean;
     objectOwner: string; width: number; height: number;
     xAdj: number; speed: number; explosion: any; damage: number;
+    sx: number; sy: number; picturesWidth: number;
+    imageHeight: number;
+    sWidth: number; sHeight: number;
+    animationSteps: number;
+    numberOfItems: number;
+    numberOfVerticalItems: number;
+    detectFrame: number;
+    collideExplosionAnimation: any;
 
     initPlayerShip: any;
-    movePlayerShip: any;
     shipControl: any;
     showInformation: any;
     setContext: any;
@@ -46,33 +53,40 @@ class PlayerShip{
     moveShip: any;
     getObjectPosition: any;
     takeDamage: any;
-    constructor(
-        data: shipData,
-        points: number,
-        healthPoint: number,
-        numberOflife: number,
-        x: number = 100,
-        y: number = 100,
-        width: number, height: number, damage: number
-    ){
-        this.data = data;
-        this.points = points;
-        this.numberOflife = numberOflife;
-        this.healthPoint = healthPoint + data.armor;
-        this.maxHealth = healthPoint + data.armor;
-        this.x = x - (width/2); this.y = y - (height/2);
-        this.xFinal = x; this.yFinal = y;
+    enemyAnimation: any;
+    placeEnemyes: any;
+    constructor({...data}){
+        this.data = data.data;
+        this.points = data.points;
+        this.numberOflife = data.numberOflife;
+        this.maxOfLife = data.numberOflife;
+        this.healthPoint = data.healthPoint + data.armor;
+        this.maxHealth = data.healthPoint + data.armor;
+        this.x = data.x - (data.width/2); this.y = data.y - (data.height/2);
+        this.xFinal = data.x; this.yFinal = data.y;
         this.collisionAllow = true;
         this.objectOwner = "player";
-        this.width = width; this.height = height;
+        this.width = data.width; this.height = data.height;
         this.xAdj = 0; this.speed = data.speed;
-        this.explosion = data.explosion; this.damage = damage;
+        this.explosion = data.explosion; this.damage = data.damage;
+        this.sx = data.sx; this.sy = data.sy; this.picturesWidth = data.picturesWidth;
+        this.imageHeight = data.imageHeight;
+        this.sWidth = data.sWidth; this.sHeight = data.sHeight;
+        this.animationSteps = data.animationSteps;
+        this.numberOfItems = data.numberOfItems;
+        this.numberOfVerticalItems = data.numberOfVerticalItems;
+        this.detectFrame = 0;
+        this.collideExplosionAnimation = data.collideExplosionAnimation;
+    }
+    getPlayerInformation(){
+        return {
+            health: this.healthPoint,
+            maxHealthPoint: this.maxHealth
+        }
     }
 
 }
-
 PlayerShip.prototype.initPlayerShip = initPlayerShip;
-PlayerShip.prototype.movePlayerShip = movePlayerShip;
 PlayerShip.prototype.shipControl = shipControl;
 PlayerShip.prototype.moveShip = moveShip;
 PlayerShip.prototype.placeShip = placeShip;
@@ -80,6 +94,8 @@ PlayerShip.prototype.setContext = setContext;
 PlayerShip.prototype.getObjectPosition = getObjectPosition;
 
 PlayerShip.prototype.takeDamage = takeDamage;
+PlayerShip.prototype.enemyAnimation = enemyAnimation;
+PlayerShip.prototype.placeEnemyes = placeEnemyes
 
 export {
     PlayerShip

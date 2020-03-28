@@ -1,4 +1,14 @@
-const { getLevelData, getUserShip, getEnemyShip, getGameData, getLevelObjects} = require('./business');
+const {
+    getLevelData,
+    getUserShip,
+    getEnemyShip,
+    getGameData,
+    getLevelObjects,
+    getResultlData,
+    postResultlData,
+    getGrappleObjects,
+    updateResultlData
+} = require('./business');
 
 const bodyParser = require('body-parser')
 const express = require('express');
@@ -31,12 +41,18 @@ app.get('/game', cors(), (req, res) => {
     })
 })
 
-app.get('/api/game-settings', cors(), getGameData)
+//app.get('/api/game-settings', cors(), getGameData)
 app.get('/api/level-data', cors(), getLevelData)
 app.get('/api/level-objects', cors(), getLevelObjects)
+app.get('/api/grapple-objects', cors(), getGrappleObjects)
 
 app.get('/api/user-ship', cors(), getUserShip)
 app.get('/api/enemy-ship', cors(), getEnemyShip)
+
+app.route("/api/game-result")
+    .get(getResultlData)
+    .post(cors(), postResultlData)
+    .put(cors(), updateResultlData)
 
 app.listen(process.env.PORT || 3000, function(){
     console.log(`Server listened at port ${process.env.PORT || 3000}`);

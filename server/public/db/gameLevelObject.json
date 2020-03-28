@@ -19,6 +19,25 @@
     "pointsPerUnit": 30,
     "spawnDetails": {
         "position": "bottom"
+    },"extraObjects": [{
+        "object": "goldCoin",
+        "randomuizer": 100,
+        "maxNumber": 23
+    }],"collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
     },
     "explosionAnimation": {
         "texture": "/public/images/misc/fire/explosion-building-1.png",
@@ -29,7 +48,11 @@
         "sx": 0,
         "sy": 0,
         "width": 250,
-        "height": 650
+        "height": 650,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/building_Explosion_R1_SFX.mp3",
+            "soundLoop": false
+        }
     }
 }, {
     "id": "build_2",
@@ -53,6 +76,27 @@
     "spawnDetails": {
         "position": "bottom"
     },
+    "extraObjects": [{
+        "object": "goldCoin",
+        "randomuizer": 100,
+        "maxNumber": 23
+    }],
+    "collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
+    },
     "explosionAnimation": {
         "texture": "/public/images/misc/fire/explosion-building.png",
         "imageWidth": 12891,
@@ -62,7 +106,11 @@
         "sx": 0,
         "sy": 0,
         "width": 250,
-        "height": 850
+        "height": 850,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/building_Explosion_R1_SFX.mp3",
+            "soundLoop": false
+        }
     }
 }, {
     "id": "cloud_1",

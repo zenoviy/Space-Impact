@@ -1,0 +1,89 @@
+[
+    {
+        "id": "lifepoint",
+        "name": "lifepoin",
+        "probability": 1000,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 1826,
+        "imageHeight":200,
+        "animationSteps": 10,
+        "numberOfItems": 9,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 30,
+        "height": 30,
+        "skinName": "/public/images/misc/grapple-objects/life.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "life",
+            "description": "add 1 life for player",
+            "value": 1,
+            "methodName": "addPlayerLife"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-life.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambiant/collection/little_robot_sound_factory_Jingle_Win_Synth_01.mp3",
+                "soundLoop": false
+            }
+        }
+    },{
+        "id": "goldCoin",
+        "name": "goldCoin",
+        "probability": 100,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 700,
+        "imageHeight":200,
+        "animationSteps": 5,
+        "numberOfItems": 6,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 25,
+        "height": 25,
+        "skinName": "/public/images/misc/grapple-objects/animated-coin.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "coin",
+            "description": "coin",
+            "value": 100,
+            "methodName": "collectCoin"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    }
+]
