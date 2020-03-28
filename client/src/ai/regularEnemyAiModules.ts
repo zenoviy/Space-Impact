@@ -28,16 +28,41 @@ function enemyShipLogicVertical(target, mainGameObject){
             case 'comeEndFind':
                 strafe.call(this);
                 unitStop.call(this);
+                goBackAnForward.call(this, mainGameObject);
                 break;
             default:
                 strafe.call(this)
         }
     }
+    function goBackAnForward(mainGameObject){
+        if(this.changeXposition && this.direction != 'backwards'){
+            this.direction = 'backwards';
+
+            let screenData = mainGameObject.getScreenSize();
+            let randomPoint = mainGameObject.gameRandomizer(this.width * 2)
+            let range = screenData.width - randomPoint;
+            this.xFinal = range;
+            cahngeDirrection.call(this)
+        }else if(this.changeXposition && this.x > this.xFinal && this.direction != 'forward'){
+            this.direction = 'forward'
+            this.changeXposition = false;
+            cahngeDirrection.call(this)
+        }
+
+        function cahngeDirrection(){
+            this.speed =  this.speed * -1;
+        }
+    }
     function unitStop(){
         let screenData = mainGameObject.getScreenSize();
-        if(this.x < screenData.width - this.width * 2){
-            this.speed = 0;
+        if(this.x < screenData.width - this.width * 2 && !this.changeXposition){
+            if(!this.changeSpeed) changeStrafeSpeed.call(this, 3)
+            this.changeSpeed = true;
+            this.changeXposition = true
         }
+    }
+    function changeStrafeSpeed(coeficient){
+         this.speed = this.speed/coeficient;
     }
     function strafe(){
         if(this.spotDistance > distanceToTargetX || this.spotDistance > distanceToTargetY){
@@ -142,7 +167,7 @@ async function createNewEnemy(enemyData, EnemyObject){
 }
 async function loadExtraObject(extraObjects){
         let randomObject = extraObjects[this.gameRandomizer(extraObjects.length)],
-        loadProbability = this.gameRandomizer(randomObject.randomuizer),
+        loadProbability = this.gameRandomizer(randomObject.randomizer),
         numberOfElement = this.gameRandomizer(randomObject.maxNumber + 1);
         let result = [];
         let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': randomObject.object}})

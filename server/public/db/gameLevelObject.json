@@ -21,7 +21,7 @@
         "position": "bottom"
     },"extraObjects": [{
         "object": "goldCoin",
-        "randomuizer": 100,
+        "randomizer": 100,
         "maxNumber": 23
     }],"collideExplosionAnimation": {
         "texture": "/public/images/misc/fire/explosion.png",
@@ -78,7 +78,7 @@
     },
     "extraObjects": [{
         "object": "goldCoin",
-        "randomuizer": 100,
+        "randomizer": 100,
         "maxNumber": 23
     }],
     "collideExplosionAnimation": {

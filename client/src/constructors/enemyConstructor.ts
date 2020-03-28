@@ -52,6 +52,7 @@ class EnemyObject {
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
     direction: string; isBoss: boolean;
     extraObjects: any[]; collideExplosionAnimation: any;
+    changeXposition: boolean; changeSpeed: boolean;
 
     placeEnemyes: any;
     moveEnemyes: any;

@@ -29,6 +29,27 @@ enemyTypeData.json   - storage file for enemy type, texture, weapons, other prop
             "skinName": "enemy_ship_1.png", // name of ship background
             "speed": 4,                 // ship speed
             "pointsPerUnit": 5,         // cost per unit while damage
+            "extraObjects":[{           // object spawn during ship explosion
+                "object": "goldCoin",   // name of spawn object ( find in gameGrappleObjectData.json )
+                "randomizer": 100,     // spawn randomize index
+                "maxNumber": 3          // max number of spawn objects
+            }],
+            "collideExplosionAnimation": {                              // Special animation for collision animation
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 90,
+                "height": 90,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
+                    "soundLoop": false
+                }
+            },
             "explosionAnimation": {                             // object to determine explsion texture of ship
                 "texture": "misc/fire/explosion-blue.png",      // texture of explosion
                 "imageWidth": 12891,                            // texture width size
@@ -87,7 +108,8 @@ gameLevelData.json  - storage file for level other properties  array with levels
     {
         "level" : 1,                        // level number
         "enemyType" : ["dart", "scorpio"],                  // type of enemy in this level
-        "levelOBjects" : [1, 2, 3],                         // object on map
+        "grappleObject": ["lifepoint"],                     // Spawn objects for player
+        "levelOBjects" : ["build_1", "build_2", "cloud_1"],                         // object on map
         "enemyProbability" : 1000,                          // randomizer index for enemy spawn
         "objectProbability": 1000,                          // randomizer  index for map objects spawn
         "objectMinTimeSpawn": 200,                          // minimum number for random spawn
@@ -96,6 +118,13 @@ gameLevelData.json  - storage file for level other properties  array with levels
         "enemyRandomizerIndex": 5,
         "otherObjects" : [],                                // should be other background elements effects ets
         "levelMap" : "vhoa0.jpg",                           // name of main background texture
+        "levelStandartMap": {                               // Default level animation settings
+            "imageWidth": 1920,                             // pictures width size in px
+            "imageHeight":1080,                             // pictures height size in px
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
         "levelBackgroundElements" : [                       // array of map layer   each layer contain 2 frame
         {                                       // first layer with 2 frames
             "levelMap" : "locations/desert/desert-sky.png",
@@ -105,7 +134,7 @@ gameLevelData.json  - storage file for level other properties  array with levels
             "levelMap" : "locations/desert/desert-sky.png",         // texture
             "speed": 0.1,                                           // speed of layer could be + - determine dirrection of layer move
             "description": "second frame"                           // just a description of layer
-        },{                                                                     // another layer it`s a complex one
+        },{                                                                     // example another layer it`s a complex one
             "levelMap" : "locations/desert/desert-backround.png",
             "speed": 0.3,
             "description": "first frame",
@@ -119,7 +148,20 @@ gameLevelData.json  - storage file for level other properties  array with levels
             "extraMap": "locations/desert/lostCity-2.png",
             "timeToExtraMapSeconds": 20,
             "timeToExtraMapMinutes": 2
-        }],
+        },{                                                                         // example of map animation propertyes
+            "levelMap" : "/public/images/locations/skyCity/build-close-1.png",      // link and name of map relative to __dirname
+            "speed": 0.7,
+            "description": "first frame",
+            "imageWidth": 3840,                                                     // width of picture in px
+            "imageHeight":1080,
+            "animationSteps": 20,
+            "numberOfItems": 2,                                                     // animation frame
+            "numberOfVerticalItems": 1
+        },{
+            "levelMap" : "/public/images/locations/skyCity/build-close-2.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },],
         "levelDetails" : {
             "levelMinutes": 2,               // minutes to finish the level
             "levelSeconds": 43               // seconds to finish the level
@@ -149,24 +191,53 @@ playerShipsData.json  - storage file for player ships data there should be sever
         },
         "guns":[        //  that same as in enemy model
             {
-                "name": "blaster",
+                "name": "blaster",                              // standart weapons settings
+                "texture": "/public/images/misc/bullets/green-laser.png",
+                "explosionAnimation": {
+                    "texture": "/public/images/misc/fire/explosion.png",
+                    "imageWidth": 12891,
+                    "imageHeight":294,
+                    "animationSteps": 2,
+                    "numberOfItems": 44,
+                    "sx": 0,
+                    "sy": 0,
+                    "width": 50,
+                    "height": 50,
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                        "soundLoop": false
+                    }
+                },
+                "sound": {
+                    "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                    "soundLoop": false
+                },
+                "type": "blaster",
                 "fireRepead": 3,
                 "speed": 6,
-                "texture": null,
                 "color": "rgba(81, 255, 0, 1)",
-                "width": 60,
-                "height": 6,
+                "width": 45,
+                "height": 20,
+                "sx": 0,
+                "sy": 20,
+                "imageWidth": 3587,
+                "imageHeight":109,
+                "animationSteps": 5,
+                "numberOfItems": 12,
+                "numberOfVerticalItems": 1,
+                "sWidth": 299,
+                "sHeight": 109,
                 "damage": 30,
-                "firePosition": 20
-            }, {}
+                "firePosition": 15
+            }
         ]
 
 
 ==============================================================================================
-meLevelObject.json  - storage file for map other objects
+gameLevelObject.json  - storage file for map other objects
 
 {
-    "id": 1,                        // id t
+    "id": "build_1",
     "name": "build 1",
     "objectOwner": "environment",
     "damage": 30,
@@ -180,15 +251,34 @@ meLevelObject.json  - storage file for map other objects
     "sy": 0,
     "width": 250,
     "height": 400,
-    "skinName": "misc/building1.png",
+    "skinName": "/public/images/misc/building1.png",
     "speed": 4,
     "isBackground": false,
     "pointsPerUnit": 30,
     "spawnDetails": {
         "position": "bottom"
+    },"extraObjects": [{
+        "object": "goldCoin",
+        "randomizer": 100,
+        "maxNumber": 23
+    }],"collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
     },
     "explosionAnimation": {
-        "texture": "misc/fire/explosion-building-1.png",
+        "texture": "/public/images/misc/fire/explosion-building-1.png",
         "imageWidth": 12891,
         "imageHeight":302,
         "animationSteps": 2,
@@ -196,6 +286,10 @@ meLevelObject.json  - storage file for map other objects
         "sx": 0,
         "sy": 0,
         "width": 250,
-        "height": 650
+        "height": 650,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/building_Explosion_R1_SFX.mp3",
+            "soundLoop": false
+        }
     }
 },

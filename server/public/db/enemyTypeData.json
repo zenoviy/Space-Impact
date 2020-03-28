@@ -27,7 +27,7 @@
             "pointsPerUnit": 5,
             "extraObjects":[{
                 "object": "goldCoin",
-                "randomuizer": 100,
+                "randomizer": 100,
                 "maxNumber": 1
             }],
             "collideExplosionAnimation": {
@@ -133,7 +133,7 @@
             "pointsPerUnit": 2,
             "extraObjects":[{
                 "object": "goldCoin",
-                "randomuizer": 100,
+                "randomizer": 100,
                 "maxNumber": 3
             }],
             "collideExplosionAnimation": {
@@ -238,7 +238,7 @@
             "pointsPerUnit": 20,
             "extraObjects":[{
                 "object": "goldCoin",
-                "randomuizer": 100,
+                "randomizer": 100,
                 "maxNumber": 10
             }],
             "collideExplosionAnimation": {
@@ -385,7 +385,7 @@
             "pointsPerUnit": 200,
             "extraObjects":[{
                 "object": "goldCoin",
-                "randomuizer": 100,
+                "randomizer": 100,
                 "maxNumber": 20
             }],
             "collideExplosionAnimation": {

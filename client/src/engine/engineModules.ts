@@ -189,7 +189,7 @@ function getLevelUserData(){
 
 
 function deleteBullet(bullet){
-    if(bullet.x > window.innerWidth
+    if(bullet.x > window.innerWidth + 500
         || bullet.x < bullet.width * -1
         || !bullet.objectPresent){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
