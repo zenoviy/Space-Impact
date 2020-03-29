@@ -7,6 +7,7 @@ import { initPlayerShip,
 } from '../engine/playerShipModule';
 import { getObjectPosition } from '../engine/engineModules';
 import { takeDamage, enemyAnimation, placeEnemyes } from '../enemies/enemiesModules';
+import { bulletSpeed } from '../engine/bulletsModule';
 
 
 interface shipData{
@@ -44,6 +45,7 @@ class PlayerShip{
     numberOfVerticalItems: number;
     detectFrame: number;
     collideExplosionAnimation: any;
+    isShot: boolean; shotAngle: number;
 
     initPlayerShip: any;
     shipControl: any;
@@ -55,6 +57,7 @@ class PlayerShip{
     takeDamage: any;
     enemyAnimation: any;
     placeEnemyes: any;
+    bulletSpeed: any;
     constructor({...data}){
         this.data = data.data;
         this.points = data.points;
@@ -77,6 +80,8 @@ class PlayerShip{
         this.numberOfVerticalItems = data.numberOfVerticalItems;
         this.detectFrame = 0;
         this.collideExplosionAnimation = data.collideExplosionAnimation;
+        this.isShot = true;
+        this.shotAngle = 0;
     }
     getPlayerInformation(){
         return {
@@ -96,6 +101,7 @@ PlayerShip.prototype.getObjectPosition = getObjectPosition;
 PlayerShip.prototype.takeDamage = takeDamage;
 PlayerShip.prototype.enemyAnimation = enemyAnimation;
 PlayerShip.prototype.placeEnemyes = placeEnemyes
+PlayerShip.prototype.bulletSpeed = bulletSpeed
 
 export {
     PlayerShip

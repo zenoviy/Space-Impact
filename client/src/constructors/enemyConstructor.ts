@@ -7,8 +7,7 @@ import { placeEnemyes,
     takeDamage,
     enemyDamageAnimation,
     spawnCoin } from '../enemies/enemiesModules';
-import { getObjectPosition } from '../engine';
-
+import { getObjectPosition, bulletSpeed } from '../engine';
 
 interface explosionAnimation{
     texture: string,
@@ -53,6 +52,7 @@ class EnemyObject {
     direction: string; isBoss: boolean;
     extraObjects: any[]; collideExplosionAnimation: any;
     changeXposition: boolean; changeSpeed: boolean;
+    shotAngle: number;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -65,6 +65,7 @@ class EnemyObject {
     enemyShipLogicVertical: any;
     enemyVerticalMoveCalculation: any;
     spawnCoin: any;
+    bulletSpeed: any;
     constructor({...data}){
             this.id = new Date().getTime();
             this.x = data.x; this.y = data.y;
@@ -95,6 +96,7 @@ class EnemyObject {
             this.isBoss = data.isBoss;
             this.extraObjects = data.extraObjects;
             this.collideExplosionAnimation = data.collideExplosionAnimation;
+            this.shotAngle = 180;
             /// load amount fo coins, ando coins object from server
     }
 }
@@ -111,6 +113,7 @@ EnemyObject.prototype.enemyVerticalMoveCalculation = enemyVerticalMoveCalculatio
 
 EnemyObject.prototype.takeDamage = takeDamage;
 EnemyObject.prototype.spawnCoin = spawnCoin;
+EnemyObject.prototype.bulletSpeed = bulletSpeed
 
 export {
     EnemyObject

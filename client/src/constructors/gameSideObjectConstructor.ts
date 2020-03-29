@@ -1,5 +1,5 @@
 import * as enemyModules from '../enemies';
-import { fireAnimationEnded, mapObjectMove } from '../engine/gameSideObjectsModule';
+import { fireAnimationEnded, mapObjectMove, sideObjectShot } from '../engine/gameSideObjectsModule';
 import { placeEnemyes,
     moveEnemyes,
     loadEnemyes,
@@ -7,7 +7,7 @@ import { placeEnemyes,
     takeDamage,
     enemyDamageAnimation,
     spawnCoin} from '../enemies/enemiesModules';
-
+import { bulletSpeed } from '../engine/bulletsModule';
 
 interface grappleOBject {
     name: string,
@@ -32,15 +32,19 @@ class SideObject{
     isBackground: boolean; explosion: any; pointsPerUnit: number;
     extraObjects: any;
     collideExplosionAnimation: any;
-    sound: any;
+    sound: any; side: string; guns: any; degree: number;
+    rapidFire: number; isShot: boolean; shotAngle: number;
 
     fireAnimationEnded: any;
     placeEnemyes: any;
+    shot: any;
     enemyAnimation: any;
     takeDamage: any;
     mapObjectMove: any;
     enemyDamageAnimation: any;
     spawnCoin: any;
+    sideObjectShot: any;
+    bulletSpeed: any;
     constructor({...data}){
             this.x = data.x; this.y = data.y;
             this.sx = data.sx; this.sy = data.sy;
@@ -64,17 +68,26 @@ class SideObject{
             this.extraObjects = (data.extraObjects)? data.extraObjects : 0;
             this.collideExplosionAnimation = data.collideExplosionAnimation;
             this.sound = (data.sound)? data.sound : null;
+            this.side = (data.side)? data.side : null;
+            this.guns = (data.guns)? data.guns: null;
+            this.degree = (data.degree)? data.degree : 0;
+            this.rapidFire = (data.rapidFire)? data.rapidFire : null;
+            this.isShot = (data.isShot)? data.isShot : false;
+            this.shotAngle = 0;
     }
 }
 
 SideObject.prototype.enemyAnimation = enemyModules.enemyAnimation;
 SideObject.prototype.placeEnemyes = enemyModules.placeEnemyes;
+SideObject.prototype.shot = enemyModules.shot;
 SideObject.prototype.fireAnimationEnded = fireAnimationEnded;
 
 SideObject.prototype.takeDamage = takeDamage;
 SideObject.prototype.mapObjectMove = mapObjectMove;
 SideObject.prototype.enemyDamageAnimation = enemyDamageAnimation
 SideObject.prototype.spawnCoin = spawnCoin;
+SideObject.prototype.sideObjectShot = sideObjectShot;
+SideObject.prototype.bulletSpeed = bulletSpeed;
 
 export {
    SideObject

@@ -1,6 +1,7 @@
 import { getData, getLocalData, getElectronLocalData } from '../../server/serverRequestModules';
 import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
+import { horizontalVerticalSearch, renewPlayerShip } from './changeLevels';
 const { ipcRenderer, remote } = require( "electron" );
 
 
@@ -131,6 +132,15 @@ async function gameDataInit(PlayerShip, soundObject){
             collideExplosionAnimation: userData.collideExplosionAnimation
         }
 
+        let playerShipData = new PlayerShip(shipData);
+        // this.gameInitData.gameData.playerObject
+        if(this.gameInitData){
+            
+            //playerShipData = this.gameInitData.gameData.playerObject;
+            playerShipData = renewPlayerShip.call(this, { originData: this.gameInitData.gameData.playerObject, newData: playerShipData})
+            console.log(playerShipData)
+        }
+
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,
@@ -140,7 +150,7 @@ async function gameDataInit(PlayerShip, soundObject){
                 currentLevel: level,
                 currentPoint: 0,
                 gameCoins: 0,
-                playerObject: new PlayerShip(shipData),
+                playerObject: playerShipData,
                 levelData: levelData,
                 levelObjects: levelObjects,
                 grappleObjects: grappleObjects,
@@ -172,6 +182,7 @@ async function gameDataInit(PlayerShip, soundObject){
             gameWin: false,
             levelWindowDescription: false,
             grappleObjectOnScreen: false,
+            tradepostInRange: false,
             shopActive: false,
             gemeExtraSeconds: 0,
         }
@@ -179,6 +190,8 @@ async function gameDataInit(PlayerShip, soundObject){
 }
 function gameStart(){
     this.mapSoundChanger({soundStatus:'regular_level'})
+    let contexts = this.returnContext()
+    this.initPlayerShip()
 
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = true;
@@ -211,14 +224,16 @@ function mapSoundChanger({soundStatus}){
 }
 
 
+
+
 async function backToStartScreen(PlayerShip){
     let soundObject = this.showGameInfo().gameData.levelSounds;
-    let newInitdata = await gameDataInit(PlayerShip, soundObject);
+    let newInitdata = await gameDataInit.call(this, PlayerShip, soundObject);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
 
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
-                this.gameInitData[key] = value
+            this.gameInitData[key] = value
         };
     }
     this.mapSoundChanger({soundStatus:'start_screen'})

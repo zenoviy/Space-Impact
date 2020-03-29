@@ -4,12 +4,14 @@ import * as methods from '../engine';
 
 import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
+import { shot } from '../enemies/enemiesModules';
+
 import * as view from '../view/';
 
-function initPlayerShip(mainGameObject: any){
+function initPlayerShip(){
     if(this.ctx){
         let image = this.data.texture,
-        imageLocation = mainGameObject.showGameInfo().imageDirrection;
+        imageLocation = __dirname + '/public/images/';
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){
@@ -43,7 +45,8 @@ function shipControl(mainGameObject: any){
     })
     document.addEventListener("click", (e: any) => {
         if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
-        let guns = this.data.guns;
+        shot.call(this, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player")
+        /*let guns = this.data.guns;
         for(let item of guns){
             let context = this;
             let bullet = new constructors.BulletConstruct({
@@ -68,6 +71,17 @@ function shipControl(mainGameObject: any){
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
             }
         }
+        x: context.x, y: context.y + ((item.firePosition)? item.firePosition : mainGameObject.gameRandomizer(context.height)),
+                bulletType: item.name, bulletTexture: item.color,
+                objectOwner: owner, bulletSpeed: item.speed + this.speed,
+                width: item.width, height: item.height,
+                damage: item.damage, type: item.type, texture: item.texture,
+                sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
+                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
+                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
+                sound: item.sound, degree: (item.degree)? item.degree: 0
+        
+        */
     })
 }
 

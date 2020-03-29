@@ -21,6 +21,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     var mainMenu = document.querySelector("#main-menu")
 
     /*  gameEngineInit  */
+    var playerShipData;
     var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip, null)
     if(!gameState){
         let navigation = appMenu(gameObject, dialogWindow)
@@ -29,7 +30,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     }
 
     var gameObject = await new constructors.Game(gameState.data)
-    var playerShipData = gameObject.gameInitData.gameData.playerObject;
+    playerShipData = gameObject.gameInitData.gameData.playerObject;
 
     /*  init electron App memnu  */
     const navigation = appMenu(gameObject, dialogWindow)
@@ -37,25 +38,25 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
     await gameObject.gameSettingsMenuInit()
     gameObject.createSound(constructors.SoundCreator)
-   var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
+    var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
 
     gameObject.uiController()
     gameObject.setGameFields()
     gameObject.getScreenSize()
 
 
-    let contexts = gameObject.returnContext()
+     let contexts = gameObject.returnContext()
 
     //  create context
     playerShipData.ctx = contexts.gameActionField
+    playerShipData.initPlayerShip()
 
 
     // ship move
-    playerShipData.initPlayerShip(gameObject)
     playerShipData.shipControl(gameObject)
 
     window.addEventListener('resize', ()=>{
-        //console.log('resize')
+
         gameObject.getScreenSize()
         gameObject.setGameFields()
         gameObject.initField()
@@ -63,7 +64,8 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
     /*   game engin runing   */
     async function gameInterval(){
-
+        //playerShipData = gameObject.gameInitData.gameData.playerObject;
+       
         if(gameObject.gameInitData.ctxUIField){
             clearField(
                 gameObject.gameInitData.ctxUIField,
@@ -105,7 +107,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                                 y: playerShipData.y
                             }, gameObject);
                             enemy.enemyAnimation(true);
-                            enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator)
+                            enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "enemy")
                             gameObject.deleteObjects(enemy)
                             gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
                             gameObject.hitDetection(enemy, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
@@ -128,8 +130,11 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                             }else{
                                 if(object.objectOwner == "enemy" ||
                                 object.objectOwner == "collide" ||
-                                object.objectOwner == "grappleObject"){
+                                object.objectOwner == "grappleObject" ||
+                                object.objectOwner == "hangar"){
                                     gameObject.hitDetection(playerShipData, [object], gameObject, constructors.GrappleObject);
+                                    object.sideObjectShot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "hangarbullet", gameObject.gameInitData.allGameEnemies)
+                                    //object.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "hangar")
                                 }
                                 object.enemyAnimation()
                             }

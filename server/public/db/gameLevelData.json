@@ -157,12 +157,12 @@
         "level" : 3,
         "enemyType" : ["dart", "scorpio"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : [],
-        "enemyProbability" : 900,
+        "levelOBjects" : ["tradepost_desert"],
+        "enemyProbability" : 2200,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "enemyMaxNumber": 4,
+        "enemyMaxNumber": 3,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
             "imageWidth": 662,
@@ -222,27 +222,27 @@
             "numberOfVerticalItems": 1
         },{
             "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
-            "speed": 0.6,
+            "speed": 0.7,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
-            "speed": 0.6,
+            "speed": 0.7,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/desert/desert-2.png",
-            "speed": 1,
+            "speed": 1.2,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/desert/desert-2.png",
-            "speed": 1,
+            "speed": 1.2,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/desert/desert-ground.png",
-            "speed": 1.5,
+            "speed": 2.4,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/desert/desert-ground.png",
-            "speed": 1.5,
+            "speed": 2.4,
             "description": "second frame"
         }],
         "levelDetails" : {

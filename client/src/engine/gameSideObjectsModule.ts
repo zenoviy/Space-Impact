@@ -2,6 +2,7 @@ import { timingSafeEqual } from "crypto";
 import { loadExtraObject } from "../ai/regularEnemyAiModules";
 import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
+import { angleFinder } from './engineModules';
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
@@ -72,6 +73,12 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
             :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(window.innerHeight)
             : levelObjectProps.spawnDetails.position ;
 
+            if(levelObjectProps.objectOwner == 'hangar' && this.gameInitData.tradepostInRange) return false
+            if(levelObjectProps.objectOwner == 'hangar'){
+                let probability = this.gameRandomizer(levelObjectProps.probability)
+                if(probability > 1000) return false
+                this.gameInitData.tradepostInRange = true;
+            }
             let extraObjects =  (levelObjectProps.extraObjects)? await loadExtraObject.call(this, levelObjectProps.extraObjects): false;
             let extraObjectObjectsData = {
                 x: window.innerWidth,
@@ -96,7 +103,11 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
                 pointsPerUnit: levelObjectProps.pointsPerUnit,
                 extraObjects: extraObjects,
                 collideExplosionAnimation: (levelObjectProps.collideExplosionAnimation)? levelObjectProps.collideExplosionAnimation: null,
-                sound: levelObjectProps.sound
+                sound: levelObjectProps.sound,
+                side: (levelObjectProps.side)? levelObjectProps.side : null,
+                rapidFire: (levelObjectProps.rapidFire)? levelObjectProps.rapidFire : null,
+                isShot: (levelObjectProps.isShot)? levelObjectProps.isShot : false,
+                guns: (levelObjectProps.guns)? levelObjectProps.guns : null
             }
             let sideObject = new SideObject({...extraObjectObjectsData});
 
@@ -111,9 +122,34 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
     }
 }
 
+function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies){
+    if(allGameEnemies.length < 0) return false
+    let closestUnit;
+    let closestUnitXrange = Infinity;
+    let closestUnitYrange = Infinity;
+    for(let ship of allGameEnemies){
+        let minx = Math.min(ship.x, this.x);
+        let maxx = Math.max(ship.x, this.x);
+        let miny = Math.min(ship.y, this.y);
+        let maxy = Math.max(ship.y, this.y);
+        let xRange = maxx - minx;
+        let yRange = maxy - miny;
+        if( xRange < closestUnitXrange && yRange < closestUnitYrange ){
+            closestUnit = ship
+        }
+    }
+    if(!closestUnit || closestUnit.x > window.innerWidth) return false
+    let angle = angleFinder({object: this, target: closestUnit})
+
+    this.shotAngle = angle;//Math.random() * 180;
+    //console.log(angle)
+    this.shot(BulletConstruct, mainGameObject, SoundCreator, owner)
+}
+
 export {
     explosionFire,
     fireAnimationEnded,
     mapRanomObjectSpawn,
-    mapObjectMove
+    mapObjectMove,
+    sideObjectShot
 }

@@ -30,6 +30,7 @@ async function nextLevelDataReload(levelData){
         backScreenPause: true,
         gameOver: false,
         grappleObjectOnScreen: false,
+        tradepostInRange: false,
         shopActive: false,
         gemeExtraSeconds: 0,
     }
@@ -39,18 +40,18 @@ async function nextLevelDataReload(levelData){
         context.gameInitData.timeToEressLevel = 6;
         context.gameInitData.levelChange = false;
         context.gameInitData.levelWindowDescription = false;
-        
     }, 5000)
 
-    horizontalVerticalSearch.call(this, this.gameInitData)
+    horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
     this.mapSoundChanger({soundStatus:'regular_level'})
-    function horizontalVerticalSearch(mainObject){
-        for(let [key, value] of Object.entries(mainObject)){
-            if(typeof mainObject[key] == 'object' && value != null && !mainObject[key].length ){
-                horizontalVerticalSearch(mainObject[key])
-            }
-            assignValue.call(this, key, mainObject)
+
+}
+function horizontalVerticalSearch(mainObject, refreshLevel){
+    for(let [key, value] of Object.entries(mainObject)){
+        if(typeof mainObject[key] == 'object' && value != null && !mainObject[key].length ){
+            horizontalVerticalSearch(mainObject[key], refreshLevel)
         }
+        assignValue.call(this, key, mainObject)
     }
     function assignValue(incomeKey, mainData){
         for(let [key, val] of Object.entries(refreshLevel)){
@@ -60,6 +61,25 @@ async function nextLevelDataReload(levelData){
         }
     }
 }
+
+
+
+function renewPlayerShip({originData, newData}){
+    //console.log(originData, newData, "<<")
+    //horizontalVerticalSearch.call(this, newData, originData)
+    for(let [key, value] of Object.entries(originData)){
+        if(newData[key] && originData[key] != newData[key]){
+            //console.log(originData[key], newData[key])
+            originData[key] = newData[key]
+        }
+    }
+    //console.log(originData, newData, "||")
+    return originData
+
+
+}
+
+
 function changeShip(){
 
 }
@@ -68,5 +88,7 @@ function changeWeapon(){
 }
 
 export {
-    nextLevelDataReload
+    nextLevelDataReload,
+    horizontalVerticalSearch,
+    renewPlayerShip
 }

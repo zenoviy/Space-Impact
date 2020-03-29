@@ -66,6 +66,7 @@ async function initGrappleObject(GrappleObject, playerShipData){
 
 
 function addPlayerLife({ allGameSideObjects, playerShipData, mainGameObject }){
+    //console.log(playerShipData.numberOflife)
     playerShipData.numberOflife += this.grapplePower.value;
 }
 function collectCoin({ allGameSideObjects, playerShipData, mainGameObject }){

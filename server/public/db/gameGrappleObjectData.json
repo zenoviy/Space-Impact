@@ -1,7 +1,7 @@
 [
     {
         "id": "lifepoint",
-        "name": "lifepoin",
+        "name": "lifepoint",
         "probability": 1000,
         "objectOwner": "grappleObject",
         "healthPoint": null,

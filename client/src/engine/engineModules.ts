@@ -8,7 +8,7 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
         this.gameInitData.gameField,
         this.gameInitData.gameActionField,
         this.gameInitData.gameUIField
-        )
+    )
     if(!gameField) throw Error('Error');
     for(let screen of gameField){
         screen = Object.assign(screen, {width: screenWidth-4, height: screenHeight-4})
@@ -191,7 +191,9 @@ function getLevelUserData(){
 function deleteBullet(bullet){
     if(bullet.x > window.innerWidth + 500
         || bullet.x < bullet.width * -1
-        || !bullet.objectPresent){
+        || !bullet.objectPresent
+        || bullet.y > window.innerHeight
+        || bullet.y < 0 - bullet.width/2){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
@@ -214,6 +216,9 @@ function delateSideObject(object){
     if(!object.objectPresent || object.x < 0 - object.width){
         let index = this.gameInitData.allGameSideObjects.indexOf(object);
         this.gameInitData.allGameSideObjects.splice(index, 1);
+        if(object.objectOwner == 'hangar'){
+            this.gameInitData.tradepostInRange = false;
+        }
     }
 }
 
@@ -239,8 +244,10 @@ function getObjectPosition(){
 
 
 
+
+
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';// '0123456789ABCDEF'  '6789ABC';
+    var letters = '0123456789ABCDEF';
     var color = '#';
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
@@ -271,9 +278,18 @@ function preloadImage(items){
 
 function fullScreenSwitch({fullscreen}){
     ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        //console.log(arg) // 
+        //console.log(arg) //
     })
     ipcRenderer.send('asynchronous-message', {fullscreen: fullscreen})
+}
+
+
+function angleFinder({object, target}){
+    let item = (object.y - target.y)/(object.x - target.x)
+    let rotateAngle = Math.atan(item) * 360 / Math.PI;
+
+    //console.log(rotateAngle, "<angle")
+    return rotateAngle + target.speed
 }
 
 
@@ -296,5 +312,6 @@ export  {
     getObjectPosition,
     collectPoints,
     preloadImage,
-    fullScreenSwitch
+    fullScreenSwitch,
+    angleFinder
 }

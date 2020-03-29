@@ -3,16 +3,24 @@ import { createImage } from '../view/displayModules';
 import { explosionFire } from '../engine/gameSideObjectsModule';
 import { loadGrabbleToSideObject } from '../engine/gameGrappleObjectsModule';
 import { initSoundObject } from '../engine/soundModules';
+import { levelTimer } from '../engine';
+import { enterToTheShopDialog } from '../ui/gameShopModule';
+import { angleFinder } from '../engine/engineModules';
+import { horizontalVerticalSearch} from '../engine/gameModules/changeLevels';
 
 
 function placeEnemyes(mainGameObject){
+    mainGameObject.gameInitData.ctxActionField.save();
+    mainGameObject.gameInitData.ctxActionField.translate(this.x, this.y);
+    mainGameObject.gameInitData.ctxActionField.rotate( ((this.degree)? this.degree: 0 ) * Math.PI / 180);
     createImage(
         mainGameObject.gameInitData.ctxActionField,
         this.img,
         this.sx, this.sy,
         this.sWidth, this.sHeight,
-        this.x, this.y,
+        0, 0,
         this.width,this.height)
+    mainGameObject.gameInitData.ctxActionField.restore();
 }
 function placeBackground(){
     createImage(
@@ -42,28 +50,35 @@ function loadEnemyes(){         ///  need replace  and remove
 
 
 
-function shot(BulletConstruct, mainGameObject, SoundCreator){
+function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
     if(mainGameObject.gameInitData.gamePause || !this.isShot) return false;
-    let guns = this.guns;
+    let guns = (this.guns)? this.guns : this.data.guns;
+
     for(let item of guns){
-        if( 1 > mainGameObject.gameRandomizer( item.fireRepead )){
-            let context = this;
+        if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player'){
+            let context = this; 
+            let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed, angle: this.shotAngle});
+            let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;
+            let firePositionX = (item.firePositionX)? item.firePositionX: 0
+
             let bullet = new BulletConstruct({
-                x: context.x, y: context.y + ((item.firePosition)? item.firePosition : mainGameObject.gameRandomizer(context.height)),
+                x: context.x + firePositionX, y: context.y + ((item.firePosition)? item.firePosition : mainGameObject.gameRandomizer(context.height)),
                 bulletType: item.name, bulletTexture: item.color,
-                objectOwner: "enemy", bulletSpeed: item.speed + this.speed,
+                objectOwner: owner, bulletSpeed: (owner === 'enemy')? bulletSettings.horizontalSpeed + totalSpeed : bulletSettings.horizontalSpeed,
                 width: item.width, height: item.height,
                 damage: item.damage, type: item.type, texture: item.texture,
                 sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
                 explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
                 animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
-                sound: item.sound
+                sound: item.sound, verticalSpeed: (bulletSettings.verticalSpeed)? bulletSettings.verticalSpeed: 0,
+                degree: (bulletSettings.angle)? bulletSettings.angle: 0
             });
             bullet.img.src = bullet.texture;
             let soundProps = {
                 soundUrl: bullet.sound.levelSound,
                 soundLoop: bullet.sound.soundLoop,
             }
+
             bullet.sound.soundObject = initSoundObject({SoundCreator: SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
             bullet.img.onload = () => {
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
@@ -78,7 +93,7 @@ function enemyAnimation(state = true){
     if(this.detectFrame % this.animationSteps == 0 && state){
         this.detectFrame = 0;
         this.sx += this.sWidth;
-        if(this.sx >= this.picturesWidth){
+        if(Math.round(this.sx) >= this.picturesWidth){
             this.sx = 0;
         }
     }
@@ -111,6 +126,10 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     /* Bullet hit detection */
     if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"||
+    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "hangar" ||
+    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "hangar" && hitObject.objectOwner == "enemy" ||
+    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "hangarbullet" ||
+    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "hangarbullet" && hitObject.objectOwner == "enemy" ||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "environment" && hitObject.hasOwnProperty('healthPoint')||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "environment" && hitObject.hasOwnProperty('healthPoint')||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "collide" && hitObject.hasOwnProperty('healthPoint')||
@@ -127,21 +146,30 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
         this.objectPresent = false;
         mainGameObject.gameInitData.grappleObjectOnScreen = false;
         explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion");
+        //console.log(hitObject)
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 
+    if(this.objectPresent && this.objectOwner == "hangar" &&
+    hitObject.objectOwner == "player" &&
+    !hitObject.hasOwnProperty('bulletType')){
+        enterToTheShopDialog()
+    }
+
+
     /* Hit det dection collision */
     if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') && this.objectOwner == "enemy" && hitObject.objectOwner == "hangarbullet" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "enemy" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "collide" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "enemy"
      ){
+
         unitDamage.call(this, null, mainGameObject);
         this.enemyDamageAnimation()
         if(this.healthPoint <= 0) {
-
             this.objectPresent = false;
             //collideExplosionAnimation
             explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "collideExplosionAnimation");
@@ -169,6 +197,7 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
                     mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
                     setTimeout(function(){
                         mainGameObject.backToStartScreen(costructors.PlayerShip)
+                        //document.location.reload()
                     }, 3000)
                 }
                 this.healthPoint = data.sourse.playerObject.maxHealth;
