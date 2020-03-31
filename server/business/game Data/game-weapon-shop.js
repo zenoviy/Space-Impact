@@ -11,8 +11,6 @@ async function getShopWeaponData (req, res) {
             res.send({message: 'there is no data yet'})
             return
         }
-
-
         let readObject = JSON.parse(data).map((obj) => { return {
             loadImage: obj.loadImage,
             background: obj.background,
@@ -38,7 +36,7 @@ async function putShopWeaponData (req, res) {
         let readObject = JSON.parse(data).find((obj) => { return obj.title === itemName });
 
         if(readObject && parseInt(userCoins) < readObject.price) return res.send({message: `you have no coin it cost: ${readObject.price}`, status: "false"})
-        res.send({data: readObject, status: 'success'})
+        res.send({data: readObject, status: 'success', money: userCoins - readObject.price })
     })
 }
 

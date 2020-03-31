@@ -45,12 +45,12 @@
             "firePosition": 15
         },{
             "name": "Repiter",
-            "loadImage": "static/shop/weapons/blaster.png",
+            "loadImage": "static/shop/weapons/Repiter.png",
             "background": "static/shop/misc/blue-card.png",
             "price": 300,
-            "title": "Blaster",
+            "title": "Repiter",
             "description": "blaster gun, regular weapon for you spaceship",
-            "texture": "/public/images/misc/bullets/green-laser.png",
+            "texture": "/public/images/misc/bullets/yellow-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
                 "imageWidth": 12891,
@@ -85,14 +85,14 @@
             "numberOfVerticalItems": 1,
             "sWidth": 299,
             "sHeight": 109,
-            "damage": 30,
+            "damage": 40,
             "firePosition": 15
         },{
             "name": "Destroyer",
             "loadImage": "static/shop/weapons/blaster.png",
             "background": "static/shop/misc/blue-card.png",
             "price": 600,
-            "title": "Blaster",
+            "title": "Destroyer",
             "description": "blaster gun, regular weapon for you spaceship",
             "texture": "/public/images/misc/bullets/green-laser.png",
             "explosionAnimation": {
@@ -129,7 +129,7 @@
             "numberOfVerticalItems": 1,
             "sWidth": 299,
             "sHeight": 109,
-            "damage": 30,
+            "damage": 60,
             "firePosition": 15
         }
 ]

@@ -14,7 +14,7 @@
                 "positionX": 150,
                 "positionY": 50,
                 "shipXPosition": 5,
-                "shipYPosition": 12
+                "shipYPosition": 1
             },
             {
                 "positionX": 320,
@@ -26,7 +26,7 @@
                 "positionX": 150,
                 "positionY": 260,
                 "shipXPosition": 5,
-                "shipYPosition": 12
+                "shipYPosition": 25
             }
         ],
         "damage": 260,

@@ -135,6 +135,14 @@ async function gameDataInit(PlayerShip, soundObject){
         let playerShipData = new PlayerShip(shipData);
         if(this.gameInitData){
             playerShipData = renewPlayerShip.call(this, { originData: this.gameInitData.gameData.playerObject, newData: playerShipData})
+            this.shopArea.selectedShopItem = {
+                title: "",
+                price: "",
+                inventorySelectedItem: null,
+                hangarSelectedItem: null,
+                hangarElements: []
+            }
+            process.env.SHOP_ACTIVE_WINDOW = 'false';
         }
 
         return {data: {

@@ -57,11 +57,16 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
     for(let item of guns){
         if(!item) continue
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
-            let context = this; 
+
+            if(owner == 'player'){
+                //console.log("palyer >", guns )
+            }
+            let context = this;
             let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed, angle: this.shotAngle});
             let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;
             let firePositionX = (item.firePositionX)? item.firePositionX: 0
 
+            let yFirePosition = null;
             let bullet = new BulletConstruct({
                 x: context.x + firePositionX, y: context.y + ((item.firePosition)? item.firePosition : mainGameObject.gameRandomizer(context.height)),
                 bulletType: item.name, bulletTexture: item.color,
