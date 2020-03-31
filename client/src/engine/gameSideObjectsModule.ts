@@ -1,4 +1,3 @@
-import { timingSafeEqual } from "crypto";
 import { loadExtraObject } from "../ai/regularEnemyAiModules";
 import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
@@ -6,7 +5,7 @@ import { angleFinder } from './engineModules';
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
-    let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
+    //let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
 
     let explosionData = {
             x: targetData.x - targetData[explosion].width/2,
@@ -141,8 +140,7 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
     if(!closestUnit || closestUnit.x > window.innerWidth) return false
     let angle = angleFinder({object: this, target: closestUnit})
 
-    this.shotAngle = angle;//Math.random() * 180;
-    //console.log(angle)
+    this.shotAngle = angle;
     this.shot(BulletConstruct, mainGameObject, SoundCreator, owner)
 }
 

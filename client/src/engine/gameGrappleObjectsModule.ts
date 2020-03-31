@@ -1,8 +1,8 @@
 
 async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
-    let gameInfo = mainGameObject.showGameInfo(),
-    gameData = gameInfo.gameData,
-    screenData = mainGameObject.getScreenSize();
+    //let gameInfo = mainGameObject.showGameInfo(),
+    //gameData = gameInfo.gameData,
+    //screenData = mainGameObject.getScreenSize();
 
     let context = mainGameObject;
     let sideObject = this;
@@ -44,8 +44,8 @@ async function initGrappleObject(GrappleObject, playerShipData){
     let gameInfo = this.showGameInfo(),
     gameData = gameInfo.gameData,
     levelData = gameData.levelData,
-    grappleData = gameData.grappleObjects,
-    screenData = this.getScreenSize();
+    grappleData = gameData.grappleObjects;
+    //screenData = this.getScreenSize();
 
     let spawnProbability = this.gameRandomizer(levelData.grapleObjectProbability);
     if(spawnProbability < 1){
@@ -66,9 +66,9 @@ async function initGrappleObject(GrappleObject, playerShipData){
 
 
 function addPlayerLife({ allGameSideObjects, playerShipData, mainGameObject }){
-    //console.log(playerShipData.numberOflife)
     playerShipData.numberOflife += this.grapplePower.value;
 }
+
 function collectCoin({ allGameSideObjects, playerShipData, mainGameObject }){
     let gameInfo = mainGameObject.showGameInfo(),
     gameData = gameInfo.gameData,

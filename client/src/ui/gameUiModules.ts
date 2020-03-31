@@ -11,9 +11,11 @@ import { levelChangeScreen } from './gameUiModels/levelChangeScreen';
 
 
 function gameUiPause(){
+    if(this.gameInitData.shopActive) return
     if(!this.gameInitData.gameUiPause && this.gameInitData.gameStatus) this.gameInitData.gamePause = !this.gameInitData.gamePause;
 }
 function gameUiMenu(gameUiPause){
+    //if(this.gameInitData.shopActive) return
     this.gameInitData.gameUiPause = !this.gameInitData.gameUiPause;
     this.gameInitData.gamePause = (gameUiPause)? false: true;
 }

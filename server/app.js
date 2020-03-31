@@ -7,7 +7,9 @@ const {
     getResultlData,
     postResultlData,
     getGrappleObjects,
-    updateResultlData
+    updateResultlData,
+    getShopWeaponData,
+    putShopWeaponData
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -16,6 +18,10 @@ const exphbs  = require('express-handlebars');
 const cors = require('cors');
 
 const app = express();
+
+process.env.PORT = 3000;
+process.env.HOST = 'http://localhost:';
+
 
 
 app.use(bodyParser.json());
@@ -29,7 +35,7 @@ app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
 
-
+app.use('/static', express.static(__dirname +'/public/images'));
 app.use('/game', cors(), (err, req, res, next) => {
     if(err) return console.log(err)
     next()
@@ -53,6 +59,11 @@ app.route("/api/game-result")
     .get(getResultlData)
     .post(cors(), postResultlData)
     .put(cors(), updateResultlData)
+
+app.route("/api/shop/guns")
+    .get(getShopWeaponData)
+    .put(cors(), putShopWeaponData)
+
 
 app.listen(process.env.PORT || 3000, function(){
     console.log(`Server listened at port ${process.env.PORT || 3000}`);

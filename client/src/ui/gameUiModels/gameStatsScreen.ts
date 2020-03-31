@@ -97,7 +97,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
         },{
             name: "coins",
             text: "",
-            number: info.sourse.gameCoins,///info.source.gameCoins,
+            number: info.source.gameCoins,///info.source.gameCoins,
             step: [info.life].map(i => i*50),
             description: "Game logotype",
             clicked: false,
@@ -132,7 +132,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Game coins",
-            text: `X${info.sourse.gameCoins}`,
+            text: `X${info.source.gameCoins}`,
             description: "Game part the name",
             clicked: false,
             fontSize: "light 18px Roboto",

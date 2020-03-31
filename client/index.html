@@ -16,6 +16,42 @@
 </head>
 <body>
     <div class="game-field-wrapper">
+
+        <div id="shop-wrapper" class="shop-wrapper" style="display: none;">
+            <div class="inner-shop-wrapper">
+                <div id="shop-area" class="display-area-wrapper" style="display: block;">
+                    <h1>Nuke Shop</h1>
+                    <nav>
+                        <button data-target-btn-id="weapons" >weapons</button>
+                        <button data-target-btn-id="ship" >ship</button data-target-btn-id="weapon">
+                        <button data-target-btn-id="market" >market</button data-target-btn-id="ship">
+                    </nav>
+                    <div id="display-shop-items" class="display-shop-items"></div>
+                    <p>
+                        <button  data-target-btn-id="to-hangar" >to hangar</button>
+                    </p>
+                </div>
+                <div id="hangar-area" class="display-area-wrapper" style="display: none;">
+                    <h1>Hangar</h1>
+                    <div id="hangar-text"></div>
+                    <canvas id="hangar-ship-area"></canvas>
+                    <div id="items-area"></div>
+                    <p>
+                        <button  data-target-btn-id="to-shop" >to shop</button>
+                    </p>
+                </div>
+                <div id="shop-inventory-wrapper" class="right-side-inventory"></div>
+                <div id="item-descripton" class="item-descripton" style="display: none;"></div>
+            </div>
+            <button class="main-btn"   data-target-btn-id="exit" >exit</button>
+        </div>
+        <div id="shop-dialog" class="shop-dialog" style="display: none;">
+            <p id="shop-dialog-text"></p>
+            <p id="shop-error-message" style="color: red"></p>
+            <button data-target-btn-id="ok">Ok</button><button  data-target-btn-id="cancel">cancel</button>
+        </div>
+
+
         <img id="preloader">
         <canvas class="game-fields" id="gamefield"></canvas>
         <canvas class="game-fields" id="gameObjectsfield"></canvas>
@@ -37,10 +73,6 @@
         </asside>
         <div id="wrapper" class="content-wrapper"></div>
     </div>
-    <script>
-        const { ipcRenderer, remote } = require( "electron" );
-
-    </script>
     <script src="./public/dist/main.js"></script>
 </body>
 </html>

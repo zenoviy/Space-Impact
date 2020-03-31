@@ -55,7 +55,8 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
     let guns = (this.guns)? this.guns : this.data.guns;
 
     for(let item of guns){
-        if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player'){
+        if(!item) continue
+        if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
             let context = this; 
             let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed, angle: this.shotAngle});
             let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;
@@ -64,7 +65,7 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
             let bullet = new BulletConstruct({
                 x: context.x + firePositionX, y: context.y + ((item.firePosition)? item.firePosition : mainGameObject.gameRandomizer(context.height)),
                 bulletType: item.name, bulletTexture: item.color,
-                objectOwner: owner, bulletSpeed: (owner === 'enemy')? bulletSettings.horizontalSpeed + totalSpeed : bulletSettings.horizontalSpeed,
+                objectOwner: owner, bulletSpeed: (owner === 'enemy' || owner === 'hangar')? bulletSettings.horizontalSpeed + totalSpeed : (owner == 'player')? bulletSettings.horizontalSpeed + context.xAdj : bulletSettings.horizontalSpeed,
                 width: item.width, height: item.height,
                 damage: item.damage, type: item.type, texture: item.texture,
                 sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
@@ -146,14 +147,15 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
         this.objectPresent = false;
         mainGameObject.gameInitData.grappleObjectOnScreen = false;
         explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion");
-        //console.log(hitObject)
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 
     if(this.objectPresent && this.objectOwner == "hangar" &&
     hitObject.objectOwner == "player" &&
-    !hitObject.hasOwnProperty('bulletType')){
-        enterToTheShopDialog()
+    !hitObject.hasOwnProperty('bulletType') && !mainGameObject.gameInitData.shopActive &&
+    mainGameObject.gameInitData.tradeShipTimeToUndock <= 0 ){
+        mainGameObject.gameInitData.tradeShipTimeToUndock = 10;
+        enterToTheShopDialog({mainGameObject: mainGameObject})
     }
 
 
@@ -180,7 +182,7 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
             if(this.isBoss) bossEnemyDestruction()
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
-        if(this.collisionAllow){
+        if(this.collisionAllow && !mainGameObject.gameInitData.shopActive){
             unitDamage.call(this, mainGameObject.getLevelUserData(), mainGameObject)
         }
     }else return false
@@ -190,8 +192,8 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
         this.healthPoint -= damage;
         if(this.healthPoint <= 0){
             if(data && data.life > 0){
-                data.sourse.playerObject.numberOflife -= 1;
-                if(data.sourse.playerObject.numberOflife <= 0){
+                data.source.playerObject.numberOflife -= 1;
+                if(data.source.playerObject.numberOflife <= 0){
                     mainGameObject.gameOverWindow()
                     mainGameObject.gameInitData.gameOver = true;
                     mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
@@ -200,7 +202,7 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
                         //document.location.reload()
                     }, 3000)
                 }
-                this.healthPoint = data.sourse.playerObject.maxHealth;
+                this.healthPoint = data.source.playerObject.maxHealth;
                 return false
             }
             mainGameObject.collectPoints(this.pointsPerUnit)
@@ -225,20 +227,46 @@ function spawnCoin(mainGameObject, GrappleObject){
 }
 
 
+function objectIntersectionDetect({object, target}){
+    let collision = null;
+    let xMin = Math.max( object.x, target.x );
+    let yMin = Math.max( object.y, target.y );
+    let xMax = Math.min( object.x + object.width, target.x + target.width );
+    let yMax = Math.min( object.y + object.height, target.y + target.height);
+
+    let resX = xMax - xMin;
+    let resY = yMax - yMin;
+    collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
+    //console.log(resX, resY, '<<', xMin, yMin, xMax, yMax)
+    return collision
+}
+
 function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
     let collision = null;
     for(let object2 of objectsArr){
 
         let object1Position = object1.getObjectPosition.call(object1);
 
-        let xMin = Math.max( object1Position.x, object2.x );
+        collision = objectIntersectionDetect({object: {
+            x: object1Position.x,
+            y: object1Position.y,
+            width: object1.width || object1Position.width,
+            height: object1.height || object1Position.height
+        }, target: {
+            x: object2.x,
+            y: object2.y,
+            width: object2.width,
+            height: object2.height
+        }})
+
+        /*let xMin = Math.max( object1Position.x, object2.x );
         let yMin = Math.max( object1Position.y, object2.y );
         let xMax = Math.min( object1Position.x + (object1.width || object1Position.width), object2.x + object2.width );
         let yMax = Math.min( object1Position.y + (object1.height || object1Position.height), object2.y + object2.height);
 
         let resX = xMax - xMin;
         let resY = yMax - yMin;
-        collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
+        collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";*/
 
         if(collision == "collision"){
             if(object1.takeDamage && object2.takeDamage){
@@ -258,6 +286,7 @@ export  {
     loadEnemyes,
     shot,
     enemyAnimation,
+    objectIntersectionDetect,
     hitDetection,
     takeDamage,
     enemyDamageAnimation,

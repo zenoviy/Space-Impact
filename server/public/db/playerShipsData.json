@@ -3,10 +3,32 @@
         "id": 1,
         "name": "Interceptor",
         "texture": "spaceShips/space_ship_interceptor.png",
+        "hangarImage": "static/hangar/interceptor/interceptor-model.png",
         "armor": 65,
         "speed": 10,
         "minSpeed": 5,
-        "firespot": 1,
+        "inventoryCapapcity": 6,
+        "inventory": [null, null, null, null, null, null],
+        "firespot": [
+            {
+                "positionX": 150,
+                "positionY": 50,
+                "shipXPosition": 5,
+                "shipYPosition": 12
+            },
+            {
+                "positionX": 320,
+                "positionY": 150,
+                "shipXPosition": 25,
+                "shipYPosition": 10
+            },
+            {
+                "positionX": 150,
+                "positionY": 260,
+                "shipXPosition": 5,
+                "shipYPosition": 12
+            }
+        ],
         "damage": 260,
         "width": 75,
         "height": 25,
@@ -55,8 +77,15 @@
             }
         },
         "guns":[
+            null,
             {
-                "name": "blaster",
+                "name": "Blaster",
+                "loadImage": "static/shop/weapons/blaster.png",
+                "background": "static/shop/misc/blue-card.png",
+                "price": 100,
+                "title": "Blaster",
+                "description": "blaster gun, regular weapon for you spaceship",
+                "hangarImage": "static/shop/weapons/blaster.png",
                 "texture": "/public/images/misc/bullets/green-laser.png",
                 "explosionAnimation": {
                     "texture": "/public/images/misc/fire/explosion.png",
@@ -93,7 +122,8 @@
                 "sWidth": 299,
                 "sHeight": 109,
                 "damage": 30,
-                "firePosition": 15
+                "firePosition": 10,
+                "firePositionX": 25
             }
         ]
     }

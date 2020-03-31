@@ -1,0 +1,49 @@
+const fs = require('fs');
+const { dataFinder, dataUpdater } = require('../workers/validator');
+const { dataWriter } = require('../workers/fileWorker');
+
+
+async function getShopWeaponData (req, res) {
+    fs.readFile(__dirname + '../../../public/userData/gameShopGun.json', (err, data) => {
+        if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+        let headers = req.headers;
+        if(data.length === 0){
+            res.send({message: 'there is no data yet'})
+            return
+        }
+
+
+        let readObject = JSON.parse(data).map((obj) => { return {
+            loadImage: obj.loadImage,
+            background: obj.background,
+            price: obj.price,
+            title: obj.title,
+            description: obj.description
+        }});
+        res.send(readObject)
+    })
+}
+
+async function putShopWeaponData (req, res) {
+    fs.readFile(__dirname + '../../../public/userData/gameShopGun.json', (err, data) => {
+        if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+        let headers = req.headers;
+        if(data.length === 0){
+            res.send({message: 'there is no data yet'})
+            return
+        }
+        let userCoins = headers['usercoins'];
+        let itemName = headers['itemname'];
+
+        let readObject = JSON.parse(data).find((obj) => { return obj.title === itemName });
+
+        if(readObject && parseInt(userCoins) < readObject.price) return res.send({message: `you have no coin it cost: ${readObject.price}`, status: "false"})
+        res.send({data: readObject, status: 'success'})
+    })
+}
+
+
+module.exports = {
+    getShopWeaponData: getShopWeaponData,
+    putShopWeaponData: putShopWeaponData
+}

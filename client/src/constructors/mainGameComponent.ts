@@ -91,6 +91,7 @@ interface serverLocation{
 }
 class Game {
     gameInitData: any;
+    shopArea: any;
     //placePlayerShip: any;
     initField: any;
     initPlayerShip: any;

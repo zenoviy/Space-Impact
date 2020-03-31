@@ -133,12 +133,8 @@ async function gameDataInit(PlayerShip, soundObject){
         }
 
         let playerShipData = new PlayerShip(shipData);
-        // this.gameInitData.gameData.playerObject
         if(this.gameInitData){
-            
-            //playerShipData = this.gameInitData.gameData.playerObject;
             playerShipData = renewPlayerShip.call(this, { originData: this.gameInitData.gameData.playerObject, newData: playerShipData})
-            console.log(playerShipData)
         }
 
         return {data: {
@@ -185,6 +181,7 @@ async function gameDataInit(PlayerShip, soundObject){
             tradepostInRange: false,
             shopActive: false,
             gemeExtraSeconds: 0,
+            tradeShipTimeToUndock: 0
         }
     }
 }

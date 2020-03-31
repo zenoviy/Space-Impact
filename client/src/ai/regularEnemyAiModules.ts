@@ -108,11 +108,12 @@ function enemyVerticalMoveCalculation(distanceToTargetY){
 }
 
 async function spawnEnemyLogic( EnemyObject: any){
+    if(this.gameInitData.shopActive) return
     let gameData = this.gameInitData.gameData,
     levelData = gameData.levelData,
     enemyData = gameData.enemyData,
     levelUserData = this.getLevelUserData(),
-    bossPresent = (levelUserData.sourse.levelData.bossPresent)? levelUserData.sourse.levelData.bossPresent: null;
+    bossPresent = (levelUserData.source.levelData.bossPresent)? levelUserData.source.levelData.bossPresent: null;
 
     if(!this.gameInitData.gameData.levelChange && !bossPresent){
         enemySpawn.call(this)

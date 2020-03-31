@@ -33,8 +33,9 @@ function shipControl(mainGameObject: any){
         if(controlKeys.up.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed * -1}) ;
     })
 
+
     document.addEventListener("mousemove", (e: any) => {
-        if(mainGameObject.gameInitData.gamePause) return false;
+        if(mainGameObject.gameInitData.gamePause ) return false;
         if(e.target.tagName === "CANVAS"
         && !mainGameObject.gameInitData.gamePause
         && mainGameObject.gameInitData.gameStatus){
@@ -43,45 +44,11 @@ function shipControl(mainGameObject: any){
             this.yFinal = ((y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed)) - (this.height/2);
         }
     })
+
     document.addEventListener("click", (e: any) => {
         if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
+        if(mainGameObject.gameInitData.shopActive) return
         shot.call(this, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player")
-        /*let guns = this.data.guns;
-        for(let item of guns){
-            let context = this;
-            let bullet = new constructors.BulletConstruct({
-                x: context.x, y: context.y + item.firePosition,
-                bulletType: item.name, bulletTexture: item.color,
-                objectOwner: "player", bulletSpeed: item.speed + context.xAdj,
-                width: item.width, height: item.height,
-                damage: item.damage, type: item.type, texture: item.texture,
-                sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
-                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
-                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
-                sound: item.sound
-            });
-
-            let soundProps = {
-                soundUrl: bullet.sound.levelSound,
-                soundLoop: bullet.sound.soundLoop,
-            }
-            bullet.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
-            bullet.img.src = bullet.texture;
-            bullet.img.onload = () => {
-                mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
-            }
-        }
-        x: context.x, y: context.y + ((item.firePosition)? item.firePosition : mainGameObject.gameRandomizer(context.height)),
-                bulletType: item.name, bulletTexture: item.color,
-                objectOwner: owner, bulletSpeed: item.speed + this.speed,
-                width: item.width, height: item.height,
-                damage: item.damage, type: item.type, texture: item.texture,
-                sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
-                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
-                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
-                sound: item.sound, degree: (item.degree)? item.degree: 0
-        
-        */
     })
 }
 

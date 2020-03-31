@@ -26,7 +26,7 @@ function setGameFields(){
 
 
 function warpEffect(){
-    let screenSiz = this.getScreenSize();
+    //let screenSiz = this.getScreenSize();
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
     this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
@@ -55,11 +55,9 @@ function warpEffect(){
         let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
-            //console.log('change music')
 
             this.gameInitData.levelWindowDescription = true;
             this.changeLevelProcedure()
-            //this.mapSoundChanger({soundStatus:'regular_level'})
         }
     }
 }
@@ -127,13 +125,14 @@ function changeLevelProcedure(){
 
 
 function levelTimer(){
+        //if(this.gameInitData.shopActive) return
         let data = this.getLevelUserData()
-        if(!data.sourse.levelData.bossPresent){
-            let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
-            if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails);
+        if(!data.source.levelData.bossPresent){
+            let levelTime = data.source.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
+            if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.source.levelData.levelDetails);
         }else{
-            data.sourse.levelData.levelDetails.levelSeconds = null;
-            data.sourse.levelData.levelDetails.levelMinutes = null;
+            data.source.levelData.levelDetails.levelSeconds = null;
+            data.source.levelData.levelDetails.levelMinutes = null;
         }
         function levelTimeAction(time){
             if(time.levelSeconds <= 0){
@@ -154,7 +153,10 @@ async function getSecondMeasure(callback, ...data){
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
+
         this.gameInitData.gemeExtraSeconds = 0;
+        if(!this.gameInitData.shopActive) this.gameInitData.tradeShipTimeToUndock -= 1;
+        if(this.gameInitData.tradeShipTimeToUndock < 0) this.gameInitData.tradeShipTimeToUndock = 0;
         if(await callback) return await callback.call(this, ...data);
         return gameSecond;
     }
@@ -173,7 +175,7 @@ function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = dataSourse.levelData.levelDetails;
     return {
-        sourse: dataSourse,
+        source: dataSourse,
         currentLevel: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
@@ -278,17 +280,21 @@ function preloadImage(items){
 
 function fullScreenSwitch({fullscreen}){
     ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        //console.log(arg) //
     })
     ipcRenderer.send('asynchronous-message', {fullscreen: fullscreen})
 }
 
 
 function angleFinder({object, target}){
-    let item = (object.y - target.y)/(object.x - target.x)
-    let rotateAngle = Math.atan(item) * 360 / Math.PI;
+    let targetX = (Math.sign(target.x) > 0)? target.x: 0,
+    targetY = (Math.sign(target.y) > 0)? target.y: 0
 
-    //console.log(rotateAngle, "<angle")
+    let objectX = (Math.sign(object.x) > 0)? object.x: 0,
+    objectY = (Math.sign(object.y) > 0)? object.y: 0
+
+    let item = (targetY - objectY)/(targetX - objectX);
+    //item = (Math.sign(item) > 0)? item: item * -1;
+    let rotateAngle = Math.atan2(targetY - objectY, targetX - objectX) * 180 / Math.PI;
     return rotateAngle + target.speed
 }
 

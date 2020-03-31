@@ -63,7 +63,7 @@
     "guns":[
         {
             "name": "blaster",
-            "texture": "/public/images/misc/bullets/green-laser.png",
+            "texture": "/public/images/misc/bullets/yellow-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
                 "imageWidth": 12891,
@@ -85,7 +85,7 @@
             },
             "type": "blaster",
             "fireRepead": 10,
-            "speed": 6,
+            "speed": 10,
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
@@ -103,7 +103,7 @@
             "firePositionX": 150
         },{
             "name": "blaster",
-            "texture": "/public/images/misc/bullets/green-laser.png",
+            "texture": "/public/images/misc/bullets/yellow-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
                 "imageWidth": 12891,
@@ -125,7 +125,7 @@
             },
             "type": "blaster",
             "fireRepead": 10,
-            "speed": 6,
+            "speed": 10,
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,

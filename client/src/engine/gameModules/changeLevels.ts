@@ -33,6 +33,7 @@ async function nextLevelDataReload(levelData){
         tradepostInRange: false,
         shopActive: false,
         gemeExtraSeconds: 0,
+        tradeShipTimeToUndock: 0
     }
 
     setTimeout(()=>{
@@ -43,6 +44,7 @@ async function nextLevelDataReload(levelData){
     }, 5000)
 
     horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
+    console.log(this.shopArea)
     this.mapSoundChanger({soundStatus:'regular_level'})
 
 }
@@ -65,15 +67,11 @@ function horizontalVerticalSearch(mainObject, refreshLevel){
 
 
 function renewPlayerShip({originData, newData}){
-    //console.log(originData, newData, "<<")
-    //horizontalVerticalSearch.call(this, newData, originData)
     for(let [key, value] of Object.entries(originData)){
         if(newData[key] && originData[key] != newData[key]){
-            //console.log(originData[key], newData[key])
             originData[key] = newData[key]
         }
     }
-    //console.log(originData, newData, "||")
     return originData
 
 

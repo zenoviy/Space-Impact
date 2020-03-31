@@ -7,6 +7,7 @@ import * as gameDataModules from './engine/gameModules';
 import * as constructors from './constructors';
 import { clearField } from './view/displayModules';
 import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
+import { loadShopArea } from './ui/gameShopModule';
 
 
 
@@ -14,6 +15,8 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     process.env.MAIN_GAME_SOUND = '';
     process.env.MAIN_GAME_SOUND_EFFECTS = '';
     process.env.MAIN_GAME_SOUND_ON = '';
+
+    process.env.SHOP_ACTIVE_WINDOW = 'false';
 
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
@@ -32,7 +35,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     var gameObject = await new constructors.Game(gameState.data)
     playerShipData = gameObject.gameInitData.gameData.playerObject;
 
-    /*  init electron App memnu  */
+    /*  initialization electron App memnu  */
     const navigation = appMenu(gameObject, dialogWindow)
     navigation.menu.init()
 
@@ -40,12 +43,13 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
     gameObject.createSound(constructors.SoundCreator)
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
 
+
     gameObject.uiController()
     gameObject.setGameFields()
     gameObject.getScreenSize()
 
-
-     let contexts = gameObject.returnContext()
+    gameObject.shopArea = loadShopArea(gameObject);
+    let contexts = gameObject.returnContext()
 
     //  create context
     playerShipData.ctx = contexts.gameActionField
@@ -64,8 +68,6 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 
     /*   game engin runing   */
     async function gameInterval(){
-        //playerShipData = gameObject.gameInitData.gameData.playerObject;
-       
         if(gameObject.gameInitData.ctxUIField){
             clearField(
                 gameObject.gameInitData.ctxUIField,
@@ -116,7 +118,9 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                 }
                 if(!gameObject.gameInitData.gameOver){
                     if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
-                        playerShipData.placeShip()
+                        if(!gameObject.gameInitData.shopActive){
+                            playerShipData.placeShip()
+                        }
                         playerShipData.enemyAnimation()
                     }
                     if(gameObject.gameInitData.gameStatus) playerShipData.placeEnemyes(gameObject)
@@ -138,7 +142,9 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                                 }
                                 object.enemyAnimation()
                             }
-                            object.mapObjectMove()
+                            if(!gameObject.gameInitData.shopActive){
+                                object.mapObjectMove()
+                            }
                             gameObject.delateSideObject(object);
                         }
                     }
@@ -154,7 +160,9 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                 if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
                 if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, playerShipData);
                 gameObject.gameSecondsIncrease()
-                gameObject.levelTimer()
+                if(!gameObject.gameInitData.shopActive){
+                    gameObject.levelTimer()
+                }
             }
         }
         if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
@@ -166,7 +174,8 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
                 }
                 for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
                     if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
-                        backgroundMap.updateMap()
+                        if(!gameObject.gameInitData.shopActive){
+                        backgroundMap.updateMap()}
                         backgroundMap.enemyAnimation()
                     }
                     backgroundMap.placeBackground()

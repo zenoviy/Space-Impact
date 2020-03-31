@@ -485,7 +485,7 @@
                     },
                     "type": "beam",
                     "fireRepead": 90,
-                    "speed": 60,
+                    "speed": 50,
                     "width": 45,
                     "height": 20,
                     "sx": 0,
@@ -497,7 +497,7 @@
                     "numberOfVerticalItems": 1,
                     "sWidth": 299,
                     "sHeight": 109,
-                    "damage": 90,
+                    "damage": 120,
                     "firePosition": 79
                 }
             ]
