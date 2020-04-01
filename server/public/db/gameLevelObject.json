@@ -6,7 +6,7 @@
     "isShot": true,
     "rapidFire": 5,
     "tradePropertyes": {
-        "buyPricePercent": 40
+        "buyPricePercent": 60
     },
     "damage": 0,
     "healthPoint": 11208,

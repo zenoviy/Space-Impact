@@ -1,4 +1,5 @@
 import { getData } from '../server/serverRequestModules';
+import { isBuffer } from 'util';
 
 
 function enemyShipLogicVertical(target, mainGameObject){
@@ -116,12 +117,16 @@ async function spawnEnemyLogic( EnemyObject: any){
     bossPresent = (levelUserData.source.levelData.bossPresent)? levelUserData.source.levelData.bossPresent: null;
 
     if(!this.gameInitData.gameData.levelChange && !bossPresent){
-        enemySpawn.call(this)
+        enemySpawn.call(this, {levelStatus: "reguler-level"})
     }else{
         let enemyShipObject = await this.createNewEnemy(enemyData[0], EnemyObject);
-        if(this.gameInitData.allGameEnemies.length < 1 && !this.gameInitData.levelChange){
-            enemyShipObject.loadEnemyes();
-            this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
+        
+        if(!this.gameInitData.levelChange){
+            enemySpawn.call(this, {levelStatus: "boss-level"})
+            //console.log(enemyShipObject, enemyData)
+            //enemyShipObject.loadEnemyes();
+            //this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
+            
         }
     }
 
@@ -131,6 +136,9 @@ async function spawnEnemyLogic( EnemyObject: any){
             let numberEnemyPerSpawn = this.gameRandomizer(levelData.enemyMaxNumber);
             for(let i = numberEnemyPerSpawn; i < levelData.enemyMaxNumber; i++){
                 let enemyShip = enemyData[ this.gameRandomizer(enemyData.length) ];
+                console.log(enemyShip)
+                if(process.env.BOSS_LOAD_AT_LEVEL === 'true' && enemyShip.details.isBoss) return false
+                if(enemyShip.details.isBoss) process.env.BOSS_LOAD_AT_LEVEL = "true";
                 let enemyShipObject = await this.createNewEnemy(enemyShip, EnemyObject);
                 enemyShipObject.loadEnemyes();
                 this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);

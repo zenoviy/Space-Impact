@@ -1,5 +1,7 @@
 import { draw } from '../view/displayModules';
+import { explosionFire } from '../enemies/enemiesModules';
 const { ipcRenderer, remote } = require( "electron" );
+import * as costructors from '../constructors'
 //import { levelConstructor } from '../constructors/levelConstructors';
 
 
@@ -106,6 +108,19 @@ function getScreenSize(){
 }
 
 
+/**/function destroyAlEnemy(){
+    console.log(1)
+    let enemyes = this.gameInitData.allGameEnemies;
+    console.log(1)
+    if( !enemyes || enemyes.length < 1) return false
+    for(let ship of enemyes){
+        ship.objectPresent = false;
+            //collideExplosionAnimation
+            //explosionFire(ship, this, ship, costructors.SideObject, "collideExplosionAnimation");
+            //explosionFire(ship, this, ship, costructors.SideObject, "explosion");
+    }
+}
+
 
 
 function changeLevelProcedure(){
@@ -117,6 +132,7 @@ function changeLevelProcedure(){
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
+        destroyAlEnemy.call(this)
         this.mapSoundChanger({soundStatus:'game_win'})
         this.gameInitData.gameWin = true;
         this.gameInitData.levelWindowDescription = false;

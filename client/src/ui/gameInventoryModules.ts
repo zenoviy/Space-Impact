@@ -24,13 +24,6 @@ function shopInventory({element, mainGameObject}){
 
         itemRender.addEventListener('mousemove', (event) => {
             if(!playerObjectData.inventory[index]) return false
-
-            /*let item: any = document.querySelector('#item-descripton');
-            item.style = `margin-top: ${event.clientY-100}px; margin-left: ${event.clientX - 200}px; `;
-            item.innerHTML = `<p>${playerObjectData.inventory[index].title}</p>
-            <p>${salePercentAddToPrice({price: playerObjectData.inventory[index].price, mainGameObject: mainGameObject})}</p> <p>${playerObjectData.inventory[index].description}</p>`
-            show(item)*/
-
             showDescriptionArea({selectObject: playerObjectData.inventory[index],
                 event: event,
                 mainGameObject: mainGameObject

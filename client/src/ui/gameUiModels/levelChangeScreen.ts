@@ -26,8 +26,8 @@ function levelChangeScreen(data: any,ctx: any, width: number, height: number, pi
             getObjectPosition: getUIObjectPosition
         },
         {
-            name: "wrap heade",
-            text: `${levelData.description.name}`,
+            name: "wrap head",
+            text: `${(levelData.description.name)? levelData.description.name: ''}`,
             description: "text for game over window",
             fontSize: "100px Roboto",
             clicked: false,
@@ -48,7 +48,7 @@ function levelChangeScreen(data: any,ctx: any, width: number, height: number, pi
             getObjectPosition: getUIObjectPosition
         },{
             name: "rwarp description",
-            text: `${levelData.description.description}`,
+            text: `${(levelData.description.description)? levelData.description.description: ''}`,
             description: "text for game over window",
             fontSize: "20px Roboto",
             clicked: false,

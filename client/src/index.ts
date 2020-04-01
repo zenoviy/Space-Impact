@@ -19,6 +19,9 @@ import { loadShopArea } from './ui/gameShopModule';
     process.env.SHOP_ACTIVE_WINDOW = 'false';
     process.env.SHOP_SALE_WINDOW = 'false';
 
+
+    process.env.BOSS_LOAD_AT_LEVEL = 'false';
+
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
 
@@ -153,7 +156,7 @@ import { loadShopArea } from './ui/gameShopModule';
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(gameObject.gameInitData.gameStatus){
                 if(gameObject.gameInitData.gameData.levelObjects){
-                    gameObject.mapRanomObjectSpawn(
+                    gameObject.mapRandomObjectSpawn(
                         gameObject.gameInitData.gameData.levelObjects,
                         constructors.SideObject,
                         gameObject.gameInitData.allGameSideObjects)

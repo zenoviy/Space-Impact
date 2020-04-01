@@ -54,30 +54,36 @@ function mapObjectMove(){
     this.x -= (this.speed)? this.speed: 3;
 }
 
-async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideObjects: any[]){
+async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideObjects: any[]){
     this.getSecondMeasure( mapObjectSpawner, levelObjects, SideObject, allGameSideObjects)
 
     async function mapObjectSpawner (levelObjects, SideObject, allGameSideObjects){
         let gameData = this.showGameInfo().gameData;
+        let data = this.getLevelUserData();
         let levelData = gameData.levelData;
         let spawnProbability = this.gameRandomizer(levelData.objectProbability);
         let context = this;
         if(spawnProbability < levelData.objectMinTimeSpawn){
             let screenData  = this.getScreenSize();
             let levelObjectProps = levelObjects[this.gameRandomizer(levelObjects.length)];
-
+            if(!levelObjectProps) return false
             let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")? window.innerHeight - this.gameRandomizer(levelObjectProps.height)
-            :(levelObjectProps.spawnDetails.position == "top" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height/3)
-            :(levelObjectProps.spawnDetails.position == "scene" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height)
-            :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(window.innerHeight)
-            : levelObjectProps.spawnDetails.position ;
+                :(levelObjectProps.spawnDetails.position == "top" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height/3)
+                :(levelObjectProps.spawnDetails.position == "scene" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height)
+                :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(window.innerHeight)
+                : levelObjectProps.spawnDetails.position ;
+
 
             if(levelObjectProps.objectOwner == 'hangar' && this.gameInitData.tradepostInRange) return false
             if(levelObjectProps.objectOwner == 'hangar'){
                 let probability = this.gameRandomizer(levelObjectProps.probability)
-                if(probability > 1000) return false
+                console.log(probability, data)
+                if( probability > 50 && data.minutes > 0 || probability > 500 && data.minutes === 0 ) return false // 1000
                 this.gameInitData.tradepostInRange = true;
             }
+
+
+
             let extraObjects =  (levelObjectProps.extraObjects)? await loadExtraObject.call(this, levelObjectProps.extraObjects): false;
             let extraObjectObjectsData = {
                 x: window.innerWidth,
@@ -148,7 +154,7 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
 export {
     explosionFire,
     fireAnimationEnded,
-    mapRanomObjectSpawn,
+    mapRandomObjectSpawn,
     mapObjectMove,
     sideObjectShot
 }

@@ -3,8 +3,9 @@
             "name": "Blaster",
             "loadImage": "static/shop/weapons/blaster.png",
             "background": "static/shop/misc/blue-card.png",
-            "price": 100,
+            "price": 10000,
             "title": "Blaster",
+            "status": "gun",
             "description": "blaster gun, regular weapon for you spaceship",
             "texture": "/public/images/misc/bullets/green-laser.png",
             "explosionAnimation": {
@@ -50,8 +51,9 @@
             "name": "Reaper",
             "loadImage": "static/shop/weapons/Reaper.png",
             "background": "static/shop/misc/blue-card.png",
-            "price": 250,
+            "price": 25000,
             "title": "Reaper",
+            "status": "gun",
             "description": "blaster gun, regular weapon for you spaceship",
             "texture": "/public/images/misc/bullets/red-laser.png",
             "explosionAnimation": {
@@ -97,8 +99,9 @@
             "name": "Repiter",
             "loadImage": "static/shop/weapons/Repiter.png",
             "background": "static/shop/misc/blue-card.png",
-            "price": 300,
+            "price": 30000,
             "title": "Repiter",
+            "status": "gun",
             "description": "blaster gun, regular weapon for you spaceship",
             "texture": "/public/images/misc/bullets/yellow-laser.png",
             "explosionAnimation": {
@@ -145,8 +148,9 @@
             "name": "Destroyer",
             "loadImage": "static/shop/weapons/Destroyer.png",
             "background": "static/shop/misc/blue-card.png",
-            "price": 600,
+            "price": 60000,
             "title": "Destroyer",
+            "status": "gun",
             "description": "blaster gun, regular weapon for you spaceship",
             "texture": "/public/images/misc/bullets/blue-laser.png",
             "explosionAnimation": {

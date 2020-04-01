@@ -34,7 +34,7 @@ import {
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
 import { gameStart, backToStartScreen, exitTheGame, mapSoundChanger } from '../engine/gameModules/satartGame';
-import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
+import { mapRandomObjectSpawn } from '../engine/gameSideObjectsModule';
 import { initGrappleObject } from '../engine/gameGrappleObjectsModule';
 import { gameSettingsMenuInit } from '../appMenu/menuSettings';
 import { createSound } from '../engine/soundModules';
@@ -131,7 +131,7 @@ class Game {
     showPauseWindow: any;
     nextLevelDataReload: any;
     getRandomColor: any;
-    mapRanomObjectSpawn: any;
+    mapRandomObjectSpawn: any;
     initGrappleObject: any;
     gameSettingsMenuInit: any;
     createSound: any;
@@ -217,7 +217,7 @@ Game.prototype.nextLevelDataReload = nextLevelDataReload;
 Game.prototype.changeLevelProcedure = changeLevelProcedure;
 
 Game.prototype.getRandomColor = getRandomColor;
-Game.prototype.mapRanomObjectSpawn = mapRanomObjectSpawn;
+Game.prototype.mapRandomObjectSpawn = mapRandomObjectSpawn;
 
 Game.prototype.initGrappleObject = initGrappleObject;
 Game.prototype.gameSettingsMenuInit = gameSettingsMenuInit;

@@ -276,6 +276,20 @@ function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
     return (collision == "collision")? object1: false;
 }
 
+/*function destroyAlEnemy(){
+    console.log(1)
+    let enemyes = this.gameInitData.allGameEnemies;
+    console.log(1)
+    if( !enemyes || enemyes.length < 1) return false
+    for(let ship of enemyes){
+        ship.objectPresent = false;
+            //collideExplosionAnimation
+            //explosionFire(ship, this, ship, costructors.SideObject, "collideExplosionAnimation");
+            //explosionFire(ship, this, ship, costructors.SideObject, "explosion");
+    }
+}*/
+
+
 export  {
     placeEnemyes,
     placeBackground,
@@ -287,5 +301,7 @@ export  {
     hitDetection,
     takeDamage,
     enemyDamageAnimation,
-    spawnCoin
+    spawnCoin,
+    explosionFire
+    //destroyAlEnemy
 };
