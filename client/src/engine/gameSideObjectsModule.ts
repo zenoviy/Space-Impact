@@ -106,7 +106,8 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
                 side: (levelObjectProps.side)? levelObjectProps.side : null,
                 rapidFire: (levelObjectProps.rapidFire)? levelObjectProps.rapidFire : null,
                 isShot: (levelObjectProps.isShot)? levelObjectProps.isShot : false,
-                guns: (levelObjectProps.guns)? levelObjectProps.guns : null
+                guns: (levelObjectProps.guns)? levelObjectProps.guns : null,
+                tradePropertyes: (levelObjectProps.tradePropertyes)? levelObjectProps.tradePropertyes : null
             }
             let sideObject = new SideObject({...extraObjectObjectsData});
 

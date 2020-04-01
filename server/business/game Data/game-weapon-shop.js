@@ -33,6 +33,7 @@ async function putShopWeaponData (req, res) {
         let userCoins = headers['usercoins'];
         let itemName = headers['itemname'];
 
+        if(!userCoins || !itemName) return res.send({message: `wrong data: there is no coin or itemname`, status: "false"})
         let readObject = JSON.parse(data).find((obj) => { return obj.title === itemName });
 
         if(readObject && parseInt(userCoins) < readObject.price) return res.send({message: `you have no coin it cost: ${readObject.price}`, status: "false"})

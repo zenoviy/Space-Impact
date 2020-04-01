@@ -160,7 +160,7 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     !hitObject.hasOwnProperty('bulletType') && !mainGameObject.gameInitData.shopActive &&
     mainGameObject.gameInitData.tradeShipTimeToUndock <= 0 ){
         mainGameObject.gameInitData.tradeShipTimeToUndock = 10;
-        enterToTheShopDialog({mainGameObject: mainGameObject})
+        enterToTheShopDialog({mainGameObject: mainGameObject, tradePropertyes: this.tradePropertyes})
     }
 
 
@@ -246,6 +246,8 @@ function objectIntersectionDetect({object, target}){
     return collision
 }
 
+
+
 function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
     let collision = null;
     for(let object2 of objectsArr){
@@ -263,16 +265,6 @@ function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
             width: object2.width,
             height: object2.height
         }})
-
-        /*let xMin = Math.max( object1Position.x, object2.x );
-        let yMin = Math.max( object1Position.y, object2.y );
-        let xMax = Math.min( object1Position.x + (object1.width || object1Position.width), object2.x + object2.width );
-        let yMax = Math.min( object1Position.y + (object1.height || object1Position.height), object2.y + object2.height);
-
-        let resX = xMax - xMin;
-        let resY = yMax - yMin;
-        collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";*/
-
         if(collision == "collision"){
             if(object1.takeDamage && object2.takeDamage){
                 object1.takeDamage((object2.damage)? object2.damage: 0, object2, mainGameObject, GrappleObject);

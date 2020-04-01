@@ -13,7 +13,10 @@ import { shopInventory,
     inventoryFreeItem,
     putInsideInventory,
     replaceItemFromStorage,
-    putItemToStorage } from './gameInventoryModules';
+    putItemToStorage,
+    saleItem,
+    hideDescriptionArea,
+    showDescriptionArea } from './gameInventoryModules';
 import { isBuffer } from 'util';
 
 function loadShopArea (mainGameObject) {
@@ -23,7 +26,8 @@ function loadShopArea (mainGameObject) {
             price: "",
             inventorySelectedItem: null,
             hangarSelectedItem: null,
-            hangarElements: []
+            hangarElements: [],
+            tradePropertyes: null
         },
         shopWrapper: document.querySelector('#shop-wrapper'),
         shopArea: document.querySelector('#shop-area'),
@@ -58,8 +62,35 @@ function loadShopArea (mainGameObject) {
 function shopEventDetector({ shopArea, mainGameObject }){
     shopInventory({element: shopArea, mainGameObject: mainGameObject})
 
+    shopArea.hangarShipArea.addEventListener('mousemove', function(event) {
+        let hangarElements = mainGameObject.shopArea.selectedShopItem.hangarElements
+        for(let i = 0; i < hangarElements.length; i++ ){
+            if(hangarElements[i]){
+            let hitObject = objectIntersectionDetect({
+                    object: {
+                        x: event.clientX - event.target.offsetLeft,
+                        y: event.clientY - event.target.offsetTop,
+                        width: 5,
+                        height: 5,
+                    }, target: {
+                        x: hangarElements[i].positionX,
+                        y: hangarElements[i].positionY,
+                        width: hangarElements[i].width,
+                        height: hangarElements[i].height,
+                    }
+                })
+                if(hitObject === "collision"){
+                    if(!hangarElements[i].object) return false
+                    showDescriptionArea({selectObject: hangarElements[i].object, event: event, mainGameObject: mainGameObject})
+                }
+            }
+        }
+
+    })
+    shopArea.hangarShipArea.addEventListener('mouseleave', function(event) {
+        hideDescriptionArea()
+    })
     shopArea.hangarShipArea.addEventListener('click', function(event: any) {
-        //console.log(event.clientX - event.target.offsetLeft, event.clientY - event.target.offsetTop)
         let hangarElements = mainGameObject.shopArea.selectedShopItem.hangarElements
         let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
         let shopAreaItems = mainGameObject.shopArea.selectedShopItem
@@ -82,7 +113,7 @@ function shopEventDetector({ shopArea, mainGameObject }){
                     if(playerObjectData.guns[i] && (!shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem != 0)){
                         shopAreaItems.hangarSelectedItem = (shopAreaItems.hangarSelectedItem ==i)? null: i;
                         mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
-                        console.log('clicked 2')
+                        //console.log('clicked 2')
                     }
                     if(shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem === 0){
                         putItemToStorage({name: 'outside-storage',
@@ -103,7 +134,7 @@ function shopEventDetector({ shopArea, mainGameObject }){
                             selectedStorage: null,
                             mainGameObject: mainGameObject
                         })
-                        console.log('clicked 4')
+                        //console.log('clicked 4')
                     }
                     loadHangar({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
                     console.log('clicked 5 reload')
@@ -158,12 +189,10 @@ function shopEventDetector({ shopArea, mainGameObject }){
         if(playerObjectData.inventory[shopAreaItems.inventorySelectedItem] && shopAreaItems.inventorySelectedItem ||
             playerObjectData.inventory[shopAreaItems.inventorySelectedItem] && shopAreaItems.inventorySelectedItem === 0 ||
             shopAreaItems.hangarSelectedItem || shopAreaItems.hangarSelectedItem === 0){
-            //console.log(playerObjectData.inventory)
             selectedItemsPicture({status: true, event: event,
                 picture: (shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem === 0)
                 ? playerObjectData.inventory[shopAreaItems.inventorySelectedItem]
                 : playerObjectData.guns[shopAreaItems.hangarSelectedItem]}) // event.clientX
-            //console.log(playerObject)
         }else selectedItemsPicture({status: false, event: event, picture: null})
     })
 
@@ -174,11 +203,19 @@ function shopEventDetector({ shopArea, mainGameObject }){
                     mainGameObject.gameInitData.shopActive = false;
                     hide(shopArea.shopWrapper)
                     hide(this)
-                }else if(process.env.SHOP_ACTIVE_WINDOW === 'true'){
+                }else if(process.env.SHOP_ACTIVE_WINDOW === 'true' && process.env.SHOP_SALE_WINDOW === 'false'){
                     buyItem({url: 'api/shop/guns', mainGameObject: mainGameObject})
+                }else if(process.env.SHOP_SALE_WINDOW === 'true' && process.env.SHOP_ACTIVE_WINDOW === 'true'){
+                    process.env.SHOP_SALE_WINDOW = 'false';
+                    process.env.SHOP_ACTIVE_WINDOW ='false';
+                    saleItem({mainGameObject: mainGameObject})
+                    shopInventory({element: shopArea, mainGameObject: mainGameObject})
+                    loadHangar({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
+                    hide(this)
                 }
                 break;
             case 'cancel':
+                process.env.SHOP_SALE_WINDOW = 'false';
                 hide(this)
                 break;
             default:
@@ -186,6 +223,8 @@ function shopEventDetector({ shopArea, mainGameObject }){
         }
     })
 }
+
+
 
 
 
@@ -236,6 +275,9 @@ function switchShopHangar(state, element){
 
 
 
+
+
+
 function leaveShop({element, mainGameObject, text}){
     element.shopDialogText.innerHTML = text;
     element.shopErrorMessage.innerHTML = '';
@@ -247,13 +289,32 @@ function leaveShop({element, mainGameObject, text}){
 
 
 
-function enterToTheShopDialog({mainGameObject}){
+function enterToTheShopDialog({mainGameObject, tradePropertyes}){
     shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
     mainGameObject.gameInitData.shopActive = true;
-    let shopUiItems = mainGameObject.shopArea
+    let shopUiItems = mainGameObject.shopArea;
+
+    console.log(tradePropertyes, " < before")
+    mainGameObject.shopArea.selectedShopItem.tradePropertyes = (!tradePropertyes.salePercentage)? salePercentage({tradePropertyes: tradePropertyes, mainGameObject: mainGameObject}): tradePropertyes;
+    console.log(tradePropertyes, " > after")
     switchShopHangar('to-shop', mainGameObject.shopArea)
     show(shopUiItems.shopWrapper)
 }
+
+
+
+
+
+
+
+function salePercentage({tradePropertyes, mainGameObject}){
+    let hangarElements = mainGameObject.shopArea.selectedShopItem;
+    let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
+    tradePropertyes.salePercentage = mainGameObject.gameRandomizer(tradePropertyes.buyPricePercent , tradePropertyes.buyPricePercent/2)
+    return tradePropertyes
+}
+
+
 
 
 
@@ -269,12 +330,14 @@ function selectedItemsPicture({status, event, picture}){
 
 
 
+
+
 async function buyItem({url, mainGameObject}){
     let levelData = mainGameObject.getLevelUserData();
     let playerObjectData = mainGameObject.gameInitData.gameData.playerObject;
-    //let price = mainGameObject.shopArea.selectedShopItem.price;
+
     let inventoryInformation = inventoryFreeItem({inventory: playerObjectData.data.inventory, inventoryCapacity: playerObjectData.data.inventoryCapapcity })
-    //console.log(mainGameObject.gameInitData.gameData.gameCoins)
+
     let headers = {"usercoins" : mainGameObject.gameInitData.gameData.gameCoins,
         "itemName": mainGameObject.shopArea.selectedShopItem.title}
     if(!inventoryInformation['firstEmptyItem']){
@@ -298,4 +361,5 @@ async function buyItem({url, mainGameObject}){
 export {
     loadShopArea,
     enterToTheShopDialog,
+    leaveShop
 }

@@ -293,7 +293,7 @@ function angleFinder({object, target}){
     objectY = (Math.sign(object.y) > 0)? object.y: 0
 
     let item = (targetY - objectY)/(targetX - objectX);
-    //item = (Math.sign(item) > 0)? item: item * -1;
+
     let rotateAngle = Math.atan2(targetY - objectY, targetX - objectX) * 180 / Math.PI;
     return rotateAngle + target.speed
 }

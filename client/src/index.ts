@@ -17,6 +17,7 @@ import { loadShopArea } from './ui/gameShopModule';
     process.env.MAIN_GAME_SOUND_ON = '';
 
     process.env.SHOP_ACTIVE_WINDOW = 'false';
+    process.env.SHOP_SALE_WINDOW = 'false';
 
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};

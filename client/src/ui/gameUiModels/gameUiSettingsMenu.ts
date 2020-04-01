@@ -15,7 +15,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             propertyes:{
                 ctx: ctx,
                 width: width,
-                height: 500,
+                height: 450,
                 x: 0,
                 y: 100,
                 gradient: true,

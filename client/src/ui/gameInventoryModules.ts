@@ -5,6 +5,7 @@ import { show,
     removeClassList } from '../appMenu/appMenu';
 import { pageBuilder, createElements } from '../appMenu/pagesBuilder';
 import { loadHangar } from './gameHangarModules';
+import { leaveShop } from './gameShopModule';
 
 function shopInventory({element, mainGameObject}){
     element.shopInventoryWrapper.innerHTML = "";
@@ -23,18 +24,23 @@ function shopInventory({element, mainGameObject}){
 
         itemRender.addEventListener('mousemove', (event) => {
             if(!playerObjectData.inventory[index]) return false
-            let item: any = document.querySelector('#item-descripton');
+
+            /*let item: any = document.querySelector('#item-descripton');
             item.style = `margin-top: ${event.clientY-100}px; margin-left: ${event.clientX - 200}px; `;
             item.innerHTML = `<p>${playerObjectData.inventory[index].title}</p>
-            <p>${playerObjectData.inventory[index].price}</p> <p>${playerObjectData.inventory[index].description}</p>`
-            show(item)
+            <p>${salePercentAddToPrice({price: playerObjectData.inventory[index].price, mainGameObject: mainGameObject})}</p> <p>${playerObjectData.inventory[index].description}</p>`
+            show(item)*/
+
+            showDescriptionArea({selectObject: playerObjectData.inventory[index],
+                event: event,
+                mainGameObject: mainGameObject
+            })
         })
 
 
 
         itemRender.addEventListener('mouseleave', (event) => {
-            let item = document.querySelector('#item-descripton');
-            hide(item)
+            hideDescriptionArea()
         })
 
 
@@ -48,9 +54,7 @@ function shopInventory({element, mainGameObject}){
             ? mainGameObject.shopArea.selectedShopItem.inventorySelectedItem
             : null
             mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = (mainGameObject.shopArea.selectedShopItem.inventorySelectedItem == index)? null: index;
-            console.log('fire', previusInventorySelectedItem, mainGameObject.shopArea.selectedShopItem.inventorySelectedItem)
             if(mainGameObject.shopArea.selectedShopItem.hangarSelectedItem || mainGameObject.shopArea.selectedShopItem.hangarSelectedItem === 0){
-                console.log('clicked 1 put from hangar to storage')
                 putItemToStorage({name: 'outside-storage',
                     putIndex: index,
                     selectedIndex: shopAreaItems.hangarSelectedItem,
@@ -60,7 +64,6 @@ function shopInventory({element, mainGameObject}){
                 })
             }else if(mainGameObject.shopArea.selectedShopItem.inventorySelectedItem || mainGameObject.shopArea.selectedShopItem.inventorySelectedItem === 0){
                 if(previusInventorySelectedItem && !playerObjectData.inventory[index] || previusInventorySelectedItem === 0 && !playerObjectData.inventory[index]){
-                console.log('clicked 1 put from storage to storage', previusInventorySelectedItem)
                     putItemToStorage({name: 'inside-storage',
                         putIndex: index,
                         selectedIndex: previusInventorySelectedItem,
@@ -76,8 +79,49 @@ function shopInventory({element, mainGameObject}){
         })
         element.shopInventoryWrapper.appendChild(itemRender)
     }
+    element.shopInventoryWrapper.prepend(saleBox({mainGameObject: mainGameObject}))
 }
 
+
+
+function saleBox({mainGameObject}){
+    let itemRender = createElements({tagName: 'div',
+        styleClass: 'shop-sale-part',
+        inlineStyle: ``,
+        pictureUrl: null,
+        linkUrl: null,
+        text: null,
+        innerContent: `<div class="sale-inner-item">
+                <img src='' alt="sale box">
+        </div>`,
+        attribute: null, attributeName: null,
+        attribute1: null, attributeName1: null})
+        itemRender.addEventListener('click', function(){
+            let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
+            let shopAreaItems = mainGameObject.shopArea.selectedShopItem
+            if((!shopAreaItems.inventorySelectedItem && shopAreaItems.inventorySelectedItem != 0) &&
+                (!shopAreaItems.hangarSelectedItem && shopAreaItems.hangarSelectedItem != 0)) return false
+            process.env.SHOP_SALE_WINDOW = 'true';
+            process.env.SHOP_ACTIVE_WINDOW = 'true';
+            if(shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem === 0){
+
+                let salePrice = playerObjectData.inventory[shopAreaItems.inventorySelectedItem].price
+                leaveShop({element: mainGameObject.shopArea,
+                     mainGameObject: mainGameObject,
+                     text: `You want to sale ${playerObjectData.inventory[shopAreaItems.inventorySelectedItem].title} 
+                    for the ${salePercentAddToPrice({price: salePrice, mainGameObject: mainGameObject})} coins`})
+
+            }else if(shopAreaItems.hangarSelectedItem || shopAreaItems.hangarSelectedItem === 0){
+                let salePrice = playerObjectData.guns[shopAreaItems.hangarSelectedItem].price
+                leaveShop({element: mainGameObject.shopArea,
+                     mainGameObject: mainGameObject,
+                     text: `You want to sale ${playerObjectData.guns[shopAreaItems.hangarSelectedItem].title} 
+                    for the ${salePercentAddToPrice({price: salePrice, mainGameObject: mainGameObject})} coins`})
+            }
+
+        })
+    return itemRender
+}
 
 
 
@@ -114,6 +158,34 @@ function inventoryFreeItem({inventory, inventoryCapacity}){
 }
 
 
+function saleItem({mainGameObject}){
+    let hangarElements = mainGameObject.shopArea.selectedShopItem;
+    let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
+
+    if(hangarElements.inventorySelectedItem || hangarElements.inventorySelectedItem === 0){
+       let selPrice = salePercentAddToPrice({price: playerObjectData.inventory[hangarElements.inventorySelectedItem].price, mainGameObject: mainGameObject})
+
+       mainGameObject.gameInitData.gameData.gameCoins  += selPrice
+
+       replaceItemFromStorage({index: hangarElements.inventorySelectedItem, storage: playerObjectData.inventory, value: null})
+       mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
+    }
+    if(hangarElements.hangarSelectedItem || hangarElements.hangarSelectedItem === 0){
+        let selPrice = salePercentAddToPrice({price: playerObjectData.guns[hangarElements.hangarSelectedItem].price, mainGameObject: mainGameObject})
+        replaceItemFromStorage({index: hangarElements.hangarSelectedItem, storage: playerObjectData.guns, value: null})
+        mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
+        mainGameObject.gameInitData.gameData.gameCoins  += selPrice
+    }
+}
+
+
+function salePercentAddToPrice({price, mainGameObject}){
+    let hangarElements = mainGameObject.shopArea.selectedShopItem;
+    let finalPrice = Math.round(price - ((price/100)*hangarElements.tradePropertyes.salePercentage));
+    return finalPrice
+}
+
+
 
 function putInsideInventory({mainGameObject, saveItem, inventoryItem}){
     let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
@@ -129,10 +201,9 @@ function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStor
     let hangarElements = mainGameObject.shopArea.selectedShopItem.hangarElements
     let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
 
-    console.log(putIndex, mainGameObject.shopArea.selectedShopItem.hangarSelectedItem,
-        mainGameObject.shopArea.selectedShopItem.inventorySelectedItem, selectedStorage)
+
     if(!storage[putIndex] && (mainGameObject.shopArea.selectedShopItem.hangarSelectedItem  && name == "inside-storage" ||
-        mainGameObject.shopArea.selectedShopItem.hangarSelectedItem === 0) && name == "inside-storage" || 
+        mainGameObject.shopArea.selectedShopItem.hangarSelectedItem === 0) && name == "inside-storage" ||
         selectedStorage && (mainGameObject.shopArea.selectedShopItem.inventorySelectedItem && name == "inside-storage" ||
         mainGameObject.shopArea.selectedShopItem.inventorySelectedItem === 0  && name == "inside-storage")){
         shopStorageReplacer({
@@ -145,7 +216,6 @@ function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStor
         })
     }else if(selectedStorage && (mainGameObject.shopArea.selectedShopItem.inventorySelectedItem && name == "outside-storage" ||
         mainGameObject.shopArea.selectedShopItem.inventorySelectedItem === 0  && name == "outside-storage")){
-            console.log(1, selectedStorage[putIndex])
         if(selectedStorage[putIndex]) return false
         shopStorageReplacer({
             putIndex: putIndex,
@@ -160,21 +230,17 @@ function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStor
 
 function shopStorageReplacer({putIndex, selectedIndex, storage, selectedStorage, firespot, mainGameObject}){
     let selectGun = storage[selectedIndex];
-    console.log(selectGun, "( | | )", selectedStorage)
     selectGun = assignGunsPossition({gun: selectGun, firespot: firespot[putIndex]})
 
     replaceItemFromStorage({index: putIndex, storage: selectedStorage, value: selectGun})
     replaceItemFromStorage({index: selectedIndex, storage: storage, value: null})
     mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
     mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
-    console.log(selectGun, "( - - )", selectedStorage)
 }
 
 
 function assignGunsPossition({gun, firespot}){
-    console.log(firespot)
     if(!firespot || !gun) return gun
-    console.log(gun, firespot, '<>')
 
     gun.firePositionX = firespot.shipXPosition;
     gun.firePosition = firespot.shipYPosition;
@@ -182,11 +248,31 @@ function assignGunsPossition({gun, firespot}){
 }
 
 
+
+
+function hideDescriptionArea(){
+    let item = document.querySelector('#item-descripton');
+    hide(item)
+}
+function showDescriptionArea({selectObject, event, mainGameObject}){
+    let item: any = document.querySelector('#item-descripton');
+            item.style = `margin-top: ${event.clientY-100}px; margin-left: ${event.clientX - 200}px; `;
+            item.innerHTML = `<p>${selectObject.title}</p>
+            <p>Cost: ${salePercentAddToPrice({price: selectObject.price, mainGameObject: mainGameObject})}</p>
+            <p>speed: ${selectObject.speed}</p>
+            <p>damage: ${selectObject.damage}</p>
+            <p>${selectObject.description}</p>`
+        show(item)
+}
+
 export {
     shopInventory,
     selectInventoryItem,
     inventoryFreeItem,
     putInsideInventory,
     replaceItemFromStorage,
-    putItemToStorage
+    putItemToStorage,
+    saleItem,
+    hideDescriptionArea,
+    showDescriptionArea
 }

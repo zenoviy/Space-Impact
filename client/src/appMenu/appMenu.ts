@@ -76,7 +76,8 @@ function appMenu(gameObject, dialogWindow){
                     }
                 }
                 function menuSelection(event){
-                    if(event.target.parentElement.tagName == "LI"){
+                    if(!event.target.parentElement) return false
+                    if(event.target.parentElement.tagName != "LI") return false
                         let menuArea = Array.prototype.slice.call(document.querySelectorAll(".selected-items"));
                         for(let menuItem of menuArea){
                             removeClassList(menuItem, "selected-items")
@@ -87,7 +88,6 @@ function appMenu(gameObject, dialogWindow){
                             event.target.dataset.buttonId != "exit" &&
                             event.target.dataset)? event.target.parentElement : selectedMenuItem;
                         addClassList(event.target.parentElement, "selected-items");
-                    }
                 }
             },
             showSection(event) {

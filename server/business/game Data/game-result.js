@@ -11,6 +11,7 @@ async function getResultlData (req, res) {
         }
 
         let readObject = JSON.parse(data);
+        if(!readObject)return res.send({message: "problem occured in result data"})
         let publicData = readObject.sort((a, b) => a.gamePoints - b.gamePoints ).reverse().map(item => { return {
             userName: item.userName,
             gamePoints: item.gamePoints,
@@ -71,6 +72,7 @@ async function postResultlData (req, res) {
             }
         }else{
             dataArr = dataArr.concat(dataArr, req.body)
+            if(!dataArr)return res.send({message: "there is no data to write"})
             dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify(dataArr)})
             res.send({message: `Sucessfully save Result!!! ${req.body.userName} added`, status: "success"})
         }

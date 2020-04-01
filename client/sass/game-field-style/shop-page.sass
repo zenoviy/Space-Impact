@@ -12,10 +12,12 @@
     overflow-y: scroll
     .item-descripton
       width: 100px
-      height: 100px
-      font-size: 10px
-      background: #000
+      height: fit-content
+      font-size: 10px;
+      background: rgba(47, 24, 51, 0.81)
       position: absolute
+      padding: 5px
+      border-radius: 5px
 
     .item-dragable-picture
       width: 100px
@@ -23,19 +25,29 @@
       font-size: 10px
       position: absolute
 
+    .shop-sale-part
+      width: 100%
+      height: 50px
+      background: #ff0000
+      .sale-inner-item
+        img
+          width: 100%
     .inner-shop-wrapper
       display: flex
     .display-area-wrapper
       width: 70%
+
     .right-side-inventory
       width: 30%
       height: fit-content
       background: #000
+
     .right-side-inventory
       display: flex
       flex-wrap: wrap
       .inventory-selected-items
         background: orange
+
       .inventory-item
         height: 93px
         width: 46%
@@ -50,7 +62,7 @@
         display: flex
         flex-flow: wrap
         .shop-card
-            width: calc(#{100%}/5)
+            width: calc(#{100%}/4.4)
             margin: 1%
             background-size: cover
         .inner-card
