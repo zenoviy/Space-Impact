@@ -3,7 +3,8 @@ import { initPlayerShip,
     shipControl,
     moveShip,
     placeShip,
-    setContext 
+    setContext,
+    playerShipTextureChange
 } from '../engine/playerShipModule';
 import { getObjectPosition } from '../engine/engineModules';
 import { takeDamage, enemyAnimation, placeEnemyes } from '../enemies/enemiesModules';
@@ -58,6 +59,7 @@ class PlayerShip{
     enemyAnimation: any;
     placeEnemyes: any;
     bulletSpeed: any;
+    playerShipTextureChange: any;
     constructor({...data}){
         this.data = data.data;
         this.points = data.points;
@@ -102,6 +104,7 @@ PlayerShip.prototype.takeDamage = takeDamage;
 PlayerShip.prototype.enemyAnimation = enemyAnimation;
 PlayerShip.prototype.placeEnemyes = placeEnemyes
 PlayerShip.prototype.bulletSpeed = bulletSpeed
+PlayerShip.prototype.playerShipTextureChange = playerShipTextureChange;
 
 export {
     PlayerShip

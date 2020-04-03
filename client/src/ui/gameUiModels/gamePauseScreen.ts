@@ -8,7 +8,7 @@ function gamePause(data: any,ctx: any, width: number, height: number, pictureDir
             description: "part of pause window",
             fontSize: "60px Arial",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 400,
                 height: 90,

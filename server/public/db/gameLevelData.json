@@ -384,7 +384,7 @@
         "enemyType" : ["megalit", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["cloud_1"],
-        "enemyProbability" : 500,
+        "enemyProbability" : 250,
         "objectProbability": 800,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,

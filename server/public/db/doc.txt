@@ -56,8 +56,8 @@ enemyTypeData.json   - storage file for enemy type, texture, weapons, other prop
                 "imageHeight":294,                              // texture height
                 "animationSteps": 2,                            // speed of animation
                 "numberOfItems": 44,                            // number of animation frame
-                "sx": 0,                                        // animation possition x
-                "sy": 0,                                        // animation possition y
+                "sx": 0,                                        // animation position x
+                "sy": 0,                                        // animation position y
                 "width": 50,                                    // animation frame width
                 "height": 50                                    // animation frame height
             },

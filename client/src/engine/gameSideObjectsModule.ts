@@ -6,7 +6,6 @@ import { angleFinder } from './engineModules';
 function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
     //let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
-
     let explosionData = {
             x: targetData.x - targetData[explosion].width/2,
             y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
@@ -21,7 +20,7 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
             target: hitObject.objectOwner,
             numberOfItems: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
             texture: targetData[explosion].texture,
-            speed: hitObject.speed/2,
+            speed: (hitObject.objectOwner === 'player')? targetData.speed: hitObject.speed/2,
             picturesWidth: targetData[explosion].imageWidth,
             sound: targetData[explosion].sound
         }
@@ -77,7 +76,6 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
             if(levelObjectProps.objectOwner == 'hangar' && this.gameInitData.tradepostInRange) return false
             if(levelObjectProps.objectOwner == 'hangar'){
                 let probability = this.gameRandomizer(levelObjectProps.probability)
-                console.log(probability, data)
                 if( probability > 50 && data.minutes > 0 || probability > 500 && data.minutes === 0 ) return false // 1000
                 this.gameInitData.tradepostInRange = true;
             }

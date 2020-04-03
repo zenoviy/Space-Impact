@@ -223,7 +223,7 @@ function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStor
 
 function shopStorageReplacer({putIndex, selectedIndex, storage, selectedStorage, firespot, mainGameObject}){
     let selectGun = storage[selectedIndex];
-    selectGun = assignGunsPossition({gun: selectGun, firespot: firespot[putIndex]})
+    selectGun = assignGunsPosition({gun: selectGun, firespot: firespot[putIndex]})
 
     replaceItemFromStorage({index: putIndex, storage: selectedStorage, value: selectGun})
     replaceItemFromStorage({index: selectedIndex, storage: storage, value: null})
@@ -232,7 +232,7 @@ function shopStorageReplacer({putIndex, selectedIndex, storage, selectedStorage,
 }
 
 
-function assignGunsPossition({gun, firespot}){
+function assignGunsPosition({gun, firespot}){
     if(!firespot || !gun) return gun
 
     gun.firePositionX = firespot.shipXPosition;
@@ -267,5 +267,7 @@ export {
     putItemToStorage,
     saleItem,
     hideDescriptionArea,
-    showDescriptionArea
+    showDescriptionArea,
+    assignGunsPosition,
+    salePercentAddToPrice
 }

@@ -58,9 +58,7 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
         if(!item) continue
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
 
-            if(owner == 'player'){
-                //console.log("palyer >", guns )
-            }
+
             let context = this;
             let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed, angle: this.shotAngle});
             let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;
@@ -242,7 +240,6 @@ function objectIntersectionDetect({object, target}){
     let resX = xMax - xMin;
     let resY = yMax - yMin;
     collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
-    //console.log(resX, resY, '<<', xMin, yMin, xMax, yMax)
     return collision
 }
 
@@ -276,18 +273,6 @@ function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
     return (collision == "collision")? object1: false;
 }
 
-/*function destroyAlEnemy(){
-    console.log(1)
-    let enemyes = this.gameInitData.allGameEnemies;
-    console.log(1)
-    if( !enemyes || enemyes.length < 1) return false
-    for(let ship of enemyes){
-        ship.objectPresent = false;
-            //collideExplosionAnimation
-            //explosionFire(ship, this, ship, costructors.SideObject, "collideExplosionAnimation");
-            //explosionFire(ship, this, ship, costructors.SideObject, "explosion");
-    }
-}*/
 
 
 export  {
@@ -303,5 +288,4 @@ export  {
     enemyDamageAnimation,
     spawnCoin,
     explosionFire
-    //destroyAlEnemy
 };

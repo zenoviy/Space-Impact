@@ -9,7 +9,9 @@ const {
     getGrappleObjects,
     updateResultlData,
     getShopWeaponData,
-    putShopWeaponData
+    putShopWeaponData,
+    getShopShipyardData,
+    putShopShipyardData
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -63,6 +65,11 @@ app.route("/api/game-result")
 app.route("/api/shop/guns")
     .get(getShopWeaponData)
     .put(cors(), putShopWeaponData)
+
+
+app.route("/api/shop/shipyard")
+    .get(getShopShipyardData)
+    .put(putShopShipyardData)
 
 
 app.listen(process.env.PORT || 3000, function(){

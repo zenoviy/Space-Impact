@@ -1,6 +1,4 @@
 const fs = require('fs');
-const { dataFinder, dataUpdater } = require('../workers/validator');
-const { dataWriter } = require('../workers/fileWorker');
 
 
 async function getShopWeaponData (req, res) {
@@ -36,6 +34,7 @@ async function putShopWeaponData (req, res) {
         if(!userCoins || !itemName) return res.send({message: `wrong data: there is no coin or itemname`, status: "false"})
         let readObject = JSON.parse(data).find((obj) => { return obj.title === itemName });
 
+        if(!readObject) return res.send({message: `not fond in guns`, status: "false"})
         if(readObject && parseInt(userCoins) < readObject.price) return res.send({message: `you have no coin it cost: ${readObject.price}`, status: "false"})
         res.send({data: readObject, status: 'success', money: userCoins - readObject.price })
     })

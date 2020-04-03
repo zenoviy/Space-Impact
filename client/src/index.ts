@@ -12,11 +12,25 @@ import { loadShopArea } from './ui/gameShopModule';
 
 
 (async function init(){
+
+    process.env.LEVEL_DATA_URL = 'api/level-data';
+    process.env.LEVEL_OBJECT_URL = 'api/level-objects';
+    process.env.LEVEL_GRAPPLE_OBJECTS_URL = 'api/grapple-objects';
+    process.env.GAME_SETTINGS_URL = 'api/game-settings';
+    process.env.USER_SHIP_URL = 'api/user-ship';
+    process.env.ENEMY_SHIP_URL = 'api/enemy-ship';
+
+
+    process.env.SHOP_GUNS_URL = 'api/shop/guns';
+    process.env.SHOP_SHIPYARD_URL = 'api/shop/shipyard'
+
+
     process.env.MAIN_GAME_SOUND = '';
     process.env.MAIN_GAME_SOUND_EFFECTS = '';
     process.env.MAIN_GAME_SOUND_ON = '';
 
     process.env.SHOP_ACTIVE_WINDOW = 'false';
+    process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
     process.env.SHOP_SALE_WINDOW = 'false';
 
 

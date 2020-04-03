@@ -10,7 +10,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             step: [info.life].map(i => i*50),
             description: "Game logotype",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 70,
                 height: 70,
@@ -24,7 +24,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 radius: null,
             },
             loadPicture(){
-                this.propertyes.background.src = pictureDirrection + 'misc/ruby.png';
+                this.properties.background.src = pictureDirrection + 'misc/ruby.png';
             },
             init: function(callback, data?){
                 data = (data)? data: this;
@@ -32,7 +32,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 let steps = Array(info.life).fill(0).map((o, i) => i*30);
                 let marginLeft = 30;
                 for(let i = 0; i < this.number; i++){
-                    this.propertyes.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
+                    this.properties.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
                     callback(data)
                 }
             },
@@ -43,7 +43,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             description: "Game part the name",
             clicked: false,
             fontSize: "bold 16px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 0,
@@ -62,7 +62,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             description: "Game part the name",
             clicked: false,
             fontSize: "light 16px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 50,
                 height: 0,
@@ -81,7 +81,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             description: "Game part the name",
             clicked: false,
             fontSize: "light 18px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: -50,
                 height: 0,
@@ -101,7 +101,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             step: [info.life].map(i => i*50),
             description: "Game logotype",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 100,
                 height: 100,
@@ -115,7 +115,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 radius: null,
             },
             loadPicture(){
-                this.propertyes.background.src = pictureDirrection + 'misc/grapple-objects/coin.png';
+                this.properties.background.src = pictureDirrection + 'misc/grapple-objects/coin.png';
             },
             init: function(callback, data?){
                 data = (data)? data: this;
@@ -123,9 +123,9 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 numberOfCoin = ( cointIndex > 0 && cointIndex < 10)? cointIndex :(cointIndex >= 10)? 10 : 1 ;
 
                 let steps = Array(numberOfCoin).fill(0).map((o, i) => i*5);
-                let marginLeft = this.propertyes.x;
+                let marginLeft = this.properties.x;
                 for(let i = 0; i < numberOfCoin; i++){
-                    this.propertyes.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
+                    this.properties.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
                     callback(data)
                 }
             },
@@ -136,7 +136,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             description: "Game part the name",
             clicked: false,
             fontSize: "light 18px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: -50,
                 height: 0,

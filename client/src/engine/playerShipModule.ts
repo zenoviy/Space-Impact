@@ -10,8 +10,7 @@ import * as view from '../view/';
 
 function initPlayerShip(){
     if(this.ctx){
-        let image = this.data.texture,
-        imageLocation = __dirname + '/public/images/';
+        let image = this.data.texture;
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){
@@ -19,8 +18,11 @@ function initPlayerShip(){
             }
             return this.img
         }
-        this.img.src = imageLocation + image;
+        this.img.src = __dirname + image;
     }
+}
+function playerShipTextureChange(){
+    this.img.src = __dirname + this.data.texture;
 }
 
 function shipControl(mainGameObject: any){
@@ -85,5 +87,6 @@ export {
     shipControl,
     moveShip,
     placeShip,
-    setContext
+    setContext,
+    playerShipTextureChange
 }

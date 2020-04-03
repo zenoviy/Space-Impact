@@ -16,8 +16,12 @@ import { shopInventory,
     putItemToStorage,
     saleItem,
     hideDescriptionArea,
-    showDescriptionArea } from './gameInventoryModules';
-import { isBuffer } from 'util';
+    showDescriptionArea,
+    salePercentAddToPrice} from './gameInventoryModules';
+import { replaceShipData } from './gameShopShipyard';
+
+
+
 
 function loadShopArea (mainGameObject) {
     const shopArea = {
@@ -39,7 +43,7 @@ function loadShopArea (mainGameObject) {
         shopDialogText: document.querySelector('#shop-dialog-text'),
         shopErrorMessage: document.querySelector('#shop-error-message')
     }
-    showShopData({element: shopArea, url: 'api/shop/guns', mainGameObject: mainGameObject})
+    showShopData({element: shopArea, url: process.env.SHOP_GUNS_URL, mainGameObject: mainGameObject, customWrapperClass: null})
     shopEventDetector({shopArea: shopArea, mainGameObject: mainGameObject})
 
     return {
@@ -113,7 +117,6 @@ function shopEventDetector({ shopArea, mainGameObject }){
                     if(playerObjectData.guns[i] && (!shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem != 0)){
                         shopAreaItems.hangarSelectedItem = (shopAreaItems.hangarSelectedItem ==i)? null: i;
                         mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
-                        //console.log('clicked 2')
                     }
                     if(shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem === 0){
                         putItemToStorage({name: 'outside-storage',
@@ -123,8 +126,6 @@ function shopEventDetector({ shopArea, mainGameObject }){
                             selectedStorage: playerObjectData.guns,
                             mainGameObject: mainGameObject
                         })
-                        console.log('clicked 3')
-
                     }
                     if(shopAreaItems.hangarSelectedItem || shopAreaItems.hangarSelectedItem === 0){
                         putItemToStorage({name: 'inside-storage',
@@ -134,10 +135,8 @@ function shopEventDetector({ shopArea, mainGameObject }){
                             selectedStorage: null,
                             mainGameObject: mainGameObject
                         })
-                        //console.log('clicked 4')
                     }
                     loadHangar({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
-                    console.log('clicked 5 reload')
                     return
                 }
             }
@@ -149,30 +148,36 @@ function shopEventDetector({ shopArea, mainGameObject }){
             case 'weapons':
                 mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
                 mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
-                showShopData({element: shopArea, url: 'api/shop/guns', mainGameObject: mainGameObject})
+                process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
+                showShopData({element: shopArea, url: process.env.SHOP_GUNS_URL, mainGameObject: mainGameObject, customWrapperClass: null})
                 break;
             case 'ship':
                 mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
                 mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
-                console.log('ship')
+                process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'true';
+                showShopData({element: shopArea, url: process.env.SHOP_SHIPYARD_URL, mainGameObject: mainGameObject, customWrapperClass: "shipyard-item"})
                 break;
             case 'market':
                 mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
                 mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
+                process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
                 console.log('market')
                 break;
             case 'to-hangar':
+                //process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
                 switchShopHangar('to-hangar', shopArea)
                 loadHangar({element: shopArea,
                     mainGameObject: mainGameObject})
                 break;
             case 'to-shop':
+                //process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
                 switchShopHangar('to-shop', shopArea)
                 break;
             case 'exit':
                 mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
                 mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
                 process.env.SHOP_ACTIVE_WINDOW = 'false';
+                //process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
                 leaveShop({element: shopArea, mainGameObject: mainGameObject, text: 'back to the game'})
                 break;
             default:
@@ -200,11 +205,17 @@ function shopEventDetector({ shopArea, mainGameObject }){
         switch(event.target['dataset'].targetBtnId){
             case 'ok':
                 if(process.env.SHOP_ACTIVE_WINDOW === 'false'){
+
                     mainGameObject.gameInitData.shopActive = false;
                     hide(shopArea.shopWrapper)
                     hide(this)
-                }else if(process.env.SHOP_ACTIVE_WINDOW === 'true' && process.env.SHOP_SALE_WINDOW === 'false'){
-                    buyItem({url: 'api/shop/guns', mainGameObject: mainGameObject})
+
+                }else if(process.env.SHOP_ACTIVE_WINDOW === 'true'
+                && process.env.SHOP_SALE_WINDOW === 'false'
+                && process.env.SHOP_SHIPYARD_ACTIVE_WINDOW === 'false'){
+
+                    buyItem({url: process.env.SHOP_GUNS_URL, mainGameObject: mainGameObject})
+
                 }else if(process.env.SHOP_SALE_WINDOW === 'true' && process.env.SHOP_ACTIVE_WINDOW === 'true'){
                     process.env.SHOP_SALE_WINDOW = 'false';
                     process.env.SHOP_ACTIVE_WINDOW ='false';
@@ -212,6 +223,8 @@ function shopEventDetector({ shopArea, mainGameObject }){
                     shopInventory({element: shopArea, mainGameObject: mainGameObject})
                     loadHangar({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
                     hide(this)
+                }else if (process.env.SHOP_SHIPYARD_ACTIVE_WINDOW === 'true' && process.env.SHOP_ACTIVE_WINDOW === 'true'){
+                    buyShip({mainGameObject: mainGameObject, url: process.env.SHOP_SHIPYARD_URL})  ////
                 }
                 break;
             case 'cancel':
@@ -227,21 +240,62 @@ function shopEventDetector({ shopArea, mainGameObject }){
 
 
 
+function shipCardDescription({shipData}){
+    if(!shipData) return false
+    let shipDescriptionText = `
+    <p> status: ${(shipData.status)? shipData.status : ''}</p>
+    <p>armor: ${(shipData.armor)? shipData.armor : ''}</p>
+    <p>speed: ${(shipData.minSpeed)? shipData.minSpeed : ''}</p>
+    <p>inventoryCapapcity: ${(shipData.inventoryCapapcity)? shipData.inventoryCapapcity : ''}</p>
+    `
+    return shipDescriptionText
+}
 
 
-async function showShopData({element, url, mainGameObject}){
-    element.displayShopItem.innerHTML = "";
+
+
+
+
+
+
+function labelShip({playerObject, card, mainGameObject}){
+    if(playerObject.data.title === card.title){
+        process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'true';
+        return `<div class="current-ship-label"><img src=${process.env.HOST + 'static/shop/misc/accept_label_1024x1024.png'}></div>
+        <div class="sale-ship-price"> Sale price ${salePercentAddToPrice({price: card.price, mainGameObject: mainGameObject})}</div>`;
+    }
+    else return ''
+}
+
+
+
+
+
+
+
+async function showShopData({element, url, mainGameObject, customWrapperClass}){
+    let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     let data = await getData({url: process.env.HOST + url, method: 'GET', data: null, headers: null})
 
+    element.displayShopItem.innerHTML = "";
     if(data.message) console.error(data.message)
     for(let card of data){
-        let cardRender = createElements({tagName: 'div', styleClass: 'shop-card', inlineStyle: `background-image: url(${process.env.HOST + card.background} )`,
+        let shipDescription = (customWrapperClass === 'shipyard-item')? shipCardDescription({shipData: card}) : '';
+        let currentShip = labelShip({playerObject: playerObject, card: card, mainGameObject: mainGameObject});
+        let cardRender = createElements({tagName: 'div',
+        styleClass: (customWrapperClass)? `${customWrapperClass} ${(playerObject.data.title === card.title)? 'current-ship' : ''}` : 'shop-card',
+        inlineStyle: `background-image: url(${process.env.HOST + card.background} )`,
         pictureUrl: null, linkUrl: null, text: null,
         innerContent: `<div class="inner-card">
+            <h2>${card.title} ${currentShip}</h2>
             <img src=${process.env.HOST + card.loadImage}>
-            <h2>${card.title}</h2>
-            <p>${card.description}</p>
-            <h3>${card.price}</h3>
+            <div class="${(customWrapperClass === 'shipyard-item')? 'card-body' : ''}">
+                <div class="card-main-data">
+                    <p>${card.description}</p>
+                    <h3>${card.price}</h3>
+                </div>
+                <div class="card-details">${shipDescription}</div>
+            </div>
         </div>`,
         attribute: null, attributeName: null,
         attribute1: null, attributeName1: null})
@@ -294,9 +348,7 @@ function enterToTheShopDialog({mainGameObject, tradePropertyes}){
     mainGameObject.gameInitData.shopActive = true;
     let shopUiItems = mainGameObject.shopArea;
 
-    console.log(tradePropertyes, " < before")
     mainGameObject.shopArea.selectedShopItem.tradePropertyes = (!tradePropertyes.salePercentage)? salePercentage({tradePropertyes: tradePropertyes, mainGameObject: mainGameObject}): tradePropertyes;
-    console.log(tradePropertyes, " > after")
     switchShopHangar('to-shop', mainGameObject.shopArea)
     show(shopUiItems.shopWrapper)
 }
@@ -329,7 +381,40 @@ function selectedItemsPicture({status, event, picture}){
 
 
 
+async function buyShip({mainGameObject, url}){
+    let shopAreaItems = mainGameObject.shopArea.selectedShopItem;
+    let playerObject = mainGameObject.gameInitData.gameData.playerObject
+    let playerObjectData = playerObject.data;
 
+
+    let shipInventoryLastItems = 0;
+    let shipGunsLastItems = 0;
+
+    for(let i = 0; i < playerObjectData.inventory.length; i++){
+        if(playerObjectData.inventory[i]) shipInventoryLastItems = i;
+        console.log(playerObjectData.guns)
+        if(playerObjectData.guns[i]) shipGunsLastItems = i;
+    }
+
+    let headers = {
+        "usercoins" : mainGameObject.gameInitData.gameData.gameCoins + salePercentAddToPrice({price: playerObjectData.price, mainGameObject: mainGameObject}),
+        "itemname" : mainGameObject.shopArea.selectedShopItem.title,
+        "currentshipname": playerObjectData.title,
+        "shipinventoryitems": shipInventoryLastItems,
+        "shipgunsitems": shipGunsLastItems
+    }
+    let data = await getData({url: process.env.HOST + url, method: 'PUT', data: null, headers: headers})
+    if(!data) return false
+
+    if(data.status === 'false'){
+        mainGameObject.shopArea.shopErrorMessage.innerHTML = data.message;
+    }else if(data.data){
+        replaceShipData({ mainGameObject: mainGameObject, buyShipData: data})
+        hide(mainGameObject.shopArea.shopDialog)
+        shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
+        showShopData({element: mainGameObject.shopArea, url: process.env.SHOP_SHIPYARD_URL, mainGameObject: mainGameObject, customWrapperClass: "shipyard-item"})
+    }
+}
 
 
 async function buyItem({url, mainGameObject}){

@@ -8,7 +8,7 @@ function gameOverScreen(data: any,ctx: any, width: number, height: number, pictu
             description: "text for game over window",
             fontSize: "110px Arial",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 90,

@@ -13,7 +13,7 @@ function loadHangar({element, mainGameObject}){
     hangarTextArea.innerHTML = playerObjectData.name;
 
     img.onload = () => {
-        createImage(ctx, img, 120, 20, 300, 300)
+        createImage(ctx, img, 80, 20, 500, 300)
         for(let i = 0; i < playerObjectData.firespot.length; i++){
             createClicableArea({position: playerObjectData.firespot[i], index: i, gun: playerObject.data.guns[i]})
         }

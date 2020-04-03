@@ -43,23 +43,17 @@ function moveBullets( playerShipData, gameObject ){
     }
     function beam(){
         let screenData = gameObject.getScreenSize();
-        //this.x += this.bulletSpeed;
-        //this.y += this.verticalSpeed;
+
         if(this.x > 0){
             this.width += this.bulletSpeed * -1;
         }else if(this.width > 0){
             this.x = 0;
             this.width -= this.bulletSpeed * -1;
-            //console.log( this.width, '<<')
-        }/**/
-        //console.log(this.x, this.width, this.bulletSpeed)
-        //alert(1)
-
+        }
     }
 }
 
 function bulletSpeed({bulletSpeed, angle}) {
-    //console.log(angle, '//')
     angle = (Math.sign(angle) > 0)? angle : 360 + angle
     let sector = Math.floor(angle/(90+1))
     let sectorIndex: any = parseFloat(((angle/(90))-sector).toFixed(2));

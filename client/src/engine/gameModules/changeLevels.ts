@@ -41,10 +41,10 @@ async function nextLevelDataReload(levelData){
         context.gameInitData.timeToEressLevel = 6;
         context.gameInitData.levelChange = false;
         context.gameInitData.levelWindowDescription = false;
+        process.env.BOSS_LOAD_AT_LEVEL = "false";
     }, 5000)
 
     horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
-    console.log(this.shopArea)
     this.mapSoundChanger({soundStatus:'regular_level'})
 
 }
@@ -73,8 +73,6 @@ function renewPlayerShip({originData, newData}){
         }
     }
     return originData
-
-
 }
 
 

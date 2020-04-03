@@ -12,7 +12,7 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
             fontSize: " bold 120px Roboto",
             clicked: false,
             shadowColor: 'rgba(255, 255, 255, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 90,
@@ -35,7 +35,7 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
             fontSize: " bold 30px Roboto",
             clicked: false,
             shadowColor: 'rgba(255, 255, 255, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 90,
@@ -58,7 +58,7 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
             fontSize: " bold 30px Roboto",
             clicked: false,
             shadowColor: 'rgba(255, 255, 255, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 90,
@@ -79,7 +79,7 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
             description: "back to start screen",
             fontSize: "25px Roboto",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 300,
                 height: 50,
@@ -112,7 +112,7 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
             description: "back to start screen",
             fontSize: "25px Roboto",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 200,
                 height: 50,

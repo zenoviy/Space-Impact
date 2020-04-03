@@ -14,7 +14,7 @@
     "imageHeight":590,
     "animationSteps": 5,
     "numberOfItems": 10,
-    "probability": 1500,
+    "probability": 50,
     "numberOfVerticalItems": 1,
     "sx": 0,
     "sy": 0,

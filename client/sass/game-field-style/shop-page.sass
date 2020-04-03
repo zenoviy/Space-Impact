@@ -8,7 +8,7 @@
     width: 90%
     border-radius: 10px
     padding: 20px
-    max-height: 90vh
+    max-height: 84vh
     overflow-y: scroll
     .item-descripton
       width: 100px
@@ -38,29 +38,57 @@
       width: 70%
 
     .right-side-inventory
-      width: 30%
+      width: 25%
       height: fit-content
       background: #000
-
-    .right-side-inventory
+      justify-content: center
       display: flex
       flex-wrap: wrap
+      position: fixed
+      right: 50px
       .inventory-selected-items
         background: orange
 
       .inventory-item
         height: 93px
-        width: 46%
+        width: 44%
         padding: 5px
         .inventory-inner-item
           width: 100%
           height: 100%
-          background: #bbb
+          background: rgba(83, 6, 59, 0.8)
+          border-radius: 7px
           img
             width: 100%
+
     .display-shop-items
+
         display: flex
         flex-flow: wrap
+        .current-ship
+          border: 2px solid rebeccapurple
+          box-sizing: border-box
+        .shipyard-item
+            width: 100%
+            margin: 1%
+            background-size: cover
+            img
+              width: 55
+        h2
+          display: flex
+
+        .current-ship-label
+          width: 120px
+          padding-left: 10%
+
+        .card-body
+          display: flex
+          flex-flow: wrap
+          flex-wrap: wrap
+          justify-content: space-evenly
+          background: #330044
+          font-size: 12px
+
         .shop-card
             width: calc(#{100%}/4.4)
             margin: 1%
@@ -68,7 +96,9 @@
         .inner-card
             padding: 10px
         img
-            width: 100%
+          width: 78%
+          margin: 0 auto
+          display: block
 
 .shop-wrapper::-webkit-scrollbar
   width: 12px
