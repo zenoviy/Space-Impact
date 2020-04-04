@@ -7,7 +7,11 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
     //let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
     let explosionData = {
-            x: targetData.x - targetData[explosion].width/2,
+
+        
+            //x: targetData.x + targetData[explosion].width/2,
+            //y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
+            x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width/2 : targetData.x ,
             y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
             sx: 0,
             sy: 0,
@@ -66,7 +70,7 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
             let screenData  = this.getScreenSize();
             let levelObjectProps = levelObjects[this.gameRandomizer(levelObjects.length)];
             if(!levelObjectProps) return false
-            let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")? window.innerHeight - this.gameRandomizer(levelObjectProps.height)
+            let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")? window.innerHeight - this.gameRandomizer(levelObjectProps.height/2, levelObjectProps.height/2)
                 :(levelObjectProps.spawnDetails.position == "top" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height/3)
                 :(levelObjectProps.spawnDetails.position == "scene" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height)
                 :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(window.innerHeight)
@@ -131,13 +135,19 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
     let closestUnit;
     let closestUnitXrange = Infinity;
     let closestUnitYrange = Infinity;
+
     for(let ship of allGameEnemies){
-        let minx = Math.min(ship.x, this.x);
-        let maxx = Math.max(ship.x, this.x);
+        let distanceX = (ship.x > this.x)? ship.x - this.x : this.x - ship.x;
+        let distanceY = (ship.y > this.y)? ship.y - this.y : this.y - ship.y;
+
+
+        let minx = Math.min(ship.x + (distanceX / ship.speed), this.x);
+        let maxx = Math.max(ship.x + (distanceX / ship.speed), this.x);
         let miny = Math.min(ship.y, this.y);
         let maxy = Math.max(ship.y, this.y);
         let xRange = maxx - minx;
         let yRange = maxy - miny;
+
         if( xRange < closestUnitXrange && yRange < closestUnitYrange ){
             closestUnit = ship
         }

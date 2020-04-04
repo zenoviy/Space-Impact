@@ -2,7 +2,7 @@
     {
         "id": "lifepoint",
         "name": "lifepoint",
-        "probability": 1000,
+        "probability": 600,
         "objectOwner": "grappleObject",
         "healthPoint": null,
         "imageWidth": 1826,
@@ -42,10 +42,13 @@
                 "soundLoop": false
             }
         }
-    },{
+    },
+
+
+    {
         "id": "goldCoin",
         "name": "goldCoin",
-        "probability": 100,
+        "probability": 10,
         "objectOwner": "grappleObject",
         "healthPoint": null,
         "imageWidth": 700,
@@ -65,6 +68,60 @@
             "description": "coin",
             "value": 100,
             "methodName": "collectCoin"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+    {
+        "id": "Reaper-box",
+        "name": "Reaper-box",
+        "loadImage": "static/shop/store/Reaper.png",
+        "background": "static/shop/misc/blue-card.png",
+        "probability": 100,
+        "objectOwner": "grappleObject",
+        "price": 100,
+        "title": "Box",
+        "status": "inventary object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 35,
+        "height": 35,
+        "skinName": "/public/images/misc/grapple-objects/animated-enemy-gun.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "gun",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "content": {
+                "name": "Reaper"
+            }
         },
         "spawnDetails": {
             "position": "scene"

@@ -20,7 +20,9 @@ async function getShopShipyardData (req, res) {
             status: obj.status,
             armor: obj.armor,
             minSpeed: obj.minSpeed,
-            inventoryCapapcity: obj.inventoryCapapcity
+            inventoryCapacity: obj.inventoryCapacity,
+            healthPoint: obj.healthPoint,
+            firespots: obj.firespot.length
         }});
         res.send(readObject)
     })
@@ -62,7 +64,7 @@ async function putShopShipyardData (req, res) {
 
 function compareItems(playerObjectDataInventory, playerObjectDataGuns, readObject){
     let accesibility = true;
-    if(playerObjectDataInventory > readObject.inventoryCapapcity -1 ||
+    if(playerObjectDataInventory > readObject.inventoryCapacity -1 ||
         readObject.guns.length - 1 < playerObjectDataGuns) accesibility = false
     return accesibility
 }

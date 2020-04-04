@@ -66,7 +66,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
         points: 0,
         numberOflife: shipLife,
         maxOfLife: shipLife,
-        healthPoint:300,
+        healthPoint: userData.healthPoint,
         armor: userData.armor,
         x: 0,
         y: 0,
@@ -92,11 +92,12 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject){
     loadWindow({loadStatus: "load"})
+    let level = 1, shipType = 1, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
-        let level = 3, shipType = 1, shipLife = 5;
+
         let res = await serverRequest({level: level,  shipConfiguration: shipType})
         const levelData = res.levelData;
         const levelObjects = res.levelObjects;

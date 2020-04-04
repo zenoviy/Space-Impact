@@ -10,6 +10,9 @@ const { getShopWeaponData, putShopWeaponData } = require('./game Data/game-weapo
 const { getShopShipyardData, putShopShipyardData } = require('./game Data/game-shipyard-shop');
 
 
+const { getStoreItemsData, putStoreItemsData } = require('./game Data/game-store-items');
+
+
 module.exports = {
     getLevelData : levelData,
     getUserShip : getUserShip,
@@ -23,5 +26,7 @@ module.exports = {
     getShopWeaponData: getShopWeaponData,
     putShopWeaponData: putShopWeaponData,
     getShopShipyardData: getShopShipyardData,
-    putShopShipyardData: putShopShipyardData
+    putShopShipyardData: putShopShipyardData,
+    getStoreItemsData: getStoreItemsData,
+    putStoreItemsData: putStoreItemsData
 }

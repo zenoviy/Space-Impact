@@ -52,10 +52,14 @@ function loadEnemyes(){         ///  need replace  and remove
 
 function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
     if(mainGameObject.gameInitData.gamePause || !this.isShot) return false;
+    
+    
     let guns = (this.guns)? this.guns : this.data.guns;
-
+if(owner == 'collide'){
+        console.log(guns)
+    }
     for(let item of guns){
-        if(!item) continue
+        if(!item || item.type ==='object') continue
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
 
 
@@ -202,7 +206,6 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
                     mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
                     setTimeout(function(){
                         mainGameObject.backToStartScreen(costructors.PlayerShip)
-                        //document.location.reload()
                     }, 3000)
                 }
                 this.healthPoint = data.source.playerObject.maxHealth;

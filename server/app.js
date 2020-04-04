@@ -11,7 +11,9 @@ const {
     getShopWeaponData,
     putShopWeaponData,
     getShopShipyardData,
-    putShopShipyardData
+    putShopShipyardData,
+    getStoreItemsData,
+    putStoreItemsData
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -71,6 +73,9 @@ app.route("/api/shop/shipyard")
     .get(getShopShipyardData)
     .put(putShopShipyardData)
 
+app.route("/api/shop/store-items")
+    .get(getStoreItemsData)
+    .put(putStoreItemsData)
 
 app.listen(process.env.PORT || 3000, function(){
     console.log(`Server listened at port ${process.env.PORT || 3000}`);

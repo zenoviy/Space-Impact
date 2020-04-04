@@ -22,12 +22,12 @@ function loadHangar({element, mainGameObject}){
 
     function createClicableArea({position, index, gun}){
         ctx.fillStyle = (mainGameObject.shopArea.selectedShopItem.hangarSelectedItem === index)? "rgba(255, 221, 0, .7)" :"rgba(255, 255, 255, .3)";
-        ctx.fillRect(position.positionX, position.positionY, 50, 50);
+        ctx.fillRect(position.positionX, position.positionY, 60, 50);
         if(gun){
             let img = new Image()
             img.src = process.env.HOST + gun.loadImage
             img.onload = () => {
-                createImage(ctx, img, position.positionX, position.positionY, 50, 50)
+                createImage(ctx, img, position.positionX, position.positionY, 60, 50)
             }
         }
         mainGameObject.shopArea.selectedShopItem.hangarElements[index] = {
@@ -36,7 +36,7 @@ function loadHangar({element, mainGameObject}){
             positionY: position.positionY,
             shipXPosition: 5,
             shipYPosition: 12,
-            width: 50,
+            width: 60,
             height: 50
         }
     }

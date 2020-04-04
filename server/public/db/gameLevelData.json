@@ -3,7 +3,7 @@
         "level" : 1,
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : [],
+        "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
@@ -65,7 +65,7 @@
             }
         ],
         "levelDetails" : {
-            "levelMinutes": 2,
+            "levelMinutes": 4,
             "levelSeconds": 10
         }
     },{

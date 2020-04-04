@@ -22,7 +22,8 @@ import { loadShopArea } from './ui/gameShopModule';
 
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';
-    process.env.SHOP_SHIPYARD_URL = 'api/shop/shipyard'
+    process.env.SHOP_SHIPYARD_URL = 'api/shop/shipyard';
+    process.env.SHOP_STORE_ITEMS = "api/shop/store-items"
 
 
     process.env.MAIN_GAME_SOUND = '';
@@ -32,7 +33,7 @@ import { loadShopArea } from './ui/gameShopModule';
     process.env.SHOP_ACTIVE_WINDOW = 'false';
     process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
     process.env.SHOP_SALE_WINDOW = 'false';
-
+    process.env.SHOP_STORE_WINDOW = 'false';
 
     process.env.BOSS_LOAD_AT_LEVEL = 'false';
 

@@ -11,7 +11,7 @@ function shopInventory({element, mainGameObject}){
     element.shopInventoryWrapper.innerHTML = "";
     let playerObject = mainGameObject.gameInitData.gameData.playerObject
     let playerObjectData = playerObject.data;
-    for( let index = 0; index < playerObjectData.inventoryCapapcity; index++){
+    for( let index = 0; index < playerObjectData.inventoryCapacity; index++){
         let itemRender = createElements({tagName: 'div', styleClass: 'inventory-item', inlineStyle: ``,
         pictureUrl: null, linkUrl: null, text: null,
         innerContent: (playerObjectData.inventory[index])?`<div class="inventory-inner-item">
@@ -191,7 +191,6 @@ function replaceItemFromStorage({index, storage, value}){
     storage.splice(index, 1, value)
 }
 function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStorage, mainGameObject}){
-    let hangarElements = mainGameObject.shopArea.selectedShopItem.hangarElements
     let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
 
 

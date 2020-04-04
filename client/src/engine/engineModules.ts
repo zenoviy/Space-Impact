@@ -210,8 +210,8 @@ function deleteBullet(bullet){
     if(bullet.x > window.innerWidth + 500
         || bullet.x < bullet.width * -1
         || !bullet.objectPresent
-        || bullet.y > window.innerHeight
-        || bullet.y < 0 - bullet.width/2){
+        || bullet.y > window.innerHeight + 500
+        || bullet.y < 0 - 500){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
@@ -302,6 +302,9 @@ function fullScreenSwitch({fullscreen}){
 
 
 function angleFinder({object, target}){
+    let distanceX = (target.x > object.x)? target.x - object.x : object.x - target.x;
+
+
     let targetX = (Math.sign(target.x) > 0)? target.x: 0,
     targetY = (Math.sign(target.y) > 0)? target.y: 0
 
@@ -310,8 +313,8 @@ function angleFinder({object, target}){
 
     let item = (targetY - objectY)/(targetX - objectX);
 
-    let rotateAngle = Math.atan2(targetY - objectY, targetX - objectX) * 180 / Math.PI;
-    return rotateAngle + target.speed
+    let rotateAngle = Math.atan2(targetY - objectY, targetX + (distanceX / target.speed) - objectX) * 180 / Math.PI;
+    return rotateAngle
 }
 
 

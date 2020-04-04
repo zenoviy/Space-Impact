@@ -16,7 +16,7 @@
             "imageHeight":125,
             "animationSteps": 5,
             "numberOfItems": 20,
-            "numberOfVerticalItems": 1,
+            "numberOfVerticalItems": 2,
             "damage": 30,
             "sx": 0,
             "sy": 0,
@@ -28,6 +28,14 @@
             "extraObjects":[{
                 "object": "goldCoin",
                 "randomizer": 100,
+                "maxNumber": 1
+            }, {
+                "object": "Reaper-box",
+                "randomizer": 2000,
+                "maxNumber": 1
+            }, {
+                "object": "lifepoint",
+                "randomizer": 2300,
                 "maxNumber": 1
             }],
             "collideExplosionAnimation": {
@@ -104,7 +112,12 @@
                 }
             ]
         }
-    }, {
+    },
+
+
+
+
+    {
         "id": "mine",
         "details": {
             "name": "mine",
@@ -153,11 +166,11 @@
                 }
             },
             "explosionAnimation": {
-                "texture": "/public/images/misc/fire/explosion-blue.png",
-                "imageWidth": 12891,
-                "imageHeight":294,
-                "animationSteps": 2,
-                "numberOfItems": 44,
+                "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+                "imageWidth": 1764,
+                "imageHeight":122,
+                "animationSteps": 5,
+                "numberOfItems": 14,
                 "sx": 0,
                 "sy": 0,
                 "width": 50,
@@ -171,7 +184,11 @@
                 null
             ]
         }
-    }, {
+    },
+
+
+
+    {
         "id": "scorpio",
         "details": {
             "name": "Scorpio",
@@ -316,7 +333,12 @@
                 }
             ]
         }
-    }, {
+    },
+
+
+
+
+    {
         "id": "megalit",
         "details": {
             "name": "Megalit",
@@ -327,7 +349,7 @@
             "isShot": true,
             "isBoss": true,
             "spotDistance": 1000,
-            "healthPoint": 152,
+            "healthPoint": 115200,
             "bulletType": 1,
             "rapidFire": 5,
             "imageWidth": 1840,

@@ -13,7 +13,9 @@ function replaceShipData({mainGameObject, buyShipData}){
     let dataNotToReplace = {
         inventory: playerObject.data.inventory,
         firespot: playerObject.data.firespot,
-        guns: playerObject.data.guns
+        guns: playerObject.data.guns,
+        numberOflife: playerObject.numberOflife,
+        healthPoint: playerObject.healthPoint
     }
 
     let beforeData = playerObject.data;
@@ -29,6 +31,8 @@ function replaceShipData({mainGameObject, buyShipData}){
         dataNotToReplace.guns[i] = assignGunsPosition({ gun: dataNotToReplace.guns[i], firespot:  playerObject.data.firespot[i]})
         playerObject.data.guns[i] = dataNotToReplace.guns[i];
     }
+    playerObject.numberOflife = dataNotToReplace.numberOflife;
+    playerObject.healthPoint = dataNotToReplace.healthPoint
 }
 
 
