@@ -87,13 +87,13 @@ function enemyShipLogicVertical(target, mainGameObject){
                 }
                 break;
             case "down":
-                this.yFinal = screenData.height;
+                this.yFinal = window.innerHeight;
                 if(this.y + this.height > this.yFinal){
                     this.direction = "up";
                 }
                 break;
             default:
-                this.yFinal = screenData.height/2;
+                this.yFinal = window.innerHeight/2;
         }
         this.enemyVerticalMoveCalculation(distanceToTargetY)
     }
@@ -128,15 +128,15 @@ async function spawnEnemyLogic( EnemyObject: any){
                 if(enemyShip.details.isBoss) process.env.BOSS_LOAD_AT_LEVEL = "true";
 
                 let enemyShipObject = await this.createNewEnemy(enemyShip, EnemyObject);
-                enemyShipObject.loadEnemyes();
+                enemyShipObject.loadTexture();
                 this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
             }
         }
     }
 }
 async function createNewEnemy(enemyData, EnemyObject){
-    let x = this.gameInitData.screen.width + 300,
-    y = this.gameRandomizer(this.gameInitData.screen.height - 200, 100)
+    let x = window.innerWidth + 300,
+    y = this.gameRandomizer(window.innerHeight- 200, 100)
     if(enemyData.details){
         let shipDetails = enemyData.details;
         let behavior = (shipDetails.behavior)?shipDetails.behavior[this.gameRandomizer(shipDetails.behavior.length)] : null;
@@ -150,7 +150,7 @@ async function createNewEnemy(enemyData, EnemyObject){
             sWidth: shipDetails.imageWidth/shipDetails.numberOfItems, sHeight: shipDetails.imageHeight,
             picturesWidth: shipDetails.imageWidth, numberOfItems: shipDetails.numberOfItems,
             width: shipDetails.width, height: shipDetails.height,
-            shipTexture: shipDetails.skinName,
+            texture: shipDetails.skinName,
             speed: shipDetails.speed, isShot: shipDetails.isShot,
             status: shipDetails.status, name: shipDetails.name,
             bulletTypeNumber: shipDetails.bulletType, rapidFire: shipDetails.rapidFire, pointsPerUnit: shipDetails.pointsPerUnit,

@@ -37,7 +37,7 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
         sideObject.img.onload = () => {
             mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
         }
-        sideObject.img.src = sideObject.texture;
+        sideObject.loadTexture();
 }
 function fireAnimationEnded( allGameSideObjects ){
     this.detectFrame += 1;
@@ -122,12 +122,16 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
              sideObject.img.onload = () => {
                 context.gameInitData.allGameSideObjects = context.gameInitData.allGameSideObjects.concat(sideObject);
             }
-            sideObject.img.src = sideObject.texture;
             sideObject.img.onload = () => {
                 this.gameInitData.allGameSideObjects = this.gameInitData.allGameSideObjects.concat(sideObject);
             }
+            sideObject.loadTexture();
         }
     }
+}
+
+function loadTexture(){
+    this.img.src = this.texture;
 }
 
 function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies){
@@ -164,5 +168,6 @@ export {
     fireAnimationEnded,
     mapRandomObjectSpawn,
     mapObjectMove,
-    sideObjectShot
+    sideObjectShot,
+    loadTexture
 }

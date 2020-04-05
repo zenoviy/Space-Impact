@@ -1,10 +1,11 @@
 import { warpEffect } from '../engine/engineModules';
 import { updateMap, changePartOfTexture } from '../engine/backgroundModule';
 import { enemyAnimation, moveEnemyes, placeBackground } from '../enemies/enemiesModules';
+import { loadTexture } from '../engine/gameSideObjectsModule';
 
 class GameBackground{
     x: number = 0; y: number = 0;
-    backgroundTexture: string; speed: number;
+    texture: string; speed: number;
     screenData: any;
     ctx: any;
     img: any;
@@ -30,10 +31,11 @@ class GameBackground{
     enemyAnimation: any;
     moveEnemyes: any;
     placeBackground: any;
+    loadTexture: any;
     constructor(
        {...data}
         ){
-            this.backgroundTexture = data.backgroundTexture;
+            this.texture = __dirname +  data.texture;
             this.speed = data.speed;
             this.screenData = data.screenData;
             this.ctx = data.ctx;
@@ -68,6 +70,7 @@ GameBackground.prototype.changePartOfTexture = changePartOfTexture;
 GameBackground.prototype.enemyAnimation = enemyAnimation;
 GameBackground.prototype.moveEnemyes = moveEnemyes;
 GameBackground.prototype.placeBackground = placeBackground;
+GameBackground.prototype.loadTexture = loadTexture;
 
 
 export {

@@ -2,11 +2,11 @@ import { show,
     hide,
     toggler,
     addClassList,
-    removeClassList } from '../appMenu/appMenu';
-import { getData } from '../server/serverRequestModules';
-import { pageBuilder, createElements } from '../appMenu/pagesBuilder';
-import { createImage, createWindow, draw } from '../view/displayModules';
-import { objectIntersectionDetect } from '../enemies/enemiesModules';
+    removeClassList } from '../../appMenu/appMenu';
+import { getData } from '../../server/serverRequestModules';
+import { pageBuilder, createElements } from '../../appMenu/pagesBuilder';
+import { createImage, createWindow, draw } from '../../view/displayModules';
+import { objectIntersectionDetect } from '../../enemies/enemiesModules';
 import { loadHangar } from './gameHangarModules';
 import { shopInventory,
     selectInventoryItem,
@@ -19,7 +19,7 @@ import { shopInventory,
     showDescriptionArea,
     salePercentAddToPrice} from './gameInventoryModules';
 import { replaceShipData } from './gameShopShipyard';
-import { addPlayerLife } from '../engine/gameGrappleObjectsModule';
+import { addPlayerLife } from '../../engine/gameGrappleObjectsModule';
 
 
 
@@ -448,6 +448,7 @@ async function buyShip({mainGameObject, url}){
     if(data.status === 'false'){
         mainGameObject.shopArea.shopErrorMessage.innerHTML = data.message;
     }else if(data.data){
+        mainGameObject.gameInitData.gameData.gameCoins = parseInt(data.money);
         replaceShipData({ mainGameObject: mainGameObject, buyShipData: data})
         hide(mainGameObject.shopArea.shopDialog)
         shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})

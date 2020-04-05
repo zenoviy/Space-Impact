@@ -68,6 +68,25 @@ function getDefaultSettings(){
         ]}
         return JSON.stringify(defaultData)
 }
+
+function getElectronLocalSaves({fileName}){
+    if(!fileName) throw Error("no local files");
+    let res = new Promise((resolve, reject) => {
+        storage.get(fileName, function(err, data) {
+            if (Object.keys(data).length <= 0){
+                writeElectronLocalData({fileName: fileName, data: "[]"})
+                resolve([])
+                return {message: "no save"}
+            }
+            if(err) throw Error(err)
+            let info = JSON.parse(data);
+            if(info) resolve(info)
+            else reject("got some problem here")
+        })
+    })
+    return res
+}
+
 function getElectronLocalData({fileName}){
     if(!fileName) throw Error("no local files");
     let res = new Promise((resolve, reject) => {
@@ -87,7 +106,7 @@ function getElectronLocalData({fileName}){
 }
 
 function writeElectronLocalData({fileName, data}){
-
+    if(!fileName || !data) return console.error('no data or filename at serverRequestModule')
     let res = new Promise((resolve, reject) => {
         storage.set(fileName, data, function(error) {
             if (error) throw error;
@@ -127,6 +146,7 @@ export {
     getLocalData,
     writeLocalData,
     postData,
+    getElectronLocalSaves,
     getElectronLocalData,
     writeElectronLocalData
 };

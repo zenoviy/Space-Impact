@@ -47,6 +47,7 @@ class PlayerShip{
     detectFrame: number;
     collideExplosionAnimation: any;
     isShot: boolean; shotAngle: number;
+    img: any;
 
     initPlayerShip: any;
     shipControl: any;
@@ -84,6 +85,7 @@ class PlayerShip{
         this.collideExplosionAnimation = data.collideExplosionAnimation;
         this.isShot = true;
         this.shotAngle = 0;
+        this.img = new Image();
     }
     getPlayerInformation(){
         return {

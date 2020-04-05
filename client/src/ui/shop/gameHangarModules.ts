@@ -1,4 +1,4 @@
-import { createImage, createWindow, draw } from '../view/displayModules';
+import { createImage, createWindow, draw } from '../../view/displayModules';
 function loadHangar({element, mainGameObject}){
     let hangarTextArea = document.querySelector("#hangar-text");
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;

@@ -1,8 +1,7 @@
 import * as enemyModules from '../enemies';
-import { fireAnimationEnded, mapObjectMove, sideObjectShot } from '../engine/gameSideObjectsModule';
+import { fireAnimationEnded, mapObjectMove, sideObjectShot, loadTexture } from '../engine/gameSideObjectsModule';
 import { placeEnemyes,
     moveEnemyes,
-    loadEnemyes,
     shot, enemyAnimation,
     takeDamage,
     enemyDamageAnimation,
@@ -46,6 +45,7 @@ class SideObject{
     spawnCoin: any;
     sideObjectShot: any;
     bulletSpeed: any;
+    loadTexture: any;
     constructor({...data}){
             this.x = data.x; this.y = data.y;
             this.sx = data.sx; this.sy = data.sy;
@@ -90,6 +90,7 @@ SideObject.prototype.enemyDamageAnimation = enemyDamageAnimation
 SideObject.prototype.spawnCoin = spawnCoin;
 SideObject.prototype.sideObjectShot = sideObjectShot;
 SideObject.prototype.bulletSpeed = bulletSpeed;
+SideObject.prototype.loadTexture = loadTexture;
 
 export {
    SideObject

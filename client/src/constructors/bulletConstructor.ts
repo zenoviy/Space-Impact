@@ -1,6 +1,7 @@
-import { createBullets, initBullets, moveBullets } from '../engine/bulletsModule';
+import { moveBullets } from '../engine/bulletsModule';
 import { getObjectPosition } from '../engine/engineModules';
 import { takeDamage, enemyAnimation, placeEnemyes } from '../enemies/enemiesModules';
+import { loadTexture } from '../engine/gameSideObjectsModule';
 
 interface explosionAnimation{
     texture: string,
@@ -36,13 +37,12 @@ class BulletConstruct{
     degree: number;
 
 
-    createBullets: any;
-    initBullets: any;
     moveBullets: any;
     getObjectPosition: any;
     takeDamage: any;
     enemyAnimation: any;
     placeEnemyes: any;
+    loadTexture: any;
     constructor({...data}){
         this.x = data.x; this.y = data.y;
         this.bulletType = data.bulletType;
@@ -73,15 +73,8 @@ class BulletConstruct{
     }
 }
 
-/*
-"sound": {
-                        "levelSound": "/public/sound/weapons/Laser_Shoot7.mp3",
-                        "soundLoop": false
-                    }
-            */
 
-BulletConstruct.prototype.createBullets = createBullets;
-BulletConstruct.prototype.initBullets = initBullets;
+
 BulletConstruct.prototype.moveBullets = moveBullets;
 BulletConstruct.prototype.getObjectPosition = getObjectPosition;
 
@@ -89,7 +82,7 @@ BulletConstruct.prototype.takeDamage = takeDamage;
 BulletConstruct.prototype.enemyAnimation = enemyAnimation;
 BulletConstruct.prototype.placeEnemyes = placeEnemyes;
 
-
+BulletConstruct.prototype.loadTexture = loadTexture;
 export {
     BulletConstruct
 }

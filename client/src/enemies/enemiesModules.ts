@@ -4,7 +4,7 @@ import { explosionFire } from '../engine/gameSideObjectsModule';
 import { loadGrabbleToSideObject } from '../engine/gameGrappleObjectsModule';
 import { initSoundObject } from '../engine/soundModules';
 import { levelTimer } from '../engine';
-import { enterToTheShopDialog } from '../ui/gameShopModule';
+import { enterToTheShopDialog } from '../ui/shop/gameShopModule';
 import { angleFinder } from '../engine/engineModules';
 import { horizontalVerticalSearch} from '../engine/gameModules/changeLevels';
 
@@ -43,10 +43,6 @@ function moveEnemyes(moveX: number, moveY: number = 0){
 
 
 
-function loadEnemyes(){         ///  need replace  and remove
-    this.img = new Image();
-    this.img.src = this.shipTexture;
-}
 
 
 
@@ -63,6 +59,9 @@ if(owner == 'collide'){
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
 
 
+            if(owner === 'player'){
+                //console.log(mainGameObject, '___+++', guns)
+            }
             let context = this;
             let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed, angle: this.shotAngle});
             let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;
@@ -81,12 +80,11 @@ if(owner == 'collide'){
                 sound: item.sound, verticalSpeed: (bulletSettings.verticalSpeed)? bulletSettings.verticalSpeed: 0,
                 degree: (bulletSettings.angle)? bulletSettings.angle: 0
             });
-            bullet.img.src = bullet.texture;
             let soundProps = {
                 soundUrl: bullet.sound.levelSound,
                 soundLoop: bullet.sound.soundLoop,
             }
-
+            bullet.loadTexture()
             bullet.sound.soundObject = initSoundObject({SoundCreator: SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
             bullet.img.onload = () => {
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
@@ -282,7 +280,6 @@ export  {
     placeEnemyes,
     placeBackground,
     moveEnemyes,
-    loadEnemyes,
     shot,
     enemyAnimation,
     objectIntersectionDetect,

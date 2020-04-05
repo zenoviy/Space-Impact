@@ -7,11 +7,13 @@ import * as gameDataModules from './engine/gameModules';
 import * as constructors from './constructors';
 import { clearField } from './view/displayModules';
 import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
-import { loadShopArea } from './ui/gameShopModule';
+import { loadShopArea } from './ui/shop/gameShopModule';
+import { saveGameEvents } from './appMenu/saveLoadMenu';
 
 
 
 (async function init(){
+    process.env.SAVE_DATA_FILE = 'game-saves';
 
     process.env.LEVEL_DATA_URL = 'api/level-data';
     process.env.LEVEL_OBJECT_URL = 'api/level-objects';
@@ -71,20 +73,28 @@ import { loadShopArea } from './ui/gameShopModule';
     let contexts = gameObject.returnContext()
 
     //  create context
-    playerShipData.ctx = contexts.gameActionField
-    playerShipData.initPlayerShip()
+    gameObject.gameInitData.gameData.playerObject.ctx = contexts.gameActionField;
+    gameObject.gameInitData.gameData.playerObject.initPlayerShip()
 
 
     // ship move
+    console.log(playerShipData)
     playerShipData.shipControl(gameObject)
 
     window.addEventListener('resize', ()=>{
-
         gameObject.getScreenSize()
         gameObject.setGameFields()
         gameObject.initField()
     })
 
+
+
+
+
+
+
+
+    saveGameEvents({mainGameObject: gameObject})
     /*   game engin runing   */
     async function gameInterval(){
         if(gameObject.gameInitData.ctxUIField){
@@ -107,11 +117,11 @@ import { loadShopArea } from './ui/gameShopModule';
                     for(let bullet of gameObject.gameInitData.allGameBullets){
                         bullet.placeEnemyes(gameObject)
                         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
-                            bullet.moveBullets(playerShipData, gameObject);
+                            bullet.moveBullets(gameObject.gameInitData.gameData.playerObject, gameObject);
 
                             gameObject.deleteBullet(bullet)
                             gameObject.hitDetection(bullet, gameObject.gameInitData.allGameEnemies, gameObject, constructors.GrappleObject)
-                            gameObject.hitDetection(playerShipData, [bullet], gameObject, constructors.GrappleObject)
+                            gameObject.hitDetection(gameObject.gameInitData.gameData.playerObject, [bullet], gameObject, constructors.GrappleObject)
 
                             gameObject.hitDetection(bullet, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
                             bullet.enemyAnimation();
@@ -124,13 +134,13 @@ import { loadShopArea } from './ui/gameShopModule';
                         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                             enemy.moveEnemyes();
                             enemy.enemyShipLogicVertical({
-                                x: playerShipData.x,
-                                y: playerShipData.y
+                                x: gameObject.gameInitData.gameData.playerObject.x,
+                                y: gameObject.gameInitData.gameData.playerObject.y
                             }, gameObject);
                             enemy.enemyAnimation(true);
                             enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "enemy")
                             gameObject.deleteObjects(enemy)
-                            gameObject.hitDetection(playerShipData, [enemy], gameObject, constructors.GrappleObject)
+                            gameObject.hitDetection(gameObject.gameInitData.gameData.playerObject, [enemy], gameObject, constructors.GrappleObject)
                             gameObject.hitDetection(enemy, gameObject.gameInitData.allGameSideObjects, gameObject, constructors.GrappleObject)
                         }
                     }
@@ -138,11 +148,11 @@ import { loadShopArea } from './ui/gameShopModule';
                 if(!gameObject.gameInitData.gameOver){
                     if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                         if(!gameObject.gameInitData.shopActive){
-                            playerShipData.placeShip()
+                            gameObject.gameInitData.gameData.playerObject.placeShip()
                         }
-                        playerShipData.enemyAnimation()
+                        gameObject.gameInitData.gameData.playerObject.enemyAnimation()
                     }
-                    if(gameObject.gameInitData.gameStatus) playerShipData.placeEnemyes(gameObject)
+                    if(gameObject.gameInitData.gameStatus) gameObject.gameInitData.gameData.playerObject.placeEnemyes(gameObject)
                 }
                 if(gameObject.gameInitData.allGameSideObjects.length > 0){
                     for(let object of gameObject.gameInitData.allGameSideObjects){
@@ -155,7 +165,7 @@ import { loadShopArea } from './ui/gameShopModule';
                                 object.objectOwner == "collide" ||
                                 object.objectOwner == "grappleObject" ||
                                 object.objectOwner == "hangar"){
-                                    gameObject.hitDetection(playerShipData, [object], gameObject, constructors.GrappleObject);
+                                    gameObject.hitDetection(gameObject.gameInitData.gameData.playerObject, [object], gameObject, constructors.GrappleObject);
                                     object.sideObjectShot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "hangarbullet", gameObject.gameInitData.allGameEnemies)
                                     //object.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "hangar")
                                 }
@@ -177,7 +187,7 @@ import { loadShopArea } from './ui/gameShopModule';
                         gameObject.gameInitData.allGameSideObjects)
                 }
                 if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
-                if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, playerShipData);
+                if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, gameObject.gameInitData.gameData.playerObject);
                 gameObject.gameSecondsIncrease()
                 if(!gameObject.gameInitData.shopActive){
                     gameObject.levelTimer()

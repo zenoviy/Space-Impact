@@ -54,7 +54,6 @@ interface gameData{
     allGameSideObjects: object[],
     allGameEnemies: object[],
     allGameBullets: object[],
-    allGameMapOBjects: object[],
     mapBackgroundObjects: object[],
     warpObjects: object[];
     timeToEressLevel: number;

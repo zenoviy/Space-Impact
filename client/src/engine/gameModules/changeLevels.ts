@@ -23,7 +23,6 @@ async function nextLevelDataReload(levelData){
         allGameSideObjects: [],
         allGameEnemies: [],
         allGameBullets: [],
-        allGameMapOBjects: [],
         mapBackgroundObjects: [],
         gamePause: false,
         gameUiPause: false,
@@ -76,12 +75,6 @@ function renewPlayerShip({originData, newData}){
 }
 
 
-function changeShip(){
-
-}
-function changeWeapon(){
-
-}
 
 export {
     nextLevelDataReload,

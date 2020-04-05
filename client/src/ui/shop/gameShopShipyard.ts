@@ -1,14 +1,14 @@
 
-import { renewPlayerShip } from '../engine/gameModules/changeLevels';
-import { newPlayerShipConstruct } from '../engine/gameModules/satartGame';
+import { renewPlayerShip } from '../../engine/gameModules/changeLevels';
+import { newPlayerShipConstruct } from '../../engine/gameModules/satartGame';
 import { assignGunsPosition } from './gameInventoryModules';
-import * as constructors from '../constructors';
+import * as constructors from '../../constructors';
 
 
 function replaceShipData({mainGameObject, buyShipData}){
     let playerObject = mainGameObject.gameInitData.gameData.playerObject
 
-    mainGameObject.gameInitData.gameData.gameCoins = parseInt(buyShipData.money);
+    //mainGameObject.gameInitData.gameData.gameCoins = parseInt(buyShipData.money);
 
     let dataNotToReplace = {
         inventory: playerObject.data.inventory,

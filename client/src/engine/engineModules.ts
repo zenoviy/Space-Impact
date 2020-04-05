@@ -75,7 +75,7 @@ function levelInit(GameBackground, ctx, mainGameObject){
     for(let mapObject of allBackgroundElements){
 
         let mapItem = new GameBackground({
-            backgroundTexture: mapObject.levelMap, speed: mapObject.speed,
+            texture: mapObject.levelMap, speed: mapObject.speed,
             screenData: this.gameInitData.screen, ctx: ctx,
             partOfScreenStatus: (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
             extraMap: (mapObject.extraMap)? mapObject.extraMap : null,
@@ -88,7 +88,7 @@ function levelInit(GameBackground, ctx, mainGameObject){
             numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems: levelStandartMap.numberOfVerticalItems
         });
         mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
-        mapItem.img.src = __dirname + mapItem.backgroundTexture;
+        mapItem.loadTexture();
     }
 }
 
@@ -109,9 +109,7 @@ function getScreenSize(){
 
 
 /**/function destroyAlEnemy(){
-    console.log(1)
     let enemyes = this.gameInitData.allGameEnemies;
-    console.log(1)
     if( !enemyes || enemyes.length < 1) return false
     for(let ship of enemyes){
         ship.objectPresent = false;

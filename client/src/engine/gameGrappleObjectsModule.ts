@@ -8,7 +8,7 @@ import { shopInventory,
     saleItem,
     hideDescriptionArea,
     showDescriptionArea,
-    salePercentAddToPrice} from '../ui/gameInventoryModules';
+    salePercentAddToPrice} from '../ui/shop/gameInventoryModules';
 
 
 
@@ -52,7 +52,7 @@ async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
             mainGameObject.gameInitData.grappleObjectOnScreen = true;
             mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(grappleObject);
         }
-        grappleObject.img.src = await grappleObject.texture;
+        grappleObject.loadTexture();
 }
 async function initGrappleObject(GrappleObject, playerShipData){
     if(this.gameInitData.grappleObjectOnScreen) return false
@@ -112,8 +112,6 @@ async function collectObjectsToInventory({allGameSideObjects, playerShipData, ma
             return false
         }
     let data = await getData({url: process.env.HOST + process.env.SHOP_GUNS_URL, method: 'PUT', data: null, headers: headers})
- 
-       // console.log(data, " DDD")
     putInsideInventory({mainGameObject, saveItem: data.data, inventoryItem: inventoryInformation['firstEmptyItem']})
 
 }

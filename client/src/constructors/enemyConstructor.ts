@@ -1,13 +1,15 @@
 import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regularEnemyAiModules';
 import { placeEnemyes,
     moveEnemyes,
-    loadEnemyes,
+
     shot,
     enemyAnimation,
     takeDamage,
     enemyDamageAnimation,
     spawnCoin } from '../enemies/enemiesModules';
 import { getObjectPosition, bulletSpeed } from '../engine';
+import { loadTexture } from '../engine/gameSideObjectsModule';
+
 
 interface explosionAnimation{
     texture: string,
@@ -37,8 +39,9 @@ class EnemyObject {
     sx: number; sy: number;
     sWidth: number; sHeight: number;
     picturesWidth: number; numberOfItems: number;
+    img: any;
     width: number; height: number;
-    shipTexture: string;
+    texture: string;
     shipDirectory: string;
     speed: number;
     status: string; name: string;
@@ -56,7 +59,6 @@ class EnemyObject {
 
     placeEnemyes: any;
     moveEnemyes: any;
-    loadEnemyes: any;
     shot: any;
     enemyAnimation: any;
     getObjectPosition: any;
@@ -66,6 +68,7 @@ class EnemyObject {
     enemyVerticalMoveCalculation: any;
     spawnCoin: any;
     bulletSpeed: any;
+    loadTexture: any;
     constructor({...data}){
             this.id = new Date().getTime();
             this.x = data.x; this.y = data.y;
@@ -73,7 +76,8 @@ class EnemyObject {
             this.sWidth = data.sWidth; this.sHeight = data.sHeight;
             this.picturesWidth = data.picturesWidth; this.numberOfItems = data.numberOfItems;
             this.width = data.width; this.height = data.height;
-            this.shipTexture = __dirname + data.shipTexture;
+            this.texture = __dirname + data.texture;
+            this.img = new Image();
             this.speed = data.speed;
             this.status = data.status; this.name = data.name;
             this.bulletTypeNumber = data.bulletTypeNumber; this.rapidFire = data.rapidFire; this.pointsPerUnit = data.pointsPerUnit;
@@ -103,7 +107,6 @@ class EnemyObject {
 
 EnemyObject.prototype.placeEnemyes = placeEnemyes;
 EnemyObject.prototype.moveEnemyes = moveEnemyes;
-EnemyObject.prototype.loadEnemyes = loadEnemyes;
 EnemyObject.prototype.shot = shot;
 EnemyObject.prototype.enemyAnimation = enemyAnimation;
 EnemyObject.prototype.getObjectPosition = getObjectPosition;
@@ -113,7 +116,8 @@ EnemyObject.prototype.enemyVerticalMoveCalculation = enemyVerticalMoveCalculatio
 
 EnemyObject.prototype.takeDamage = takeDamage;
 EnemyObject.prototype.spawnCoin = spawnCoin;
-EnemyObject.prototype.bulletSpeed = bulletSpeed
+EnemyObject.prototype.bulletSpeed = bulletSpeed;
+EnemyObject.prototype.loadTexture = loadTexture;
 
 export {
     EnemyObject

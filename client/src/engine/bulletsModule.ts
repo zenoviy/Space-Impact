@@ -1,28 +1,8 @@
 import { createLaserBullet } from '../view/displayModules';
 
-function createBullets(mainGameObject){
-    createLaserBullet({
-        source: this,
-        objectOwner: this.objectOwner,
-        ctx: mainGameObject.gameInitData.ctxActionField,
-        x: this.x,
-        y: this.y,
-        color: this.bulletTexture,
-        width: this.width,
-        height: this.height,
-        radius: 5,
-        type: this.type,
-        img: this.img,
-        sx: this.sx, sy: this.sy, sWidth: this.sWidth, sHeight: this.sHeight,
-        imageWidth: this.imageWidth, imageHeight: this.imageHeight, animationSteps: this.animationSteps,
-        numberOfItems: this.numberOfItems, numberOfVerticalItems: this.numberOfVerticalItems
-    })
-}
 
 
-function initBullets(){
 
-}
 function moveBullets( playerShipData, gameObject ){
     switch (this.type){
         case "blaster":
@@ -91,8 +71,6 @@ function bulletSpeed({bulletSpeed, angle}) {
 }
 
 export {
-    createBullets,
-    initBullets,
     moveBullets,
     bulletSpeed
 }

@@ -7,9 +7,6 @@ const { ipcRenderer, remote } = require( "electron" );
 
 async function serverRequest(gameInformation){
         console.log(process.env.NODE_ENV, process.env.HOST)
-        let serverLocation = {
-                picturesDirection: __dirname + '/public/images/',
-        }
 
 
         const levelData = await getData({
@@ -158,7 +155,6 @@ async function gameDataInit(PlayerShip, soundObject){
             allGameSideObjects: [],
             allGameEnemies: [],
             allGameBullets: [],
-            allGameMapOBjects: [],
             mapBackgroundObjects: [],
             warpObjects: [],
             timeToEressLevel: 6,
