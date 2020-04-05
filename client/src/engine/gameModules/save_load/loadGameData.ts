@@ -3,6 +3,14 @@ import { createElements} from '../../../appMenu/pagesBuilder';
 import { renewPlayerShip } from '../changeLevels';
 import * as constructor from '../../../constructors';
 import { replaceShipData } from '../../../ui/shop/gameShopShipyard';
+import { deleteSaveData, overwriteSaveData } from './saveGameModules';
+import {
+    show,
+    hide,
+    toggler,
+    addClassList,
+    removeClassList } from '../../../appMenu/appMenu';
+
 
 
 async function showSaveData(){
@@ -14,7 +22,14 @@ async function showSaveData(){
 
 function clearClassSelectorField({target}){
     for(let item of target){
-        item.innerHTML = '';
+        item.object.innerHTML = '';
+    }
+}
+
+
+function delateClassSelectorField({target}){
+    for(let item of target){
+        item.remove()
     }
 }
 
@@ -22,37 +37,118 @@ function clearClassSelectorField({target}){
 async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
     if(!saveData || saveData.length < 1) return false
 
-    let menuArea = Array.prototype.slice.call(document.querySelectorAll(".save-load-wrapper"));
+    let customPageFlags = ['save-screen', 'load-screen'];
+    let menuArea = Array.prototype.slice.call(document.querySelectorAll(".save-load-wrapper")).map(((item, i) => {
+        return {
+            indexFlag: customPageFlags[i],
+            object: item
+        }
+    }));
     clearClassSelectorField({target: menuArea})
-    console.log(saveData, '<<')
+    console.log(menuArea, '<<<')
 
     for(let item of menuArea){
+        //console.log(item.indexFlag)
         let index = 0;
         for(let save of saveData){
             index += 1;
-            let time = new Date(save.saveTime), year = time.getFullYear(),month = time.getUTCMonth() + 1, day = time.getDate()
+            let time = new Date(save.saveTime),
+            year = time.getFullYear(),
+            month = time.getUTCMonth() + 1,
+            day = time.getDate(),
+            hours = time.getHours(),
+            minutes = time.getMinutes(),
+            seconds = time.getSeconds();
+
             let newElement = createElements({
                 tagName: "li",
-                styleClass: "winner-list",
+                styleClass: `save-load-list ${item.indexFlag}`,
                 inlineStyle: null,
                 pictureUrl: null,
                 linkUrl: null,
                 text: null,
                 innerContent: `<p class="single-item"><span class="rate-number">${index}</span>
                 <span>name:</span> <span class="item-name"> ${save.saveName}</span>
-                <span class="item-date"> ${year}/${month}/${day}</span></p>`,
+                <span class="item-date"> ${year}/${month}/${day}    ${hours}:${minutes}:${seconds}</span></p>`,
                 attributeName: 'data-button-id',
                 attribute: save.saveTime,
                 attributeName1: null,
                 attribute1: null
             })
             newElement.addEventListener('click', function(e) {
-                showAcceptButtons.call(this, {mainGameObject: mainGameObject, saveDataItem: save})
+                showAcceptButtons.call(this, {mainGameObject: mainGameObject, saveDataItem: save, flag: item.indexFlag})
             })
-            item.appendChild(newElement)
+            item.object.appendChild(newElement)
         }
     }
 }
+
+
+
+
+function showAcceptButtons({mainGameObject, saveDataItem, flag}){
+    delateClassSelectorField({target: Array.prototype.slice.call(document.querySelectorAll('.save-load-buttons-list'))})
+
+    let contextElement = this;
+    let loadButtons = `<div class="save-load-button-area">
+    <button data-button-id="load-save">Load</button>
+    <button data-button-id="delete-save">Delete</button>
+</div>`;
+    let saveButtons = `<div class="save-load-button-area">
+    <button data-button-id="overwrite-save">Overwrite</button>
+    <button data-button-id="delete-save">Delete</button>
+</div>`;
+
+    let newElement = createElements({
+        tagName: "li",
+        styleClass: "save-load-buttons-list",
+        inlineStyle: null,
+        pictureUrl: null,
+        linkUrl: null,
+        text: null,
+        innerContent: (flag === 'save-screen')? saveButtons: loadButtons,
+        attributeName: null,
+        attribute: null,
+        attributeName1: null,
+        attribute1: null
+    })
+    //loadSaveProcedure({mainGameObject: mainGameObject, saveDataItem: saveDataItem})
+    newElement.addEventListener('click', function(event){
+        switch (event.target.dataset.buttonId){
+            case 'load-save':
+                console.log('load-save')
+                loadSaveProcedure({mainGameObject: mainGameObject, saveDataItem: saveDataItem})
+                break
+            case 'overwrite-save':
+                console.log('overwrite-save', saveDataItem, process.env.OVERWRITE_SAVE)
+                process.env.OVERWRITE_SAVE = (process.env.OVERWRITE_SAVE === 'true')? 'false' : 'true';
+                if(process.env.OVERWRITE_SAVE) addClassList(contextElement, 'selected-overwrite-data')
+
+                overwriteSaveData({currentSave: saveDataItem, mainGameObject: mainGameObject})
+                break
+            case 'delete-save':
+                console.log('delete-save')
+                deleteSaveData({currentSave: saveDataItem, mainGameObject: mainGameObject})
+                break
+            default:
+                return false
+        }
+    })
+    this.appendChild(newElement)
+}
+
+
+
+
+function backToObject({data, constructor}){
+    let res = Object.create(constructor)
+    let finalObject = Object.assign( Object.create(res.prototype), data )
+    return finalObject
+}
+
+
+
+
 
 
 function loadSaveProcedure({mainGameObject, saveDataItem}){
@@ -123,10 +219,19 @@ function loadSaveProcedure({mainGameObject, saveDataItem}){
     save.gameInitData.shopActive = false;
     save.shopArea = datanotToChange.shopArea;
 
-    console.log(save.gameInitData.gameData.playerObject)
+    process.env.SHOP_ACTIVE_WINDOW = 'false';
+    process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
+    process.env.SHOP_SALE_WINDOW = 'false';
+    process.env.SHOP_STORE_WINDOW = 'false';
+
+    process.env.BOSS_LOAD_AT_LEVEL = 'false';
+
+    process.env.OVERWRITE_SAVE = 'false';
+
     let changedShip = save.gameInitData.gameData.playerObject
 
-
+    hide(mainGameObject.shopArea.shopWrapper)
+    hide(mainGameObject.shopArea.shopDialog)
 
     renewPlayerShip({originData: mainGameObject, newData: save})
     renewPlayerShip({ originData: mainGameObject.gameInitData.gameData.playerObject, newData: changedShip})
@@ -136,7 +241,6 @@ function loadSaveProcedure({mainGameObject, saveDataItem}){
     mainGameObject.gameInitData.gameData.playerObject.placeShip()
     mainGameObject.gameInitData.gameData.playerObject.x = changedShip.xFinal;
     mainGameObject.gameInitData.gameData.playerObject.y = changedShip.yFinal;
-    console.log(mainGameObject.gameInitData.gameData.playerObject)
     mainGameObject.mapSoundChanger({soundStatus:'regular_level'})
 
 
@@ -147,21 +251,6 @@ function loadSaveProcedure({mainGameObject, saveDataItem}){
 
 
 
-
-function showAcceptButtons({mainGameObject, saveDataItem}){
-    console.log('hide others')
-    console.log('show accept button')
-    loadSaveProcedure({mainGameObject: mainGameObject, saveDataItem: saveDataItem})
-}
-
-
-
-
-function backToObject({data, constructor}){
-    let res = Object.create(constructor)
-    let finalObject = Object.assign( Object.create(res.prototype), data )
-    return finalObject
-}
 
 
 

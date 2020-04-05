@@ -39,7 +39,7 @@ class GameBackground{
             this.speed = data.speed;
             this.screenData = data.screenData;
             this.ctx = data.ctx;
-            this.x = (data.partOfScreenStatus)? 0 - 1 : window.innerWidth - 1;
+            this.x = (data.partOfScreenStatus)? 0 - 2 : window.innerWidth - 2;
             this.y = 0;
             this.img = new Image();
             this.extraMap = data.extraMap;
@@ -58,7 +58,7 @@ class GameBackground{
             this.sy = 0;
             this.sWidth = data.imageWidth/data.numberOfItems;
             this.sHeight = data.imageHeight;
-            this.width = window.innerWidth + 2;
+            this.width = window.innerWidth + 4;
             this.height = window.innerHeight;
         }
 

@@ -39,6 +39,8 @@ import { saveGameEvents } from './appMenu/saveLoadMenu';
 
     process.env.BOSS_LOAD_AT_LEVEL = 'false';
 
+    process.env.OVERWRITE_SAVE = 'false';
+
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
 
