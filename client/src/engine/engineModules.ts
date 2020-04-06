@@ -1,3 +1,6 @@
+var fs = require('fs');
+var storage = require('electron-json-storage');
+import mergeImages from 'merge-images';
 import { draw } from '../view/displayModules';
 import { explosionFire } from '../enemies/enemiesModules';
 const { ipcRenderer, remote } = require( "electron" );
@@ -259,6 +262,37 @@ function getObjectPosition(){
 }
 
 
+async function getImageFromFields({saveGameData}){
+    let background = await this.gameInitData.gameField.toDataURL();
+    let gameField = await this.gameInitData.gameActionField.toDataURL();
+
+    let path = process.env.APP_SAVE_DIRECTORY
+    await savePictures({picture_64: await background.replace(/^data:image\/png;base64,/, ""),
+    filename: 'background'})
+    await savePictures({picture_64: await gameField.replace(/^data:image\/png;base64,/, ""),
+    filename: 'gameField'})
+    .then(resolve => {
+        mergeImages([__dirname + process.env.APP_SAVE_DIRECTORY + '/background.png', __dirname + process.env.APP_SAVE_DIRECTORY +  '/gameField.png'])
+            .then(async pic => {
+                console.log(pic)
+                await savePictures({picture_64: await pic.replace(/^data:image\/png;base64,/, ""),
+            filename: saveGameData.saveName})
+        })
+    })
+}
+
+async function savePictures({picture_64, filename}){
+    return new Promise((resolve, reject) => {
+        fs.writeFile(storage.getDataPath() + `/${filename}.png`, picture_64, 'base64', function (err) {
+            if(err){
+                reject(false)
+                return console.error(err)
+            };
+            console.log(err)
+            resolve(true)
+        });
+    })
+}
 
 
 
@@ -336,5 +370,6 @@ export  {
     collectPoints,
     preloadImage,
     fullScreenSwitch,
-    angleFinder
+    angleFinder,
+    getImageFromFields
 }

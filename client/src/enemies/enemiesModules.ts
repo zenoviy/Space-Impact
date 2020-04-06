@@ -58,10 +58,6 @@ if(owner == 'collide'){
         if(!item || item.type ==='object') continue
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
 
-
-            if(owner === 'player'){
-                //console.log(mainGameObject, '___+++', guns)
-            }
             let context = this;
             let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed, angle: this.shotAngle});
             let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;

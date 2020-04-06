@@ -25,7 +25,9 @@ import { saveGameEvents } from './appMenu/saveLoadMenu';
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';
     process.env.SHOP_SHIPYARD_URL = 'api/shop/shipyard';
-    process.env.SHOP_STORE_ITEMS = "api/shop/store-items"
+    process.env.SHOP_STORE_ITEMS = "api/shop/store-items";
+
+    process.env.APP_SAVE_DIRECTORY = '/appData/saves';
 
 
     process.env.MAIN_GAME_SOUND = '';

@@ -29,17 +29,18 @@ async function saveGameEvents({mainGameObject}){
             mainGameObject.gameInitData.levelChange) return false
 
         let saveName = collectData.call(this);
-        await createSave({saveName: saveName, saveData: mainGameObject, flag: null})
+        await createSave({saveName: saveName, saveData: mainGameObject, mainGameObject: mainGameObject})
         let saveData = await showSaveData()
         displaySavesOnScreen({
             saveScreen: getGontext.saveScreen,
             saveData: saveData,
             mainGameObject: mainGameObject
         })
+        //mainGameObject.getImageFromFields()
     })
-
-
+    
 }
+
 
 
 export {

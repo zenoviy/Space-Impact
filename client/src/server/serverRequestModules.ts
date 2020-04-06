@@ -1,7 +1,10 @@
 import { text } from "body-parser";
 const remote = require('electron').remote;
 var fs = require('fs');
-const storage = require('electron-json-storage');
+var storage = require('electron-json-storage');
+
+
+
 //const dataPath = storage.getDataPath();
 const dataPath =  storage.getDefaultDataPath(__dirname + "dbs")
 
@@ -74,6 +77,12 @@ function getElectronLocalSaves({fileName}){
     let res = new Promise((resolve, reject) => {
         storage.get(fileName, function(err, data) {
             if (Object.keys(data).length <= 0){
+                var dir = '.' + process.env.APP_SAVE_DIRECTORY;
+
+                if (!fs.existsSync(dir)){
+                    fs.mkdirSync(dir);
+                }
+                storage.setDataPath(__dirname + process.env.APP_SAVE_DIRECTORY);
                 writeElectronLocalData({fileName: fileName, data: "[]"})
                 resolve([])
                 return {message: "no save"}
@@ -89,6 +98,7 @@ function getElectronLocalSaves({fileName}){
 
 function getElectronLocalData({fileName}){
     if(!fileName) throw Error("no local files");
+    storage.setDataPath(__dirname + process.env.APP_SAVE_DIRECTORY);
     let res = new Promise((resolve, reject) => {
         storage.get(fileName, function(err, data) {
             if (Object.keys(data).length <= 0){

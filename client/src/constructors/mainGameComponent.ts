@@ -18,7 +18,8 @@ import {
     delateSideObject,
     collectPoints,
     changeLevelProcedure,
-    getRandomColor } from '../engine/engineModules';
+    getRandomColor,
+    getImageFromFields } from '../engine/engineModules';
 import { initPlayerShip } from '../engine/playerShipModule';
 import {
     uiController,
@@ -134,6 +135,7 @@ class Game {
     initGrappleObject: any;
     gameSettingsMenuInit: any;
     createSound: any;
+    getImageFromFields: any;
     constructor(gameInitData: any){
         this.gameInitData = gameInitData;
     }
@@ -221,6 +223,7 @@ Game.prototype.mapRandomObjectSpawn = mapRandomObjectSpawn;
 Game.prototype.initGrappleObject = initGrappleObject;
 Game.prototype.gameSettingsMenuInit = gameSettingsMenuInit;
 Game.prototype.createSound = createSound;
+Game.prototype.getImageFromFields = getImageFromFields;
 export {
     Game,
 }

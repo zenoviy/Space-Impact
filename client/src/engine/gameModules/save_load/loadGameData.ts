@@ -1,3 +1,5 @@
+var fs = require('fs');
+var storage = require('electron-json-storage');
 import { writeElectronLocalData, getElectronLocalSaves } from '../../../server/serverRequestModules';
 import { createElements} from '../../../appMenu/pagesBuilder';
 import { renewPlayerShip } from '../changeLevels';
@@ -45,7 +47,6 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
         }
     }));
     clearClassSelectorField({target: menuArea})
-    console.log(menuArea, '<<<')
 
     for(let item of menuArea){
         //console.log(item.indexFlag)
@@ -59,7 +60,7 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
             hours = time.getHours(),
             minutes = time.getMinutes(),
             seconds = time.getSeconds();
-
+            let pictureURL = storage.getDataPath() + '/' + save.saveName + '.png'
             let newElement = createElements({
                 tagName: "li",
                 styleClass: `save-load-list ${item.indexFlag}`,
@@ -67,7 +68,11 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
                 pictureUrl: null,
                 linkUrl: null,
                 text: null,
-                innerContent: `<p class="single-item"><span class="rate-number">${index}</span>
+                innerContent: `
+                <div class="saveImage-wrapper-small">
+                    <img src="${ pictureURL }" alt="${save.saveName}">
+                </div>
+                <p class="single-item"><span class="rate-number">${index}</span>
                 <span>name:</span> <span class="item-name"> ${save.saveName}</span>
                 <span class="item-date"> ${year}/${month}/${day}    ${hours}:${minutes}:${seconds}</span></p>`,
                 attributeName: 'data-button-id',
@@ -98,7 +103,7 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
     <button data-button-id="overwrite-save">Overwrite</button>
     <button data-button-id="delete-save">Delete</button>
 </div>`;
-
+let pictureURL = storage.getDataPath() + '/' + saveDataItem.saveName + '.png'
     let newElement = createElements({
         tagName: "li",
         styleClass: "save-load-buttons-list",
@@ -106,29 +111,51 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
         pictureUrl: null,
         linkUrl: null,
         text: null,
-        innerContent: (flag === 'save-screen')? saveButtons: loadButtons,
+        innerContent: `
+        <div class="save-preview-image-large">
+            <img src="${ pictureURL }" alt="${saveDataItem.saveName}">
+        </div>
+        ${(flag === 'save-screen')? saveButtons: loadButtons}
+        `,
         attributeName: null,
         attribute: null,
         attributeName1: null,
         attribute1: null
     })
-    //loadSaveProcedure({mainGameObject: mainGameObject, saveDataItem: saveDataItem})
+    let parrentElement = this;
     newElement.addEventListener('click', function(event){
         switch (event.target.dataset.buttonId){
             case 'load-save':
-                console.log('load-save')
-                loadSaveProcedure({mainGameObject: mainGameObject, saveDataItem: saveDataItem})
+                createNewDialogWindow({
+                    parentElement: parrentElement,
+                    callback: loadSaveProcedure,
+                    saveDataItem: saveDataItem,
+                    mainGameObject: mainGameObject,
+                    text: `Load save: ${saveDataItem.saveName} ?`
+                })/**/
                 break
             case 'overwrite-save':
-                console.log('overwrite-save', saveDataItem, process.env.OVERWRITE_SAVE)
                 process.env.OVERWRITE_SAVE = (process.env.OVERWRITE_SAVE === 'true')? 'false' : 'true';
                 if(process.env.OVERWRITE_SAVE) addClassList(contextElement, 'selected-overwrite-data')
 
-                overwriteSaveData({currentSave: saveDataItem, mainGameObject: mainGameObject})
+                //overwriteSaveData({currentSave: saveDataItem, mainGameObject: mainGameObject})
+                createNewDialogWindow({
+                    parentElement: parrentElement,
+                    callback: overwriteSaveData,
+                    saveDataItem: saveDataItem,
+                    mainGameObject: mainGameObject,
+                    text: `Overwrite save: ${saveDataItem.saveName} with a new one?`
+                })
                 break
             case 'delete-save':
-                console.log('delete-save')
-                deleteSaveData({currentSave: saveDataItem, mainGameObject: mainGameObject})
+                //deleteSaveData({currentSave: saveDataItem, mainGameObject: mainGameObject})
+                createNewDialogWindow({
+                    parentElement: parrentElement,
+                    callback: deleteSaveData,
+                    saveDataItem: saveDataItem,
+                    mainGameObject: mainGameObject,
+                    text: `Delete save: ${saveDataItem.saveName} ?`
+                })
                 break
             default:
                 return false
@@ -137,6 +164,45 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
     this.appendChild(newElement)
 }
 
+
+function createNewDialogWindow({parentElement, callback, saveDataItem, mainGameObject, text}){
+    let newElement = createElements({
+        tagName: "div",
+        styleClass: "save-load-dialog",
+        inlineStyle: null,
+        pictureUrl: null,
+        linkUrl: null,
+        text: null,
+        innerContent: `<div class="save-dialog-wrapper">
+        <div class="dialog-content">
+            ${text}
+        </div>
+        <button data-button-id="accept-save-action">ok</button>
+        <button data-button-id="reject-save-action">cancel</button>
+        </div>`,
+        attributeName: null,
+        attribute: null,
+        attributeName1: null,
+        attribute1: null
+    })
+
+    newElement.addEventListener('click', function(event){
+        switch (event.target.dataset.buttonId){
+            case 'accept-save-action':
+                console.log(saveDataItem)
+                callback({currentSave: saveDataItem, mainGameObject: mainGameObject})
+                newElement.remove()
+                break
+            case 'reject-save-action':
+                newElement.remove()
+                break
+            default:
+                return false
+        }
+    })
+
+    parentElement.appendChild(newElement)
+}
 
 
 
@@ -151,8 +217,8 @@ function backToObject({data, constructor}){
 
 
 
-function loadSaveProcedure({mainGameObject, saveDataItem}){
-    let save = JSON.parse(saveDataItem.saveData);
+function loadSaveProcedure({mainGameObject, currentSave}){
+    let save = JSON.parse(currentSave.saveData);
     let datanotToChange = {
         ctx: mainGameObject.gameInitData.ctx,
         gameField: mainGameObject.gameInitData.gameField,
