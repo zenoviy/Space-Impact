@@ -197,7 +197,7 @@
             "name": "Destroyer",
             "loadImage": "static/shop/weapons/Destroyer.png",
             "background": "static/shop/misc/blue-card.png",
-            "price": 600,
+            "price": 60000,
             "title": "Destroyer",
             "status": "power gun",
             "description": "blaster gun, regular weapon for you spaceship",

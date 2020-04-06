@@ -82,7 +82,6 @@ import { saveGameEvents } from './appMenu/saveLoadMenu';
 
 
     // ship move
-    console.log(playerShipData)
     playerShipData.shipControl(gameObject)
 
     window.addEventListener('resize', ()=>{

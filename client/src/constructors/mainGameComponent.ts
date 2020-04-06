@@ -150,6 +150,7 @@ class Game {
             gameData: this.gameInitData.gameData,
             settings: this.gameInitData.gameData.gameSetings,
             levelSounds: this.gameInitData.gameData.levelSounds,
+            playerObject: this.gameInitData.gameData.playerObject,
             imageDirrection: __dirname + '/public/images/',
         }
     }

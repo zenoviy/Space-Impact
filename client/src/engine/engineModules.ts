@@ -269,16 +269,20 @@ async function getImageFromFields({saveGameData}){
     let path = process.env.APP_SAVE_DIRECTORY
     await savePictures({picture_64: await background.replace(/^data:image\/png;base64,/, ""),
     filename: 'background'})
-    await savePictures({picture_64: await gameField.replace(/^data:image\/png;base64,/, ""),
+    let res = await savePictures({picture_64: await gameField.replace(/^data:image\/png;base64,/, ""),
     filename: 'gameField'})
-    .then(resolve => {
-        mergeImages([__dirname + process.env.APP_SAVE_DIRECTORY + '/background.png', __dirname + process.env.APP_SAVE_DIRECTORY +  '/gameField.png'])
-            .then(async pic => {
-                console.log(pic)
+    .then(async resolve => {
+        return await mergeImages([__dirname + process.env.APP_SAVE_DIRECTORY + '/background.png',
+        __dirname + process.env.APP_SAVE_DIRECTORY +  '/gameField.png'], {
+            width: 1300,
+            height: 680
+          }).then(async pic => {
                 await savePictures({picture_64: await pic.replace(/^data:image\/png;base64,/, ""),
             filename: saveGameData.saveName})
+            return true
         })
     })
+    return res
 }
 
 async function savePictures({picture_64, filename}){

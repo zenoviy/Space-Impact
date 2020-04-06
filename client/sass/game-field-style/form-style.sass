@@ -1,6 +1,24 @@
 @import '~/../../page-style/page-asets.sass'
 
 
+@mixin form-input-center
+    input
+        &[type="text"], &[type="email"], &[type="password"]
+            width: 60%
+            padding: $dialog-btn-padding
+            border-radius: $border-radius
+            background: rgba(255, 255, 255, .3)
+            border: 0px
+            color: white
+            margin: 0 auto
+            display: inherit
+    button
+        min-width: 15%
+        margin: 0 auto
+        display: block
+        margin-top: 18px
+
+
 @mixin save-form
     form
         input

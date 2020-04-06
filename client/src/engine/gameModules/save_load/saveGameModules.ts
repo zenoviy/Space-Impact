@@ -4,21 +4,51 @@ import {initSaveLoadScreen} from '../../../appMenu/saveLoadMenu';
 import { writeElectronLocalData } from '../../../server/serverRequestModules';
 import { showSaveData, displaySavesOnScreen } from './loadGameData';
 
+
+
+function compareSaveName({allData, saveGameData}): boolean{
+    let result = true;
+
+    let searchData = allData.find(save => save.saveName === saveGameData.saveName);
+    return (searchData)? false : true;
+}
+
+
 async function createSave({saveName, saveData, mainGameObject}){
     if(!saveName || !saveData) return console.error('There is no saveName or saveData')
     let allData: any = await showSaveData()
 
+    let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject})
     let saveTime = new Date().getTime();
+    let pleyerInformation = mainGameObject.showGameInfo()
+    let informationToShow = {
+        currentLevel: pleyerInformation.gameData.currentLevel,
+        points: pleyerInformation.gameData.currentPoint,
+        coins: pleyerInformation.gameData.gameCoins,
+        minutes: pleyerInformation.gameData.levelData.levelDetails.levelMinutes,
+        seconds: pleyerInformation.gameData.levelData.levelDetails.levelSeconds,
+        playerLife: pleyerInformation.playerObject.numberOflife
+    }
 
     let saveGameData = {
         saveName: (saveName.saveName)? saveName.saveName: saveTime,
         saveTime: saveTime,
+        playerInformation: informationToShow,
         saveData: JSON.stringify(saveData)
     }
+    let allowToSave = compareSaveName({allData: allData, saveGameData: saveGameData})
+
+    if(!allowToSave) return false
+    await mainGameObject.getImageFromFields({saveGameData: saveGameData})
     allData = allData.concat(saveGameData)
-    mainGameObject.getImageFromFields({saveGameData: saveGameData})
-    writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
+    await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
+    displaySavesOnScreen({
+        saveScreen: getContext.saveScreen,
+        saveData: allData,
+        mainGameObject: mainGameObject
+    })
 }
+
 
 
 
@@ -35,31 +65,32 @@ function collectData(){
 
 
 async function deleteSaveData({currentSave, mainGameObject}){
-    let getGontext = await initSaveLoadScreen({mainGameObject: mainGameObject})
+    let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject})
     let allData: any = await showSaveData()
     let pictureURL = storage.getDataPath() + '/' + currentSave.saveName + '.png';
     let targetItem = allData.find((obj, i) => {
         return obj.saveTime === currentSave.saveTime
     })
     let index = allData.indexOf(targetItem)
-    allData.splice(index, 1)
+    await allData.splice(index, 1)
+
 
     try {
-        fs.unlinkSync(pictureURL)
+        await fs.unlinkSync(pictureURL)
     }catch(err){
         console.log('no image')
     }
 
-    writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
+    await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     displaySavesOnScreen({
-        saveScreen: getGontext.saveScreen,
+        saveScreen: getContext.saveScreen,
         saveData: allData,
         mainGameObject: mainGameObject
     })
 }
 
 async function overwriteSaveData({currentSave, mainGameObject}){
-    let getGontext = await initSaveLoadScreen({mainGameObject: mainGameObject})
+    let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject})
 
     let allData: any = await showSaveData()
     let targetItem = allData.find((obj, i) => {
@@ -67,18 +98,29 @@ async function overwriteSaveData({currentSave, mainGameObject}){
     })
     let index = allData.indexOf(targetItem)
 
+
     let saveTime = new Date().getTime();
+    let pleyerInformation = mainGameObject.showGameInfo()
+    let informationToShow = {
+        currentLevel: pleyerInformation.gameData.currentLevel,
+        points: pleyerInformation.gameData.currentPoint,
+        coins: pleyerInformation.gameData.gameCoins,
+        minutes: pleyerInformation.gameData.levelData.levelDetails.levelMinutes,
+        seconds: pleyerInformation.gameData.levelData.levelDetails.levelSeconds,
+        playerLife: pleyerInformation.playerObject.numberOflife
+    }
     let saveGameData = {
         saveName: (currentSave.saveName)? currentSave.saveName: saveTime,
         saveTime: saveTime,
+        playerInformation: informationToShow,
         saveData: JSON.stringify(mainGameObject)
     }
 
     allData.splice(index, 1, saveGameData)
-    mainGameObject.getImageFromFields({saveGameData: saveGameData})
-    writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
+    await mainGameObject.getImageFromFields({saveGameData: saveGameData})
+    await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     displaySavesOnScreen({
-        saveScreen: getGontext.saveScreen,
+        saveScreen: getContext.saveScreen,
         saveData: allData,
         mainGameObject: mainGameObject
     })

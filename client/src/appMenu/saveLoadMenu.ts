@@ -20,8 +20,8 @@ async function initSaveLoadScreen({mainGameObject}){
 
 
 async function saveGameEvents({mainGameObject}){
-    let getGontext = await initSaveLoadScreen({mainGameObject: mainGameObject})
-    getGontext.saveForm.addEventListener('submit', async function (event) {
+    let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject})
+    getContext.saveForm.addEventListener('submit', async function (event) {
         event.preventDefault()
 
         if(!mainGameObject.gameInitData.gameStatus || mainGameObject.gameInitData.gameOver ||
@@ -30,15 +30,7 @@ async function saveGameEvents({mainGameObject}){
 
         let saveName = collectData.call(this);
         await createSave({saveName: saveName, saveData: mainGameObject, mainGameObject: mainGameObject})
-        let saveData = await showSaveData()
-        displaySavesOnScreen({
-            saveScreen: getGontext.saveScreen,
-            saveData: saveData,
-            mainGameObject: mainGameObject
-        })
-        //mainGameObject.getImageFromFields()
     })
-    
 }
 
 

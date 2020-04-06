@@ -2,11 +2,13 @@
     <section id="save" class="menu-pages-wrapper">
         <h1 id="save">save</h1>
 
-            <form name="main-save-form" action="">
-                <input name="saveName" type="text" maxlength="30" minlength="3" placeholder="Save name" required>
-                <button type="submit">new save</button>
+            <form name="main-save-form" action="" class="save-form">
+                <div class="inner-save-form-wrapper">
+                    <input name="saveName" type="text" maxlength="30" minlength="3" placeholder="Save name" required>
+                    <button type="submit" class="btn-main">new save</button>
+                </div>
             </form>
-            <ul id="save-screen" class="save-load-wrapper"></ul>
+            <ul id="save-screen" class="save-load-wrapper show-result-area"></ul>
             <button data-button-id="close" class="close-button btn-main btn-sticky">close</button>
     </section>
 </template>

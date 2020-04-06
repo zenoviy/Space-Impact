@@ -1,6 +1,8 @@
 
 function updateMap(){
     this.moveEnemyes()
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
     if(Math.sign(this.speed) > 0 && this.x + window.innerWidth < 0){
         this.x = window.innerWidth;
     }else if(Math.sign(this.speed) < 0 && this.x > window.innerWidth){

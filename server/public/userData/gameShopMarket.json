@@ -3,7 +3,7 @@
         "name": "extralife",
             "loadImage": "static/shop/store/ruby.png",
             "background": "static/shop/misc/red-card.png",
-            "price": 25000,
+            "price": 20000,
             "title": "Extra life",
             "status": "instant apply object",
             "description": "Extra life point",
