@@ -80,7 +80,7 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
             if(levelObjectProps.objectOwner == 'hangar' && this.gameInitData.tradepostInRange) return false
             if(levelObjectProps.objectOwner == 'hangar'){
                 let probability = this.gameRandomizer(levelObjectProps.probability)
-                console.log(probability, levelObjectProps.probability)
+                //console.log(probability, levelObjectProps.probability)
                 if( probability > 50 && data.minutes > 0 || probability > 500 && data.minutes === 0 ) return false // 1000
                 this.gameInitData.tradepostInRange = true;
             }

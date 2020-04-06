@@ -9,13 +9,14 @@ async function createSave({saveName, saveData, mainGameObject}){
     let allData: any = await showSaveData()
 
     let saveTime = new Date().getTime();
+
     let saveGameData = {
         saveName: (saveName.saveName)? saveName.saveName: saveTime,
         saveTime: saveTime,
         saveData: JSON.stringify(saveData)
     }
     allData = allData.concat(saveGameData)
-    mainGameObject.getImageFromFields()
+    mainGameObject.getImageFromFields({saveGameData: saveGameData})
     writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
 }
 
@@ -36,11 +37,18 @@ function collectData(){
 async function deleteSaveData({currentSave, mainGameObject}){
     let getGontext = await initSaveLoadScreen({mainGameObject: mainGameObject})
     let allData: any = await showSaveData()
+    let pictureURL = storage.getDataPath() + '/' + currentSave.saveName + '.png';
     let targetItem = allData.find((obj, i) => {
         return obj.saveTime === currentSave.saveTime
     })
     let index = allData.indexOf(targetItem)
     allData.splice(index, 1)
+
+    try {
+        fs.unlinkSync(pictureURL)
+    }catch(err){
+        console.log('no image')
+    }
 
     writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     displaySavesOnScreen({
