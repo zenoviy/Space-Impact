@@ -11,7 +11,7 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
         
             //x: targetData.x + targetData[explosion].width/2,
             //y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
-            x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width/2 : targetData.x ,
+            x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width : targetData.x ,
             y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
             sx: 0,
             sy: 0,
@@ -80,6 +80,7 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
             if(levelObjectProps.objectOwner == 'hangar' && this.gameInitData.tradepostInRange) return false
             if(levelObjectProps.objectOwner == 'hangar'){
                 let probability = this.gameRandomizer(levelObjectProps.probability)
+                console.log(probability, levelObjectProps.probability)
                 if( probability > 50 && data.minutes > 0 || probability > 500 && data.minutes === 0 ) return false // 1000
                 this.gameInitData.tradepostInRange = true;
             }

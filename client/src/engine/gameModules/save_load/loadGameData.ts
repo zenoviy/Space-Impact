@@ -164,6 +164,7 @@ function loadSaveProcedure({mainGameObject, saveDataItem}){
         shopArea: mainGameObject.shopArea
 
     }
+    let bossPresent = false;
 
         save.gameInitData.allGameSideObjects = save.gameInitData.allGameSideObjects.map( item => { 
             let constructorType = (item.objectOwner === 'grappleObject')? constructor.GrappleObject: constructor.SideObject;
@@ -175,6 +176,10 @@ function loadSaveProcedure({mainGameObject, saveDataItem}){
 
         save.gameInitData.allGameEnemies = save.gameInitData.allGameEnemies.map( item => { 
             let loadMapElement = backToObject({data: item, constructor: constructor.EnemyObject})
+            if(loadMapElement.isBoss){
+                bossPresent = true;
+                process.env.BOSS_LOAD_AT_LEVEL = 'true';
+            }
             loadMapElement.img = new Image();
             loadMapElement.loadTexture()
             return loadMapElement
@@ -217,6 +222,9 @@ function loadSaveProcedure({mainGameObject, saveDataItem}){
     save.gameInitData.gamePause = true;
     save.gameInitData.gameUiPause = false;
     save.gameInitData.shopActive = false;
+    process.env.BOSS_LOAD_AT_LEVEL = (bossPresent)? 'true' : 'false';
+
+
     save.shopArea = datanotToChange.shopArea;
 
     process.env.SHOP_ACTIVE_WINDOW = 'false';
@@ -224,7 +232,6 @@ function loadSaveProcedure({mainGameObject, saveDataItem}){
     process.env.SHOP_SALE_WINDOW = 'false';
     process.env.SHOP_STORE_WINDOW = 'false';
 
-    process.env.BOSS_LOAD_AT_LEVEL = 'false';
 
     process.env.OVERWRITE_SAVE = 'false';
 

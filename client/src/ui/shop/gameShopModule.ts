@@ -321,6 +321,7 @@ async function showShopData({element, url, mainGameObject, customWrapperClass}){
     element.displayShopItem.innerHTML = "";
     if(data.message) console.error(data.message)
     for(let card of data){
+        if(card.title === 'Reaper') continue
         let shipDescription = (customWrapperClass === 'shipyard-item')? shipCardDescription({shipData: card}) : weaponsCardDescription({card: card});
         let currentShip = labelShip({playerObject: playerObject, card: card, mainGameObject: mainGameObject});
         let cardRender = createElements({tagName: 'div',
