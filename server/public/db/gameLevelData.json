@@ -72,9 +72,12 @@
         "level" : 2,
         "enemyType" : ["dart"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_desert"],
+        "levelOBjects" : ["ground_turret_day",
+            "ground_turret_canyon_walker", "ground_turret_canyon_walker_2", "ground_turret_canyon_enemy_walker_1",
+            "ground_turret_canyon_enemy_walker_1", "ground_turret_canyon_enemy_walker_1",
+            "aliance_soldier", "aliance_soldier", "aliance_tank", "fence_1", "tradepost_canyon"],
         "enemyProbability" : 900,
-        "objectProbability": 1000,
+        "objectProbability": 800,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
@@ -87,8 +90,8 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "long canyon",
-            "description": "Large canyon full of enemy"
+            "name": "Battle in canyon",
+            "description": "Battlefield"
         },
         "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
         "levelMap" : "canyon.png",
@@ -155,7 +158,7 @@
         }
     },{
         "level" : 3,
-        "enemyType" : ["dart", "scorpio"],
+        "enemyType" : ["dart", "blade"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_desert"],
         "enemyProbability" : 850,
@@ -253,7 +256,7 @@
         "level" : 4,
         "enemyType" : ["dart", "scorpio"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["build_1", "build_2", "cloud_1", "tradepost_desert"],
+        "levelOBjects" : ["build_1", "build_2", "cloud_1", "tradepost_sky_city"],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
@@ -383,7 +386,7 @@
         "level" : 5,
         "enemyType" : ["megalit", "mine"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["cloud_1"],
+        "levelOBjects" : ["cloud_1", "cloud_2", "cloud_3", "cloud_4", "cloud_5"],
         "enemyProbability" : 250,
         "objectProbability": 800,
         "grapleObjectProbability": 1500,
@@ -414,11 +417,259 @@
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/sky/sky_map.png",
-            "speed": 0.2,
+            "speed": 0.1,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/sky/sky_map_2.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_far_clouds_0a.png",
             "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_far_clouds_0a.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_far_clouds.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_far_clouds.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_bottom_clouds.png",
+            "speed": 0.6,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_bottom_clouds.png",
+            "speed": 0.6,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_bottom_clouds_close.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/sky/sky_map_bottom_clouds_close.png",
+            "speed": 1,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": null,
+            "levelSeconds": null
+        }
+    },{
+        "level" : 6,
+        "enemyType" : ["scorpio", "mine", "rhodes" ],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : [],
+        "enemyProbability" : 950,
+        "objectProbability": 800,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "bossPresent": false,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Earth orbit",
+            "description": "Leave Earth"
+        },
+        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelMap" : "Earth_orbit_map.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/Earth orbit/Earth_orbit_map.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Earth orbit/Earth_orbit_map.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Earth orbit/earth_background.png",
+            "speed": 0.2,
+            "description": "first frame",
+            "extraMap": "/public/images/locations/Earth orbit/empty.png",
+            "timeToExtraMapSeconds": 40,
+            "timeToExtraMapMinutes": 4
+        },{
+            "levelMap" : "/public/images/locations/Earth orbit/empty.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Earth orbit/empty.png",
+            "speed": 0.22,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Earth orbit/empty.png",
+            "speed": 0.22,
+            "description": "second frame",
+            "extraMap": "/public/images/locations/Earth orbit/moon_background.png",
+            "timeToExtraMapSeconds": 40,
+            "timeToExtraMapMinutes": 3
+        }],
+        "levelDetails" : {
+            "levelMinutes": 5,
+            "levelSeconds": 50
+        }
+    },{
+        "level" : 7,
+        "enemyType" : ["scorpio", "moscit"],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : ["tradepost_space_moon"],
+        "enemyProbability" : 950,
+        "objectProbability": 800,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "bossPresent": false,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Moon outpost",
+            "description": "Leave Earth"
+        },
+        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelMap" : "Earth_orbit_map.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/Earth orbit/Earth_orbit_map.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Earth orbit/Earth_orbit_map.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_far.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_far.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
+            "speed": 0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
+            "speed": 0.8,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_closest.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_closest.png",
+            "speed": 2,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 3,
+            "levelSeconds": 50
+        }
+    },{
+        "level" : 8,
+        "enemyType" : ["intervention", "mine"],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : [],
+        "enemyProbability" : 250,
+        "objectProbability": 800,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "bossPresent": true,
+        "enemyMaxNumber": 1,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Neptune ice",
+            "description": "Final fight in the hart of enemy"
+        },
+        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelMap" : "skyClouds.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/Neptune/space.png",
+            "speed": 0.05,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/space.png",
+            "speed": 0.05,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_background_map.png",
+            "speed": 0.02,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/empty.png",
+            "speed": 0.02,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/empty.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/protheus.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_far_mountains.png",
+            "speed": 0.3,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_far_mountains.png",
+            "speed": 0.3,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_middle.png",
+            "speed": 0.5,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_middle.png",
+            "speed": 0.5,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_close_mountains.png",
+            "speed": 0.7,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_close_mountains.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_ice.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_ice.png",
+            "speed": 2,
             "description": "second frame"
         }],
         "levelDetails" : {

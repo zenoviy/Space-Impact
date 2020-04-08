@@ -2,7 +2,7 @@
     {
         "id": "lifepoint",
         "name": "lifepoint",
-        "probability": 600,
+        "probability": 500,
         "objectOwner": "grappleObject",
         "healthPoint": null,
         "imageWidth": 1826,

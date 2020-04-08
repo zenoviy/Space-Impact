@@ -292,7 +292,6 @@ async function savePictures({picture_64, filename}){
                 reject(false)
                 return console.error(err)
             };
-            console.log(err)
             resolve(true)
         });
     })

@@ -4,3 +4,7 @@ body {
 .load-circle-image {
     background-image: url("../public/images/page/icons/loading.png");
 }
+
+.main-load-screen{
+    background-image: url("../public/images/page/about/background.png");
+}

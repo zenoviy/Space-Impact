@@ -8,7 +8,6 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
     //let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
     let explosionData = {
 
-        
             //x: targetData.x + targetData[explosion].width/2,
             //y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
             x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width : targetData.x ,
@@ -116,7 +115,8 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
                 rapidFire: (levelObjectProps.rapidFire)? levelObjectProps.rapidFire : null,
                 isShot: (levelObjectProps.isShot)? levelObjectProps.isShot : false,
                 guns: (levelObjectProps.guns)? levelObjectProps.guns : null,
-                tradePropertyes: (levelObjectProps.tradePropertyes)? levelObjectProps.tradePropertyes : null
+                tradePropertyes: (levelObjectProps.tradePropertyes)? levelObjectProps.tradePropertyes : null,
+                defaultAngle: (levelObjectProps.defaultAngle)? levelObjectProps.defaultAngle : null
             }
             let sideObject = new SideObject({...extraObjectObjectsData});
 
@@ -142,6 +142,7 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
     let closestUnitYrange = Infinity;
 
     for(let ship of allGameEnemies){
+        if(!ship) continue
         let distanceX = (ship.x > this.x)? ship.x - this.x : this.x - ship.x;
         let distanceY = (ship.y > this.y)? ship.y - this.y : this.y - ship.y;
 
@@ -159,6 +160,18 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
     }
     if(!closestUnit || closestUnit.x > window.innerWidth) return false
     let angle = angleFinder({object: this, target: closestUnit})
+
+    if(this.defaultAngle){
+        switch (true){
+            case angle > this.defaultAngle.min || angle <  this.defaultAngle.max:
+                angle = 0;
+                break
+            case angle < this.defaultAngle.min || angle >  this.defaultAngle.max:
+                break
+            default:
+                angle = 0;
+        }
+    }
 
     this.shotAngle = angle;
     this.shot(BulletConstruct, mainGameObject, SoundCreator, owner)

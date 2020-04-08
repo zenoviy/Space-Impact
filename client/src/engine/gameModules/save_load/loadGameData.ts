@@ -12,6 +12,7 @@ import {
     toggler,
     addClassList,
     removeClassList } from '../../../appMenu/appMenu';
+import { hideLoadScreen } from '../../../ui/loadScreen';
 
 
 
@@ -98,13 +99,11 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
                     image.src = (pictureURL)? pictureURL : null;
                     showAcceptButtons.call(this, {mainGameObject: mainGameObject, saveDataItem: save, flag: item.indexFlag})
                 })
-                //setTimeout(()=>{
-                    item.object.appendChild(newElement)
-                //}, 500)
-               
+                item.object.appendChild(newElement)
             })
         }
     }
+    hideLoadScreen()
 }
 
 
@@ -139,8 +138,8 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
                 <div class="save-details">
                     <h3>Save: ${saveDataItem.saveName}</h3>
                     <p>Level: ${saveDataItem.playerInformation.currentLevel}</p>
-                    <p>minutes: ${saveDataItem.playerInformation.minutes}</p>
-                    <p>seconds: ${saveDataItem.playerInformation.seconds}</p>
+                    <p>minutes: ${(saveDataItem.playerInformation.minutes)? saveDataItem.playerInformation.minutes : 0}</p>
+                    <p>seconds: ${(saveDataItem.playerInformation.seconds)? saveDataItem.playerInformation.seconds : 0}</p>
                     <p>Life: ${saveDataItem.playerInformation.playerLife}</p>
                     <p>Points: ${saveDataItem.playerInformation.points}</p>
                     <p>Coins: ${saveDataItem.playerInformation.coins}</p>
@@ -290,12 +289,15 @@ function loadSaveProcedure({mainGameObject, currentSave}){
 
         save.gameInitData.mapBackgroundObjects = save.gameInitData.mapBackgroundObjects.map( item => {
             let loadMapElement = backToObject({data: item, constructor: constructor.GameBackground})
-            loadMapElement.width = window.innerWidth;
+            loadMapElement.x = (loadMapElement.partOfScreenStatus)? 0 - 1: window.innerWidth + 1;
+            loadMapElement.width = (loadMapElement.partOfScreenStatus)? window.innerWidth + 2 : window.innerWidth;
             loadMapElement.height = window.innerHeight;
             loadMapElement.img = new Image();
             loadMapElement.ctx = datanotToChange.ctx;
             loadMapElement.loadTexture()
             return loadMapElement
+
+
         });
 
         save.gameInitData.gameData.playerObject = backToObject({data: save.gameInitData.gameData.playerObject, constructor: constructor.PlayerShip})

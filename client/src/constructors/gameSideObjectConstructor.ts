@@ -33,7 +33,7 @@ class SideObject{
     collideExplosionAnimation: any;
     sound: any; side: string; guns: any; degree: number;
     rapidFire: number; isShot: boolean; shotAngle: number;
-    tradePropertyes: any;
+    tradePropertyes: any; defaultAngle: any;
 
     fireAnimationEnded: any;
     placeEnemyes: any;
@@ -76,6 +76,7 @@ class SideObject{
             this.isShot = (data.isShot)? data.isShot : false;
             this.shotAngle = 0;
             this.tradePropertyes = (data.tradePropertyes)? data.tradePropertyes : null;
+            this.defaultAngle = (data.defaultAngle)? data.defaultAngle : null;
     }
 }
 

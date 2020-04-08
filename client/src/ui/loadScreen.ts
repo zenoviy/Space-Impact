@@ -2,6 +2,17 @@ import { show, hide, toggler, addClassList, removeClassList } from '../appMenu/a
 import { createElements, pageBuilder } from '../appMenu/pagesBuilder';
 
 
+function hideLoadScreen(){
+
+    let loadScreen = document.querySelector('#main-load-screen');  // hide-animation
+    console.log('hide function')
+    addClassList(loadScreen, 'hide-animation');
+    setTimeout(() => {
+        hide(loadScreen)
+    }, 1000)
+
+}
+
 
 function loadWindow({loadStatus}){
     const windowElement = document.querySelector('#load-screen');
@@ -33,5 +44,6 @@ function loadWindow({loadStatus}){
 
 
 export {
-    loadWindow
+    loadWindow,
+    hideLoadScreen
 }

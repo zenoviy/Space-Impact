@@ -43,7 +43,7 @@ class EnemyObject {
     width: number; height: number;
     texture: string;
     shipDirectory: string;
-    speed: number;
+    speed: number; defaultSpeed: number;
     status: string; name: string;
     bulletTypeNumber: number; rapidFire: number; pointsPerUnit: number;
     healthPoint: number; animationSteps: number;
@@ -55,7 +55,7 @@ class EnemyObject {
     direction: string; isBoss: boolean;
     extraObjects: any[]; collideExplosionAnimation: any;
     changeXposition: boolean; changeSpeed: boolean;
-    shotAngle: number;
+    shotAngle: number; 
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -79,6 +79,7 @@ class EnemyObject {
             this.texture = __dirname + data.texture;
             this.img = new Image();
             this.speed = data.speed;
+            this.defaultSpeed = data.speed;
             this.status = data.status; this.name = data.name;
             this.bulletTypeNumber = data.bulletTypeNumber; this.rapidFire = data.rapidFire; this.pointsPerUnit = data.pointsPerUnit;
             this.healthPoint = data.healthPoint; this.animationSteps = data.animationSteps;

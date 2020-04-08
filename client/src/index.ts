@@ -167,9 +167,26 @@ import { saveGameEvents } from './appMenu/saveLoadMenu';
                                 if(object.objectOwner == "enemy" ||
                                 object.objectOwner == "collide" ||
                                 object.objectOwner == "grappleObject" ||
-                                object.objectOwner == "hangar"){
+                                object.objectOwner == "hangar" || object.objectOwner == "enemy"){
                                     gameObject.hitDetection(gameObject.gameInitData.gameData.playerObject, [object], gameObject, constructors.GrappleObject);
-                                    object.sideObjectShot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "hangarbullet", gameObject.gameInitData.allGameEnemies)
+                                    if(object.objectOwner != "enemy"){
+                                        object.sideObjectShot(constructors.BulletConstruct,
+                                        gameObject, constructors.SoundCreator,
+                                        "hangarbullet",
+                                        gameObject.gameInitData.allGameEnemies.concat(
+                                            gameObject.gameInitData.allGameSideObjects.map(object =>{
+                                                if(object.objectOwner === "enemy") return object})
+                                        ))
+                                    }else if(object.objectOwner === "enemy"){
+                                        object.sideObjectShot(constructors.BulletConstruct,
+                                            gameObject, constructors.SoundCreator,
+                                            "enemy",
+                                            [gameObject.gameInitData.gameData.playerObject].concat(
+                                                gameObject.gameInitData.allGameSideObjects.map(object =>{
+                                                    if(object.objectOwner === "hangar" || object.objectOwner === "collide") return object
+                                                })
+                                            ))
+                                    }
                                     //object.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "hangar")
                                 }
                                 object.enemyAnimation()

@@ -39,7 +39,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: getUIObjectPosition
         }, {
             name: "level",
-            text: ` ${(info.currentLevel <= info.allLevels)? 'Current Level ' + info.currentLevel + '/' + info.allLevels : 'finish game'} `,
+            text: ` ${(info.currentLevel <= info.allLevels)? 'Current Level ' + info.currentLevel + '/' + info.allLevels : 'end of the game'} `,
             description: "Game part the name",
             clicked: false,
             fontSize: "bold 16px Roboto",
@@ -58,7 +58,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Time to end f level",
-            text: (info.minutes || info.seconds)? `Time to level end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >=0)? '': 0}${info.seconds}`: 'Boss level',
+            text: (info.minutes || info.minutes === 0 || info.seconds || info.seconds === 0)? (`Time to level end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >= 0)? '': 0}${info.seconds}`): 'Boss level',
             description: "Game part the name",
             clicked: false,
             fontSize: "light 16px Roboto",

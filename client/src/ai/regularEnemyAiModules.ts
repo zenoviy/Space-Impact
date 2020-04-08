@@ -19,53 +19,119 @@ function enemyShipLogicVertical(target, mainGameObject){
                     this.direction = (dirrectionRandom == 1)? "up" : "down";
                 }
                 patrool.call(this, mainGameObject)
-                break;
+                break
             case 'find':
                 strafe.call(this)
-                break;
+                break
             case 'attack':
                 attack.call(this, distanceToTargetY, distanceToTargetX, target)
-                break;
+                break
             case 'comeEndFind':
-                strafe.call(this);
-                unitStop.call(this);
-                goBackAnForward.call(this, mainGameObject);
-                break;
+                strafe.call(this)
+                unitStop.call(this)
+                goBackAnForward.call(this, mainGameObject)
+                break
+            case 'rush':
+                strafe.call(this)
+                unitStop.call(this)
+                rushAttack.call(this, mainGameObject)
+                //goBackAnForward.call(this, mainGameObject)
+                break
             default:
                 strafe.call(this)
         }
     }
+
+    function rushAttack(mainGameObject){
+        let randomAttack = mainGameObject.gameRandomizer(1000)
+        let screenData = mainGameObject.getScreenSize();
+        /*if(this.x >= this.xFinal && this.rushAtack && this.direction === 'backwards'){
+            this.rushAtack = false;
+        }*/
+
+        if(randomAttack < 1 && !this.rushAtack){
+            console.log('Attack', this.changeXposition, randomAttack, this.direction)
+            this.rushAtack = true;
+            this.rushData = 0;
+            this.xFinal = 0;
+            //goBackAnForward.call(this, mainGameObject)
+            this.speed = (Math.sign(this.speed) > 0)? 16 : 16;
+            //this.direction = 'backwards'
+            //this.changeXposition = true;
+        }
+        if(this.x <= 2){
+            console.log('forvard', this.xFinal, this.x, screenData.width - this.width * 2, this.changeXposition , this.rushAtack)
+            this.rushAtack = false;
+            this.speed = this.defaultSpeed;
+            this.changeXposition = true;
+            this.xFinal = screenData.width;
+            this.direction = 'forward';
+            goBackAnForward.call(this, mainGameObject)
+            //this.changeXposition = false;
+        }
+
+        if( !this.rushAtack ) goBackAnForward.call( this, mainGameObject )
+        //console.log(randomAttack, this.changeXposition)
+        /*if(this.x <= 1 && this.direction == 'forward'){
+            this.direction = 'backwards';
+            this.xFinal = window.innerWidth;
+            console.log('change pos')
+            this.speed = this.defaultSpeed;
+        }
+        if(this.x > this.xFinal && this.direction == 'backwards') this.rushAtack = false;
+        
+        if(randomAttack > 1 && !this.rushAtack && !this.changeXposition 
+            || randomAttack > 1 && !this.rushAtack && !this.changeXposition
+            || randomAttack > 1 && this.rushAtack && !this.changeXposition) return false;
+
+        console.log('Attack', this.rushAtack, randomAttack, this.changeXposition, this.xFinal)
+        this.direction = 'forward';
+        this.xFinal = 0;
+        this.rushAtack = true;
+        this.speed = 20;*/
+
+    }
+
+
+
     function goBackAnForward(mainGameObject){
-        if(this.changeXposition && this.direction != 'backwards'){
+
+        console.log(this.changeXposition,  this.xFinal, this.direction, '(- - )')
+        if(this.changeXposition && this.direction != 'backwards' ||
+         this.changeXposition && this.x < this.xFinal && this.direction != 'backwards' ){
             this.direction = 'backwards';
 
             let screenData = mainGameObject.getScreenSize();
             let randomPoint = mainGameObject.gameRandomizer(this.width * 2)
             let range = screenData.width - randomPoint;
             this.xFinal = range;
+            this.rushAtack = false;
+            console.log(1)
             cahngeDirrection.call(this)
-        }else if(this.changeXposition && this.x > this.xFinal && this.direction != 'forward'){
+        }else if(this.changeXposition && this.x > this.xFinal && this.direction != 'forward' ){
             this.direction = 'forward'
             this.changeXposition = false;
             cahngeDirrection.call(this)
+            console.log(2, this.speed)
         }
-
-        function cahngeDirrection(){
-            this.speed =  this.speed * -1;
-        }
+    }
+    function cahngeDirrection(){
+        this.speed =  this.speed * -1;
     }
     function unitStop(){
         let screenData = mainGameObject.getScreenSize();
-        if(this.x < screenData.width - this.width * 2 && !this.changeXposition){
+        let stopRange = screenData.width - this.width * 2;
+        if(this.x < stopRange && !this.changeXposition && !this.rushAtack){
             if(!this.changeSpeed) changeStrafeSpeed.call(this, 3)
             this.changeSpeed = true;
-            this.changeXposition = true
+            this.changeXposition = true;
         }
     }
     function changeStrafeSpeed(coeficient){
          this.speed = this.speed/coeficient;
     }
     function strafe(){
+        if(this.rushAtack) return false
         if(this.spotDistance > distanceToTargetX || this.spotDistance > distanceToTargetY){
             this.yFinal = target.y - this.height/2;
             this.enemyVerticalMoveCalculation(distanceToTargetY)
@@ -124,6 +190,7 @@ async function spawnEnemyLogic( EnemyObject: any){
             let numberEnemyPerSpawn = this.gameRandomizer(levelData.enemyMaxNumber);
             for(let i = numberEnemyPerSpawn; i < levelData.enemyMaxNumber; i++){
                 let enemyShip = enemyData[ this.gameRandomizer(enemyData.length) ];
+
                 if(process.env.BOSS_LOAD_AT_LEVEL === 'true' && enemyShip.details.isBoss) return false
                 if(enemyShip.details.isBoss) process.env.BOSS_LOAD_AT_LEVEL = "true";
 
@@ -135,6 +202,7 @@ async function spawnEnemyLogic( EnemyObject: any){
     }
 }
 async function createNewEnemy(enemyData, EnemyObject){
+    if(!enemyData) return console.error('no ship data')
     let x = window.innerWidth + 300,
     y = this.gameRandomizer(window.innerHeight- 200, 100)
     if(enemyData.details){
@@ -143,6 +211,7 @@ async function createNewEnemy(enemyData, EnemyObject){
         let extraObjects =  (shipDetails.extraObjects)? await loadExtraObject.call(this, shipDetails.extraObjects): false;
 
         let context = this;
+        
        return new EnemyObject(
         {
             x: x, y: y,
