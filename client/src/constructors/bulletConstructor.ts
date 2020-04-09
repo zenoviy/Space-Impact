@@ -34,7 +34,7 @@ class BulletConstruct{
     numberOfVerticalItems: number;
     detectFrame: number;
     sound: any; verticalSpeed: number;
-    degree: number;
+    degree: number; hitBox: any;
 
 
     moveBullets: any;
@@ -69,6 +69,7 @@ class BulletConstruct{
         this.sound = (data.sound)? data.sound: null;
         this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed : 0;
         this.degree = (data.degree)? data.degree : 0;
+        this.hitBox = (data.hitBox)? data.hitBox : null;
         //this.picturesWidth = data.picturesWidth;
     }
 }

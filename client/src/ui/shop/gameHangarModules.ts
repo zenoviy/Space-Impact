@@ -6,7 +6,6 @@ function loadHangar({element, mainGameObject}){
     let playerObjectData = playerObject.data
     let ctx = element.hangarShipArea.getContext('2d');
     let img = new Image()
-    element.hangarShipArea.style = 'background: #000;'
     element.hangarShipArea.width = 600;
     element.hangarShipArea.height = 350;
     img.src = process.env.HOST + playerObjectData.hangarImage;

@@ -28,40 +28,51 @@
         <div id="shop-wrapper" class="shop-wrapper" style="display: none;">
             <div class="inner-shop-wrapper">
                 <div id="shop-area" class="display-area-wrapper" style="display: block;">
-                    <header class="shop-eader">
+                    <img class="shop-frame" src="./public/images/misc/shop/tablet.png" alt="">
+                    <header class="shop-header">
                         <nav>
                             <h1>Nuke Shop</h1>
-                            <button data-target-btn-id="weapons" >weapons</button>
-                            <button data-target-btn-id="ship" >ship</button data-target-btn-id="weapon">
-                            <button data-target-btn-id="market" >market</button data-target-btn-id="ship">
+                            <div class="shop-menu-wrapper">
+                                <button data-target-btn-id="weapons" class="btn-main">weapons</button>
+                                <button data-target-btn-id="ship" class="btn-main">ship</button data-target-btn-id="weapon">
+                                <button data-target-btn-id="market" class="btn-main">market</button data-target-btn-id="ship">
+                            </div>
                         </nav>
                     </header>
+                    <button class="shop-buttom btn-to-left" data-target-btn-id="previous-items"><</button>
+                    <button class="shop-buttom btn-to-right" data-target-btn-id="next-items">></button>
                     <div id="display-shop-items" class="display-shop-items"></div>
+
                     <p>
-                        <button  data-target-btn-id="to-hangar" >to hangar</button>
+                        <button  data-target-btn-id="to-hangar" class="btn-main to-hangar-btn">to hangar</button>
                     </p>
                 </div>
                 <div id="hangar-area" class="display-area-wrapper" style="display: none;">
-                    <h1>Hangar</h1>
-                    <div id="hangar-text"></div>
-                    <canvas id="hangar-ship-area"></canvas>
-                    <div id="items-area"></div>
-                    <p>
-                        <button  data-target-btn-id="to-shop" >to shop</button>
-                    </p>
+                    <img class="shop-frame" src="./public/images/misc/shop/tablet.png" alt="">
+                    <div class="hangar-body-wrapper">
+                        <h1>Hangar</h1>
+                        <div id="hangar-text"></div>
+                        <canvas  id="hangar-ship-area"></canvas>
+                        <div id="items-area"></div>
+                    </div>
+                    <div class="botoom-shop-navigation-area">
+                         <p>
+                            <button  data-target-btn-id="to-shop" class="btn-main to-hangar-btn">to shop</button>
+                        </p>
+                    </div>
                 </div>
-                <!--<div class="shop-sale-part"></div>-->
                 <div id="shop-inventory-wrapper" class="right-side-inventory"></div>
 
                 <div id="item-descripton" class="item-descripton" style="display: none;"></div>
                 <img id="item-dragable-picture" class="item-dragable-picture" style="display: none;">
             </div>
-            <button class="main-btn"   data-target-btn-id="exit" >exit</button>
+            <button data-target-btn-id="exit" class="btn-main btn-orange-reject external-btn">exit</button>
         </div>
         <div id="shop-dialog" class="shop-dialog" style="display: none;">
             <p id="shop-dialog-text"></p>
             <p id="shop-error-message" style="color: red"></p>
-            <button data-target-btn-id="ok">Ok</button><button  data-target-btn-id="cancel">cancel</button>
+            <button data-target-btn-id="ok" class="btn-main">Ok</button>
+            <button  data-target-btn-id="cancel" class="btn-main btn-orange-reject">cancel</button>
         </div>
 
 

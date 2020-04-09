@@ -32,6 +32,12 @@
         "damage": 260,
         "width": 80,
         "height": 35,
+        "hitBox": {
+            "offsetTop": 10,
+            "offsetLeft": 5,
+            "width": 60,
+            "height": 25
+        },
         "sx": 0,
         "sy": 20,
         "imageWidth": 2735,
@@ -168,6 +174,12 @@
         "damage": 260,
         "width": 75,
         "height": 25,
+        "hitBox": {
+            "offsetTop": 10,
+            "offsetLeft": 5,
+            "width": 60,
+            "height": 10
+        },
         "sx": 0,
         "sy": 20,
         "imageWidth": 2735,

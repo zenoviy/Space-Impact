@@ -1468,22 +1468,22 @@
     },
     "damage": 0,
     "healthPoint": 11208,
-    "imageWidth": 3468,
+    "imageWidth": 3336,
     "imageHeight": 311,
-    "animationSteps": 5,
+    "animationSteps": 10,
     "numberOfItems": 4,
     "probability": 700,
     "numberOfVerticalItems": 1,
     "sx": 0,
     "sy": 0,
-    "width": 440,
-    "height": 250,
-    "skinName": "/public/images/spaceShips/trade/spaceship-2730341_960_720.png",
+    "width": 400,
+    "height": 200,
+    "skinName": "/public/images/spaceShips/trade/battle_zeppelin.png",
     "speed": 2,
     "isBackground": false,
     "pointsPerUnit": 35,
     "spawnDetails": {
-        "position": "bottom"
+        "position": "scene"
     },
     "extraObjects": [{
         "object": "goldCoin",
@@ -1600,8 +1600,8 @@
             "sWidth": 299,
             "sHeight": 109,
             "damage": 60,
-            "firePosition": 25,
-            "firePositionX": 150
+            "firePosition": 225,
+            "firePositionX": 160
         }
     ]
 },

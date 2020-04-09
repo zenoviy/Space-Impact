@@ -22,6 +22,12 @@
             "sy": 0,
             "width": 50,
             "height": 50,
+            "hitBox": {
+                "offsetTop": 5,
+                "offsetLeft": 5,
+                "width": 40,
+                "height": 40
+            },
             "skinName": "/public/images/spaceShips/enemy_ship_1.png",
             "speed": 4,
             "pointsPerUnit": 5,
@@ -98,6 +104,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -140,6 +152,12 @@
             "sy": 0,
             "width": 30,
             "height": 30,
+            "hitBox": {
+                "offsetTop": 10,
+                "offsetLeft": 10,
+                "width": 20,
+                "height": 20
+            },
             "skinName": "/public/images/spaceShips/enemy_ship_mine.png",
             "speed": 1,
             "verticalSpeed": 10,
@@ -211,6 +229,12 @@
             "sy": 0,
             "width": 55,
             "height": 55,
+            "hitBox": {
+                "offsetTop": 2,
+                "offsetLeft": 5,
+                "width": 50,
+                "height": 50
+            },
             "skinName": "/public/images/spaceShips/enemy_ship_2_full.png",
             "speed": 3,
             "pointsPerUnit": 20,
@@ -280,6 +304,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -319,6 +349,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -360,6 +396,12 @@
             "sy": 0,
             "width": 95,
             "height": 95,
+            "hitBox": {
+                "offsetTop": 30,
+                "offsetLeft": 30,
+                "width": 60,
+                "height": 40
+            },
             "skinName": "/public/images/spaceShips/blade.png",
             "speed": 3,
             "pointsPerUnit": 20,
@@ -433,6 +475,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -472,6 +520,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -513,6 +567,12 @@
             "sy": 0,
             "width": 125,
             "height": 55,
+            "hitBox": {
+                "offsetTop": 10,
+                "offsetLeft": 5,
+                "width": 120,
+                "height": 40
+            },
             "skinName": "/public/images/spaceShips/moscit.png",
             "speed": 3,
             "pointsPerUnit": 50,
@@ -590,6 +650,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -629,6 +695,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -671,6 +743,12 @@
             "sy": 0,
             "width": 220,
             "height": 95,
+            "hitBox": {
+                "offsetTop": 20,
+                "offsetLeft": 10,
+                "width": 210,
+                "height": 45
+            },
             "skinName": "/public/images/spaceShips/rhodes.png",
             "speed": 2,
             "pointsPerUnit": 70,
@@ -744,6 +822,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -784,6 +868,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -829,6 +919,12 @@
             "sy": 0,
             "width": 155,
             "height": 155,
+            "hitBox": {
+                "offsetTop": 20,
+                "offsetLeft": 115,
+                "width": 210,
+                "height": 45
+            },
             "skinName": "/public/images/spaceShips/ship4.png",
             "speed": 3,
             "pointsPerUnit": 200,
@@ -898,6 +994,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -978,6 +1080,12 @@
             "sy": 0,
             "width": 280,
             "height": 280,
+            "hitBox": {
+                "offsetTop": 20,
+                "offsetLeft": 40,
+                "width": 240,
+                "height": 240
+            },
             "skinName": "/public/images/spaceShips/ship3.png",
             "speed": 3,
             "pointsPerUnit": 200,
@@ -1047,6 +1155,12 @@
                     "speed": 6,
                     "width": 45,
                     "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -1097,6 +1211,234 @@
                     "sHeight": 109,
                     "damage": 120,
                     "firePosition": 79
+                }
+            ]
+        }
+    },
+
+
+
+
+
+    {
+        "id": "baldrin",
+        "details": {
+            "name": "Baldrin",
+            "status": "enemy ship",
+            "objectOwner": "enemy",
+            "behavior": ["rush"],
+            "isMove": true,
+            "isShot": true,
+            "isBoss": true,
+            "spotDistance": 1000,
+            "healthPoint": 215200,
+            "bulletType": 1,
+            "rapidFire": 5,
+            "imageWidth": 3802,
+            "imageHeight":434,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "numberOfVerticalItems": 4,
+            "verticalSpeed": 1,
+            "damage": 30,
+            "sx": 0,
+            "sy": 0,
+            "width": 280,
+            "height": 280,
+            "hitBox": {
+                "offsetTop": 60,
+                "offsetLeft": 20,
+                "width": 240,
+                "height": 190
+            },
+            "skinName": "/public/images/spaceShips/baldrin.png",
+            "speed": 3,
+            "pointsPerUnit": 1000,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomizer": 40,
+                "maxNumber": 100
+            }, {
+                "object": "Reaper-box",
+                "randomizer": 2000,
+                "maxNumber": 1
+            }, {
+                "object": "lifepoint",
+                "randomizer": 2300,
+                "maxNumber": 1
+            }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 70,
+                "height": 70,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
+                    "soundLoop": false
+                }
+            },
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion-blue.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 155,
+                "height": 155,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                    "soundLoop": false
+                }
+            },
+            "guns":[
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 10,
+                    "speed": 6,
+                    "width": 45,
+                    "height": 20,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 30,
+                        "height": 10
+                    },
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": null,
+                    "firePositionX": 200
+                },{
+                    "name": "bomb",
+                    "texture": "/public/images/misc/bullets/bomb_round.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "bomb",
+                    "fireRepead": 30,
+                    "speed": 6,
+                    "width": 40,
+                    "height": 40,
+                    "hitBox": {
+                        "offsetTop": 5,
+                        "offsetLeft": 5,
+                        "width": 10,
+                        "height": 10
+                    },
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 2369,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 16,
+                    "numberOfVerticalItems": 1,
+                    "defaultAngle": {
+                        "max": 195,
+                        "min": 120,
+                        "isRandom": true
+                    },
+                    "sWidth": 148.0625,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 200,
+                    "firePositionX": 180
+                },
+
+                {
+                    "name": "beam",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 90,
+                        "height": 90,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/julien_matthey_science_fiction_laser_001.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "beam",
+                    "fireRepead": 90,
+                    "speed": 50,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 120,
+                    "firePosition": 79,
+                    "firePositionX": 230
                 }
             ]
         }

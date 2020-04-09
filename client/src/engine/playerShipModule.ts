@@ -55,6 +55,20 @@ function shipControl(mainGameObject: any){
         if(mainGameObject.gameInitData.shopActive) return
         shot.call(userShipData, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player")
     })
+
+    document.addEventListener("mousedown", (e: any) => {
+        //console.log('mousedown')
+    })
+    document.addEventListener("mouseup", (e: any) => {
+        //console.log('mouseup')
+    })
+}
+
+function addVehicleSpeed({value, flag}){
+    if(flag) this.data.minSpeed += value;
+    if(!flag) this.data.minSpeed -= value;
+
+    console.log("Speed", this.data.minSpeed, value)
 }
 
 
@@ -91,5 +105,6 @@ export {
     moveShip,
     placeShip,
     setContext,
-    playerShipTextureChange
+    playerShipTextureChange,
+    addVehicleSpeed
 }

@@ -34,6 +34,12 @@
         "color": "rgba(81, 255, 0, 1)",
         "width": 105,
         "height": 20,
+        "hitBox": {
+            "offsetTop": 5,
+            "offsetLeft": 45,
+            "width": 60,
+            "height": 10
+        },
         "sx": 0,
         "sy": 20,
         "imageWidth": 3587,
@@ -82,6 +88,12 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
+            "hitBox": {
+                "offsetTop": 5,
+                "offsetLeft": 15,
+                "width": 30,
+                "height": 10
+            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,
@@ -130,6 +142,12 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
+            "hitBox": {
+                "offsetTop": 5,
+                "offsetLeft": 15,
+                "width": 30,
+                "height": 10
+            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,
@@ -178,6 +196,12 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
+            "hitBox": {
+                "offsetTop": 5,
+                "offsetLeft": 15,
+                "width": 30,
+                "height": 10
+            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,
@@ -227,6 +251,66 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
+            "hitBox": {
+                "offsetTop": 5,
+                "offsetLeft": 15,
+                "width": 30,
+                "height": 10
+            },
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 60,
+            "firePosition": 15
+        },
+
+
+        {
+            "name": "Destroyer",
+            "loadImage": "static/shop/weapons/Destroyer.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 60000,
+            "title": "Destroyer",
+            "status": "power gun",
+            "description": "blaster gun, regular weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/blue-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                "soundLoop": false
+            },
+            "type": "blaster",
+            "fireRepead": 3,
+            "speed": 6,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 20,
+            "hitBox": {
+                "offsetTop": 5,
+                "offsetLeft": 15,
+                "width": 30,
+                "height": 10
+            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,

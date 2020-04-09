@@ -93,7 +93,7 @@
             "name": "Battle in canyon",
             "description": "Battlefield"
         },
-        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelSound": "/public/sound/ambiant/Guitar-Mayhem.mp3",
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
             "levelMap" : "/public/images/locations/canyon/canyon.png",
@@ -483,7 +483,7 @@
             "name": "Earth orbit",
             "description": "Leave Earth"
         },
-        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelSound": "/public/sound/ambiant/Techno-Gameplay.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/Earth orbit/Earth_orbit_map.png",
@@ -543,7 +543,7 @@
             "name": "Moon outpost",
             "description": "Leave Earth"
         },
-        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/Earth orbit/Earth_orbit_map.png",
@@ -592,7 +592,7 @@
         }
     },{
         "level" : 8,
-        "enemyType" : ["intervention", "mine"],
+        "enemyType" : ["baldrin", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : [],
         "enemyProbability" : 250,
@@ -613,7 +613,7 @@
             "name": "Neptune ice",
             "description": "Final fight in the hart of enemy"
         },
-        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelSound": "/public/sound/ambiant/Guitar-Mayhem-5.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/Neptune/space.png",

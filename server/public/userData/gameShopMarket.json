@@ -31,5 +31,23 @@
                 "value": null,
                 "methodName": null
             }
+    },
+
+    {
+        "name": "extraSpeed",
+            "loadImage": "static/shop/store/box.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 500,
+            "speed": 2,
+            "title": "Extra Speed",
+            "status": "inventary object",
+            "description": "Add extra speed to you spacecraft",
+            "type": "object",
+            "grapplePower": {
+                "name": "add_speed",
+                "description": "add box to inventory",
+                "value": 2,
+                "methodName": "addVehicleSpeed"
+            }
     }
 ]

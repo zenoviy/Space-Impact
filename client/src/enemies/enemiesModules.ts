@@ -48,18 +48,24 @@ function moveEnemyes(moveX: number, moveY: number = 0){
 
 function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
     if(mainGameObject.gameInitData.gamePause || !this.isShot) return false;
-    
-    
+
     let guns = (this.guns)? this.guns : this.data.guns;
-if(owner == 'collide'){
-        console.log(guns)
-    }
+ 
     for(let item of guns){
         if(!item || item.type ==='object') continue
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
 
+
+            let angle = (item.defaultAngle)?
+            (item.defaultAngle.isRandom)?
+            mainGameObject.gameRandomizer(item.defaultAngle.max - item.defaultAngle.min, item.defaultAngle.min): item.defaultAngle.angle
+            : this.shotAngle;
+
+
+            //console.log(angle, item.defaultAngle)
             let context = this;
-            let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed, angle: this.shotAngle});
+            let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed,
+                angle: angle});
             let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;
             let firePositionX = (item.firePositionX)? item.firePositionX: 0
 
@@ -74,7 +80,7 @@ if(owner == 'collide'){
                 explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
                 animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
                 sound: item.sound, verticalSpeed: (bulletSettings.verticalSpeed)? bulletSettings.verticalSpeed: 0,
-                degree: (bulletSettings.angle)? bulletSettings.angle: 0
+                degree: (bulletSettings.angle)? bulletSettings.angle: 0, hitBox: (bulletSettings.hitBox)? bulletSettings.hitBox : null
             });
             let soundProps = {
                 soundUrl: bullet.sound.levelSound,
@@ -228,17 +234,46 @@ function spawnCoin(mainGameObject, GrappleObject){
 
 
 function objectIntersectionDetect({object, target}){
+// hitBox
+/*{
+    "offsetTop": 40,
+    "offsetLeft": 20,
+    "width": 240,
+    "height": 200
+},*/
+
+    
+    let objectX = (object.hitBox)? object.x + object.hitBox.offsetLeft : object.x;
+    let objectY = (object.hitBox)? object.y + object.hitBox.offsetTop : object.y;
+    let objectWidth = (object.hitBox)? objectX + object.hitBox.width : object.x + object.width;
+    let objectHeight = (object.hitBox)? objectY +object.hitBox.height : object.y + object.height;
+
+ 
+    let targetX = (target.hitBox)? target.x + target.hitBox.offsetLeft : target.x;
+    let targetY = (target.hitBox)? target.y + target.hitBox.offsetTop : target.y;
+    let targetWidth = (target.hitBox)? targetX + target.hitBox.width : target.x + target.width;
+    let targetHeight = (target.hitBox)? targetY +target.hitBox.height : target.y + target.height;
+
     let collision = null;
-    let xMin = Math.max( object.x, target.x );
+    /*let xMin = Math.max( object.x, target.x );
     let yMin = Math.max( object.y, target.y );
     let xMax = Math.min( object.x + object.width, target.x + target.width );
-    let yMax = Math.min( object.y + object.height, target.y + target.height);
+    let yMax = Math.min( object.y + object.height, target.y + target.height);*/
+
+    let xMin = Math.max( objectX, targetX );
+    let yMin = Math.max( objectY, targetY );
+    let xMax = Math.min( objectWidth, targetWidth );
+    let yMax = Math.min( objectHeight, targetHeight);
 
     let resX = xMax - xMin;
     let resY = yMax - yMin;
     collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
     return collision
 }
+
+
+
+
 
 
 

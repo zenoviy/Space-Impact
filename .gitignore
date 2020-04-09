@@ -46,6 +46,8 @@ jspm_packages/
 client/public/script-test-area/
 client/space-attack-client-win32-ia32/
 appData/
+script-test-area/
+space-attack-client-win32-ia32/
 
 # TypeScript v1 declaration files
 typings/

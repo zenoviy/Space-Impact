@@ -45,58 +45,32 @@ function enemyShipLogicVertical(target, mainGameObject){
     function rushAttack(mainGameObject){
         let randomAttack = mainGameObject.gameRandomizer(1000)
         let screenData = mainGameObject.getScreenSize();
-        /*if(this.x >= this.xFinal && this.rushAtack && this.direction === 'backwards'){
-            this.rushAtack = false;
-        }*/
 
-        if(randomAttack < 1 && !this.rushAtack){
-            console.log('Attack', this.changeXposition, randomAttack, this.direction)
+        if(randomAttack < 1 && !this.rushAtack && !this.searchUser){
+
             this.rushAtack = true;
             this.rushData = 0;
             this.xFinal = 0;
-            //goBackAnForward.call(this, mainGameObject)
+            this.searchUser = true;
             this.speed = (Math.sign(this.speed) > 0)? 16 : 16;
-            //this.direction = 'backwards'
-            //this.changeXposition = true;
         }
         if(this.x <= 2){
-            console.log('forvard', this.xFinal, this.x, screenData.width - this.width * 2, this.changeXposition , this.rushAtack)
+
             this.rushAtack = false;
             this.speed = this.defaultSpeed;
             this.changeXposition = true;
             this.xFinal = screenData.width;
             this.direction = 'forward';
             goBackAnForward.call(this, mainGameObject)
-            //this.changeXposition = false;
         }
 
         if( !this.rushAtack ) goBackAnForward.call( this, mainGameObject )
-        //console.log(randomAttack, this.changeXposition)
-        /*if(this.x <= 1 && this.direction == 'forward'){
-            this.direction = 'backwards';
-            this.xFinal = window.innerWidth;
-            console.log('change pos')
-            this.speed = this.defaultSpeed;
-        }
-        if(this.x > this.xFinal && this.direction == 'backwards') this.rushAtack = false;
-        
-        if(randomAttack > 1 && !this.rushAtack && !this.changeXposition 
-            || randomAttack > 1 && !this.rushAtack && !this.changeXposition
-            || randomAttack > 1 && this.rushAtack && !this.changeXposition) return false;
-
-        console.log('Attack', this.rushAtack, randomAttack, this.changeXposition, this.xFinal)
-        this.direction = 'forward';
-        this.xFinal = 0;
-        this.rushAtack = true;
-        this.speed = 20;*/
 
     }
 
 
 
     function goBackAnForward(mainGameObject){
-
-        console.log(this.changeXposition,  this.xFinal, this.direction, '(- - )')
         if(this.changeXposition && this.direction != 'backwards' ||
          this.changeXposition && this.x < this.xFinal && this.direction != 'backwards' ){
             this.direction = 'backwards';
@@ -106,13 +80,13 @@ function enemyShipLogicVertical(target, mainGameObject){
             let range = screenData.width - randomPoint;
             this.xFinal = range;
             this.rushAtack = false;
-            console.log(1)
+
             cahngeDirrection.call(this)
         }else if(this.changeXposition && this.x > this.xFinal && this.direction != 'forward' ){
             this.direction = 'forward'
             this.changeXposition = false;
+            this.searchUser = false;
             cahngeDirrection.call(this)
-            console.log(2, this.speed)
         }
     }
     function cahngeDirrection(){
@@ -131,7 +105,7 @@ function enemyShipLogicVertical(target, mainGameObject){
          this.speed = this.speed/coeficient;
     }
     function strafe(){
-        if(this.rushAtack) return false
+        if(this.searchUser) return false
         if(this.spotDistance > distanceToTargetX || this.spotDistance > distanceToTargetY){
             this.yFinal = target.y - this.height/2;
             this.enemyVerticalMoveCalculation(distanceToTargetY)
@@ -211,7 +185,7 @@ async function createNewEnemy(enemyData, EnemyObject){
         let extraObjects =  (shipDetails.extraObjects)? await loadExtraObject.call(this, shipDetails.extraObjects): false;
 
         let context = this;
-        
+
        return new EnemyObject(
         {
             x: x, y: y,
@@ -227,7 +201,8 @@ async function createNewEnemy(enemyData, EnemyObject){
             objectOwner: shipDetails.objectOwner, guns: (shipDetails.guns)? shipDetails.guns : [], explosion: shipDetails.explosionAnimation,
             numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
             spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null,
-            isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false, extraObjects: extraObjects, collideExplosionAnimation: shipDetails.collideExplosionAnimation  // load coin element from server 
+            isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false, extraObjects: extraObjects, collideExplosionAnimation: shipDetails.collideExplosionAnimation,  // load coin element from server 
+            defaultAngle: (shipDetails.defaultAngle)? shipDetails.defaultAngle : null, hitBox: (shipDetails.hitBox)? shipDetails.hitBox : null
         });
     }
 }
