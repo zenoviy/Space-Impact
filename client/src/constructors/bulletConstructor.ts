@@ -35,6 +35,7 @@ class BulletConstruct{
     detectFrame: number;
     sound: any; verticalSpeed: number;
     degree: number; hitBox: any;
+    objectNameFlag: string;
 
 
     moveBullets: any;
@@ -70,6 +71,7 @@ class BulletConstruct{
         this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed : 0;
         this.degree = (data.degree)? data.degree : 0;
         this.hitBox = (data.hitBox)? data.hitBox : null;
+        this.objectNameFlag = "bullet";
         //this.picturesWidth = data.picturesWidth;
     }
 }

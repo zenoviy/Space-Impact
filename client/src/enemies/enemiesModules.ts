@@ -8,11 +8,49 @@ import { enterToTheShopDialog } from '../ui/shop/gameShopModule';
 import { angleFinder } from '../engine/engineModules';
 import { horizontalVerticalSearch} from '../engine/gameModules/changeLevels';
 
+function drawcircle({ctx, x, y, width, height, color}){
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, width/2, 0, 2 * Math.PI);
 
-function placeEnemyes(mainGameObject){
+    ctx.fill();
+}
+
+async function placeEnemyes(mainGameObject){
+
     mainGameObject.gameInitData.ctxActionField.save();
-    mainGameObject.gameInitData.ctxActionField.translate(this.x, this.y);
+
+    
+
+
+    
+
+    // (targetData.objectOwner === 'player')?
+
+    let translateIndexAdjustX = await (this.degree < 180)? (this.width/180)*this.degree: (this.width/180)*(360 - this.degree);
+    let translateIndexAdjustY = await (this.degree < 180)? (this.height/180)*this.degree: (this.height/180)*(360 - this.degree);
+    translateIndexAdjustX = (translateIndexAdjustX && this.objectNameFlag === "bullet")? translateIndexAdjustX: 0;
+    translateIndexAdjustY = (translateIndexAdjustY && this.objectNameFlag === "bullet")? translateIndexAdjustY: 0;
+    
+    
+    /*   // Development assets
+    mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
+    mainGameObject.gameInitData.ctxActionField.fillRect(this.x, this.y, this.width, this.height)
+    if(this.objectNameFlag != "bullet"){
+        drawcircle({
+            ctx: mainGameObject.gameInitData.ctxActionField,
+            x: this.x + this.width/2,
+            y: this.y + this.height/2,
+            width: this.height,
+            height: this.height,
+            color: 'rgba(201, 97, 28, .4)'
+        })
+    }*/
+
+
+    mainGameObject.gameInitData.ctxActionField.translate(this.x + translateIndexAdjustX, this.y + translateIndexAdjustY);
     mainGameObject.gameInitData.ctxActionField.rotate( ((this.degree)? this.degree: 0 ) * Math.PI / 180);
+
     createImage(
         mainGameObject.gameInitData.ctxActionField,
         this.img,
@@ -234,15 +272,7 @@ function spawnCoin(mainGameObject, GrappleObject){
 
 
 function objectIntersectionDetect({object, target}){
-// hitBox
-/*{
-    "offsetTop": 40,
-    "offsetLeft": 20,
-    "width": 240,
-    "height": 200
-},*/
 
-    
     let objectX = (object.hitBox)? object.x + object.hitBox.offsetLeft : object.x;
     let objectY = (object.hitBox)? object.y + object.hitBox.offsetTop : object.y;
     let objectWidth = (object.hitBox)? objectX + object.hitBox.width : object.x + object.width;
@@ -265,10 +295,27 @@ function objectIntersectionDetect({object, target}){
     let xMax = Math.min( objectWidth, targetWidth );
     let yMax = Math.min( objectHeight, targetHeight);
 
-    let resX = xMax - xMin;
-    let resY = yMax - yMin;
-    collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
-    return collision
+        let x2 = target.x + target.width/2;//object2.width/2;
+        let y2 = target.y + target.height/2;//object2.height/2;
+        let x1 = object.x + object.width/2;
+        let y1 = object.y + object.height/2;
+        var x = x2 - x1;
+        var y = y2 - y1;
+        var distance = Math.sqrt(x*x + y*y)-(object.height/2 + target.height/2);
+        //if(target && object){ if(this.objectNameFlag != "bullet"){
+            if(target.originObject.objectOwner != "bullet"){
+                if(distance <= 0) {
+                    //console.log('true', target, object)
+                    return "collision"
+                }
+            }
+
+    if(target.originObject.objectOwner != "player" || target.originObject.objectOwner != "player"){
+        let resY = yMax - yMin;
+        let resX = xMax - xMin;
+        collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
+        return collision
+    }
 }
 
 
@@ -287,12 +334,14 @@ function hitDetection(object1, objectsArr, mainGameObject, GrappleObject){
             x: object1Position.x,
             y: object1Position.y,
             width: object1.width || object1Position.width,
-            height: object1.height || object1Position.height
+            height: object1.height || object1Position.height,
+            originObject: object1
         }, target: {
             x: object2.x,
             y: object2.y,
             width: object2.width,
-            height: object2.height
+            height: object2.height,
+            originObject: object1
         }})
         if(collision == "collision"){
             if(object1.takeDamage && object2.takeDamage){

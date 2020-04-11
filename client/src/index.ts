@@ -44,7 +44,7 @@ import { saveGameEvents } from './appMenu/saveLoadMenu';
     process.env.OVERWRITE_SAVE = 'false';
 
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3000/';
-    else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; alert("production mode check HOST")};
+    else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3000/'; console.log("production mode check HOST")};
 
     var mainMenu = document.querySelector("#main-menu")
 

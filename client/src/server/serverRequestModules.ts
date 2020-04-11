@@ -1,6 +1,8 @@
 import { text } from "body-parser";
 const remote = require('electron').remote;
 var fs = require('fs');
+//var os = require('os');
+var path = require('path');
 var storage = require('electron-json-storage');
 
 
@@ -41,8 +43,8 @@ async function getLocalData({fileName}){
 
 function getDefaultSettings(){
     const defaultData = {
-        "soundLevel":"40",
-        "soundEffect":"40",
+        "soundLevel":"5",
+        "soundEffect":"20",
         "soundOn":true,
         "autoshoot":false,
         "fullScreen":true,
@@ -75,19 +77,29 @@ function getDefaultSettings(){
 function getElectronLocalSaves({fileName}){
     if(!fileName) throw Error("no local files");
     let res = new Promise((resolve, reject) => {
+        console.log(1, process.env.NODE_ENV)
         storage.get(fileName, function(err, data) {
-            if (Object.keys(data).length <= 0){
-                var dir = '.' + process.env.APP_SAVE_DIRECTORY;
 
-                if (!fs.existsSync(dir)){
+
+                var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
+                //var dir = (process.env.NODE_ENV === 'production')? __dirname + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
+                console.log(dir)
+                if (!fs.existsSync(dir) ){
                     fs.mkdirSync(dir);
+                    console.log(0)
+                    storage.setDataPath(dir);
+
                 }
-                storage.setDataPath(__dirname + process.env.APP_SAVE_DIRECTORY);
-                writeElectronLocalData({fileName: fileName, data: "[]"})
-                resolve([])
-                return {message: "no save"}
-            }
-            if(err) throw Error(err)
+                if (!fs.existsSync(dir + fileName) && Object.keys(data).length <= 0){
+                    writeElectronLocalData({fileName: fileName, data: "[]"})
+                    resolve([])
+                    console.log(1)
+                    return {message: "no save"}
+                }/**/
+                console.log(2)
+
+                if(err) throw Error(err)
+
             let info = JSON.parse(data);
             if(info) resolve(info)
             else reject("got some problem here")
@@ -98,14 +110,23 @@ function getElectronLocalSaves({fileName}){
 
 function getElectronLocalData({fileName}){
     if(!fileName) throw Error("no local files");
-    storage.setDataPath(__dirname + process.env.APP_SAVE_DIRECTORY);
+    var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY:__dirname + process.env.APP_SAVE_DIRECTORY;
+    //var dir = (process.env.NODE_ENV === 'production')? __dirname + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
+    storage.setDataPath(dir);
     let res = new Promise((resolve, reject) => {
         storage.get(fileName, function(err, data) {
-            if (Object.keys(data).length <= 0){
+            console.log(3, dir, 'dir')
+           // console.log(path.join(__dirname, '../../'))
+            if (!fs.existsSync(dir)){
+                console.log(4)
+                fs.mkdirSync(dir);
+            }
+            if (!fs.existsSync(dir + fileName) && Object.keys(data).length <= 0){
+                console.log(5)
                 writeElectronLocalData({fileName: fileName, data: getDefaultSettings()})
                 resolve(JSON.parse(getDefaultSettings()))
                 return
-            }
+            }/**/
             if(err) throw Error(err)
             let info = JSON.parse(data);
             if(info) resolve(info)
@@ -117,7 +138,10 @@ function getElectronLocalData({fileName}){
 
 function writeElectronLocalData({fileName, data}){
     if(!fileName || !data) return console.error('no data or filename at serverRequestModule')
+
+    
     let res = new Promise((resolve, reject) => {
+        console.log(data, fileName, storage.getDataPath())
         storage.set(fileName, data, function(error) {
             if (error) throw error;
             resolve({message: 'Settings saved'})
