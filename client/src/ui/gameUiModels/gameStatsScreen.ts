@@ -10,7 +10,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             step: [info.life].map(i => i*50),
             description: "Game logotype",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 70,
                 height: 70,
@@ -24,7 +24,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 radius: null,
             },
             loadPicture(){
-                this.propertyes.background.src = pictureDirrection + 'misc/ruby.png';
+                this.properties.background.src = pictureDirrection + 'misc/ruby.png';
             },
             init: function(callback, data?){
                 data = (data)? data: this;
@@ -32,18 +32,18 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 let steps = Array(info.life).fill(0).map((o, i) => i*30);
                 let marginLeft = 30;
                 for(let i = 0; i < this.number; i++){
-                    this.propertyes.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
+                    this.properties.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
                     callback(data)
                 }
             },
             getObjectPosition: getUIObjectPosition
         }, {
             name: "level",
-            text: ` ${(info.currentLevel <= info.allLevels)? 'Current Level ' + info.currentLevel + '/' + info.allLevels : 'finish game'} `,
+            text: ` ${(info.currentLevel <= info.allLevels)? 'Current Level ' + info.currentLevel + '/' + info.allLevels : 'end of the game'} `,
             description: "Game part the name",
             clicked: false,
             fontSize: "bold 16px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 0,
@@ -58,11 +58,11 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Time to end f level",
-            text: (info.minutes || info.seconds)? `Time to level end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >=0)? '': 0}${info.seconds}`: 'Boss level',
+            text: (info.minutes || info.minutes === 0 || info.seconds || info.seconds === 0)? (`Time to level end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >= 0)? '': 0}${info.seconds}`): 'Boss level',
             description: "Game part the name",
             clicked: false,
             fontSize: "light 16px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 50,
                 height: 0,
@@ -81,7 +81,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             description: "Game part the name",
             clicked: false,
             fontSize: "light 18px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: -50,
                 height: 0,
@@ -97,11 +97,11 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
         },{
             name: "coins",
             text: "",
-            number: info.sourse.gameCoins,///info.source.gameCoins,
+            number: info.source.gameCoins,///info.source.gameCoins,
             step: [info.life].map(i => i*50),
             description: "Game logotype",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 100,
                 height: 100,
@@ -115,7 +115,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 radius: null,
             },
             loadPicture(){
-                this.propertyes.background.src = pictureDirrection + 'misc/grapple-objects/coin.png';
+                this.properties.background.src = pictureDirrection + 'misc/grapple-objects/coin.png';
             },
             init: function(callback, data?){
                 data = (data)? data: this;
@@ -123,20 +123,20 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                 numberOfCoin = ( cointIndex > 0 && cointIndex < 10)? cointIndex :(cointIndex >= 10)? 10 : 1 ;
 
                 let steps = Array(numberOfCoin).fill(0).map((o, i) => i*5);
-                let marginLeft = this.propertyes.x;
+                let marginLeft = this.properties.x;
                 for(let i = 0; i < numberOfCoin; i++){
-                    this.propertyes.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
+                    this.properties.x = (i == 0)? marginLeft : 0 + steps[i] + ((i != 0)? marginLeft : 0);
                     callback(data)
                 }
             },
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Game coins",
-            text: `X${info.sourse.gameCoins}`,
+            text: `X${info.source.gameCoins}`,
             description: "Game part the name",
             clicked: false,
             fontSize: "light 18px Roboto",
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: -50,
                 height: 0,

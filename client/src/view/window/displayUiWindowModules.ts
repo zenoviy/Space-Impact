@@ -1,9 +1,9 @@
 
 import { uiText } from '../elements/uiElementModules';
 
-function createWindow(ctx, propertyes){
+function createWindow(ctx, properties){
     let {width, height} = this.getScreenSize();
-    ctx.fillRect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);;
+    ctx.fillRect(properties.x, properties.y, properties.width, properties.height);;
 }
 interface Shapes{
     name: string,
@@ -11,7 +11,7 @@ interface Shapes{
     description: string,
     clicked: boolean,
     fontSize: string,
-    propertyes:{
+    properties:{
         ctx: any,
         width: number,
         height: number,
@@ -33,54 +33,54 @@ interface Shapes{
 }
 
 function createShapeRoundBorder(shapePropertyes: Shapes){
-    let propertyes = shapePropertyes.propertyes;
-    propertyes.ctx.fillStyle = propertyes.background;
-    if(propertyes.gradient){
-        var gradient = propertyes.ctx.createLinearGradient(propertyes.topX, propertyes.topY, propertyes.bottomX, propertyes.bottomY);
-        gradient.addColorStop(0, propertyes.background);
-        gradient.addColorStop(1, propertyes.backGroundFinal);
-        propertyes.ctx.fillStyle = gradient;
+    let properties = shapePropertyes.properties;
+    properties.ctx.fillStyle = properties.background;
+    if(properties.gradient){
+        var gradient = properties.ctx.createLinearGradient(properties.topX, properties.topY, properties.bottomX, properties.bottomY);
+        gradient.addColorStop(0, properties.background);
+        gradient.addColorStop(1, properties.backGroundFinal);
+        properties.ctx.fillStyle = gradient;
     }
 
-    propertyes.ctx.shadowColor = propertyes.shadowColor;
-    propertyes.ctx.shadowBlur = 8;
+    properties.ctx.shadowColor = properties.shadowColor;
+    properties.ctx.shadowBlur = 8;
 
-    propertyes.ctx.beginPath();
-    propertyes.ctx.moveTo(propertyes.x + propertyes.radius, propertyes.y);
-    propertyes.ctx.lineTo(propertyes.x + propertyes.width - propertyes.radius,
-        propertyes.y);
-    propertyes.ctx.quadraticCurveTo(
-            propertyes.x + propertyes.width,
-            propertyes.y, propertyes.x + propertyes.width,
-            propertyes.y + propertyes.radius);
-    propertyes.ctx.lineTo(
-            propertyes.x + propertyes.width,
-            propertyes.y + propertyes.height - propertyes.radius);
-    propertyes.ctx.quadraticCurveTo(
-            propertyes.x + propertyes.width,
-            propertyes.y + propertyes.height,
-            propertyes.x + propertyes.width - propertyes.radius,
-            propertyes.y + propertyes.height);
-    propertyes.ctx.lineTo(
-            propertyes.x + propertyes.radius,
-            propertyes.y + propertyes.height);
-    propertyes.ctx.quadraticCurveTo(
-        propertyes.x,
-        propertyes.y + propertyes.height,
-        propertyes.x, propertyes.y + propertyes.height - propertyes.radius);
-    propertyes.ctx.lineTo(
-        propertyes.x, propertyes.y + propertyes.radius);
-    propertyes.ctx.quadraticCurveTo(propertyes.x,
-        propertyes.y,
-        propertyes.x + propertyes.radius,
-        propertyes.y); /**/
+    properties.ctx.beginPath();
+    properties.ctx.moveTo(properties.x + properties.radius, properties.y);
+    properties.ctx.lineTo(properties.x + properties.width - properties.radius,
+        properties.y);
+    properties.ctx.quadraticCurveTo(
+            properties.x + properties.width,
+            properties.y, properties.x + properties.width,
+            properties.y + properties.radius);
+    properties.ctx.lineTo(
+            properties.x + properties.width,
+            properties.y + properties.height - properties.radius);
+    properties.ctx.quadraticCurveTo(
+            properties.x + properties.width,
+            properties.y + properties.height,
+            properties.x + properties.width - properties.radius,
+            properties.y + properties.height);
+    properties.ctx.lineTo(
+            properties.x + properties.radius,
+            properties.y + properties.height);
+    properties.ctx.quadraticCurveTo(
+        properties.x,
+        properties.y + properties.height,
+        properties.x, properties.y + properties.height - properties.radius);
+    properties.ctx.lineTo(
+        properties.x, properties.y + properties.radius);
+    properties.ctx.quadraticCurveTo(properties.x,
+        properties.y,
+        properties.x + properties.radius,
+        properties.y); /**/
 
-    if(propertyes.isBorder){
-        propertyes.ctx.strokeStyle = propertyes.borderColor;
-        propertyes.ctx.stroke();
+    if(properties.isBorder){
+        properties.ctx.strokeStyle = properties.borderColor;
+        properties.ctx.stroke();
     }
-    propertyes.ctx.closePath();
-    propertyes.ctx.fill()
+    properties.ctx.closePath();
+    properties.ctx.fill()
 
 
 }
@@ -96,7 +96,7 @@ interface ButtonShape{
     description: string,
     clicked: boolean,
     fontSize: string,
-    propertyes:{
+    properties:{
         ctx: any,
         width: number,
         height: number,
@@ -120,61 +120,61 @@ interface ButtonShape{
 }
 
 function createRoundButton(shapePropertyes: ButtonShape){
-    let propertyes = shapePropertyes.propertyes;
-    let textWidth = propertyes.ctx.measureText(shapePropertyes.text).width/3.2;
+    let properties = shapePropertyes.properties;
+    let textWidth = properties.ctx.measureText(shapePropertyes.text).width/3.2;
 
-    let buttonWidth =  propertyes.textProperty.leftPadding + textWidth + propertyes.textProperty.rightPadding;
-    propertyes.ctx.shadowColor = propertyes.shadowColor;
-    propertyes.ctx.shadowBlur = 8;
+    let buttonWidth =  properties.textProperty.leftPadding + textWidth + properties.textProperty.rightPadding;
+    properties.ctx.shadowColor = properties.shadowColor;
+    properties.ctx.shadowBlur = 8;
    
-    propertyes.ctx.fillStyle = propertyes.background;
-    propertyes.ctx.beginPath();
-    propertyes.ctx.moveTo(propertyes.x + propertyes.radius, propertyes.y);
-    propertyes.ctx.lineTo(propertyes.x + buttonWidth - propertyes.radius,
-        propertyes.y);
-    propertyes.ctx.quadraticCurveTo(
-            propertyes.x + buttonWidth,
-            propertyes.y, propertyes.x + buttonWidth,
-            propertyes.y + propertyes.radius);
-    propertyes.ctx.lineTo(
-            propertyes.x + buttonWidth,
-            propertyes.y + propertyes.height - propertyes.radius);
-    propertyes.ctx.quadraticCurveTo(
-            propertyes.x + buttonWidth,
-            propertyes.y + propertyes.height,
-            propertyes.x + buttonWidth - propertyes.radius,
-            propertyes.y + propertyes.height);
-    propertyes.ctx.lineTo(
-            propertyes.x + propertyes.radius,
-            propertyes.y + propertyes.height);
-    propertyes.ctx.quadraticCurveTo(
-        propertyes.x,
-        propertyes.y + propertyes.height,
-        propertyes.x, propertyes.y + propertyes.height - propertyes.radius);
-    propertyes.ctx.lineTo(
-        propertyes.x, propertyes.y + propertyes.radius);
-    propertyes.ctx.quadraticCurveTo(propertyes.x,
-        propertyes.y,
-        propertyes.x + propertyes.radius,
-        propertyes.y); /**/
-        //propertyes.ctx.fillRect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);
-    propertyes.ctx.closePath();
-    propertyes.ctx.fill()
+    properties.ctx.fillStyle = properties.background;
+    properties.ctx.beginPath();
+    properties.ctx.moveTo(properties.x + properties.radius, properties.y);
+    properties.ctx.lineTo(properties.x + buttonWidth - properties.radius,
+        properties.y);
+    properties.ctx.quadraticCurveTo(
+            properties.x + buttonWidth,
+            properties.y, properties.x + buttonWidth,
+            properties.y + properties.radius);
+    properties.ctx.lineTo(
+            properties.x + buttonWidth,
+            properties.y + properties.height - properties.radius);
+    properties.ctx.quadraticCurveTo(
+            properties.x + buttonWidth,
+            properties.y + properties.height,
+            properties.x + buttonWidth - properties.radius,
+            properties.y + properties.height);
+    properties.ctx.lineTo(
+            properties.x + properties.radius,
+            properties.y + properties.height);
+    properties.ctx.quadraticCurveTo(
+        properties.x,
+        properties.y + properties.height,
+        properties.x, properties.y + properties.height - properties.radius);
+    properties.ctx.lineTo(
+        properties.x, properties.y + properties.radius);
+    properties.ctx.quadraticCurveTo(properties.x,
+        properties.y,
+        properties.x + properties.radius,
+        properties.y); /**/
+        //properties.ctx.fillRect(properties.x, properties.y, properties.width, properties.height);
+    properties.ctx.closePath();
+    properties.ctx.fill()
 
-    if(propertyes.isBorder){
-        propertyes.ctx.strokeStyle = propertyes.borderColor;
-        propertyes.ctx.lineWidth = propertyes.borderRadius;
-        propertyes.ctx.stroke();
+    if(properties.isBorder){
+        properties.ctx.strokeStyle = properties.borderColor;
+        properties.ctx.lineWidth = properties.borderRadius;
+        properties.ctx.stroke();
     }
 
-    propertyes.ctx.font = shapePropertyes.fontSize ;
-    propertyes.ctx.fillStyle = propertyes.textProperty.textColor;
-    propertyes.ctx.shadowColor = propertyes.textProperty.shadowColor;
-    propertyes.ctx.shadowBlur = 8;
-    propertyes.ctx.fillText(
+    properties.ctx.font = shapePropertyes.fontSize ;
+    properties.ctx.fillStyle = properties.textProperty.textColor;
+    properties.ctx.shadowColor = properties.textProperty.shadowColor;
+    properties.ctx.shadowBlur = 8;
+    properties.ctx.fillText(
         shapePropertyes.text,
-        propertyes.x + propertyes.textProperty.leftPadding,
-        propertyes.y + propertyes.height/2+ propertyes.textProperty.topPadding);
+        properties.x + properties.textProperty.leftPadding,
+        properties.y + properties.height/2+ properties.textProperty.topPadding);
 }
 export {
     createWindow,

@@ -1,6 +1,8 @@
 
 function updateMap(){
     this.moveEnemyes()
+    //this.width = window.innerWidth;
+    //this.height = window.innerHeight;
     if(Math.sign(this.speed) > 0 && this.x + window.innerWidth < 0){
         this.x = window.innerWidth;
     }else if(Math.sign(this.speed) < 0 && this.x > window.innerWidth){
@@ -14,7 +16,8 @@ function changePartOfTexture(mainGameObject, backgroundArray){
     if(levelData.minutes <= this.timeToExtraMapMinutes
     && levelData.seconds <= this.timeToExtraMapSeconds
     && this.extraMap && this.x + 200 >= window.innerWidth){
-        this.img.src = __dirname + this.extraMap;
+        this.texture = __dirname + this.extraMap
+        this.loadTexture();
     }
 }
 

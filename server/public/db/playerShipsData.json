@@ -1,15 +1,185 @@
 [
     {
         "id": 1,
+        "name": "Blockade Runner",
+        "texture": "/public/images/spaceShips/blockade_runner/space_ship_Blockade_runner.png",
+        "hangarImage": "static/hangar/Blockade_runner/Blockade-Runner-model.png",
+        "background": "static/shop/misc/blue-card.png",
+        "price": 4000,
+        "title": "Blockade Runner",
+        "status": "small ship",
+        "description": "Small planetary ship",
+        "healthPoint": 150,
+        "armor": 15,
+        "speed": 10,
+        "minSpeed": 3,
+        "inventoryCapacity": 2,
+        "inventory": [null, null],
+        "firespot": [
+            {
+                "positionX": 320,
+                "positionY": 140,
+                "shipXPosition": 25,
+                "shipYPosition": 10
+            },
+            {
+                "positionX": 100,
+                "positionY": 140,
+                "shipXPosition": 15,
+                "shipYPosition": 5
+            }
+        ],
+        "damage": 260,
+        "width": 80,
+        "height": 35,
+        "hitBox": {
+            "offsetTop": 10,
+            "offsetLeft": 5,
+            "width": 60,
+            "height": 25
+        },
+        "sx": 0,
+        "sy": 20,
+        "imageWidth": 2735,
+        "imageHeight":128,
+        "animationSteps": 5,
+        "numberOfItems": 8,
+        "numberOfVerticalItems": 1,
+        "sWidth": 342,
+        "sHeight": 128,
+        "size":{
+            "width": 75,
+            "height": 35
+        },
+        "collideExplosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion.png",
+            "imageWidth": 12891,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 44,
+            "sx": 0,
+            "sy": 0,
+            "width": 70,
+            "height": 70,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                "soundLoop": false
+            }
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-blue.png",
+            "imageWidth": 12891,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 44,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                "soundLoop": false
+            }
+        },
+        "guns":[
+            {
+                "name": "Machinegun",
+                "loadImage": "static/shop/weapons/Machinegun.png",
+                "background": "static/shop/misc/blue-card.png",
+                "price": 100,
+                "title": "Machinegun",
+                "description": "blaster gun, regular weapon for you spaceship",
+                "hangarImage": "static/shop/weapons/Machinegun.png",
+                "texture": "/public/images/misc/bullets/bullet-gun.png",
+                "explosionAnimation": {
+                    "texture": "/public/images/misc/fire/explosion.png",
+                    "imageWidth": 12891,
+                    "imageHeight":294,
+                    "animationSteps": 1,
+                    "numberOfItems": 44,
+                    "sx": 0,
+                    "sy": 0,
+                    "width": 25,
+                    "height": 25,
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                        "soundLoop": false
+                    }
+                },
+                "sound": {
+                    "levelSound": "/public/sound/weapons/weapon_gun_ak_47_C_30.mp3",
+                    "soundLoop": false
+                },
+                "type": "cannon",
+                "fireRepead": 3,
+                "speed": 10,
+                "color": "rgba(81, 255, 0, 1)",
+                "width": 105,
+                "height": 20,
+                "sx": 0,
+                "sy": 20,
+                "imageWidth": 3587,
+                "imageHeight":109,
+                "animationSteps": 5,
+                "numberOfItems": 12,
+                "numberOfVerticalItems": 1,
+                "sWidth": 299,
+                "sHeight": 109,
+                "damage": 10,
+                "firePosition": 10,
+                "firePositionX": 25
+            }
+        ]
+    },
+
+
+
+    {
+        "id": 2,
         "name": "Interceptor",
-        "texture": "spaceShips/space_ship_interceptor.png",
+        "texture": "/public/images/spaceShips/space_ship_interceptor.png",
+        "hangarImage": "static/hangar/interceptor/interceptor-model.png",
+        "background": "static/shop/misc/blue-card.png",
+        "title": "Interceptor",
+        "status": "medium ship",
+        "description": "medium orbital ship",
+        "healthPoint": 300,
+        "price": 60000,
         "armor": 65,
         "speed": 10,
         "minSpeed": 5,
-        "firespot": 1,
+        "inventoryCapacity": 6,
+        "inventory": [null, null, null, null, null, null],
+        "firespot": [
+            {
+                "positionX": 110,
+                "positionY": 50,
+                "shipXPosition": 5,
+                "shipYPosition": 1
+            },
+            {
+                "positionX": 280,
+                "positionY": 150,
+                "shipXPosition": 25,
+                "shipYPosition": 10
+            },
+            {
+                "positionX": 110,
+                "positionY": 260,
+                "shipXPosition": 5,
+                "shipYPosition": 25
+            }
+        ],
         "damage": 260,
         "width": 75,
         "height": 25,
+        "hitBox": {
+            "offsetTop": 10,
+            "offsetLeft": 5,
+            "width": 60,
+            "height": 10
+        },
         "sx": 0,
         "sy": 20,
         "imageWidth": 2735,
@@ -55,8 +225,15 @@
             }
         },
         "guns":[
+            null,
             {
-                "name": "blaster",
+                "name": "Blaster",
+                "loadImage": "static/shop/weapons/blaster.png",
+                "background": "static/shop/misc/blue-card.png",
+                "price": 100,
+                "title": "Blaster",
+                "description": "blaster gun, regular weapon for you spaceship",
+                "hangarImage": "static/shop/weapons/blaster.png",
                 "texture": "/public/images/misc/bullets/green-laser.png",
                 "explosionAnimation": {
                     "texture": "/public/images/misc/fire/explosion.png",
@@ -93,7 +270,8 @@
                 "sWidth": 299,
                 "sHeight": 109,
                 "damage": 30,
-                "firePosition": 15
+                "firePosition": 10,
+                "firePositionX": 25
             }
         ]
     }

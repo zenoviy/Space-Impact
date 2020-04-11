@@ -5,6 +5,7 @@ async function getGameData (req, res) {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
 
         let readObject = JSON.parse(data)
+        if(!readObject)return res.send({message: "problem occured in game data"})
         res.send(readObject)
     })
 }

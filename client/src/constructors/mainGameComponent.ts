@@ -18,7 +18,8 @@ import {
     delateSideObject,
     collectPoints,
     changeLevelProcedure,
-    getRandomColor } from '../engine/engineModules';
+    getRandomColor,
+    getImageFromFields } from '../engine/engineModules';
 import { initPlayerShip } from '../engine/playerShipModule';
 import {
     uiController,
@@ -34,7 +35,7 @@ import {
     showGameStats,
     initUiElements } from '../ui/gameUiModules';
 import { gameStart, backToStartScreen, exitTheGame, mapSoundChanger } from '../engine/gameModules/satartGame';
-import { mapRanomObjectSpawn } from '../engine/gameSideObjectsModule';
+import { mapRandomObjectSpawn } from '../engine/gameSideObjectsModule';
 import { initGrappleObject } from '../engine/gameGrappleObjectsModule';
 import { gameSettingsMenuInit } from '../appMenu/menuSettings';
 import { createSound } from '../engine/soundModules';
@@ -54,7 +55,6 @@ interface gameData{
     allGameSideObjects: object[],
     allGameEnemies: object[],
     allGameBullets: object[],
-    allGameMapOBjects: object[],
     mapBackgroundObjects: object[],
     warpObjects: object[];
     timeToEressLevel: number;
@@ -91,6 +91,7 @@ interface serverLocation{
 }
 class Game {
     gameInitData: any;
+    shopArea: any;
     //placePlayerShip: any;
     initField: any;
     initPlayerShip: any;
@@ -130,10 +131,11 @@ class Game {
     showPauseWindow: any;
     nextLevelDataReload: any;
     getRandomColor: any;
-    mapRanomObjectSpawn: any;
+    mapRandomObjectSpawn: any;
     initGrappleObject: any;
     gameSettingsMenuInit: any;
     createSound: any;
+    getImageFromFields: any;
     constructor(gameInitData: any){
         this.gameInitData = gameInitData;
     }
@@ -148,6 +150,7 @@ class Game {
             gameData: this.gameInitData.gameData,
             settings: this.gameInitData.gameData.gameSetings,
             levelSounds: this.gameInitData.gameData.levelSounds,
+            playerObject: this.gameInitData.gameData.playerObject,
             imageDirrection: __dirname + '/public/images/',
         }
     }
@@ -216,11 +219,12 @@ Game.prototype.nextLevelDataReload = nextLevelDataReload;
 Game.prototype.changeLevelProcedure = changeLevelProcedure;
 
 Game.prototype.getRandomColor = getRandomColor;
-Game.prototype.mapRanomObjectSpawn = mapRanomObjectSpawn;
+Game.prototype.mapRandomObjectSpawn = mapRandomObjectSpawn;
 
 Game.prototype.initGrappleObject = initGrappleObject;
 Game.prototype.gameSettingsMenuInit = gameSettingsMenuInit;
 Game.prototype.createSound = createSound;
+Game.prototype.getImageFromFields = getImageFromFields;
 export {
     Game,
 }

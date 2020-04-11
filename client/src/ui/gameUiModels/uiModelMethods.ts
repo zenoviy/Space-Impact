@@ -5,10 +5,10 @@ function init(callback, data?){
 function getUIObjectPosition(){
     let context = this;
     return {
-        x: context.propertyes.x,
-        y: context.propertyes.y,
-        width: context.propertyes.width,
-        height: context.propertyes.height,
+        x: context.properties.x,
+        y: context.properties.y,
+        width: context.properties.width,
+        height: context.properties.height,
     }
 }
 

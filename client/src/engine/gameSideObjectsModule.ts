@@ -1,15 +1,20 @@
-import { timingSafeEqual } from "crypto";
 import { loadExtraObject } from "../ai/regularEnemyAiModules";
 import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
+import { angleFinder } from './engineModules';
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
-    let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
-
+    
+    //let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
     let explosionData = {
-            x: targetData.x - targetData[explosion].width/2,
-            y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
+
+            //x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width : targetData.x ,
+            //y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
+            x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width : targetData.x - targetData[explosion].width,
+            y: (targetData.objectOwner === 'player')? targetData.y - targetData[explosion].width/2 :
+            (targetData.objectOwner === 'collide' || targetData.objectOwner === 'environment')? targetData.y :
+            (targetData.objectOwner === 'enemy')?  targetData.y - targetData[explosion].width/2:  targetData.y - targetData[explosion].width,
             sx: 0,
             sy: 0,
             objectOwner: "explosion",
@@ -21,7 +26,7 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
             target: hitObject.objectOwner,
             numberOfItems: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
             texture: targetData[explosion].texture,
-            speed: hitObject.speed/2,
+            speed: (hitObject.objectOwner === 'player')? targetData.speed: hitObject.speed/2,
             picturesWidth: targetData[explosion].imageWidth,
             sound: targetData[explosion].sound
         }
@@ -34,7 +39,7 @@ function explosionFire(targetData, mainGameObject, hitObject, SideObject, explos
         sideObject.img.onload = () => {
             mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
         }
-        sideObject.img.src = sideObject.texture;
+        sideObject.loadTexture();
 }
 function fireAnimationEnded( allGameSideObjects ){
     this.detectFrame += 1;
@@ -54,23 +59,35 @@ function mapObjectMove(){
     this.x -= (this.speed)? this.speed: 3;
 }
 
-async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideObjects: any[]){
+async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGameSideObjects: any[]){
     this.getSecondMeasure( mapObjectSpawner, levelObjects, SideObject, allGameSideObjects)
 
     async function mapObjectSpawner (levelObjects, SideObject, allGameSideObjects){
         let gameData = this.showGameInfo().gameData;
+        let data = this.getLevelUserData();
         let levelData = gameData.levelData;
         let spawnProbability = this.gameRandomizer(levelData.objectProbability);
         let context = this;
         if(spawnProbability < levelData.objectMinTimeSpawn){
             let screenData  = this.getScreenSize();
             let levelObjectProps = levelObjects[this.gameRandomizer(levelObjects.length)];
+            if(!levelObjectProps) return false
+            let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")? window.innerHeight - this.gameRandomizer(levelObjectProps.height/2, levelObjectProps.height/2)
+                :(levelObjectProps.spawnDetails.position == "top" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height/3)
+                :(levelObjectProps.spawnDetails.position == "scene" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height)
+                :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(window.innerHeight)
+                : levelObjectProps.spawnDetails.position ;
 
-            let yPosition = (levelObjectProps.spawnDetails.position == "bottom" && typeof levelObjectProps.spawnDetails.position === "string")? window.innerHeight - this.gameRandomizer(levelObjectProps.height)
-            :(levelObjectProps.spawnDetails.position == "top" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height/3)
-            :(levelObjectProps.spawnDetails.position == "scene" && typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(levelObjectProps.height)
-            :(typeof levelObjectProps.spawnDetails.position === "string")? this.gameRandomizer(window.innerHeight)
-            : levelObjectProps.spawnDetails.position ;
+
+            if(levelObjectProps.objectOwner == 'hangar' && this.gameInitData.tradepostInRange) return false
+            if(levelObjectProps.objectOwner == 'hangar'){
+                let probability = this.gameRandomizer(levelObjectProps.probability)
+                //console.log(probability, levelObjectProps.probability)
+                if( probability > 50 && data.minutes > 0 || probability > 500 && data.minutes === 0 ) return false // 1000
+                this.gameInitData.tradepostInRange = true;
+            }
+
+
 
             let extraObjects =  (levelObjectProps.extraObjects)? await loadExtraObject.call(this, levelObjectProps.extraObjects): false;
             let extraObjectObjectsData = {
@@ -96,24 +113,78 @@ async function mapRanomObjectSpawn(levelObjects: any[], SideObject: any, allGame
                 pointsPerUnit: levelObjectProps.pointsPerUnit,
                 extraObjects: extraObjects,
                 collideExplosionAnimation: (levelObjectProps.collideExplosionAnimation)? levelObjectProps.collideExplosionAnimation: null,
-                sound: levelObjectProps.sound
+                sound: levelObjectProps.sound,
+                side: (levelObjectProps.side)? levelObjectProps.side : null,
+                rapidFire: (levelObjectProps.rapidFire)? levelObjectProps.rapidFire : null,
+                isShot: (levelObjectProps.isShot)? levelObjectProps.isShot : false,
+                guns: (levelObjectProps.guns)? levelObjectProps.guns : null,
+                tradePropertyes: (levelObjectProps.tradePropertyes)? levelObjectProps.tradePropertyes : null,
+                defaultAngle: (levelObjectProps.defaultAngle)? levelObjectProps.defaultAngle : null
             }
             let sideObject = new SideObject({...extraObjectObjectsData});
 
              sideObject.img.onload = () => {
                 context.gameInitData.allGameSideObjects = context.gameInitData.allGameSideObjects.concat(sideObject);
             }
-            sideObject.img.src = sideObject.texture;
             sideObject.img.onload = () => {
                 this.gameInitData.allGameSideObjects = this.gameInitData.allGameSideObjects.concat(sideObject);
             }
+            sideObject.loadTexture();
         }
     }
+}
+
+function loadTexture(){
+    this.img.src = this.texture;
+}
+
+function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies){
+    if(allGameEnemies.length < 0) return false
+    let closestUnit;
+    let closestUnitXrange = Infinity;
+    let closestUnitYrange = Infinity;
+
+    for(let ship of allGameEnemies){
+        if(!ship) continue
+        let distanceX = (ship.x > this.x)? ship.x - this.x : this.x - ship.x;
+        let distanceY = (ship.y > this.y)? ship.y - this.y : this.y - ship.y;
+
+
+        let minx = Math.min(ship.x + (distanceX / ship.speed), this.x);
+        let maxx = Math.max(ship.x + (distanceX / ship.speed), this.x);
+        let miny = Math.min(ship.y, this.y);
+        let maxy = Math.max(ship.y, this.y);
+        let xRange = maxx - minx;
+        let yRange = maxy - miny;
+
+        if( xRange < closestUnitXrange && yRange < closestUnitYrange ){
+            closestUnit = ship
+        }
+    }
+    if(!closestUnit || closestUnit.x > window.innerWidth) return false
+    let angle = angleFinder({object: this, target: closestUnit})
+
+    if(this.defaultAngle){
+        switch (true){
+            case angle > this.defaultAngle.min || angle <  this.defaultAngle.max:
+                angle = 0;
+                break
+            case angle < this.defaultAngle.min || angle >  this.defaultAngle.max:
+                break
+            default:
+                angle = 0;
+        }
+    }
+
+    this.shotAngle = angle;
+    this.shot(BulletConstruct, mainGameObject, SoundCreator, owner)
 }
 
 export {
     explosionFire,
     fireAnimationEnded,
-    mapRanomObjectSpawn,
-    mapObjectMove
+    mapRandomObjectSpawn,
+    mapObjectMove,
+    sideObjectShot,
+    loadTexture
 }

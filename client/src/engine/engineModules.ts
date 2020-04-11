@@ -1,5 +1,10 @@
+var fs = require('fs');
+var storage = require('electron-json-storage');
+import mergeImages from 'merge-images';
 import { draw } from '../view/displayModules';
+import { explosionFire } from '../enemies/enemiesModules';
 const { ipcRenderer, remote } = require( "electron" );
+import * as costructors from '../constructors'
 //import { levelConstructor } from '../constructors/levelConstructors';
 
 
@@ -8,7 +13,7 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
         this.gameInitData.gameField,
         this.gameInitData.gameActionField,
         this.gameInitData.gameUIField
-        )
+    )
     if(!gameField) throw Error('Error');
     for(let screen of gameField){
         screen = Object.assign(screen, {width: screenWidth-4, height: screenHeight-4})
@@ -26,7 +31,7 @@ function setGameFields(){
 
 
 function warpEffect(){
-    let screenSiz = this.getScreenSize();
+    //let screenSiz = this.getScreenSize();
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
     this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
@@ -55,11 +60,9 @@ function warpEffect(){
         let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
-            //console.log('change music')
 
             this.gameInitData.levelWindowDescription = true;
             this.changeLevelProcedure()
-            //this.mapSoundChanger({soundStatus:'regular_level'})
         }
     }
 }
@@ -75,7 +78,7 @@ function levelInit(GameBackground, ctx, mainGameObject){
     for(let mapObject of allBackgroundElements){
 
         let mapItem = new GameBackground({
-            backgroundTexture: mapObject.levelMap, speed: mapObject.speed,
+            texture: mapObject.levelMap, speed: mapObject.speed,
             screenData: this.gameInitData.screen, ctx: ctx,
             partOfScreenStatus: (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
             extraMap: (mapObject.extraMap)? mapObject.extraMap : null,
@@ -88,7 +91,7 @@ function levelInit(GameBackground, ctx, mainGameObject){
             numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems: levelStandartMap.numberOfVerticalItems
         });
         mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
-        mapItem.img.src = __dirname + mapItem.backgroundTexture;
+        mapItem.loadTexture();
     }
 }
 
@@ -108,6 +111,17 @@ function getScreenSize(){
 }
 
 
+/**/function destroyAlEnemy(){
+    let enemyes = this.gameInitData.allGameEnemies;
+    if( !enemyes || enemyes.length < 1) return false
+    for(let ship of enemyes){
+        ship.objectPresent = false;
+            //collideExplosionAnimation
+            //explosionFire(ship, this, ship, costructors.SideObject, "collideExplosionAnimation");
+            //explosionFire(ship, this, ship, costructors.SideObject, "explosion");
+    }
+}
+
 
 
 function changeLevelProcedure(){
@@ -119,6 +133,7 @@ function changeLevelProcedure(){
     if(level <= levelData.gameData.levelData.allLevels){
         this.nextLevelDataReload(levelData)
     }else{
+        destroyAlEnemy.call(this)
         this.mapSoundChanger({soundStatus:'game_win'})
         this.gameInitData.gameWin = true;
         this.gameInitData.levelWindowDescription = false;
@@ -127,13 +142,14 @@ function changeLevelProcedure(){
 
 
 function levelTimer(){
+        //if(this.gameInitData.shopActive) return
         let data = this.getLevelUserData()
-        if(!data.sourse.levelData.bossPresent){
-            let levelTime = data.sourse.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
-            if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.sourse.levelData.levelDetails);
+        if(!data.source.levelData.bossPresent){
+            let levelTime = data.source.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
+            if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.source.levelData.levelDetails);
         }else{
-            data.sourse.levelData.levelDetails.levelSeconds = null;
-            data.sourse.levelData.levelDetails.levelMinutes = null;
+            data.source.levelData.levelDetails.levelSeconds = null;
+            data.source.levelData.levelDetails.levelMinutes = null;
         }
         function levelTimeAction(time){
             if(time.levelSeconds <= 0){
@@ -154,7 +170,10 @@ async function getSecondMeasure(callback, ...data){
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
+
         this.gameInitData.gemeExtraSeconds = 0;
+        if(!this.gameInitData.shopActive) this.gameInitData.tradeShipTimeToUndock -= 1;
+        if(this.gameInitData.tradeShipTimeToUndock < 0) this.gameInitData.tradeShipTimeToUndock = 0;
         if(await callback) return await callback.call(this, ...data);
         return gameSecond;
     }
@@ -173,7 +192,7 @@ function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = dataSourse.levelData.levelDetails;
     return {
-        sourse: dataSourse,
+        source: dataSourse,
         currentLevel: dataSourse.currentLevel,
         allLevels: dataSourse.levelData.allLevels,
         points: dataSourse.currentPoint,
@@ -189,9 +208,11 @@ function getLevelUserData(){
 
 
 function deleteBullet(bullet){
-    if(bullet.x > window.innerWidth
+    if(bullet.x > window.innerWidth + 500
         || bullet.x < bullet.width * -1
-        || !bullet.objectPresent){
+        || !bullet.objectPresent
+        || bullet.y > window.innerHeight + 500
+        || bullet.y < 0 - 500){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
@@ -214,6 +235,9 @@ function delateSideObject(object){
     if(!object.objectPresent || object.x < 0 - object.width){
         let index = this.gameInitData.allGameSideObjects.indexOf(object);
         this.gameInitData.allGameSideObjects.splice(index, 1);
+        if(object.objectOwner == 'hangar'){
+            this.gameInitData.tradepostInRange = false;
+        }
     }
 }
 
@@ -238,9 +262,45 @@ function getObjectPosition(){
 }
 
 
+async function getImageFromFields({saveGameData}){
+    let background = await this.gameInitData.gameField.toDataURL();
+    let gameField = await this.gameInitData.gameActionField.toDataURL();
+
+    let path = process.env.APP_SAVE_DIRECTORY
+    await savePictures({picture_64: await background.replace(/^data:image\/png;base64,/, ""),
+    filename: 'background'})
+    let res = await savePictures({picture_64: await gameField.replace(/^data:image\/png;base64,/, ""),
+    filename: 'gameField'})
+    .then(async resolve => {
+        return await mergeImages([__dirname + process.env.APP_SAVE_DIRECTORY + '/background.png',
+        __dirname + process.env.APP_SAVE_DIRECTORY +  '/gameField.png'], {
+            width: 1300,
+            height: 680
+          }).then(async pic => {
+                await savePictures({picture_64: await pic.replace(/^data:image\/png;base64,/, ""),
+            filename: saveGameData.saveName})
+            return true
+        })
+    })
+    return res
+}
+
+async function savePictures({picture_64, filename}){
+    return new Promise((resolve, reject) => {
+        fs.writeFile(storage.getDataPath() + `/${filename}.png`, picture_64, 'base64', function (err) {
+            if(err){
+                reject(false)
+                return console.error(err)
+            };
+            resolve(true)
+        });
+    })
+}
+
+
 
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';// '0123456789ABCDEF'  '6789ABC';
+    var letters = '0123456789ABCDEF';
     var color = '#';
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
@@ -271,9 +331,25 @@ function preloadImage(items){
 
 function fullScreenSwitch({fullscreen}){
     ipcRenderer.on('asynchronous-reply', (event, arg) => {
-        //console.log(arg) // 
     })
     ipcRenderer.send('asynchronous-message', {fullscreen: fullscreen})
+}
+
+
+function angleFinder({object, target}){
+    let distanceX = (target.x > object.x)? target.x - object.x : object.x - target.x;
+
+
+    let targetX = (Math.sign(target.x) > 0)? target.x: 0,
+    targetY = (Math.sign(target.y) > 0)? target.y: 0
+
+    let objectX = (Math.sign(object.x) > 0)? object.x: 0,
+    objectY = (Math.sign(object.y) > 0)? object.y: 0
+
+    let item = (targetY - objectY)/(targetX - objectX);
+
+    let rotateAngle = Math.atan2(targetY - objectY, targetX + (distanceX / target.speed) - objectX) * 180 / Math.PI;
+    return rotateAngle
 }
 
 
@@ -296,5 +372,7 @@ export  {
     getObjectPosition,
     collectPoints,
     preloadImage,
-    fullScreenSwitch
+    fullScreenSwitch,
+    angleFinder,
+    getImageFromFields
 }

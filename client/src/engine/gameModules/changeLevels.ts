@@ -23,14 +23,16 @@ async function nextLevelDataReload(levelData){
         allGameSideObjects: [],
         allGameEnemies: [],
         allGameBullets: [],
-        allGameMapOBjects: [],
         mapBackgroundObjects: [],
         gamePause: false,
         gameUiPause: false,
         backScreenPause: true,
         gameOver: false,
         grappleObjectOnScreen: false,
+        tradepostInRange: false,
+        shopActive: false,
         gemeExtraSeconds: 0,
+        tradeShipTimeToUndock: 0
     }
 
     setTimeout(()=>{
@@ -38,18 +40,19 @@ async function nextLevelDataReload(levelData){
         context.gameInitData.timeToEressLevel = 6;
         context.gameInitData.levelChange = false;
         context.gameInitData.levelWindowDescription = false;
-        
+        process.env.BOSS_LOAD_AT_LEVEL = "false";
     }, 5000)
 
-    horizontalVerticalSearch.call(this, this.gameInitData)
+    horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
     this.mapSoundChanger({soundStatus:'regular_level'})
-    function horizontalVerticalSearch(mainObject){
-        for(let [key, value] of Object.entries(mainObject)){
-            if(typeof mainObject[key] == 'object' && value != null && !mainObject[key].length ){
-                horizontalVerticalSearch(mainObject[key])
-            }
-            assignValue.call(this, key, mainObject)
+
+}
+function horizontalVerticalSearch(mainObject, refreshLevel){
+    for(let [key, value] of Object.entries(mainObject)){
+        if(typeof mainObject[key] == 'object' && value != null && !mainObject[key].length ){
+            horizontalVerticalSearch(mainObject[key], refreshLevel)
         }
+        assignValue.call(this, key, mainObject)
     }
     function assignValue(incomeKey, mainData){
         for(let [key, val] of Object.entries(refreshLevel)){
@@ -59,13 +62,22 @@ async function nextLevelDataReload(levelData){
         }
     }
 }
-function changeShip(){
 
-}
-function changeWeapon(){
 
+
+function renewPlayerShip({originData, newData}){
+    for(let [key, value] of Object.entries(originData)){
+        if(newData[key] && originData[key] != newData[key]){
+            originData[key] = newData[key]
+        }
+    }
+    return originData
 }
+
+
 
 export {
-    nextLevelDataReload
+    nextLevelDataReload,
+    horizontalVerticalSearch,
+    renewPlayerShip
 }

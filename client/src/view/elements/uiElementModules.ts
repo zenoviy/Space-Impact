@@ -5,7 +5,7 @@ interface ImageShapes{
     description: string,
     clicked: boolean,
     fontSize: string,
-    propertyes:{
+    properties:{
         ctx: any,
         width: number,
         height: number,
@@ -20,47 +20,47 @@ interface ImageShapes{
     }
 }
 function uiImage(shapePropertyes: ImageShapes){
-    let propertyes = shapePropertyes.propertyes;
+    let properties = shapePropertyes.properties;
 
-    propertyes.ctx.shadowColor = propertyes.shadowColor;
-    propertyes.ctx.shadowBlur = 8;
+    properties.ctx.shadowColor = properties.shadowColor;
+    properties.ctx.shadowBlur = 8;
 
-    propertyes.ctx.drawImage(
-        propertyes.background, 0, 0,
-        propertyes.sWidth, propertyes.sHeight,
-        propertyes.x, propertyes.y,
-        propertyes.width, propertyes.height
+    properties.ctx.drawImage(
+        properties.background, 0, 0,
+        properties.sWidth, properties.sHeight,
+        properties.x, properties.y,
+        properties.width, properties.height
         );
 }
 function uiText(shapePropertyes: ImageShapes){
-    let propertyes = shapePropertyes.propertyes;
-//propertyes.ctx.save();
+    let properties = shapePropertyes.properties;
+//properties.ctx.save();
 
-    let textWidth = propertyes.ctx.measureText(shapePropertyes.text).width/3.2;
-    propertyes.ctx.shadowColor = propertyes.shadowColor;
-    propertyes.ctx.shadowBlur = 8;
+    let textWidth = properties.ctx.measureText(shapePropertyes.text).width/3.2;
+    properties.ctx.shadowColor = properties.shadowColor;
+    properties.ctx.shadowBlur = 8;
 
 
-    propertyes.ctx.font = shapePropertyes.fontSize ;
-    propertyes.ctx.fillStyle = propertyes.borderColor;
-    propertyes.ctx.fillText(
+    properties.ctx.font = shapePropertyes.fontSize ;
+    properties.ctx.fillStyle = properties.borderColor;
+    properties.ctx.fillText(
         shapePropertyes.text,
-        propertyes.x + propertyes.width,
-        propertyes.y + propertyes.height);
-    //propertyes.ctx.save();
-    //propertyes.ctx.translate(0,0);
-    // propertyes.ctx.restore();
+        properties.x + properties.width,
+        properties.y + properties.height);
+    //properties.ctx.save();
+    //properties.ctx.translate(0,0);
+    // properties.ctx.restore();
 }
 function uiRepeatImage(shapePropertyes: ImageShapes){
-    let propertyes = shapePropertyes.propertyes;
-    let pat = propertyes.ctx.createPattern(propertyes.background, 'repeat-x');
+    let properties = shapePropertyes.properties;
+    let pat = properties.ctx.createPattern(properties.background, 'repeat-x');
 
-    propertyes.ctx.shadowColor = propertyes.shadowColor;
-    propertyes.ctx.shadowBlur = 8;
-    //propertyes.ctx.rect(propertyes.x, propertyes.x, propertyes.width, propertyes.height);
-    propertyes.ctx.rect(propertyes.x, propertyes.y, propertyes.width, propertyes.height);
-    propertyes.ctx.fillStyle = pat;
-    propertyes.ctx.fill();
+    properties.ctx.shadowColor = properties.shadowColor;
+    properties.ctx.shadowBlur = 8;
+    //properties.ctx.rect(properties.x, properties.x, properties.width, properties.height);
+    properties.ctx.rect(properties.x, properties.y, properties.width, properties.height);
+    properties.ctx.fillStyle = pat;
+    properties.ctx.fill();
 }
 
 export {

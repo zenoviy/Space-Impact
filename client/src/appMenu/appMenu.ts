@@ -76,7 +76,8 @@ function appMenu(gameObject, dialogWindow){
                     }
                 }
                 function menuSelection(event){
-                    if(event.target.parentElement.tagName == "LI"){
+                    if(!event.target.parentElement) return false
+                    if(event.target.parentElement.tagName != "LI") return false
                         let menuArea = Array.prototype.slice.call(document.querySelectorAll(".selected-items"));
                         for(let menuItem of menuArea){
                             removeClassList(menuItem, "selected-items")
@@ -87,7 +88,6 @@ function appMenu(gameObject, dialogWindow){
                             event.target.dataset.buttonId != "exit" &&
                             event.target.dataset)? event.target.parentElement : selectedMenuItem;
                         addClassList(event.target.parentElement, "selected-items");
-                    }
                 }
             },
             showSection(event) {
@@ -172,7 +172,7 @@ function dialogWindow( {textData, rejectText, acceptText}, callback, navigation,
             <div class="dialog-text">${textData}</div>
             <div id="dialog-button-area" class="dialog-btn-area">
             <button data-button-id=${acceptText} class="accept-btn btn-main">${acceptText}</button>
-           <button data-button-id="cancel" class="reject-btn btn-main">cancel</button>
+           <button data-button-id="cancel" class="reject-btn btn-main btn-orange-reject">cancel</button>
        </div>`,
             attributeName: 'data-button-id',
             attribute: acceptText,

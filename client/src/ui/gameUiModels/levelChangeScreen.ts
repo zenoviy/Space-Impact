@@ -1,7 +1,7 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 
 function levelChangeScreen(data: any,ctx: any, width: number, height: number, pictureDirrection: any, info: any){
-    let levelData = info.sourse.levelData;
+    let levelData = info.source.levelData;
     return data || [
         {
             name: "Screen name",
@@ -9,7 +9,7 @@ function levelChangeScreen(data: any,ctx: any, width: number, height: number, pi
             description: "text for game over window",
             fontSize: "30px Roboto",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 50,
@@ -26,12 +26,12 @@ function levelChangeScreen(data: any,ctx: any, width: number, height: number, pi
             getObjectPosition: getUIObjectPosition
         },
         {
-            name: "wrap heade",
-            text: `${levelData.description.name}`,
+            name: "wrap head",
+            text: `${(levelData.description)? levelData.description.name: ''}`,
             description: "text for game over window",
             fontSize: "100px Roboto",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 50,
@@ -48,11 +48,11 @@ function levelChangeScreen(data: any,ctx: any, width: number, height: number, pi
             getObjectPosition: getUIObjectPosition
         },{
             name: "rwarp description",
-            text: `${levelData.description.description}`,
+            text: `${(levelData.description)? levelData.description.description: ''}`,
             description: "text for game over window",
             fontSize: "20px Roboto",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 90,

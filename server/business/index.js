@@ -6,6 +6,12 @@ const { getLevelObjects } = require('./level Data/level-objects');
 const { getResultlData, postResultlData, updateResultlData } = require('./game Data/game-result');
 const { getGrappleObjects } = require('./level Data/grapple-objects');
 
+const { getShopWeaponData, putShopWeaponData } = require('./game Data/game-weapon-shop');
+const { getShopShipyardData, putShopShipyardData } = require('./game Data/game-shipyard-shop');
+
+
+const { getStoreItemsData, putStoreItemsData } = require('./game Data/game-store-items');
+
 
 module.exports = {
     getLevelData : levelData,
@@ -16,5 +22,11 @@ module.exports = {
     getResultlData: getResultlData,
     postResultlData: postResultlData,
     getGrappleObjects: getGrappleObjects,
-    updateResultlData: updateResultlData
+    updateResultlData: updateResultlData,
+    getShopWeaponData: getShopWeaponData,
+    putShopWeaponData: putShopWeaponData,
+    getShopShipyardData: getShopShipyardData,
+    putShopShipyardData: putShopShipyardData,
+    getStoreItemsData: getStoreItemsData,
+    putStoreItemsData: putStoreItemsData
 }

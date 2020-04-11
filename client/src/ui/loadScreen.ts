@@ -1,6 +1,18 @@
 import { show, hide, toggler, addClassList, removeClassList } from '../appMenu/appMenu';
 import { createElements, pageBuilder } from '../appMenu/pagesBuilder';
+import { exitTheGame } from '../engine/gameModules/satartGame';
 
+
+function hideLoadScreen(){
+
+    let loadScreen = document.querySelector('#main-load-screen');  // hide-animation
+    console.log('hide function')
+    addClassList(loadScreen, 'hide-animation');
+    setTimeout(() => {
+        hide(loadScreen)
+    }, 1000)
+
+}
 
 
 function loadWindow({loadStatus}){
@@ -10,11 +22,17 @@ function loadWindow({loadStatus}){
     switch(loadStatus){
         case "load":
             show(windowElement)
-            windowElement.innerHTML = `<div class="load-circle-image load-circe-wrapper"></div><p>Loading...</p>`;
+            windowElement.innerHTML = `<div class="load-circle-image load-circe-wrapper"></div><p>Waiting...</p>`;
             break
         case "serverError":
-            windowElement.innerHTML = `<p>Fail to load data</p><button id="reload-page" class="btn-orange btn-main">Reload</button>`;
+            windowElement.innerHTML = `<p>Fail to load data</p>
+            <div class="load-screen-button-wrapper">
+                <button id="reload-page" class="btn-orange btn-main">Reload</button>
+                <button id="exit-btn" class="btn-orange btn-main">exit</button>
+            </div>
+            `;
             reloadPage("#reload-page")
+            exitPage("#exit-btn")
             break
         case "success":
             hide(windowElement)
@@ -29,9 +47,16 @@ function loadWindow({loadStatus}){
             document.location.reload()
         })
     }
+    function exitPage(selector){
+        let exitButton = document.querySelector(selector);
+        exitButton.addEventListener("click", function(){
+            exitTheGame()
+        })
+    }
 }
 
 
 export {
-    loadWindow
+    loadWindow,
+    hideLoadScreen
 }

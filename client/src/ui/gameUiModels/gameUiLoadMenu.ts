@@ -8,7 +8,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             description: "Main start game button in the main load screen",
             fontSize: "30px Arial",
             clicked: false,
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 400,
                 height: 90,
@@ -39,7 +39,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             description: "Game logotype",
             clicked: false,
             shadowColor: 'rgba(37, 21, 54, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 150,
                 height: 150,
@@ -53,7 +53,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 radius: null,
             },
             loadPicture(){
-                this.propertyes.background.src = pictureDirrection + 'misc/logo-1024x1024.png';
+                this.properties.background.src = pictureDirrection + 'misc/logo-1024x1024.png';
             },
             init: init,
             getObjectPosition: getUIObjectPosition
@@ -64,7 +64,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             clicked: false,
             fontSize: "bold 100px Roboto",
             shadowColor: 'rgba(255, 255, 255, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: -290,
                 height: 0,
@@ -84,7 +84,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
             clicked: false,
             fontSize: "lighter 100px Roboto",
             shadowColor: 'rgba(255, 255, 255, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 0,
                 height: 0,

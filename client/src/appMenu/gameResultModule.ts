@@ -112,7 +112,7 @@ function initResultScreen(mainGameObject){
                 <div id="alert-message" class="alert-message"></div>
                 <div id="dialog-bottom-area" class="dialog-bottom-area">
                     <button type="submit" data-button-id="save-result" class="accept-btn btn-main">save</button>
-                    <button data-button-id="cancel" class="reject-btn btn-main">cancel</button>
+                    <button data-button-id="cancel" class="reject-btn btn-main btn-orange-reject">cancel</button>
                 </div>`,
                 attributeName: 'name',
                 attribute: "save-result-form",
@@ -139,7 +139,7 @@ function initResultScreen(mainGameObject){
                     <div id="alert-message" class="alert-message"></div>
                     <div id="dialog-bottom-area" class="dialog-bottom-area">
                         <button type="submit" data-button-id="save-result" class="accept-btn btn-main">save</button>
-                        <button data-button-id="cancel" class="reject-btn btn-main">cancel</button>
+                        <button data-button-id="cancel" class="reject-btn btn-main btn-orange-reject">cancel</button>
                     </div>`,
                     attributeName: 'name',
                     attribute: "rewrite-result-form",

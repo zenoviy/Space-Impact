@@ -12,10 +12,10 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             fontSize: "30px Arial",
             clicked: false,
             shadowColor: 'rgba(255, 255, 255, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: width,
-                height: 500,
+                height: 450,
                 x: 0,
                 y: 100,
                 gradient: true,
@@ -40,7 +40,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             fontSize: "25px Roboto",
             clicked: false,
             shadowColor: 'rgba(255, 255, 255, 1)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: 200,
                 height: 50,
@@ -72,7 +72,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             fontSize: "25px Roboto",
             clicked: false,
             shadowColor: 'rgba(255, 255, 255, 0)',
-            propertyes:{
+            properties:{
                 ctx: ctx,
                 width: -45,
                 height: 0,

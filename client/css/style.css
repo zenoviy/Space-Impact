@@ -4,3 +4,25 @@ body {
 .load-circle-image {
     background-image: url("../public/images/page/icons/loading.png");
 }
+
+.main-load-screen{
+    background-image: url("../public/images/page/about/background.png");
+}
+.display-area-wrapper canvas{
+    background-image: url("../public/images/misc/shop/landing-pad.png");
+    display: block;
+    margin: 0 auto;
+}
+/*.display-area-wrapper{
+    background-image: url("../public/images/misc/shop/tablet.png");
+}*/
+.right-side-inventory{
+    background-image: url("../public/images/misc/shop/tablet.png");
+}
+/*.shop-header{
+    background-image: url("../public/images/misc/shop/top-border.png");
+}*/
+.display-area-wrapper{
+    /*background-image: url("../public/images/misc/shop/body-border.png");
+    background-image: url("../public/images/misc/shop/tablet.png");*/
+}

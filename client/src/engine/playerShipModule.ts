@@ -4,12 +4,12 @@ import * as methods from '../engine';
 
 import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
+import { shot } from '../enemies/enemiesModules';
+
 import * as view from '../view/';
 
-function initPlayerShip(mainGameObject: any){
+function initPlayerShip(){
     if(this.ctx){
-        let image = this.data.texture,
-        imageLocation = mainGameObject.showGameInfo().imageDirrection;
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){
@@ -17,58 +17,58 @@ function initPlayerShip(mainGameObject: any){
             }
             return this.img
         }
-        this.img.src = imageLocation + image;
+        this.playerShipTextureChange()
     }
+}
+function playerShipTextureChange(){
+    this.img.src = __dirname + this.data.texture;
 }
 
 function shipControl(mainGameObject: any){
+    let userShipData = mainGameObject.gameInitData.gameData.playerObject
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
     document.addEventListener("keydown",(e: any)=>{
+        let userShipData = mainGameObject.gameInitData.gameData.playerObject
         if(mainGameObject.gameInitData.gamePause) return false;
-        if(controlKeys.down.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed});
-        if(controlKeys.left.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed * -1, yPos: 0}) ;
-        if(controlKeys.right.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed, yPos:0}) ;
-        if(controlKeys.up.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed * -1}) ;
+        if(controlKeys.down.some(o => e.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed});
+        if(controlKeys.left.some(o => e.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0}) ;
+        if(controlKeys.right.some(o => e.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed, yPos:0}) ;
+        if(controlKeys.up.some(o => e.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1}) ;
     })
 
+
     document.addEventListener("mousemove", (e: any) => {
-        if(mainGameObject.gameInitData.gamePause) return false;
+        let userShipData = mainGameObject.gameInitData.gameData.playerObject
+        if(mainGameObject.gameInitData.gamePause ) return false;
         if(e.target.tagName === "CANVAS"
         && !mainGameObject.gameInitData.gamePause
         && mainGameObject.gameInitData.gameStatus){
             let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
-            this.xFinal = ((x % this.data.speed == 0)? x  : this.data.speed* Math.floor(x/this.data.speed)) - (this.width/2);
-            this.yFinal = ((y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed)) - (this.height/2);
+            userShipData.xFinal = ((x % userShipData.data.speed == 0)? x  : userShipData.data.speed* Math.floor(x/userShipData.data.speed)) - (userShipData.width/2);
+            userShipData.yFinal = ((y % userShipData.data.speed == 0)? y : userShipData.data.speed* Math.floor(y/userShipData.data.speed)) - (userShipData.height/2);
         }
     })
-    document.addEventListener("click", (e: any) => {
-        if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
-        let guns = this.data.guns;
-        for(let item of guns){
-            let context = this;
-            let bullet = new constructors.BulletConstruct({
-                x: context.x, y: context.y + item.firePosition,
-                bulletType: item.name, bulletTexture: item.color,
-                objectOwner: "player", bulletSpeed: item.speed + context.xAdj,
-                width: item.width, height: item.height,
-                damage: item.damage, type: item.type, texture: item.texture,
-                sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
-                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
-                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
-                sound: item.sound
-            });
 
-            let soundProps = {
-                soundUrl: bullet.sound.levelSound,
-                soundLoop: bullet.sound.soundLoop,
-            }
-            bullet.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
-            bullet.img.src = bullet.texture;
-            bullet.img.onload = () => {
-                mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
-            }
-        }
+    document.addEventListener("click", (e: any) => {
+        let userShipData = mainGameObject.gameInitData.gameData.playerObject
+        if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
+        if(mainGameObject.gameInitData.shopActive) return
+        shot.call(userShipData, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player")
     })
+
+    document.addEventListener("mousedown", (e: any) => {
+        //console.log('mousedown')
+    })
+    document.addEventListener("mouseup", (e: any) => {
+        //console.log('mouseup')
+    })
+}
+
+function addVehicleSpeed({value, flag}){
+    if(flag) this.data.minSpeed += value;
+    if(!flag) this.data.minSpeed -= value;
+
+    console.log("Speed", this.data.minSpeed, value)
 }
 
 
@@ -104,5 +104,7 @@ export {
     shipControl,
     moveShip,
     placeShip,
-    setContext
+    setContext,
+    playerShipTextureChange,
+    addVehicleSpeed
 }

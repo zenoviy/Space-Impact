@@ -1,0 +1,53 @@
+[
+    {
+        "name": "extralife",
+            "loadImage": "static/shop/store/ruby.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 20000,
+            "title": "Extra life",
+            "status": "instant apply object",
+            "description": "Extra life point",
+            "type": "power",
+            "grapplePower": {
+                "name": "life",
+                "description": "add 1 life for player",
+                "value": 1,
+                "methodName": "addPlayerLife"
+            }
+    },
+
+    {
+        "name": "box",
+            "loadImage": "static/shop/store/box.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 500,
+            "title": "Box",
+            "status": "inventary object",
+            "description": "box with goods",
+            "type": "object",
+            "grapplePower": {
+                "name": "box",
+                "description": "add box to inventory",
+                "value": null,
+                "methodName": null
+            }
+    },
+
+    {
+        "name": "extraSpeed",
+            "loadImage": "static/shop/store/box.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 500,
+            "speed": 2,
+            "title": "Extra Speed",
+            "status": "inventary object",
+            "description": "Add extra speed to you spacecraft",
+            "type": "object",
+            "grapplePower": {
+                "name": "add_speed",
+                "description": "add box to inventory",
+                "value": 2,
+                "methodName": "addVehicleSpeed"
+            }
+    }
+]

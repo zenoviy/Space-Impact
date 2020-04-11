@@ -9,7 +9,8 @@ async function getLevelObjects (req, res) {
         let readObject = JSON.parse(data)
 
         let objectType = headers['mapobject'];
-        if(objectType.length < 1) return res.send(false);
+        if(!objectType && objectType != 0) return res.send({message: "no-map-object-identificator"});
+        if(objectType.length < 1) return res.send({ message: "object type is empty" })
         objectType = objectType.split(/,/).map(item => item);
 
         let responseItem = readObject.filter(item => {

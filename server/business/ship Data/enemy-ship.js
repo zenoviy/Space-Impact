@@ -9,6 +9,10 @@ async function getEnemyShip (req, res) {
 
         let readObject = JSON.parse(data)
         let enemyType = headers['ship-type-number'];
+        if(!enemyType){
+            res.send({ message: "there is no enemy ship type" });
+            return console.log("there is no enemy ship type")
+        }
         enemyType = enemyType.split(/,/).map(item => item);
 
         let responseItem = readObject.filter(item => {

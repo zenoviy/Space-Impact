@@ -1,0 +1,52 @@
+@import '~/../../page-style/page-asets.sass'
+@import '~/../buttons.sass'
+@import '~/../form-style.sass'
+
+
+.save-load-wrapper
+    list-style: none
+    .save-card-body
+        display: flex
+
+.save-load-list
+    .save-card-body
+        p
+            width: 100%
+            justify-content: center
+            align-content: center
+            align-items: center
+.save-load-button-area
+    padding-top: 20px
+
+.saveImage-wrapper-small
+    img
+        width: 120px
+        padding: 10px
+.save-preview-image-large
+    display: flex
+    flex-wrap: wrap
+    img
+        width: 70%
+    .save-details
+        padding: 10px
+        margin: 0 auto
+.save-load-dialog
+    position: absolute
+    width: 100vw
+    height: 100vh
+    top: 0
+    left: 0
+    background: rgba(0,0,0, .3)
+    display: flex
+    justify-content: center
+    justify-items: center
+    z-index: 1000
+    .save-dialog-wrapper
+        min-height: 120px
+        min-width: 500px
+        align-self: center
+        padding: 20px
+        background: #000
+
+.save-form
+    @include form-input-center

@@ -1,10 +1,11 @@
 import { warpEffect } from '../engine/engineModules';
 import { updateMap, changePartOfTexture } from '../engine/backgroundModule';
 import { enemyAnimation, moveEnemyes, placeBackground } from '../enemies/enemiesModules';
+import { loadTexture } from '../engine/gameSideObjectsModule';
 
 class GameBackground{
     x: number = 0; y: number = 0;
-    backgroundTexture: string; speed: number;
+    texture: string; speed: number;
     screenData: any;
     ctx: any;
     img: any;
@@ -23,6 +24,7 @@ class GameBackground{
     sHeight: number;
     width: number;
     height: number;
+    partOfScreenStatus: boolean;
 
     updateMap: any;
     warpEffect: any;
@@ -30,14 +32,15 @@ class GameBackground{
     enemyAnimation: any;
     moveEnemyes: any;
     placeBackground: any;
+    loadTexture: any;
     constructor(
        {...data}
         ){
-            this.backgroundTexture = data.backgroundTexture;
+            this.texture = __dirname +  data.texture;
             this.speed = data.speed;
             this.screenData = data.screenData;
             this.ctx = data.ctx;
-            this.x = (data.partOfScreenStatus)? 0 : window.innerWidth;
+            this.x = (data.partOfScreenStatus)? 0 - 1: window.innerWidth + 1;
             this.y = 0;
             this.img = new Image();
             this.extraMap = data.extraMap;
@@ -45,6 +48,7 @@ class GameBackground{
             this.warpObjects = [];
             this.timeToExtraMapSeconds = data.timeToExtraMapSeconds;
             this.timeToExtraMapMinutes = data.timeToExtraMapMinutes;
+            this.partOfScreenStatus = (data.partOfScreenStatus)? data.partOfScreenStatus: null;
 
             this.picturesWidth = data.imageWidth;
             this.imageHeight = data.imageHeight;
@@ -56,7 +60,7 @@ class GameBackground{
             this.sy = 0;
             this.sWidth = data.imageWidth/data.numberOfItems;
             this.sHeight = data.imageHeight;
-            this.width = window.innerWidth;
+            this.width = (data.partOfScreenStatus)? window.innerWidth + 2 : window.innerWidth;
             this.height = window.innerHeight;
         }
 
@@ -68,6 +72,7 @@ GameBackground.prototype.changePartOfTexture = changePartOfTexture;
 GameBackground.prototype.enemyAnimation = enemyAnimation;
 GameBackground.prototype.moveEnemyes = moveEnemyes;
 GameBackground.prototype.placeBackground = placeBackground;
+GameBackground.prototype.loadTexture = loadTexture;
 
 
 export {
