@@ -26,14 +26,8 @@
         "damage": 260,
         "width": 80,
         "height": 35,
-        "hitBox": {
-            "offsetTop": 10,
-            "offsetLeft": 5,
-            "width": 60,
-            "height": 25
-        },
         "sx": 0,
-        "sy": 20,
+        "sy": 0,
         "imageWidth": 2735,
         "imageHeight":128,
         "animationSteps": 5,
@@ -41,10 +35,6 @@
         "numberOfVerticalItems": 1,
         "sWidth": 342,
         "sHeight": 128,
-        "size":{
-            "width": 75,
-            "height": 35
-        },
         "collideExplosionAnimation": {
             "texture": "/public/images/misc/fire/explosion.png",
             "imageWidth": 12891,
@@ -160,12 +150,6 @@
         "damage": 260,
         "width": 80,
         "height": 35,
-        "hitBox": {
-            "offsetTop": 10,
-            "offsetLeft": 5,
-            "width": 60,
-            "height": 25
-        },
         "sx": 0,
         "sy": 20,
         "imageWidth": 2735,
@@ -175,10 +159,6 @@
         "numberOfVerticalItems": 1,
         "sWidth": 342,
         "sHeight": 128,
-        "size":{
-            "width": 75,
-            "height": 35
-        },
         "collideExplosionAnimation": {
             "texture": "/public/images/misc/fire/explosion.png",
             "imageWidth": 12891,
@@ -308,12 +288,6 @@
         "damage": 260,
         "width": 75,
         "height": 25,
-        "hitBox": {
-            "offsetTop": 10,
-            "offsetLeft": 5,
-            "width": 60,
-            "height": 10
-        },
         "sx": 0,
         "sy": 20,
         "imageWidth": 2735,
@@ -323,10 +297,6 @@
         "numberOfVerticalItems": 1,
         "sWidth": 342,
         "sHeight": 128,
-        "size":{
-            "width": 75,
-            "height": 25
-        },
         "collideExplosionAnimation": {
             "texture": "/public/images/misc/fire/explosion.png",
             "imageWidth": 12891,
@@ -480,12 +450,6 @@
         "damage": 260,
         "width": 230,
         "height": 85,
-        "hitBox": {
-            "offsetTop": 10,
-            "offsetLeft": 5,
-            "width": 60,
-            "height": 10
-        },
         "sx": 0,
         "sy": 0,
         "imageWidth": 6982,
@@ -495,10 +459,6 @@
         "numberOfVerticalItems": 1,
         "sWidth": 1163.6,
         "sHeight": 356,
-        "size":{
-            "width": 75,
-            "height": 25
-        },
         "collideExplosionAnimation": {
             "texture": "/public/images/misc/fire/explosion.png",
             "imageWidth": 12891,
@@ -566,12 +526,6 @@
                 "color": "rgba(81, 255, 0, 1)",
                 "width": 45,
                 "height": 20,
-                "hitBox": {
-                    "offsetTop": 5,
-                    "offsetLeft": 15,
-                    "width": 30,
-                    "height": 10
-                },
                 "sx": 0,
                 "sy": 20,
                 "imageWidth": 3587,

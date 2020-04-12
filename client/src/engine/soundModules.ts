@@ -1,5 +1,3 @@
-import { SoundCreator } from "../constructors/soundConstructor";
-
 async function createSound(SoundCreator){
     let gameData = this.showGameInfo().gameData;
     let pageSettings = gameData.gameSetings;

@@ -9,19 +9,16 @@ import { leaveShop } from './gameShopModule';
 
 function shopInventory({element, mainGameObject}){
     element.shopInventoryWrapper.innerHTML = "";
-    let playerObject = mainGameObject.gameInitData.gameData.playerObject
+    let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     let playerObjectData = playerObject.data;
     for( let index = 0; index < playerObjectData.inventoryCapacity; index++){
         let itemRender = createElements({tagName: 'div', styleClass: 'inventory-item', inlineStyle: ``,
         pictureUrl: null, linkUrl: null, text: null,
         innerContent: (playerObjectData.inventory[index])?`<div class="inventory-inner-item">
-                <img src=${(playerObjectData.inventory[index].loadImage)? process.env.HOST + playerObjectData.inventory[index].loadImage : ""}>
-        </div>` : `<div class="inventory-inner-item"></div>`,
+            <img src=${(playerObjectData.inventory[index].loadImage)? process.env.HOST + playerObjectData.inventory[index].loadImage : ""}>
+            </div>` : `<div class="inventory-inner-item"></div>`,
         attribute: null, attributeName: null,
         attribute1: null, attributeName1: null})
-
-
-
         itemRender.addEventListener('mousemove', (event) => {
             if(!playerObjectData.inventory[index]) return false
             showDescriptionArea({selectObject: playerObjectData.inventory[index],
@@ -39,7 +36,6 @@ function shopInventory({element, mainGameObject}){
 
 
         itemRender.addEventListener('click',async () => {
-            let hangarElements = mainGameObject.shopArea.selectedShopItem.hangarElements
             let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
             let shopAreaItems = mainGameObject.shopArea.selectedShopItem
             let previusInventorySelectedItem = (mainGameObject.shopArea.selectedShopItem.inventorySelectedItem ||
@@ -48,7 +44,6 @@ function shopInventory({element, mainGameObject}){
             : null
             mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = (mainGameObject.shopArea.selectedShopItem.inventorySelectedItem == index)? null: index;
             if(mainGameObject.shopArea.selectedShopItem.hangarSelectedItem || mainGameObject.shopArea.selectedShopItem.hangarSelectedItem === 0){
-                //console.log(2, 'remove effects', playerObjectData.guns, shopAreaItems.hangarSelectedItem   )
                 await disableEffects({playerObject: playerObject, item: playerObjectData.guns[shopAreaItems.hangarSelectedItem]})
                 putItemToStorage({name: 'outside-storage',
                     putIndex: index,
@@ -57,8 +52,7 @@ function shopInventory({element, mainGameObject}){
                     selectedStorage: playerObjectData.inventory,
                     mainGameObject: mainGameObject
                 })
-                //console.log(5)
-                
+
             }else if(mainGameObject.shopArea.selectedShopItem.inventorySelectedItem || mainGameObject.shopArea.selectedShopItem.inventorySelectedItem === 0){
                 if(previusInventorySelectedItem && !playerObjectData.inventory[index] || previusInventorySelectedItem === 0 && !playerObjectData.inventory[index]){
                     putItemToStorage({name: 'inside-storage',
@@ -68,13 +62,11 @@ function shopInventory({element, mainGameObject}){
                         selectedStorage: playerObjectData.inventory,
                         mainGameObject: mainGameObject
                     })
-                    //console.log(4)
                 }
             }
             loadHangar({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
             return
         })
-
         element.shopInventoryWrapper.appendChild(itemRender)
     }
     element.shopInventoryWrapper.prepend(saleBox({mainGameObject: mainGameObject}))
@@ -163,7 +155,6 @@ function saleItem({mainGameObject}){
 
     if(hangarElements.inventorySelectedItem || hangarElements.inventorySelectedItem === 0){
        let selPrice = salePercentAddToPrice({price: playerObjectData.inventory[hangarElements.inventorySelectedItem].price, mainGameObject: mainGameObject})
-
        mainGameObject.gameInitData.gameData.gameCoins += selPrice
 
        replaceItemFromStorage({index: hangarElements.inventorySelectedItem, storage: playerObjectData.inventory, value: null, playerObject: playerObject})
@@ -171,14 +162,10 @@ function saleItem({mainGameObject}){
     }
     if(hangarElements.hangarSelectedItem || hangarElements.hangarSelectedItem === 0){
         let selPrice = salePercentAddToPrice({price: playerObjectData.guns[hangarElements.hangarSelectedItem].price, mainGameObject: mainGameObject})
-       console.log('sale and remove effects')
         disableEffects({playerObject: playerObject, item: playerObjectData.guns[hangarElements.hangarSelectedItem]})
         replaceItemFromStorage({index: hangarElements.hangarSelectedItem, storage: playerObjectData.guns, value: null, playerObject: playerObject})
         mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
-        mainGameObject.gameInitData.gameData.gameCoins  += selPrice 
-        console.log('sale and remove effects')
-
-        
+        mainGameObject.gameInitData.gameData.gameCoins  += selPrice;
     }
 }
 
@@ -200,13 +187,11 @@ function putInsideInventory({mainGameObject, saveItem, inventoryItem}){
 
 function replaceItemFromStorage({index, storage, value, playerObject}){
     storage.splice(index, 1, value)
-    //disableEffects({playerObject: playerObject})
 }
 
 
 function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStorage, mainGameObject}){
     let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
-
 
     if(!storage[putIndex] && (mainGameObject.shopArea.selectedShopItem.hangarSelectedItem  && name == "inside-storage" ||
         mainGameObject.shopArea.selectedShopItem.hangarSelectedItem === 0) && name == "inside-storage" ||
@@ -232,7 +217,6 @@ function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStor
             mainGameObject: mainGameObject
         })
     }
-    //assignEffectsToShip({playerObject: mainGameObject.gameInitData.gameData.playerObject})
 }
 
 function shopStorageReplacer({putIndex, selectedIndex, storage, selectedStorage, firespot, mainGameObject}){
@@ -244,56 +228,38 @@ function shopStorageReplacer({putIndex, selectedIndex, storage, selectedStorage,
     replaceItemFromStorage({index: selectedIndex, storage: storage, value: null, playerObject: playerObject})
     mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
     mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
-    
 }
 
 
 function assignEffectsToShip({playerObject, item}){
-    console.log(item)
-
         if(!item || !item.grapplePower) return
-    
         switch (item.grapplePower.name){
             case 'guns_rapid':
                 break
             case 'add_speed':
                 playerObject.addVehicleSpeed({value: item.grapplePower.value, flag: true})
-                return
                 break
             default:
                 false
         }
-
-
-    /*"grapplePower": {
-        "name": "add_speed",
-        "description": "add box to inventory",
-        "value": 2,
-        "methodName": "addVehicleSpeed"
-    }*/
 }
 
 function disableEffects({playerObject, item}){
-
         if(!item || !item.grapplePower) return
-
         switch (item.grapplePower.name){
             case 'guns_rapid':
                 break
             case 'add_speed':
                 playerObject.addVehicleSpeed({value: item.grapplePower.value, flag: false})
-                return
                 break
             default:
                 false
         }
-
 }
 
 
 function assignGunsPosition({gun, firespot}){
     if(!firespot || !gun) return gun
-
     gun.firePositionX = firespot.shipXPosition;
     gun.firePosition = firespot.shipYPosition;
     return gun

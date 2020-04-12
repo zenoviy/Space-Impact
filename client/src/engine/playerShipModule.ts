@@ -1,12 +1,7 @@
 
 
-import * as methods from '../engine';
-
 import * as constructors from '../constructors/';
-import { initSoundObject } from './soundModules';
 import { shot } from '../enemies/enemiesModules';
-
-import * as view from '../view/';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -24,26 +19,29 @@ function playerShipTextureChange(){
     this.img.src = __dirname + this.data.texture;
 }
 
-function shipControl(mainGameObject: any){
+function userKeyAction({ mainGameObject, controlKeys, event }){
     let userShipData = mainGameObject.gameInitData.gameData.playerObject
-    let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
-    document.addEventListener("keydown",(e: any)=>{
-        let userShipData = mainGameObject.gameInitData.gameData.playerObject
         if(mainGameObject.gameInitData.gamePause) return false;
-        if(controlKeys.down.some(o => e.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed});
-        if(controlKeys.left.some(o => e.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0}) ;
-        if(controlKeys.right.some(o => e.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed, yPos:0}) ;
-        if(controlKeys.up.some(o => e.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1}) ;
+        if(controlKeys.down.some(o => event.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed}) ;
+        if(controlKeys.left.some(o => event.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0}) ;
+        if(controlKeys.right.some(o => event.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed, yPos:0}) ;
+        if(controlKeys.up.some(o => event.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1}) ;
+}
+
+function shipControl(mainGameObject: any){
+    let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
+    document.addEventListener("keydown",(event: any)=>{
+        userKeyAction({ mainGameObject: mainGameObject, controlKeys: controlKeys, event: event })
     })
 
 
-    document.addEventListener("mousemove", (e: any) => {
+    document.addEventListener("mousemove", (event: any) => {
         let userShipData = mainGameObject.gameInitData.gameData.playerObject
         if(mainGameObject.gameInitData.gamePause ) return false;
-        if(e.target.tagName === "CANVAS"
+        if(event.target.tagName === "CANVAS"
         && !mainGameObject.gameInitData.gamePause
         && mainGameObject.gameInitData.gameStatus){
-            let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
+            let x = event.clientX - event.target.offsetLeft, y = event.clientY - event.target.offsetTop;
             userShipData.xFinal = ((x % userShipData.data.speed == 0)? x  : userShipData.data.speed* Math.floor(x/userShipData.data.speed)) - (userShipData.width/2);
             userShipData.yFinal = ((y % userShipData.data.speed == 0)? y : userShipData.data.speed* Math.floor(y/userShipData.data.speed)) - (userShipData.height/2);
         }

@@ -55,7 +55,7 @@ class EnemyObject {
     direction: string; isBoss: boolean;
     extraObjects: any[]; collideExplosionAnimation: any;
     changeXposition: boolean; changeSpeed: boolean;
-    shotAngle: number;  defaultAngle: any; hitBox: any;
+    shotAngle: number;  defaultAngle: any; 
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -103,8 +103,6 @@ class EnemyObject {
             this.collideExplosionAnimation = data.collideExplosionAnimation;
             this.shotAngle = 180;
             this.defaultAngle = (data.defaultAngle)? data.defaultAngle : null;
-            this.hitBox = (data.hitBox)? data.hitBox : null;
-            /// load amount fo coins, ando coins object from server
     }
 }
 

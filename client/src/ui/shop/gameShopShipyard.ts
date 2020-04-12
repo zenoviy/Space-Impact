@@ -8,8 +8,6 @@ import * as constructors from '../../constructors';
 function replaceShipData({mainGameObject, buyShipData}){
     let playerObject = mainGameObject.gameInitData.gameData.playerObject
 
-    //mainGameObject.gameInitData.gameData.gameCoins = parseInt(buyShipData.money);
-
     let dataNotToReplace = {
         inventory: playerObject.data.inventory,
         firespot: playerObject.data.firespot,
@@ -18,7 +16,6 @@ function replaceShipData({mainGameObject, buyShipData}){
         healthPoint: playerObject.healthPoint
     }
 
-    let beforeData = playerObject.data;
     let newShip = newPlayerShipConstruct({ PlayerShip: constructors.PlayerShip, userData: buyShipData.data, shipLife: 5})
     renewPlayerShip({ originData: playerObject.data, newData: newShip.data})
     renewPlayerShip({ originData: playerObject, newData: newShip})

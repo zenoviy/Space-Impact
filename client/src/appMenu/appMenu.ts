@@ -123,6 +123,7 @@ function appMenu(gameObject, dialogWindow){
     return navigation
 }
 function hideShowMenu(mainMenu, navigationMenu, gameWin, gameStatus, gameUiPause){
+    //if(!navigationMenu) return false
     if( !gameStatus || gameUiPause){
         mainMenu.classList.remove("hide-menu")
     }else{

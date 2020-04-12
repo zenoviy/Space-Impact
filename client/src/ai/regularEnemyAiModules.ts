@@ -1,5 +1,4 @@
 import { getData } from '../server/serverRequestModules';
-import { isBuffer } from 'util';
 
 
 function enemyShipLogicVertical(target, mainGameObject){
@@ -35,7 +34,6 @@ function enemyShipLogicVertical(target, mainGameObject){
                 strafe.call(this)
                 unitStop.call(this)
                 rushAttack.call(this, mainGameObject)
-                //goBackAnForward.call(this, mainGameObject)
                 break
             default:
                 strafe.call(this)
@@ -168,14 +166,14 @@ async function spawnEnemyLogic( EnemyObject: any){
                 if(process.env.BOSS_LOAD_AT_LEVEL === 'true' && enemyShip.details.isBoss) return false
                 if(enemyShip.details.isBoss) process.env.BOSS_LOAD_AT_LEVEL = "true";
 
-                let enemyShipObject = await this.createNewEnemy(enemyShip, EnemyObject);
+                let enemyShipObject = await this.createNewEnemy( { enemyData: enemyShip, EnemyObject: EnemyObject });
                 enemyShipObject.loadTexture();
                 this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
             }
         }
     }
 }
-async function createNewEnemy(enemyData, EnemyObject){
+async function createNewEnemy({ enemyData, EnemyObject }){
     if(!enemyData) return console.error('no ship data')
     let x = window.innerWidth + 300,
     y = this.gameRandomizer(window.innerHeight- 200, 100)
@@ -189,7 +187,7 @@ async function createNewEnemy(enemyData, EnemyObject){
        return new EnemyObject(
         {
             x: x, y: y,
-            sx: shipDetails.sx, sy: shipDetails.sy,
+            sx: (shipDetails.sx)? shipDetails.sx : 0, sy: (shipDetails.sy)? shipDetails.sy : 0,
             sWidth: shipDetails.imageWidth/shipDetails.numberOfItems, sHeight: shipDetails.imageHeight,
             picturesWidth: shipDetails.imageWidth, numberOfItems: shipDetails.numberOfItems,
             width: shipDetails.width, height: shipDetails.height,
@@ -202,7 +200,7 @@ async function createNewEnemy(enemyData, EnemyObject){
             numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
             spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null,
             isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false, extraObjects: extraObjects, collideExplosionAnimation: shipDetails.collideExplosionAnimation,  // load coin element from server 
-            defaultAngle: (shipDetails.defaultAngle)? shipDetails.defaultAngle : null, hitBox: (shipDetails.hitBox)? shipDetails.hitBox : null
+            defaultAngle: (shipDetails.defaultAngle)? shipDetails.defaultAngle : null
         });
     }
 }

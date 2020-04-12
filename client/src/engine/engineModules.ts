@@ -96,7 +96,7 @@ function levelInit(GameBackground, ctx, mainGameObject){
     }
 }
 
-function createContext(){
+function createContext () {
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
     this.gameInitData.ctxActionField = this.gameInitData.gameActionField.getContext('2d');
     this.gameInitData.ctxUIField = this.gameInitData.gameUIField.getContext('2d');
@@ -105,27 +105,24 @@ function createContext(){
 
 
 
-function getScreenSize(){
+function getScreenSize () {
     let width = window.innerWidth,
     height = window.innerHeight;
     return {width: width, height: height}
 }
 
 
-/**/function destroyAlEnemy(){
+function destroyAlEnemy () {
     let enemyes = this.gameInitData.allGameEnemies;
     if( !enemyes || enemyes.length < 1) return false
     for(let ship of enemyes){
         ship.objectPresent = false;
-            //collideExplosionAnimation
-            //explosionFire(ship, this, ship, costructors.SideObject, "collideExplosionAnimation");
-            //explosionFire(ship, this, ship, costructors.SideObject, "explosion");
     }
 }
 
 
 
-function changeLevelProcedure(){
+function changeLevelProcedure () {
     // animation for warp, http request for level and enemyes, 10 levels must be
     // some levels must contain boss at least 2 boss
     // last level is final titles the end save score
@@ -143,10 +140,9 @@ function changeLevelProcedure(){
 
 
 function levelTimer(){
-        //if(this.gameInitData.shopActive) return
         let data = this.getLevelUserData()
         if(!data.source.levelData.bossPresent){
-            let levelTime = data.source.levelData.levelDetails  // { levelMinutes: 3, levelSeconds: 43 }
+            let levelTime = data.source.levelData.levelDetails
             if(!this.gameInitData.levelChange) this.getSecondMeasure( levelTimeAction, data.source.levelData.levelDetails);
         }else{
             data.source.levelData.levelDetails.levelSeconds = null;
@@ -167,7 +163,6 @@ function levelTimer(){
 
 
 async function getSecondMeasure(callback, ...data){
-
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
     if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){

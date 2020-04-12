@@ -1,8 +1,5 @@
 
-import { uiText } from '../elements/uiElementModules';
-
 function createWindow(ctx, properties){
-    let {width, height} = this.getScreenSize();
     ctx.fillRect(properties.x, properties.y, properties.width, properties.height);;
 }
 interface Shapes{
@@ -86,10 +83,6 @@ function createShapeRoundBorder(shapePropertyes: Shapes){
 }
 
 
-
-
-
-
 interface ButtonShape{
     name: string,
     text: string,
@@ -126,7 +119,7 @@ function createRoundButton(shapePropertyes: ButtonShape){
     let buttonWidth =  properties.textProperty.leftPadding + textWidth + properties.textProperty.rightPadding;
     properties.ctx.shadowColor = properties.shadowColor;
     properties.ctx.shadowBlur = 8;
-   
+
     properties.ctx.fillStyle = properties.background;
     properties.ctx.beginPath();
     properties.ctx.moveTo(properties.x + properties.radius, properties.y);
@@ -156,8 +149,8 @@ function createRoundButton(shapePropertyes: ButtonShape){
     properties.ctx.quadraticCurveTo(properties.x,
         properties.y,
         properties.x + properties.radius,
-        properties.y); /**/
-        //properties.ctx.fillRect(properties.x, properties.y, properties.width, properties.height);
+        properties.y);
+
     properties.ctx.closePath();
     properties.ctx.fill()
 

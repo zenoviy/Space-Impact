@@ -1,5 +1,3 @@
-import { createLaserBullet } from '../view/displayModules';
-
 
 
 
@@ -33,40 +31,48 @@ function moveBullets( playerShipData, gameObject ){
     }
 }
 
+function bulletAngleCompensation({sector, sectorIndex, sectorIndex2, bulletSpeed}){
+    let x = 0, y = 0;
+    switch (sector){
+        case 0:
+            x = sectorIndex2 * bulletSpeed;
+            y = sectorIndex * bulletSpeed;
+            //res = '++'
+            break;
+        case 1:
+            y = sectorIndex2 * bulletSpeed;
+            x = (sectorIndex * bulletSpeed) * -1;
+            //res = '-+'
+            break;
+        case 2:
+            x = (sectorIndex2 * bulletSpeed) * -1;
+            y = (sectorIndex * bulletSpeed) * -1;
+            //res = '--'
+            break;
+        case 3:
+            y = (sectorIndex2 * bulletSpeed) * -1;
+            x = sectorIndex * bulletSpeed;
+            //res = '+-'
+            break;
+        default:
+            x = sectorIndex2 * bulletSpeed;
+            y = sectorIndex * bulletSpeed;
+            //res = false
+    }
+    return {x: x, y: y}
+}
 function bulletSpeed({bulletSpeed, angle}) {
     angle = (Math.sign(angle) > 0)? angle : 360 + angle
     let sector = Math.floor(angle/(90+1))
     let sectorIndex: any = parseFloat(((angle/(90))-sector).toFixed(2));
     let sectorIndex2 = 1 - sectorIndex;
-    let x, y;
-    let res;
-    switch (sector){
-        case 0:
-            x = sectorIndex2 * bulletSpeed;
-            y = sectorIndex * bulletSpeed;
-            res = '++'
-            break;
-        case 1:
-            y = sectorIndex2 * bulletSpeed;
-            x = (sectorIndex * bulletSpeed) * -1;
-            res = '-+'
-            break;
-        case 2:
-            x = (sectorIndex2 * bulletSpeed) * -1;
-            y = (sectorIndex * bulletSpeed) * -1;
-            res = '--'
-            break;
-        case 3:
-            y = (sectorIndex2 * bulletSpeed) * -1;
-            x = sectorIndex * bulletSpeed;
-            res = '+-'
-            break;
-        default:
-            x = sectorIndex2 * bulletSpeed;
-            y = sectorIndex * bulletSpeed;
-            res = false
-    }
-    //console.log(res, angle, 'x>', x, 'y>', y, '<<<')
+    let angleCompensation = bulletAngleCompensation({
+        sector: sector,
+        sectorIndex: sectorIndex,
+        sectorIndex2: sectorIndex2,
+        bulletSpeed: bulletSpeed
+    })
+    let x = angleCompensation.x, y = angleCompensation.y;
     return { angle: angle, verticalSpeed: y, horizontalSpeed: x }
 }
 

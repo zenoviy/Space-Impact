@@ -15,53 +15,63 @@ function gameUiPause(){
     if(!this.gameInitData.gameUiPause && this.gameInitData.gameStatus) this.gameInitData.gamePause = !this.gameInitData.gamePause;
 }
 function gameUiMenu(gameUiPause){
-    //if(this.gameInitData.shopActive) return
     this.gameInitData.gameUiPause = !this.gameInitData.gameUiPause;
     this.gameInitData.gamePause = (gameUiPause)? false: true;
 }
 function uiController(){
-    let gameData = this.showGameInfo()
     let controlKeys = this.gameInitData.gameData.gameSetings.keyControls;
     let gameObject = this;
 
-    document.addEventListener("keydown",(e: any)=>{
-        if(controlKeys.escape.some(o => e.keyCode == o) ) gameObject.gameUiMenu(this.gameInitData.gameUiPause);
-        if(controlKeys.pause.some(o => e.keyCode == o) ) gameObject.gameUiPause();
+    document.addEventListener("keydown",(event: any)=>{
+        if(controlKeys.escape.some(o => event.keyCode == o) ) gameObject.gameUiMenu(this.gameInitData.gameUiPause);
+        if(controlKeys.pause.some(o => event.keyCode == o) ) gameObject.gameUiPause();
     })
 
-    document.addEventListener("click", (e: any) => {
+    document.addEventListener("click", (event: any) => {
         let data = this.getLevelUserData();
-        if(e.target.tagName === "CANVAS"){
-            var x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
-            let elementsOnScreen = null;
-            let ctx = this.gameInitData.ctxUIField,
-            screenSize = {width: window.innerWidth, height: window.innerHeight};
-            if(!this.gameInitData.gameStatus){
-                elementsOnScreen = gameLoadMenu(null, ctx, screenSize.width, screenSize.height, null);
-                clickDetection.call(this, elementsOnScreen)
-            }
-            if(this.gameInitData.gameUiPause){
-                elementsOnScreen = gameSettingsMenu(null, ctx, screenSize.width, screenSize.height);
-                clickDetection.call(this, elementsOnScreen)
-            }
-            if(this.gameInitData.gameWin){
-                elementsOnScreen = gameWinScreen(null, ctx, screenSize.width, screenSize.height, null, data);
-                clickDetection.call(this, elementsOnScreen)
-            }
-        }
-        function clickDetection(elementsOnScreen){
-            for(let item in elementsOnScreen){
-                let res = hitDetection(elementsOnScreen[item],
-                    [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}), this, null)
-                if(res && elementsOnScreen[item].action){
-
-                    elementsOnScreen[item].action.call(this, gameObject);
-                    break
-                }
-            }
-        }
+        canvasMenuClickEvent.call(this, {
+            event: event,
+            gameObject: gameObject,
+            data: data
+        })
     })
 }
+
+function canvasMenuClickEvent({event, gameObject, data}){
+    if(event.target.tagName === "CANVAS"){
+        var x = event.clientX - event.target.offsetLeft, y = event.clientY - event.target.offsetTop;
+        let elementsOnScreen = null;
+        let ctx = this.gameInitData.ctxUIField,
+        screenSize = {width: window.innerWidth, height: window.innerHeight};
+        if(!this.gameInitData.gameStatus){
+            elementsOnScreen = gameLoadMenu(null, ctx, screenSize.width, screenSize.height, null);
+            clickDetection.call(this, {x: x, y: y, gameObject: gameObject, elementsOnScreen: elementsOnScreen})
+        }
+        if(this.gameInitData.gameUiPause){
+            elementsOnScreen = gameSettingsMenu(null, ctx, screenSize.width, screenSize.height);
+            clickDetection.call(this, {x: x, y: y, gameObject: gameObject, elementsOnScreen: elementsOnScreen})
+        }
+        if(this.gameInitData.gameWin){
+            elementsOnScreen = gameWinScreen(null, ctx, screenSize.width, screenSize.height, null, data);
+            clickDetection.call(this, {x: x, y: y, gameObject: gameObject, elementsOnScreen: elementsOnScreen})
+        }
+    }
+}
+function clickDetection({x, y, gameObject, elementsOnScreen}){
+    for(let item in elementsOnScreen){
+        let res = hitDetection({
+            object1: elementsOnScreen[item],
+            objectsArr: [].concat({x: x, y: y, width: 10, height: 10, name: "cursor"}),
+            mainGameObject: this,
+            GrappleObject : null
+        })
+        if(res && elementsOnScreen[item].action){
+            elementsOnScreen[item].action.call(this, gameObject);
+            break
+        }
+    }
+}
+
 function showUiPopupWindow(){
     createWindow.call(this)
 }

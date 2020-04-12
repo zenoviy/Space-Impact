@@ -34,12 +34,6 @@
         "color": "rgba(81, 255, 0, 1)",
         "width": 105,
         "height": 20,
-        "hitBox": {
-            "offsetTop": 5,
-            "offsetLeft": 45,
-            "width": 60,
-            "height": 10
-        },
         "sx": 0,
         "sy": 20,
         "imageWidth": 3587,
@@ -53,7 +47,6 @@
         "firePosition": 10,
         "firePositionX": 25
     },
-    
         {
             "name": "Blaster",
             "loadImage": "static/shop/weapons/blaster.png",
@@ -88,12 +81,6 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
-            "hitBox": {
-                "offsetTop": 5,
-                "offsetLeft": 15,
-                "width": 30,
-                "height": 10
-            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,
@@ -142,12 +129,6 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
-            "hitBox": {
-                "offsetTop": 5,
-                "offsetLeft": 15,
-                "width": 30,
-                "height": 10
-            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,
@@ -196,12 +177,6 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
-            "hitBox": {
-                "offsetTop": 5,
-                "offsetLeft": 15,
-                "width": 30,
-                "height": 10
-            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,
@@ -251,12 +226,6 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
-            "hitBox": {
-                "offsetTop": 5,
-                "offsetLeft": 15,
-                "width": 30,
-                "height": 10
-            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,
@@ -305,12 +274,6 @@
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
-            "hitBox": {
-                "offsetTop": 5,
-                "offsetLeft": 15,
-                "width": 30,
-                "height": 10
-            },
             "sx": 0,
             "sy": 20,
             "imageWidth": 3587,

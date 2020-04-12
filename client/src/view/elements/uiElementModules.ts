@@ -34,9 +34,6 @@ function uiImage(shapePropertyes: ImageShapes){
 }
 function uiText(shapePropertyes: ImageShapes){
     let properties = shapePropertyes.properties;
-//properties.ctx.save();
-
-    let textWidth = properties.ctx.measureText(shapePropertyes.text).width/3.2;
     properties.ctx.shadowColor = properties.shadowColor;
     properties.ctx.shadowBlur = 8;
 
@@ -47,24 +44,9 @@ function uiText(shapePropertyes: ImageShapes){
         shapePropertyes.text,
         properties.x + properties.width,
         properties.y + properties.height);
-    //properties.ctx.save();
-    //properties.ctx.translate(0,0);
-    // properties.ctx.restore();
-}
-function uiRepeatImage(shapePropertyes: ImageShapes){
-    let properties = shapePropertyes.properties;
-    let pat = properties.ctx.createPattern(properties.background, 'repeat-x');
-
-    properties.ctx.shadowColor = properties.shadowColor;
-    properties.ctx.shadowBlur = 8;
-    //properties.ctx.rect(properties.x, properties.x, properties.width, properties.height);
-    properties.ctx.rect(properties.x, properties.y, properties.width, properties.height);
-    properties.ctx.fillStyle = pat;
-    properties.ctx.fill();
 }
 
 export {
     uiImage,
-    uiText,
-    uiRepeatImage
+    uiText
 }

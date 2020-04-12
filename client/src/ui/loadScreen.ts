@@ -1,19 +1,15 @@
-import { show, hide, toggler, addClassList, removeClassList } from '../appMenu/appMenu';
-import { createElements, pageBuilder } from '../appMenu/pagesBuilder';
+import { show, hide, addClassList } from '../appMenu/appMenu';
 import { exitTheGame } from '../engine/gameModules/satartGame';
 
 
 function hideLoadScreen(){
-
-    let loadScreen = document.querySelector('#main-load-screen');  // hide-animation
-    console.log('hide function')
+    let loadScreen = document.querySelector('#main-load-screen');
     addClassList(loadScreen, 'hide-animation');
     setTimeout(() => {
         hide(loadScreen)
     }, 1000)
 
 }
-
 
 function loadWindow({loadStatus}){
     const windowElement = document.querySelector('#load-screen');
