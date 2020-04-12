@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var storage = require('electron-json-storage');
 import mergeImages from 'merge-images';
 import { draw } from '../view/displayModules';
@@ -266,14 +267,15 @@ async function getImageFromFields({saveGameData}){
     let background = await this.gameInitData.gameField.toDataURL();
     let gameField = await this.gameInitData.gameActionField.toDataURL();
 
-    let path = process.env.APP_SAVE_DIRECTORY
+
+    var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
     await savePictures({picture_64: await background.replace(/^data:image\/png;base64,/, ""),
     filename: 'background'})
     let res = await savePictures({picture_64: await gameField.replace(/^data:image\/png;base64,/, ""),
     filename: 'gameField'})
     .then(async resolve => {
-        return await mergeImages([__dirname + process.env.APP_SAVE_DIRECTORY + '/background.png',
-        __dirname + process.env.APP_SAVE_DIRECTORY +  '/gameField.png'], {
+        return await mergeImages([dir + '/background.png',
+        dir +  '/gameField.png'], {
             width: 1300,
             height: 680
           }).then(async pic => {
@@ -286,8 +288,9 @@ async function getImageFromFields({saveGameData}){
 }
 
 async function savePictures({picture_64, filename}){
+    var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
     return new Promise((resolve, reject) => {
-        fs.writeFile(storage.getDataPath() + `/${filename}.png`, picture_64, 'base64', function (err) {
+        fs.writeFile(dir + `/${filename}.png`, picture_64, 'base64', function (err) {
             if(err){
                 reject(false)
                 return console.error(err)

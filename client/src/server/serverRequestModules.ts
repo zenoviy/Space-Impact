@@ -82,7 +82,6 @@ function getElectronLocalSaves({fileName}){
 
 
                 var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
-                //var dir = (process.env.NODE_ENV === 'production')? __dirname + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
                 console.log(dir)
                 if (!fs.existsSync(dir) ){
                     fs.mkdirSync(dir);
@@ -111,7 +110,6 @@ function getElectronLocalSaves({fileName}){
 function getElectronLocalData({fileName}){
     if(!fileName) throw Error("no local files");
     var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY:__dirname + process.env.APP_SAVE_DIRECTORY;
-    //var dir = (process.env.NODE_ENV === 'production')? __dirname + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
     storage.setDataPath(dir);
     let res = new Promise((resolve, reject) => {
         storage.get(fileName, function(err, data) {

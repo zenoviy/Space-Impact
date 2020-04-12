@@ -1,6 +1,7 @@
 import { writeLocalData, getElectronLocalData, writeElectronLocalData } from '../server/serverRequestModules';
 import { show, hide, toggler, addClassList, removeClassList } from './appMenu';
-import { fullScreenSwitch } from '../engine/engineModules'
+import { fullScreenSwitch } from '../engine/engineModules';
+import { reloadPage } from '../ui/loadScreen';
 
 interface settingsData {
     soundLevel: number,
@@ -94,7 +95,7 @@ async function gameSettingsMenuInit(){
             gameData.gameData.levelSounds.turnSoundOff({value: previusSettings.soundOn})
             saveSettingsText({message: 'Return to previus settings'})
         }
-    })/**/
+    })
 
     function saveSettingsText({message}){
         const settingsMessage = document.querySelector('#settings-message')
@@ -107,6 +108,11 @@ async function gameSettingsMenuInit(){
             hide(settingsMessage)
         }, 5000)
     }
+    
+
+    (function reloadGameApp(){
+        reloadPage('#settings-reload-btn')
+    })()
 }
 
 function replaceData({newData, settingsData}){

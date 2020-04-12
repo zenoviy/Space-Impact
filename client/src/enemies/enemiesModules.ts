@@ -20,10 +20,7 @@ async function placeEnemyes(mainGameObject){
 
     mainGameObject.gameInitData.ctxActionField.save();
 
-    
 
-
-    
 
     // (targetData.objectOwner === 'player')?
 
@@ -303,14 +300,14 @@ function objectIntersectionDetect({object, target}){
         var y = y2 - y1;
         var distance = Math.sqrt(x*x + y*y)-(object.height/2 + target.height/2);
         //if(target && object){ if(this.objectNameFlag != "bullet"){
-            if(target.originObject.objectOwner != "bullet"){
-                if(distance <= 0) {
+            if(target.originObject){
+                if( target.originObject.objectOwner != "bullet" && distance <= 0) {
                     //console.log('true', target, object)
                     return "collision"
                 }
             }
 
-    if(target.originObject.objectOwner != "player" || target.originObject.objectOwner != "player"){
+    if(!target.originObject || target.originObject.objectOwner != "player" || target.originObject.objectOwner != "player"){
         let resY = yMax - yMin;
         let resX = xMax - xMin;
         collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";

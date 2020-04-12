@@ -5,13 +5,12 @@ import { angleFinder } from './engineModules';
 
 function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
     let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
-    
     //let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
     let explosionData = {
 
             //x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width : targetData.x ,
             //y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
-            x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width : targetData.x - targetData[explosion].width,
+            x: (targetData.objectOwner === 'player')? targetData.x + targetData.width/2  - targetData[explosion].width : targetData.x - targetData[explosion].width,
             y: (targetData.objectOwner === 'player')? targetData.y - targetData[explosion].width/2 :
             (targetData.objectOwner === 'collide' || targetData.objectOwner === 'environment')? targetData.y :
             (targetData.objectOwner === 'enemy')?  targetData.y - targetData[explosion].width/2:  targetData.y - targetData[explosion].width,

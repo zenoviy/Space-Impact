@@ -40,23 +40,23 @@ function loadWindow({loadStatus}){
         default:
             false
     }
-
-    function reloadPage(selector){
+}
+function reloadPage(selector){
         let reloadButton = document.querySelector(selector);
         reloadButton.addEventListener("click", function(){
             document.location.reload()
         })
     }
-    function exitPage(selector){
+function exitPage(selector){
         let exitButton = document.querySelector(selector);
-        exitButton.addEventListener("click", function(){
+        exitButton.addEventListener("click", function(event){
+            event.preventDefault()
             exitTheGame()
         })
-    }
 }
-
 
 export {
     loadWindow,
-    hideLoadScreen
+    hideLoadScreen,
+    reloadPage
 }

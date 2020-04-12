@@ -65,7 +65,7 @@
             }
         ],
         "levelDetails" : {
-            "levelMinutes": 4,
+            "levelMinutes": 5,
             "levelSeconds": 10
         }
     },{
@@ -153,8 +153,8 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 3,
-            "levelSeconds": 13
+            "levelMinutes": 4,
+            "levelSeconds": 30
         }
     },{
         "level" : 3,
@@ -379,7 +379,7 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 2,
+            "levelMinutes": 4,
             "levelSeconds": 43
         }
     },{
@@ -587,8 +587,8 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 3,
-            "levelSeconds": 50
+            "levelMinutes": 4,
+            "levelSeconds": 30
         }
     },{
         "level" : 8,
