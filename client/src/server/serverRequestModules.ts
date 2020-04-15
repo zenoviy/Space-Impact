@@ -50,7 +50,11 @@ function getDefaultSettings(){
             "down":[83,40,98],
             "left":[65,37,100],
             "escape":[27],
-            "pause":[80]},
+            "pause":[80],
+            "rocket":[82],
+            "homingRocket":[72],
+            "destroyEnemy":[84],
+            "inventory":[73]},
         "screenResolution":{
             "title":"800x600",
             "width":800,

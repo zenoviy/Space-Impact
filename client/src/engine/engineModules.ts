@@ -3,7 +3,7 @@ var path = require('path');
 var storage = require('electron-json-storage');
 import mergeImages from 'merge-images';
 import { draw } from '../view/displayModules';
-import { explosionFire } from '../enemies/enemiesModules';
+//import { explosionFire } from './gameSideObjectsModule';
 const { ipcRenderer, remote } = require( "electron" );
 import * as costructors from '../constructors'
 //import { levelConstructor } from '../constructors/levelConstructors';
@@ -186,7 +186,8 @@ function gameSecondsIncrease(){
 
 function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
-    let levelTime = dataSourse.levelData.levelDetails;
+    let levelTime = this.gameInitData.gameData.levelData.levelDetails;
+    let playerObjectData = this.gameInitData.gameData.playerObject
     return {
         source: dataSourse,
         currentLevel: dataSourse.currentLevel,
@@ -195,7 +196,8 @@ function getLevelUserData(){
         gameCoins: dataSourse.gameCoins,
         life:  dataSourse.playerObject.numberOflife,
         minutes: levelTime.levelMinutes,
-        seconds: levelTime.levelSeconds
+        seconds: levelTime.levelSeconds,
+        playerObjectData: playerObjectData
     }
 }
 
@@ -208,7 +210,7 @@ function deleteBullet(bullet){
         || bullet.x < bullet.width * -1
         || !bullet.objectPresent
         || bullet.y > window.innerHeight + 500
-        || bullet.y < 0 - 500){
+        || bullet.y < 0 - window.innerWidth){
         let index = this.gameInitData.allGameBullets.indexOf(bullet);
         this.gameInitData.allGameBullets.splice(index, 1);
     }
@@ -217,7 +219,8 @@ function deleteBullet(bullet){
 
 
 
-function deleteObjects(object){
+async function deleteObjects( object ){
+    limitationOfSideObjects({ mainGameObject: this })
     if(object.x + object.sWidth < 0 || !object.objectPresent){
         let index = this.gameInitData.allGameEnemies.indexOf(object);
         this.gameInitData.allGameEnemies.splice(index, 1);
@@ -225,14 +228,56 @@ function deleteObjects(object){
 }
 
 
-
-
 function delateSideObject(object){
+    limitationOfbullets({ mainGameObject: this })
     if(!object.objectPresent || object.x < 0 - object.width){
         let index = this.gameInitData.allGameSideObjects.indexOf(object);
         this.gameInitData.allGameSideObjects.splice(index, 1);
         if(object.objectOwner == 'hangar'){
             this.gameInitData.tradepostInRange = false;
+        }
+    }
+}
+
+
+function limitationOfbullets({ mainGameObject }){
+    const maximumObject: any = process.env.MAX_NUMBER_OF_BULLETS;
+    let allSideObjects = mainGameObject.gameInitData.allGameBullets;
+    let bulletObject = allSideObjects.filter( item => {
+        return item.objectNameFlag === "bullet"
+        && item.objectOwner === "player" && item.type != "rocket"
+        && item.type != "homing_rocket"
+        && item.type != "nuclear_blast"
+    } )
+    if(!bulletObject) return false
+
+    if( bulletObject.length > maximumObject ){
+        let lastDeleteIndex = bulletObject.length - maximumObject;
+        for(let index = bulletObject.length; index >= bulletObject.length - lastDeleteIndex -1; index--){
+            if(!bulletObject[index]) continue
+            bulletObject[index].objectPresent = false;
+        }
+    }
+}
+
+
+function searchExplosionObject({ mainGameObject }){
+    let allSideObjects = mainGameObject.gameInitData.allGameSideObjects;
+    let explosionObject = allSideObjects.filter( item => {
+        return item.objectOwner === "explosion"
+    })
+
+    return explosionObject
+}
+function limitationOfSideObjects({ mainGameObject }){
+    const maximumObject: any = process.env.MAX_NUMBER_OF_EXPLOSION;
+    let explosionObject = searchExplosionObject({ mainGameObject: mainGameObject })
+
+    if(!explosionObject) return false
+    if( explosionObject.length > maximumObject ){
+        let lastDeleteIndex = explosionObject.length - maximumObject;
+        for(let index = 0; index <= lastDeleteIndex; index++){
+            explosionObject[index].objectPresent = false;
         }
     }
 }
@@ -335,18 +380,18 @@ function fullScreenSwitch({fullscreen}){
 
 
 function angleFinder({object, target}){
-    let distanceX = (target.x > object.x)? target.x - object.x : object.x - target.x;
+    let distanceX = (target.x  > object.x)? target.x - object.x : object.x - target.x;
 
 
-    let targetX = (Math.sign(target.x) > 0)? target.x: 0,
-    targetY = (Math.sign(target.y) > 0)? target.y: 0
+    let targetX = ((Math.sign(target.x) > 0)? target.x : 0) + target.width/3;
+    let targetY = ((Math.sign(target.y) > 0)? target.y : 0) + target.height/2;
 
     let objectX = (Math.sign(object.x) > 0)? object.x: 0,
     objectY = (Math.sign(object.y) > 0)? object.y: 0
 
     let item = (targetY - objectY)/(targetX - objectX);
 
-    let rotateAngle = Math.atan2(targetY - objectY, targetX + (distanceX / target.speed) - objectX) * 180 / Math.PI;
+    let rotateAngle = Math.atan2(targetY  - objectY, targetX + (distanceX / target.speed) - objectX) * 180 / Math.PI;
     return rotateAngle
 }
 
@@ -372,5 +417,6 @@ export  {
     preloadImage,
     fullScreenSwitch,
     angleFinder,
-    getImageFromFields
+    getImageFromFields,
+    searchExplosionObject
 }

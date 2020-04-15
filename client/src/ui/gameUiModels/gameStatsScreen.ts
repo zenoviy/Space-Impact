@@ -149,6 +149,62 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             },
             init: init,
             getObjectPosition: getUIObjectPosition
+        },
+        {
+            name: "object",
+            text: "",
+            info: info,
+            step: [info.life].map(i => i*50),
+            description: "Game logotype",
+            clicked: false,
+            properties:{
+                ctx: ctx,
+                width: 100,
+                height: 100,
+                sWidth: 500,
+                sHeight: 500,
+                x: width/2 - 50,
+                y: window.innerHeight - 50,
+                background: new Image(),
+                borderColor: false,
+                shadowColor: 'rgba(0, 0, 0, 0)',
+                radius: null,
+            },
+            loadPicture(){
+                this.properties.background.src = pictureDirrection + 'misc/grapple-objects/coin.png';
+            },
+            init: function(callback, data?){
+                data = (data)? data: this;
+                let inventory = data.info.playerObject.data.inventory.filter(( object ) => {
+                    if(object){
+                        return  object.status === "inventory static"
+                    }
+                });
+                if(!inventory) return false
+                let objectsWithProperties = inventory.map(( item, i ) => {
+                    item.img =  new Image();
+                    item.img.src = process.env.HOST + item.displayImage;
+                    return {
+                        data: item,
+                        marginLeft: 50 * i,
+                        activateButton: item.grapplePower.value.activateButton
+                    }
+                })
+                for(let i = 0; i < objectsWithProperties.length; i++){
+                    if(!objectsWithProperties[i].data) continue
+                    let cardObject = objectsWithProperties[i];
+                    if(cardObject.data.status === "inventory static"){
+                        this.properties.background = cardObject.data.img;
+                        this.properties.x += 50;
+
+                        callback(data)
+                        ctx.fillText(cardObject.data.grapplePower.number, this.properties.x, window.innerHeight - 40 )
+                        ctx.fillText(cardObject.activateButton, this.properties.x + 30, window.innerHeight - 10 )
+                    }
+                }
+
+            },
+            getObjectPosition: getUIObjectPosition
         }
     ]
 }

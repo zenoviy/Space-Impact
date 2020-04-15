@@ -42,11 +42,18 @@
     justify-items: center
     z-index: 1000
     .save-dialog-wrapper
-        min-height: 120px
+        min-height: 100px
         min-width: 500px
         align-self: center
         padding: 20px
-        background: #000
+        background: $window-color
+        text-align: center
+        border-radius: $border-radius
+        box-shadow: $main-shadow-box
+        div
+            p
+                text-align: center
+                display: block
 
 .save-form
     @include form-input-center

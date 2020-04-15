@@ -98,15 +98,17 @@ function showPauseWindow(){
     ];
     this.initUiElements(drawMethods, gamePause)
 }
-function showGameStats(){
+function showGameStats({ playerObject }){
     let data = this.getLevelUserData();
+    data.playerObject = playerObject;
     let drawMethods = [
         uiImage,
         uiText,
         uiText,
         uiText,
         uiImage,
-        uiText
+        uiText,
+        uiImage
     ];
     this.initUiElements(drawMethods, gameInformationScreen, data)
 }

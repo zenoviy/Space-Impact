@@ -26,14 +26,41 @@ function hangarMouseMoveEvent({ mainGameObject, event }){
     }
 }
 
+function checkItems({ item }){
+    if(!item.grapplePower || !item) return true
+    if(item.grapplePower.name === 'rocket'){
+        return false
+    }
+    return true
+}
+function findIntInventory({ inventory, searchObject }){
 
-async function inventaryColisionEvent({ hitObject, playerObjectData, shopAreaItems, mainGameObject, playerObject, index }){
+    let result = inventory.find((item) => {
+        if(item && searchObject){
+            return item.name === searchObject.name
+        }
+    })
+    if( result ){
+        result = {
+            dataObject: result,
+            index: inventory.indexOf(result)
+        }
+        return result
+    }
+    return false
+}
+
+
+
+async function inventoryColisionEvent({ hitObject, playerObjectData, shopAreaItems, mainGameObject, playerObject, index }){
     if(hitObject === "collision"){
         if(playerObjectData.guns[ index ] && (!shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem != 0)){
             shopAreaItems.hangarSelectedItem = (shopAreaItems.hangarSelectedItem == index)? null: index;
             mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
         }
         if(shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem === 0){
+            let checkStatus = checkItems({item: playerObjectData.inventory[shopAreaItems.inventorySelectedItem]});
+            if(!checkStatus) return false
             await assignEffectsToShip({playerObject: playerObject, item: playerObjectData.inventory[shopAreaItems.inventorySelectedItem]})
             putItemToStorage({
                 name: 'outside-storage',
@@ -66,5 +93,6 @@ async function inventaryColisionEvent({ hitObject, playerObjectData, shopAreaIte
 
 export {
     hangarMouseMoveEvent,
-    inventaryColisionEvent
+    inventoryColisionEvent,
+    findIntInventory
 }

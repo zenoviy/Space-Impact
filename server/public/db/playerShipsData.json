@@ -390,9 +390,9 @@
         "title": "SSE Cyclone",
         "status": "dreadnought",
         "description": "large battle ship",
-        "healthPoint": 800,
+        "healthPoint": 500,
         "price": 60000,
-        "armor": 205,
+        "armor": 105,
         "speed": 20,
         "minSpeed": 4,
         "inventoryCapacity": 10,
@@ -430,21 +430,9 @@
             },
             {
                 "positionX": 150,
-                "positionY": 60,
+                "positionY": 150,
                 "shipXPosition": 90,
                 "shipYPosition": 20
-            },
-            {
-                "positionX": 150,
-                "positionY": 200,
-                "shipXPosition": 90,
-                "shipYPosition": 83
-            },
-            {
-                "positionX": 90,
-                "positionY": 150,
-                "shipXPosition": 70,
-                "shipYPosition": 43
             }
         ],
         "damage": 260,

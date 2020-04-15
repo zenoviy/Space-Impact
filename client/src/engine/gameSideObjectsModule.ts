@@ -1,45 +1,53 @@
 import { loadExtraObject } from "../ai/regularEnemyAiModules";
 import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
-import { angleFinder } from './engineModules';
+import { angleFinder, searchExplosionObject } from './engineModules';
+import { explosionDamage } from '../enemies/enemiesModules';
 
-function explosionFire(targetData, mainGameObject, hitObject, SideObject, explosion){
-    let hitX = hitObject.x + hitObject.width/2, targetX = targetData.x + targetData.width/2;
-    //let adjust = Math.max(hitX, targetX) - Math.min(hitX, targetX);
+function explosionFire({targetData, mainGameObject, hitObject, SideObject, explosion}){
+    let allExplosionObject = searchExplosionObject({ mainGameObject: mainGameObject })
+    if(allExplosionObject.length > process.env.MAX_NUMBER_OF_EXPLOSION) return false
+    if(hitObject.type === "rocket" &&  targetData.type != "rocket" && targetData.type != "player" && targetData.type != "enemy" ||
+    hitObject.type === "homing_rocket" &&  targetData.type != "homing_rocket" && targetData.type != "player" && targetData.type != "enemy"){
+        explosionDamage({
+            hitObject: hitObject,
+            mainGameObject: mainGameObject
+        })
+    }
     let explosionData = {
-
-            //x: (targetData.objectOwner === 'player')? targetData.x + targetData.width - targetData[explosion].width : targetData.x ,
-            //y: (targetData.bulletType || targetData[explosion].central)? targetData.y - targetData[explosion].width/2: targetData.y,
-            x: (targetData.objectOwner === 'player')? targetData.x + targetData.width/2  - targetData[explosion].width : targetData.x - targetData[explosion].width,
-            y: (targetData.objectOwner === 'player')? targetData.y - targetData[explosion].width/2 :
-            (targetData.objectOwner === 'collide' || targetData.objectOwner === 'environment')? targetData.y :
-            (targetData.objectOwner === 'enemy')?  targetData.y - targetData[explosion].width/2:  targetData.y - targetData[explosion].width,
-            sx: 0,
-            sy: 0,
-            objectOwner: "explosion",
-            sWidth: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
-            sHeight: targetData[explosion].imageHeight,
-            width: targetData[explosion].width*2,
-            height: targetData[explosion].width*2,
-            animationSteps: targetData[explosion].animationSteps,
-            target: hitObject.objectOwner,
-            numberOfItems: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
-            texture: targetData[explosion].texture,
-            speed: (hitObject.objectOwner === 'player')? targetData.speed: hitObject.speed/2,
-            picturesWidth: targetData[explosion].imageWidth,
-            sound: targetData[explosion].sound
-        }
-        let sideObject = new SideObject({...explosionData});
-        let soundProps = {
-            soundUrl: sideObject.sound.levelSound,
-            soundLoop: sideObject.sound.soundLoop,
-        }
-        sideObject.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
-        sideObject.img.onload = () => {
-            mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
-        }
-        sideObject.loadTexture();
+        x: (targetData.objectOwner === 'player')? targetData.x + targetData.width/2  - targetData[explosion].width : targetData.x - targetData[explosion].width,
+        y: (targetData.objectOwner === 'player')? targetData.y - targetData[explosion].width/2 :
+        (targetData.objectOwner === 'collide' || targetData.objectOwner === 'environment')? targetData.y :
+        (targetData.objectOwner === 'enemy')?  targetData.y - targetData[explosion].width/2:  targetData.y - targetData[explosion].width,
+        sx: 0,
+        sy: 0,
+        objectOwner: "explosion",
+        sWidth: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
+        sHeight: targetData[explosion].imageHeight,
+        width: targetData[explosion].width*2,
+        height: targetData[explosion].width*2,
+        animationSteps: targetData[explosion].animationSteps,
+        target: hitObject.objectOwner,
+        numberOfItems: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
+        texture: targetData[explosion].texture,
+        speed: (hitObject.objectOwner === 'player')? targetData.speed: hitObject.speed/2,
+        picturesWidth: targetData[explosion].imageWidth,
+        sound: targetData[explosion].sound
+    }
+    let sideObject = new SideObject({...explosionData});
+    let soundProps = {
+        soundUrl: sideObject.sound.levelSound,
+        soundLoop: sideObject.sound.soundLoop,
+    }
+    sideObject.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
+    sideObject.img.onload = () => {
+        mainGameObject.gameInitData.allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects.concat(sideObject);
+    }
+    sideObject.loadTexture();
 }
+
+
+
 function fireAnimationEnded( allGameSideObjects ){
     this.detectFrame += 1;
     if(this.detectFrame % this.animationSteps == 0){
@@ -81,12 +89,11 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
             if(levelObjectProps.objectOwner == 'hangar' && this.gameInitData.tradepostInRange) return false
             if(levelObjectProps.objectOwner == 'hangar'){
                 let probability = this.gameRandomizer(levelObjectProps.probability)
-                //console.log(probability, levelObjectProps.probability)
                 if( probability > 50 && data.minutes > 0 || probability > 500 && data.minutes === 0 ) return false // 1000
                 this.gameInitData.tradepostInRange = true;
             }
 
-
+            
 
             let extraObjects =  (levelObjectProps.extraObjects)? await loadExtraObject.call(this, levelObjectProps.extraObjects): false;
             let extraObjectObjectsData = {
@@ -137,7 +144,8 @@ function loadTexture(){
     this.img.src = this.texture;
 }
 
-function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies){
+
+function findCloseObject({allGameEnemies}){
     if(allGameEnemies.length < 0) return false
     let closestUnit;
     let closestUnitXrange = Infinity;
@@ -147,7 +155,6 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
         if(!ship) continue
         let distanceX = (ship.x > this.x)? ship.x - this.x : this.x - ship.x;
         let distanceY = (ship.y > this.y)? ship.y - this.y : this.y - ship.y;
-
 
         let minx = Math.min(ship.x + (distanceX / ship.speed), this.x);
         let maxx = Math.max(ship.x + (distanceX / ship.speed), this.x);
@@ -160,7 +167,10 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
             closestUnit = ship
         }
     }
-    if(!closestUnit || closestUnit.x > window.innerWidth) return false
+    return closestUnit
+}
+
+function findAngleToShip({ closestUnit }){
     let angle = angleFinder({object: this, target: closestUnit})
 
     if(this.defaultAngle){
@@ -174,6 +184,15 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
                 angle = 0;
         }
     }
+    return angle
+}
+
+function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies){
+    //this.shotAngle = findCloseObjectAngle.call(this, BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies);
+    if(allGameEnemies.length < 0) return false
+    let closestUnit = findCloseObject.call(this, {allGameEnemies: allGameEnemies})
+    if(!closestUnit || closestUnit.x > window.innerWidth) return false
+    let angle = findAngleToShip.call(this, { closestUnit: closestUnit })
 
     this.shotAngle = angle;
     this.shot(BulletConstruct, mainGameObject, SoundCreator, owner)
@@ -184,6 +203,8 @@ export {
     fireAnimationEnded,
     mapRandomObjectSpawn,
     mapObjectMove,
-    sideObjectShot,
-    loadTexture
+    findAngleToShip,
+    findCloseObject,
+    loadTexture,
+    sideObjectShot
 }

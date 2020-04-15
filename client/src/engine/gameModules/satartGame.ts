@@ -89,7 +89,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject){
     loadWindow({loadStatus: "load"})
-    let level = 1, shipType = 1, shipLife = 15;
+    let level = 7, shipType = 3, shipLife = 15;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -177,6 +177,12 @@ async function gameDataInit(PlayerShip, soundObject){
 function gameStart(){
     this.mapSoundChanger({soundStatus:'regular_level'})
     process.env.BOSS_LOAD_AT_LEVEL = "false";
+
+    process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
+    process.env.SHOP_ACTIVE_WINDOW = 'false';
+    process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
+    process.env.SHOP_SALE_WINDOW = 'false';
+    process.env.SHOP_STORE_WINDOW = 'false';
     let contexts = this.returnContext()
     this.initPlayerShip()
 

@@ -108,7 +108,6 @@ async function gameSettingsMenuInit(){
             hide(settingsMessage)
         }, 5000)
     }
-    
 
     (function reloadGameApp(){
         reloadPage('#settings-reload-btn')

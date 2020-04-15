@@ -99,7 +99,7 @@
         "objectOwner": "grappleObject",
         "price": 100,
         "title": "Box",
-        "status": "inventary object",
+        "status": "inventory object",
         "description": "box with goods",
         "type": "object",
         "healthPoint": null,

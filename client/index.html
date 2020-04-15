@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Space Attack Game</title>
+    <script src="./javascript/openLink.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 
     <link rel="import" href="sections/about.html">
@@ -18,7 +19,6 @@
     <link rel="import" href="sections/load.html">
 </head>
 <body>
-    
     <div id="main-load-screen" class="main-load-screen">
         <p>Loading...</p>
         <img width="300" style="display: block; margin: 0 auto;" src="./public/icons/png/1024x1024.png" alt="">
@@ -72,8 +72,10 @@
         <div id="shop-dialog" class="shop-dialog" style="display: none;">
             <p id="shop-dialog-text"></p>
             <p id="shop-error-message" style="color: red"></p>
-            <button data-target-btn-id="ok" class="btn-main">Ok</button>
-            <button  data-target-btn-id="cancel" class="btn-main btn-orange-reject">cancel</button>
+            <div class="dialog-btn-area">
+                <button data-target-btn-id="ok" class="btn-main">Ok</button>
+                <button  data-target-btn-id="cancel" class="btn-main btn-orange-reject">cancel</button>
+            </div>
         </div>
 
 
@@ -81,7 +83,6 @@
         <canvas class="game-fields" id="gamefield"></canvas>
         <canvas class="game-fields" id="gameObjectsfield"></canvas>
         <canvas class="game-fields" id="gameUifield"></canvas>
-        
     </div>
     <div class="static-wrapper">
         <asside class="menu-wrapper">

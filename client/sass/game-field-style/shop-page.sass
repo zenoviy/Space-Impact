@@ -59,8 +59,9 @@
 
     .shop-sale-part
       width: 100%
-      height: 50px
-      background: #ff0000
+      height: 67px
+      background-size: cover
+
       .sale-inner-item
         img
           width: 100%
@@ -73,7 +74,7 @@
       canvas
         background-size: cover
     .right-side-inventory
-      width: 25%
+      width: 245px
       height: fit-content
       justify-content: center
       display: flex
@@ -93,8 +94,16 @@
           height: 100%
           background: rgba(43, 31, 40, 0.8)
           border-radius: 7px
+          display: flex
+          justify-content: center
+          span
+            position: absolute
+            padding: 2px
           img
-            width: 100%
+            justify-self: center
+            width: 80%
+            height: 84%
+            align-self: center
 
     .display-shop-items
 
@@ -174,7 +183,13 @@
 
 .shop-dialog
     z-index: 1010
-    background: #bbb
+    background: #292c35
     position: absolute
+    align-self: center
     padding: 20px
     width: 400px
+    text-align: center
+    border-radius: $border-radius
+    box-shadow: $main-shadow-box
+
+

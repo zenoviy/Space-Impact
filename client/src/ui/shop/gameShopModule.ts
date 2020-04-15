@@ -15,8 +15,35 @@ import { shopInventory,
     assignEffectsToShip } from './gameInventoryModules';
 import { replaceShipData } from './gameShopShipyard';
 import { addPlayerLife } from '../../engine/gameGrappleObjectsModule';
-import { hangarMouseMoveEvent, inventaryColisionEvent} from './shopEvents/shopEventsModules';
-import { shopDialogActivity, shopMenuActivity  } from './shopEvents/shopActivityDetectorModules';
+import { hangarMouseMoveEvent, inventoryColisionEvent, findIntInventory } from './shopEvents/shopEventsModules';
+import { shopDialogActivity, shopMenuActivity, shopWeaponsActivity } from './shopEvents/shopActivityDetectorModules';
+
+
+
+
+
+
+function enterToTheShopDialog({mainGameObject, tradePropertyes}){
+    if(mainGameObject.gameInitData.gameOver || mainGameObject.gameInitData.levelChange) return false
+    shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
+    
+    mainGameObject.gameInitData.shopActive = true;
+    let shopUiItems = mainGameObject.shopArea;
+
+    mainGameObject.shopArea.selectedShopItem.tradePropertyes = (!tradePropertyes.salePercentage)? salePercentage({tradePropertyes: tradePropertyes, mainGameObject: mainGameObject}): tradePropertyes;
+    shopWeaponsActivity({ mainGameObject: mainGameObject, shopArea: mainGameObject.shopArea })
+    switchShopHangar({ state: 'to-shop', element: mainGameObject.shopArea})
+    show(shopUiItems.shopWrapper)
+}
+
+function leaveShop({element, mainGameObject, text}){
+    element.shopDialogText.innerHTML = text;
+    element.shopErrorMessage.innerHTML = '';
+    show(element.shopDialog)
+}
+
+
+
 
 
 function loadShopArea (mainGameObject) {
@@ -106,7 +133,7 @@ function shopEventDetector({ shopArea, mainGameObject }){
             let hitObject = shopHitObjectsDetection({
                 event: event, hangarElements: hangarElements, index: i
             })
-            inventaryColisionEvent({
+            inventoryColisionEvent({
                 hitObject: hitObject,
                 playerObjectData: playerObjectData,
                 shopAreaItems: shopAreaItems,
@@ -133,7 +160,7 @@ function shopEventDetector({ shopArea, mainGameObject }){
             selectedItemsPicture({status: true, event: event,
                 picture: (shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem === 0)
                 ? playerObjectData.inventory[shopAreaItems.inventorySelectedItem]
-                : playerObjectData.guns[shopAreaItems.hangarSelectedItem]}) // event.clientX
+                : playerObjectData.guns[shopAreaItems.hangarSelectedItem]})
         }else selectedItemsPicture({status: false, event: event, picture: null})
     })
 
@@ -162,7 +189,6 @@ function changePage({mainGameObject, flag}){
     if( shopPageInformation.currentPage < 1 ) shopPageInformation.currentPage = 1;
     if( shopPageInformation.currentPage > shopPageInformation.totalPages ) shopPageInformation.currentPage = shopPageInformation.totalPages;
 
-
     showShopData({element: mainGameObject.shopArea, url: shopPageInformation.currentShopUrl,
         mainGameObject: mainGameObject,
         customWrapperClass: shopPageInformation.customWrapperClass,
@@ -171,22 +197,29 @@ function changePage({mainGameObject, flag}){
 
 
 
-function buyStoreItem({mainGameObject, data}){
-    let hangarElements = mainGameObject.shopArea.selectedShopItem;
-    let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
-
+function buyStoreItem({mainGameObject, data, targetData}){
+    let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     if(!data) return false
-        if(data.type === "power" && data.name === 'extralife'){
-            mainGameObject.gameInitData.gameData.gameCoins -= data.price;
-            addPlayerLife.call(data, {
-                allGameSideObjects: null,
-                playerShipData: mainGameObject.gameInitData.gameData.playerObject,
-                mainGameObject: mainGameObject
-            })
-            hide(mainGameObject.shopArea.shopDialog)
-        }else if(data.type === "object"){
-
+    if(data.type === "power" && data.name === 'extralife'){
+        mainGameObject.gameInitData.gameData.gameCoins -= data.price;
+        addPlayerLife.call(data, {
+            allGameSideObjects: null,
+            playerShipData: mainGameObject.gameInitData.gameData.playerObject,
+            mainGameObject: mainGameObject
+        })
+        hide(mainGameObject.shopArea.shopDialog)
+    }else if(data.type === "inventory weapon"){
+        if( targetData ){
+             if( playerObject.data.inventory[targetData.index].grapplePower.maxNumber <= playerObject.data.inventory[targetData.index].grapplePower.number ){
+                return false
+             }
+            playerObject.data.inventory[targetData.index].grapplePower.number += 1;
         }
+        mainGameObject.gameInitData.gameData.gameCoins -= data.price;
+        shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
+    }else if(data.type === "object"){
+
+    }
 }
 
 
@@ -204,9 +237,6 @@ function shipCardDescription({shipData}){
     `
     return shipDescriptionText
 }
-
-
-
 function weaponsCardDescription({card}){
     if(!card) return false
     let shipDescriptionText = `
@@ -216,12 +246,6 @@ function weaponsCardDescription({card}){
     `
     return shipDescriptionText
 }
-
-
-
-
-
-
 function labelShip({playerObject, card, mainGameObject}){
     if(playerObject.data.title === card.title){
         process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'true';
@@ -230,6 +254,7 @@ function labelShip({playerObject, card, mainGameObject}){
     }
     else return ''
 }
+
 
 
 
@@ -313,7 +338,7 @@ function createCard({ card, customWrapperClass, playerObject, mainGameObject, el
 
 
 
-function switchShopHangar(state, element){
+function switchShopHangar({state, element}){
     if(state == 'to-hangar'){
         hide(element.shopArea)
         show(element.hangarArea)
@@ -324,31 +349,6 @@ function switchShopHangar(state, element){
 }
 
 
-
-
-
-
-function leaveShop({element, mainGameObject, text}){
-    element.shopDialogText.innerHTML = text;
-    element.shopErrorMessage.innerHTML = '';
-    show(element.shopDialog)
-}
-
-
-
-
-
-
-function enterToTheShopDialog({mainGameObject, tradePropertyes}){
-    if(mainGameObject.gameInitData.gameOver || mainGameObject.gameInitData.levelChange) return false
-    shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
-    mainGameObject.gameInitData.shopActive = true;
-    let shopUiItems = mainGameObject.shopArea;
-
-    mainGameObject.shopArea.selectedShopItem.tradePropertyes = (!tradePropertyes.salePercentage)? salePercentage({tradePropertyes: tradePropertyes, mainGameObject: mainGameObject}): tradePropertyes;
-    switchShopHangar('to-shop', mainGameObject.shopArea)
-    show(shopUiItems.shopWrapper)
-}
 
 
 
@@ -419,11 +419,13 @@ async function buyItem({url, mainGameObject}){
     let playerObjectData = mainGameObject.gameInitData.gameData.playerObject;
 
     let inventoryInformation = inventoryFreeItem({inventory: playerObjectData.data.inventory, inventoryCapacity: playerObjectData.data.inventoryCapacity })
-
     let headers = {"usercoins" : mainGameObject.gameInitData.gameData.gameCoins,
         "itemName": mainGameObject.shopArea.selectedShopItem.title}
-    if(!inventoryInformation['firstEmptyItem']){
-        mainGameObject.shopArea.shopErrorMessage.innerHTML = 'Your`s inventeary is full';
+    if(!inventoryInformation['firstEmptyItem'] && mainGameObject.shopArea.selectedShopItem.title != 'Rocket'
+    && mainGameObject.shopArea.selectedShopItem.title != 'Homing Rocket'
+    && mainGameObject.shopArea.selectedShopItem.title != 'Nuclear Blast'
+    && mainGameObject.shopArea.selectedShopItem.title != 'Extra life'){
+        mainGameObject.shopArea.shopErrorMessage.innerHTML = 'Your`s inventory is full';
         return false
     }
     let data = await getData({url: process.env.HOST + url, method: 'PUT', data: null, headers: headers})
@@ -432,9 +434,15 @@ async function buyItem({url, mainGameObject}){
         return
     }else if(data.data){
         if(data.data.type === "power" && data.data.name === 'extralife'){
-            buyStoreItem({ mainGameObject: mainGameObject, data: data.data})
+            buyStoreItem({ mainGameObject: mainGameObject, data: data.data, targetData: null})
             return false
         }
+        if(data.data.type === "inventory weapon"){
+            let searchItem: any = findIntInventory({ inventory: playerObjectData.data.inventory, searchObject: data.data})
+            buyStoreItem({ mainGameObject: mainGameObject, data: data.data, targetData: searchItem})
+            if(searchItem) return
+        }
+
         mainGameObject.gameInitData.gameData.gameCoins = parseInt(data.money);
         putInsideInventory({mainGameObject, saveItem: data.data, inventoryItem: inventoryInformation['firstEmptyItem']})
         hide(mainGameObject.shopArea.shopDialog)

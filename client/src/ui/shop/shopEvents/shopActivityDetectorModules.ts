@@ -92,34 +92,42 @@ function shopExitActivity({ mainGameObject, shopArea}){
     leaveShop({element: shopArea, mainGameObject: mainGameObject, text: 'back to the game'})
 }
 
-
+function shopMenuOperatiom(props, callback, mainGameObject){
+    hide(mainGameObject.shopArea.shopDialog)
+    callback(props)
+}
 
 function shopMenuActivity({ mainGameObject, shopArea }){
+    
     switch(event.target['dataset'].targetBtnId){
         case 'weapons':
-            shopWeaponsActivity({ mainGameObject: mainGameObject, shopArea: shopArea })
+            shopMenuOperatiom({ mainGameObject: mainGameObject, shopArea: shopArea }, shopWeaponsActivity, mainGameObject)
             break;
         case 'ship':
-            shopShipActivity({ mainGameObject: mainGameObject, shopArea: shopArea })
+            shopMenuOperatiom({ mainGameObject: mainGameObject, shopArea: shopArea }, shopShipActivity, mainGameObject)
             break;
         case 'market':
-            shopMarketActivity({ mainGameObject: mainGameObject, shopArea: shopArea })
+            shopMenuOperatiom({ mainGameObject: mainGameObject, shopArea: shopArea }, shopMarketActivity, mainGameObject)
             break;
         case 'to-hangar':
-            switchShopHangar('to-hangar', shopArea)
+
+            shopMenuOperatiom({ state: 'to-hangar', element: shopArea}, switchShopHangar, mainGameObject)
             loadHangar({element: shopArea,
                 mainGameObject: mainGameObject})
             break;
         case 'to-shop':
-            switchShopHangar('to-shop', shopArea)
+            shopMenuOperatiom({ state: 'to-shop', element: shopArea}, switchShopHangar, mainGameObject)
             break;
         case 'previous-items':
+            hide(mainGameObject.shopArea.shopDialog)
             changePage({mainGameObject: mainGameObject, flag: "back"})
             break;
         case 'next-items':
+            hide(mainGameObject.shopArea.shopDialog)
             changePage({mainGameObject: mainGameObject, flag: "next"})
             break;
         case 'exit':
+            hide(mainGameObject.shopArea.shopDialog)
             shopExitActivity({ mainGameObject: mainGameObject, shopArea: shopArea })
             break;
         default:
@@ -129,5 +137,6 @@ function shopMenuActivity({ mainGameObject, shopArea }){
 
 export {
     shopDialogActivity,
-    shopMenuActivity
+    shopMenuActivity,
+    shopWeaponsActivity
 }

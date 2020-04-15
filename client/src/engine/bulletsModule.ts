@@ -1,7 +1,24 @@
+import { explosionFire } from "./gameSideObjectsModule";
+import { findAngleToShip, findCloseObject } from './gameSideObjectsModule';
+import { objectIntersectionDetect } from '../enemies/enemiesModules';
+import * as constructors from '../constructors/';
 
 
 
-function moveBullets( playerShipData, gameObject ){
+
+function createRocketSmock({ mainGameObject }){
+    if(Math.floor(this.x) % 3 === 0){
+        explosionFire({
+            targetData: this,
+            mainGameObject: mainGameObject,
+            hitObject: this,
+            SideObject: constructors.SideObject,
+            explosion: "smoke"
+        })
+    }
+}
+
+function moveBullets( playerShipData, mainGameObject ){
     switch (this.type){
         case "blaster":
             move.call(this)
@@ -10,8 +27,48 @@ function moveBullets( playerShipData, gameObject ){
             beam.call(this);
             move.call(this);
             break
+        case "rocket":
+            createRocketSmock.call(this, { mainGameObject: mainGameObject })
+            move.call(this);
+            break
+        case "homing_rocket":
+            this.lastSpeed = (!this.lastSpeed)? this.bulletSpeed : this.lastSpeed;
+            createRocketSmock.call(this, { mainGameObject: mainGameObject })
+            move.call(this);
+            let allGameEnemies = mainGameObject.gameInitData.allGameEnemies;
+            if(allGameEnemies.length < 0) return false
+            let closestUnit = findCloseObject.call(this, {allGameEnemies: allGameEnemies})
+
+            if(!closestUnit) return false
+            let angle = findAngleToShip.call(this, { closestUnit: closestUnit })
+            this.degree = (angle)? angle : this.degree;
+            let rocketSpeed = bulletSpeed({bulletSpeed: this.lastSpeed, angle: angle});
+            this.verticalSpeed = rocketSpeed.verticalSpeed;
+            this.bulletSpeed = rocketSpeed.horizontalSpeed;
+
+            break
+        case "nuclear_blast":
+            nuclearBlastExpended.call(this)
+            blastDestroyBullets.call(this, { mainGameObject: mainGameObject })
+            break
         default:
             move.call(this)
+    }
+
+    function nuclearBlastExpended(){
+        this.x -= this.bulletSpeed/2;
+        this.y -= this.bulletSpeed/2;
+        this.width += this.bulletSpeed;
+        this.height += this.bulletSpeed;/**/
+    }
+    function blastDestroyBullets({ mainGameObject }){
+        let bulletsArr = mainGameObject.gameInitData.allGameBullets;
+        if(!bulletsArr) return false
+        for(let bullet of bulletsArr){
+           let collision = objectIntersectionDetect({ object: this, target: bullet})
+
+           if(collision && bullet.type != "nuclear_blast")  bullet.objectPresent = false;
+        }
     }
 
     function move(){
@@ -20,8 +77,6 @@ function moveBullets( playerShipData, gameObject ){
 
     }
     function beam(){
-        let screenData = gameObject.getScreenSize();
-
         if(this.x > 0){
             this.width += this.bulletSpeed * -1;
         }else if(this.width > 0){

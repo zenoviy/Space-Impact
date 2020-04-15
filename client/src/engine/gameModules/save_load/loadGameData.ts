@@ -205,7 +205,7 @@ function createNewDialogWindow({parentElement, callback, saveDataItem, mainGameO
         text: null,
         innerContent: `<div class="save-dialog-wrapper">
         <div class="dialog-content">
-            ${text}
+            <p>${text}</p>
         </div>
         <button data-button-id="accept-save-action" class="btn-main">ok</button>
         <button data-button-id="reject-save-action" class="btn-main btn-orange-reject">cancel</button>

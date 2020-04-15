@@ -26,3 +26,6 @@ body {
     /*background-image: url("../public/images/misc/shop/body-border.png");
     background-image: url("../public/images/misc/shop/tablet.png");*/
 }
+.shop-wrapper .shop-sale-part{
+    background-image: url("../public/images/misc/shop/sale-box.png");
+}

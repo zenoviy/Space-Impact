@@ -187,7 +187,13 @@ function dialogWindow( {textData, rejectText, acceptText}, callback, navigation,
     dialogButtonArea.addEventListener('click', dialogButtonEvent)
 }
 
-
+window.addEventListener('load', ()=>{
+    
+    
+})
+function clickSomeEvent(){
+        alert(1)
+    }
 export {
     appMenu,
     hideShowMenu,

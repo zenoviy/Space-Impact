@@ -3,6 +3,7 @@ import { getObjectPosition } from '../engine/engineModules';
 import { takeDamage, enemyAnimation, placeEnemyes } from '../enemies/enemiesModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 
+
 interface explosionAnimation{
     texture: string,
     imageWidth: number,
@@ -27,6 +28,7 @@ class BulletConstruct{
     type: number; texture: string;
     img: any; sx: number; sy: number; sWidth: number; sHeight: number;
     explosion: explosionAnimation;
+    smoke: any;
     picturesWidth: number;
     imageHeight: number;
     animationSteps: number;
@@ -36,7 +38,7 @@ class BulletConstruct{
     sound: any; verticalSpeed: number;
     degree: number;
     objectNameFlag: string;
-
+    radius: number;
 
     moveBullets: any;
     getObjectPosition: any;
@@ -59,6 +61,7 @@ class BulletConstruct{
         this.texture = __dirname + data.texture;
         this.sx = data.sx; this.sy = data.sy;
         this.explosion = data.explosion;
+        this.smoke = (data.smoke)? data.smoke : null;
         this.picturesWidth = data.imageWidth;
         this.imageHeight = data.imageHeight;
         this.animationSteps = data.animationSteps;
@@ -71,6 +74,8 @@ class BulletConstruct{
         this.verticalSpeed = (data.verticalSpeed)? data.verticalSpeed : 0;
         this.degree = (data.degree)? data.degree : 0;
         this.objectNameFlag = "bullet";
+        this.radius = (data.radius)? data.radius : null;
+
         //this.picturesWidth = data.picturesWidth;
     }
 }

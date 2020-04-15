@@ -7,6 +7,8 @@ import { pageBuilder, createElements } from '../../appMenu/pagesBuilder';
 import { loadHangar } from './gameHangarModules';
 import { leaveShop } from './gameShopModule';
 
+
+
 function shopInventory({element, mainGameObject}){
     element.shopInventoryWrapper.innerHTML = "";
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;
@@ -15,6 +17,8 @@ function shopInventory({element, mainGameObject}){
         let itemRender = createElements({tagName: 'div', styleClass: 'inventory-item', inlineStyle: ``,
         pictureUrl: null, linkUrl: null, text: null,
         innerContent: (playerObjectData.inventory[index])?`<div class="inventory-inner-item">
+            ${(playerObjectData.inventory[index].type === "inventory weapon")?
+            '<span>'+ playerObjectData.inventory[index].grapplePower.number +'</span>': ''}
             <img src=${(playerObjectData.inventory[index].loadImage)? process.env.HOST + playerObjectData.inventory[index].loadImage : ""}>
             </div>` : `<div class="inventory-inner-item"></div>`,
         attribute: null, attributeName: null,
@@ -82,7 +86,7 @@ function saleBox({mainGameObject}){
         linkUrl: null,
         text: null,
         innerContent: `<div class="sale-inner-item">
-                <img src='' alt="sale box">
+                
         </div>`,
         attribute: null, attributeName: null,
         attribute1: null, attributeName1: null})
@@ -157,13 +161,13 @@ function saleItem({mainGameObject}){
        let selPrice = salePercentAddToPrice({price: playerObjectData.inventory[hangarElements.inventorySelectedItem].price, mainGameObject: mainGameObject})
        mainGameObject.gameInitData.gameData.gameCoins += selPrice
 
-       replaceItemFromStorage({index: hangarElements.inventorySelectedItem, storage: playerObjectData.inventory, value: null, playerObject: playerObject})
+       replaceItemFromStorage({index: hangarElements.inventorySelectedItem, storage: playerObjectData.inventory, value: null })
        mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
     }
     if(hangarElements.hangarSelectedItem || hangarElements.hangarSelectedItem === 0){
         let selPrice = salePercentAddToPrice({price: playerObjectData.guns[hangarElements.hangarSelectedItem].price, mainGameObject: mainGameObject})
         disableEffects({playerObject: playerObject, item: playerObjectData.guns[hangarElements.hangarSelectedItem]})
-        replaceItemFromStorage({index: hangarElements.hangarSelectedItem, storage: playerObjectData.guns, value: null, playerObject: playerObject})
+        replaceItemFromStorage({index: hangarElements.hangarSelectedItem, storage: playerObjectData.guns, value: null })
         mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
         mainGameObject.gameInitData.gameData.gameCoins  += selPrice;
     }
@@ -185,7 +189,7 @@ function putInsideInventory({mainGameObject, saveItem, inventoryItem}){
 
 
 
-function replaceItemFromStorage({index, storage, value, playerObject}){
+function replaceItemFromStorage({index, storage, value}){
     storage.splice(index, 1, value)
 }
 
@@ -224,8 +228,8 @@ function shopStorageReplacer({putIndex, selectedIndex, storage, selectedStorage,
     let selectGun = storage[selectedIndex];
     selectGun = assignGunsPosition({gun: selectGun, firespot: firespot[putIndex]})
 
-    replaceItemFromStorage({index: putIndex, storage: selectedStorage, value: selectGun, playerObject: playerObject})
-    replaceItemFromStorage({index: selectedIndex, storage: storage, value: null, playerObject: playerObject})
+    replaceItemFromStorage({index: putIndex, storage: selectedStorage, value: selectGun })
+    replaceItemFromStorage({index: selectedIndex, storage: storage, value: null })
     mainGameObject.shopArea.selectedShopItem.hangarSelectedItem = null;
     mainGameObject.shopArea.selectedShopItem.inventorySelectedItem = null;
 }

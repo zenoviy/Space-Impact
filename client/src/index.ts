@@ -9,6 +9,8 @@ import { clearField } from './view/displayModules';
 import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 import { loadShopArea } from './ui/shop/gameShopModule';
 import { saveGameEvents } from './appMenu/saveLoadMenu';
+//
+import { explosionFire } from './engine/gameSideObjectsModule';
 import * as menuInterface from './gameInterfaces/menuInterface';
 
 
@@ -56,7 +58,7 @@ function enemyEngineFunction({gameObject}){
                 }, gameObject);
                 enemy.enemyAnimation(true);
                 enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "enemy")
-                gameObject.deleteObjects(enemy)
+                gameObject.deleteObjects(enemy )
                 gameObject.hitDetection({
                     object1: gameObject.gameInitData.gameData.playerObject,
                     objectsArr: [enemy],
@@ -110,7 +112,7 @@ function sideObjectsEngineFunction({gameObject}){
         for(let object of gameObject.gameInitData.allGameSideObjects){
             object.placeEnemyes(gameObject);
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
-                if (object.objectOwner == "explosion"){
+                if (object.objectOwner == "explosion" || object.objectOwner == "smoke"){
                     object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
                 }else{
                     sideObjectBehaviour({object: object, gameObject: gameObject})
@@ -187,7 +189,7 @@ function gameUiGameStats({ gameObject }){
         gameObject.showStartWindow()
     }
     if(gameObject.gameInitData.gameStatus){
-        gameObject.showGameStats()
+        gameObject.showGameStats({playerObject: gameObject.gameInitData.gameData.playerObject})
     }
     if(gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
         gameObject.showPauseWindow()
@@ -209,6 +211,9 @@ function gameUiEngineFunction({ gameObject }){
 }
 
 function initAppGlobalVariable(){
+    process.env.MAX_NUMBER_OF_EXPLOSION = '20';
+    process.env.MAX_NUMBER_OF_BULLETS = '100';
+
     process.env.SAVE_DATA_FILE = 'game-saves';
 
     process.env.LEVEL_DATA_URL = 'api/level-data';

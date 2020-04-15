@@ -83,8 +83,19 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
     for(let item of guns){
         if(!item || item.type ==='object') continue
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
+            bulletsCreateModule.call(this, {
+                item: item,
+                mainGameObject: mainGameObject,
+                owner: owner,
+                BulletConstruct: BulletConstruct,
+                SoundCreator: SoundCreator
+            })
+        }
+    }
+}
 
-            let angle = (item.defaultAngle)?
+function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, SoundCreator}){
+    let angle = (item.defaultAngle)?
             (item.defaultAngle.isRandom)?
             mainGameObject.gameRandomizer(item.defaultAngle.max - item.defaultAngle.min, item.defaultAngle.min): item.defaultAngle.angle
             : this.shotAngle;
@@ -102,22 +113,20 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
                 width: item.width, height: item.height,
                 damage: item.damage, type: item.type, texture: item.texture,
                 sx: ( item.sx )? item.sx : 0 , sy: ( item.sy )? item.sy : 0, sWidth: item.sWidth, sHeight: item.sHeight,
-                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
+                explosion: item.explosionAnimation, smoke: ( item.smoke )? item.smoke: null,  imageWidth: item.imageWidth, imageHeight: item.imageHeight,
                 animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
-                sound: item.sound, verticalSpeed: (bulletSettings.verticalSpeed)? bulletSettings.verticalSpeed: 0,
-                degree: (bulletSettings.angle)? bulletSettings.angle: 0,
+                sound: (item.sound)? item.sound : null, verticalSpeed: (bulletSettings.verticalSpeed)? bulletSettings.verticalSpeed: 0,
+                degree: (bulletSettings.angle)? bulletSettings.angle: 0, radius: (item.radius)? item.radius : null
             });
             let soundProps = {
                 soundUrl: bullet.sound.levelSound,
                 soundLoop: bullet.sound.soundLoop,
             }
             bullet.loadTexture()
-            bullet.sound.soundObject = initSoundObject({SoundCreator: SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
+            bullet.sound.soundObject = (bullet.sound)? initSoundObject({SoundCreator: SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps}) : null;
             bullet.img.onload = () => {
                 mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
-                }
-        }
-    }
+            }
 }
 
 
@@ -168,7 +177,16 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "collide" && hitObject.hasOwnProperty('healthPoint')||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "collide" && hitObject.hasOwnProperty('healthPoint')
     ){
-        explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion")
+        explosionFire({
+            targetData: this,
+            mainGameObject: mainGameObject,
+            hitObject: hitObject,
+            SideObject: costructors.SideObject,
+            explosion: "explosion"
+        })
+
+        if( this.type === "nuclear_blast" ){
+            return false;}
         this.objectPresent = false; return
     }
 
@@ -176,9 +194,16 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     if(this.objectPresent && this.objectOwner == "grappleObject" &&
     hitObject.objectOwner == "player" &&
     !hitObject.hasOwnProperty('bulletType')){
+        if( this.objectPresent.type === "nuclear_blast" ) return false;
         this.objectPresent = false;
         mainGameObject.gameInitData.grappleObjectOnScreen = false;
-        explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion");
+        explosionFire({
+            targetData: this,
+            mainGameObject: mainGameObject,
+            hitObject: hitObject,
+            SideObject: costructors.SideObject,
+            explosion: "explosion"
+        });
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 
@@ -201,51 +226,67 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "enemy"
      ){
 
-        unitDamage.call(this, null, mainGameObject);
+        unitDamage.call(this, {
+            data: null,
+            mainGameObject: mainGameObject,
+            damage: damage
+        });
         this.enemyDamageAnimation()
         if(this.healthPoint <= 0) {
             this.objectPresent = false;
-            //collideExplosionAnimation
-            explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "collideExplosionAnimation");
-            explosionFire(this, mainGameObject, hitObject, costructors.SideObject, "explosion");
+            explosionFire({
+                targetData: this,
+                mainGameObject: mainGameObject,
+                hitObject: hitObject,
+                SideObject: costructors.SideObject,
+                explosion: "collideExplosionAnimation"
+            });
+            explosionFire({
+                targetData: this,
+                mainGameObject: mainGameObject,
+                hitObject: hitObject,
+                SideObject: costructors.SideObject,
+                explosion: "explosion"
+            });
 
             /// load coins
             if(this.spawnCoin) this.spawnCoin(mainGameObject, costructors.GrappleObject);
-            if(this.isBoss) bossEnemyDestruction()
+            if(this.isBoss) bossEnemyDestruction({mainGameObject: mainGameObject})
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
         if(this.collisionAllow && !mainGameObject.gameInitData.shopActive){
-            unitDamage.call(this, mainGameObject.getLevelUserData(), mainGameObject)
+            unitDamage.call(this, {
+                data: mainGameObject.getLevelUserData(),
+                mainGameObject: mainGameObject,
+                damage: damage
+            })
         }
     }else return false
-
-    function unitDamage(data, mainGameObject){
-
-        this.healthPoint -= damage;
-        if(this.healthPoint <= 0){
-            if(data && data.life > 0){
-                data.source.playerObject.numberOflife -= 1;
-                if(data.source.playerObject.numberOflife <= 0){
-                    mainGameObject.gameOverWindow()
-                    mainGameObject.gameInitData.gameOver = true;
-                    mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
-                    setTimeout(function(){
-                        mainGameObject.backToStartScreen(costructors.PlayerShip)
-                    }, 3000)
-                }
-                this.healthPoint = data.source.playerObject.maxHealth;
-                return false
+}
+function unitDamage({data, mainGameObject, damage}){
+    this.healthPoint -= damage;
+    if(this.healthPoint <= 0){
+        if(data && data.life > 0){
+            data.source.playerObject.numberOflife -= 1;
+            if(data.source.playerObject.numberOflife <= 0){
+                mainGameObject.gameOverWindow()
+                mainGameObject.gameInitData.gameOver = true;
+                mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
+                setTimeout(function(){
+                     mainGameObject.backToStartScreen(costructors.PlayerShip)
+                }, 3000)
             }
-            mainGameObject.collectPoints(this.pointsPerUnit)
-            return this.objectPresent = false;
+            this.healthPoint = data.source.playerObject.maxHealth;
+            return false
         }
-    }
-
-    function bossEnemyDestruction(){
-        mainGameObject.gameInitData.levelChange = true;
+        mainGameObject.collectPoints(this.pointsPerUnit)
+        return this.objectPresent = false;
     }
 }
 
+function bossEnemyDestruction({ mainGameObject }){
+    mainGameObject.gameInitData.levelChange = true;
+}
 
 function spawnCoin(mainGameObject, GrappleObject){
     if(this.hasOwnProperty('extraObjects')){
@@ -256,6 +297,44 @@ function spawnCoin(mainGameObject, GrappleObject){
         }
     }
 }
+
+
+async function explosionDamage({ hitObject, mainGameObject }){
+   let enemyClosestList = mainGameObject.gameInitData.allGameEnemies.filter(( object ) => {
+        let distanceXmax = Math.max(object.x, hitObject.x);// hitObject.radius;
+        let distanceXmin = Math.min(object.x, hitObject.x);
+
+        let distanceYmax = Math.max(object.y, hitObject.y);// hitObject.radius;
+        let distanceYmin = Math.min(object.y, hitObject.y);
+
+        let xRange = distanceXmax - distanceXmin;
+        let yRange = distanceYmax - distanceYmin;
+
+        if( xRange <= hitObject.radius &&  yRange <= hitObject.radius ){
+            return object
+        }
+     });
+    if(!enemyClosestList) return false;
+
+    for(let enemy of enemyClosestList){
+        await unitDamage.call(enemy, {
+            data: enemy,
+            mainGameObject: mainGameObject,
+            damage: hitObject.damage
+        })
+       if(enemy.healthPoint <= 0){
+            explosionFire({
+                targetData: enemy,
+                mainGameObject: mainGameObject,
+                hitObject: enemy,
+                SideObject: costructors.SideObject,
+                explosion: "explosion"
+            })
+            enemy.objectPresent = false;
+        }
+    }
+}
+
 
 
 function objectIntersectionDetect({object, target}){
@@ -283,6 +362,7 @@ function objectIntersectionDetect({object, target}){
         let resY = yMax - yMin;
         let resX = xMax - xMin;
         collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
+
         return collision
     }
 }
@@ -330,11 +410,14 @@ export  {
     placeBackground,
     moveEnemyes,
     shot,
+    bulletsCreateModule,
     enemyAnimation,
     objectIntersectionDetect,
     hitDetection,
     takeDamage,
     enemyDamageAnimation,
     spawnCoin,
-    explosionFire
+    explosionFire,
+    unitDamage,
+    explosionDamage
 };
