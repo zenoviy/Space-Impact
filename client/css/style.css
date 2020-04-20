@@ -1,6 +1,10 @@
 body {
     cursor: url("../public/images/misc/cursor_2.cur"), crosshair;
 }
+button, a, .slider, button[type="submit"], form button,
+input[type="range"] {
+    cursor: url("../public/images/misc/cursor_2_selected.cur"), pointer;
+}
 .load-circle-image {
     background-image: url("../public/images/page/icons/loading.png");
 }
@@ -13,19 +17,15 @@ body {
     display: block;
     margin: 0 auto;
 }
-/*.display-area-wrapper{
-    background-image: url("../public/images/misc/shop/tablet.png");
-}*/
 .right-side-inventory{
     background-image: url("../public/images/misc/shop/tablet.png");
 }
-/*.shop-header{
-    background-image: url("../public/images/misc/shop/top-border.png");
-}*/
-.display-area-wrapper{
-    /*background-image: url("../public/images/misc/shop/body-border.png");
-    background-image: url("../public/images/misc/shop/tablet.png");*/
-}
 .shop-wrapper .shop-sale-part{
     background-image: url("../public/images/misc/shop/sale-box.png");
+}
+.tablet-btn{
+    background-image: url("../public/images/misc/shop/button.png");
+}
+.tablet-btn:hover{
+    background-image: url("../public/images/misc/shop/button_hover.png");
 }

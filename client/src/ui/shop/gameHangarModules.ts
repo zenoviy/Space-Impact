@@ -1,6 +1,7 @@
 import { createImage, createWindow, draw } from '../../view/displayModules';
 import { shopHitObjectsDetection,
     showDescriptionArea } from './gameShopModule';
+import { toggleShopButtonStyle } from './shopEvents/shopActivityDetectorModules';
 
 
 function loadHangar({element, mainGameObject}){
@@ -13,8 +14,7 @@ function loadHangar({element, mainGameObject}){
     element.hangarShipArea.width = 600;
     element.hangarShipArea.height = 350;
     img.src = process.env.HOST + playerObjectData.hangarImage;
-    hangarTextArea.innerHTML = playerObjectData.name;
-
+    hangarTextArea.innerHTML = `<p>${playerObjectData.name}</p>`;
     img.onload = () => {
         createImage(ctx, img, 80, 20, 500, 300)
         for(let i = 0; i < playerObjectData.firespot.length; i++){

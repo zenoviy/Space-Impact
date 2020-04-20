@@ -503,8 +503,8 @@
         "numberOfVerticalItems": 1,
         "sx": 0,
         "sy": 0,
-        "width": 195,
-        "height": 260,
+        "width": 325,
+        "height": 460,
         "skinName": "/public/images/misc/defence/enemy-tower-rhodes-ground.png",
         "speed": 2.1,
         "isBackground": false,
@@ -541,8 +541,8 @@
             "numberOfItems": 44,
             "sx": 0,
             "sy": 0,
-            "width": 150,
-            "height": 150,
+            "width": 325,
+            "height": 460,
             "sound": {
                 "levelSound": "/public/sound/weapons/explosions/building_Explosion_R1_SFX.mp3",
                 "soundLoop": false
@@ -1042,7 +1042,7 @@
     "isBackground": false,
     "pointsPerUnit": 35,
     "spawnDetails": {
-        "position": "scene"
+        "position": "top"
     },
     "extraObjects": [{
         "object": "goldCoin",
@@ -1196,7 +1196,7 @@
     "isBackground": false,
     "pointsPerUnit": 35,
     "spawnDetails": {
-        "position": "scene"
+        "position": "top"
     },
     "extraObjects": [{
         "object": "goldCoin",
@@ -1432,7 +1432,7 @@
             },
             "type": "blaster",
             "fireRepead": 10,
-            "speed": 6,
+            "speed": 15,
             "color": "rgba(81, 255, 0, 1)",
             "width": 45,
             "height": 20,
@@ -1483,7 +1483,7 @@
     "isBackground": false,
     "pointsPerUnit": 35,
     "spawnDetails": {
-        "position": "scene"
+        "position": "top"
     },
     "extraObjects": [{
         "object": "goldCoin",
@@ -1667,7 +1667,7 @@
             "soundLoop": false
         }
     }
-}, 
+},
 
 
 {
@@ -1729,7 +1729,130 @@
             "soundLoop": false
         }
     }
-}, 
+},
+
+
+
+{
+    "id": "asteroid_1",
+    "name": "asteroid 1",
+    "objectOwner": "collide",
+    "side": "inactive",
+    "damage": 30,
+    "healthPoint": 120000,
+    "imageWidth": 2020,
+    "imageHeight": 202,
+    "animationSteps": 10,
+    "numberOfItems": 10,
+    "numberOfVerticalItems": 1,
+    "sx": 0,
+    "sy": 0,
+    "width": 150,
+    "height": 150,
+    "skinName": "/public/images/spaceShips/asteroids/Asteroid1.png",
+    "speed": 1.7,
+    "isBackground": false,
+    "pointsPerUnit": 35,
+    "spawnDetails": {
+        "position": "scene"
+    },
+    "extraObjects": [{
+        "object": "goldCoin",
+        "randomizer": 100,
+        "maxNumber": 23
+    }],
+    "collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
+    },
+    "explosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":302,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 250,
+        "height": 850,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
+    }
+},
+{
+    "id": "asteroid_2",
+    "name": "asteroid 2",
+    "objectOwner": "collide",
+    "side": "inactive",
+    "damage": 30,
+    "healthPoint": 120000,
+    "imageWidth": 2020,
+    "imageHeight": 202,
+    "animationSteps": 10,
+    "numberOfItems": 10,
+    "numberOfVerticalItems": 1,
+    "sx": 0,
+    "sy": 0,
+    "width": 150,
+    "height": 150,
+    "skinName": "/public/images/spaceShips/asteroids/Asteroid2.png",
+    "speed": 2,
+    "isBackground": false,
+    "pointsPerUnit": 35,
+    "spawnDetails": {
+        "position": "scene"
+    },
+    "extraObjects": [{
+        "object": "goldCoin",
+        "randomizer": 100,
+        "maxNumber": 23
+    }],
+    "collideExplosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":294,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 70,
+        "height": 70,
+        "central": true,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
+    },
+    "explosionAnimation": {
+        "texture": "/public/images/misc/fire/explosion.png",
+        "imageWidth": 12891,
+        "imageHeight":302,
+        "animationSteps": 2,
+        "numberOfItems": 44,
+        "sx": 0,
+        "sy": 0,
+        "width": 250,
+        "height": 850,
+        "sound": {
+            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+            "soundLoop": false
+        }
+    }
+},
 
 
 {
@@ -1877,9 +2000,40 @@
     "spawnDetails": {
         "position": "bottom"
     }
+},
+
+
+
+
+{
+    "id": "gate_1",
+    "name": "gate",
+    "objectOwner": "nature",
+    "side": "inactive",
+    "damage": null,
+    "healthPoint": null,
+    "isGate": true,
+    "imageWidth": 5648,
+    "imageHeight": 1836,
+    "animationSteps": 20,
+    "numberOfItems": 4,
+    "numberOfVerticalItems": 1,
+    "timing": {
+        "levelMinutes": 0,
+        "levelSeconds": 15
+    },
+    "sx": 0,
+    "sy": 0,
+    "width": 500,
+    "height": 600,
+    "skinName": "/public/images/spaceShips/gate/gate_1.png",
+    "speed": 2,
+    "isBackground": false,
+    "pointsPerUnit": null,
+    "spawnDetails": {
+        "position": "top"
+    }
 }
-
-
 
 
 

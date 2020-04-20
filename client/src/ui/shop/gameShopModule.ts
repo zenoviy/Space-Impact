@@ -16,7 +16,7 @@ import { shopInventory,
 import { replaceShipData } from './gameShopShipyard';
 import { addPlayerLife } from '../../engine/gameGrappleObjectsModule';
 import { hangarMouseMoveEvent, inventoryColisionEvent, findIntInventory } from './shopEvents/shopEventsModules';
-import { shopDialogActivity, shopMenuActivity, shopWeaponsActivity } from './shopEvents/shopActivityDetectorModules';
+import { shopDialogActivity, shopMenuActivity, shopWeaponsActivity, toggleShopButtonStyle } from './shopEvents/shopActivityDetectorModules';
 
 
 
@@ -26,13 +26,14 @@ import { shopDialogActivity, shopMenuActivity, shopWeaponsActivity } from './sho
 function enterToTheShopDialog({mainGameObject, tradePropertyes}){
     if(mainGameObject.gameInitData.gameOver || mainGameObject.gameInitData.levelChange) return false
     shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
-    
+
     mainGameObject.gameInitData.shopActive = true;
     let shopUiItems = mainGameObject.shopArea;
 
     mainGameObject.shopArea.selectedShopItem.tradePropertyes = (!tradePropertyes.salePercentage)? salePercentage({tradePropertyes: tradePropertyes, mainGameObject: mainGameObject}): tradePropertyes;
     shopWeaponsActivity({ mainGameObject: mainGameObject, shopArea: mainGameObject.shopArea })
     switchShopHangar({ state: 'to-shop', element: mainGameObject.shopArea})
+    toggleShopButtonStyle(null)
     show(shopUiItems.shopWrapper)
 }
 
@@ -200,8 +201,14 @@ function changePage({mainGameObject, flag}){
 function buyStoreItem({mainGameObject, data, targetData}){
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     if(!data) return false
+    mainGameObject.gameInitData.gameData.gameCoins -= data.price;
+    inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data, targetData: targetData })
+}
+
+
+function inventoryItemGunsAssign({ mainGameObject, data, targetData }){
+    let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     if(data.type === "power" && data.name === 'extralife'){
-        mainGameObject.gameInitData.gameData.gameCoins -= data.price;
         addPlayerLife.call(data, {
             allGameSideObjects: null,
             playerShipData: mainGameObject.gameInitData.gameData.playerObject,
@@ -215,10 +222,7 @@ function buyStoreItem({mainGameObject, data, targetData}){
              }
             playerObject.data.inventory[targetData.index].grapplePower.number += 1;
         }
-        mainGameObject.gameInitData.gameData.gameCoins -= data.price;
         shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
-    }else if(data.type === "object"){
-
     }
 }
 
@@ -445,7 +449,7 @@ async function buyItem({url, mainGameObject}){
 
         mainGameObject.gameInitData.gameData.gameCoins = parseInt(data.money);
         putInsideInventory({mainGameObject, saveItem: data.data, inventoryItem: inventoryInformation['firstEmptyItem']})
-        hide(mainGameObject.shopArea.shopDialog)
+        if(data.data.type != "inventory weapon"){hide(mainGameObject.shopArea.shopDialog)}
         shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
     }
 }
@@ -462,5 +466,6 @@ export {
     buyItem,
     showShopData,
     switchShopHangar,
-    changePage
+    changePage,
+    inventoryItemGunsAssign
 }

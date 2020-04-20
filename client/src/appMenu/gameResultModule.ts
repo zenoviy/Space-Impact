@@ -165,13 +165,13 @@ function initResultScreen(mainGameObject){
     function formSwitcher(event){
         switch(event.target.dataset.btnId){
             case "new-player":
-
+                removeButtonClass.call( this )
                 hide(rewriteForm)
                 show(form)
                 addClassList(event.target, "selected-form")
                 break
             case "update-player":
-
+                removeButtonClass.call( this )
                 hide(form)
                 show(rewriteForm)
                 addClassList(event.target, "selected-form")
@@ -179,6 +179,14 @@ function initResultScreen(mainGameObject){
             default:
                 false
         }
+    }
+    function removeButtonClass(){
+        //let obj = document.querySelectorAll(this + " button");
+        let buttons = document.querySelectorAll(".selected-form");
+        console.log(buttons, "<<")
+        Array.prototype.slice.call(buttons).forEach(item => {
+            removeClassList(item, "selected-form")
+        })
     }
     function dialogButtonEvent(event){
             switch (event.target.dataset.buttonId){

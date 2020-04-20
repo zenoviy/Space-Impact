@@ -6,17 +6,25 @@ $dialog-btn-padding: 10px
     button.accept-btn
         background: $accept-color
         width: $button-width
+        transition: .5s linear
+    button.accept-btn:hover
+        background: $accept-color-selected
 
 @mixin reject-btn
     button.reject-btn
         background: $reject-color
         width: $button-width
+        transition: .5s linear
+    button.accept-btn:hover
+        background: $reject-color-selected
 
 .btn-main
     padding: $dialog-btn-padding
     border: 0px
     border-radius: $border-radius
-    cursor: pointer
+    transition: .5s linear
+.btn-main:hover
+    background: $grey-color
 
 .selected-items
     background: #161325
@@ -27,8 +35,10 @@ $dialog-btn-padding: 10px
     z-index: 100
     left: 0
     width: 220px
-    cursor: pointer
     background: $orange-color
+    transition: .5s linear
+.btn-sticky:hover
+    background: $orange-color-selected
 
 .btn-orange
     background: $orange-color
@@ -36,10 +46,16 @@ $dialog-btn-padding: 10px
     margin: 0 auto
     display: block
     min-width: 250px
+    transition: .5s linear
+.btn-orange:hover
+    background: $orange-color-selected
 
 .btn-orange-reject
     background: $orange-color
     padding: $dialog-btn-padding
+    transition: .5s linear
+.btn-orange-reject:hover
+    background: $orange-color-selected
 
 button
     height: 40px
@@ -50,3 +66,19 @@ button
   background: #d22020
   z-index: 10
   position: relative
+
+button:focus, li:focus, ul:focus, img:focus, div:focus, p:focus
+    outline: 0
+
+.tablet-btn
+    height: 160px
+    padding: 20px
+    min-width: 10px
+    background-size: cover
+    background-position: center
+    border: 0px
+    border-radius: 20px
+    color: #fff
+    font-size: 20px
+    box-shadow: 2px 4px 9px #000
+    transition: .3s linear

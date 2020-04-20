@@ -86,7 +86,6 @@ function saleBox({mainGameObject}){
         linkUrl: null,
         text: null,
         innerContent: `<div class="sale-inner-item">
-                
         </div>`,
         attribute: null, attributeName: null,
         attribute1: null, attributeName1: null})
@@ -224,7 +223,6 @@ function putItemToStorage({name, putIndex , selectedIndex, storage, selectedStor
 }
 
 function shopStorageReplacer({putIndex, selectedIndex, storage, selectedStorage, firespot, mainGameObject}){
-    let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     let selectGun = storage[selectedIndex];
     selectGun = assignGunsPosition({gun: selectGun, firespot: firespot[putIndex]})
 
@@ -273,11 +271,11 @@ function assignGunsPosition({gun, firespot}){
 
 
 function hideDescriptionArea(){
-    let item = document.querySelector('#item-descripton');
+    let item = document.querySelector('#item-description');
     hide(item)
 }
 function showDescriptionArea({selectObject, event, mainGameObject}){
-    let item: any = document.querySelector('#item-descripton');
+    let item: any = document.querySelector('#item-description');
             item.style = `margin-top: ${event.clientY-100}px; margin-left: ${event.clientX - 200}px; `;
             item.innerHTML = `<p>${selectObject.title}</p>
             <p>Cost: ${salePercentAddToPrice({price: selectObject.price, mainGameObject: mainGameObject})}</p>
@@ -300,5 +298,5 @@ export {
     assignGunsPosition,
     salePercentAddToPrice,
     disableEffects,
-    assignEffectsToShip
+    assignEffectsToShip,
 }

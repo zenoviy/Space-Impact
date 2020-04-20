@@ -5,7 +5,7 @@ import { createElements} from '../../../appMenu/pagesBuilder';
 import { renewPlayerShip } from '../changeLevels';
 import * as constructor from '../../../constructors';
 import { replaceShipData } from '../../../ui/shop/gameShopShipyard';
-import { deleteSaveData, overwriteSaveData } from './saveGameModules';
+import { deleteSaveData, overwriteSaveData, saveDialog } from './saveGameModules';
 import {
     show,
     hide,
@@ -46,9 +46,20 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
             object: item
         }
     }));
+
     await clearClassSelectorField({target: menuArea})
     await saveData.sort(function(a, b){ return a.saveTime - b.saveTime});
     await saveData.reverse()
+
+    if(saveData.length < 1){
+        for (let item of menuArea){
+            let object = await document.createElement("div");
+            object.innerHTML = "<div><h2>No save data</h2></div>";
+            await item.object.appendChild(object)
+        }
+        hideLoadScreen()
+        return
+    }
     for (let item of menuArea){
         if(!saveData || saveData.length < 1) item.object.innerHTML = '';
         let index = 0;
@@ -94,6 +105,7 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
                     attribute1: null
                 })
                 newElement.addEventListener('click', function(e) {
+                    saveDialog({text: null, typeOfWarning: ""})
                     let image: any = document.querySelector(`#preview-img-${save.saveTime}`);
                     let pictureURL = storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
                     image.src = (pictureURL)? pictureURL : null;
@@ -196,6 +208,7 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
 
 
 function createNewDialogWindow({parentElement, callback, saveDataItem, mainGameObject, text}){
+    saveDialog({text: null, typeOfWarning: ""})
     let newElement = createElements({
         tagName: "div",
         styleClass: "save-load-dialog",

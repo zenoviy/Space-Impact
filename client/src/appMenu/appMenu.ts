@@ -123,7 +123,6 @@ function appMenu(gameObject, dialogWindow){
     return navigation
 }
 function hideShowMenu(mainMenu, navigationMenu, gameWin, gameStatus, gameUiPause){
-    //if(!navigationMenu) return false
     if( !gameStatus || gameUiPause){
         mainMenu.classList.remove("hide-menu")
     }else{
@@ -164,7 +163,7 @@ function dialogWindow( {textData, rejectText, acceptText}, callback, navigation,
     let dialogData = [
         createElements({
             tagName: "div",
-            styleClass: "accept-btn btn-main",
+            styleClass: "dialog-area-wrapper",
             inlineStyle: null,
             pictureUrl: null,
             linkUrl: null,
@@ -187,13 +186,6 @@ function dialogWindow( {textData, rejectText, acceptText}, callback, navigation,
     dialogButtonArea.addEventListener('click', dialogButtonEvent)
 }
 
-window.addEventListener('load', ()=>{
-    
-    
-})
-function clickSomeEvent(){
-        alert(1)
-    }
 export {
     appMenu,
     hideShowMenu,

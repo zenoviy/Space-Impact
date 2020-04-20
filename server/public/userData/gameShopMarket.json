@@ -32,6 +32,69 @@
                 "methodName": "addVehicleSpeed"
             }
     },
+    {
+        "name": "Defence Shield",
+            "loadImage": "static/shop/store/shieldbox.png",
+            "displayImage": "static/shop/store/shield_card.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 10000,
+            "speed": 10,
+            "damage": "defence ship for 10seconds",
+            "title": "Defence Shield",
+            "status": "inventory static",
+            "description": "1 shield for you`r ship press E to activate",
+            "type": "inventory weapon",
+            "grapplePower": {
+                "name": "defence shield",
+                "description": "Spaceship shield for 10 seconds",
+                "number": 1,
+                "maxNumber": 4,
+                "duration": 10,
+                "value": {
+                    "status": "defence shield",
+                    "description": "Spaceship shield for 10seconds",
+                    "texture": "/public/images/misc/bullets/round-shield.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 150,
+                        "height": 150,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/rocket1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "defence_shield",
+                    "fireRepead": 3,
+                    "speed": 8,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 10,
+                    "height": 10,
+                    "sx": 0,
+                    "sy": 0,
+                    "imageWidth": 1322,
+                    "imageHeight": 128,
+                    "animationSteps": 10,
+                    "numberOfItems": 10,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 132.2,
+                    "sHeight": 128,
+                    "damage": 100,
+                    "firePosition": 15,
+                    "activateButton": "E"
+                },
+                "methodName": "addVehicleSpeed"
+            }
+    },
 
     {
         "name": "rocket",
@@ -192,7 +255,7 @@
     },
 
     {
-        "name": "Nuclear Blast wave",
+        "name": "Nuclear Blast",
             "loadImage": "static/shop/store/nuclearBlast.png",
             "displayImage": "static/shop/store/nuclearBlast_card.png",
             "background": "static/shop/misc/red-card.png",
@@ -253,5 +316,6 @@
                 "methodName": "addVehicleSpeed"
             }
     }
+
 
 ]

@@ -8,8 +8,9 @@ import { shopInventory,
     saleItem,
     hideDescriptionArea,
     showDescriptionArea,
-    salePercentAddToPrice} from '../ui/shop/gameInventoryModules';
-
+    salePercentAddToPrice } from '../ui/shop/gameInventoryModules';
+import { findIntInventory } from '../ui/shop/shopEvents/shopEventsModules';
+import { inventoryItemGunsAssign } from '../ui/shop/gameShopModule';
 
 
 async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
@@ -101,9 +102,21 @@ async function collectObjectsToInventory({allGameSideObjects, playerShipData, ma
             mainGameObject.shopArea.shopErrorMessage.innerHTML = 'Your`s inventory is full';
             return false
         }
-    let data = await getData({url: process.env.HOST + process.env.SHOP_GUNS_URL, method: 'PUT', data: null, headers: headers})
+    let shopUrl
+    switch (this.grapplePower.store){
+        case "market":
+            shopUrl = process.env.SHOP_STORE_ITEMS;
+            break;
+        default:
+            shopUrl = process.env.SHOP_GUNS_URL;
+    }
+    let data = await getData({url: process.env.HOST + shopUrl, method: 'PUT', data: null, headers: headers})
+    if(this.grapplePower.type === "inventory weapon"){
+        let searchItem: any = findIntInventory({ inventory: playerObjectData.inventory, searchObject: data.data})
+        inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data.data, targetData: searchItem })
+        if(searchItem) return
+    }
     putInsideInventory({mainGameObject, saveItem: data.data, inventoryItem: inventoryInformation['firstEmptyItem']})
-
 }
 
 export {

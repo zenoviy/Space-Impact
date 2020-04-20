@@ -24,14 +24,15 @@ function playerShipTextureChange(){
 function userKeyAction({ mainGameObject, controlKeys, event }){
     let userShipData = mainGameObject.gameInitData.gameData.playerObject
         if(mainGameObject.gameInitData.gamePause) return false;
-        if(controlKeys.down.some(o => event.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed}) ;
-        if(controlKeys.left.some(o => event.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0}) ;
-        if(controlKeys.right.some(o => event.keyCode == o) ) userShipData.moveShip({xPos: userShipData.data.speed, yPos:0}) ;
-        if(controlKeys.up.some(o => event.keyCode == o) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1}) ;
-        if(controlKeys.rocket.some(o => event.keyCode == o) ) rocketGun({ userShipData: userShipData, mainGameObject: mainGameObject});
-        if(controlKeys.homingRocket.some(o => event.keyCode == o) ) homingRocket({ userShipData: userShipData, mainGameObject: mainGameObject});
-        if(controlKeys.destroyEnemy.some(o => event.keyCode == o) ) nuclearBlast({ userShipData: userShipData, mainGameObject: mainGameObject})
-        if(controlKeys.inventory.some(o => event.keyCode == o) ) console.log("Inventory")
+        if(controlKeys.down.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed}) ;
+        if(controlKeys.left.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0}) ;
+        if(controlKeys.right.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed, yPos:0}) ;
+        if(controlKeys.up.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1}) ;
+        if(controlKeys.rocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'rocket'});
+        if(controlKeys.homingRocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Homing Rocket'});
+        if(controlKeys.destroyEnemy.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Nuclear Blast'});
+        if(controlKeys.shield.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Defence Shield'});
+        if(controlKeys.inventory.some(obj => event.keyCode == obj) ) console.log("Inventory")
 }
 
 function shipControl(mainGameObject: any){
@@ -67,27 +68,14 @@ function shipControl(mainGameObject: any){
         //console.log('mouseup')
     })
 }
-
-function nuclearBlast({userShipData, mainGameObject}){
+function activeInventoryEffects({userShipData, mainGameObject, name}){
     let inventory = userShipData.data.inventory;
-    let rocketPresent = findIntInventory({inventory: inventory, searchObject: { name: 'Nuclear Blast wave' }});
-    if(!rocketPresent) return false
-    playerGunsOperate({ userShipData: userShipData, mainGameObject: mainGameObject, rocketPresent: rocketPresent })
+    let objectPresent = findIntInventory({inventory: inventory, searchObject: { name: name }});
+    if(!objectPresent) return false
+    playerGunsOperate({ userShipData: userShipData, mainGameObject: mainGameObject, rocketPresent: objectPresent })
 }
-function homingRocket({userShipData, mainGameObject}){
-    let inventory = userShipData.data.inventory;
-    let rocketPresent = findIntInventory({inventory: inventory, searchObject: { name: 'Homing Rocket' }});
-    if(!rocketPresent) return false
 
-    playerGunsOperate({ userShipData: userShipData, mainGameObject: mainGameObject, rocketPresent: rocketPresent })
-}
-function rocketGun({ userShipData, mainGameObject }){
-    let inventory = userShipData.data.inventory;
-    let rocketPresent = findIntInventory({inventory: inventory, searchObject: { name: 'rocket' }});
-    if(!rocketPresent) return false
 
-    playerGunsOperate({ userShipData: userShipData, mainGameObject: mainGameObject, rocketPresent: rocketPresent })
-}
 
 function playerGunsOperate({ userShipData, mainGameObject, rocketPresent }){
     userShipData.data.inventory[rocketPresent.index].grapplePower.number -= 1;
@@ -105,7 +93,7 @@ function playerGunsOperate({ userShipData, mainGameObject, rocketPresent }){
 
 function addVehicleSpeed({value, flag}){
     if(flag) this.data.minSpeed += value;
-    if(!flag) this.data.minSpeed -= value;
+    if(!flag && this.data.minSpeed > this.defaultSpeed) this.data.minSpeed -= value;
 }
 
 

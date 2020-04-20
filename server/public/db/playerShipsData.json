@@ -1,12 +1,12 @@
 [
     {
         "id": 1,
-        "name": "viper",
+        "name": "Viper",
         "texture": "/public/images/spaceShips/blockade_runner/viper.png",
         "hangarImage": "static/hangar/viper/viper-model.png",
         "background": "static/shop/misc/blue-card.png",
         "price": 4000,
-        "title": "viper",
+        "title": "Viper",
         "status": "small ship",
         "description": "Small plane",
         "healthPoint": 100,
@@ -23,9 +23,9 @@
                 "shipYPosition": 10
             }
         ],
-        "damage": 260,
-        "width": 80,
-        "height": 35,
+        "damage": 20,
+        "width": 70,
+        "height": 30,
         "sx": 0,
         "sy": 0,
         "imageWidth": 2735,
@@ -147,7 +147,7 @@
                 "shipYPosition": 5
             }
         ],
-        "damage": 260,
+        "damage": 20,
         "width": 80,
         "height": 35,
         "sx": 0,
@@ -285,7 +285,7 @@
                 "shipYPosition": 25
             }
         ],
-        "damage": 260,
+        "damage": 20,
         "width": 75,
         "height": 25,
         "sx": 0,
@@ -402,13 +402,13 @@
                 "positionX": 360,
                 "positionY": 50,
                 "shipXPosition": 200,
-                "shipYPosition": 50
+                "shipYPosition": 10
             },
             {
                 "positionX": 450,
                 "positionY": 150,
                 "shipXPosition": 220,
-                "shipYPosition": 43
+                "shipYPosition": 23
             },
             {
                 "positionX": 360,
@@ -420,7 +420,7 @@
                 "positionX": 300,
                 "positionY": 100,
                 "shipXPosition": 115,
-                "shipYPosition": 40
+                "shipYPosition": 30
             },
             {
                 "positionX": 300,
@@ -435,7 +435,7 @@
                 "shipYPosition": 20
             }
         ],
-        "damage": 260,
+        "damage": 20,
         "width": 230,
         "height": 85,
         "sx": 0,

@@ -28,7 +28,8 @@ function hangarMouseMoveEvent({ mainGameObject, event }){
 
 function checkItems({ item }){
     if(!item.grapplePower || !item) return true
-    if(item.grapplePower.name === 'rocket'){
+    console.log(item)
+    if(item.type === 'inventory weapon'){  
         return false
     }
     return true

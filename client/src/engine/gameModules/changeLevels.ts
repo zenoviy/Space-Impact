@@ -31,6 +31,8 @@ async function nextLevelDataReload(levelData){
         grappleObjectOnScreen: false,
         tradepostInRange: false,
         shopActive: false,
+        subBossPresent: false,
+        gatePresent: false,
         gemeExtraSeconds: 0,
         tradeShipTimeToUndock: 0
     }

@@ -89,7 +89,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject){
     loadWindow({loadStatus: "load"})
-    let level = 7, shipType = 3, shipLife = 15;
+    let level = 1, shipType = 1, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -135,7 +135,7 @@ async function gameDataInit(PlayerShip, soundObject){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                gameCoins: 1111110,
+                gameCoins: 1000000,
                 playerObject: playerShipData,
                 levelData: levelData,
                 levelObjects: levelObjects,
@@ -165,6 +165,8 @@ async function gameDataInit(PlayerShip, soundObject){
             gameStatus: false,
             gameOver: false,
             gameWin: false,
+            subBossPresent: false,
+            gatePresent: false,
             levelWindowDescription: false,
             grappleObjectOnScreen: false,
             tradepostInRange: false,

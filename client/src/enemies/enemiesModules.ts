@@ -161,11 +161,7 @@ function enemyDamageAnimation(){
 }
 
 
-
-
-// complex enemy animation for damage
-function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
-    /* Bullet hit detection */
+function bulletCollision({hitObject, mainGameObject}){
     if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "hangar" ||
@@ -184,17 +180,22 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
             SideObject: costructors.SideObject,
             explosion: "explosion"
         })
+        if( this.type === "nuclear_blast" || this.type === "defence_shield" ){
+            return false
+        };
 
-        if( this.type === "nuclear_blast" ){
-            return false;}
-        this.objectPresent = false; return
+        this.objectPresent = false;
+        return true
     }
-
-    /* Game grapple object hit detection */
+    return true
+}
+function grappleObjectCollision({ hitObject, mainGameObject }){
     if(this.objectPresent && this.objectOwner == "grappleObject" &&
     hitObject.objectOwner == "player" &&
     !hitObject.hasOwnProperty('bulletType')){
-        if( this.objectPresent.type === "nuclear_blast" ) return false;
+
+        if( this.type === "nuclear_blast" || this.type === "defence_shield" ){
+            return false};
         this.objectPresent = false;
         mainGameObject.gameInitData.grappleObjectOnScreen = false;
         explosionFire({
@@ -206,7 +207,9 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
         });
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
+}
 
+function enterToTheShopHangar({ hitObject, mainGameObject }){
     if(this.objectPresent && this.objectOwner == "hangar" &&
     hitObject.objectOwner == "player" &&
     !hitObject.hasOwnProperty('bulletType') && !mainGameObject.gameInitData.shopActive &&
@@ -214,17 +217,47 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
         mainGameObject.gameInitData.tradeShipTimeToUndock = 10;
         enterToTheShopDialog({mainGameObject: mainGameObject, tradePropertyes: this.tradePropertyes})
     }
+}
+
+function objectsBouncing(){
+
+}
+
+function playerDamage({ mainGameObject, damage}){
+    if(this.collisionAllow && !mainGameObject.gameInitData.shopActive){
+        unitDamage.call(this, {
+            data: mainGameObject.getLevelUserData(),
+            mainGameObject: mainGameObject,
+            damage: damage
+        })
+    }
+}
 
 
-    /* Hit det dection collision */
+// complex enemy animation for damage
+function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
+    let gameSeconds = mainGameObject.gameInitData.gemeExtraSeconds;
+    let bulletStop = bulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
+    if(!bulletStop) return false
+
+    grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
+    enterToTheShopHangar.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
+
+
+    /* Hit detection collision */
     if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
-    this.objectPresent && this.hasOwnProperty('healthPoint') && this.objectOwner == "enemy" && hitObject.objectOwner == "hangarbullet" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "hangarbullet" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "enemy" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "collide" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "enemy"
      ){
+        if(hitObject.objectOwner === "player" && hitObject.type != "nuclear_blast" &&
+        hitObject.objectOwner === "player"  && hitObject.type != "defence_shield"){
+            let sideX = (this.x > hitObject.x - (hitObject.width/2))? this.x - (hitObject.width/2) : this.x + this.width - (hitObject.width/2)
+            hitObject.x = sideX;
+        }
 
         unitDamage.call(this, {
             data: null,
@@ -248,19 +281,20 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
                 SideObject: costructors.SideObject,
                 explosion: "explosion"
             });
-
             /// load coins
             if(this.spawnCoin) this.spawnCoin(mainGameObject, costructors.GrappleObject);
             if(this.isBoss) bossEnemyDestruction({mainGameObject: mainGameObject})
         }
-    }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner == "player" && hitObject.objectOwner == "enemy"){
-        if(this.collisionAllow && !mainGameObject.gameInitData.shopActive){
-            unitDamage.call(this, {
-                data: mainGameObject.getLevelUserData(),
-                mainGameObject: mainGameObject,
-                damage: damage
-            })
-        }
+    }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner === "player" && (hitObject.objectOwner === "enemy" || hitObject.objectOwner == "collide")){
+        if(hitObject.objectOwner === "collide" && gameSeconds % 1000 != 0 ) return false
+        playerDamage.call(this, { mainGameObject: mainGameObject, damage: damage})
+        explosionFire({
+            targetData: this,
+            mainGameObject: mainGameObject,
+            hitObject: hitObject,
+            SideObject: costructors.SideObject,
+            explosion: "collideExplosionAnimation"
+        });
     }else return false
 }
 function unitDamage({data, mainGameObject, damage}){
@@ -301,10 +335,10 @@ function spawnCoin(mainGameObject, GrappleObject){
 
 async function explosionDamage({ hitObject, mainGameObject }){
    let enemyClosestList = mainGameObject.gameInitData.allGameEnemies.filter(( object ) => {
-        let distanceXmax = Math.max(object.x, hitObject.x);// hitObject.radius;
+        let distanceXmax = Math.max(object.x, hitObject.x);
         let distanceXmin = Math.min(object.x, hitObject.x);
 
-        let distanceYmax = Math.max(object.y, hitObject.y);// hitObject.radius;
+        let distanceYmax = Math.max(object.y, hitObject.y);
         let distanceYmin = Math.min(object.y, hitObject.y);
 
         let xRange = distanceXmax - distanceXmin;
@@ -345,12 +379,13 @@ function objectIntersectionDetect({object, target}){
     let yMax = Math.min( object.y + object.height, target.y + target.height);
 
 
-    let x2 = target.x + target.width/2;
+    let x2 = target.x + ((target.hasOwnProperty('bulletType'))? target.width :target.width/2);
     let y2 = target.y + target.height/2;
-    let x1 = object.x + object.width/2;
+    let x1 = object.x + ((object.hasOwnProperty('bulletType'))? object.width :object.width/2);
     let y1 = object.y + object.height/2;
     var x = x2 - x1;
     var y = y2 - y1;
+
     var distance = Math.sqrt(x*x + y*y)-(object.height/2 + target.height/2);
     if(target.originObject){
         if( target.originObject.objectOwner != "bullet" && distance <= 0) {
@@ -376,7 +411,6 @@ function objectIntersectionDetect({object, target}){
 function hitDetection({object1, objectsArr, mainGameObject, GrappleObject}){
     let collision = null;
     for(let object2 of objectsArr){
-
         let object1Position = object1.getObjectPosition.call(object1);
 
         collision = objectIntersectionDetect({object: {

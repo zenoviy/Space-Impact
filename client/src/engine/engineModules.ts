@@ -230,7 +230,7 @@ async function deleteObjects( object ){
 
 function delateSideObject(object){
     limitationOfbullets({ mainGameObject: this })
-    if(!object.objectPresent || object.x < 0 - object.width){
+    if(!object.objectPresent || object.x < -300 - object.width){
         let index = this.gameInitData.allGameSideObjects.indexOf(object);
         this.gameInitData.allGameSideObjects.splice(index, 1);
         if(object.objectOwner == 'hangar'){
@@ -248,6 +248,7 @@ function limitationOfbullets({ mainGameObject }){
         && item.objectOwner === "player" && item.type != "rocket"
         && item.type != "homing_rocket"
         && item.type != "nuclear_blast"
+        && item.type != "defence_shield"
     } )
     if(!bulletObject) return false
 

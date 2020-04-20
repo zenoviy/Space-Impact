@@ -241,6 +241,7 @@ function initAppGlobalVariable(){
     process.env.SHOP_STORE_WINDOW = 'false';
 
     process.env.BOSS_LOAD_AT_LEVEL = 'false';
+    process.env.SUB_LOAD_AT_LEVEL = 'false';
 
     process.env.OVERWRITE_SAVE = 'false';
 

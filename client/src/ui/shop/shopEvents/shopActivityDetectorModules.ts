@@ -1,4 +1,4 @@
-import { show, hide } from '../../../appMenu/appMenu';
+import { show, hide, removeClassList, addClassList } from '../../../appMenu/appMenu';
 import { shopInventory,
     selectInventoryItem,
     inventoryFreeItem,
@@ -97,20 +97,35 @@ function shopMenuOperatiom(props, callback, mainGameObject){
     callback(props)
 }
 
+function toggleShopButtonStyle( currentButton ){
+    let buttons = Array.prototype.slice.apply(document.querySelectorAll(".shop-upper-button"));
+    buttonStyleOperation( removeClassList, "selected-shop-btn" )
+
+    if(currentButton){
+        addClassList( currentButton, "selected-shop-btn" )
+    }else addClassList( buttons[0], "selected-shop-btn" )
+    function buttonStyleOperation( callback, classList ){
+        for( let button of buttons){
+            callback( button, classList )
+        }
+    }
+}
+
 function shopMenuActivity({ mainGameObject, shopArea }){
-    
     switch(event.target['dataset'].targetBtnId){
         case 'weapons':
+            toggleShopButtonStyle( event.target )
             shopMenuOperatiom({ mainGameObject: mainGameObject, shopArea: shopArea }, shopWeaponsActivity, mainGameObject)
             break;
         case 'ship':
+            toggleShopButtonStyle( event.target )
             shopMenuOperatiom({ mainGameObject: mainGameObject, shopArea: shopArea }, shopShipActivity, mainGameObject)
             break;
         case 'market':
+            toggleShopButtonStyle( event.target )
             shopMenuOperatiom({ mainGameObject: mainGameObject, shopArea: shopArea }, shopMarketActivity, mainGameObject)
             break;
         case 'to-hangar':
-
             shopMenuOperatiom({ state: 'to-hangar', element: shopArea}, switchShopHangar, mainGameObject)
             loadHangar({element: shopArea,
                 mainGameObject: mainGameObject})
@@ -138,5 +153,6 @@ function shopMenuActivity({ mainGameObject, shopArea }){
 export {
     shopDialogActivity,
     shopMenuActivity,
-    shopWeaponsActivity
+    shopWeaponsActivity,
+    toggleShopButtonStyle
 }

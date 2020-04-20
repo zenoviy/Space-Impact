@@ -7,16 +7,30 @@ import { showSaveData, displaySavesOnScreen } from './loadGameData';
 
 
 function compareSaveName({allData, saveGameData}): boolean{
-    let result = true;
-
     let searchData = allData.find(save => save.saveName === saveGameData.saveName);
+    if(searchData) saveDialog({text: "I cant create save, Name already Exist!", typeOfWarning: "reject-text"});
     return (searchData)? false : true;
 }
 
 
+function saveDialog({text, typeOfWarning}){
+    let target = Array.prototype.slice.call(document.querySelectorAll(".save-dialog-window"));
+
+    writeInsideElements({data: ""})
+
+    if(!text) return false
+    writeInsideElements({data: text})
+
+    function writeInsideElements({ data }){
+        target.forEach(item => item.innerHTML = `<p class=${typeOfWarning}>${data}</p>`)
+    }
+}
 async function createSave({saveName, saveData, mainGameObject}){
+
     if(!saveName || !saveData) return console.error('There is no saveName or saveData')
+
     let allData: any = await showSaveData()
+    if(allData.length >= 10) return saveDialog({text: "You have 10 saves it`s maximum", typeOfWarning: "warning-text"})
 
     let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject})
     let saveTime = new Date().getTime();
@@ -42,6 +56,7 @@ async function createSave({saveName, saveData, mainGameObject}){
     await mainGameObject.getImageFromFields({saveGameData: saveGameData})
     allData = allData.concat(saveGameData)
     await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
+    saveDialog({text: "Save created successfully", typeOfWarning: "success-text"});
     displaySavesOnScreen({
         saveScreen: getContext.saveScreen,
         saveData: allData,
@@ -74,13 +89,13 @@ async function deleteSaveData({currentSave, mainGameObject}){
     let index = allData.indexOf(targetItem)
     await allData.splice(index, 1)
 
-
     try {
         await fs.unlinkSync(pictureURL)
     }catch(err){
         console.log('no image')
     }
 
+    saveDialog({text: `You just delete save ${currentSave.saveName}`, typeOfWarning: "success-text"});
     await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     displaySavesOnScreen({
         saveScreen: getContext.saveScreen,
@@ -116,6 +131,7 @@ async function overwriteSaveData({currentSave, mainGameObject}){
         saveData: JSON.stringify(mainGameObject)
     }
 
+    saveDialog({text: "Save overwrite successfully", typeOfWarning: "success-text"});
     allData.splice(index, 1, saveGameData)
     await mainGameObject.getImageFromFields({saveGameData: saveGameData})
     await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
@@ -132,5 +148,6 @@ export{
     createSave,
     collectData,
     deleteSaveData,
-    overwriteSaveData
+    overwriteSaveData,
+    saveDialog
 }

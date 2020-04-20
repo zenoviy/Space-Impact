@@ -1,10 +1,14 @@
 $body-color: orange
 $main-color: #333
 $white-color: #ffffff
+$grey-color: #b4b4b4
 $orange-color: #EA6C00
+$orange-color-selected: #ffaf6a
 
 $accept-color: #4bae60
+$accept-color-selected: #74f08e
 $reject-color: #b9004f
+$reject-color-selected: #f30c70
 $neutral-color: #847079
 
 $left-menu-gradient: linear-gradient(232deg, rgba(47,34,49,1) 0%, rgba(39,15,46,1) 35%, rgba(19,19,37,1) 100%)
@@ -21,12 +25,15 @@ $main-shadow-box: -3px 3px 10px rgba(0, 0, 0, 0.7)
 @mixin reject-text
     border: 1px solid red
     color: red
+    padding: 10px
 
 @mixin warning-text
     border: 1px solid yellow
     color: yellow
+    padding: 10px
 
 @mixin success-text
     border: 1px solid green
     color: green
+    padding: 10px
 

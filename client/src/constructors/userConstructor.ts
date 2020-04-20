@@ -88,7 +88,7 @@ class PlayerShip{
         this.collideExplosionAnimation = data.collideExplosionAnimation;
         this.isShot = true;
         this.shotAngle = 0;
-        this.defaultSpeed = data.speed;
+        this.defaultSpeed = data.data.minSpeed;
         this.img = new Image();
     }
     getPlayerInformation(){
