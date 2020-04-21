@@ -1,4 +1,4 @@
-import { show, hide } from '../../appMenu/appMenu';
+import { show, hide, addClassList, removeClassList } from '../../appMenu/appMenu';
 import { getData } from '../../server/serverRequestModules';
 import { createElements } from '../../appMenu/pagesBuilder';
 import { objectIntersectionDetect } from '../../enemies/enemiesModules';
@@ -25,12 +25,15 @@ import { shopDialogActivity, shopMenuActivity, shopWeaponsActivity, toggleShopBu
 
 function enterToTheShopDialog({mainGameObject, tradePropertyes}){
     if(mainGameObject.gameInitData.gameOver || mainGameObject.gameInitData.levelChange) return false
-    shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
 
+    shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
+    saleBoxLabelChange({ mainGameObject: mainGameObject})
     mainGameObject.gameInitData.shopActive = true;
     let shopUiItems = mainGameObject.shopArea;
 
-    mainGameObject.shopArea.selectedShopItem.tradePropertyes = (!tradePropertyes.salePercentage)? salePercentage({tradePropertyes: tradePropertyes, mainGameObject: mainGameObject}): tradePropertyes;
+    if(tradePropertyes) mainGameObject.shopArea.selectedShopItem.tradePropertyes = (!tradePropertyes.salePercentage)? salePercentage({tradePropertyes: tradePropertyes, mainGameObject: mainGameObject}): tradePropertyes;
+    else mainGameObject.shopArea.selectedShopItem.tradePropertyes = {buyPricePercent: 100, salePercentage: 100}
+
     shopWeaponsActivity({ mainGameObject: mainGameObject, shopArea: mainGameObject.shopArea })
     switchShopHangar({ state: 'to-shop', element: mainGameObject.shopArea})
     toggleShopButtonStyle(null)
@@ -40,10 +43,17 @@ function enterToTheShopDialog({mainGameObject, tradePropertyes}){
 function leaveShop({element, mainGameObject, text}){
     element.shopDialogText.innerHTML = text;
     element.shopErrorMessage.innerHTML = '';
+    //mainGameObject.gameInitData.inventoryActive = false;
     show(element.shopDialog)
 }
 
+function saleBoxLabelChange({mainGameObject}){
 
+    let inventoryBox = document.querySelector("#inventory-box");
+    if(mainGameObject.gameInitData.inventoryActive) addClassList(inventoryBox, 'shop-inventory-part')
+    else removeClassList(inventoryBox, 'shop-inventory-part')
+
+}
 
 
 
@@ -329,6 +339,7 @@ function createCard({ card, customWrapperClass, playerObject, mainGameObject, el
         attribute1: null, attributeName1: null})
 
         cardRender.addEventListener('click', () => {
+
             process.env.SHOP_ACTIVE_WINDOW = 'true';
             let text = `buy ${card.title} cost: ${card.price}`;
 
@@ -420,6 +431,7 @@ async function buyShip({mainGameObject, url}){
 
 
 async function buyItem({url, mainGameObject}){
+
     let playerObjectData = mainGameObject.gameInitData.gameData.playerObject;
 
     let inventoryInformation = inventoryFreeItem({inventory: playerObjectData.data.inventory, inventoryCapacity: playerObjectData.data.inventoryCapacity })
@@ -458,6 +470,7 @@ async function buyItem({url, mainGameObject}){
 
 export {
     loadShopArea,
+    saleBoxLabelChange,
     enterToTheShopDialog,
     leaveShop,
     shopHitObjectsDetection,
@@ -467,5 +480,6 @@ export {
     showShopData,
     switchShopHangar,
     changePage,
-    inventoryItemGunsAssign
+    inventoryItemGunsAssign,
+    shopInventory
 }

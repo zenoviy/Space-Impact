@@ -30,6 +30,7 @@ async function nextLevelDataReload(levelData){
         gameOver: false,
         grappleObjectOnScreen: false,
         tradepostInRange: false,
+        inventoryActive: false,
         shopActive: false,
         subBossPresent: false,
         gatePresent: false,

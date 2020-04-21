@@ -23,6 +23,9 @@ input[type="range"] {
 .shop-wrapper .shop-sale-part{
     background-image: url("../public/images/misc/shop/sale-box.png");
 }
+.shop-wrapper .shop-inventory-part{
+    background-image: url("../public/images/misc/shop/inventory-box.png");
+}
 .tablet-btn{
     background-image: url("../public/images/misc/shop/button.png");
 }

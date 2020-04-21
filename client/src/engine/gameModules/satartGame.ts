@@ -170,6 +170,7 @@ async function gameDataInit(PlayerShip, soundObject){
             levelWindowDescription: false,
             grappleObjectOnScreen: false,
             tradepostInRange: false,
+            inventoryActive: false,
             shopActive: false,
             gemeExtraSeconds: 0,
             tradeShipTimeToUndock: 0

@@ -4,6 +4,8 @@ import * as constructors from '../constructors/';
 import { shot, bulletsCreateModule } from '../enemies/enemiesModules';
 import { inventoryColisionEvent, findIntInventory } from '../ui/shop/shopEvents/shopEventsModules';
 import { replaceItemFromStorage } from '../ui/shop/gameInventoryModules';
+import { enterToTheShopDialog, leaveShop } from '../ui/shop/gameShopModule';
+import { show, hide } from '../appMenu/appMenu';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -23,6 +25,8 @@ function playerShipTextureChange(){
 
 function userKeyAction({ mainGameObject, controlKeys, event }){
     let userShipData = mainGameObject.gameInitData.gameData.playerObject
+        if(controlKeys.inventory.some(obj => event.keyCode == obj) ) openInventory({ mainGameObject: mainGameObject})
+
         if(mainGameObject.gameInitData.gamePause) return false;
         if(controlKeys.down.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed}) ;
         if(controlKeys.left.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0}) ;
@@ -32,7 +36,7 @@ function userKeyAction({ mainGameObject, controlKeys, event }){
         if(controlKeys.homingRocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Homing Rocket'});
         if(controlKeys.destroyEnemy.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Nuclear Blast'});
         if(controlKeys.shield.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Defence Shield'});
-        if(controlKeys.inventory.some(obj => event.keyCode == obj) ) console.log("Inventory")
+
 }
 
 function shipControl(mainGameObject: any){
@@ -88,6 +92,27 @@ function playerGunsOperate({ userShipData, mainGameObject, rocketPresent }){
     })
     if(userShipData.data.inventory[rocketPresent.index].grapplePower.number <= 0){
         replaceItemFromStorage({index: rocketPresent.index, storage: userShipData.data.inventory, value: null})
+    }
+}
+
+function openInventory({ mainGameObject }){
+    if(!mainGameObject.gameInitData.gameStatus || mainGameObject.gameInitData.gameOver ||
+        mainGameObject.gameInitData.gameWin ||
+        mainGameObject.gameInitData.levelChange) return false
+
+
+    if( !mainGameObject.gameInitData.inventoryActive && !mainGameObject.gameInitData.gamePause ){
+        mainGameObject.gameInitData.inventoryActive = true;
+        mainGameObject.gameInitData.gamePause = true;
+        enterToTheShopDialog({ mainGameObject: mainGameObject, tradePropertyes: null })
+        hide(mainGameObject.shopArea.shopArea)
+    }else if(mainGameObject.gameInitData.inventoryActive){
+        mainGameObject.gameInitData.inventoryActive = false;
+        leaveShop({
+            element: mainGameObject.shopArea,
+            mainGameObject: mainGameObject,
+            text: 'Return to game?'
+        })
     }
 }
 

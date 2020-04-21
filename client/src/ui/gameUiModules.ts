@@ -11,11 +11,12 @@ import { levelChangeScreen } from './gameUiModels/levelChangeScreen';
 
 
 function gameUiPause(){
-    if(this.gameInitData.shopActive) return
+    if(this.gameInitData.shopActive || this.gameInitData.inventoryActive) return false
     if(!this.gameInitData.gameUiPause && this.gameInitData.gameStatus) this.gameInitData.gamePause = !this.gameInitData.gamePause;
 }
 function gameUiMenu(gameUiPause){
     this.gameInitData.gameUiPause = !this.gameInitData.gameUiPause;
+    if(this.gameInitData.shopActive && this.gameInitData.inventoryActive || this.gameInitData.inventoryActive) return false
     this.gameInitData.gamePause = (gameUiPause)? false: true;
 }
 function uiController(){

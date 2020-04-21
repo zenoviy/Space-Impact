@@ -292,7 +292,6 @@ function initAppGlobalVariable(){
         gameObject.gameInitData.gameData.playerObject.initPlayerShip()
         /*  ship move  */
         playerShipData.shipControl(gameObject)
-
         window.addEventListener('resize', ()=>{
             gameObject.getScreenSize()
             gameObject.setGameFields()

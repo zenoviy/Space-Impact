@@ -16,17 +16,28 @@ import { buyShip,
     changePage,
     leaveShop } from '../gameShopModule';
 
+
 function shopDialogActivity({mainGameObject, shopArea}){
     if(process.env.SHOP_ACTIVE_WINDOW === 'false'){
-
+        process.env.SHOP_SALE_WINDOW = 'false';
+        process.env.SHOP_ACTIVE_WINDOW ='false';
+        mainGameObject.gameInitData.gamePause = ( !mainGameObject.gameInitData.gameUiPause )? false : true;
+        mainGameObject.gameInitData.inventoryActive = false;
         mainGameObject.gameInitData.shopActive = false;
+        mainGameObject.shopArea.selectedShopItem = {
+            title: "",
+            price: "",
+            inventorySelectedItem: null,
+            hangarSelectedItem: null,
+            hangarElements: [],
+            tradePropertyes: null
+        }
         hide(shopArea.shopWrapper)
         hide(this)
 
     }else if(process.env.SHOP_ACTIVE_WINDOW === 'true'
     && process.env.SHOP_SALE_WINDOW === 'false'
     && process.env.SHOP_SHIPYARD_ACTIVE_WINDOW === 'false' && process.env.SHOP_STORE_WINDOW === 'false'){
-
         buyItem({url: process.env.SHOP_GUNS_URL, mainGameObject: mainGameObject})
 
     }else if(process.env.SHOP_SALE_WINDOW === 'true' && process.env.SHOP_ACTIVE_WINDOW === 'true'){

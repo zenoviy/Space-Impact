@@ -5,7 +5,8 @@ import { show,
     removeClassList } from '../../appMenu/appMenu';
 import { pageBuilder, createElements } from '../../appMenu/pagesBuilder';
 import { loadHangar } from './gameHangarModules';
-import { leaveShop } from './gameShopModule';
+import { leaveShop, saleBoxLabelChange } from './gameShopModule';
+import { saleBoxEvent } from './shopEvents/shopEventsModules';
 
 
 
@@ -13,6 +14,7 @@ function shopInventory({element, mainGameObject}){
     element.shopInventoryWrapper.innerHTML = "";
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     let playerObjectData = playerObject.data;
+
     for( let index = 0; index < playerObjectData.inventoryCapacity; index++){
         let itemRender = createElements({tagName: 'div', styleClass: 'inventory-item', inlineStyle: ``,
         pictureUrl: null, linkUrl: null, text: null,
@@ -41,7 +43,8 @@ function shopInventory({element, mainGameObject}){
 
         itemRender.addEventListener('click',async () => {
             let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
-            let shopAreaItems = mainGameObject.shopArea.selectedShopItem
+            let shopAreaItems = mainGameObject.shopArea.selectedShopItem;
+
             let previusInventorySelectedItem = (mainGameObject.shopArea.selectedShopItem.inventorySelectedItem ||
                 mainGameObject.shopArea.selectedShopItem.inventorySelectedItem === 0)
             ? mainGameObject.shopArea.selectedShopItem.inventorySelectedItem
@@ -74,6 +77,7 @@ function shopInventory({element, mainGameObject}){
         element.shopInventoryWrapper.appendChild(itemRender)
     }
     element.shopInventoryWrapper.prepend(saleBox({mainGameObject: mainGameObject}))
+    saleBoxLabelChange({ mainGameObject: mainGameObject})
 }
 
 
@@ -87,7 +91,7 @@ function saleBox({mainGameObject}){
         text: null,
         innerContent: `<div class="sale-inner-item">
         </div>`,
-        attribute: null, attributeName: null,
+        attribute: "inventory-box", attributeName: "id",
         attribute1: null, attributeName1: null})
         itemRender.addEventListener('click', function(){
             let playerObjectData = mainGameObject.gameInitData.gameData.playerObject.data;
@@ -97,18 +101,21 @@ function saleBox({mainGameObject}){
             process.env.SHOP_SALE_WINDOW = 'true';
             process.env.SHOP_ACTIVE_WINDOW = 'true';
             if(shopAreaItems.inventorySelectedItem || shopAreaItems.inventorySelectedItem === 0){
-
-                let salePrice = playerObjectData.inventory[shopAreaItems.inventorySelectedItem].price
+                let inventoryItem = playerObjectData.inventory[shopAreaItems.inventorySelectedItem];
+                let salePrice = (inventoryItem)? inventoryItem.price : 0;
+                let finalPricePercent = salePercentAddToPrice({price: salePrice, mainGameObject: mainGameObject});
+                if(!inventoryItem) return false
                 leaveShop({element: mainGameObject.shopArea,
                      mainGameObject: mainGameObject,
-                     text: `You want to sale ${playerObjectData.inventory[shopAreaItems.inventorySelectedItem].title} 
-                    for the ${salePercentAddToPrice({price: salePrice, mainGameObject: mainGameObject})} coins`})
+                     text: (finalPricePercent)? `You want to sale ${(inventoryItem.title)? inventoryItem.title : 'this item'}
+                    for the ${finalPricePercent} coins`: `You want to destroy this item`})
 
             }else if(shopAreaItems.hangarSelectedItem || shopAreaItems.hangarSelectedItem === 0){
-                let salePrice = playerObjectData.guns[shopAreaItems.hangarSelectedItem].price
+                let hangarItem = playerObjectData.guns[shopAreaItems.hangarSelectedItem];
+                let salePrice = playerObjectData.guns[shopAreaItems.hangarSelectedItem].price;
                 leaveShop({element: mainGameObject.shopArea,
                      mainGameObject: mainGameObject,
-                     text: `You want to sale ${playerObjectData.guns[shopAreaItems.hangarSelectedItem].title} 
+                     text: `You want to sale ${(hangarItem)? hangarItem.title : 'this item'}
                     for the ${salePercentAddToPrice({price: salePrice, mainGameObject: mainGameObject})} coins`})
             }
 
@@ -299,4 +306,5 @@ export {
     salePercentAddToPrice,
     disableEffects,
     assignEffectsToShip,
+    leaveShop
 }
