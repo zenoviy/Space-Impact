@@ -212,7 +212,7 @@ function gameUiEngineFunction({ gameObject }){
 
 function initAppGlobalVariable(){
     process.env.MAX_NUMBER_OF_EXPLOSION = '20';
-    process.env.MAX_NUMBER_OF_BULLETS = '100';
+    process.env.MAX_NUMBER_OF_BULLETS = '150';
 
     process.env.SAVE_DATA_FILE = 'game-saves';
 

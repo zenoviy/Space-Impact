@@ -96,11 +96,13 @@ function moveBullets( playerShipData, mainGameObject ){
 
     }
     function beam(){
-        if(this.x > -500){
+        if(this.x > -10){
             this.width += this.bulletSpeed * -1;
+
         }else if(this.width > 0){
             this.x = 0;
             this.width -= this.bulletSpeed * -1;
+
         }
     }
 }

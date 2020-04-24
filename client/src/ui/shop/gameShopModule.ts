@@ -275,7 +275,7 @@ function labelShip({playerObject, card, mainGameObject}){
 async function showShopData({element, url, mainGameObject, customWrapperClass, shopPageInformation}){
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     let data = await getData({url: process.env.HOST + url, method: 'GET', data: null, headers: null})
-    let listNotToDisplay = ['Reaper'];
+    let listNotToDisplay = ['Reaper', 'Destructor'];  //'Destructor'
     data = cardDataCreator({ data: data, listNotToDisplay: listNotToDisplay})
 
     shopPageInformation.currentShopUrl = url;
@@ -311,7 +311,7 @@ function cardDataCreator({ data, listNotToDisplay }){
     return resultData
 }
 function compareTitle({ listNotToDisplay, item }){
-    if(listNotToDisplay.some((element) => item.title != element)){
+    if(listNotToDisplay.every((element) => item.title != element)){
         return item
     }else return null
 }

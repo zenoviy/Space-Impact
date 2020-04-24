@@ -333,6 +333,12 @@ function loadSaveProcedure({mainGameObject, currentSave}){
     save.gameInitData.gamePause = true;
     save.gameInitData.gameUiPause = false;
     save.gameInitData.shopActive = false;
+    save.gameInitData.randomObject = false;
+    save.gameInitData.gatePresent = false;
+    save.gameInitData.levelWindowDescription = false;
+    save.gameInitData.grappleObjectOnScreen = false;
+    save.gameInitData.tradepostInRange = false;
+    save.gameInitData.inventoryActive = false;
     process.env.BOSS_LOAD_AT_LEVEL = (bossPresent)? 'true' : 'false';
 
 

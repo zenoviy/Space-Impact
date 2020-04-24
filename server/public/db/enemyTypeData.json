@@ -222,7 +222,11 @@
                 "maxNumber": 1
             }, {
                 "object": "Homing-Rocket-box",
-                "randomizer": 2000,
+                "randomizer": 2600,
+                "maxNumber": 1
+            }, {
+                "object": "shield-box",
+                "randomizer": 2600,
                 "maxNumber": 1
             }],
             "collideExplosionAnimation": {
@@ -536,7 +540,7 @@
                 "maxNumber": 1
             }, {
                 "object": "Rocket-box",
-                "randomizer": 1400,
+                "randomizer": 1500,
                 "maxNumber": 1
             }],
             "collideExplosionAnimation": {
@@ -655,7 +659,589 @@
         }
     },
 
+    {
+        "id": "hunter",
+        "details": {
+            "name": "hunter",
+            "status": "enemy ship",
+            "objectOwner": "enemy",
+            "behavior": ["patrool", "find"],
+            "isMove": true,
+            "isShot": true,
+            "spotDistance": 700,
+            "healthPoint": 860,
+            "bulletType": 1,
+            "rapidFire": 25,
+            "imageWidth": 5280,
+            "imageHeight": 187,
+            "animationSteps": 5,
+            "numberOfItems": 10,
+            "numberOfVerticalItems": 4,
+            "damage": 60,
+            "sx": 0,
+            "sy": 0,
+            "width": 115,
+            "height": 45,
+            "skinName": "/public/images/spaceShips/hunter.png",
+            "speed": 3,
+            "pointsPerUnit": 50,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomizer": 100,
+                "maxNumber": 10
+            }, {
+                "object": "lifepoint",
+                "randomizer": 1700,
+                "maxNumber": 1
+            }, {
+                "object": "Rocket-box",
+                "randomizer": 2400,
+                "maxNumber": 1
+            }, {
+                "object": "Homing-Rocket-box",
+                "randomizer": 2800,
+                "maxNumber": 1
+            }, {
+                "object": "shield-box",
+                "randomizer": 2600,
+                "maxNumber": 1
+            }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 90,
+                "height": 90,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
+                    "soundLoop": false
+                }
+            },
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion-blue.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                    "soundLoop": false
+                }
+            },
+            "guns":[
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 60,
+                    "speed": 7,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 5
+                }, {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 60,
+                    "speed": 7,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 45
+                },
+                {
+                    "name": "bomb",
+                    "texture": "/public/images/misc/bullets/bomb_round.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "bomb",
+                    "fireRepead": 30,
+                    "speed": 6,
+                    "width": 40,
+                    "height": 40,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 2369,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 16,
+                    "numberOfVerticalItems": 1,
+                    "defaultAngle": {
+                        "max": 195,
+                        "min": 120,
+                        "isRandom": true
+                    },
+                    "sWidth": 148.0625,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 60,
+                    "firePositionX": 80
+                }
+            ]
+        }
+    },
 
+
+    {
+        "id": "Grisle",
+        "details": {
+            "name": "Grisle",
+            "status": "enemy ship",
+            "objectOwner": "enemy",
+            "behavior": [ "find", "rush"],
+            "isMove": true,
+            "isShot": true,
+            "spotDistance": 1000,
+            "healthPoint": 1260,
+            "bulletType": 1,
+            "rapidFire": 20,
+            "imageWidth": 3521,
+            "imageHeight": 335.5,
+            "animationSteps": 5,
+            "numberOfItems": 6,
+            "numberOfVerticalItems": 4,
+            "damage": 60,
+            "sx": 0,
+            "sy": 0,
+            "width": 145,
+            "height": 75,
+            "skinName": "/public/images/spaceShips/Grisle.png",
+            "speed": 4,
+            "pointsPerUnit": 50,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomizer": 100,
+                "maxNumber": 10
+            }, {
+                "object": "lifepoint",
+                "randomizer": 1700,
+                "maxNumber": 1
+            }, {
+                "object": "Rocket-box",
+                "randomizer": 2400,
+                "maxNumber": 1
+            }, {
+                "object": "Homing-Rocket-box",
+                "randomizer": 2800,
+                "maxNumber": 1
+            }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 90,
+                "height": 90,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
+                    "soundLoop": false
+                }
+            },
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion-blue.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                    "soundLoop": false
+                }
+            },
+            "guns":[
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 60,
+                    "speed": 7,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "defaultAngle": {
+                        "max": 220,
+                        "min": 200,
+                        "isRandom": true
+                    },
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 5
+                }, {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 60,
+                    "speed": 7,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "defaultAngle": {
+                        "max": 190,
+                        "min": 170,
+                        "isRandom": true
+                    },
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 45
+                }, {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 60,
+                    "speed": 7,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "defaultAngle": {
+                        "max": 160,
+                        "min": 140,
+                        "isRandom": true
+                    },
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 65
+                }
+            ]
+        }
+    },
+
+
+
+    {
+        "id": "Chaser",
+        "details": {
+            "name": "Chaser",
+            "status": "enemy ship",
+            "objectOwner": "enemy",
+            "behavior": [ "find", "rush"],
+            "isMove": true,
+            "isShot": true,
+            "spotDistance": 1000,
+            "healthPoint": 1060,
+            "bulletType": 1,
+            "rapidFire": 20,
+            "imageWidth": 4941,
+            "imageHeight": 209.5,
+            "animationSteps": 5,
+            "numberOfItems": 10,
+            "numberOfVerticalItems": 4,
+            "damage": 60,
+            "sx": 0,
+            "sy": 0,
+            "width": 115,
+            "height": 45,
+            "skinName": "/public/images/spaceShips/Chaser.png",
+            "speed": 5,
+            "pointsPerUnit": 50,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomizer": 100,
+                "maxNumber": 10
+            }, {
+                "object": "lifepoint",
+                "randomizer": 1700,
+                "maxNumber": 1
+            }, {
+                "object": "Rocket-box",
+                "randomizer": 2400,
+                "maxNumber": 1
+            }, {
+                "object": "Homing-Rocket-box",
+                "randomizer": 2800,
+                "maxNumber": 1
+            }],
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 90,
+                "height": 90,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
+                    "soundLoop": false
+                }
+            },
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion-blue.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                    "soundLoop": false
+                }
+            },
+            "guns":[
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 60,
+                    "speed": 7,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 5
+                }, {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 60,
+                    "speed": 7,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 45
+                }
+            ]
+        }
+    },
 
 
     {
@@ -691,6 +1277,18 @@
             }, {
                 "object": "lifepoint",
                 "randomizer": 2300,
+                "maxNumber": 1
+            }, {
+                "object": "Homing-Rocket-box",
+                "randomizer": 2800,
+                "maxNumber": 1
+            }, {
+                "object": "Rocket-box",
+                "randomizer": 2400,
+                "maxNumber": 1
+            }, {
+                "object": "shield-box",
+                "randomizer": 2600,
                 "maxNumber": 1
             }],
             "collideExplosionAnimation": {
@@ -804,8 +1402,7 @@
                     "sWidth": 299,
                     "sHeight": 109,
                     "damage": 30,
-                    "firePosition": 350,
-                    "firePositionX": 45
+                    "firePosition": null
                 }
             ]
         }
@@ -846,6 +1443,10 @@
                 "object": "goldCoin",
                 "randomizer": 100,
                 "maxNumber": 20
+            }, {
+                "object": "Destructor-box",
+                "randomizer": 100,
+                "maxNumber": 1
             }],
             "collideExplosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
@@ -997,6 +1598,10 @@
                 "object": "goldCoin",
                 "randomizer": 100,
                 "maxNumber": 20
+            }, {
+                "object": "Destructor-box",
+                "randomizer": 100,
+                "maxNumber": 1
             }],
             "collideExplosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
@@ -1114,6 +1719,198 @@
         }
     },
 
+    {
+        "id": "megaRock",
+        "details": {
+            "name": "MegaRock",
+            "status": "enemy ship",
+            "objectOwner": "enemy",
+            "behavior": ["comeEndFind"],
+            "isMove": true,
+            "isShot": true,
+            "isBoss": true,
+            "spotDistance": 1000,
+            "healthPoint": 115200,
+            "bulletType": 1,
+            "rapidFire": 5,
+            "imageWidth": 972,
+            "imageHeight": 345.25,
+            "animationSteps": 10,
+            "numberOfItems": 8,
+            "numberOfVerticalItems": 4,
+            "verticalSpeed": 1,
+            "damage": 30,
+            "sx": 0,
+            "sy": 0,
+            "width": 155,
+            "height": 355,
+            "skinName": "/public/images/spaceShips/MegaRock.png",
+            "speed": 3,
+            "pointsPerUnit": 200,
+            "extraObjects":[{
+                "object": "goldCoin",
+                "randomizer": 100,
+                "maxNumber": 20
+            }, {
+                "object": "Destructor-box",
+                "randomizer": 100,
+                "maxNumber": 1
+            }],
+            "hitShape": "rectangle",
+            "collideExplosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 70,
+                "height": 70,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7.mp3",
+                    "soundLoop": false
+                }
+            },
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion-blue.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 155,
+                "height": 155,
+                "central": true,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                    "soundLoop": false
+                }
+            },
+            "guns":[
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 20,
+                    "speed": 6,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": null
+                }, {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 20,
+                    "speed": 6,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": null
+                }, {
+                    "name": "beam",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 90,
+                        "height": 90,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/julien_matthey_science_fiction_laser_001.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "beam",
+                    "fireRepead": 90,
+                    "speed": 50,
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 120,
+                    "firePosition": 79
+                }
+            ]
+        }
+    },
     {
         "id": "intervention",
         "details": {
@@ -1472,6 +2269,46 @@
                     "damage": 120,
                     "firePosition": 79,
                     "firePositionX": 230
+                },
+                {
+                    "name": "beam",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 90,
+                        "height": 90,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/julien_matthey_science_fiction_laser_001.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "beam",
+                    "fireRepead": 90,
+                    "speed": 50,
+                    "width": 45,
+                    "height": 40,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 120,
+                    "firePosition": null
                 }
             ]
         }

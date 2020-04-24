@@ -146,6 +146,63 @@
     },
 
     {
+        "id": "shield-box",
+        "name": "shield-box",
+        "loadImage": "static/shop/store/Reaper.png",
+        "background": "static/shop/misc/red-card.png",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "price": 100,
+        "title": "Box",
+        "status": "inventory object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 40,
+        "height": 40,
+        "skinName": "/public/images/misc/grapple-objects/animated-shield-box.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "Defence Shield",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "store": "market",
+            "type": "inventory weapon",
+            "content": {
+                "name": "Defence Shield"
+            }
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+
+    {
         "id": "Rocket-box",
         "name": "Rocket-box",
         "loadImage": "static/shop/store/Reaper.png",
@@ -234,6 +291,64 @@
             "type": "inventory weapon",
             "content": {
                 "name": "Homing Rocket"
+            }
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+
+
+    {
+        "id": "Destructor-box",
+        "name": "Destructor-box",
+        "loadImage": "static/shop/store/Destructor.png",
+        "background": "static/shop/misc/red-card.png",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "price": 8000,
+        "title": "Box",
+        "status": "inventory object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 45,
+        "height": 45,
+        "skinName": "/public/images/misc/grapple-objects/animated-enemy-gun-destructor.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "Destructor",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "store": "guns",
+            "type": "inventory weapon",
+            "content": {
+                "name": "Destructor"
             }
         },
         "spawnDetails": {

@@ -27,8 +27,8 @@ async function placeEnemyes(mainGameObject){
     translateIndexAdjustY = (translateIndexAdjustY && this.objectNameFlag === "bullet")? translateIndexAdjustY: 0;
 
 
-    /*   // Development box
-    mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
+       // Development box
+    /*mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
     mainGameObject.gameInitData.ctxActionField.fillRect(this.x, this.y, this.width, this.height)
     if(this.objectNameFlag != "bullet"){
         drawcircle({
@@ -224,6 +224,7 @@ function objectsBouncing(){
 }
 
 function playerDamage({ mainGameObject, damage}){
+    if(mainGameObject.gameInitData.gameWin) return false
     if(this.collisionAllow && !mainGameObject.gameInitData.shopActive){
         unitDamage.call(this, {
             data: mainGameObject.getLevelUserData(),
@@ -254,11 +255,17 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "enemy"
      ){
         if(hitObject.objectOwner === "player" && hitObject.type != "nuclear_blast" &&
-        hitObject.objectOwner === "player"  && hitObject.type != "defence_shield"){
-            let sideX = (this.x > hitObject.x - (hitObject.width/2))? this.x - (hitObject.width/2) : this.x + this.width - (hitObject.width/2)
-            hitObject.x = sideX;
+        hitObject.objectOwner === "player" && hitObject.type != "defence_shield" && hitObject.objectNameFlag != "bullet"){
+             if(this.x < hitObject.x + (hitObject.width/2) &&
+             hitObject.x + hitObject.width/2 < this.x + (this.width)){
+                 hitObject.x -= hitObject.speed;
+             }else if(
+             hitObject.x > this.x + (this.width)){
+                hitObject.x += hitObject.speed;
+             }else{
+                 hitObject.x -= hitObject.speed;
+             }
         }
-
         unitDamage.call(this, {
             data: null,
             mainGameObject: mainGameObject,
@@ -286,7 +293,8 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
             if(this.isBoss) bossEnemyDestruction({mainGameObject: mainGameObject})
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner === "player" && (hitObject.objectOwner === "enemy" || hitObject.objectOwner == "collide")){
-        if(hitObject.objectOwner === "collide" && gameSeconds % 1000 != 0 ) return false
+        if(hitObject.objectOwner === "collide" && gameSeconds % 1000 != 0 ||
+        hitObject.hasOwnProperty('healthPoint') && hitObject.objectOwner === "enemy" && gameSeconds % 1000 != 0) return false
         playerDamage.call(this, { mainGameObject: mainGameObject, damage: damage})
         explosionFire({
             targetData: this,
@@ -373,6 +381,7 @@ async function explosionDamage({ hitObject, mainGameObject }){
 
 function objectIntersectionDetect({object, target}){
     let collision = null;
+
     let xMin = Math.max( object.x, target.x );
     let yMin = Math.max( object.y, target.y );
     let xMax = Math.min( object.x + object.width, target.x + target.width );
@@ -387,19 +396,35 @@ function objectIntersectionDetect({object, target}){
     var y = y2 - y1;
 
     var distance = Math.sqrt(x*x + y*y)-(object.height/2 + target.height/2);
+
+
+
     if(target.originObject){
-        if( target.originObject.objectOwner != "bullet" && distance <= 0) {
-            return "collision"
+        if( target.originObject.objectOwner != "bullet"  && distance <= 0) {
+          return "collision"
         }
     }
 
-    if(!target.originObject || target.originObject.objectOwner != "player" || target.originObject.objectOwner != "player"){
+    if(!target.originObject || target.originObject.objectOwner != "player" ){
         let resY = yMax - yMin;
         let resX = xMax - xMin;
+
         collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
 
         return collision
     }
+
+    /*//let object1Position = object.getObjectPosition.call(object);
+
+        let xMin = Math.max( object.x, target.x );
+        let yMin = Math.max( object.y, target.y );
+        let xMax = Math.min( object.x + (object.width || object.width), target.x + target.width );
+        let yMax = Math.min( object.y + (object.height || object.height), target.y + target.height);
+
+        let resX = xMax - xMin;
+        let resY = yMax - yMin;
+        collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
+        return collision*/
 }
 
 

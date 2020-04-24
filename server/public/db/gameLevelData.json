@@ -3,7 +3,7 @@
         "level" : 1,
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["trade_post_night_city", "ground_turret_city", "gate_1"],
+        "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
@@ -119,7 +119,7 @@
         "levelOBjects" : ["ground_turret_day",
             "ground_turret_canyon_walker", "ground_turret_canyon_walker_2", "ground_turret_canyon_enemy_walker_1",
             "ground_turret_canyon_enemy_walker_1", "ground_turret_canyon_enemy_walker_1",
-            "aliance_soldier", "aliance_soldier", "aliance_tank", "fence_1", "tradepost_canyon", "gate_1"],
+            "aliance_soldier", "aliance_soldier", "aliance_tank", "fence_1", "tradepost_canyon"],
         "enemyProbability" : 900,
         "objectProbability": 800,
         "grapleObjectProbability": 1500,
@@ -210,7 +210,7 @@
         "level" : 3,
         "enemyType" : ["dart", "blade"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_desert", "gate_1"],
+        "levelOBjects" : ["tradepost_desert"],
         "enemyProbability" : 850,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
@@ -228,7 +228,7 @@
             "name": "White sands",
             "description": "Huge desert area with lost city"
         },
-        "levelSound": "/public/sound/ambiant/Ehl-i_Keyif_-_11_-_Hzzam_Sazsemai_Nargile.mp3",
+        "levelSound": "/public/sound/ambiant/desert_theme.mp3",
         "levelMap" : "desert.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/desert/desert-sky.png",
@@ -311,7 +311,7 @@
         "level" : 4,
         "enemyType" : ["dart", "scorpio"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["build_1", "build_2", "cloud_1", "tradepost_sky_city", "gate_1"],
+        "levelOBjects" : ["build_1", "build_2", "cloud_1", "tradepost_sky_city"],
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
@@ -447,7 +447,7 @@
         "level" : 5,
         "enemyType" : ["megalit", "mine"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["cloud_1", "cloud_2", "cloud_3", "cloud_4", "cloud_5", "gate_1"],
+        "levelOBjects" : ["cloud_1", "cloud_2", "cloud_3", "cloud_4", "cloud_5"],
         "enemyProbability" : 250,
         "objectProbability": 800,
         "grapleObjectProbability": 1500,
@@ -550,7 +550,7 @@
             "name": "Earth orbit",
             "description": "Leave Earth"
         },
-        "levelSound": "/public/sound/ambiant/Techno-Gameplay.mp3",
+        "levelSound": "/public/sound/ambiant/gaseous tethanus_earth.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -615,7 +615,7 @@
             "name": "Moon outpost",
             "description": "Leave Earth"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/final battle_moon.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -686,10 +686,10 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Sun Power Station",
-            "description": "Power station near sun orbit"
+            "name": "Solar Power Station",
+            "description": "Power station near Mercury orbit"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/high in the mountains_sun.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -773,7 +773,7 @@
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
-        "enemyProbability" : 950,
+        "enemyProbability" : 1350,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
@@ -789,9 +789,9 @@
         },
         "description": {
             "name": "Venus",
-            "description": "Arrive to Venus outpost"
+            "description": "Arrive to Venus"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/endless sands_space2.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -800,10 +800,7 @@
         },{
             "levelMap" : "/public/images/locations/space/space.png",
             "speed": 0.05,
-            "description": "second frame",
-            "extraMap": "/public/images/locations/Venus/venus.png",
-            "timeToExtraMapSeconds": 1,
-            "timeToExtraMapMinutes": 1
+            "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 0.15,
@@ -824,7 +821,7 @@
         "level" : 10,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_desert", "gate_1"],
+        "levelOBjects" : ["tradepost_venus", "gate_1"],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -843,7 +840,7 @@
             "name": "Venus Clouds",
             "description": "Venus flying industrial city"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/underground cavern venus.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -862,12 +859,28 @@
             "speed": 0,
             "description": "second frame"
         },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Venus/venus_city.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
             "levelMap" : "/public/images/locations/Venus/venus_far_clouds.png",
             "speed": 0.5,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/Venus/venus_far_clouds.png",
             "speed": 0.5,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Venus/venus_city_v2a.png",
+            "speed": 0.6,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Venus/venus_city_v2.png",
+            "speed": 0.6,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/Venus/venus_yellow_atmo.png",
@@ -879,7 +892,7 @@
             "description": "second frame"
         }],
         "levelDetails" : {
-            "levelMinutes": 2,
+            "levelMinutes": 4,
             "levelSeconds": 30
         }
     },{
@@ -903,9 +916,9 @@
         },
         "description": {
             "name": "Trip to Mars",
-            "description": "Venus flying industrial city"
+            "description": "Fly to Mars"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/ship interior_space_1.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -939,14 +952,14 @@
             "timeToExtraMapMinutes": 2
         }],
         "levelDetails" : {
-            "levelMinutes": 2,
+            "levelMinutes": 3,
             "levelSeconds": 30
         }
     }, {
         "level" : 12,
-        "enemyType" : ["scorpio", "moscit"],
+        "enemyType" : ["hunter", "moscit"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_desert", "gate_1"],
+        "levelOBjects" : ["tradepost_mars"],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -965,7 +978,7 @@
             "name": "Mars Alpha side",
             "description": "Mars colony largest city"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/lava city_mars.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1041,6 +1054,120 @@
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 2.3,
             "description": "first frame",
+            "extraMap": "/public/images/locations/Mars/mars_road_old.png",
+            "timeToExtraMapSeconds": 30,
+            "timeToExtraMapMinutes": 1
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 2.3,
+            "description": "second frame",
+            "extraMap": "/public/images/locations/Mars/mars_road_old.png",
+            "timeToExtraMapSeconds": 30,
+            "timeToExtraMapMinutes": 1
+        }],
+        "levelDetails" : {
+            "levelMinutes": 2,
+            "levelSeconds": 30
+        }
+    }, {
+        "level" : 13,
+        "enemyType" : ["megaRock", "hunter"],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : [],
+        "enemyProbability" : 1150,
+        "objectProbability": 900,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "bossPresent": true,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Mars Alpha side",
+            "description": "Mars colony largest city"
+        },
+        "levelSound": "/public/sound/ambiant/running wild_mars boss2.mp3",
+        "levelMap" : "sun.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/space/space.png",
+            "speed": 0.05,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/space/space.png",
+            "speed": 0.05,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars_atmosphere.png",
+            "speed": 0,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars_atmosphere.png",
+            "speed": 0,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-background-mountains_v2.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-background-mountains_v2.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/hills_map_v2.png",
+            "speed": 0.5,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/hills_map_v2.png",
+            "speed": 0.5,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-far-mountains.png",
+            "speed": 0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-far-mountains.png",
+            "speed": 0.8,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.8,
+            "description": "first frame",
+            "extraMap": "/public/images/locations/Mars/mars-far-mountains_v2.png",
+            "timeToExtraMapSeconds": 30,
+            "timeToExtraMapMinutes": 1
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.8,
+            "description": "second frame",
+            "extraMap": "/public/images/locations/Mars/mars-far-mountains_v3.png",
+            "timeToExtraMapSeconds": 30,
+            "timeToExtraMapMinutes": 1
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-far-mountains-a_v2.png",
+            "speed": 1.3,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-far-mountains-a_v2a.png",
+            "speed": 1.3,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-closest-ground.png",
+            "speed": 2.3,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Mars/mars-closest-ground.png",
+            "speed": 2.3,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 2.3,
+            "description": "first frame",
             "extraMap": "/public/images/locations/Mars/mars_road.png",
             "timeToExtraMapSeconds": 30,
             "timeToExtraMapMinutes": 1
@@ -1057,11 +1184,11 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 13,
-        "enemyType" : ["scorpio"],
+        "level" : 14,
+        "enemyType" : ["Chaser", "hunter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["asteroid_1", "asteroid_2", "gate_1"],
-        "enemyProbability" : 950,
+        "enemyProbability" : 1150,
         "objectProbability": 1200,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
@@ -1079,7 +1206,7 @@
             "name": "Asteroid field",
             "description": "Asteroids"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/die vonstantine_asteroids.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1114,7 +1241,7 @@
             "speed": 0.1,
             "description": "second frame"
         },{
-            "levelMap" : "/public/images/locations/Sun orbit/empty.png",
+            "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 0.45,
             "description": "first frame",
             "extraMap": "/public/images/locations/space/asteroid_2.png",
@@ -1144,8 +1271,8 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 14,
-        "enemyType" : ["scorpio", "moscit"],
+        "level" : 15,
+        "enemyType" : ["Chaser", "Grisle"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
         "enemyProbability" : 950,
@@ -1166,7 +1293,7 @@
             "name": "Jupiter fly By",
             "description": "Jupiter"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/stone fortress Jupiter.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1229,10 +1356,10 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 15,
-        "enemyType" : ["scorpio", "moscit"],
+        "level" : 16,
+        "enemyType" : ["Chaser", "Grisle", "hunter"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_desert", "gate_1"],
+        "levelOBjects" : ["tradepost_venus", "gate_1"],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -1251,7 +1378,7 @@
             "name": "Neptune arrive",
             "description": "Neptune orbit"
         },
-        "levelSound": "/public/sound/ambiant/Grunge-Street-Game.mp3",
+        "levelSound": "/public/sound/ambiant/the end_neptune.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1277,6 +1404,30 @@
             "levelMap" : "/public/images/locations/Neptune/triton.png",
             "speed": 0.2,
             "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.25,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/wreck_0.png",
+            "speed": 0.25,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/wreck_1.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/wreck_2.png",
+            "speed": 0.3,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/wreck_3.png",
+            "speed": 0.8,
+            "description": "second frame"
         }],
         "levelDetails" : {
             "levelMinutes": 2,
@@ -1287,10 +1438,10 @@
 
 
     {
-        "level" : 16,
-        "enemyType" : ["baldrin", "mine"],
+        "level" : 17,
+        "enemyType" : ["baldrin", "mine", "dart"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : [],
+        "levelOBjects" : ["ice_spikes"],
         "enemyProbability" : 250,
         "objectProbability": 800,
         "grapleObjectProbability": 1500,

@@ -204,7 +204,7 @@ async function createNewEnemy({ enemyData, EnemyObject }){
             numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
             spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null,
             isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false, extraObjects: extraObjects, collideExplosionAnimation: shipDetails.collideExplosionAnimation,  // load coin element from server 
-            defaultAngle: (shipDetails.defaultAngle)? shipDetails.defaultAngle : null
+            defaultAngle: (shipDetails.defaultAngle)? shipDetails.defaultAngle : null, hitShape: (shipDetails.hitShape)? shipDetails.hitShape : null
         });
     }
 }
@@ -212,8 +212,11 @@ async function loadExtraObject(extraObjects){
         let randomObject = extraObjects[this.gameRandomizer(extraObjects.length)],
         loadProbability = this.gameRandomizer(randomObject.randomizer),
         numberOfElement = this.gameRandomizer(randomObject.maxNumber + 1);
+
+        if(randomObject.object != 'goldCoin' && loadProbability > randomObject.randomizer/2) randomObject = extraObjects[0];
         let result = [];
         let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': randomObject.object}})
+
         for(let i = 0; i < numberOfElement; i++){
             result = result.concat(callObject)
         }

@@ -244,7 +244,7 @@
             "name": "Sabre",
             "loadImage": "static/shop/weapons/Sabre.png",
             "background": "static/shop/misc/blue-card.png",
-            "price": 85000,
+            "price": 65000,
             "title": "Sabre",
             "status": "power gun",
             "description": "rail gun, weapon for you spaceship",
@@ -284,6 +284,53 @@
             "sWidth": 299,
             "sHeight": 109,
             "damage": 120,
+            "firePosition": 15
+        },
+
+        {
+            "name": "Destructor",
+            "loadImage": "static/shop/weapons/destructor.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 95000,
+            "title": "Destructor",
+            "status": "power gun",
+            "description": "rail gun constructed using enemy, technology, weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/color-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/julien_matthey_science_fiction_laser_001.mp3",
+                "soundLoop": false
+            },
+            "type": "beam",
+            "fireRepead": 30,
+            "speed": 80,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 30,
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 220,
             "firePosition": 15
         }
 ]

@@ -135,7 +135,7 @@ async function gameDataInit(PlayerShip, soundObject){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                gameCoins: 1000000,
+                gameCoins: 0,
                 playerObject: playerShipData,
                 levelData: levelData,
                 levelObjects: levelObjects,
