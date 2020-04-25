@@ -14,11 +14,21 @@ function getData({url, method, data, headers}){
         mode: 'cors',
         headers: resultHeader,
         body: (data)? JSON.stringify(data) : null
-    }).then(res =>  res.json())
+    }).then(res => {
+        if(res.status != 200){
+            return { status: 'reject', message: res.statusText}
+        }
+        return res.json()
+    })
     .then(data => data)
-    .catch( err => {
-        console.log(err)
-        if(err){
+    .catch( error => {
+        console.log(error)
+        if(error.response){
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+        if(error){
             return {message: "500 No server connection!", status: "error"}
         }
     })

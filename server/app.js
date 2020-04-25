@@ -26,8 +26,7 @@ process.env.PORT = 3000;
 process.env.HOST = 'http://localhost:';
 
 
-
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '3mb' }));
 const hbs = exphbs.create({extname: ".handlebars",
         layoutsDir: __dirname + "/views/layouts",
         defaultLayout: "main.handlebars",

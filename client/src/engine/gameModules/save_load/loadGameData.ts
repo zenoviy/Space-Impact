@@ -317,7 +317,6 @@ function loadSaveProcedure({mainGameObject, currentSave}){
         save.gameInitData.gameData.playerObject.ctx = datanotToChange.gameActionField
         save.gameInitData.gameData.playerObject.playerShipTextureChange()
 
-
         save.gameInitData.gameData.levelSounds = backToObject({data: save.gameInitData.gameData.levelSounds, constructor: constructor.SoundCreator})
         save.gameInitData.gameData.levelSounds.soundObject = datanotToChange.soundObject;
 
@@ -334,10 +333,8 @@ function loadSaveProcedure({mainGameObject, currentSave}){
     save.gameInitData.gameUiPause = false;
     save.gameInitData.shopActive = false;
     save.gameInitData.randomObject = false;
-    save.gameInitData.gatePresent = false;
     save.gameInitData.levelWindowDescription = false;
     save.gameInitData.grappleObjectOnScreen = false;
-    save.gameInitData.tradepostInRange = false;
     save.gameInitData.inventoryActive = false;
     process.env.BOSS_LOAD_AT_LEVEL = (bossPresent)? 'true' : 'false';
 

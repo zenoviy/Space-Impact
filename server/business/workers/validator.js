@@ -4,7 +4,7 @@ function dataValidator(data){
 
 }
 function dataFinder(data, finderData){
-    if(!data.length || !data || !finderData) return false
+    if( !data || !finderData) return false
 
     let resuletEmail = data.find( (element) => {return element.userEmail === finderData.userEmail})
     let resuletName = data.find( (element) => {return element.userName === finderData.userName})

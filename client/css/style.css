@@ -32,3 +32,6 @@ input[type="range"] {
 .tablet-btn:hover{
     background-image: url("../public/images/misc/shop/button_hover.png");
 }
+.avatar-button{
+    background-image: url("../public/images/misc/avatars/picture_icon.png");
+}

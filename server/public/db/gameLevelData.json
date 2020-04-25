@@ -773,7 +773,7 @@
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
-        "enemyProbability" : 1350,
+        "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
@@ -938,7 +938,7 @@
             "description": "second frame",
             "extraMap": "/public/images/locations/Mars/mars_planet.png",
             "timeToExtraMapSeconds": 20,
-            "timeToExtraMapMinutes": 2
+            "timeToExtraMapMinutes": 3
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 0.3,
@@ -949,10 +949,10 @@
             "description": "second frame phobos",
             "extraMap": "/public/images/locations/Mars/phobos_planets_map.png",
             "timeToExtraMapSeconds": 20,
-            "timeToExtraMapMinutes": 2
+            "timeToExtraMapMinutes": 3
         }],
         "levelDetails" : {
-            "levelMinutes": 3,
+            "levelMinutes": 4,
             "levelSeconds": 30
         }
     }, {
