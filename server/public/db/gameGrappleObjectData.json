@@ -346,7 +346,6 @@
             "description": "object with gun",
             "methodName": "collectObjectsToInventory",
             "store": "guns",
-            "type": "inventory weapon",
             "content": {
                 "name": "Destructor"
             }

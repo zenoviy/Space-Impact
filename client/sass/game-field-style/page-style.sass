@@ -16,6 +16,11 @@ body
   user-select: none
   @include menu-screen
 
+*, *::after, *::before
+	-webkit-user-select: none
+	-webkit-user-drag: none
+	-webkit-app-region: no-drag
+
 .header-full-banner
   position: fixed
   display: flex
@@ -32,6 +37,7 @@ body
     h1, h2
       margin-top: 10px
       margin-bottom: 20px
+
   img
     width: 101%
     margin-left: -20px
@@ -51,6 +57,9 @@ main
       font-weight: 900
       color: $orange-color
 
+section
+  h1:first-letter, h2:first-letter, h3:first-letter
+    text-transform: uppercase
 
 
 .static-wrapper
@@ -79,6 +88,8 @@ main
           transition: .5s linear
         li:hover
           background: #1d111f
+          a
+            color: #ffba3a
         li::first-letter
         text-transform: uppercase
         a

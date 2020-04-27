@@ -52,7 +52,7 @@ class EnemyObject {
     explosion: explosionAnimation; numberOfVerticalItems: number;
     originalHealthPoint: number; isMove: boolean; isShot: boolean;
     spotDistance: number; verticalSpeed: number; yFinal: number; xFinal: number; behavior: string;
-    direction: string; isBoss: boolean;
+    direction: string; isBoss: boolean; isSubBoss: boolean;
     extraObjects: any[]; collideExplosionAnimation: any;
     changeXposition: boolean; changeSpeed: boolean;
     shotAngle: number;  defaultAngle: any; hitShape: string;
@@ -99,6 +99,7 @@ class EnemyObject {
             this.behavior = data.behavior;
             this.direction = null;
             this.isBoss = data.isBoss;
+            this.isSubBoss = (data.isSubBoss)? data.isSubBoss : false;
             this.extraObjects = data.extraObjects;
             this.collideExplosionAnimation = data.collideExplosionAnimation;
             this.shotAngle = 180;

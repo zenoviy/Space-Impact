@@ -210,8 +210,9 @@ function changePage({mainGameObject, flag}){
 
 function buyStoreItem({mainGameObject, data, targetData}){
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;
+    //if( playerObject.data.inventory[targetData.index].grapplePower.maxNumber <= playerObject.data.inventory[targetData.index].grapplePower.number ) return false
     if(!data) return false
-    mainGameObject.gameInitData.gameData.gameCoins -= data.price;
+    
     inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data, targetData: targetData })
 }
 
@@ -224,12 +225,15 @@ function inventoryItemGunsAssign({ mainGameObject, data, targetData }){
             playerShipData: mainGameObject.gameInitData.gameData.playerObject,
             mainGameObject: mainGameObject
         })
+        mainGameObject.gameInitData.gameData.gameCoins -= data.price;
         hide(mainGameObject.shopArea.shopDialog)
     }else if(data.type === "inventory weapon"){
         if( targetData ){
              if( playerObject.data.inventory[targetData.index].grapplePower.maxNumber <= playerObject.data.inventory[targetData.index].grapplePower.number ){
+                mainGameObject.shopArea.shopErrorMessage.innerHTML = 'you reach a limit of this item';
                 return false
              }
+            mainGameObject.gameInitData.gameData.gameCoins -= data.price;
             playerObject.data.inventory[targetData.index].grapplePower.number += 1;
         }
         shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})

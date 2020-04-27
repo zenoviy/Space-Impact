@@ -186,7 +186,6 @@ async function createNewEnemy({ enemyData, EnemyObject }){
         let behavior = (shipDetails.behavior)?shipDetails.behavior[this.gameRandomizer(shipDetails.behavior.length)] : null;
         let extraObjects =  (shipDetails.extraObjects)? await loadExtraObject.call(this, shipDetails.extraObjects): false;
 
-        let context = this;
 
        return new EnemyObject(
         {
@@ -204,7 +203,8 @@ async function createNewEnemy({ enemyData, EnemyObject }){
             numberOfVerticalItems: shipDetails.numberOfVerticalItems, isMove: shipDetails.isMove, isShoot: shipDetails.isShoot,
             spotDistance: shipDetails.spotDistance, behavior: behavior, verticalSpeed: (shipDetails.verticalSpeed)? shipDetails.verticalSpeed: null,
             isBoss: (shipDetails.isBoss)? shipDetails.isBoss : false, extraObjects: extraObjects, collideExplosionAnimation: shipDetails.collideExplosionAnimation,  // load coin element from server 
-            defaultAngle: (shipDetails.defaultAngle)? shipDetails.defaultAngle : null, hitShape: (shipDetails.hitShape)? shipDetails.hitShape : null
+            defaultAngle: (shipDetails.defaultAngle)? shipDetails.defaultAngle : null, hitShape: (shipDetails.hitShape)? shipDetails.hitShape : null,
+            isSubBoss: (shipDetails.subBoss)? shipDetails.subBoss : null
         });
     }
 }

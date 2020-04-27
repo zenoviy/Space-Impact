@@ -9,9 +9,8 @@ import { clearField } from './view/displayModules';
 import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 import { loadShopArea } from './ui/shop/gameShopModule';
 import { saveGameEvents } from './appMenu/saveLoadMenu';
-//
-import { explosionFire } from './engine/gameSideObjectsModule';
-import * as menuInterface from './gameInterfaces/menuInterface';
+import { createScreenshots } from './engine/engineModules';
+
 
 
 
@@ -229,6 +228,7 @@ function initAppGlobalVariable(){
     process.env.SHOP_STORE_ITEMS = "api/shop/store-items";
 
     process.env.APP_SAVE_DIRECTORY = '/appData/saves';
+    process.env.APP_SCREENSHOTS_DIRECTORY = '/appData/saves/screenshots';
 
 
     process.env.MAIN_GAME_SOUND = '';
@@ -253,6 +253,16 @@ function initAppGlobalVariable(){
 
 
 (async function init(){
+
+    document.addEventListener('dragover',function(event){
+        event.preventDefault();
+        return false;
+      },false);
+
+      document.addEventListener('drop',function(event){
+        event.preventDefault();
+        return false;
+      },false);
 
     initAppGlobalVariable()
     async function initGameObject(){
@@ -311,6 +321,9 @@ function initAppGlobalVariable(){
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
     gameObjectStart()
     saveGameEvents({mainGameObject: gameObject})
+
+
+    createScreenshots({mainGameObject: gameObject })
     /*   game engin runing   */
     async function gameInterval(){
        if(gameObject.gameInitData.ctxUIField){

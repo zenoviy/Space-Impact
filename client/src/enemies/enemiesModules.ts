@@ -398,7 +398,6 @@ function objectIntersectionDetect({object, target}){
     var distance = Math.sqrt(x*x + y*y)-(object.height/2 + target.height/2);
 
 
-
     if(target.originObject){
         if( target.originObject.objectOwner != "bullet"  && distance <= 0) {
           return "collision"

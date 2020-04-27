@@ -89,7 +89,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject){
     loadWindow({loadStatus: "load"})
-    let level = 16, shipType = 3, shipLife = 5;
+    let level = 11, shipType = 4, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -135,7 +135,7 @@ async function gameDataInit(PlayerShip, soundObject){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                gameCoins: 0,
+                gameCoins: 1000000,
                 playerObject: playerShipData,
                 levelData: levelData,
                 levelObjects: levelObjects,
@@ -186,7 +186,6 @@ function gameStart(){
     process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
     process.env.SHOP_SALE_WINDOW = 'false';
     process.env.SHOP_STORE_WINDOW = 'false';
-    let contexts = this.returnContext()
     this.initPlayerShip()
 
     this.gameInitData.gameOver = false;

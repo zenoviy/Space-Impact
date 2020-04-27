@@ -709,10 +709,7 @@
         },{
             "levelMap" : "/public/images/locations/Sun orbit/sun_right_part.png",
             "speed": 0.2,
-            "description": "second frame",
-            "extraMap": "/public/images/locations/space/empty.png",
-            "timeToExtraMapSeconds": 40,
-            "timeToExtraMapMinutes": 3
+            "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/Sun orbit/sun_background.png",
             "speed": 0.2,
@@ -930,26 +927,26 @@
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
-            "speed": 0.15,
-            "description": "first frame"
-        },{
-            "levelMap" : "/public/images/locations/space/empty.png",
-            "speed": 0.15,
-            "description": "second frame",
+            "speed": 0.18,
+            "description": "first frame",
             "extraMap": "/public/images/locations/Mars/mars_planet.png",
             "timeToExtraMapSeconds": 20,
-            "timeToExtraMapMinutes": 3
+            "timeToExtraMapMinutes": 5
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.15,
+            "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 0.3,
-            "description": "first frame"
-        },{
-            "levelMap" : "/public/images/locations/space/empty.png",
-            "speed": 0.3,
-            "description": "second frame phobos",
+            "description": "first frame phobos",
             "extraMap": "/public/images/locations/Mars/phobos_planets_map.png",
             "timeToExtraMapSeconds": 20,
             "timeToExtraMapMinutes": 3
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.3,
+            "description": "second frame"
         }],
         "levelDetails" : {
             "levelMinutes": 4,

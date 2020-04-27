@@ -93,7 +93,7 @@ button:focus, li:focus, ul:focus, img:focus, div:focus, p:focus
 .avatar-button
     width: 100px
     height: 100px
-    background-color: #570098
+    background-color: #4f3563
     background-size: contain
     display: block
     margin: 0 auto
@@ -101,3 +101,38 @@ button:focus, li:focus, ul:focus, img:focus, div:focus, p:focus
     border: 0px
     padding: 0px
     overflow: hidden
+
+.screenshot-button
+    position: absolute
+    right: 0px
+    background: none
+    border: 0px
+    img
+        width: 50px
+        transition: .5s linear
+        display: block
+        float: right
+    img:hover
+        transform: scale(1.2)
+
+.message-screenshot
+    background-color: $accept-color
+    color: $white-color
+    padding: 20px
+    right: -200%
+    top: 0
+    position: absolute
+.active-message-box
+    animation: apear-message 5s linear forwards
+.screenshot-button:active
+    opacoty: .3
+
+@keyframes apear-message
+    0%
+        right: -200%
+    10%
+        right: 0%
+    90%
+        right: 0%
+    100%
+        right: -200%

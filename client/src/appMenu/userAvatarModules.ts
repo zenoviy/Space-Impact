@@ -2,27 +2,33 @@ import { addClassList, removeClassList } from './appMenu';
 import { createElements } from './pagesBuilder';
 
 
-function avatarButton({ buttonSelector, formState }){
+function avatarButton({ newAvatarSelectors, formState }){
 
-    let mainAvatarButton = document.querySelector(buttonSelector);
-    let avatarClose = document.querySelector("#avatar-close");
-    let playerAvatarLoad = document.querySelector("#player-avatar");
+    let mainAvatarButton = document.querySelector(newAvatarSelectors.buttonSelector);
+    let avatarClose = document.querySelector(newAvatarSelectors.avatarCloseSelector);
+    let playerAvatarLoad = document.querySelector(newAvatarSelectors.playerAvatarLoadSelector);
+    let avatarBox = document.querySelector(newAvatarSelectors.avatarBoxSelector);
+    let avatarInnerBox = document.querySelector(newAvatarSelectors.avatarInnerBoxSelector);
+    let displaySelector = document.querySelector(newAvatarSelectors.displaySelector);
 
     const avatarAreaSelectors = {
         mainAvatarButton: mainAvatarButton,
         avatarClose: avatarClose,
-        playerAvatarLoad: playerAvatarLoad
+        playerAvatarLoad: playerAvatarLoad,
+        avatarBox: avatarBox,
+        avatarInnerBox: avatarInnerBox,
+        displaySelector: displaySelector
     }
 
     mainAvatarButton.addEventListener('click', function( event ){
         event.preventDefault()
-        toggleAvatarArea({ avatarBoxSelector: '#avatar-box', formState: formState })
-        showAllAvatars({ avatarInnerBoxSelector: '#avatar-inner-box', formState: formState,
+        toggleAvatarArea({ avatarBoxSelector: avatarBox, formState: formState })
+        showAllAvatars({ avatarInnerBoxSelector: avatarAreaSelectors, formState: formState,
         avatarAreaSelectors: avatarAreaSelectors })
     })
     avatarClose.addEventListener('click', function( event ){
         event.preventDefault()
-        toggleAvatarArea({ avatarBoxSelector: '#avatar-box', formState: formState })
+        toggleAvatarArea({ avatarBoxSelector: avatarBox, formState: formState })
     })
     playerAvatarLoad.addEventListener('change', function(){ convertPictureToData({
         avatarAreaSelectors: avatarAreaSelectors, picture: this, formState: formState
@@ -31,7 +37,7 @@ function avatarButton({ buttonSelector, formState }){
 }
 
 function showAllAvatars({ avatarInnerBoxSelector, formState, avatarAreaSelectors }){
-    let avatarInnerBox = document.querySelector(avatarInnerBoxSelector);
+    let avatarInnerBox = avatarInnerBoxSelector.avatarInnerBox;
     const avatarPictures = ['av1.png', 'av2.png', 'av3.png', 'av4.png', 'av5.png', 'av6.png'];
     const imageLocation = '/public/images/misc/avatars/';
 
@@ -53,10 +59,8 @@ function showAllAvatars({ avatarInnerBoxSelector, formState, avatarAreaSelectors
 
         avatarElement.addEventListener('click', function( event ){
             event.preventDefault()
-            //formState.avatarPicture = __dirname + currentImage;
-            //displayCurrentAvatar({ picture: __dirname + currentImage, displaySelector: '#avatar-picture' })
             convertPictureToData({ picture: __dirname + currentImage, formState: formState, avatarAreaSelectors: avatarAreaSelectors})
-            toggleAvatarArea({ avatarBoxSelector: '#avatar-box', formState: formState })
+            toggleAvatarArea({ avatarBoxSelector: avatarInnerBoxSelector.avatarBox, formState: formState })
         })
         avatarInnerBox.appendChild(avatarElement)
     }
@@ -66,7 +70,7 @@ function showAllAvatars({ avatarInnerBoxSelector, formState, avatarAreaSelectors
 
 
 function toggleAvatarArea({ avatarBoxSelector, formState }){
-    let avatarBox = document.querySelector(avatarBoxSelector);
+    let avatarBox = avatarBoxSelector;
     formState.avatarSectionShowState = !formState.avatarSectionShowState;
 
     if( formState.avatarSectionShowState ){ addClassList( avatarBox, 'opened-avatar-box' )
@@ -77,7 +81,7 @@ function toggleAvatarArea({ avatarBoxSelector, formState }){
 
 
 function displayCurrentAvatar({ picture, displaySelector }){
-    let avatarPicture: any = document.querySelector(displaySelector);
+    let avatarPicture: any = displaySelector;
 
     if(!picture || !avatarPicture) return false
     avatarPicture.src = picture;
@@ -90,8 +94,8 @@ async function convertPictureToData({ avatarAreaSelectors, picture, formState })
     function loadPicture(){
         const reader = new FileReader();
         reader.addEventListener('load', function(){
-            displayCurrentAvatar({picture: reader.result, displaySelector: '#avatar-picture'})
-            toggleAvatarArea({ avatarBoxSelector: '#avatar-box', formState: formState })
+            displayCurrentAvatar({picture: reader.result, displaySelector: avatarAreaSelectors.displaySelector})
+            toggleAvatarArea({ avatarBoxSelector: avatarAreaSelectors.avatarBox, formState: formState })
             formState.avatarPicture = reader.result;
             return reader.result
         }, false)
@@ -113,7 +117,7 @@ async function convertPictureToData({ avatarAreaSelectors, picture, formState })
                 let getPictureBase = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
                 let pictureBaseUrl = 'data:image/png;base64,' + getPictureBase;
 
-                displayCurrentAvatar({picture: pictureBaseUrl, displaySelector: '#avatar-picture'})
+                displayCurrentAvatar({picture: pictureBaseUrl, displaySelector: avatarAreaSelectors.displaySelector})
                 formState.avatarPicture = pictureBaseUrl;
                 return pictureBaseUrl
             }
@@ -124,7 +128,5 @@ async function convertPictureToData({ avatarAreaSelectors, picture, formState })
 
 export {
     avatarButton,
-    showAllAvatars,
-    displayCurrentAvatar,
     convertPictureToData
 }

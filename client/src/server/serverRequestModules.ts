@@ -139,7 +139,7 @@ function writeElectronLocalData({fileName, data}){
     if(!fileName || !data) return console.error('no data or filename at serverRequestModule')
     let res = new Promise((resolve, reject) => {
         storage.set(fileName, data, function(error) {
-            if (error) throw error;
+            if (error) reject(error);
             resolve({message: 'Settings saved'})
             return
         })

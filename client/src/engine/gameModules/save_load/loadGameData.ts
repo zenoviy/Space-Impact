@@ -73,12 +73,12 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
             seconds = time.getSeconds();
 
             let img = new Image();
-            let pictureURL = await storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
+            let pictureURL = save.savePicture; //await storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
             img.src = (pictureURL)? pictureURL : null;
             await new Promise((resolve, reject) => {
-                img.src = (pictureURL)? pictureURL : null;
+                img.src = (save.savePicture)? save.savePicture : null;
                 img.onload = () => {
-                    resolve({pictureURL: pictureURL})
+                    resolve({pictureURL: save.savePicture})
                 }
             }).then((resolve: any) => {
                 index += 1;
@@ -92,7 +92,7 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
                     innerContent: `
                     <div class="save-card-body">
                         <div class="saveImage-wrapper-small">
-                            <img id="preview-img-${save.saveTime}" src="${ resolve.pictureURL }" alt="${save.saveName}">
+                            <img id="preview-img-${save.saveTime}" src="${ (save.savePicture)? save.savePicture : '' }" alt="${save.saveName}">
                         </div>
                         <p class="single-item"><span class="rate-number">${index}</span>
                         <span>save name:</span> <span class="item-name"> ${save.saveName}</span>
@@ -107,7 +107,7 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
                 newElement.addEventListener('click', function(e) {
                     saveDialog({text: null, typeOfWarning: ""})
                     let image: any = document.querySelector(`#preview-img-${save.saveTime}`);
-                    let pictureURL = storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
+                    let pictureURL = save.savePicture; //storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
                     image.src = (pictureURL)? pictureURL : null;
                     showAcceptButtons.call(this, {mainGameObject: mainGameObject, saveDataItem: save, flag: item.indexFlag})
                 })
@@ -133,7 +133,7 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
         <button data-button-id="overwrite-save" class="btn-main">Overwrite</button>
         <button data-button-id="delete-save" class="btn-main btn-orange-reject">Delete</button>
     </div>`;
-    let pictureURL = storage.getDataPath() + '/' + saveDataItem.saveName + '.png' + "?t=" + new Date().getTime();
+    let pictureURL = saveDataItem.savePicture;  //storage.getDataPath() + '/' + saveDataItem.saveName + '.png' + "?t=" + new Date().getTime();
     let img = new Image();
     img.src = (pictureURL)? pictureURL : null;
     img.onload = () => {
@@ -146,7 +146,7 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
             text: null,
             innerContent: `
             <div class="save-preview-image-large">
-                <img src="${ pictureURL }" alt="${saveDataItem.saveName}">
+                <img src="${ saveDataItem.savePicture }" alt="${saveDataItem.saveName}">
                 <div class="save-details">
                     <h3>Save: ${saveDataItem.saveName}</h3>
                     <p>Level: ${saveDataItem.playerInformation.currentLevel}</p>

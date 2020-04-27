@@ -3,10 +3,9 @@ var path = require('path');
 var storage = require('electron-json-storage');
 import mergeImages from 'merge-images';
 import { draw } from '../view/displayModules';
-//import { explosionFire } from './gameSideObjectsModule';
+import { addClassList, removeClassList } from '../appMenu/appMenu';
 const { ipcRenderer, remote } = require( "electron" );
-import * as costructors from '../constructors'
-//import { levelConstructor } from '../constructors/levelConstructors';
+
 
 
 function initField(screenWidth = window.innerWidth, screenHeight = window.innerHeight){
@@ -222,6 +221,7 @@ function deleteBullet(bullet){
 async function deleteObjects( object ){
     limitationOfSideObjects({ mainGameObject: this })
     if(object.x + object.sWidth < 0 || !object.objectPresent){
+        if(object.isSubBoss) process.env.SUB_LOAD_AT_LEVEL = "false";
         let index = this.gameInitData.allGameEnemies.indexOf(object);
         this.gameInitData.allGameEnemies.splice(index, 1);
     }
@@ -303,44 +303,104 @@ function getObjectPosition(){
     return position
 }
 
+function createScreenshots({ mainGameObject }){
+    const screenShotButton = document.querySelector("#screenshot");
 
-async function getImageFromFields({saveGameData}){
+    screenShotButton.addEventListener('click', () => {
+        if(!mainGameObject.gameInitData.gameStatus ||
+            mainGameObject.gameInitData.gameWin ||
+            mainGameObject.gameInitData.gameOver) return false
+        let screenShotMessageBox = document.querySelector('#message-screenshot');
+
+        addClassList(screenShotMessageBox, 'active-message-box')
+        var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SCREENSHOTS_DIRECTORY : __dirname + process.env.APP_SCREENSHOTS_DIRECTORY;
+        screenShotMessageBox.innerHTML = `Screenshot taken \n location: ${  process.env.APP_SCREENSHOTS_DIRECTORY}`
+
+        getImageFromFields.call( mainGameObject, { saveGameData: null, screenshot: true })
+        setTimeout(function(){
+            removeClassList(screenShotMessageBox, 'active-message-box')
+        }, 5000);
+    })
+}
+
+
+async function getImageFromFields({saveGameData, screenshot }){
     let background = await this.gameInitData.gameField.toDataURL();
     let gameField = await this.gameInitData.gameActionField.toDataURL();
 
+    var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SCREENSHOTS_DIRECTORY : __dirname + process.env.APP_SCREENSHOTS_DIRECTORY;
 
-    var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
-    await savePictures({picture_64: await background.replace(/^data:image\/png;base64,/, ""),
-    filename: 'background'})
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+    
+    let backgroundPicture = await savePictures({picture_64: await background.replace(/^data:image\/png;base64,/, ""),
+    filename: 'background', screenshot: false})
+
     let res = await savePictures({picture_64: await gameField.replace(/^data:image\/png;base64,/, ""),
-    filename: 'gameField'})
+    filename: 'gameField', screenshot: false})
     .then(async resolve => {
-        return await mergeImages([dir + '/background.png',
-        dir +  '/gameField.png'], {
-            width: 1300,
-            height: 680
+        return await mergeImages([background,
+            gameField], {
+            width: window.innerWidth,
+            height: window.innerHeight
           }).then(async pic => {
-                await savePictures({picture_64: await pic.replace(/^data:image\/png;base64,/, ""),
-            filename: saveGameData.saveName})
-            return true
+            if(screenshot) return await savePictures({picture_64: await pic.replace(/^data:image\/png;base64,/, ""), filename: new Date().getTime(), screenshot: screenshot})
+            //console.log('data:image/png;base64,' + pic.replace(/^data:image\/png;base64,/, ""))
+            return reducePreviewImageSize({ picUrl: 'data:image/png;base64,' + pic.replace(/^data:image\/png;base64,/, "")})
+            .then( resolve => {
+                console.log('resolve', resolve)
+                return  resolve
+            })
+            
         })
     })
+
     return res
 }
 
-async function savePictures({picture_64, filename}){
-    var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
-    return new Promise((resolve, reject) => {
-        fs.writeFile(dir + `/${filename}.png`, picture_64, 'base64', function (err) {
-            if(err){
-                reject(false)
-                return console.error(err)
-            };
-            resolve(true)
-        });
-    })
+async function savePictures({picture_64, filename, screenshot}){
+    if(screenshot){
+        var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SCREENSHOTS_DIRECTORY : __dirname + process.env.APP_SCREENSHOTS_DIRECTORY;
+        return new Promise((resolve, reject) => {
+            fs.writeFile(dir + `/${filename}.png`, picture_64, 'base64', function (err) {
+                if(err){
+                    reject(false)
+                    return console.error(err)
+                };
+                resolve(true)
+                return false
+            });
+        })
+    }
+
+    return picture_64
 }
 
+async function reducePreviewImageSize({ picUrl }){
+    let canvas = document.createElement('canvas');
+    canvas.width = window.innerWidth/2.5;
+    canvas.height = window.innerHeight/2.5;
+    let ctx = canvas.getContext('2d');
+
+    let img = new Image();
+    img.src = picUrl;
+    let res = '';
+
+    return new Promise( (resolve, reject) => {
+        img.onload = function(){
+                ctx.drawImage(img, 0, 0, window.innerWidth, window.innerHeight, 0, 0, canvas.width, canvas.height)
+                var dataURL = canvas.toDataURL();
+
+                let getPictureBase = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+                let pictureBaseUrl = 'data:image/png;base64,' + getPictureBase;
+
+                res = pictureBaseUrl
+                resolve(pictureBaseUrl)
+                //console.log(pictureBaseUrl)
+        }
+    })
+}
 
 
 function getRandomColor() {
@@ -419,5 +479,6 @@ export  {
     fullScreenSwitch,
     angleFinder,
     getImageFromFields,
-    searchExplosionObject
+    searchExplosionObject,
+    createScreenshots
 }

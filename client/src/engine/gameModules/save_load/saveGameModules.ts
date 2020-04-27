@@ -45,6 +45,7 @@ async function createSave({saveName, saveData, mainGameObject}){
     }
 
     let saveGameData = {
+        savePicture: null,
         saveName: (saveName.saveName)? saveName.saveName: saveTime,
         saveTime: saveTime,
         playerInformation: informationToShow,
@@ -53,7 +54,9 @@ async function createSave({saveName, saveData, mainGameObject}){
     let allowToSave = compareSaveName({allData: allData, saveGameData: saveGameData})
 
     if(!allowToSave) return false
-    await mainGameObject.getImageFromFields({saveGameData: saveGameData})
+    let image = await mainGameObject.getImageFromFields({saveGameData: saveGameData, screenshot: false})
+
+    saveGameData.savePicture = image;
     allData = allData.concat(saveGameData)
     await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     saveDialog({text: "Save created successfully", typeOfWarning: "success-text"});
@@ -125,6 +128,7 @@ async function overwriteSaveData({currentSave, mainGameObject}){
         playerLife: pleyerInformation.playerObject.numberOflife
     }
     let saveGameData = {
+        savePicture: null,
         saveName: (currentSave.saveName)? currentSave.saveName: saveTime,
         saveTime: saveTime,
         playerInformation: informationToShow,
@@ -133,7 +137,8 @@ async function overwriteSaveData({currentSave, mainGameObject}){
 
     saveDialog({text: "Save overwrite successfully", typeOfWarning: "success-text"});
     allData.splice(index, 1, saveGameData)
-    await mainGameObject.getImageFromFields({saveGameData: saveGameData})
+    let image = await mainGameObject.getImageFromFields({saveGameData: saveGameData, screenshot: false})
+    saveGameData.savePicture = image;
     await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     displaySavesOnScreen({
         saveScreen: getContext.saveScreen,

@@ -16,7 +16,9 @@ import { inventoryItemGunsAssign } from '../ui/shop/gameShopModule';
 async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
 
     let randomApear = mainGameObject.gameRandomizer(target.probability);
-    if(randomApear > 10 && target.name != 'goldCoin' || randomApear > 10 && target.name != 'lifepoint') return false
+
+    if(randomApear > 10 && target.name != 'goldCoin' || randomApear > 20 && target.name != 'lifepoint') return false
+
     let context = mainGameObject;
 
     let sideObject = this;
@@ -63,7 +65,6 @@ async function initGrappleObject(GrappleObject, playerShipData){
     let spawnProbability = this.gameRandomizer(levelData.grapleObjectProbability);
     if(spawnProbability < 1){
         let randomObject = grappleData[this.gameRandomizer(grappleData.length)];
-
         switch (randomObject.grapplePower.name){
             case "life":
                 if(playerShipData.numberOflife >= playerShipData.maxOfLife - 1) return
