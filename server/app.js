@@ -22,7 +22,7 @@ const cors = require('cors');
 
 const app = express();
 
-process.env.PORT = 3000;
+process.env.PORT = 3300;
 process.env.HOST = 'http://localhost:';
 
 
@@ -74,6 +74,6 @@ app.route("/api/shop/store-items")
     .get(getStoreItemsData)
     .put(putStoreItemsData)
 
-app.listen(process.env.PORT || 3000, function(){
-    console.log(`Server listened at port ${process.env.PORT || 3000}`);
+app.listen(process.env.PORT || 3300, function(){
+    console.log(`Server listened at port ${process.env.PORT || 3300}`);
 });

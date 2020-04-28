@@ -226,7 +226,7 @@ function inventoryItemGunsAssign({ mainGameObject, data, targetData }){
             mainGameObject: mainGameObject
         })
         mainGameObject.gameInitData.gameData.gameCoins -= data.price;
-        hide(mainGameObject.shopArea.shopDialog)
+        //hide(mainGameObject.shopArea.shopDialog)
     }else if(data.type === "inventory weapon"){
         if( targetData ){
              if( playerObject.data.inventory[targetData.index].grapplePower.maxNumber <= playerObject.data.inventory[targetData.index].grapplePower.number ){

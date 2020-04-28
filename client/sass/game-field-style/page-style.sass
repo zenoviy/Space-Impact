@@ -99,6 +99,7 @@ section
           width: 100%
           padding: 5px
           display: block
+          outline: none
         a:active
           color: red
 
@@ -228,7 +229,26 @@ section
   span
     font-weight: 100
 
-
+.inner-page-container
+  .single-news-item
+    padding-top: 30px
+    padding-bottom: 50px
+    border-bottom: 1px solid #4d0094
+    .single-items-content-area
+      display: flex
+      flex-wrap: wrap
+      .article-part-item
+        width: 47%
+        padding: 10px
+        display: flex
+        justify-content: center
+        align-items: center
+        p, li
+          color: $grey-color
+      img
+        width: 100%
+      h2
+        text-align: right
 
 
 
