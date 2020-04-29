@@ -26,7 +26,25 @@
     {
         "id": "block_5",
         "collision": true,
+        "texture": "/level-creator/assets/block/ground-0.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_5a",
+        "collision": true,
         "texture": "/level-creator/assets/block/grass.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_5b",
+        "collision": true,
+        "texture": "/level-creator/assets/block/grass-left-side.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_5c",
+        "collision": true,
+        "texture": "/level-creator/assets/block/grass-right-side.png",
         "isDestroy": false
     },
     {

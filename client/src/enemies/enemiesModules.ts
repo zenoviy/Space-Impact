@@ -237,7 +237,7 @@ function playerDamage({ mainGameObject, damage}){
 
 // complex enemy animation for damage
 function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
-    let gameSeconds = mainGameObject.gameInitData.gemeExtraSeconds;
+    let gameSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let bulletStop = bulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
     if(!bulletStop) return false
 

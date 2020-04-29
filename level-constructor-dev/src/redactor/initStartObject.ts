@@ -57,6 +57,11 @@ function fillBlockMap({ BlockConstructor, horizontalBlocks, verticalBlock, block
 
 
 
+function backToObject({data, constructor}){
+    let res = Object.create(constructor)
+    let finalObject = Object.assign( Object.create(res.prototype), data )
+    return finalObject
+}
 
 
 function renderBlockBox({ mainObject }){
@@ -67,5 +72,6 @@ function renderBlockBox({ mainObject }){
 export {
     initMainEngine,
     renderBlockBox,
-    fillBlockMap
+    fillBlockMap,
+    backToObject
 }

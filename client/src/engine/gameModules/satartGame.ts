@@ -89,7 +89,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject){
     loadWindow({loadStatus: "load"})
-    let level = 1, shipType = 4, shipLife = 5;
+    let level = 2, shipType = 4, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -169,10 +169,11 @@ async function gameDataInit(PlayerShip, soundObject){
             gatePresent: false,
             levelWindowDescription: false,
             grappleObjectOnScreen: false,
+            dynamicLevelsActive: false,
             tradepostInRange: false,
             inventoryActive: false,
             shopActive: false,
-            gemeExtraSeconds: 0,
+            gameExtraSeconds: 0,
             tradeShipTimeToUndock: 0
         }
     }

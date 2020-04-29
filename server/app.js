@@ -13,7 +13,10 @@ const {
     putShopShipyardData,
     getStoreItemsData,
     putStoreItemsData,
-    constructorBlockData
+    constructorBlockData,
+    saveMap,
+    loadMap,
+    loadAllMap
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -64,7 +67,12 @@ app.get('/game-level-creator', cors(), (req, res) => {
     })
 })
 
-app.get('/api/get-constructor-blocks', cors(), constructorBlockData)
+app.get('/app/get-all-maps', cors(), loadAllMap)
+
+app.route('/api/get-constructor-blocks')
+    .get(cors(), constructorBlockData)
+    .post(cors(), saveMap)
+    .put(cors(), loadMap)
 
 app.get('/api/level-data', cors(), getLevelData)
 app.get('/api/level-objects', cors(), getLevelObjects)

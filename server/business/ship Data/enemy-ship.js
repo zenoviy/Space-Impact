@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 async function getEnemyShip (req, res) {
-    if(!req) return console.log('no propper request')
+    if(!req) return console.log('no  request')
 
     fs.readFile(__dirname + '../../../public/db/enemyTypeData.json', (err, data) => {
         let headers = req.headers;

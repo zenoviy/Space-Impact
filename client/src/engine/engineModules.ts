@@ -164,9 +164,9 @@ function levelTimer(){
 async function getSecondMeasure(callback, ...data){
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
-    if(this.gameInitData.gemeExtraSeconds % gameSecond == 0){
+    if(this.gameInitData.gameExtraSeconds % gameSecond == 0){
 
-        this.gameInitData.gemeExtraSeconds = 0;
+        this.gameInitData.gameExtraSeconds = 0;
         if(!this.gameInitData.shopActive) this.gameInitData.tradeShipTimeToUndock -= 1;
         if(this.gameInitData.tradeShipTimeToUndock < 0) this.gameInitData.tradeShipTimeToUndock = 0;
         if(await callback) return await callback.call(this, ...data);
@@ -177,7 +177,7 @@ async function getSecondMeasure(callback, ...data){
 
 
 function gameSecondsIncrease(){
-    this.gameInitData.gemeExtraSeconds += 1;
+    this.gameInitData.gameExtraSeconds += 1;
 }
 
 
@@ -397,7 +397,6 @@ async function reducePreviewImageSize({ picUrl }){
 
                 res = pictureBaseUrl
                 resolve(pictureBaseUrl)
-                //console.log(pictureBaseUrl)
         }
     })
 }

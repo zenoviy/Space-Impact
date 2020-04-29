@@ -34,7 +34,7 @@ async function nextLevelDataReload(levelData){
         shopActive: false,
         subBossPresent: false,
         gatePresent: false,
-        gemeExtraSeconds: 0,
+        gameExtraSeconds: 0,
         tradeShipTimeToUndock: 0
     }
 

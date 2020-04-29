@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 async function getGrappleObjects (req, res) {
-    if(!req ) return console.log('no propper request');
+    if(!req ) return console.log('no request');
 
     fs.readFile(__dirname + '../../../public/db/gameGrappleObjectData.json', (err, data) => {
         if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};

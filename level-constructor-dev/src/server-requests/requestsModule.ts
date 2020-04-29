@@ -26,6 +26,23 @@ function getData({ url, method, data, headers }){
         })
 }
 
+
+function postData({url, method, data, headers}){
+    let resultHeader = Object.assign({
+        'Content-Type': 'application/json'}, headers || false)
+    return fetch(url, {
+        method: (method)? method : 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: resultHeader,
+        body: (data)? JSON.stringify(data) : null
+    }).then(res => {
+        return res.json()
+    })
+    .then(data => data)
+}
+
 export {
-    getData
+    getData,
+    postData
 }
