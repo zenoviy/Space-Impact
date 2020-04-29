@@ -1,0 +1,59 @@
+[
+    {
+        "id": "block_1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/block-1.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/block-2.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/block-3.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/block-4.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_5",
+        "collision": true,
+        "texture": "/level-creator/assets/block/grass.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_6",
+        "collision": true,
+        "texture": "/level-creator/assets/block/ground-1.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_7",
+        "collision": true,
+        "texture": "/level-creator/assets/block/tile-1.png",
+        "isDestroy": false
+    },
+    {
+        "id": "block_8",
+        "collision": false,
+        "texture": "/level-creator/assets/block/wall-1.png",
+        "isDestroy": false,
+        "type": "wall"
+    },
+    {
+        "id": "block_8",
+        "collision": false,
+        "texture": "/level-creator/assets/block/wall-2.png",
+        "isDestroy": false,
+        "type": "wall"
+    }
+
+]

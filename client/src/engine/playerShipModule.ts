@@ -58,17 +58,17 @@ function shipControl(mainGameObject: any){
         }
     })
 
-    document.addEventListener("click", (e: any) => {
+    document.addEventListener("click", (event: any) => {
         let userShipData = mainGameObject.gameInitData.gameData.playerObject
         if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
         if(mainGameObject.gameInitData.shopActive) return
         shot.call(userShipData, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player")
     })
 
-    document.addEventListener("mousedown", (e: any) => {
+    document.addEventListener("mousedown", (event: any) => {
         //console.log('mousedown')
     })
-    document.addEventListener("mouseup", (e: any) => {
+    document.addEventListener("mouseup", (event: any) => {
         //console.log('mouseup')
     })
 }

@@ -12,13 +12,15 @@ const {
     getShopShipyardData,
     putShopShipyardData,
     getStoreItemsData,
-    putStoreItemsData
+    putStoreItemsData,
+    constructorBlockData
 } = require('./business');
 
 const bodyParser = require('body-parser')
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
@@ -48,6 +50,21 @@ app.get('/game', cors(), (req, res) => {
         title: "Games"
     })
 })
+
+
+
+
+app.use('/game-level-creator',  express.static(__dirname +'/public'))
+app.get('/game-level-creator', cors(), (req, res) => {
+    if(!req) return console.log('problem with request')
+    let link = process.env.HOST + process.env.PORT + "/level-creator/dist-scripts/main.js";
+    res.render('gameField', {
+        title: "Games constructor",
+        mainScript: link
+    })
+})
+
+app.get('/api/get-constructor-blocks', cors(), constructorBlockData)
 
 app.get('/api/level-data', cors(), getLevelData)
 app.get('/api/level-objects', cors(), getLevelObjects)

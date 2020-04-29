@@ -1,0 +1,7 @@
+function setMapSize(){
+
+}
+
+export{
+    setMapSize
+}
