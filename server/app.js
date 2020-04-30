@@ -17,7 +17,9 @@ const {
     saveMap,
     loadMap,
     loadAllMap,
-    constructorCharacterData
+    constructorCharacterData,
+    gameGroundCharacterData,
+    gameGroundEnemyData
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -56,7 +58,7 @@ app.get('/game', cors(), (req, res) => {
 })
 
 
-
+/*            Game constructor Handlebars page         */
 
 app.use('/game-level-creator',  express.static(__dirname +'/public'))
 app.get('/game-level-creator', cors(), (req, res) => {
@@ -68,7 +70,11 @@ app.get('/game-level-creator', cors(), (req, res) => {
     })
 })
 
+
+
+/*            Dynamic level route       */
 app.get('/app/get-all-maps', cors(), loadAllMap)
+app.get('/api/get-ground-characters', cors(), gameGroundCharacterData)
 
 app.route('/api/get-constructor-characters')
     .get(cors(), constructorCharacterData)
@@ -78,10 +84,13 @@ app.route('/api/get-constructor-blocks')
     .post(cors(), saveMap)
     .put(cors(), loadMap)
 
+
+/*            level data route       */
 app.get('/api/level-data', cors(), getLevelData)
 app.get('/api/level-objects', cors(), getLevelObjects)
 app.get('/api/grapple-objects', cors(), getGrappleObjects)
 
+/*            Ship route       */
 app.get('/api/user-ship', cors(), getUserShip)
 app.get('/api/enemy-ship', cors(), getEnemyShip)
 
@@ -90,6 +99,8 @@ app.route("/api/game-result")
     .post(cors(), postResultlData)
     .put(cors(), updateResultlData)
 
+
+/*            Shop data route       */
 app.route("/api/shop/guns")
     .get(getShopWeaponData)
     .put(cors(), putShopWeaponData)

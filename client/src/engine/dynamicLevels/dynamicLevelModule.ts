@@ -18,10 +18,17 @@ async function loadLevelMap({ levelMapName, DynamicBlockConstructor }){
     }).map(block => {
         return new DynamicBlockConstructor({...block })
     })
-    console.log(resultData, levelBlocks, "<<<")
+    //console.log(resultData, levelBlocks, "<<<")
     return levelBlocks
 }
 
+//  гравітація
+
+// декілька видів блоків
+// блоки по яким ходити
+// блоки фону
+// передні блоки
+// блоки з взаємодією
 
 
 

@@ -3,13 +3,13 @@ import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
 import { horizontalVerticalSearch, renewPlayerShip } from './changeLevels';
 const { ipcRenderer, remote } = require( "electron" );
-import { loadLevelMap } from '../dinamicLevels/dynamicLevelModule';
+import { loadLevelMap } from '../dynamicLevels/dynamicLevelModule';
+import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
 import * as constructors from '../../constructors';
 
 
 async function serverRequest(gameInformation){
         console.log(process.env.NODE_ENV, process.env.HOST)
-
 
         const levelData = await getData({
             url: process.env.HOST + process.env.LEVEL_DATA_URL,
@@ -89,7 +89,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 
     return new PlayerShip(shipData);
 }
-async function gameDataInit(PlayerShip, soundObject, DynamicBlockConstructor){
+async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
     let level = 2, shipType = 3, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
@@ -140,7 +140,7 @@ async function gameDataInit(PlayerShip, soundObject, DynamicBlockConstructor){
                 currentPoint: 0,
                 gameCoins: 1000000,
                 playerObject: playerShipData,
-                dynamicPlayerCharacter: null,
+                groundPlayerCharacter: await initGroundPlayer({ DynamicUserConstructor: constructors.DynamicUserConstructor}),
                 levelData: levelData,
                 levelObjects: levelObjects,
                 grappleObjects: grappleObjects,
@@ -163,7 +163,7 @@ async function gameDataInit(PlayerShip, soundObject, DynamicBlockConstructor){
             warpObjects: [],
             dynamicLevelMapBlocks:  (levelData.dynamicLevelsActive)? await loadLevelMap({
                 levelMapName: levelData.dynamicBlockMap,
-                DynamicBlockConstructor: DynamicBlockConstructor }) : [],
+                DynamicBlockConstructor: constructors.DynamicBlockConstructor }) : [],
             timeToEressLevel: 6,
             levelChange: false,
             gamePause: false,

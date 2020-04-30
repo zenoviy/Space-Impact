@@ -7,4 +7,6 @@ export * from './gameSideObjectConstructor';
 export * from './gameGrappleObjects';
 export * from './soundConstructor';
 
-export * from './dynamicMapBlocksConstructor'
+export * from './dynamicMapBlocksConstructor';
+export * from './dynamicUserConstructor';
+

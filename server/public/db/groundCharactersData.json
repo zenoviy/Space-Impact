@@ -2,9 +2,11 @@
 
     {
         "id": "main_character",
-        "displayTexture": "/public/images/characters/NES_contra_heroes.png",
-        "imageWidth": 3740,
-        "imageHeight":395,
+        "displayTexture": "/public/images/characters/main_character.png",
+        "width": 30,
+        "height": 45,
+        "imageWidth": 12,
+        "imageHeight":36,
         "animationSteps": 5,
         "animations": {
             "stand": {

@@ -82,10 +82,31 @@ async function constructorCharacterData (req, res) {
     })
 }
 
+
+
+async function gameGroundCharacterData (req, res){
+    if(!req ) return console.log('no request')
+
+    if(!req.headers) res.send({message: 'Invalid request', status: 403})
+    fs.readFile(__dirname + '../../../public/db/groundCharactersData.json', (err, data) => {
+        let readObject = JSON.parse(data);
+        let searchResult = readObject.filter(item => {
+            return item.id === req.headers['item-id']
+        })
+        console.log(searchResult)
+        res.send(searchResult)
+    })
+}
+async function gameGroundEnemyData (){
+
+}
+
 module.exports = {
     constructorBlockData: constructorBlockData,
     saveMap: saveMap,
     loadMap: loadMap,
     loadAllMap: loadAllMap,
-    constructorCharacterData: constructorCharacterData
+    constructorCharacterData: constructorCharacterData,
+    gameGroundCharacterData: gameGroundCharacterData,
+    gameGroundEnemyData: gameGroundEnemyData
 }

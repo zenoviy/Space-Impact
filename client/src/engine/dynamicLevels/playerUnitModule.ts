@@ -24,12 +24,33 @@
     - one hit - one life
 
 */
+import { getData } from '../../server/serverRequestModules';
+
+/// process.env.GROUND_CHARACTERS_URL
+// process.env.HOST
+
+async function initGroundPlayer({ DynamicUserConstructor }){
+    let character = await getData({
+        url: process.env.HOST + process.env.GROUND_CHARACTERS_URL,
+        method: 'GET',
+        data: null,
+        headers: {
+            'item-id': "main_character",
+        }
+    })
+    if(!character) return false
+
+    let user = new DynamicUserConstructor({...character[0]});
+    console.log(character[0], user)
+    return user
+}
 
 
 function loadPlayerCharacter({ mainGameObject }){
 
 }
-
+//   знімати дані з блоків знаходити блок спавна
 export {
-    loadPlayerCharacter
+    loadPlayerCharacter,
+    initGroundPlayer
 }

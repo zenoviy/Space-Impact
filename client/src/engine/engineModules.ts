@@ -121,14 +121,14 @@ function destroyAlEnemy () {
 
 
 
-function changeLevelProcedure (DynamicBlockConstructor) {
+function changeLevelProcedure (constructors) {
     // animation for warp, http request for level and enemyes, 10 levels must be
     // some levels must contain boss at least 2 boss
     // last level is final titles the end save score
     let levelData = this.showGameInfo();
     let level = this.changeLevel(levelData.gameData.currentLevel + 1)
     if(level <= levelData.gameData.levelData.allLevels){
-        this.nextLevelDataReload(levelData, DynamicBlockConstructor)
+        this.nextLevelDataReload(levelData, constructors)
     }else{
         destroyAlEnemy.call(this)
         this.mapSoundChanger({soundStatus:'game_win'})

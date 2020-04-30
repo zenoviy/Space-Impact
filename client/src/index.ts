@@ -159,7 +159,7 @@ function gameBackgroundEngineFunction({ gameObject }){
 
 function levelChangesEngineFunction({ gameObject }){
     if(gameObject.gameInitData.levelChange){
-        gameObject.warpEffect(constructors.DynamicBlockConstructor)
+        gameObject.warpEffect(constructors)
     }
     if(gameObject.gameInitData.levelWindowDescription){
         gameObject.levelChangeWindow()
@@ -218,11 +218,17 @@ function gameDynamicLevelBoxRender({ gameObject }){
 
 function gameDynamicPlayer({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
+    if(!gameObject.gameInitData.gameOver && gameObject.gameInitData.gameStatus){
+        //   відмальовувати плеєра
+            let dynamicMainCharacter = gameObject.gameInitData.gameData.groundPlayerCharacter;
+            dynamicMainCharacter.placeEnemyes(gameObject)
+    }
 
-    let dynamicMainCharacter = ''
 }
 
 
+
+// спавн модуля ворогів на майбутнє
 
 
 function gameUiGameStats({ gameObject }){
@@ -265,6 +271,7 @@ function initAppGlobalVariable(){
     process.env.ENEMY_SHIP_URL = 'api/enemy-ship';
 
     process.env.DYNAMIC_LEVEL_BLOCKS = 'level-creator/complete-maps';
+    process.env.GROUND_CHARACTERS_URL = 'api/get-ground-characters'
 
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';
@@ -311,7 +318,7 @@ function initAppGlobalVariable(){
     initAppGlobalVariable()
     async function initGameObject(){
         var mainMenu = document.querySelector("#main-menu");
-        var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip, null, constructors.DynamicBlockConstructor);
+        var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip, null, constructors);
         if(!gameState){
             let navigation = appMenu(gameObject, dialogWindow)
             navigation.menu.init()

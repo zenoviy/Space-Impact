@@ -10,6 +10,7 @@ async function levelData (req, res) {
 
         let readObject = JSON.parse(data)
         let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
+
         if(!responseItem) return res.send({message: "no-level-found"});
         responseItem.allLevels = readObject.length;
         res.send(responseItem);
