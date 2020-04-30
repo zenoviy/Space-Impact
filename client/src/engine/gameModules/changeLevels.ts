@@ -1,14 +1,19 @@
 import { serverRequest } from './satartGame';
+import { loadLevelMap } from '../dinamicLevels/dynamicLevelModule';
+import * as constructors from '../../constructors';
 
-async function nextLevelDataReload(levelData){
+async function nextLevelDataReload(levelData, DynamicBlockConstructor){
     let nextLevel = levelData.gameData.currentLevel;
     let serverNewData = await serverRequest({level: nextLevel, shipConfiguration: 1});
+    // (serverNewData.levelData.dynamicLevelsActive)? true : false,
+    console.log(serverNewData.levelData)
     let context = this;
     let refreshLevel = {
         gameData: {
             currentLevel: nextLevel,
             currentPoint: context.gameInitData.gameData.currentPoint,
             playerObject: context.gameInitData.gameData.playerObject,
+            dynamicPlayerCharacter: null,
             gameCoins: context.gameInitData.gameData.gameCoins,
             levelData: serverNewData.levelData,
             levelObjects: serverNewData.levelObjects,
@@ -47,6 +52,10 @@ async function nextLevelDataReload(levelData){
     }, 5000)
 
     horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
+    context.gameInitData.dynamicLevelsActive = (serverNewData.levelData.dynamicLevelsActive)? true : false;
+    context.gameInitData.dynamicLevelMapBlocks = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelMap({
+        levelMapName: serverNewData.levelData.dynamicBlockMap,
+        DynamicBlockConstructor: DynamicBlockConstructor  }) : [],
     this.mapSoundChanger({soundStatus:'regular_level'})
 
 }

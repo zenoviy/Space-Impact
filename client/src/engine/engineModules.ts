@@ -30,7 +30,7 @@ function setGameFields(){
 
 
 
-function warpEffect(){
+function warpEffect(DynamicBlockConstructor){
     //let screenSiz = this.getScreenSize();
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
@@ -62,7 +62,7 @@ function warpEffect(){
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
 
             this.gameInitData.levelWindowDescription = true;
-            this.changeLevelProcedure()
+            this.changeLevelProcedure(DynamicBlockConstructor)
         }
     }
 }
@@ -121,14 +121,14 @@ function destroyAlEnemy () {
 
 
 
-function changeLevelProcedure () {
+function changeLevelProcedure (DynamicBlockConstructor) {
     // animation for warp, http request for level and enemyes, 10 levels must be
     // some levels must contain boss at least 2 boss
     // last level is final titles the end save score
     let levelData = this.showGameInfo();
     let level = this.changeLevel(levelData.gameData.currentLevel + 1)
     if(level <= levelData.gameData.levelData.allLevels){
-        this.nextLevelDataReload(levelData)
+        this.nextLevelDataReload(levelData, DynamicBlockConstructor)
     }else{
         destroyAlEnemy.call(this)
         this.mapSoundChanger({soundStatus:'game_win'})

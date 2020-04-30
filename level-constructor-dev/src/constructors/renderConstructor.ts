@@ -5,7 +5,10 @@ class MainGameConstructor {
     mapWidth: number;
     mapHeight: number;
     allRedactorBlock: any[];
+    allRedactorDecorationBlock: any[];
     blockDatabase: any[];
+    charactersDatabase: any[];
+    enemyDatabase: any[];
     selectedBlockPanelItem: any;
 
 
@@ -18,6 +21,7 @@ class MainGameConstructor {
         this.mapHeight = data.mapHeight;
         this.allRedactorBlock = data.allRedactorBlock;
         this.blockDatabase = (data.blockDatabase)? data.blockDatabase : null;
+        this.charactersDatabase = (data.charactersDatabase)? data.charactersDatabase : null;
     }
 }
 

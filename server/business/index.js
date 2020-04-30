@@ -12,7 +12,7 @@ const { getShopShipyardData, putShopShipyardData } = require('./game Data/game-s
 const { getStoreItemsData, putStoreItemsData } = require('./game Data/game-store-items');
 
 
-const { constructorBlockData, saveMap, loadMap, loadAllMap} = require('./level Data/constructor-objects');
+const { constructorBlockData, saveMap, loadMap, loadAllMap, constructorCharacterData} = require('./level Data/constructor-objects');
 
 module.exports = {
     getLevelData : levelData,
@@ -32,5 +32,6 @@ module.exports = {
     constructorBlockData: constructorBlockData,
     saveMap: saveMap,
     loadMap: loadMap,
-    loadAllMap: loadAllMap
+    loadAllMap: loadAllMap,
+    constructorCharacterData: constructorCharacterData
 }

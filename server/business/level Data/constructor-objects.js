@@ -70,9 +70,22 @@ async function constructorBlockData (req, res) {
     })
 }
 
+
+async function constructorCharacterData (req, res) {
+    if(!req ) return console.log('no request')
+    fs.readFile(__dirname + '../../../public/level-creator/assets/db/charactersBase.json', (err, data) => {
+        if(err){ res.send(`We dont find such file ${err}`); return console.log(err)};
+
+        let readObject = JSON.parse(data)
+        if(!readObject) return res.send({message: "no-block-found"});
+        res.send(readObject);
+    })
+}
+
 module.exports = {
     constructorBlockData: constructorBlockData,
     saveMap: saveMap,
     loadMap: loadMap,
-    loadAllMap: loadAllMap
+    loadAllMap: loadAllMap,
+    constructorCharacterData: constructorCharacterData
 }

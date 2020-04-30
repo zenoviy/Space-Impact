@@ -24,3 +24,12 @@
     - one hit - one life
 
 */
+
+
+function loadPlayerCharacter({ mainGameObject }){
+
+}
+
+export {
+    loadPlayerCharacter
+}

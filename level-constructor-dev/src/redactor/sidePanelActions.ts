@@ -17,13 +17,10 @@ async function getMapData({ url, mainObject }){
         data: null,
         headers: null
     })
-    
+
     let convertToObject = await res.allMapObjects.map(block => {
         return backToObject({ data: block, constructor: BlockConstructor})
     })
-
-
-console.log(convertToObject, 'res')
     mainObject.allRedactorBlock = convertToObject;
 }
 
@@ -71,12 +68,12 @@ function generateContent({ displayElement, data, mainObject, selectFiles }){
 
     displayElement.innerHTML = '';
     for(let file of data){
-        let innerFile = document.createElement('div');
-        innerFile.className = 'single-item-wrapper';
-        innerFile.innerHTML = `<h2>${file.name}</h2>`
-        innerFile.addEventListener('click', function(){
-            //console.log(file)
+        let innerFile = blockCreator({ tag: 'div',
+        styleClass: 'single-item-wrapper',
+        innerContent: `<h2>${file.name}</h2>`
+    });
 
+        innerFile.addEventListener('click', function(){
             getMapData({
                 url: file.link + '/' + file.name,
                 mainObject: mainObject
@@ -89,7 +86,12 @@ function generateContent({ displayElement, data, mainObject, selectFiles }){
 
 
 
-
+function blockCreator({ tag, styleClass, innerContent}){
+    let newBlock = document.createElement(tag);
+    newBlock.className = styleClass;
+    newBlock.innerHTML = innerContent;
+    return newBlock
+}
 
 
 
@@ -131,14 +133,11 @@ function getFormData({ form }){
         }
     }
     return object
-
-
-
-
 }
 
 export{
     setMapSize,
     loadMap,
-    saveMap
+    saveMap,
+    blockCreator
 }

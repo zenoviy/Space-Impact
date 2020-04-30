@@ -54,6 +54,9 @@ async function placeEnemyes(mainGameObject){
         this.width,this.height)
     mainGameObject.gameInitData.ctxActionField.restore();
 }
+
+
+
 function placeBackground(){
     createImage(
         this.ctx,
@@ -71,6 +74,9 @@ function moveEnemyes(moveX: number, moveY: number = 0){
     this.x -= this.speed;
     this.y -= moveY;
 }
+
+
+
 
 
 

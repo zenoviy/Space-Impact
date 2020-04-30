@@ -16,7 +16,8 @@ const {
     constructorBlockData,
     saveMap,
     loadMap,
-    loadAllMap
+    loadAllMap,
+    constructorCharacterData
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -68,6 +69,9 @@ app.get('/game-level-creator', cors(), (req, res) => {
 })
 
 app.get('/app/get-all-maps', cors(), loadAllMap)
+
+app.route('/api/get-constructor-characters')
+    .get(cors(), constructorCharacterData)
 
 app.route('/api/get-constructor-blocks')
     .get(cors(), constructorBlockData)

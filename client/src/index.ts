@@ -106,6 +106,10 @@ function sideObjectBehaviour({object, gameObject}){
         }
     }
 }
+
+
+
+
 function sideObjectsEngineFunction({gameObject}){
     if(gameObject.gameInitData.allGameSideObjects.length > 0){
         for(let object of gameObject.gameInitData.allGameSideObjects){
@@ -125,7 +129,11 @@ function sideObjectsEngineFunction({gameObject}){
         }
     }
 }
+
+
+
 function gameBackgroundEngineFunction({ gameObject }){
+
     if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
         if(gameObject.gameInitData.ctx){
             clearField(
@@ -136,7 +144,7 @@ function gameBackgroundEngineFunction({ gameObject }){
         for(let backgroundMap of gameObject.gameInitData.mapBackgroundObjects){
             if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
                 if(!gameObject.gameInitData.shopActive){
-                backgroundMap.updateMap()}
+                backgroundMap.updateMap({ mainGameObject: gameObject })}
                 backgroundMap.enemyAnimation()
             }
             backgroundMap.placeBackground()
@@ -145,16 +153,23 @@ function gameBackgroundEngineFunction({ gameObject }){
         levelChangesEngineFunction({ gameObject })
     }
 }
+
+
+
+
 function levelChangesEngineFunction({ gameObject }){
     if(gameObject.gameInitData.levelChange){
-        gameObject.warpEffect()
+        gameObject.warpEffect(constructors.DynamicBlockConstructor)
     }
     if(gameObject.gameInitData.levelWindowDescription){
         gameObject.levelChangeWindow()
     }
 }
 
+
+
 function spaceShipEngineFunction({ gameObject }){
+    if(gameObject.gameInitData.dynamicLevelsActive) return false
     if(!gameObject.gameInitData.gameOver){
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(!gameObject.gameInitData.shopActive){
@@ -165,14 +180,20 @@ function spaceShipEngineFunction({ gameObject }){
         if(gameObject.gameInitData.gameStatus) gameObject.gameInitData.gameData.playerObject.placeEnemyes(gameObject);
     }
 }
+
+
+
+
 function gameChangeEngineFunction({ gameObject }){
     if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
         if(gameObject.gameInitData.gameStatus){
             if(gameObject.gameInitData.gameData.levelObjects){
+                if(!gameObject.gameInitData.dynamicLevelsActive){
                 gameObject.mapRandomObjectSpawn(
                     gameObject.gameInitData.gameData.levelObjects,
                     constructors.SideObject,
                     gameObject.gameInitData.allGameSideObjects)
+                }
             }
             if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
             if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, gameObject.gameInitData.gameData.playerObject);
@@ -183,6 +204,27 @@ function gameChangeEngineFunction({ gameObject }){
         }
     }
 }
+
+
+function gameDynamicLevelBoxRender({ gameObject }){
+    if(!gameObject.gameInitData.dynamicLevelsActive) return false
+    let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
+
+    if(!allBlocks) return false
+    for(let block of allBlocks){
+        block.placeEnemyes(gameObject)
+    }
+}
+
+function gameDynamicPlayer({ gameObject }){
+    if(!gameObject.gameInitData.dynamicLevelsActive) return false
+
+    let dynamicMainCharacter = ''
+}
+
+
+
+
 function gameUiGameStats({ gameObject }){
     if(!gameObject.gameInitData.gameStatus){
         gameObject.showStartWindow()
@@ -210,7 +252,7 @@ function gameUiEngineFunction({ gameObject }){
 }
 
 function initAppGlobalVariable(){
-    process.env.MAX_NUMBER_OF_EXPLOSION = '20';
+    process.env.MAX_NUMBER_OF_EXPLOSION = '30';
     process.env.MAX_NUMBER_OF_BULLETS = '150';
 
     process.env.SAVE_DATA_FILE = 'game-saves';
@@ -221,6 +263,8 @@ function initAppGlobalVariable(){
     process.env.GAME_SETTINGS_URL = 'api/game-settings';
     process.env.USER_SHIP_URL = 'api/user-ship';
     process.env.ENEMY_SHIP_URL = 'api/enemy-ship';
+
+    process.env.DYNAMIC_LEVEL_BLOCKS = 'level-creator/complete-maps';
 
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';
@@ -267,7 +311,7 @@ function initAppGlobalVariable(){
     initAppGlobalVariable()
     async function initGameObject(){
         var mainMenu = document.querySelector("#main-menu");
-        var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip, null);
+        var gameState = await gameDataModules.gameDataInit(constructors.PlayerShip, null, constructors.DynamicBlockConstructor);
         if(!gameState){
             let navigation = appMenu(gameObject, dialogWindow)
             navigation.menu.init()
@@ -315,7 +359,7 @@ function initAppGlobalVariable(){
 
 
 
-
+    console.log(gameObject, "<||")
     const navigation: any = await appMenuAndSoundInit({gameObject: gameObject});
     await appSoundInit({gameObject: gameObject})
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
@@ -341,8 +385,12 @@ function initAppGlobalVariable(){
         if(gameObject.gameInitData.backScreenPause){
             gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject)
         }
+
         bulletEngineFunction({ gameObject: gameObject })
         enemyEngineFunction({ gameObject: gameObject })
+
+        gameDynamicLevelBoxRender({ gameObject: gameObject })
+        gameDynamicPlayer({ gameObject: gameObject })
 
         spaceShipEngineFunction({ gameObject: gameObject })
         sideObjectsEngineFunction({ gameObject: gameObject })

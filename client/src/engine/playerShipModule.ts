@@ -25,18 +25,24 @@ function playerShipTextureChange(){
 
 function userKeyAction({ mainGameObject, controlKeys, event }){
     let userShipData = mainGameObject.gameInitData.gameData.playerObject
+    if(!mainGameObject.gameInitData.dynamicLevelsActive){
         if(controlKeys.inventory.some(obj => event.keyCode == obj) ) openInventory({ mainGameObject: mainGameObject})
 
         if(mainGameObject.gameInitData.gamePause) return false;
-        if(controlKeys.down.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed}) ;
-        if(controlKeys.left.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0}) ;
+        if(controlKeys.down.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed});
+        if(controlKeys.left.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0});
         if(controlKeys.right.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed, yPos:0}) ;
-        if(controlKeys.up.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1}) ;
+        if(controlKeys.up.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1});
         if(controlKeys.rocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'rocket'});
         if(controlKeys.homingRocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Homing Rocket'});
         if(controlKeys.destroyEnemy.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Nuclear Blast'});
         if(controlKeys.shield.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Defence Shield'});
-
+    }else{
+        if(controlKeys.down.some(obj => event.keyCode == obj) )  userShipData.moveUnit({xPos: 0, yPos: userShipData.data.speed}) ;
+        if(controlKeys.left.some(obj => event.keyCode == obj) ) userShipData.moveUnit({xPos: userShipData.data.speed * -1, yPos: 0}) ;
+        if(controlKeys.right.some(obj => event.keyCode == obj) ) userShipData.moveUnit({xPos: userShipData.data.speed, yPos:0}) ;
+        if(controlKeys.up.some(obj => event.keyCode == obj) )  userShipData.moveUnit({xPos: 0, yPos: userShipData.data.speed * -1}) ;
+    }
 }
 
 function shipControl(mainGameObject: any){
@@ -59,6 +65,7 @@ function shipControl(mainGameObject: any){
     })
 
     document.addEventListener("click", (event: any) => {
+        if(mainGameObject.gameInitData.dynamicLevelsActive) return false
         let userShipData = mainGameObject.gameInitData.gameData.playerObject
         if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
         if(mainGameObject.gameInitData.shopActive) return
@@ -147,6 +154,11 @@ function placeShip(){
 function moveShip({xPos=0, yPos=0}){
     this.x += xPos;
     this.y += yPos;
+}
+
+
+function moveUnit({xPos=0, yPos=0}){
+
 }
 
 export {

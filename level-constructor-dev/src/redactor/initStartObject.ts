@@ -20,7 +20,10 @@ async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
             blockSize: blockSize
         }),
         blockDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__BLOC_CONSTRUCTOR_URL,
-        method: 'GET', data: null, headers: null })
+        method: 'GET', data: null, headers: null }),
+
+        charactersDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__CHARACTER_CONSTRUCTOR_URL,
+            method: 'GET', data: null, headers: null })
     }
     return new MainGameConstructor({...redactorData})
 }

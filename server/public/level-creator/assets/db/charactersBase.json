@@ -1,0 +1,32 @@
+[
+    {
+        "id": "character_spawner",
+        "texture": "/level-creator/assets/charactersObjects/spawner.png",
+        "description": "spawn point of player",
+        "type": "spawner"
+    },
+    {
+        "id": "escape_door",
+        "texture": "/level-creator/assets/charactersObjects/escape_door.png",
+        "description": "door to escape the level",
+        "type": "exit",
+        "rules": {
+            "require": "computer_data",
+            "contain": "exit",
+            "requireText": "You must find computer Data first",
+            "successText": "Congratulation"
+        }
+    },
+    {
+        "id": "computer_with_data",
+        "texture": "/level-creator/assets/charactersObjects/computer-3.png",
+        "description": "computer with data",
+        "type": "active_object",
+        "rules": {
+            "require": null,
+            "contain": "computer_data",
+            "requireText": null,
+            "successText": "You get computer Data now you can continue you journey"
+        }
+    }
+]

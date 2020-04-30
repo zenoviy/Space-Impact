@@ -11,9 +11,9 @@ import { loadMap, saveMap } from './redactor/sidePanelActions';
 
     let mainObject = await initMainEngine({ MainGameConstructor: MainGameConstructor, BlockConstructor: BlockConstructor })
     mainObject.initView()
-    mainObject.renderItemsToSideList({ mainObject: mainObject })
+    mainObject.renderItemsToSideList({ mainObject: mainObject, dataBase: mainObject.blockDatabase })
 
-    const engine = setInterval(function(){ redactorEngine() }, 20)
+    const engine = setInterval(function(){ redactorEngine() }, 40)
 
     console.log(mainObject)
     mapMoveControllers({ mainObject: mainObject })

@@ -1,6 +1,10 @@
 
-function updateMap(){
-    this.moveEnemyes()
+function updateMap({ mainGameObject }){   ///dynamicLevelsActive
+
+
+    if( !mainGameObject.gameInitData.dynamicLevelsActive ) this.moveEnemyes()
+
+
     if(Math.sign(this.speed) > 0 && this.x + window.innerWidth < 0){
         this.x = window.innerWidth;
     }else if(Math.sign(this.speed) < 0 && this.x > window.innerWidth){

@@ -32,11 +32,12 @@ function moveAllScene({ mainObject, xMoveValue, yMoveValue }){
 function changeObjectModel({ result, mainObject }){
     if(!mainObject || !result || !mainObject.selectedBlockPanelItem) return false
 
+    console.log(mainObject.selectedBlockPanelItem, '//')
+
     let allBlock = mainObject.allRedactorBlock;
     let currentBlock = allBlock[result.index];
 
-    currentBlock.details = mainObject.selectedBlockPanelItem;
-
+    currentBlock.details = (!mainObject.selectedBlockPanelItem.destroyer)? mainObject.selectedBlockPanelItem : null;
 }
 
 

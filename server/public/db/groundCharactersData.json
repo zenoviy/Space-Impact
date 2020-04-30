@@ -1,0 +1,35 @@
+[
+
+    {
+        "id": "main_character",
+        "displayTexture": "/public/images/characters/NES_contra_heroes.png",
+        "imageWidth": 3740,
+        "imageHeight":395,
+        "animationSteps": 5,
+        "animations": {
+            "stand": {
+                "row": 1,
+                "range": [1, 2]
+            },
+            "run": {
+                "row": 2,
+                "range": [1, 6]
+            },
+            "runAndShotTop": {
+                "row": 2,
+                "range": [7, 9]
+            },
+            "runAndShotBottom": {
+                "row": 2,
+                "range": [10, 12]
+            },
+            "jump": {
+                "row": 1,
+                "range": [6, 9]
+            }
+        },
+        "guns": [
+
+        ]
+    }
+]

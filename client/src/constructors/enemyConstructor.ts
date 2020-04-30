@@ -1,7 +1,6 @@
 import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regularEnemyAiModules';
 import { placeEnemyes,
     moveEnemyes,
-
     shot,
     enemyAnimation,
     takeDamage,

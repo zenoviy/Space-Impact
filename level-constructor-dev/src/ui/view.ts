@@ -1,5 +1,6 @@
 import { collisionDetector, moveAllScene, changeObjectModel } from '../redactor/blockInteractModule';
 import { hideElement, showElement, previewOfBlock } from './preview';
+import { blockCreator } from '../redactor/sidePanelActions';
 import * as globalVariable from '../redactor/globalVariables';
 
 
@@ -48,6 +49,7 @@ function mapMoveControllers({ mainObject }){
                 height: 5
             } })
             if(result){
+                console.log( block.index, " < Block index")
                 changeObjectModel({ result: result, mainObject: mainObject})
                 break
             }
@@ -56,25 +58,69 @@ function mapMoveControllers({ mainObject }){
     document.addEventListener('mousemove', (event) => {
         previewOfBlock({ selectedBlockPanelItem:  mainObject.selectedBlockPanelItem, event: event })
     })
+
+    document.addEventListener('click', (event) => {
+
+        let buttonId = event.target['dataset'].buttonId
+
+        switch(buttonId){
+            case 'redactorBlocks':
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.blockDatabase })
+                break;
+            case 'redactorDecoration':
+                break;
+            case 'redactorCharacters':
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.charactersDatabase })
+                break;
+            case 'redactorEnemy':
+                break;
+            default:
+                return false
+        }
+    })
 }
 
 
-function renderItemsToSideList({ mainObject }){
+function renderItemsToSideList({ mainObject, dataBase }){
     var target: any = document.querySelector('#side-instrumental-panel');
-    for(let blockItem of this.blockDatabase){
-        let obj = document.createElement('li');
-        obj.className = 'single-block-item';
-        obj.innerHTML = `<img width="100%" src='${ globalVariable.__HOST + blockItem['texture'] }'>`
+    target.innerHTML = '';
+    for(let blockItem of dataBase){
+        let obj = blockCreator({
+            tag: 'div',
+            styleClass: 'single-block-item',
+            innerContent: `<img width="100%" src='${ globalVariable.__HOST + blockItem['texture'] }'>`
+        });
 
         obj.addEventListener('click', (event) => {
-            if(mainObject.selectedBlockPanelItem){
-                mainObject.selectedBlockPanelItem = (blockItem.id != mainObject.selectedBlockPanelItem.id)? blockItem : null;
-            }else mainObject.selectedBlockPanelItem = blockItem;
-
-            previewOfBlock({ selectedBlockPanelItem:  mainObject.selectedBlockPanelItem, event: event })
+            sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: blockItem})
         })
         target.appendChild(obj)
     }
+    target.prepend(createDestroyBlock({ mainObject: mainObject }))
+}
+
+
+function sidePanelItemsSelectProcess({ mainObject, blockItem }){
+    if(mainObject.selectedBlockPanelItem){
+        mainObject.selectedBlockPanelItem = (blockItem.id != mainObject.selectedBlockPanelItem.id)? blockItem : null;
+    }else mainObject.selectedBlockPanelItem = blockItem;
+
+    previewOfBlock({ selectedBlockPanelItem:  mainObject.selectedBlockPanelItem, event: event })
+}
+
+
+function createDestroyBlock({ mainObject }){
+    let obj = document.createElement('div');
+    obj.className = 'single-block-item';
+    obj.innerHTML = `<img width="100%" src='${ globalVariable.__HOST + '/level-creator/assets/block/destroy.png' }'>`;
+    obj.addEventListener('click', (event) => {
+        sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: {
+            id: 'destroyer',
+            destroyer: true,
+            texture: '/level-creator/assets/block/destroy.png'
+        } })
+    })
+    return obj
 }
 
 

@@ -114,6 +114,7 @@
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
+        "dynamicBlockMap": "map-level-night-city-1.json",
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
@@ -127,6 +128,10 @@
             "animationSteps": 1,
             "numberOfItems": 1,
             "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Ground battle",
+            "description": "Find important data"
         },
         "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",

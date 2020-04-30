@@ -3,6 +3,8 @@ import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
 import { horizontalVerticalSearch, renewPlayerShip } from './changeLevels';
 const { ipcRenderer, remote } = require( "electron" );
+import { loadLevelMap } from '../dinamicLevels/dynamicLevelModule';
+import * as constructors from '../../constructors';
 
 
 async function serverRequest(gameInformation){
@@ -87,9 +89,9 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 
     return new PlayerShip(shipData);
 }
-async function gameDataInit(PlayerShip, soundObject){
+async function gameDataInit(PlayerShip, soundObject, DynamicBlockConstructor){
     loadWindow({loadStatus: "load"})
-    let level = 2, shipType = 4, shipLife = 5;
+    let level = 2, shipType = 3, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameUIfield = document.querySelector('#gameUifield');
@@ -104,6 +106,7 @@ async function gameDataInit(PlayerShip, soundObject){
         const userData = res.userData;
         const enemyData = res.enemyData;
 
+        console.log(levelData)
         if(levelData.status === "error" || levelObjects === "error" || grappleObjects === "error" ||
         levelData.gameSetings === "error" || userData === "error" || enemyData === "error"){
             loadWindow({loadStatus: "serverError"})
@@ -137,6 +140,7 @@ async function gameDataInit(PlayerShip, soundObject){
                 currentPoint: 0,
                 gameCoins: 1000000,
                 playerObject: playerShipData,
+                dynamicPlayerCharacter: null,
                 levelData: levelData,
                 levelObjects: levelObjects,
                 grappleObjects: grappleObjects,
@@ -157,6 +161,9 @@ async function gameDataInit(PlayerShip, soundObject){
             allGameBullets: [],
             mapBackgroundObjects: [],
             warpObjects: [],
+            dynamicLevelMapBlocks:  (levelData.dynamicLevelsActive)? await loadLevelMap({
+                levelMapName: levelData.dynamicBlockMap,
+                DynamicBlockConstructor: DynamicBlockConstructor }) : [],
             timeToEressLevel: 6,
             levelChange: false,
             gamePause: false,
@@ -169,7 +176,7 @@ async function gameDataInit(PlayerShip, soundObject){
             gatePresent: false,
             levelWindowDescription: false,
             grappleObjectOnScreen: false,
-            dynamicLevelsActive: false,
+            dynamicLevelsActive: (levelData.dynamicLevelsActive)? true : false,
             tradepostInRange: false,
             inventoryActive: false,
             shopActive: false,
