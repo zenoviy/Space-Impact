@@ -120,6 +120,9 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "dynamicLevelsActive": true,
+        "gravity": 4,
+        "jumpImpuls": 4,
+        "horizontalSpeed": 2,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {

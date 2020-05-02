@@ -134,7 +134,7 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
                 radius: 15,
             },
             action(){
-                dialogWindow({textData: 'restart the game?', rejectText: 'cancel', acceptText: 'restart'}, this.backToStartScreen, null, this, constructors.PlayerShip)
+                dialogWindow({textData: 'restart the game?', rejectText: 'cancel', acceptText: 'restart'}, this.backToStartScreen, null, this, constructors)
                 this.gameUiMenu(this.gameInitData.gameUiPause)
             },
             init: init,

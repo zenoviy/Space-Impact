@@ -61,14 +61,14 @@
     },
     {
         "id": "block_8",
-        "collision": false,
+        "collision": true,
         "texture": "/level-creator/assets/block/wall-1.png",
         "isDestroy": false,
         "type": "wall"
     },
     {
         "id": "block_8",
-        "collision": false,
+        "collision": true,
         "texture": "/level-creator/assets/block/wall-2.png",
         "isDestroy": false,
         "type": "wall"

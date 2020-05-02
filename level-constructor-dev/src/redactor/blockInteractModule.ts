@@ -37,7 +37,17 @@ function changeObjectModel({ result, mainObject }){
     let allBlock = mainObject.allRedactorBlock;
     let currentBlock = allBlock[result.index];
 
-    currentBlock.details = (!mainObject.selectedBlockPanelItem.destroyer)? mainObject.selectedBlockPanelItem : null;
+    if(!mainObject.selectedBlockPanelItem.destroyer){
+        currentBlock.details = mainObject.selectedBlockPanelItem;
+    }else{
+        //currentBlock.xMove -= currentBlock.details.currentValueOfMove;
+        if(currentBlock.details && currentBlock.details.valueOfMove){
+            currentBlock.yMove -= (currentBlock.details.valueOfMove - currentBlock.details.constructorValueOfMove);
+            console.log(currentBlock.details.constructorValueOfMove, currentBlock.details, currentBlock)
+        }/**/
+        currentBlock.details = null;
+    }/**/
+    //currentBlock.details = (!mainObject.selectedBlockPanelItem.destroyer)? mainObject.selectedBlockPanelItem : null;
 }
 
 

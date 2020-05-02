@@ -10,6 +10,9 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 import { loadShopArea } from './ui/shop/gameShopModule';
 import { saveGameEvents } from './appMenu/saveLoadMenu';
 import { createScreenshots } from './engine/engineModules';
+import { mapGravityInit, blockCollision } from './engine/dynamicLevels/dynamicLevelModule';
+import { objectIntersectionDetect } from './enemies/enemiesModules';
+import { syncKeyControl } from './engine/playerShipModule';
 
 
 
@@ -28,12 +31,15 @@ function bulletEngineFunction({gameObject}){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
-                gameObject.hitDetection({
-                    object1: gameObject.gameInitData.gameData.playerObject,
-                    objectsArr: [bullet],
-                    mainGameObject: gameObject,
-                    GrappleObject : constructors.GrappleObject
-                })
+                if(!gameObject.gameInitData.dynamicLevelsActive){
+                    gameObject.hitDetection({
+                        object1: gameObject.gameInitData.gameData.playerObject,
+                        objectsArr: [bullet],
+                        mainGameObject: gameObject,
+                        GrappleObject : constructors.GrappleObject
+                    })
+                }
+
                 gameObject.hitDetection({
                     object1: bullet,
                     objectsArr: gameObject.gameInitData.allGameSideObjects,
@@ -199,6 +205,7 @@ function gameChangeEngineFunction({ gameObject }){
             if(!gameObject.gameInitData.levelChange) gameObject.initGrappleObject(constructors.GrappleObject, gameObject.gameInitData.gameData.playerObject);
             gameObject.gameSecondsIncrease()
             if(!gameObject.gameInitData.shopActive){
+                if(gameObject.gameInitData.dynamicLevelsActive) return false
                 gameObject.levelTimer()
             }
         }
@@ -212,16 +219,38 @@ function gameDynamicLevelBoxRender({ gameObject }){
 
     if(!allBlocks) return false
     for(let block of allBlocks){
+        if(!block) continue
         block.placeEnemyes(gameObject)
+
     }
 }
 
-function gameDynamicPlayer({ gameObject }){
+async function gameDynamicPlayer({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     if(!gameObject.gameInitData.gameOver && gameObject.gameInitData.gameStatus){
         //   відмальовувати плеєра
             let dynamicMainCharacter = gameObject.gameInitData.gameData.groundPlayerCharacter;
-            dynamicMainCharacter.placeEnemyes(gameObject)
+            let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
+
+            await dynamicMainCharacter.placeEnemyes(gameObject)
+
+            if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
+                
+                dynamicMainCharacter.changeVerticalAnimationPicture()
+                dynamicMainCharacter.enemyAnimation()
+                dynamicMainCharacter.isRun = false;
+                //mapGravityInit({ mainGameObject: gameObject, targetObject: dynamicMainCharacter})
+                mapGravityInit({mainGameObject: gameObject,
+                    mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
+                    targetObject: dynamicMainCharacter
+                })
+                blockCollision({
+                    objectsToCollide: allBlocks,
+                    targetObject: dynamicMainCharacter,
+                    callback: objectIntersectionDetect,
+                    mainGameObject: gameObject})
+            }
+
     }
 
 }
@@ -258,7 +287,7 @@ function gameUiEngineFunction({ gameObject }){
 }
 
 function initAppGlobalVariable(){
-    process.env.MAX_NUMBER_OF_EXPLOSION = '30';
+    process.env.MAX_NUMBER_OF_EXPLOSION = '20';
     process.env.MAX_NUMBER_OF_BULLETS = '150';
 
     process.env.SAVE_DATA_FILE = 'game-saves';
@@ -271,8 +300,9 @@ function initAppGlobalVariable(){
     process.env.ENEMY_SHIP_URL = 'api/enemy-ship';
 
     process.env.DYNAMIC_LEVEL_BLOCKS = 'level-creator/complete-maps';
-    process.env.GROUND_CHARACTERS_URL = 'api/get-ground-characters'
-
+    process.env.GROUND_CHARACTERS_URL = 'api/get-ground-characters';
+    process.env.GROUND_CHARACTERS_INVENTORY = 'false';
+    process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';
     process.env.SHOP_SHIPYARD_URL = 'api/shop/shipyard';
@@ -366,7 +396,7 @@ function initAppGlobalVariable(){
 
 
 
-    console.log(gameObject, "<||")
+   
     const navigation: any = await appMenuAndSoundInit({gameObject: gameObject});
     await appSoundInit({gameObject: gameObject})
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
@@ -393,11 +423,13 @@ function initAppGlobalVariable(){
             gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject)
         }
 
-        bulletEngineFunction({ gameObject: gameObject })
         enemyEngineFunction({ gameObject: gameObject })
-
         gameDynamicLevelBoxRender({ gameObject: gameObject })
+
+        bulletEngineFunction({ gameObject: gameObject })
         gameDynamicPlayer({ gameObject: gameObject })
+
+        syncKeyControl({ mainGameObject: gameObject })
 
         spaceShipEngineFunction({ gameObject: gameObject })
         sideObjectsEngineFunction({ gameObject: gameObject })

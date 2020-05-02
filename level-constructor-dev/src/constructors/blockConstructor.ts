@@ -1,5 +1,6 @@
 import { renderBlockBox } from '../redactor/initStartObject';
-import { moveSingleBlock } from '../redactor/blockInteractModule'
+import { moveSingleBlock } from '../redactor/blockInteractModule';
+import { elevatorMove } from '../redactor/blocksFunctionality';
 import { clearView } from '../ui/view';
 
 class BlockConstructor{
@@ -14,6 +15,7 @@ class BlockConstructor{
 
     renderBlockBox: any;
     moveSingleBlock: any;
+    elevatorMove: any;
     constructor({...data}){
         this.x = data.x;
         this.y = data.y;
@@ -28,6 +30,7 @@ class BlockConstructor{
 
 BlockConstructor.prototype.renderBlockBox = renderBlockBox;
 BlockConstructor.prototype.moveSingleBlock = moveSingleBlock;
+BlockConstructor.prototype.elevatorMove = elevatorMove;
 export {
     BlockConstructor
 }

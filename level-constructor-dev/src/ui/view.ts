@@ -14,6 +14,12 @@ function initView(){
 
     this.ctx = canvas.getContext('2d');
 }
+
+
+
+
+
+
 function mapMoveControllers({ mainObject }){
     document.addEventListener('keydown', function(event){
         let xMoveValue = 0, yMoveValue = 0;
@@ -81,6 +87,11 @@ function mapMoveControllers({ mainObject }){
 }
 
 
+
+
+
+
+
 function renderItemsToSideList({ mainObject, dataBase }){
     var target: any = document.querySelector('#side-instrumental-panel');
     target.innerHTML = '';
@@ -91,7 +102,8 @@ function renderItemsToSideList({ mainObject, dataBase }){
             innerContent: `<img width="100%" src='${ globalVariable.__HOST + blockItem['texture'] }'>`
         });
 
-        obj.addEventListener('click', (event) => {
+        obj.addEventListener('click', (event) => { 
+            console.log(blockItem, "<<<<")
             sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: blockItem})
         })
         target.appendChild(obj)
@@ -100,13 +112,23 @@ function renderItemsToSideList({ mainObject, dataBase }){
 }
 
 
+
+
+
+
 function sidePanelItemsSelectProcess({ mainObject, blockItem }){
     if(mainObject.selectedBlockPanelItem){
+       
         mainObject.selectedBlockPanelItem = (blockItem.id != mainObject.selectedBlockPanelItem.id)? blockItem : null;
     }else mainObject.selectedBlockPanelItem = blockItem;
 
     previewOfBlock({ selectedBlockPanelItem:  mainObject.selectedBlockPanelItem, event: event })
 }
+
+
+
+
+
 
 
 function createDestroyBlock({ mainObject }){
@@ -124,10 +146,18 @@ function createDestroyBlock({ mainObject }){
 }
 
 
+
+
+
+
+
 function clearView(){
     if(!this.ctx) return false
     this.ctx.clearRect(0, 0, this.contextWidth, this.contextHeight)
 }
+
+
+
 
 
 function createBlockPicture({ mainObject }){
@@ -135,10 +165,7 @@ function createBlockPicture({ mainObject }){
 
     let img = new Image();
     img.src = globalVariable.__HOST + this.details.texture;
-
-    //img.onload = () => {
-         mainObject.ctx.drawImage(img, 0, 0, this.width, this.height, this.xMove, this.yMove, this.width, this.height)
-    //}
+    mainObject.ctx.drawImage(img, 0, 0, this.width, this.height, this.xMove, this.yMove, this.width, this.height)
 }
 
 

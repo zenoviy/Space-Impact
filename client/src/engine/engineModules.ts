@@ -30,7 +30,7 @@ function setGameFields(){
 
 
 
-function warpEffect(DynamicBlockConstructor){
+function warpEffect(constructors){
     //let screenSiz = this.getScreenSize();
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
@@ -62,7 +62,7 @@ function warpEffect(DynamicBlockConstructor){
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
 
             this.gameInitData.levelWindowDescription = true;
-            this.changeLevelProcedure(DynamicBlockConstructor)
+            this.changeLevelProcedure(constructors)
         }
     }
 }

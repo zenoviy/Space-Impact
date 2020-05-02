@@ -3,31 +3,52 @@
     {
         "id": "main_character",
         "displayTexture": "/public/images/characters/main_character.png",
+        "texture": "/public/images/characters/stand.png",
         "width": 30,
         "height": 45,
-        "imageWidth": 12,
-        "imageHeight":36,
-        "animationSteps": 5,
+        "imageWidth": 48,
+        "imageHeight": 70,
+        "animationSteps": 10,
+        "numberOfItems": 2,
+        "numberOfVerticalItems": 2,
+        "speed": 3,
         "animations": {
             "stand": {
                 "row": 1,
-                "range": [1, 2]
+                "width": 30,
+                "range": [1, 2],
+                "innerTexture": "/public/images/characters/stand.png",
+                "picturesWidth": 48,
+                "imageWidth": 48,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 2
             },
             "run": {
                 "row": 2,
-                "range": [1, 6]
+                "width": 30,
+                "range": [1, 6],
+                "innerTexture": "/public/images/characters/main_character_run.png",
+                "picturesWidth": 120,
+                "imageWidth": 120,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 6
             },
             "runAndShotTop": {
                 "row": 2,
-                "range": [7, 9]
+                "range": [7, 9],
+                "innerTexture": "/public/images/characters/run_shot_top.png"
             },
             "runAndShotBottom": {
                 "row": 2,
-                "range": [10, 12]
+                "range": [10, 12],
+                "innerTexture": "/public/images/characters/run_shot_top.png"
             },
             "jump": {
                 "row": 1,
-                "range": [6, 9]
+                "range": [6, 9],
+                "innerTexture": "/public/images/characters/run_shot_bottom.png"
             }
         },
         "guns": [

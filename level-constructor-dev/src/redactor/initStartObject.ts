@@ -14,7 +14,8 @@ async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
         mapMoveSpeed: 10,
         mapWidth: defaultWidth,
         mapHeight: defaultHeight,
-        allRedactorBlock: fillBlockMap( { BlockConstructor: BlockConstructor,
+        allRedactorBlock: fillBlockMap( {
+            BlockConstructor: BlockConstructor,
             horizontalBlocks: defaultWidth,
             verticalBlock: defaultHeight,
             blockSize: blockSize
@@ -23,7 +24,7 @@ async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
         method: 'GET', data: null, headers: null }),
 
         charactersDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__CHARACTER_CONSTRUCTOR_URL,
-            method: 'GET', data: null, headers: null })
+        method: 'GET', data: null, headers: null })
     }
     return new MainGameConstructor({...redactorData})
 }
@@ -43,7 +44,7 @@ function fillBlockMap({ BlockConstructor, horizontalBlocks, verticalBlock, block
             height: blockSize,
             index: 0
         }
-    console.log(horizontalBlocks, verticalBlock)
+    //console.log(horizontalBlocks, verticalBlock, ' <<')
     for(let i = 0; i <= horizontalBlocks * verticalBlock; i++){
 
         blockData.y = verticalEnds;
@@ -52,7 +53,6 @@ function fillBlockMap({ BlockConstructor, horizontalBlocks, verticalBlock, block
         verticalEnds = (verticalEnds < ( verticalBlock * blockSize ))? verticalEnds + blockSize : 0;
 
         horizontalEnds = (verticalEnds == 0)? horizontalEnds + blockSize : horizontalEnds;
-
         blockArray = blockArray.concat(new BlockConstructor({...blockData}));
     }
     return blockArray

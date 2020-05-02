@@ -116,7 +116,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
         }
 
 
-        let playerShipData = newPlayerShipConstruct({ PlayerShip: PlayerShip, userData: userData, shipLife: shipLife});
+        let playerShipData = newPlayerShipConstruct({ PlayerShip: constructors.PlayerShip, userData: userData, shipLife: shipLife});
         if(this.gameInitData){
             playerShipData = renewPlayerShip.call(this, { originData: this.gameInitData.gameData.playerObject, newData: playerShipData})
             playerShipData.playerShipTextureChange()
@@ -161,6 +161,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             allGameBullets: [],
             mapBackgroundObjects: [],
             warpObjects: [],
+            mapKeyCode: {},
             dynamicLevelMapBlocks:  (levelData.dynamicLevelsActive)? await loadLevelMap({
                 levelMapName: levelData.dynamicBlockMap,
                 DynamicBlockConstructor: constructors.DynamicBlockConstructor }) : [],
@@ -229,9 +230,9 @@ function mapSoundChanger({soundStatus}){
 
 
 
-async function backToStartScreen(PlayerShip){
+async function backToStartScreen(constructors){
     let soundObject = this.showGameInfo().gameData.levelSounds;
-    let newInitdata = await gameDataInit.call(this, PlayerShip, soundObject);
+    let newInitdata = await gameDataInit.call(this, constructors.PlayerShip, soundObject, constructors);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
 
     for(let [key, value] of Object.entries( newInitdata.data)){

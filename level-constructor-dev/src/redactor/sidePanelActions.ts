@@ -72,7 +72,6 @@ function generateContent({ displayElement, data, mainObject, selectFiles }){
         styleClass: 'single-item-wrapper',
         innerContent: `<h2>${file.name}</h2>`
     });
-
         innerFile.addEventListener('click', function(){
             getMapData({
                 url: file.link + '/' + file.name,
@@ -115,7 +114,7 @@ async function saveMap({ mainObject }){
                 headers: null})
 
             if(mapFile){
-                messageField.innerHTML = `<a href=${ mapFile.url     } target="_blank">download</a>`
+                messageField.innerHTML = `<a href=${ mapFile.url } target="_blank">download</a>`
             }
         }
     })

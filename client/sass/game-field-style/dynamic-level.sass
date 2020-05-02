@@ -1,0 +1,30 @@
+.backpack-wrapper
+    position: absolute
+    width: 100vw
+    height: 100vh
+    background: rgba(0, 0, 0, .1)
+    z-index: 100
+    .backpack-body
+        background: #000000
+        border-radius: 5px
+        max-width: 300px
+        max-height: 60%
+        min-width: 300px
+        min-height: 60%
+        overflow-y: scroll
+        right: 0
+        position: absolute
+.backpack-body::-webkit-scrollbar
+    width: 12px
+
+.backpack-body::-webkit-scrollbar-track
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0)
+    border-radius: 10px
+
+.backpack-body::-webkit-scrollbar-thumb
+    border-radius: 10px
+    background: rgba(71,6,83,0.8)
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1)
+
+.backpack-body::-webkit-scrollbar-thumb:window-inactive
+    background: rgba(255,0,0,0.1)

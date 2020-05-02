@@ -93,7 +93,6 @@ async function gameGroundCharacterData (req, res){
         let searchResult = readObject.filter(item => {
             return item.id === req.headers['item-id']
         })
-        console.log(searchResult)
         res.send(searchResult)
     })
 }

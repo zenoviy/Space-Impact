@@ -300,6 +300,15 @@ function loadSaveProcedure({mainGameObject, currentSave}){
             return loadMapElement
         });
 
+        if(save.gameInitData.dynamicLevelMapBlocks){
+            save.gameInitData.dynamicLevelMapBlocks = save.gameInitData.dynamicLevelMapBlocks.map( item => { 
+                let loadMapElement = backToObject({data: item, constructor: constructor.DynamicBlockConstructor})
+                loadMapElement.img = new Image();
+                loadMapElement.loadTexture()
+                return loadMapElement
+            });
+        }
+
         save.gameInitData.mapBackgroundObjects = save.gameInitData.mapBackgroundObjects.map( item => {
             let loadMapElement = backToObject({data: item, constructor: constructor.GameBackground})
             loadMapElement.x = (loadMapElement.partOfScreenStatus)? 0 - 1: window.innerWidth + 1;
@@ -309,9 +318,17 @@ function loadSaveProcedure({mainGameObject, currentSave}){
             loadMapElement.ctx = datanotToChange.ctx;
             loadMapElement.loadTexture()
             return loadMapElement
-
-
         });
+
+        if(save.gameInitData.gameData.groundPlayerCharacter){
+            save.gameInitData.gameData.groundPlayerCharacter = backToObject({data: save.gameInitData.gameData.groundPlayerCharacter, constructor: constructor.DynamicUserConstructor})
+            save.gameInitData.gameData.groundPlayerCharacter.img = new Image();
+            save.gameInitData.gameData.groundPlayerCharacter.loadTexture()
+        }
+
+
+
+
 
         save.gameInitData.gameData.playerObject = backToObject({data: save.gameInitData.gameData.playerObject, constructor: constructor.PlayerShip})
         save.gameInitData.gameData.playerObject.ctx = datanotToChange.gameActionField
@@ -329,6 +346,7 @@ function loadSaveProcedure({mainGameObject, currentSave}){
     save.gameInitData.gameUIField = datanotToChange.gameUIField;
     save.gameInitData.ctxActionField = datanotToChange.ctxActionField;
     save.gameInitData.ctxUIField = datanotToChange.ctxUIField;
+    save.gameInitData.mapKeyCode = {};
     save.gameInitData.gamePause = true;
     save.gameInitData.gameUiPause = false;
     save.gameInitData.shopActive = false;
@@ -345,6 +363,8 @@ function loadSaveProcedure({mainGameObject, currentSave}){
     process.env.SHOP_SHIPYARD_ACTIVE_WINDOW = 'false';
     process.env.SHOP_SALE_WINDOW = 'false';
     process.env.SHOP_STORE_WINDOW = 'false';
+    process.env.GROUND_CHARACTERS_INVENTORY = 'false';
+    process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
 
 
     process.env.OVERWRITE_SAVE = 'false';

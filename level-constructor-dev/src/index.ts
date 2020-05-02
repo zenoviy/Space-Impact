@@ -25,6 +25,7 @@ import { loadMap, saveMap } from './redactor/sidePanelActions';
         mainObject.clearView()
 
         for(let block of mainObject.allRedactorBlock){
+            block.elevatorMove()
             block.renderBlockBox({ mainObject: mainObject })
         }
     }

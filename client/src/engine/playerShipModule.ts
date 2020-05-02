@@ -6,6 +6,8 @@ import { inventoryColisionEvent, findIntInventory } from '../ui/shop/shopEvents/
 import { replaceItemFromStorage } from '../ui/shop/gameInventoryModules';
 import { enterToTheShopDialog, leaveShop } from '../ui/shop/gameShopModule';
 import { show, hide } from '../appMenu/appMenu';
+import { showGroundPlayerInventory, playerAnimation } from '../engine/dynamicLevels/playerUnitModule';
+import { interactWithObjects } from '../engine/dynamicLevels/dynamicLevelModule';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -23,8 +25,9 @@ function playerShipTextureChange(){
     this.img.src = __dirname + this.data.texture;
 }
 
-function userKeyAction({ mainGameObject, controlKeys, event }){
+function userKeyAction({ mainGameObject, controlKeys, event}){
     let userShipData = mainGameObject.gameInitData.gameData.playerObject
+
     if(!mainGameObject.gameInitData.dynamicLevelsActive){
         if(controlKeys.inventory.some(obj => event.keyCode == obj) ) openInventory({ mainGameObject: mainGameObject})
 
@@ -38,17 +41,52 @@ function userKeyAction({ mainGameObject, controlKeys, event }){
         if(controlKeys.destroyEnemy.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Nuclear Blast'});
         if(controlKeys.shield.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Defence Shield'});
     }else{
-        if(controlKeys.down.some(obj => event.keyCode == obj) )  userShipData.moveUnit({xPos: 0, yPos: userShipData.data.speed}) ;
-        if(controlKeys.left.some(obj => event.keyCode == obj) ) userShipData.moveUnit({xPos: userShipData.data.speed * -1, yPos: 0}) ;
-        if(controlKeys.right.some(obj => event.keyCode == obj) ) userShipData.moveUnit({xPos: userShipData.data.speed, yPos:0}) ;
-        if(controlKeys.up.some(obj => event.keyCode == obj) )  userShipData.moveUnit({xPos: 0, yPos: userShipData.data.speed * -1}) ;
+       // if(controlKeys.down.some(obj => event.keyCode == obj) ) moveUnit({xPos: 0, yPos: .5, mainGameObject: mainGameObject}) ;
+       // if(controlKeys.left.some(obj => event.keyCode == obj) ) moveUnit({xPos: 6 * -1, yPos: 0, mainGameObject: mainGameObject}) ;
+       // if(controlKeys.right.some(obj => event.keyCode == obj) ) moveUnit({xPos: 6, yPos:0, mainGameObject: mainGameObject}) ;
+       // if(controlKeys.up.some(obj => event.keyCode == obj) )  moveUnit({xPos: 0, yPos: -60, mainGameObject: mainGameObject}) ;
+        if(controlKeys.inventory.some(obj => event.keyCode == obj) ) showGroundPlayerInventory({mainGameObject: mainGameObject});
+        if(controlKeys.useKey.some(obj => event.keyCode == obj) ) interactWithObjects({mainGameObject: mainGameObject, constructors: constructors});
     }
 }
 
+
+async function syncKeyControl({ mainGameObject: mainGameObject }){
+
+    if(!mainGameObject.gameInitData || !mainGameObject.gameInitData.dynamicLevelsActive ) return false
+    let mapKeyCode = await mainGameObject.gameInitData.mapKeyCode;
+    let controlKeys = await mainGameObject.gameInitData.gameData.gameSetings.keyControls;
+
+    if(!mapKeyCode ) return false
+    for(let [key, value] of Object.entries(mapKeyCode)){
+
+        if(!key || !value) return false
+
+        if(controlKeys.down.some(obj => key == obj) ){
+            moveUnit({xPos: 0, yPos: 0.5, mainGameObject: mainGameObject, playerDirection: "down"});
+        }
+        if(controlKeys.left.some(obj => key == obj) ){
+            moveUnit({xPos: 4 * -1, yPos: 0, mainGameObject: mainGameObject, playerDirection: "left"});
+        }
+        if(controlKeys.right.some(obj => key == obj) ){
+            moveUnit({xPos: 3, yPos:0, mainGameObject: mainGameObject, playerDirection: "right"});
+        }
+        if(controlKeys.up.some(obj => key == obj) ){
+            moveUnit({xPos: 0, yPos: -60, mainGameObject: mainGameObject, playerDirection: "up"});
+        }
+    }
+}
+
+
 function shipControl(mainGameObject: any){
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
+    let mapKeyCode = mainGameObject.gameInitData.mapKeyCode;
     document.addEventListener("keydown",(event: any)=>{
-        userKeyAction({ mainGameObject: mainGameObject, controlKeys: controlKeys, event: event })
+        mainGameObject.gameInitData.mapKeyCode[event.keyCode] = event.type == 'keydown';
+        userKeyAction({ mainGameObject: mainGameObject, controlKeys: controlKeys, event: event})
+    })
+    document.addEventListener("keyup",(event: any)=>{
+        delete mainGameObject.gameInitData.mapKeyCode[event.keyCode];
     })
 
 
@@ -157,8 +195,52 @@ function moveShip({xPos=0, yPos=0}){
 }
 
 
-function moveUnit({xPos=0, yPos=0}){
+function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
+    if(mainGameObject.gameInitData.gamePause) return false
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+    let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    //groundPlayer.playerDirectionHorizontal = playerDirection;
+    switch (playerDirection){
+        case "down":
+            groundPlayer.playerDirectionVertical = playerDirection;
+            break
+        case "left":
+            groundPlayer.playerDirectionHorizontal = playerDirection;
+            break
+        case "right":
+            groundPlayer.playerDirectionHorizontal = playerDirection;
+            break
+        case "up":
+            groundPlayer.playerDirectionVertical = playerDirection;
+            break
+    }
 
+    for(let block of dynamicLevelMapBlocks){
+        if(Math.sign(xPos) > 0){
+            if(!groundPlayer.leftWallTouch){
+                groundPlayer.isRun = true;
+                mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
+                block.x -= xPos;
+            }
+        }else{
+            if(!groundPlayer.rightWallTouch){
+                groundPlayer.isRun = true;
+                mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
+                block.x -= xPos;
+            }
+        }
+        if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch){
+            if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls += 4;
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
+                groundPlayer.groundTouch = false;
+            }
+            block.verticalSpeed = yPos;
+        }
+    }
+    //groundPlayer.enemyAnimation()
+    //console.log(groundPlayer.detectFrame, groundPlayer.sx, groundPlayer.sWidth, groundPlayer.picturesWidth)
+    playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
 }
 
 export {
@@ -168,5 +250,6 @@ export {
     placeShip,
     setContext,
     playerShipTextureChange,
-    addVehicleSpeed
+    addVehicleSpeed,
+    syncKeyControl
 }

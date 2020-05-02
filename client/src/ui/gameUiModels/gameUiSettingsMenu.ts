@@ -61,7 +61,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 radius: 15,
             },
             action(){
-                dialogWindow({textData: 'restart the game?', rejectText: 'cancel', acceptText: 'restart'}, this.backToStartScreen, null, this, constructors.PlayerShip)
+                dialogWindow({textData: 'restart the game?', rejectText: 'cancel', acceptText: 'restart'}, this.backToStartScreen, null, this, constructors)
             },
             init: init,
             getObjectPosition: getUIObjectPosition

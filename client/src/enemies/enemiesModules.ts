@@ -27,8 +27,8 @@ async function placeEnemyes(mainGameObject){
     translateIndexAdjustY = (translateIndexAdjustY && this.objectNameFlag === "bullet")? translateIndexAdjustY: 0;
 
 
-       // Development box
-    /*mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
+    /*   // Development box
+    mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
     mainGameObject.gameInitData.ctxActionField.fillRect(this.x, this.y, this.width, this.height)
     if(this.objectNameFlag != "bullet"){
         drawcircle({
@@ -321,7 +321,7 @@ function unitDamage({data, mainGameObject, damage}){
                 mainGameObject.gameInitData.gameOver = true;
                 mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
                 setTimeout(function(){
-                     mainGameObject.backToStartScreen(costructors.PlayerShip)
+                     mainGameObject.backToStartScreen(costructors)
                 }, 3000)
             }
             this.healthPoint = data.source.playerObject.maxHealth;

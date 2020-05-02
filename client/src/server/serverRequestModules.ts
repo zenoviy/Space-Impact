@@ -65,7 +65,8 @@ function getDefaultSettings(){
             "homingRocket":[72],
             "destroyEnemy":[84],
             "shield":[69],
-            "inventory":[73]},
+            "inventory":[73],
+            "useKey": [69]},
         "screenResolution":{
             "title":"800x600",
             "width":800,
