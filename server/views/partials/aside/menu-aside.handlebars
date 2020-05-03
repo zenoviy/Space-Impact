@@ -1,6 +1,6 @@
 <aside>
     <div id="select-files" class="main-banner-cover" style="display: none">
-        <button class="close-dialog" id="closeDialog">X</button>
+        <button class="close-dialog" id="closeDialog">&#10006;</button>
         <div id="inner-content" class="inner-content"></div>
     </div>
     <div id="selected-item" class="selected-item-preview" style="display: none;">
@@ -21,7 +21,7 @@
                     <button id="save-map-button" type="submit" class="main-btn">Save map</button>
                 </fieldset>
             </form>
-            <button id="openMap">Load Map</button>
+            <button id="openMap" class="main-btn">Load Map</button>
         </div>
         <div>
             <form name="map-size">
@@ -29,24 +29,24 @@
                     <legend>
                         <h3>Set map size</h3>
                     </legend>
-
+                    <div id="map-size-error"></div>
                     <label for="">
-                        <p>number of horizontal block </p>
+                        <p>number of horizontal blocks </p>
                         <input name="horizontalBlock" type="number" required>
                     </label>
                     <label for="">
-                        <p>number of vertical block </p>
+                        <p>number of vertical blocks </p>
                         <input name="verticalBlock" type="number" required>
                     </label>
-                    <button type="submit">Set Map size</button>
+                    <button id="set-map-size" type="submit" class="main-btn">Set Map size</button>
                 </fieldset>
             </form>
         </div>
         <div class="buttons-area">
-            <button data-button-id="redactorBlocks">Blocks</button>
-            <button data-button-id="redactorDecoration">Decoration</button>
-            <button data-button-id="redactorCharacters">Characters</button>
-            <button data-button-id="redactorEnemy">Enemy</button>
+            <button data-button-id="redactorBlocks" class="main-btn">Blocks</button>
+            <button data-button-id="redactorDecoration" class="main-btn">Decoration</button>
+            <button data-button-id="redactorCharacters" class="main-btn">Characters</button>
+            <button data-button-id="redactorEnemy" class="main-btn">Enemy</button>
         </div>
         <div id="side-instrumental-panel" class="side-instrumental-panel"></div>
     </div>

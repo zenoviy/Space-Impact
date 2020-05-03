@@ -18,6 +18,9 @@ function drawcircle({ctx, x, y, width, height, color}){
 
 async function placeEnemyes(mainGameObject){
 
+    if(this.y < 0 - this.height && this.x < 0 - this.width &&
+        this.y < window.innerHeight + this.height && this.x > window.innerWidth + this.width) return false
+
     mainGameObject.gameInitData.ctxActionField.save();
 
 

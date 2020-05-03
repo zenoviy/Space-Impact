@@ -4,7 +4,7 @@ import { MainGameConstructor } from './constructors/renderConstructor';
 import { BlockConstructor } from './constructors/blockConstructor';
 import { initView, mapMoveControllers } from './ui/view';
 import { initMainEngine } from './redactor/initStartObject';
-import { loadMap, saveMap } from './redactor/sidePanelActions';
+import { loadMap, saveMap, setMapSize } from './redactor/sidePanelActions';
 
 
 (async function(){
@@ -13,12 +13,13 @@ import { loadMap, saveMap } from './redactor/sidePanelActions';
     mainObject.initView()
     mainObject.renderItemsToSideList({ mainObject: mainObject, dataBase: mainObject.blockDatabase })
 
-    const engine = setInterval(function(){ redactorEngine() }, 40)
+    const engine = setInterval(function(){ redactorEngine() }, 60)
 
     console.log(mainObject)
     mapMoveControllers({ mainObject: mainObject })
     saveMap({ mainObject: mainObject })
     loadMap({ mainObject: mainObject })
+    setMapSize({ mainObject: mainObject, BlockConstructor: BlockConstructor })
 
 
     function redactorEngine(){

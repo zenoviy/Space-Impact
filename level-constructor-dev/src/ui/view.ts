@@ -1,6 +1,8 @@
 import { collisionDetector, moveAllScene, changeObjectModel } from '../redactor/blockInteractModule';
 import { hideElement, showElement, previewOfBlock } from './preview';
 import { blockCreator } from '../redactor/sidePanelActions';
+import { openRedactorWindow } from '../redactor/blockDataRedactorModule';
+import { miniMapper } from '../redactor/blockDataRedactorModule';
 import * as globalVariable from '../redactor/globalVariables';
 
 
@@ -23,6 +25,9 @@ function initView(){
 function mapMoveControllers({ mainObject }){
     document.addEventListener('keydown', function(event){
         let xMoveValue = 0, yMoveValue = 0;
+
+
+        if( mainObject.activeDescriptionFields ) return false
         switch (event.keyCode){
             case 87:
                 yMoveValue = mainObject.mapMoveSpeed;
@@ -35,6 +40,9 @@ function mapMoveControllers({ mainObject }){
                 break
             case 65:
                 xMoveValue = mainObject.mapMoveSpeed;
+                break
+            case 77:
+                miniMapper({ mainObject: mainObject })
                 break
             default:
                 return false
@@ -55,7 +63,8 @@ function mapMoveControllers({ mainObject }){
                 height: 5
             } })
             if(result){
-                console.log( block.index, " < Block index")
+                //console.log( block.index, " < Block index")
+                openRedactorWindow({ blockData: block, mainObject: mainObject })
                 changeObjectModel({ result: result, mainObject: mainObject})
                 break
             }
@@ -102,8 +111,7 @@ function renderItemsToSideList({ mainObject, dataBase }){
             innerContent: `<img width="100%" src='${ globalVariable.__HOST + blockItem['texture'] }'>`
         });
 
-        obj.addEventListener('click', (event) => { 
-            console.log(blockItem, "<<<<")
+        obj.addEventListener('click', (event) => {
             sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: blockItem})
         })
         target.appendChild(obj)
@@ -118,7 +126,6 @@ function renderItemsToSideList({ mainObject, dataBase }){
 
 function sidePanelItemsSelectProcess({ mainObject, blockItem }){
     if(mainObject.selectedBlockPanelItem){
-       
         mainObject.selectedBlockPanelItem = (blockItem.id != mainObject.selectedBlockPanelItem.id)? blockItem : null;
     }else mainObject.selectedBlockPanelItem = blockItem;
 
@@ -171,12 +178,16 @@ function createBlockPicture({ mainObject }){
 
 function createFrame({ mainObject }){
     if(!mainObject.ctx) return false
+    mainObject.ctx.fillStyle = "rgba(225, 255, 255, .3)";
+    mainObject.ctx.fillText(this.index, this.xMove + 5, this.yMove + 15)
+
+
     mainObject.ctx.strokeStyle = 'rgba(0,153,255,0.4)';
 
     mainObject.ctx.beginPath()
     mainObject.ctx.rect(this.xMove, this.yMove, this.width, this.height)
     mainObject.ctx.stroke()
-    mainObject.ctx.stroke()
+    //mainObject.ctx.stroke()
 }
 
 

@@ -3,9 +3,36 @@ import { getData, postData } from '../server-requests/requestsModule';
 import { hideElement, showElement } from '../ui/preview';
 import { backToObject } from './initStartObject';
 import { BlockConstructor } from  "../constructors/blockConstructor";
+import { changeBlockArraySize } from './blockDataRedactorModule';
 
 
-function setMapSize(){
+ function setMapSize({ mainObject, BlockConstructor }){
+    let form = document.forms['map-size'];
+    let errorField = document.querySelector('#map-size-error');
+
+    let button = document.querySelector('#set-map-size');
+
+    button.addEventListener('click', async function(){
+        let formData = {};
+
+        for(let field of form){
+            if(field.name && field.value ){
+                formData[field.name] = field.value;
+            }if(field.name && !field.value)  return false
+        }
+        if(parseInt(formData['horizontalBlock']) < parseInt(mainObject.mapDefaultWidth) || parseInt(formData['verticalBlock']) < parseInt(mainObject.mapDefaultHeight)){
+            errorField.innerHTML = `<p class='side-panel-error'>Map min size is ${mainObject.mapDefaultWidth} x ${mainObject.mapDefaultHeight}</p>`
+            return false
+        }else if(parseInt(formData['horizontalBlock']) > parseInt(mainObject.maxHorizontalBlocks) || parseInt(formData['verticalBlock']) > parseInt(mainObject.maxVerticalBlocks)){
+            errorField.innerHTML = `<p class='side-panel-error'>Map max size is ${mainObject.maxHorizontalBlocks} x ${mainObject.maxVerticalBlocks}</p>`
+            return false
+        } else {
+            errorField.innerHTML = await `<p class='side-panel-error'>Please wait map is build...</p>`;
+            await changeBlockArraySize({ mainObject: mainObject, formData: formData, BlockConstructor: BlockConstructor })
+            errorField.innerHTML = `<p class="side-panel-success">map size set ${formData['horizontalBlock']} x ${formData['verticalBlock']} blocks</p>`;
+        }
+
+    })
 
 }
 
@@ -21,15 +48,17 @@ async function getMapData({ url, mainObject }){
     let convertToObject = await res.allMapObjects.map(block => {
         return backToObject({ data: block, constructor: BlockConstructor})
     })
+
+    mainObject.mapWidth = res.mapSize.width;
+    mainObject.mapHeight = res.mapSize.height;
+
+    let sizeForm = document.forms['map-size'];
+    sizeForm.horizontalBlock.value = mainObject.mapWidth;
+    sizeForm.verticalBlock.value = mainObject.mapHeight;
+
+    console.log(sizeForm)
     mainObject.allRedactorBlock = convertToObject;
 }
-
-function replaceMap({ mainObject, data}){
-    if(!data) return false
-
-    mainObject.allRedactorBlock = data
-}
-
 
 
 
@@ -107,17 +136,26 @@ async function saveMap({ mainObject }){
         let resultForm = getFormData({ form: form });
 
         if(resultForm){
+            resultForm['mapSize'] = {
+                width: mainObject.mapWidth,
+                height: mainObject.mapHeight
+            }
+
+            resultForm['creatingTime'] = new Date().getTime();
             resultForm['allMapObjects'] = mainObject.allRedactorBlock;
+
+            console.log(resultForm, 'save', mainObject)
             let mapFile = await postData({ url: globalVariable.__HOST + globalVariable.__BLOC_CONSTRUCTOR_URL,
                 method: 'POST',
                 data: resultForm,
                 headers: null})
 
             if(mapFile){
-                messageField.innerHTML = `<a href=${ mapFile.url } target="_blank">download</a>`
+                messageField.innerHTML = `<a href=${ mapFile.url } onclick="(function(){ window.open('${ mapFile.url }')})()" target="_blank">Open in new window</a>`
             }
         }
     })
+
 }
 
 

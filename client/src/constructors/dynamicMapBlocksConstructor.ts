@@ -16,6 +16,7 @@ class DynamicBlockConstructor {
     xTarget: number; yTarget: number;
     verticalSpeed: number;
     horizontalSpeed: number;
+    index: number;
 
     moveMap: any;
     placeEnemyes: any;
@@ -40,6 +41,7 @@ class DynamicBlockConstructor {
         this.sWidth = data.width; this.sHeight = data.height;
         this.verticalSpeed = 0;
         this.horizontalSpeed = 0;
+        this.index = data.index;
     }
 }
 DynamicBlockConstructor.prototype.placeEnemyes = placeEnemyes;

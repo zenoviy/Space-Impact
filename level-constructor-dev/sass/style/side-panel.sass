@@ -1,3 +1,9 @@
+legend
+    h3
+        margin: 0px
+label
+    p
+        font-size: 14px
 .side-instrumental-panel
     overflow-y: scroll
     max-height: 350px
@@ -22,10 +28,68 @@
     min-height: 300px
     overflow-y: scroll
     margin: 0 auto
-    max-height: 600px
+    max-height: 90%
     .single-item-wrapper
         cursor: pointer
+        padding: 5px
     .single-item-wrapper:hover
         background: #4d4263
+        color: #fff
+.inner-description-fields-wrapper
+    background: #ffffff
+    border-radius: 5px
+    padding: 20px
+    margin: 0 auto
+    display: grid
+    grid-template-columns: auto auto
+    grid-gap: 20px
 .active-button
     background: #ff961e
+
+.side-panel-success
+    color: #539700
+.side-panel-error
+    color: #b10000
+
+.block-description-wrapper
+    text-align: left
+    display: flex
+    flex-wrap: wrap
+    img
+        width: 100%
+.single-block-description
+    text-align: left
+    padding: 5px
+    textarea
+        width: 100%
+        border: 1px solid #281b36
+        padding: 5px
+        margin-top: 10px
+        margin-bottom: 5px
+        border-radius: 5px
+
+.close-dialog
+    color: #fff
+    background: none
+    padding: 20px
+    border: none
+    font-size: 29px
+    position: absolute
+    cursor: pointer
+.main-btn
+    background: #ffb300
+    border: navajowhite
+    padding: 5px
+    border-radius: 5px
+    margin-top: 3px
+    box-shadow: 1px 1px 5px #1547a64f
+    cursor: pointer
+    transition: .3s linear
+.main-btn:hover
+    background: #ffedc3
+.main-btn:active
+    background: #ff1e00
+
+input
+    padding: 10px
+    width: 91%

@@ -23,12 +23,16 @@ async function loadLevelMap({ levelMapName, DynamicBlockConstructor }){
 
     console.log(xRangeCompensation, yRangeCompensation, spawnPoint.x, spawnPoint.y)
     let levelBlocks = await resultData.allMapObjects.filter(block => {
-        return block.details
+       return block.details
     }).map(block => {
+        //block.x = block.xMove;
+        //block.y = block.yMove;
         block.x += xRangeCompensation;
         block.y += yRangeCompensation;
         return new DynamicBlockConstructor({...block })
     })
+
+
     return levelBlocks
 }
 
@@ -127,7 +131,7 @@ function findPointOfCollision({object, target, mainGameObject}){
     // console.log(x, y, object.height, "<<<",target.x, target.y)
     //console.log(y , object.height , y > 0 , !isWall, distance)
     if(y > object.height && y > 0 && !isWall && distance < object.width){
-       // console.log('Bottom side of block')
+        console.log('Bottom side of block', target)
        if(target.details){
            if(target.details.type === 'elevator' ){
                elevatorPlayerMove({

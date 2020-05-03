@@ -1,3 +1,6 @@
+import { positionReducer } from './blockDataRedactorModule';
+
+
 function collisionDetector({object, target}){
     if(!object || !target) return false
     let xMin = Math.min(object.xMove, target.x);
@@ -30,24 +33,20 @@ function moveAllScene({ mainObject, xMoveValue, yMoveValue }){
 
 
 function changeObjectModel({ result, mainObject }){
-    if(!mainObject || !result || !mainObject.selectedBlockPanelItem) return false
+    if(!mainObject || !result || !mainObject.selectedBlockPanelItem || mainObject.miniMapActive || mainObject.activeDescriptionFields) return false
 
-    console.log(mainObject.selectedBlockPanelItem, '//')
-
-    let allBlock = mainObject.allRedactorBlock;
-    let currentBlock = allBlock[result.index];
+    let allBlocks = mainObject.allRedactorBlock;
+    let currentBlock = allBlocks[result.index];
 
     if(!mainObject.selectedBlockPanelItem.destroyer){
         currentBlock.details = mainObject.selectedBlockPanelItem;
     }else{
-        //currentBlock.xMove -= currentBlock.details.currentValueOfMove;
         if(currentBlock.details && currentBlock.details.valueOfMove){
-            currentBlock.yMove -= (currentBlock.details.valueOfMove - currentBlock.details.constructorValueOfMove);
-            console.log(currentBlock.details.constructorValueOfMove, currentBlock.details, currentBlock)
-        }/**/
+            positionReducer({ allBlocks: allBlocks })
+            //currentBlock.yMove -= (currentBlock.details.valueOfMove - currentBlock.details.constructorValueOfMove);
+        }
         currentBlock.details = null;
-    }/**/
-    //currentBlock.details = (!mainObject.selectedBlockPanelItem.destroyer)? mainObject.selectedBlockPanelItem : null;
+    }
 }
 
 

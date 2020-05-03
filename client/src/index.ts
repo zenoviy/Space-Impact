@@ -220,8 +220,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
     if(!allBlocks) return false
     for(let block of allBlocks){
         if(!block) continue
-        block.placeEnemyes(gameObject)
-
+            block.placeEnemyes(gameObject)
     }
 }
 
@@ -235,7 +234,6 @@ async function gameDynamicPlayer({ gameObject }){
             await dynamicMainCharacter.placeEnemyes(gameObject)
 
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
-                
                 dynamicMainCharacter.changeVerticalAnimationPicture()
                 dynamicMainCharacter.enemyAnimation()
                 dynamicMainCharacter.isRun = false;
