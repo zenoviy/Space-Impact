@@ -12,8 +12,15 @@ async function saveMap (req, res) {
         fs.mkdirSync(dir);
     }
     if (!fs.existsSync(dir + '.json')){
-        if(!req.body) res.send({message: 'no data'})
+        if(!req.body || !req.body.name){ res.send({
+            message: 'no data'});
+            return false
+        }
+        let mapFileName = `${req.body.name}.json`;
+
+        console.log(req.body.name)
         await dataWriter({fileName: '../../../public/temp/mapData.json', data: JSON.stringify(req.body)})
+        await dataWriter({fileName: '../../../public/level-creator/complete-maps/' + mapFileName, data: JSON.stringify(req.body)})
     }
 
 

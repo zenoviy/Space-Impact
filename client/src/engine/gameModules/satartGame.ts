@@ -132,7 +132,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             process.env.SHOP_ACTIVE_WINDOW = 'false';
         }
         let dynamicLevelMapBlocks: any[] = (levelData.dynamicLevelsActive)? await loadLevelMap({
-            levelMapName: levelData.dynamicBlockMap,
+            levelMapName: levelData.dynamicBlockMap + '.json',
             constructors: constructors }) : [];
 
         let dynamicLevelEnemy = (levelData.dynamicLevelsActive)? await loadLevelEnemy({

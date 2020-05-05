@@ -8,6 +8,9 @@
         "innerObject": "main_character",
         "width": 50,
         "height": 50,
-        "name": "enemy-soldier-1"
+        "name": "enemy-soldier-1",
+        "mapColor": "#FF0800",
+        "imageWidth": 34,
+        "imageHeight": 45
     }
 ]

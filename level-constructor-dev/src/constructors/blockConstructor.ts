@@ -12,6 +12,8 @@ class BlockConstructor{
     height: number;
     index: number;
     details: any;
+    imageWidth: number;
+    imageHeight: number;
 
     renderBlockBox: any;
     moveSingleBlock: any;
@@ -25,6 +27,8 @@ class BlockConstructor{
         this.height = data.height;
         this.index = data.index;
         this.details = (data.details)? data.details : null;
+        this.imageWidth = (data.imageWidth)? data.imageWidth: data.width;
+        this.imageHeight = (data.imageHeight)? data.imageHeight: data.width;
     }
 }
 

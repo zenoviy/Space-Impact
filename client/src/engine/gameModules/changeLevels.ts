@@ -58,7 +58,7 @@ async function nextLevelDataReload(levelData, constructors){
     horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
     context.gameInitData.dynamicLevelsActive = (serverNewData.levelData.dynamicLevelsActive)? true : false;
     context.gameInitData.dynamicLevelMapBlocks = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelMap({
-        levelMapName: serverNewData.levelData.dynamicBlockMap,
+        levelMapName: serverNewData.levelData.dynamicBlockMap + '.json',
         constructors: constructors  }) : [];
 
     /*let dynamicLevelMapBlocks: any = context.gameInitData.dynamicLevelMapBlocks;

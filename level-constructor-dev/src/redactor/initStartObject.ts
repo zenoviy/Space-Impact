@@ -6,6 +6,7 @@ import { getData } from '../server-requests/requestsModule';
 
 
 async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
+    let mapName = document.forms['new-map'].name.value = '';
     let blockSize = 50,
     defaultWidth = (window.innerWidth/blockSize).toFixed(),
     defaultHeight = (window.innerHeight/blockSize).toFixed(),
@@ -41,7 +42,7 @@ async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
         enemyDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__ENEMY_CONSTRUCTOR_URL,
             method: 'GET', data: null, headers: null })
     }
-    console.log(redactorData.backgroundDatabase)
+    //console.log(redactorData.backgroundDatabase)
     return new MainGameConstructor({...redactorData})
 }
 

@@ -175,7 +175,7 @@ function createBlockPicture({ mainObject }){
 
     let img = new Image();
     img.src = globalVariable.__HOST + this.details.texture;
-    mainObject.ctx.drawImage(img, 0, 0, this.width, this.height, this.xMove, this.yMove, this.width, this.height)
+    mainObject.ctx.drawImage(img, 0, 0, this.details.imageWidth, this.details.imageHeight, this.xMove, this.yMove, this.width, this.height)
 }
 
 

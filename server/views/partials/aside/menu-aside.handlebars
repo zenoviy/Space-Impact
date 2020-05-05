@@ -11,17 +11,18 @@
             <form name="new-map">
                 <fieldset>
                     <legend>
-                        <h3>New Map</h3>
+                        <h3>Map</h3>
                     </legend>
                     <label for="" >
                         <p>Map name</p>
                         <p id="save-map-error" class="error-window"></p>
-                        <input name="name" type="text" required maxlength="30" minlength="3">
+                        <input name="name" type="text" required maxlength="30" minlength="5">
                     </label>
                     <button id="save-map-button" type="submit" class="main-btn">Save map</button>
                 </fieldset>
             </form>
             <button id="openMap" class="main-btn">Load Map</button>
+            <button id="createMap" class="main-btn">New Map</button>
         </div>
         <div>
             <form name="map-size">

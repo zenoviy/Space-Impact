@@ -163,7 +163,7 @@ function miniMapper({ mainObject }){
                 cameraPositionY: cameraPositionY,
                 mapSize: mapSize,
                 mapSizeWidth: mapSizeWidth,
-                mapSizeHeight: mapSizeHeight
+                mapSizeHeight: mapSizeHeight,
             })
         }
     })
@@ -177,10 +177,13 @@ function miniMapper({ mainObject }){
 
 function mapObjectDraw({ ctx, allBlocks, cameraPositionY, cameraPositionX, mapSize, mapSizeWidth, mapSizeHeight}){
     ctx.clearRect(0, 0, mapSizeWidth, mapSizeHeight)
-    ctx.fillStyle = "rgba(225, 169, 0, 1)";
+    console.log(allBlocks)
     allBlocks.forEach( item => {
         if(item.details){
+            ctx.save();
+            ctx.fillStyle = (item.details.mapColor)? item.details.mapColor: "rgba(225, 169, 0, 1)";//item.details.mapColor//"rgba(225, 169, 0, 1)";
             ctx.fillRect((item.x)? item.x / mapSize : 0,  (item.yMove)? item.y / mapSize : 0,  50/mapSize,50/mapSize)
+            ctx.restore()
         }
     })
     //ctx.save();

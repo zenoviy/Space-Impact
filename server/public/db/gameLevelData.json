@@ -114,7 +114,7 @@
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
-        "dynamicBlockMap": "map-level-night-city-1.json",
+        "dynamicBlockMap": "map-level-night-city-1",
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,

@@ -9,7 +9,10 @@
         "backgroundTexture": null,
         "rules": {
             "tips": "Find the way to finish this level"
-        }
+        },
+        "mapColor": "#37FF00",
+        "imageWidth": 59,
+        "imageHeight": 58
     },
     {
         "id": "escape_door",
@@ -24,7 +27,10 @@
             "requireText": "You must find computer Data first",
             "successText": "Congratulation",
             "innerObject": null
-        }
+        },
+        "mapColor": "#FFFF00",
+        "imageWidth": 59,
+        "imageHeight": 58
     },
     {
         "id": "computer_with_data",
@@ -40,7 +46,10 @@
             "requireText": null,
             "successText": "You get computer Data now you can continue you journey",
             "innerObject": null
-        }
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 59,
+        "imageHeight": 58
     },
     {
         "id": "elevator_1",
@@ -55,6 +64,9 @@
         "constructorDirection": true,
         "backgroundTexture": null,
         "type": "elevator",
-        "collision": true
+        "collision": true,
+        "mapColor": "#FF8000",
+        "imageWidth": 59,
+        "imageHeight": 58
     }
 ]

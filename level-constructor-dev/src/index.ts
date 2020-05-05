@@ -4,7 +4,7 @@ import { MainGameConstructor } from './constructors/renderConstructor';
 import { BlockConstructor } from './constructors/blockConstructor';
 import { initView, mapMoveControllers } from './ui/view';
 import { initMainEngine } from './redactor/initStartObject';
-import { loadMap, saveMap, setMapSize } from './redactor/sidePanelActions';
+import { loadMap, saveMap, setMapSize, createNewMap } from './redactor/sidePanelActions';
 
 /*
 - add stears
@@ -25,6 +25,7 @@ import { loadMap, saveMap, setMapSize } from './redactor/sidePanelActions';
     saveMap({ mainObject: mainObject })
     loadMap({ mainObject: mainObject })
     setMapSize({ mainObject: mainObject, BlockConstructor: BlockConstructor })
+    createNewMap()
 
 
     function redactorEngine(){

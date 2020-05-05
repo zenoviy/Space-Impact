@@ -4,7 +4,7 @@ import { hideElement, showElement } from '../ui/preview';
 import { backToObject } from './initStartObject';
 import { BlockConstructor } from  "../constructors/blockConstructor";
 import { changeBlockArraySize } from './blockDataRedactorModule';
-
+import { initMainEngine } from './initStartObject';
 
  function setMapSize({ mainObject, BlockConstructor }){
     let form = document.forms['map-size'];
@@ -38,6 +38,7 @@ import { changeBlockArraySize } from './blockDataRedactorModule';
 
 
 async function getMapData({ url, mainObject }){
+    let mapName = document.forms['new-map'].name;
     let res = await getData({
         url: url,
         method: 'GET',
@@ -48,7 +49,7 @@ async function getMapData({ url, mainObject }){
     let convertToObject = await res.allMapObjects.map(block => {
         return backToObject({ data: block, constructor: BlockConstructor})
     })
-
+    mapName.value = res.name
     mainObject.mapWidth = res.mapSize.width;
     mainObject.mapHeight = res.mapSize.height;
 
@@ -60,7 +61,13 @@ async function getMapData({ url, mainObject }){
 }
 
 
+function createNewMap(){
+    let createMap = document.querySelector("#createMap");
 
+    createMap.addEventListener('click', async function(event){
+        location.reload()
+    })
+}
 
 
 
@@ -135,6 +142,11 @@ async function saveMap({ mainObject }){
         let resultForm = getFormData({ form: form });
 
         if(resultForm){
+            if(resultForm['status'] === 'reject'){
+                messageField.innerHTML = `<p class="side-panel-error">Fail to save map, check map Name</p> `
+                return false;
+            }
+            console.log(resultForm, '<<')
             resultForm['mapSize'] = {
                 width: mainObject.mapWidth,
                 height: mainObject.mapHeight
@@ -175,5 +187,6 @@ export{
     setMapSize,
     loadMap,
     saveMap,
-    blockCreator
+    blockCreator,
+    createNewMap
 }

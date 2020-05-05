@@ -276,13 +276,14 @@ async function gameDynamicPlayer({ gameObject }){
                     shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player")
                 }
                 dynamicMainCharacter.isRun = false;
+                
                await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: dynamicMainCharacter,
                     callback: objectIntersectionDetect,
                     mainGameObject: gameObject
-            })
-            await  mapGravityInit({mainGameObject: gameObject,
+                })
+                await mapGravityInit({mainGameObject: gameObject,
                     mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
                     targetObject: dynamicMainCharacter,
                     constructors: constructors
@@ -467,11 +468,12 @@ function initAppGlobalVariable(){
         }
         process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
         enemyEngineFunction({ gameObject: gameObject })
-        bulletEngineFunction({ gameObject: gameObject })
 
         gameDynamicLevelBoxRender({ gameObject: gameObject })
+        bulletEngineFunction({ gameObject: gameObject })
         gameDynamicEnemyRender({ gameObject: gameObject })
         gameDynamicPlayer({ gameObject: gameObject })
+
 
         syncKeyControl({ mainGameObject: gameObject })
 

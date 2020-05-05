@@ -3,6 +3,11 @@ import { positionReducer } from './blockDataRedactorModule';
 
 function collisionDetector({object, target}){
     if(!object || !target) return false
+
+    target.width = parseInt(target.width)
+    target.height = parseInt(target.height)
+    object.width = parseInt(object.width)
+    object.height = parseInt(object.height)
     let xMin = Math.min(object.xMove, target.x);
     let yMin = Math.min(object.yMove, target.y);
 
@@ -45,6 +50,10 @@ function changeObjectModel({ result, mainObject }){
             positionReducer({ allBlocks: allBlocks })
             //currentBlock.yMove -= (currentBlock.details.valueOfMove - currentBlock.details.constructorValueOfMove);
         }
+        console.log(mainObject.blockSize)
+        currentBlock.width = mainObject.blockSize;
+        currentBlock.height = mainObject.blockSize;
+
         currentBlock.details = null;
     }
 }
