@@ -3,75 +3,105 @@
         "id": "block_1",
         "collision": true,
         "texture": "/level-creator/assets/block/block-1.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_2",
         "collision": true,
         "texture": "/level-creator/assets/block/block-2.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_3",
         "collision": true,
         "texture": "/level-creator/assets/block/block-3.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_4",
         "collision": true,
         "texture": "/level-creator/assets/block/block-4.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_5",
         "collision": true,
         "texture": "/level-creator/assets/block/ground-0.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_5a",
         "collision": true,
         "texture": "/level-creator/assets/block/grass.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_5b",
         "collision": true,
         "texture": "/level-creator/assets/block/grass-left-side.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_5c",
         "collision": true,
         "texture": "/level-creator/assets/block/grass-right-side.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_6",
         "collision": true,
         "texture": "/level-creator/assets/block/ground-1.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_7",
         "collision": true,
         "texture": "/level-creator/assets/block/tile-1.png",
-        "isDestroy": false
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_8",
         "collision": true,
         "texture": "/level-creator/assets/block/wall-1.png",
         "isDestroy": false,
-        "type": "wall"
+        "type": "ground",
+        "backgroundTexture": null
     },
     {
         "id": "block_8",
         "collision": true,
         "texture": "/level-creator/assets/block/wall-2.png",
         "isDestroy": false,
-        "type": "wall"
+        "type": "ground",
+        "backgroundTexture": null
+    },
+    {
+        "id": "block_9",
+        "collision": true,
+        "texture": "/level-creator/assets/block/road-1.png",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null
     }
 
 ]

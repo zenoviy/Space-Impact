@@ -16,7 +16,10 @@ const { constructorBlockData,
     saveMap, loadMap, loadAllMap,
     constructorCharacterData,
     gameGroundCharacterData,
-    gameGroundEnemyData} = require('./level Data/constructor-objects');
+    gameGroundEnemyData,
+    gameGroundEnemyRedactorData,
+    gameDecorationRedactorData
+} = require('./level Data/constructor-objects');
 
 module.exports = {
     getLevelData : levelData,
@@ -39,5 +42,7 @@ module.exports = {
     loadAllMap: loadAllMap,
     constructorCharacterData: constructorCharacterData,
     gameGroundCharacterData: gameGroundCharacterData,
-    gameGroundEnemyData: gameGroundEnemyData
+    gameGroundEnemyData: gameGroundEnemyData,
+    gameGroundEnemyRedactorData: gameGroundEnemyRedactorData,
+    gameDecorationRedactorData: gameDecorationRedactorData
 }

@@ -12,6 +12,7 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
     let gameField = [].concat(
         this.gameInitData.gameField,
         this.gameInitData.gameActionField,
+        this.gameInitData.gameDialogField,
         this.gameInitData.gameUIField
     )
     if(!gameField) throw Error('Error');
@@ -75,29 +76,41 @@ function levelInit(GameBackground, ctx, mainGameObject){
     let levelStandartMap = gameData.levelStandartMap;
     mainGameObject.gameInitData.backScreenPause = false;
 
-    for(let mapObject of allBackgroundElements){
+    loadMapBackgroud.call(this, allBackgroundElements)
+    //console.log(gameData.levelBottomPart)
+    if(gameData.levelBottomPart){
+        loadMapBackgroud.call(this, gameData.levelBottomPart, window.innerHeight-200, window.innerHeight + 300)
+    }
 
-        let mapItem = new GameBackground({
-            texture: mapObject.levelMap, speed: mapObject.speed,
-            screenData: this.gameInitData.screen, ctx: ctx,
-            partOfScreenStatus: (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
-            extraMap: (mapObject.extraMap)? mapObject.extraMap : null,
-            timeToExtraMapSeconds: (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,
-            timeToExtraMapMinutes: (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null,
-            imageWidth: (mapObject.imageWidth)? mapObject.imageWidth: levelStandartMap.imageWidth,
-            imageHeight: (mapObject.imageHeight)? mapObject.imageHeight: levelStandartMap.imageHeight,
-            animationSteps: (mapObject.animationSteps)? mapObject.animationSteps: levelStandartMap.animationSteps,
-            numberOfItems: (mapObject.numberOfItems)? mapObject.numberOfItems: levelStandartMap.numberOfItems,
-            numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems: levelStandartMap.numberOfVerticalItems
-        });
-        mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
-        mapItem.loadTexture();
+
+    function loadMapBackgroud( backgroundElementsArr, yPosition , height){
+        for(let mapObject of backgroundElementsArr){
+
+            let mapItem = new GameBackground({
+                texture: mapObject.levelMap, speed: mapObject.speed,
+                height: (height)? height : null,
+                y: (yPosition)? yPosition : null,
+                screenData: this.gameInitData.screen, ctx: ctx,
+                partOfScreenStatus: (this.gameInitData.mapBackgroundObjects.length % 2 == 0)? true : null,
+                extraMap: (mapObject.extraMap)? mapObject.extraMap : null,
+                timeToExtraMapSeconds: (mapObject.timeToExtraMapSeconds)? mapObject.timeToExtraMapSeconds : null,
+                timeToExtraMapMinutes: (mapObject.timeToExtraMapMinutes)? mapObject.timeToExtraMapMinutes : null,
+                imageWidth: (mapObject.imageWidth)? mapObject.imageWidth: (mapObject.imageWidth)? mapObject.imageWidth : levelStandartMap.imageWidth,
+                imageHeight: (mapObject.imageHeight)?  mapObject.imageHeight : levelStandartMap.imageHeight,
+                animationSteps: (mapObject.animationSteps)? mapObject.animationSteps: (mapObject.animationSteps)? mapObject.animationSteps :  levelStandartMap.animationSteps,
+                numberOfItems: (mapObject.numberOfItems)? mapObject.numberOfItems: (mapObject.numberOfItems)? mapObject.numberOfItems : levelStandartMap.numberOfItems,
+                numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems : levelStandartMap.numberOfVerticalItems
+            });
+            mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
+            mapItem.loadTexture();
+        }
     }
 }
 
 function createContext () {
     this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');
     this.gameInitData.ctxActionField = this.gameInitData.gameActionField.getContext('2d');
+    this.gameInitData.ctxGameDialogField = this.gameInitData.gameDialogField.getContext('2d');
     this.gameInitData.ctxUIField = this.gameInitData.gameUIField.getContext('2d');
 }
 
@@ -327,6 +340,7 @@ function createScreenshots({ mainGameObject }){
 async function getImageFromFields({saveGameData, screenshot }){
     let background = await this.gameInitData.gameField.toDataURL();
     let gameField = await this.gameInitData.gameActionField.toDataURL();
+    let gaeText = await this.gameInitData.gameDialogField.toDataURL();
 
     var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SCREENSHOTS_DIRECTORY : __dirname + process.env.APP_SCREENSHOTS_DIRECTORY;
 
@@ -340,8 +354,8 @@ async function getImageFromFields({saveGameData, screenshot }){
     let res = await savePictures({picture_64: await gameField.replace(/^data:image\/png;base64,/, ""),
     filename: 'gameField', screenshot: false})
     .then(async resolve => {
-        return await mergeImages([background,
-            gameField], {
+        return await mergeImages(
+            [background, gameField], {
             width: window.innerWidth,
             height: window.innerHeight
           }).then(async pic => {
@@ -442,7 +456,6 @@ function fullScreenSwitch({fullscreen}){
 function angleFinder({object, target}){
     let distanceX = (target.x  > object.x)? target.x - object.x : object.x - target.x;
 
-
     let targetX = ((Math.sign(target.x) > 0)? target.x : 0) + target.width/3;
     let targetY = ((Math.sign(target.y) > 0)? target.y : 0) + target.height/2;
 
@@ -451,8 +464,30 @@ function angleFinder({object, target}){
 
     let item = (targetY - objectY)/(targetX - objectX);
 
-    let rotateAngle = Math.atan2(targetY  - objectY, targetX + (distanceX / target.speed) - objectX) * 180 / Math.PI;
-    return rotateAngle
+    //let rotateAngle = Math.atan2(targetY  - objectY, targetX + (distanceX / target.speed) - objectX) * 180 / Math.PI;
+    let rotateAngle = Math.atan((objectX - targetX)/(objectY - targetY))/(Math.PI/180)
+    let x1 = objectX - targetX;
+    let y1 = objectY - targetY;
+
+    let finalAngle = 0
+    if(x1 < 0 && y1 < 0){
+        finalAngle = 90 - rotateAngle;
+        //console.log('0 - 90')
+    }
+    if(x1 > 0 && y1 < 0){
+        finalAngle = 90 - rotateAngle;
+        //console.log('180 - 90')
+    }
+    if(x1 > 0 && y1 > 0){
+        finalAngle = 270 - rotateAngle;
+        //console.log('180 - 270')
+    }
+    if(x1 < 0 && y1 > 0){
+        finalAngle = 270 + rotateAngle * -1;
+        //console.log('270 - 360')
+    }
+
+    return finalAngle//rotateAngle
 }
 
 

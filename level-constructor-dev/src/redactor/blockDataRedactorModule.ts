@@ -4,9 +4,8 @@ import { generateInput, loadInnerData, elementCreator } from './panelFormPartGen
 
 async function openRedactorWindow({ blockData, mainObject }){
 
-    if(mainObject.selectedBlockPanelItem || !blockData.details) return false
+    if(mainObject.selectedBlockPanelItem || !blockData.details || mainObject.miniMapActive) return false
 
-    //console.log(blockData, 'place where to change')
     let selectFiles = document.querySelector("#select-files");
     let fileContainer = document.querySelector("#inner-content");
     let closeDialog = document.querySelector("#closeDialog");

@@ -18,15 +18,13 @@ async function showResultScreen(){
         return false}
     let index = 0, displayData = gameData.slice(0, 100);
     for(let item of displayData){
-        index += 1;
         let time = new Date(item.time), year = time.getFullYear(),month = time.getUTCMonth() + 1, day = time.getDate()
 
         let avatarImage = (item.userAvatar)? item.userAvatar :  ( __dirname + '/public/images/misc/avatars/picture_icon.png');
         let img = new Image();
-        img.src = avatarImage;
-        img.onload = () => {
-
-            let newElement = createElements({
+        img.src = await avatarImage;
+        index +=  1;
+            let newElement = await createElements({
                 tagName: "li",
                 styleClass: "winner-list",
                 inlineStyle: null,
@@ -47,7 +45,6 @@ async function showResultScreen(){
             setTimeout(()=>{
                 windowElement.appendChild(newElement)
             }, index * 100)
-        }
     }
 }
 
@@ -279,7 +276,7 @@ function initResultScreen(mainGameObject){
     }
     async function formActionWrite(event, formState){
         event.preventDefault()
-
+        console.log(this, mainGameObject, formState, '<<<')
         let formResult = transferDataToObject(this, mainGameObject, formState)
 
         if(formResult){
@@ -363,6 +360,8 @@ function transferDataToObject(data: any, mainGameObject: any, formState: any){
     obj.gamePoints = gameData.points;
     obj.gameCoins = gameData.gameCoins;
     obj.userAvatar = formState.avatarPicture;
+
+    return obj
 }
 
 export {

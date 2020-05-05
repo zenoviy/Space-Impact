@@ -89,7 +89,7 @@ function displayCurrentAvatar({ picture, displaySelector }){
 
 
 async function convertPictureToData({ avatarAreaSelectors, picture, formState }){
-    await loadPicture.call( picture )
+     loadPicture.call( picture )
 
     function loadPicture(){
         const reader = new FileReader();

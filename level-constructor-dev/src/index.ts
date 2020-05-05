@@ -6,7 +6,12 @@ import { initView, mapMoveControllers } from './ui/view';
 import { initMainEngine } from './redactor/initStartObject';
 import { loadMap, saveMap, setMapSize } from './redactor/sidePanelActions';
 
-
+/*
+- add stears
+- add leaders
+- add horizontal elevator
+- add background array and texture and display it
+*/
 (async function(){
 
     let mainObject = await initMainEngine({ MainGameConstructor: MainGameConstructor, BlockConstructor: BlockConstructor })

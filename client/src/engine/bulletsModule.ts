@@ -138,7 +138,7 @@ function bulletAngleCompensation({sector, sectorIndex, sectorIndex2, bulletSpeed
     return {x: x, y: y}
 }
 function bulletSpeed({bulletSpeed, angle}) {
-    angle = (Math.sign(angle) > 0)? angle : 360 + angle
+    //angle = (Math.sign(angle) > 0)? angle : 360 + angle
     let sector = Math.floor(angle/(90+1))
     let sectorIndex: any = parseFloat(((angle/(90))-sector).toFixed(2));
     let sectorIndex2 = 1 - sectorIndex;

@@ -5,7 +5,8 @@ import { loadTexture } from '../engine/gameSideObjectsModule';
 
 class GameBackground{
     x: number = 0; y: number = 0;
-    texture: string; speed: number;
+    defaultY: number; defaultX: number;
+    texture: string; speed: number; defaultSpeed: number;
     screenData: any;
     ctx: any;
     img: any;
@@ -38,10 +39,13 @@ class GameBackground{
         ){
             this.texture = __dirname +  data.texture;
             this.speed = data.speed;
+            this.defaultSpeed = data.speed;
             this.screenData = data.screenData;
             this.ctx = data.ctx;
             this.x = (data.partOfScreenStatus)? 0 - 1: window.innerWidth + 1;
-            this.y = 0;
+            this.y = (data.y)? data.y : 0;
+            this.defaultY = (data.y)? data.y : 0;
+            this.defaultX = (data.x)? data.x : 0;
             this.img = new Image();
             this.extraMap = data.extraMap;
             this.timeToEressLevel = 4;
@@ -61,7 +65,7 @@ class GameBackground{
             this.sWidth = data.imageWidth/data.numberOfItems;
             this.sHeight = data.imageHeight;
             this.width = (data.partOfScreenStatus)? window.innerWidth + 2 : window.innerWidth;
-            this.height = window.innerHeight;
+            this.height = (data.height)? data.height : window.innerHeight;
         }
 
 }

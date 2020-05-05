@@ -96,9 +96,34 @@ async function gameGroundCharacterData (req, res){
         res.send(searchResult)
     })
 }
-async function gameGroundEnemyData (){
+async function gameGroundEnemyData (req, res){
+    if(!req ) return console.log('no request')
 
+    fs.readFile(__dirname + '../../../public/db/groundEnemyData.json', (err, data) => {
+        let readObject = JSON.parse(data);
+        res.send(readObject)
+    })
 }
+
+
+async function gameGroundEnemyRedactorData (req, res){
+    if(!req ) return console.log('no request')
+
+    fs.readFile(__dirname + '../../../public/level-creator/assets/db/enemyBase.json', (err, data) => {
+        let readObject = JSON.parse(data);
+        res.send(readObject)
+    })
+}
+
+async function gameDecorationRedactorData (req, res){
+    if(!req ) return console.log('no request')
+
+    fs.readFile(__dirname + '../../../public/level-creator/assets/db/decorationBase.json', (err, data) => {
+        let readObject = JSON.parse(data);
+        res.send(readObject)
+    })
+}
+
 
 module.exports = {
     constructorBlockData: constructorBlockData,
@@ -107,5 +132,7 @@ module.exports = {
     loadAllMap: loadAllMap,
     constructorCharacterData: constructorCharacterData,
     gameGroundCharacterData: gameGroundCharacterData,
-    gameGroundEnemyData: gameGroundEnemyData
+    gameGroundEnemyData: gameGroundEnemyData,
+    gameGroundEnemyRedactorData: gameGroundEnemyRedactorData,
+    gameDecorationRedactorData: gameDecorationRedactorData
 }

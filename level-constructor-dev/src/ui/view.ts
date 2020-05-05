@@ -83,11 +83,14 @@ function mapMoveControllers({ mainObject }){
                 renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.blockDatabase })
                 break;
             case 'redactorDecoration':
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.backgroundDatabase })
                 break;
             case 'redactorCharacters':
                 renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.charactersDatabase })
                 break;
             case 'redactorEnemy':
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.enemyDatabase })
+               // console.log('enemy')  enemyDatabase
                 break;
             default:
                 return false

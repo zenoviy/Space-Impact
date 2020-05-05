@@ -194,6 +194,7 @@ function loadInnerData({fileContainer, target}){
     <ul>
         <li>Name: ${ blockDetails.id }</li>
         <li>Index: ${ target.index }</li>
+        <li>Type: ${ (blockDetails.type)? blockDetails.type : '' }</li>
         <li>width: ${ target.width }</li>
         <li>height: ${ target.height }</li>
         <li>X: ${ target.x }</li>

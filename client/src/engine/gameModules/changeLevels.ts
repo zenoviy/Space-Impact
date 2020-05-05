@@ -1,6 +1,7 @@
 import { serverRequest } from './satartGame';
 import { loadLevelMap } from '../dynamicLevels/dynamicLevelModule';
 import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
+import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
 import * as constructors from '../../constructors';
 
 async function nextLevelDataReload(levelData, constructors){
@@ -30,6 +31,7 @@ async function nextLevelDataReload(levelData, constructors){
         allGameEnemies: [],
         allGameBullets: [],
         mapBackgroundObjects: [],
+        dynamicLevelEnemy: [],
         mapKeyCode: {},
         gamePause: false,
         gameUiPause: false,
@@ -57,9 +59,17 @@ async function nextLevelDataReload(levelData, constructors){
     context.gameInitData.dynamicLevelsActive = (serverNewData.levelData.dynamicLevelsActive)? true : false;
     context.gameInitData.dynamicLevelMapBlocks = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelMap({
         levelMapName: serverNewData.levelData.dynamicBlockMap,
-        DynamicBlockConstructor: constructors.DynamicBlockConstructor  }) : [],
+        constructors: constructors  }) : [];
+
+    /*let dynamicLevelMapBlocks: any = context.gameInitData.dynamicLevelMapBlocks;
+    context.gameInitData.dynamicLevelEnemy = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelEnemy({
+        levelMapName: dynamicLevelMapBlocks,
+        constructors: constructors  }) : [];**/
     this.mapSoundChanger({soundStatus:'regular_level'})
 
+    /*let dynamicLevelEnemy = (levelData.dynamicLevelsActive)? await loadLevelEnemy({
+        levelDynamicMapBlocks: dynamicLevelMapBlocks,
+        constructors: constructors }) : [];*/
 }
 function horizontalVerticalSearch(mainObject, refreshLevel){
     for(let [key, value] of Object.entries(mainObject)){

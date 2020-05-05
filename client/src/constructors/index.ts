@@ -9,4 +9,5 @@ export * from './soundConstructor';
 
 export * from './dynamicMapBlocksConstructor';
 export * from './dynamicUserConstructor';
+export * from './dynamicEnemyConstructor';
 

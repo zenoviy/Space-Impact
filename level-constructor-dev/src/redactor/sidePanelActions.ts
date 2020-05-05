@@ -56,7 +56,6 @@ async function getMapData({ url, mainObject }){
     sizeForm.horizontalBlock.value = mainObject.mapWidth;
     sizeForm.verticalBlock.value = mainObject.mapHeight;
 
-    console.log(sizeForm)
     mainObject.allRedactorBlock = convertToObject;
 }
 
@@ -145,7 +144,7 @@ async function saveMap({ mainObject }){
             resultForm['allMapObjects'] = mainObject.allRedactorBlock;
 
             console.log(resultForm, 'save', mainObject)
-            let mapFile = await postData({ url: globalVariable.__HOST + globalVariable.__BLOC_CONSTRUCTOR_URL,
+            let mapFile = await postData({ url: globalVariable.__HOST + globalVariable.__BLOCK_CONSTRUCTOR_URL,
                 method: 'POST',
                 data: resultForm,
                 headers: null})

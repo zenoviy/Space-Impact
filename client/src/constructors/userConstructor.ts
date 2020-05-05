@@ -108,8 +108,8 @@ PlayerShip.prototype.getObjectPosition = getObjectPosition;
 
 PlayerShip.prototype.takeDamage = takeDamage;
 PlayerShip.prototype.enemyAnimation = enemyAnimation;
-PlayerShip.prototype.placeEnemyes = placeEnemyes
-PlayerShip.prototype.bulletSpeed = bulletSpeed
+PlayerShip.prototype.placeEnemyes = placeEnemyes;
+PlayerShip.prototype.bulletSpeed = bulletSpeed;
 PlayerShip.prototype.playerShipTextureChange = playerShipTextureChange;
 PlayerShip.prototype.addVehicleSpeed = addVehicleSpeed;
 

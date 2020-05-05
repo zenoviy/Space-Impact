@@ -13,6 +13,7 @@ import { createScreenshots } from './engine/engineModules';
 import { mapGravityInit, blockCollision } from './engine/dynamicLevels/dynamicLevelModule';
 import { objectIntersectionDetect } from './enemies/enemiesModules';
 import { syncKeyControl } from './engine/playerShipModule';
+import { shot, bulletsCreateModule } from './enemies/enemiesModules';
 
 
 
@@ -220,35 +221,73 @@ function gameDynamicLevelBoxRender({ gameObject }){
     if(!allBlocks) return false
     for(let block of allBlocks){
         if(!block) continue
+            if(block.details.type === 'enemy_spawner') continue
             block.placeEnemyes(gameObject)
     }
 }
+async function gameDynamicEnemyRender({ gameObject }){
+    if(!gameObject.gameInitData.dynamicLevelsActive) return false
+    let levelInformation = gameObject.gameInitData.gameData.levelData;
+    let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
+    let dynamicMainCharacter = gameObject.gameInitData.gameData.groundPlayerCharacter;
+    let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
+
+    //levelInformation.jumpImpuls;
+    if(!allEnemy) return false
+
+    for(let enemy of allEnemy){
+        if(!enemy) continue
+        enemy.placeEnemyes(gameObject)
+            if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
+                enemy.groundEnemyMove({ mainGameObject: gameObject, levelInformation: levelInformation })
+                await  blockCollision({
+                    objectsToCollide: allBlocks,
+                    targetObject: enemy,
+                    callback: objectIntersectionDetect,
+                    mainGameObject: gameObject
+                })
+            }
+    }
+   // dynamicMainCharacter.xPos = 0;
+}
+
+
+
+
 
 async function gameDynamicPlayer({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     if(!gameObject.gameInitData.gameOver && gameObject.gameInitData.gameStatus){
         //   відмальовувати плеєра
+            let extraSeconds = gameObject.gameInitData.gameExtraSeconds;
             let dynamicMainCharacter = gameObject.gameInitData.gameData.groundPlayerCharacter;
             let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
+            let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
 
-            await dynamicMainCharacter.placeEnemyes(gameObject)
+            dynamicMainCharacter.placeEnemyes(gameObject)
 
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 dynamicMainCharacter.changeVerticalAnimationPicture()
                 dynamicMainCharacter.enemyAnimation()
+
+
+                if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0){
+                   // console.log(dynamicMainCharacter, '<<')
+                    shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player")
+                }
                 dynamicMainCharacter.isRun = false;
-                //mapGravityInit({ mainGameObject: gameObject, targetObject: dynamicMainCharacter})
-                mapGravityInit({mainGameObject: gameObject,
-                    mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
-                    targetObject: dynamicMainCharacter
-                })
-                blockCollision({
+               await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: dynamicMainCharacter,
                     callback: objectIntersectionDetect,
-                    mainGameObject: gameObject})
-            }
-
+                    mainGameObject: gameObject
+            })
+            await  mapGravityInit({mainGameObject: gameObject,
+                    mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
+                    targetObject: dynamicMainCharacter,
+                    constructors: constructors
+                })
+        }
     }
 
 }
@@ -299,8 +338,10 @@ function initAppGlobalVariable(){
 
     process.env.DYNAMIC_LEVEL_BLOCKS = 'level-creator/complete-maps';
     process.env.GROUND_CHARACTERS_URL = 'api/get-ground-characters';
+    process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL = 'api/get-constructor-ground-enemy';
     process.env.GROUND_CHARACTERS_INVENTORY = 'false';
     process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
+
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';
     process.env.SHOP_SHIPYARD_URL = 'api/shop/shipyard';
@@ -394,7 +435,6 @@ function initAppGlobalVariable(){
 
 
 
-   
     const navigation: any = await appMenuAndSoundInit({gameObject: gameObject});
     await appSoundInit({gameObject: gameObject})
     var engine = setInterval(gameInterval, gameObject.gameInitData.intervalCount)
@@ -404,7 +444,8 @@ function initAppGlobalVariable(){
 
     createScreenshots({mainGameObject: gameObject })
     /*   game engin runing   */
-    async function gameInterval(){
+   async  function gameInterval(){
+        //if(gameObject.gameInitData.gamePause) return false
        if(gameObject.gameInitData.ctxUIField){
             clearField(
                 gameObject.gameInitData.ctxUIField,
@@ -416,15 +457,20 @@ function initAppGlobalVariable(){
                 gameObject.gameInitData.ctxActionField,
                 window.innerWidth,
                 window.innerHeight)
+            clearField(
+                gameObject.gameInitData.ctxGameDialogField,
+                window.innerWidth,
+                window.innerHeight)
         }
         if(gameObject.gameInitData.backScreenPause){
             gameObject.levelInit(constructors.GameBackground, gameObject.gameInitData.ctx, gameObject)
         }
-
+        process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
         enemyEngineFunction({ gameObject: gameObject })
-        gameDynamicLevelBoxRender({ gameObject: gameObject })
-
         bulletEngineFunction({ gameObject: gameObject })
+
+        gameDynamicLevelBoxRender({ gameObject: gameObject })
+        gameDynamicEnemyRender({ gameObject: gameObject })
         gameDynamicPlayer({ gameObject: gameObject })
 
         syncKeyControl({ mainGameObject: gameObject })

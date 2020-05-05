@@ -86,12 +86,14 @@ function moveEnemyes(moveX: number, moveY: number = 0){
 
 
 function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
+    //console.log(1, this, this.isShot )
     if(mainGameObject.gameInitData.gamePause || !this.isShot) return false;
 
     let guns = (this.guns)? this.guns : this.data.guns;
     for(let item of guns){
         if(!item || item.type ==='object') continue
         if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
+
             bulletsCreateModule.call(this, {
                 item: item,
                 mainGameObject: mainGameObject,
@@ -104,14 +106,14 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
 }
 
 function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, SoundCreator}){
-    let angle = (item.defaultAngle)?
+        let angle = (item.defaultAngle)?
             (item.defaultAngle.isRandom)?
             mainGameObject.gameRandomizer(item.defaultAngle.max - item.defaultAngle.min, item.defaultAngle.min): item.defaultAngle.angle
             : this.shotAngle;
 
             let context = this;
             let bulletSettings = this.bulletSpeed({bulletSpeed: item.speed,
-                angle: angle});
+                angle: angle });
             let totalSpeed = (Math.sign(bulletSettings.horizontalSpeed) > 0)? this.speed : this.speed * -1;
             let firePositionX = (item.firePositionX)? item.firePositionX: 0
 
@@ -131,6 +133,7 @@ function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, Soun
                 soundUrl: bullet.sound.levelSound,
                 soundLoop: bullet.sound.soundLoop,
             }
+
             bullet.loadTexture()
             bullet.sound.soundObject = (bullet.sound)? initSoundObject({SoundCreator: SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps}) : null;
             bullet.img.onload = () => {
@@ -421,18 +424,6 @@ function objectIntersectionDetect({object, target}){
 
         return collision
     }
-
-    /*//let object1Position = object.getObjectPosition.call(object);
-
-        let xMin = Math.max( object.x, target.x );
-        let yMin = Math.max( object.y, target.y );
-        let xMax = Math.min( object.x + (object.width || object.width), target.x + target.width );
-        let yMax = Math.min( object.y + (object.height || object.height), target.y + target.height);
-
-        let resX = xMax - xMin;
-        let resY = yMax - yMin;
-        collision = (Math.sign(resX) < 0 || Math.sign(resY) < 0)? false : "collision";
-        return collision*/
 }
 
 

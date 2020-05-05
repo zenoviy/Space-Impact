@@ -19,7 +19,9 @@ const {
     loadAllMap,
     constructorCharacterData,
     gameGroundCharacterData,
-    gameGroundEnemyData
+    gameGroundEnemyData,
+    gameGroundEnemyRedactorData,
+    gameDecorationRedactorData
 } = require('./business');
 
 const bodyParser = require('body-parser')
@@ -75,10 +77,14 @@ app.get('/game-level-creator', cors(), (req, res) => {
 /*            Dynamic level route       */
 app.get('/app/get-all-maps', cors(), loadAllMap)
 app.get('/api/get-ground-characters', cors(), gameGroundCharacterData)
+app.get('/api/get-constructor-ground-enemy', cors(), gameGroundEnemyData)
+app.get('/api/get-constructor-ground-enemy-redactor', cors(), gameGroundEnemyRedactorData)
+
 
 app.route('/api/get-constructor-characters')
     .get(cors(), constructorCharacterData)
 
+app.get('/api/get-constructor-background-blocks', cors(), gameDecorationRedactorData)
 app.route('/api/get-constructor-blocks')
     .get(cors(), constructorBlockData)
     .post(cors(), saveMap)

@@ -29,12 +29,19 @@ async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
             verticalBlock: defaultHeight,
             blockSize: blockSize
         }),
-        blockDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__BLOC_CONSTRUCTOR_URL,
+        blockDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__BLOCK_CONSTRUCTOR_URL,
         method: 'GET', data: null, headers: null }),
 
+        backgroundDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__BLOCK_BACKGROUND_CONSTRUCTOR_URL,
+            method: 'GET', data: null, headers: null }),
+
         charactersDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__CHARACTER_CONSTRUCTOR_URL,
-        method: 'GET', data: null, headers: null })
+        method: 'GET', data: null, headers: null }),
+
+        enemyDatabase: await getData({ url: globalVariable.__HOST + globalVariable.__ENEMY_CONSTRUCTOR_URL,
+            method: 'GET', data: null, headers: null })
     }
+    console.log(redactorData.backgroundDatabase)
     return new MainGameConstructor({...redactorData})
 }
 

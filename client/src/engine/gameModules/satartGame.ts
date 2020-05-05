@@ -4,6 +4,7 @@ import { loadWindow } from '../../ui/loadScreen';
 import { horizontalVerticalSearch, renewPlayerShip } from './changeLevels';
 const { ipcRenderer, remote } = require( "electron" );
 import { loadLevelMap } from '../dynamicLevels/dynamicLevelModule';
+import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
 import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
 import * as constructors from '../../constructors';
 
@@ -94,6 +95,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
     let level = 2, shipType = 3, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
+        gameDialogField = document.querySelector('#gameActionDialogfield'),
         gameUIfield = document.querySelector('#gameUifield');
 
 
@@ -106,7 +108,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
         const userData = res.userData;
         const enemyData = res.enemyData;
 
-        console.log(levelData)
+        //console.log(levelData)
         if(levelData.status === "error" || levelObjects === "error" || grappleObjects === "error" ||
         levelData.gameSetings === "error" || userData === "error" || enemyData === "error"){
             loadWindow({loadStatus: "serverError"})
@@ -129,11 +131,20 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             }
             process.env.SHOP_ACTIVE_WINDOW = 'false';
         }
+        let dynamicLevelMapBlocks: any[] = (levelData.dynamicLevelsActive)? await loadLevelMap({
+            levelMapName: levelData.dynamicBlockMap,
+            constructors: constructors }) : [];
+
+        let dynamicLevelEnemy = (levelData.dynamicLevelsActive)? await loadLevelEnemy({
+            levelDynamicMapBlocks: dynamicLevelMapBlocks,
+            constructors: constructors }) : [];
+
 
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,
             gameActionField : (gameActionField)? gameActionField: null,
+            gameDialogField : (gameDialogField)? gameDialogField: null,
             gameUIField : (gameUIfield)? gameUIfield: null,
             gameData:{
                 currentLevel: level,
@@ -162,9 +173,8 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             mapBackgroundObjects: [],
             warpObjects: [],
             mapKeyCode: {},
-            dynamicLevelMapBlocks:  (levelData.dynamicLevelsActive)? await loadLevelMap({
-                levelMapName: levelData.dynamicBlockMap,
-                DynamicBlockConstructor: constructors.DynamicBlockConstructor }) : [],
+            dynamicLevelMapBlocks:  dynamicLevelMapBlocks,
+            dynamicLevelEnemy: dynamicLevelEnemy,
             timeToEressLevel: 6,
             levelChange: false,
             gamePause: false,
@@ -234,12 +244,13 @@ async function backToStartScreen(constructors){
     let soundObject = this.showGameInfo().gameData.levelSounds;
     let newInitdata = await gameDataInit.call(this, constructors.PlayerShip, soundObject, constructors);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
-
+    console.log(newInitdata)
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
-            this.gameInitData[key] = value
+            this.gameInitData[key] = value;
         };
     }
+    console.log(newInitdata)
     this.mapSoundChanger({soundStatus:'start_screen'})
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = false;

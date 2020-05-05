@@ -167,15 +167,17 @@ function findCloseObject({allGameEnemies}){
         let distanceX = (ship.x > this.x)? ship.x - this.x : this.x - ship.x;
         let distanceY = (ship.y > this.y)? ship.y - this.y : this.y - ship.y;
 
-        let minx = Math.min(ship.x + (distanceX / ship.speed), this.x);
-        let maxx = Math.max(ship.x + (distanceX / ship.speed), this.x);
+        let minx = Math.min(ship.x + (distanceX ), this.x);
+        let maxx = Math.max(ship.x + (distanceX ), this.x);
         let miny = Math.min(ship.y, this.y);
         let maxy = Math.max(ship.y, this.y);
         let xRange = maxx - minx;
         let yRange = maxy - miny;
 
         if( xRange < closestUnitXrange && yRange < closestUnitYrange ){
-            closestUnit = ship
+            closestUnitXrange = ship.x;
+            closestUnitYrange = ship.y;
+            closestUnit = ship;
         }
     }
     return closestUnit

@@ -160,10 +160,12 @@ class Game {
     returnContext(){
         if(this.gameInitData.gameField&&
             this.gameInitData.gameActionField&&
+            this.gameInitData.gameDialogField&&
             this.gameInitData.gameUIField){
                 return {
                     gameField: this.gameInitData.gameField,
                     gameActionField: this.gameInitData.ctxActionField,
+                    gameDialogField: this.gameInitData.ctxGameDialogField,
                     gameUIField: this.gameInitData.gameUIField,
                 }
             }else{

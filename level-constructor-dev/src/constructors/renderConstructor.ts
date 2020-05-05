@@ -7,6 +7,7 @@ class MainGameConstructor {
     mapDefaultWidth: number;
     mapDefaultHeight: number;
     allRedactorBlock: any[];
+    backgroundDatabase: any[];
     allRedactorDecorationBlock: any[];
     blockDatabase: any[];
     charactersDatabase: any[];
@@ -28,8 +29,10 @@ class MainGameConstructor {
         this.mapDefaultWidth = data.mapWidth;
         this.mapDefaultHeight = data.mapHeight;
         this.allRedactorBlock = data.allRedactorBlock;
+        this.backgroundDatabase = data.backgroundDatabase;
         this.blockDatabase = (data.blockDatabase)? data.blockDatabase : null;
         this.charactersDatabase = (data.charactersDatabase)? data.charactersDatabase : null;
+        this.enemyDatabase = (data.enemyDatabase)? data.enemyDatabase : null;
         this.blockSize = data.blockSize;
         this.maxHorizontalBlocks = data.maxHorizontalBlocks;
         this.maxVerticalBlocks = data.maxVerticalBlocks;

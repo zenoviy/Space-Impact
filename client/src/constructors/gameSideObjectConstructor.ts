@@ -26,7 +26,7 @@ class SideObject{
     animationState: boolean;
     detectFrame: number;
     objectPresent: boolean;
-    speed: number; picturesWidth: number;
+    speed: number; defaultSpeed: number; picturesWidth: number;
     damage: number; objectOwner: string; healthPoint: number;
     isBackground: boolean; explosion: any; pointsPerUnit: number;
     extraObjects: any;
@@ -59,6 +59,7 @@ class SideObject{
             this.detectFrame = 0;
             this.objectPresent = true;
             this.speed = data.speed;
+            this.defaultSpeed = data.speed;
             this.picturesWidth = data.picturesWidth;
             this.damage = (data.damage)? data.damage : null;
             this.objectOwner = (data.objectOwner)? data.objectOwner : null;

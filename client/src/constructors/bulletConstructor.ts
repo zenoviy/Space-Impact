@@ -22,6 +22,7 @@ class BulletConstruct{
     bulletTexture: string;
     objectOwner: string;
     bulletSpeed: number;
+    defaultSpeed: number;
     width: number; height: number;
     damage: number;
     objectPresent: boolean;
@@ -52,6 +53,7 @@ class BulletConstruct{
         this.bulletTexture = data.bulletTexture;
         this.objectOwner = data.objectOwner;
         this.bulletSpeed = data.bulletSpeed;
+        this.defaultSpeed = data.speed;
         this.width = data.width; this.height = data.height;
         this.damage = data.damage;
         this.id = new Date().getTime();

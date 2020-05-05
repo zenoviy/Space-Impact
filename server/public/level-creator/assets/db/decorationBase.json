@@ -1,0 +1,37 @@
+[
+    {
+        "id": "block_1",
+        "collision": false,
+        "texture": "/level-creator/assets/block/block-1.png",
+        "isDestroy": false,
+        "type": "wall"
+    },
+    {
+        "id": "block_9",
+        "collision": false,
+        "texture": "/level-creator/assets/block/brick-map.png",
+        "isDestroy": false,
+        "type": "wall"
+    },
+    {
+        "id": "block_9",
+        "collision": false,
+        "texture": "/level-creator/assets/block/brick-decor-1.png",
+        "isDestroy": false,
+        "type": "wall"
+    },
+    {
+        "id": "block_10",
+        "collision": false,
+        "texture": "/level-creator/assets/block/brick-window-1.png",
+        "isDestroy": false,
+        "type": "wall"
+    },
+    {
+        "id": "block_10",
+        "collision": false,
+        "texture": "/level-creator/assets/block/brick-window-2.png",
+        "isDestroy": false,
+        "type": "wall"
+    }
+]

@@ -174,13 +174,12 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
                         saveDataItem: saveDataItem,
                         mainGameObject: mainGameObject,
                         text: `Load save: ${saveDataItem.saveName} ?`
-                    })/**/
+                    })
                     break
                 case 'overwrite-save':
                     process.env.OVERWRITE_SAVE = (process.env.OVERWRITE_SAVE === 'true')? 'false' : 'true';
                     if(process.env.OVERWRITE_SAVE) addClassList(contextElement, 'selected-overwrite-data')
 
-                    //overwriteSaveData({currentSave: saveDataItem, mainGameObject: mainGameObject})
                     createNewDialogWindow({
                         parentElement: parrentElement,
                         callback: overwriteSaveData,
@@ -265,8 +264,10 @@ function loadSaveProcedure({mainGameObject, currentSave}){
         ctx: mainGameObject.gameInitData.ctx,
         gameField: mainGameObject.gameInitData.gameField,
         gameActionField: mainGameObject.gameInitData.gameActionField,
+        gameDialogField: mainGameObject.gameInitData.gameDialogField,
         gameUIField: mainGameObject.gameInitData.gameUIField,
         ctxActionField: mainGameObject.gameInitData.ctxActionField,
+        ctxGameDialogField: mainGameObject.gameInitData.ctxGameDialogField,
         ctxUIField: mainGameObject.gameInitData.ctxUIField,
         soundObject: mainGameObject.gameInitData.gameData.levelSounds.soundObject,
         shopArea: mainGameObject.shopArea
@@ -293,7 +294,7 @@ function loadSaveProcedure({mainGameObject, currentSave}){
             return loadMapElement
         });
 
-        save.gameInitData.allGameBullets = save.gameInitData.allGameBullets.map( item => { 
+        save.gameInitData.allGameBullets = save.gameInitData.allGameBullets.map( item => {
             let loadMapElement = backToObject({data: item, constructor: constructor.BulletConstruct})
             loadMapElement.img = new Image();
             loadMapElement.loadTexture()
@@ -301,7 +302,7 @@ function loadSaveProcedure({mainGameObject, currentSave}){
         });
 
         if(save.gameInitData.dynamicLevelMapBlocks){
-            save.gameInitData.dynamicLevelMapBlocks = save.gameInitData.dynamicLevelMapBlocks.map( item => { 
+            save.gameInitData.dynamicLevelMapBlocks = save.gameInitData.dynamicLevelMapBlocks.map( item => {
                 let loadMapElement = backToObject({data: item, constructor: constructor.DynamicBlockConstructor})
                 loadMapElement.img = new Image();
                 loadMapElement.loadTexture()
@@ -343,8 +344,10 @@ function loadSaveProcedure({mainGameObject, currentSave}){
     save.gameInitData.ctx = datanotToChange.ctx;
     save.gameInitData.gameField = datanotToChange.gameField;
     save.gameInitData.gameActionField = datanotToChange.gameActionField;
+    save.gameInitData.gameDialogField = datanotToChange.gameDialogField
     save.gameInitData.gameUIField = datanotToChange.gameUIField;
     save.gameInitData.ctxActionField = datanotToChange.ctxActionField;
+    save.gameInitData.ctxGameDialogField = datanotToChange.ctxGameDialogField;
     save.gameInitData.ctxUIField = datanotToChange.ctxUIField;
     save.gameInitData.mapKeyCode = {};
     save.gameInitData.gamePause = true;

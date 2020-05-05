@@ -1,6 +1,6 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 
-function gameLoadMenu(data: any,ctx: any, width: number, height: number, pictureDirrection: any){
+function gameLoadMenu(data: any,ctx: any, width: number, height: number, pictureDirection: any){
     return data || [
         {
             name: "Start button",
@@ -53,7 +53,7 @@ function gameLoadMenu(data: any,ctx: any, width: number, height: number, picture
                 radius: null,
             },
             loadPicture(){
-                this.properties.background.src = pictureDirrection + 'misc/logo-1024x1024.png';
+                this.properties.background.src = pictureDirection + 'misc/logo-1024x1024.png';
             },
             init: init,
             getObjectPosition: getUIObjectPosition

@@ -5,7 +5,11 @@
         "description": "spawn point of player",
         "type": "spawner",
         "collision": false,
-        "innerObject": "main_character"
+        "innerObject": "main_character",
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Find the way to finish this level"
+        }
     },
     {
         "id": "escape_door",
@@ -13,6 +17,7 @@
         "description": "door to escape the level",
         "type": "exit",
         "collision": false,
+        "backgroundTexture": null,
         "rules": {
             "require": "computer_data",
             "contain": "exit",
@@ -27,6 +32,7 @@
         "description": "computer with data",
         "type": "terminal_object",
         "collision": false,
+        "backgroundTexture": null,
         "rules": {
             "tips": "Press 'E' to collect the data",
             "require": null,
@@ -47,6 +53,7 @@
         "constructorValueOfMove": 150,
         "currentDirection": true,
         "constructorDirection": true,
+        "backgroundTexture": null,
         "type": "elevator",
         "collision": true
     }

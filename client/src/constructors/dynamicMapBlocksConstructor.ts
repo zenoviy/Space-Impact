@@ -16,7 +16,10 @@ class DynamicBlockConstructor {
     xTarget: number; yTarget: number;
     verticalSpeed: number;
     horizontalSpeed: number;
+    defaultSpeed: number;
     index: number;
+    mapSizeHorizontal: number;
+    mapSizeVertical: number;
 
     moveMap: any;
     placeEnemyes: any;
@@ -28,6 +31,8 @@ class DynamicBlockConstructor {
         this.y = data.y;
         this.xTarget = data.x;
         this.yTarget = data.y;
+        this.mapSizeHorizontal = 0;
+        this.mapSizeVertical = 0;
         this.xMove = data.x;
         this.yMove = data.y;
         this.width = data.width;
@@ -38,9 +43,11 @@ class DynamicBlockConstructor {
         this.img = new Image();
         this.img.src = process.env.HOST + data.details.texture;
         this.sx = 0; this.sy = 0;
-        this.sWidth = data.width; this.sHeight = data.height;
+        this.sWidth = data.width;
+        this.sHeight = data.height;
         this.verticalSpeed = 0;
         this.horizontalSpeed = 0;
+        this.defaultSpeed = data.speed;
         this.index = data.index;
     }
 }

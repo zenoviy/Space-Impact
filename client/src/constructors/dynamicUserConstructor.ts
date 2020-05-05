@@ -3,6 +3,7 @@ import { loadTexture } from '../engine/gameSideObjectsModule';
 import { enemyAnimation } from '../enemies/enemiesModules';
 import { changeAnimationParameters,
     changeVerticalAnimationPicture } from '../engine/dynamicLevels/playerUnitModule';
+import { bulletSpeed } from '../engine/bulletsModule';
 
 class DynamicUserConstructor {
     x: number; y: number;
@@ -30,12 +31,22 @@ class DynamicUserConstructor {
     numberOfItems: number;
     detectFrame: number;
     isRun: boolean;
+    onElevator: boolean;
+    xPos: number;
+    data: any;
+    isShot: boolean;
+    defaultAngle: number;
+    shotAngle: number;
+    xAdj: number;
+    shotState: boolean;
+    objectOwner: string;
 
     placeEnemyes: any;
     loadTexture: any;
     enemyAnimation: any;
     changeAnimationParameters: any;
     changeVerticalAnimationPicture: any;
+    bulletSpeed: any;
     ///  enemyAnimation
     constructor({...data}){
         this.x = (data.x)? data.x: window.innerWidth/2 - data.width/2;
@@ -61,11 +72,19 @@ class DynamicUserConstructor {
         this.playerDirectionHorizontal = "right";
         this.playerDirectionVertical = null;
         this.isRun = false;
+        this.onElevator = false;
         this.animations = data.animations;
         this.animationSteps = data.animationSteps;
         this.numberOfVerticalItems = data.numberOfVerticalItems;
         this.numberOfItems = data.numberOfItems;
         this.detectFrame = 0;
+        this.xPos = 0;
+        this.data = data.data;
+        this.isShot = true;
+        this.shotAngle = 360;
+        this.xAdj = 0;
+        this.shotState = false;
+        this.objectOwner = "groundPlayer";
     }
 }
 
@@ -78,6 +97,7 @@ DynamicUserConstructor.prototype.loadTexture = loadTexture;
 DynamicUserConstructor.prototype.enemyAnimation = enemyAnimation;
 DynamicUserConstructor.prototype.changeAnimationParameters = changeAnimationParameters;
 DynamicUserConstructor.prototype.changeVerticalAnimationPicture = changeVerticalAnimationPicture;
+DynamicUserConstructor.prototype.bulletSpeed = bulletSpeed;
 export {
     DynamicUserConstructor
 }

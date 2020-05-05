@@ -138,7 +138,38 @@
         },
         "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
+        "levelBottomPart" : [
+            {
+                "levelMap" : "/public/images/locations/night city/bottom-part-of-ruins.png",
+                "speed": 1.8,
+                "description": "first frame",
+                "imageWidth": 2448,
+                "imageHeight": 3108,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            },
+            {
+                "levelMap" : "/public/images/locations/night city/bottom-part-of-ruins.png",
+                "speed": 1.8,
+                "description": "second frame",
+                "imageWidth": 2448,
+                "imageHeight": 3108,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            }
+        ],
         "levelBackgroundElements" : [
+            {
+                "levelMap" : "/public/images/locations/night city/back.png",
+                "speed": 0,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/back.png",
+                "speed": 0,
+                "description": "second frame"
+            },
             {
                 "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0.2,
