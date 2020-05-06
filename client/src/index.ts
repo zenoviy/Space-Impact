@@ -18,6 +18,7 @@ import { shot, bulletsCreateModule } from './enemies/enemiesModules';
 
 
 
+
 function bulletEngineFunction({gameObject}){
     if(gameObject.gameInitData.allGameBullets.length > 0){
         for(let bullet of gameObject.gameInitData.allGameBullets){
@@ -240,11 +241,17 @@ async function gameDynamicEnemyRender({ gameObject }){
         enemy.placeEnemyes(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 enemy.groundEnemyMove({ mainGameObject: gameObject, levelInformation: levelInformation })
-                await  blockCollision({
+                await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: enemy,
                     callback: objectIntersectionDetect,
                     mainGameObject: gameObject
+                })
+                 enemy.detectPlayer({
+                    mainGameObject: gameObject,
+                    dynamicMainCharacter: dynamicMainCharacter,
+                    allBlocks: allBlocks,
+                    callback: objectIntersectionDetect
                 })
             }
     }
@@ -276,7 +283,7 @@ async function gameDynamicPlayer({ gameObject }){
                     shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player")
                 }
                 dynamicMainCharacter.isRun = false;
-                
+
                await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: dynamicMainCharacter,

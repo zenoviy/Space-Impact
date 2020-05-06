@@ -32,6 +32,7 @@ class DynamicUserConstructor {
     detectFrame: number;
     isRun: boolean;
     onElevator: boolean;
+    onElevatorSpeed: number;
     xPos: number;
     data: any;
     isShot: boolean;
@@ -40,6 +41,7 @@ class DynamicUserConstructor {
     xAdj: number;
     shotState: boolean;
     objectOwner: string;
+    
 
     placeEnemyes: any;
     loadTexture: any;
@@ -70,7 +72,7 @@ class DynamicUserConstructor {
         this.numberOfJump = 2;
         this.inventory = [];
         this.playerDirectionHorizontal = "right";
-        this.playerDirectionVertical = null;
+        this.playerDirectionVertical = "down";
         this.isRun = false;
         this.onElevator = false;
         this.animations = data.animations;

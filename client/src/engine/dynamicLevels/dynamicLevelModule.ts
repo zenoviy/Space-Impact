@@ -79,10 +79,10 @@ function mapGravityInit({mainGameObject, mapObjects, targetObject, constructors}
     
     if(targetObject.groundTouch && !dynamicMainCharacter.onElevator) return false
     if(levelInformation.jumpImpuls != levelInformation.gravity && extraSeconds % 2 === 0){
-        levelInformation.jumpImpuls += 0.5;
+        if(!dynamicMainCharacter.onElevator) levelInformation.jumpImpuls += 0.5;
     }
     if(dynamicMainCharacter.groundTouch){
-        levelInformation.jumpImpuls =  -1;
+        levelInformation.jumpImpuls = (dynamicMainCharacter.onElevatorSpeed)?  dynamicMainCharacter.onElevatorSpeed/4 : levelInformation.gravity/2 * -1;
     }
     if(dynamicMainCharacter.leftWallTouch || dynamicMainCharacter.rightWallTouch){
         levelInformation.horizontalSpeed = 0;
@@ -173,12 +173,12 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     if(this.objectOwner != "groundEnemy"){
         //console.log(x, y , this.height, this.width , target.width, isWall, distance)
     }
-    console.log(collision, isWall, isBottomWall)
+    //console.log(collision, isWall, isBottomWall)
     //console.log(x, y , this.height, this.width , target.width, isWall, distance)
 
     //if( (y > this.height || x > this.width )  && !isWall && distance < this.width && this.objectOwner != "groundEnemy" ||
     //    this.objectOwner === "groundEnemy" && y > 0 && !isWall && distance < this.width){
-    if(collision && !isWall && distance < this.width && this.objectOwner != "groundEnemy" ||
+    if(this.y < target.y && collision && !isWall && distance < this.width && this.objectOwner != "groundEnemy" ||
         this.objectOwner === "groundEnemy" && y > 0 && !isWall && distance < this.width){
             //console.log('Bottom side of block', target)
     //if(this.y < target.y && this.y + this.height < target.y + target.height && this.x < target.x && this.x + this.width > target.x ||
@@ -246,8 +246,14 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
             }
     }
 
-    //console.log(y , object.height , y > 0 , !isWall, distance)
-    if(y > (target.height * -1) && y < 0 && !isBottomWall  && distance < this.width/2){
+    //console.log(y , object.height , y > 0 , !isWall, distance, isBottomWall)
+    if(this.objectOwner != "groundEnemy"){
+       // console.log(target.y, target.y + target.height, this.y, this.y + this.height, collision, isBottomWall, distance, this.width/2)
+    }
+    
+    //if(y > (target.height * -1) && y < 0 && !isBottomWall  && distance < this.width/2 && collision){
+    if(target.y + target.height > this.y && this.y + this.height > target.y + target.height &&
+         !isBottomWall  && collision){
        // console.log('Top side of block')
         if(target.details){
             if(target.details.type === 'elevator' ){
@@ -325,7 +331,7 @@ function displayText({ mainGameObject, player, item }){
 
 function interactWithObjects({ mainGameObject, constructors }){
 
-    console.log(mainGameObject.mapNearActiveElement, mainGameObject.gameInitData.gameData.groundPlayerCharacter, process.env.GROUND_ACTIVE_BLOCK_IN_RANGE)
+    //console.log(mainGameObject.mapNearActiveElement, mainGameObject.gameInitData.gameData.groundPlayerCharacter, process.env.GROUND_ACTIVE_BLOCK_IN_RANGE)
     if(process.env.GROUND_ACTIVE_BLOCK_IN_RANGE === 'true'){
         let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
 
@@ -334,7 +340,7 @@ function interactWithObjects({ mainGameObject, constructors }){
             searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
         })
 
-        console.log(groundPlayer.inventory, 22)
+        //console.log(groundPlayer.inventory, 22)
         if( mainGameObject.mapNearActiveElement.details.rules.contain && !mainGameObject.mapNearActiveElement.details.rules.require ||
             mainGameObject.mapNearActiveElement.details.rules.require && requireData ){
             if( mainGameObject.mapNearActiveElement.details.rules.contain == 'exit' ){
@@ -380,7 +386,8 @@ function openInventory(){
 
 function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player }){
     let gravity = levelInformation.gravity;
-    levelInformation.jumpImpuls = (elevator.details.speed/4 + gravity) * -1;
+    levelInformation.jumpImpuls = (elevator.details.speed + gravity) * -1;
+    player.onElevatorSpeed = (elevator.details.speed + gravity) * -1;
 
     player.ceilingTouch = false;
     player.groundTouch = true;

@@ -269,10 +269,19 @@ function loadInnerData({fileContainer, target}){
         <li>height: ${ target.height }</li>
         <li>X: ${ target.x }</li>
         <li>Y: ${ target.y }</li>
+        <
     </ul></div><hr>`;
 
 
 
+    /*"imageWidth": 34,
+    "imageHeight": 45,
+    "animationSteps": 10,
+    "numberOfItems": 1,
+    "numberOfVerticalItems": 1,
+    "playerDirectionHorizontal": "left",
+    "detectRange": 550,
+    "speed": 1,*/
     let itemData = elementCreator({
         tagname: "div",
         classList: 'single-block-description',

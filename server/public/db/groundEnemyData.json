@@ -3,14 +3,17 @@
         "id": "enemy-soldier-1",
         "displayTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
         "texture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
+        "behavior": ["patrol", "destroy", "find"],
         "imageWidth": 34,
         "imageHeight": 45,
         "animationSteps": 10,
         "numberOfItems": 1,
         "numberOfVerticalItems": 1,
         "playerDirectionHorizontal": "left",
-        "speed": 2,
-        "animation": {
+        "detectRange": 550,
+        "speed": 1,
+        "healthPoint": 300,
+        "animations": {
             "stand": {
                 "row": 1,
                 "width": 30,
@@ -53,6 +56,59 @@
                 "animationSteps": 10,
                 "numberOfItems": 3
             }
+        },
+        "data": {
+            "guns": [
+                {
+                    "name": "Machinegun",
+                    "loadImage": "static/shop/weapons/Machinegun.png",
+                    "background": "static/shop/misc/blue-card.png",
+                    "price": 2500,
+                    "title": "Machinegun",
+                    "status": "mechanic gun",
+                    "description": "blaster gun, regular weapon for you spaceship",
+                    "hangarImage": "static/shop/weapons/Machinegun.png",
+                    "texture": "/public/images/misc/bullets/bullet-gun.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 1,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 25,
+                        "height": 25,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/weapon_gun_ak_47_C_30.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "cannon",
+                    "fireRepead": 3,
+                    "speed": 10,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 105,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 10,
+                    "firePosition": 10,
+                    "firePositionX": -20,
+                    "defaultAngle": 0
+                }
+            ]
         }
     }
 ]

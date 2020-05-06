@@ -88,7 +88,7 @@ function changeAnimationParameters(){
         this.img.src = __dirname + this.animations.run.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.run })
     }
-    else if(this.isRun === false && this.groundTouch){
+    else if(this.isRun === false && this.groundTouch || this.onElevator){
         if(this.numberOfItems != this.animations.stand.numberOfItems){
             renewAnimation.call(this)
         }
@@ -171,6 +171,12 @@ function groundPlayerShot({ groundPlayer, event }){
     if(groundPlayer.playerDirectionHorizontal === "left" && angle > 90 && angle <= 270)return angle
     else if(groundPlayer.playerDirectionHorizontal === "right" && angle > 270 && angle <= 360 || groundPlayer.playerDirectionHorizontal === "right" && angle > 0 && angle <= 90) return angle
     else return false
+}
+function groundPlayerLifeSystem(){
+
+}
+
+function groundPlayerCollectable(){
 
 }
 
