@@ -1,9 +1,11 @@
-import { placeEnemyes } from '../enemies/enemiesModules';
+import { placeEnemyes, takeDamage } from '../enemies/enemiesModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 import { enemyAnimation } from '../enemies/enemiesModules';
 import { changeAnimationParameters,
     changeVerticalAnimationPicture } from '../engine/dynamicLevels/playerUnitModule';
 import { bulletSpeed } from '../engine/bulletsModule';
+import { getObjectPosition } from '../engine/engineModules';
+
 
 class DynamicUserConstructor {
     x: number; y: number;
@@ -49,6 +51,8 @@ class DynamicUserConstructor {
     changeAnimationParameters: any;
     changeVerticalAnimationPicture: any;
     bulletSpeed: any;
+    takeDamage: any;
+    getObjectPosition: any;
     ///  enemyAnimation
     constructor({...data}){
         this.x = (data.x)? data.x: window.innerWidth/2 - data.width/2;
@@ -100,6 +104,8 @@ DynamicUserConstructor.prototype.enemyAnimation = enemyAnimation;
 DynamicUserConstructor.prototype.changeAnimationParameters = changeAnimationParameters;
 DynamicUserConstructor.prototype.changeVerticalAnimationPicture = changeVerticalAnimationPicture;
 DynamicUserConstructor.prototype.bulletSpeed = bulletSpeed;
+DynamicUserConstructor.prototype.takeDamage = takeDamage;
+DynamicUserConstructor.prototype.getObjectPosition = getObjectPosition;
 export {
     DynamicUserConstructor
 }

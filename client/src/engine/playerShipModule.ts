@@ -114,7 +114,7 @@ function shipControl(mainGameObject: any){
 
         if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
         if(mainGameObject.gameInitData.shopActive) return
-        shot.call(userShipData, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player")
+        shot.call(userShipData, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player", "allGameBullets")
     })
     let mouseClickState = false;
     let shotInterval;
@@ -133,7 +133,6 @@ function shipControl(mainGameObject: any){
 
     document.addEventListener("mousedown", (event: any) => {
 
-        
         if(mainGameObject.gameInitData.dynamicLevelsActive){
             let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
             groundPlayer.shotState = true;
@@ -174,7 +173,8 @@ function playerGunsOperate({ userShipData, mainGameObject, rocketPresent }){
         mainGameObject: mainGameObject,
         owner: 'player',
         BulletConstruct: constructors.BulletConstruct,
-        SoundCreator: constructors.SoundCreator
+        SoundCreator: constructors.SoundCreator,
+        bulletArray: "allGameBullets"
     })
     if(userShipData.data.inventory[rocketPresent.index].grapplePower.number <= 0){
         replaceItemFromStorage({index: rocketPresent.index, storage: userShipData.data.inventory, value: null})
@@ -331,6 +331,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     for(let enemy of allEnemy){
         if(groundPlayer.rightWallTouch || groundPlayer.leftWallTouch) continue
         enemy.x -= xPos;
+        
     }
     mainGameObject.mapNearActiveElement = null;
     playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })

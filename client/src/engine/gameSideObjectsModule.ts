@@ -208,7 +208,7 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
     let angle = findAngleToShip.call(this, { closestUnit: closestUnit })
 
     this.shotAngle = angle;
-    this.shot(BulletConstruct, mainGameObject, SoundCreator, owner)
+    this.shot(BulletConstruct, mainGameObject, SoundCreator, owner, "allGameBullets")
 }
 
 export {

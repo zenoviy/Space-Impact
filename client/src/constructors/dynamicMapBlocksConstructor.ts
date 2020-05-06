@@ -1,7 +1,9 @@
-import { placeEnemyes } from '../enemies/enemiesModules';
+import { placeEnemyes, takeDamage } from '../enemies/enemiesModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 import { elevatorMove } from '../engine/dynamicLevels/dynamicLevelModule';
 import { enemyAnimation } from '../enemies/enemiesModules';
+
+
 
 class DynamicBlockConstructor {
     x: number; y: number;
@@ -26,13 +28,14 @@ class DynamicBlockConstructor {
     loadTexture: any;
     elevatorMove: any;
     enemyAnimation: any;
+    takeDamage: any;
     constructor({ ...data }){
         this.x = data.x;
         this.y = data.y;
         this.xTarget = data.x;
         this.yTarget = data.y;
-        this.mapSizeHorizontal = 0;
-        this.mapSizeVertical = 0;
+        this.mapSizeHorizontal = (data.mapSizeHorizontal)? data.mapSizeHorizontal: 0;
+        this.mapSizeVertical = (data.mapSizeVertical)? data.mapSizeVertical: 0;
         this.xMove = data.x;
         this.yMove = data.y;
         this.width = data.width;
@@ -43,8 +46,8 @@ class DynamicBlockConstructor {
         this.img = new Image();
         this.img.src = process.env.HOST + data.details.texture;
         this.sx = 0; this.sy = 0;
-        this.sWidth = data.width;
-        this.sHeight = data.height;
+        this.sWidth = data.details.imageWidth;
+        this.sHeight = data.details.imageHeight;
         this.verticalSpeed = 0;
         this.horizontalSpeed = 0;
         this.defaultSpeed = data.speed;
@@ -55,6 +58,7 @@ DynamicBlockConstructor.prototype.placeEnemyes = placeEnemyes;
 DynamicBlockConstructor.prototype.loadTexture = loadTexture;
 DynamicBlockConstructor.prototype.elevatorMove = elevatorMove;
 DynamicBlockConstructor.prototype.enemyAnimation = enemyAnimation;
+DynamicBlockConstructor.prototype.takeDamage = takeDamage;
 
 export {
     DynamicBlockConstructor

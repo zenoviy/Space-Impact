@@ -217,14 +217,14 @@ function getLevelUserData(){
 
 
 
-function deleteBullet(bullet){
+function deleteBullet(bullet, bulletArray){
     if(bullet.x > window.innerWidth + 1500
         || bullet.x < (bullet.width + 200) * -1
         || !bullet.objectPresent
         || bullet.y > window.innerHeight + 500
         || bullet.y < 0 - window.innerWidth){
-        let index = this.gameInitData.allGameBullets.indexOf(bullet);
-        this.gameInitData.allGameBullets.splice(index, 1);
+        let index = this.gameInitData[bulletArray].indexOf(bullet);
+        this.gameInitData[bulletArray].splice(index, 1);
     }
 }
 
@@ -366,7 +366,6 @@ async function getImageFromFields({saveGameData, screenshot }){
                 console.log('resolve', resolve)
                 return  resolve
             })
-            
         })
     })
 

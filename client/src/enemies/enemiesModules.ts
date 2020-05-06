@@ -1,4 +1,4 @@
-import * as costructors from '../constructors/index';
+import * as constructors from '../constructors/index';
 import { createImage } from '../view/displayModules';
 import { explosionFire } from '../engine/gameSideObjectsModule';
 import { loadGrabbleToSideObject } from '../engine/gameGrappleObjectsModule';
@@ -85,7 +85,7 @@ function moveEnemyes(moveX: number, moveY: number = 0){
 
 
 
-function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
+function shot(BulletConstruct, mainGameObject, SoundCreator, owner, bulletArray){
     //console.log(1, this, this.isShot )
     if(mainGameObject.gameInitData.gamePause || !this.isShot) return false;
 
@@ -99,13 +99,14 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner){
                 mainGameObject: mainGameObject,
                 owner: owner,
                 BulletConstruct: BulletConstruct,
-                SoundCreator: SoundCreator
+                SoundCreator: SoundCreator,
+                bulletArray: bulletArray
             })
         }
     }
 }
 
-function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, SoundCreator}){
+function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, SoundCreator, bulletArray}){
         let angle = (item.defaultAngle)?
             (item.defaultAngle.isRandom)?
             mainGameObject.gameRandomizer(item.defaultAngle.max - item.defaultAngle.min, item.defaultAngle.min): item.defaultAngle.angle
@@ -137,7 +138,7 @@ function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, Soun
             bullet.loadTexture()
             bullet.sound.soundObject = (bullet.sound)? initSoundObject({SoundCreator: SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps}) : null;
             bullet.img.onload = () => {
-                mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
+                mainGameObject.gameInitData[bulletArray] = mainGameObject.gameInitData[bulletArray].concat(bullet)
             }
 }
 
@@ -173,6 +174,7 @@ function enemyDamageAnimation(){
 }
 
 
+
 function bulletCollision({hitObject, mainGameObject}){
     if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "enemy"||
@@ -189,7 +191,7 @@ function bulletCollision({hitObject, mainGameObject}){
             targetData: this,
             mainGameObject: mainGameObject,
             hitObject: hitObject,
-            SideObject: costructors.SideObject,
+            SideObject: constructors.SideObject,
             explosion: "explosion"
         })
         if( this.type === "nuclear_blast" || this.type === "defence_shield" ){
@@ -201,6 +203,47 @@ function bulletCollision({hitObject, mainGameObject}){
     }
     return true
 }
+
+
+
+
+
+
+
+
+
+
+
+function groundBulletCollision({hitObject, mainGameObject}){
+    if(!mainGameObject.gameInitData.dynamicLevelsActive || !hitObject.details) return true
+    //console.log(1)  this.objectOwner = "groundEnemy";
+    if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.details.collision ||
+    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "groundEnemy" ||
+    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemy" && hitObject.details.collision){
+        //type == "ground"
+        explosionFire({
+            targetData: this,
+            mainGameObject: mainGameObject,
+            hitObject: hitObject,
+            SideObject: constructors.SideObject,
+            explosion: "explosion"
+        })
+
+        this.objectPresent = false;
+        return true
+    }
+    return true
+
+}
+
+
+
+
+
+
+
+
+
 function grappleObjectCollision({ hitObject, mainGameObject }){
     if(this.objectPresent && this.objectOwner == "grappleObject" &&
     hitObject.objectOwner == "player" &&
@@ -214,12 +257,17 @@ function grappleObjectCollision({ hitObject, mainGameObject }){
             targetData: this,
             mainGameObject: mainGameObject,
             hitObject: hitObject,
-            SideObject: costructors.SideObject,
+            SideObject: constructors.SideObject,
             explosion: "explosion"
         });
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 }
+
+
+
+
+
 
 function enterToTheShopHangar({ hitObject, mainGameObject }){
     if(this.objectPresent && this.objectOwner == "hangar" &&
@@ -231,9 +279,13 @@ function enterToTheShopHangar({ hitObject, mainGameObject }){
     }
 }
 
-function objectsBouncing(){
 
-}
+
+
+
+
+
+
 
 function playerDamage({ mainGameObject, damage}){
     if(mainGameObject.gameInitData.gameWin) return false
@@ -247,11 +299,23 @@ function playerDamage({ mainGameObject, damage}){
 }
 
 
+
+
+
+
+
+
+
+
+
 // complex enemy animation for damage
 function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     let gameSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let bulletStop = bulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
-    if(!bulletStop) return false
+    let groundBulletStop = groundBulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
+
+
+    if(!bulletStop && !groundBulletStop) return false
 
     grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
     enterToTheShopHangar.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
@@ -290,18 +354,18 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
                 targetData: this,
                 mainGameObject: mainGameObject,
                 hitObject: hitObject,
-                SideObject: costructors.SideObject,
+                SideObject: constructors.SideObject,
                 explosion: "collideExplosionAnimation"
             });
             explosionFire({
                 targetData: this,
                 mainGameObject: mainGameObject,
                 hitObject: hitObject,
-                SideObject: costructors.SideObject,
+                SideObject: constructors.SideObject,
                 explosion: "explosion"
             });
             /// load coins
-            if(this.spawnCoin) this.spawnCoin(mainGameObject, costructors.GrappleObject);
+            if(this.spawnCoin) this.spawnCoin(mainGameObject, constructors.GrappleObject);
             if(this.isBoss) bossEnemyDestruction({mainGameObject: mainGameObject})
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner === "player" && (hitObject.objectOwner === "enemy" || hitObject.objectOwner == "collide")){
@@ -312,11 +376,21 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
             targetData: this,
             mainGameObject: mainGameObject,
             hitObject: hitObject,
-            SideObject: costructors.SideObject,
+            SideObject: constructors.SideObject,
             explosion: "collideExplosionAnimation"
         });
     }else return false
 }
+
+
+
+
+
+
+
+
+
+
 function unitDamage({data, mainGameObject, damage}){
     this.healthPoint -= damage;
     if(this.healthPoint <= 0){
@@ -327,7 +401,7 @@ function unitDamage({data, mainGameObject, damage}){
                 mainGameObject.gameInitData.gameOver = true;
                 mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
                 setTimeout(function(){
-                     mainGameObject.backToStartScreen(costructors)
+                     mainGameObject.backToStartScreen(constructors)
                 }, 3000)
             }
             this.healthPoint = data.source.playerObject.maxHealth;
@@ -337,6 +411,11 @@ function unitDamage({data, mainGameObject, damage}){
         return this.objectPresent = false;
     }
 }
+
+
+
+
+
 
 function bossEnemyDestruction({ mainGameObject }){
     mainGameObject.gameInitData.levelChange = true;
@@ -351,6 +430,10 @@ function spawnCoin(mainGameObject, GrappleObject){
         }
     }
 }
+
+
+
+
 
 
 async function explosionDamage({ hitObject, mainGameObject }){
@@ -381,13 +464,17 @@ async function explosionDamage({ hitObject, mainGameObject }){
                 targetData: enemy,
                 mainGameObject: mainGameObject,
                 hitObject: enemy,
-                SideObject: costructors.SideObject,
+                SideObject: constructors.SideObject,
                 explosion: "explosion"
             })
             enemy.objectPresent = false;
         }
     }
 }
+
+
+
+
 
 
 

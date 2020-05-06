@@ -171,7 +171,7 @@ function dialogWindow( {textData, rejectText, acceptText}, callback, navigation,
             innerContent: `
             <div class="dialog-text">${textData}</div>
             <div id="dialog-button-area" class="dialog-btn-area">
-            <button data-button-id=${acceptText} class="accept-btn btn-main">${acceptText}</button>
+            <button data-button-id=${acceptText} class=" btn-main">${acceptText}</button>
            <button data-button-id="cancel" class="reject-btn btn-main btn-orange-reject">cancel</button>
        </div>`,
             attributeName: 'data-button-id',

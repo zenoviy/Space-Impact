@@ -30,6 +30,7 @@ async function nextLevelDataReload(levelData, constructors){
         allGameSideObjects: [],
         allGameEnemies: [],
         allGameBullets: [],
+        allGroundGameBullets: [],
         mapBackgroundObjects: [],
         dynamicLevelEnemy: [],
         mapKeyCode: {},

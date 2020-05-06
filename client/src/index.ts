@@ -13,7 +13,7 @@ import { createScreenshots } from './engine/engineModules';
 import { mapGravityInit, blockCollision } from './engine/dynamicLevels/dynamicLevelModule';
 import { objectIntersectionDetect } from './enemies/enemiesModules';
 import { syncKeyControl } from './engine/playerShipModule';
-import { shot, bulletsCreateModule } from './enemies/enemiesModules';
+import { shot } from './enemies/enemiesModules';
 
 
 
@@ -26,7 +26,7 @@ function bulletEngineFunction({gameObject}){
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                 bullet.moveBullets(gameObject.gameInitData.gameData.playerObject, gameObject);
 
-                gameObject.deleteBullet(bullet)
+                gameObject.deleteBullet(bullet, "allGameBullets")
                 gameObject.hitDetection({
                     object1: bullet,
                     objectsArr: gameObject.gameInitData.allGameEnemies,
@@ -41,7 +41,6 @@ function bulletEngineFunction({gameObject}){
                         GrappleObject : constructors.GrappleObject
                     })
                 }
-
                 gameObject.hitDetection({
                     object1: bullet,
                     objectsArr: gameObject.gameInitData.allGameSideObjects,
@@ -53,6 +52,63 @@ function bulletEngineFunction({gameObject}){
         }
     }
 }
+
+
+function groundBulletEngineFunction({gameObject}){
+    if(!gameObject.gameInitData.dynamicLevelsActive) return false
+    if(gameObject.gameInitData.allGroundGameBullets.length > 0){
+        for(let bullet of gameObject.gameInitData.allGroundGameBullets){
+            bullet.placeEnemyes(gameObject)
+            if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
+                bullet.moveBullets(gameObject.gameInitData.gameData.playerObject, gameObject);
+
+                gameObject.deleteBullet(bullet, "allGroundGameBullets")
+                gameObject.hitDetection({
+                    object1: bullet,
+                    objectsArr: gameObject.gameInitData.allGameEnemies,
+                    mainGameObject: gameObject,
+                    GrappleObject : constructors.GrappleObject
+                })
+
+                gameObject.hitDetection({
+                    object1: bullet,
+                    objectsArr: gameObject.gameInitData.allGameSideObjects,
+                    mainGameObject: gameObject,
+                    GrappleObject : constructors.GrappleObject
+                })
+
+                gameObject.hitDetection({
+                    object1: gameObject.gameInitData.gameData.groundPlayerCharacter,
+                    objectsArr: [bullet],
+                    mainGameObject: gameObject,
+                    GrappleObject : constructors.GrappleObject
+                })
+
+                gameObject.hitDetection({
+                    object1: bullet,
+                    objectsArr: gameObject.gameInitData.dynamicLevelEnemy,
+                    mainGameObject: gameObject,
+                    GrappleObject : constructors.GrappleObject
+                })
+
+                gameObject.hitDetection({
+                    object1: bullet,
+                    objectsArr: gameObject.gameInitData.dynamicLevelMapBlocks,
+                    mainGameObject: gameObject,
+                    GrappleObject : constructors.GrappleObject
+                })
+                gameObject.hitDetection({
+                    object1: bullet,
+                    objectsArr: gameObject.gameInitData.dynamicLevelEnemy,
+                    mainGameObject: gameObject,
+                    GrappleObject : constructors.GrappleObject
+                })
+                bullet.enemyAnimation();
+            }
+        }
+    }
+}
+
 function enemyEngineFunction({gameObject}){
     if(gameObject.gameInitData.allGameEnemies.length > 0){
         for(let enemy of gameObject.gameInitData.allGameEnemies){
@@ -64,7 +120,7 @@ function enemyEngineFunction({gameObject}){
                     y: gameObject.gameInitData.gameData.playerObject.y
                 }, gameObject);
                 enemy.enemyAnimation(true);
-                enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "enemy")
+                enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "enemy", "allGameBullets")
                 gameObject.deleteObjects(enemy )
                 gameObject.hitDetection({
                     object1: gameObject.gameInitData.gameData.playerObject,
@@ -223,6 +279,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
     for(let block of allBlocks){
         if(!block) continue
             if(block.details.type === 'enemy_spawner') continue
+            if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
             block.placeEnemyes(gameObject)
     }
 }
@@ -232,6 +289,7 @@ async function gameDynamicEnemyRender({ gameObject }){
     let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
     let dynamicMainCharacter = gameObject.gameInitData.gameData.groundPlayerCharacter;
     let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
+    let extraSeconds = gameObject.gameInitData.gameExtraSeconds;
 
     //levelInformation.jumpImpuls;
     if(!allEnemy) return false
@@ -247,12 +305,24 @@ async function gameDynamicEnemyRender({ gameObject }){
                     callback: objectIntersectionDetect,
                     mainGameObject: gameObject
                 })
-                 enemy.detectPlayer({
+                enemy.detectPlayer({
                     mainGameObject: gameObject,
                     dynamicMainCharacter: dynamicMainCharacter,
                     allBlocks: allBlocks,
                     callback: objectIntersectionDetect
                 })
+                enemy.groundEnemyDecided({
+                    mainGameObject: gameObject,
+                    allBlocks: allBlocks
+                })
+                enemy.groundEnemyPathFinder({
+                    mainGameObject: gameObject,
+                    allBlocks: allBlocks
+                })
+                enemy.groundEnemyShot({mainGameObject: gameObject, allBlocks: allBlocks, callback: shot})
+               /* if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
+                    shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
+                }*/
             }
     }
    // dynamicMainCharacter.xPos = 0;
@@ -278,9 +348,8 @@ async function gameDynamicPlayer({ gameObject }){
                 dynamicMainCharacter.enemyAnimation()
 
 
-                if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0){
-                   // console.log(dynamicMainCharacter, '<<')
-                    shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player")
+                if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
+                    shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }
                 dynamicMainCharacter.isRun = false;
 
@@ -476,11 +545,12 @@ function initAppGlobalVariable(){
         process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
         enemyEngineFunction({ gameObject: gameObject })
 
-        gameDynamicLevelBoxRender({ gameObject: gameObject })
         bulletEngineFunction({ gameObject: gameObject })
+        gameDynamicLevelBoxRender({ gameObject: gameObject })
+
         gameDynamicEnemyRender({ gameObject: gameObject })
         gameDynamicPlayer({ gameObject: gameObject })
-
+        groundBulletEngineFunction({ gameObject: gameObject })
 
         syncKeyControl({ mainGameObject: gameObject })
 

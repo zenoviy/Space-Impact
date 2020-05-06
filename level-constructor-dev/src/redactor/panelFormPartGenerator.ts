@@ -269,7 +269,7 @@ function loadInnerData({fileContainer, target}){
         <li>height: ${ target.height }</li>
         <li>X: ${ target.x }</li>
         <li>Y: ${ target.y }</li>
-        <
+
     </ul></div><hr>`;
 
 

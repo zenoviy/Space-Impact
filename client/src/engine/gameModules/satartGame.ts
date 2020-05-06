@@ -170,6 +170,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             allGameSideObjects: [],
             allGameEnemies: [],
             allGameBullets: [],
+            allGroundGameBullets: [],
             mapBackgroundObjects: [],
             warpObjects: [],
             mapKeyCode: {},

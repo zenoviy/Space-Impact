@@ -310,6 +310,27 @@ function loadSaveProcedure({mainGameObject, currentSave}){
             });
         }
 
+//////
+
+        if(save.gameInitData.allGroundGameBullets){
+            save.gameInitData.allGroundGameBullets = save.gameInitData.allGroundGameBullets.map( item => {
+                let loadMapElement = backToObject({data: item, constructor: constructor.BulletConstruct})
+                loadMapElement.img = new Image();
+                loadMapElement.loadTexture()
+                return loadMapElement
+            });
+        }
+
+        if(save.gameInitData.dynamicLevelEnemy){
+            save.gameInitData.dynamicLevelEnemy = save.gameInitData.dynamicLevelEnemy.map( item => {
+                let loadMapElement = backToObject({data: item, constructor: constructor.DynamicEnemyConstructor })
+                loadMapElement.img = new Image();
+                loadMapElement.loadTexture()
+                return loadMapElement
+            });
+        }
+
+//////
         save.gameInitData.mapBackgroundObjects = save.gameInitData.mapBackgroundObjects.map( item => {
             let loadMapElement = backToObject({data: item, constructor: constructor.GameBackground})
             loadMapElement.x = (loadMapElement.partOfScreenStatus)? 0 - 1: window.innerWidth + 1;
