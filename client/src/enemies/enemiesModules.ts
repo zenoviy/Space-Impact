@@ -246,6 +246,44 @@ function groundBulletCollision({hitObject, mainGameObject}){
 }
 
 
+
+
+
+
+
+
+function groundLevelBackgroundBulletDetect({hitObject, mainGameObject, GrappleObject}){
+    if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
+    let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    let collision
+    for(let background of allBlocks){
+        collision = objectIntersectionDetect({
+            object: {
+                x: this.x,
+                y: this.y,
+                width: this.width,
+                height: this.height
+            },
+            target: {
+                x: background.x,
+                y: background.y,
+                width: background.width,
+                height: background.height
+            }
+        })
+        if(collision) break
+    }
+    this.atBackground = (collision)? true :false ;
+    hitObject.atBackground = (collision)? true :false;
+    return (collision)? true : false
+}
+
+
+
+
+
+
+
 function groundUnitsDamage({hitObject, mainGameObject}){
     if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
     var levelData = mainGameObject.getLevelUserData()
@@ -268,7 +306,6 @@ function groundUnitsDamage({hitObject, mainGameObject}){
 
     function damageProcedure(){
         if(this.objectOwner != "groundPlayer" && this.healthPoint <= 0){
-            //console.log(this.healthPoint)
             this.objectPresent = false;
         }
         if(this.objectOwner == "groundPlayer" && this.healthPoint <= 0){
@@ -304,12 +341,13 @@ function groundUnitsDamage({hitObject, mainGameObject}){
 
 
 function grappleObjectCollision({ hitObject, mainGameObject }){
-    if(this.objectPresent && this.objectOwner == "grappleObject" &&
-    hitObject.objectOwner == "player" &&
-    !hitObject.hasOwnProperty('bulletType')){
 
-        if( this.type === "nuclear_blast" || this.type === "defence_shield" ){
-            return false};
+    if(this.objectPresent && this.objectOwner == "grappleObject" &&
+    hitObject.objectOwner == "player" && !hitObject.hasOwnProperty('bulletType') ||
+    this.objectPresent && this.objectOwner == "grappleObject" &&
+    hitObject.objectOwner == "groundPlayer" && !hitObject.hasOwnProperty('bulletType')){
+
+        if( this.type === "nuclear_blast" || this.type === "defence_shield" ) return false
         this.objectPresent = false;
         mainGameObject.gameInitData.grappleObjectOnScreen = false;
         explosionFire({
@@ -322,7 +360,6 @@ function grappleObjectCollision({ hitObject, mainGameObject }){
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 }
-
 
 
 
@@ -368,19 +405,23 @@ function playerDamage({ mainGameObject, damage}){
 
 
 // complex enemy animation for damage
-function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
+async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     let gameSeconds = mainGameObject.gameInitData.gameExtraSeconds;
-    let bulletStop = bulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
     let groundBulletStop = groundBulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
+    let backgroundTextureDetect = await groundLevelBackgroundBulletDetect.call(this, {hitObject: hitObject, mainGameObject: mainGameObject})
 
-    if(!bulletStop && !groundBulletStop) return false
+    groundUnitsDamage.call(this, {hitObject: hitObject, mainGameObject: mainGameObject, GrappleObject: GrappleObject})
+    grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
+    if(backgroundTextureDetect || this.atBackground || hitObject.atBackground) return false
+    let bulletStop = bulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
 
-    groundUnitsDamage.call(this, {hitObject: hitObject, mainGameObject: mainGameObject})
+
+    if(!bulletStop && !groundBulletStop ) return false
+
 
     grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
     enterToTheShopHangar.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
 
-    //if()
     /* Hit detection collision */
     if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "hangarbullet" ||
@@ -392,15 +433,15 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
      ){
         if(hitObject.objectOwner === "player" && hitObject.type != "nuclear_blast" &&
         hitObject.objectOwner === "player" && hitObject.type != "defence_shield" && hitObject.objectNameFlag != "bullet"){
-             if(this.x < hitObject.x + (hitObject.width/2) &&
-             hitObject.x + hitObject.width/2 < this.x + (this.width)){
-                 hitObject.x -= hitObject.speed;
-             }else if(
+            if(this.x < hitObject.x + (hitObject.width/2) &&
+            hitObject.x + hitObject.width/2 < this.x + (this.width)){
+                hitObject.x -= hitObject.speed;
+            }else if(
              hitObject.x > this.x + (this.width)){
                 hitObject.x += hitObject.speed;
-             }else{
-                 hitObject.x -= hitObject.speed;
-             }
+            }else{
+                hitObject.x -= hitObject.speed;
+            }
         }
         unitDamage.call(this, {
             data: null,

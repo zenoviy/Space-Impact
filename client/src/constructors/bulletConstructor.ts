@@ -40,6 +40,7 @@ class BulletConstruct{
     degree: number;
     objectNameFlag: string;
     radius: number;
+    atBackground: boolean;
 
     moveBullets: any;
     getObjectPosition: any;
@@ -70,6 +71,7 @@ class BulletConstruct{
         this.numberOfItems = data.numberOfItems;
         this.numberOfVerticalItems = data.numberOfVerticalItems;
         this.detectFrame = 0;
+        this.atBackground = false;
 
         this.sWidth = data.sWidth; this.sHeight = data.sHeight;
         this.sound = (data.sound)? data.sound: null;

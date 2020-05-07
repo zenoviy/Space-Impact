@@ -294,25 +294,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
                 mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
                 block.x -= xPos;
         }
-        if(groundPlayer.leftWallTouch){
-            //block.x += xPos;
-        }
-        if(groundPlayer.rightWallTouch){
-            //block.x -= xPos;
-        }
-        /*if(Math.sign(xPos) > 0){
-            if(!groundPlayer.leftWallTouch){
-                groundPlayer.isRun = true;
-                mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
-                block.x -= xPos;
-            }
-        }else{
-            if(!groundPlayer.rightWallTouch){
-                groundPlayer.isRun = true;
-                mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
-                block.x -= xPos;
-            }
-        }*/
+
         if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch || yPos && groundPlayer.onElevator){
             if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls +=  4;

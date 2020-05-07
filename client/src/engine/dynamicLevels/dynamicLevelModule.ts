@@ -279,15 +279,12 @@ function useObject({ mainGameObject, player, item }){
 
 function displayText({ mainGameObject, player, item }){
     let contexts = mainGameObject.returnContext()
-    let displayText = '';
-    let tipsText = '';
     mainGameObject.mapNearActiveElement = item;
     let details = item.details
     if(details.rules.requireText){
         renderText(details.rules.requireText, player.x, player.y - 50, 'red')
     }
     if(details.rules.successText && !details.rules.requireText && !details.rules.tips){
-        //console.log(details.rules.successText, details.rules.requireText, 'Rules')
         renderText(details.rules.successText, player.x, player.y - 50, 'white')
     }
     if(details.rules.tips){
@@ -300,7 +297,6 @@ function displayText({ mainGameObject, player, item }){
         let textDivider = displayText.split('*');
 
         textDivider.forEach((text, index) => {
-
             contexts.gameDialogField.shadowColor = 'rgba(0, 0, 0, 1)';
             contexts.gameDialogField.shadowBlur = 4;
 
@@ -313,7 +309,6 @@ function displayText({ mainGameObject, player, item }){
 }
 
 function interactWithObjects({ mainGameObject, constructors }){
-
     //console.log(mainGameObject.mapNearActiveElement, mainGameObject.gameInitData.gameData.groundPlayerCharacter, process.env.GROUND_ACTIVE_BLOCK_IN_RANGE)
     if(process.env.GROUND_ACTIVE_BLOCK_IN_RANGE === 'true'){
         let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
@@ -465,10 +460,14 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
         if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject ||
              item instanceof constructors.GrappleObject  ){
                 if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
-                    item.x = ( groundPlayer.playerDirectionHorizontal === 'right')? item.x - xPos  : item.x - xPos ;
+                    item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPos:
+                    ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
+                    ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
                 }
             //if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos) item.x -= (item.defaultSpeed + xPos);
-            if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch) item.y += (jumpImpuls * -1)
+            if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch){
+                item.y = (item.Grapple)?  item.y - jumpImpuls  : item.y + jumpImpuls * -1;
+            }
         }
     }
     groundPlayer.xPos = 0;

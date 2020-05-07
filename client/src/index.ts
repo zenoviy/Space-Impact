@@ -365,6 +365,12 @@ async function gameDynamicPlayer({ gameObject }){
                     targetObject: dynamicMainCharacter,
                     constructors: constructors
                 })
+                gameObject.hitDetection({
+                    object1: dynamicMainCharacter,
+                    objectsArr: gameObject.gameInitData.allGameSideObjects,
+                    mainGameObject: gameObject,
+                    GrappleObject : constructors.GrappleObject
+                })
         }
     }
 

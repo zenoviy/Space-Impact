@@ -55,6 +55,7 @@ class EnemyObject {
     extraObjects: any[]; collideExplosionAnimation: any;
     changeXposition: boolean; changeSpeed: boolean;
     shotAngle: number;  defaultAngle: any; hitShape: string;
+    atBackground: boolean;
 
     placeEnemyes: any;
     moveEnemyes: any;
@@ -104,6 +105,7 @@ class EnemyObject {
             this.shotAngle = 180;
             this.defaultAngle = (data.defaultAngle)? data.defaultAngle : null;
             this.hitShape = (data.hitShape)? data.hitShape : null;
+            this.atBackground = false;
     }
 }
 

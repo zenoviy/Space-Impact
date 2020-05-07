@@ -20,6 +20,7 @@ async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
     if(randomApear > 10 && target.name != 'goldCoin' || randomApear > 20 && target.name != 'lifepoint') return false
 
     let context = mainGameObject;
+    let objectSpeed = (mainGameObject.gameInitData.dynamicLevelsActive)? -0.1 :  target.speed;
 
     let sideObject = this;
         let objectData = {
@@ -36,7 +37,7 @@ async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
             target: null,
             numberOfItems: target.numberOfItems,
             texture: target.skinName,
-            speed: target.speed,
+            speed: objectSpeed,
             picturesWidth: target.imageWidth,
             healthPoint: target.healthPoint,
             damage: target.damage,
@@ -82,7 +83,7 @@ function addPlayerLife({ allGameSideObjects, playerShipData, mainGameObject }){
     playerShipData.numberOflife += this.grapplePower.value;
 }
 
-function collectCoin({ allGameSideObjects, playerShipData, mainGameObject }){
+function collectCoin({ allGameSideObjects = null, playerShipData = null, mainGameObject }){
     let gameInfo = mainGameObject.showGameInfo(),
     gameData = gameInfo.gameData,
     levelData = gameData.levelData,
