@@ -14,8 +14,11 @@ function explosionFire({targetData, mainGameObject, hitObject, SideObject, explo
             mainGameObject: mainGameObject
         })
     }
+
+    let flameSpeed = (hitObject.objectOwner === 'player')? targetData.speed: (hitObject.objectOwner === 'groundEnemy' || hitObject.objectOwner === 'groundPlayer')? 0: hitObject.speed/2;
+    flameSpeed = (mainGameObject.gameInitData.dynamicLevelsActive && !flameSpeed)? -0.1 : flameSpeed;
     let explosionData = {
-        x: (targetData.objectOwner === 'player')? targetData.x + targetData.width/2  - targetData[explosion].width : targetData.x - targetData[explosion].width,
+        x: (targetData.objectOwner === 'player')? targetData.x + targetData.width/2 - targetData[explosion].width : targetData.x - targetData[explosion].width,
         y: (targetData.objectOwner === 'player')? targetData.y - targetData[explosion].width/2 :
         (targetData.objectOwner === 'collide' || targetData.objectOwner === 'environment')? targetData.y :
         (targetData.objectOwner === 'enemy')?  targetData.y - targetData[explosion].width/2:  targetData.y - targetData[explosion].width,
@@ -30,7 +33,7 @@ function explosionFire({targetData, mainGameObject, hitObject, SideObject, explo
         target: hitObject.objectOwner,
         numberOfItems: targetData[explosion].imageWidth/targetData[explosion].numberOfItems,
         texture: targetData[explosion].texture,
-        speed: (hitObject.objectOwner === 'player')? targetData.speed: hitObject.speed/2,
+        speed: flameSpeed,
         picturesWidth: targetData[explosion].imageWidth,
         sound: targetData[explosion].sound
     }

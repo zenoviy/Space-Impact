@@ -61,6 +61,9 @@ async function nextLevelDataReload(levelData, constructors){
     context.gameInitData.dynamicLevelMapBlocks = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelMap({
         levelMapName: serverNewData.levelData.dynamicBlockMap + '.json',
         constructors: constructors  }) : [];
+    context.gameInitData.dynamicLevelEnemy = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelEnemy({
+        levelDynamicMapBlocks: context.gameInitData.dynamicLevelMapBlocks,
+        constructors: constructors  }) : [];
 
     /*let dynamicLevelMapBlocks: any = context.gameInitData.dynamicLevelMapBlocks;
     context.gameInitData.dynamicLevelEnemy = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelEnemy({

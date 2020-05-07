@@ -116,8 +116,7 @@ function shipControl(mainGameObject: any){
         if(mainGameObject.gameInitData.shopActive) return
         shot.call(userShipData, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player", "allGameBullets")
     })
-    let mouseClickState = false;
-    let shotInterval;
+
 
 
 

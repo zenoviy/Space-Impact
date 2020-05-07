@@ -43,7 +43,9 @@ class DynamicUserConstructor {
     xAdj: number;
     shotState: boolean;
     objectOwner: string;
-    
+    objectPresent: boolean;
+    healthPoint: number;
+    defaultHealth: number;
 
     placeEnemyes: any;
     loadTexture: any;
@@ -91,12 +93,12 @@ class DynamicUserConstructor {
         this.xAdj = 0;
         this.shotState = false;
         this.objectOwner = "groundPlayer";
+        this.objectPresent = true;
+        this.healthPoint = data.healthPoint;
+        this.defaultHealth = data.healthPoint;
     }
 }
 
-/*"animationSteps": 10,
-        "numberOfItems": 2,
-        "numberOfVerticalItems": 2,*/
 
 DynamicUserConstructor.prototype.placeEnemyes = placeEnemyes;
 DynamicUserConstructor.prototype.loadTexture = loadTexture;

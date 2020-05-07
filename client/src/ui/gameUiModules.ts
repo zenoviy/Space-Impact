@@ -99,9 +99,10 @@ function showPauseWindow(){
     ];
     this.initUiElements(drawMethods, gamePause)
 }
-function showGameStats({ playerObject }){
+function showGameStats({ playerObject, mainGameObject }){
     let data = this.getLevelUserData();
     data.playerObject = playerObject;
+    data.mainGameObject = mainGameObject;
     let drawMethods = [
         uiImage,
         uiText,

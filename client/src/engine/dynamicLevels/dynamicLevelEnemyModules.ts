@@ -1,9 +1,9 @@
 /*
 
     - ai logic
-        - patrol
-        - when detect attack
-        - shot when in sight
+    v- patrol
+     V   - when detect attack
+      V  - shot when in sight
 
 */
 import { getData } from '../../server/serverRequestModules';
@@ -22,7 +22,7 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         headers: null
     })
 
-    let allEnemyOnMap = levelDynamicMapBlocks.filter(block => {
+    let allEnemyOnMap = levelDynamicMapBlocks.filter( block => {
         return block.details.type === 'enemy_spawner';
     })
     if(!allEnemyOnMap) return false
@@ -31,41 +31,33 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         let currentEnemyServerData = resultGroundEnemyData.find(item => item.id === enemyBlock.details.name)
         let prepareData = Object.assign(enemyBlock, currentEnemyServerData )
         prepareData.texture = currentEnemyServerData.texture
+        enemyBlock.details.collision = false;
         return new constructors.DynamicEnemyConstructor({...prepareData})
     })
-    levelDynamicMapBlocks = levelDynamicMapBlocks.map(block => {
+    levelDynamicMapBlocks = levelDynamicMapBlocks.map( block => {
         return block.details.type != 'enemy_spawner';
     })
-    console.log("Blocks",  dynamicEnemy)
+    //console.log("Blocks",  dynamicEnemy)
     return dynamicEnemy
 }
 
-/*
-dynamicMainCharacter.groundTouch && dynamicMainCharacter.xPos &&
-!dynamicMainCharacter.leftWallTouch && !dynamicMainCharacter.rightWallTouch  ||
-!dynamicMainCharacter.groundTouch && dynamicMainCharacter.xPos &&
-!dynamicMainCharacter.leftWallTouch && !dynamicMainCharacter.rightWallTouch ||
-dynamicMainCharacter.ceilingTouch && !dynamicMainCharacter.leftWallTouch && !dynamicMainCharacter.rightWallTouch){
-enemy.x -= dynamicMainCharacter.xPos;
-*/
 
 async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformation: levelInformation }){
+    let dynamicMainCharacter = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
 
-   //console.log(this.leftWallTouch, this.rightWallTouch)
     if(this.playerInRange && this.targetAngle > 90 && this.targetAngle <= 270) this.playerDirectionHorizontal = 'left';
     if(this.playerInRange && this.targetAngle > 270 || this.playerInRange && this.targetAngle >= 0 && this.targetAngle <= 90) this.playerDirectionHorizontal = 'right';
 
     if(this.leftWallTouch)this.playerDirectionHorizontal = 'right';
     if(this.rightWallTouch)this.playerDirectionHorizontal = 'left';
 
-    if(this.playerDirectionHorizontal === 'right' && !this.isStop){
-        this.x += this.speed;
-    }
-    if(this.playerDirectionHorizontal === 'left' && !this.isStop){
-        this.x -= this.speed;
-    }
-    if(!this.groundTouch){
-        this.y += levelInformation.jumpImpuls;
+    if(this.playerDirectionHorizontal === 'right' && !this.isStop) this.x += this.speed;
+    if(this.playerDirectionHorizontal === 'left' && !this.isStop) this.x -= this.speed;
+    if(!this.groundTouch && dynamicMainCharacter.groundTouch){
+        this.y += levelInformation.jumpImpuls
+    };
+    if(!this.groundTouch && !dynamicMainCharacter.groundTouch){
+        this.y += levelInformation.jumpImpuls + levelInformation.gravity;
     }
 }
 
@@ -137,10 +129,10 @@ async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, ca
             if(findBarrier) break
         }
         if(findBarrier) return false
-        console.log('I see you')
+        //console.log('I see you')
         this.playerInRange = true;
         this.targetAngle = angle;
-        //console.log(angle, distanceX, distanceY) // objectIntersectionDetect
+        
     }
 }
 
@@ -200,13 +192,15 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         nextGroundBlock
         nextWallBlock
     */
-   let currentBlockIndex = this.currentGroundBlock.index;
-   let indexOfNextBlock = (this.playerDirectionHorizontal === 'right')?
-   currentBlockIndex + parseInt(this.currentGroundBlock.mapSizeVertical):
-   currentBlockIndex - parseInt(this.currentGroundBlock.mapSizeVertical);
+   let currentBlockIndex = (this.currentGroundBlock)? this.currentGroundBlock.index : null;
+   if(currentBlockIndex){
+        let indexOfNextBlock = (this.playerDirectionHorizontal === 'right')?
+        currentBlockIndex + parseInt(this.currentGroundBlock.mapSizeVertical):
+        currentBlockIndex - parseInt(this.currentGroundBlock.mapSizeVertical);
 
-   let findHorizontalBlock = allBlocks.find(block =>{ return block.index === indexOfNextBlock})
-   this.nextGroundBlock = (findHorizontalBlock)? findHorizontalBlock: null;
+        let findHorizontalBlock = allBlocks.find(block =>{ return block.index === indexOfNextBlock})
+        this.nextGroundBlock = (findHorizontalBlock)? findHorizontalBlock: null;
+   }
 
    //console.log(this.currentGroundBlock, findHorizontalBlock)
     //this.nextGroundBlock = (this.playerDirectionHorizontal === 'right')? allBlocks.indexOf(this.currentGroundBlock) + this.currentGroundBlock.mapSizeHorizontal: 
@@ -216,11 +210,27 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
 }
 
 
-function groundEnemyShot({ mainGameObject, allBlocks, callback }){
+function groundEnemyShot({ mainGameObject, allBlocks, callback, constructors }){
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     // when see character enemy stop shot to its location
 /* if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
                     shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }*/
+    //console.log(this)
+    //shotProbability
+    // unitRandomize
+    //isRun
+    // shotAngle
+    // data.guns
+    // playerInRange
+    if(this.shotAngle && this.playerInRange && this.objectPresent){
+        //console.log('Shoot', this.shotAngle)
+        this.isShot = true;
+        this.shotAngle = this.targetAngle;
+        callback.call(this, constructors.BulletConstruct,
+            mainGameObject, constructors.SoundCreator,
+            "groundEnemyBullet", "allGroundGameBullets")
+    }
 }
 function groundEnemyAnimationChange(){
 

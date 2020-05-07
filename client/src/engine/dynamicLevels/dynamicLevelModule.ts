@@ -18,7 +18,7 @@ async function loadLevelMap({ levelMapName, constructors }){
     })
 
 
-    let spawnPoint = resultData.allMapObjects.find(obj => {
+    let spawnPoint = await resultData.allMapObjects.find(obj => {
         if(obj.details) return obj.details.type === "spawner";
     })
     let xRangeCompensation = window.innerWidth/2 - (spawnPoint.x + spawnPoint.width/2);
@@ -171,7 +171,7 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     if(target.details.type === 'elevator' && this.objectOwner != "groundEnemy" ){
         this.onElevator = true;
     }
-    
+
     if(this.objectOwner != "groundEnemy"){
         //console.log(x, y , this.height, this.width , target.width, isWall, distance)
     }
@@ -443,8 +443,10 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
     let allBullets = mainGameObject.gameInitData.allGameBullets;
     let allGameFlyEnemyes = mainGameObject.gameInitData.allGameEnemies;
     let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
+    let allGroundGameBullets = mainGameObject.gameInitData.allGroundGameBullets;
+    //allGameSideObjects
     let allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects;
-    let allGamesObject = [].concat(allGameBackgroundElements, allGameFlyEnemyes, allBullets)
+    let allGamesObject = [].concat(allGameBackgroundElements, allGameFlyEnemyes, allBullets, allGameSideObjects, allGroundGameBullets)
 
     for(let item of allGamesObject){
         if(item instanceof constructors.GameBackground ){
@@ -455,10 +457,16 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
             continue
         }
         if(item instanceof constructors.EnemyObject){
-            //if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos) item.x -= (item.defaultSpeed + xPos);
+            if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
+                item.x = ( groundPlayer.playerDirectionHorizontal === 'right')? item.x - xPos  : item.x - xPos ;
+            }
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch) item.y += ((jumpImpuls * 0.50)* -1)
         }
-        if(item instanceof constructors.BulletConstruct){
+        if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject ||
+             item instanceof constructors.GrappleObject  ){
+                if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
+                    item.x = ( groundPlayer.playerDirectionHorizontal === 'right')? item.x - xPos  : item.x - xPos ;
+                }
             //if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos) item.x -= (item.defaultSpeed + xPos);
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch) item.y += (jumpImpuls * -1)
         }

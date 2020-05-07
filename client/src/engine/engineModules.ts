@@ -231,7 +231,7 @@ function deleteBullet(bullet, bulletArray){
 
 
 
-async function deleteObjects( object ){
+async function deleteObjects({object, target} ){
     limitationOfSideObjects({ mainGameObject: this })
     if(object.x + object.sWidth < 0 || !object.objectPresent){
         if(object.isSubBoss) process.env.SUB_LOAD_AT_LEVEL = "false";
@@ -239,6 +239,17 @@ async function deleteObjects( object ){
         this.gameInitData.allGameEnemies.splice(index, 1);
     }
 }
+
+
+function deleteObjectsOnDemand({ object, mainGameObject, target }){
+   //if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
+
+    if(!object.objectPresent && target ){
+        let index = mainGameObject.gameInitData[target].indexOf(object);
+        mainGameObject.gameInitData[target].splice(index, 1);
+    }
+}
+
 
 
 function delateSideObject(object){
@@ -340,14 +351,14 @@ function createScreenshots({ mainGameObject }){
 async function getImageFromFields({saveGameData, screenshot }){
     let background = await this.gameInitData.gameField.toDataURL();
     let gameField = await this.gameInitData.gameActionField.toDataURL();
-    let gaeText = await this.gameInitData.gameDialogField.toDataURL();
+    let gameText = await this.gameInitData.gameDialogField.toDataURL();
 
     var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SCREENSHOTS_DIRECTORY : __dirname + process.env.APP_SCREENSHOTS_DIRECTORY;
 
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
-    
+
     let backgroundPicture = await savePictures({picture_64: await background.replace(/^data:image\/png;base64,/, ""),
     filename: 'background', screenshot: false})
 
@@ -355,12 +366,13 @@ async function getImageFromFields({saveGameData, screenshot }){
     filename: 'gameField', screenshot: false})
     .then(async resolve => {
         return await mergeImages(
-            [background, gameField], {
+            [background, gameField, gameText], {
             width: window.innerWidth,
             height: window.innerHeight
           }).then(async pic => {
-            if(screenshot) return await savePictures({picture_64: await pic.replace(/^data:image\/png;base64,/, ""), filename: new Date().getTime(), screenshot: screenshot})
-            //console.log('data:image/png;base64,' + pic.replace(/^data:image\/png;base64,/, ""))
+            if(screenshot) return await savePictures({
+                picture_64: await pic.replace(/^data:image\/png;base64,/, ""),
+                filename: new Date().getTime(), screenshot: screenshot})
             return reducePreviewImageSize({ picUrl: 'data:image/png;base64,' + pic.replace(/^data:image\/png;base64,/, "")})
             .then( resolve => {
                 console.log('resolve', resolve)
@@ -368,7 +380,6 @@ async function getImageFromFields({saveGameData, screenshot }){
             })
         })
     })
-
     return res
 }
 
@@ -386,7 +397,6 @@ async function savePictures({picture_64, filename, screenshot}){
             });
         })
     }
-
     return picture_64
 }
 
@@ -513,5 +523,6 @@ export  {
     angleFinder,
     getImageFromFields,
     searchExplosionObject,
-    createScreenshots
+    createScreenshots,
+    deleteObjectsOnDemand
 }

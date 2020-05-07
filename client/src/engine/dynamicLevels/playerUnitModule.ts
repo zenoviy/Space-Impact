@@ -7,23 +7,30 @@
        V - place characters
        V - player collect data
        V - player shoot
-        - place enemy
+       V - place enemy
 
     V - change Game mechanics using current level data
     V- fetch level array with all level blocks
       V  - display all blocks on screen
        V - place player at particular location ( level started )
    V - change background move and level timing
-        - enemy moves waiting and attack player
+       V - enemy moves waiting and attack player
+            - enemy detect empty blocks and stop
+            - switch behavior
            V - !maybe load parts of map!
        V - everything depends on player move
            V - Player on center Map move  right, up or down
            V - simulation of gravity
             V- Player Jump
-            - player shoot using mouse direction
-            - complicated player animation
+            V- player shoot using mouse direction
+            V- complicated player animation
+                - change textures
     V - Level ends when player reach the dor or final object
-    - one hit - one life
+        - grapple coin
+        - grapple life
+        - add minimap
+        - add inventory elements
+    V - one hit - one life
 
 */
 import { getData } from '../../server/serverRequestModules';
@@ -44,9 +51,7 @@ async function initGroundPlayer({ DynamicUserConstructor }){
         }
     })
     if(!character) return false
-
     let user = new DynamicUserConstructor({...character[0]});
-    //console.log(character[0], user)
     return user
 }
 

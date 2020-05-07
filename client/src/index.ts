@@ -9,7 +9,7 @@ import { clearField } from './view/displayModules';
 import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 import { loadShopArea } from './ui/shop/gameShopModule';
 import { saveGameEvents } from './appMenu/saveLoadMenu';
-import { createScreenshots } from './engine/engineModules';
+import { createScreenshots, deleteObjectsOnDemand } from './engine/engineModules';
 import { mapGravityInit, blockCollision } from './engine/dynamicLevels/dynamicLevelModule';
 import { objectIntersectionDetect } from './enemies/enemiesModules';
 import { syncKeyControl } from './engine/playerShipModule';
@@ -121,7 +121,7 @@ function enemyEngineFunction({gameObject}){
                 }, gameObject);
                 enemy.enemyAnimation(true);
                 enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "enemy", "allGameBullets")
-                gameObject.deleteObjects(enemy )
+                gameObject.deleteObjects({ object: enemy, target: ''} )
                 gameObject.hitDetection({
                     object1: gameObject.gameInitData.gameData.playerObject,
                     objectsArr: [enemy],
@@ -298,6 +298,7 @@ async function gameDynamicEnemyRender({ gameObject }){
         if(!enemy) continue
         enemy.placeEnemyes(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
+                deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
                 enemy.groundEnemyMove({ mainGameObject: gameObject, levelInformation: levelInformation })
                 await blockCollision({
                     objectsToCollide: allBlocks,
@@ -319,7 +320,7 @@ async function gameDynamicEnemyRender({ gameObject }){
                     mainGameObject: gameObject,
                     allBlocks: allBlocks
                 })
-                enemy.groundEnemyShot({mainGameObject: gameObject, allBlocks: allBlocks, callback: shot})
+                enemy.groundEnemyShot({mainGameObject: gameObject, allBlocks: allBlocks, callback: shot, constructors: constructors})
                /* if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
                     shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }*/
@@ -379,7 +380,7 @@ function gameUiGameStats({ gameObject }){
         gameObject.showStartWindow()
     }
     if(gameObject.gameInitData.gameStatus){
-        gameObject.showGameStats({playerObject: gameObject.gameInitData.gameData.playerObject})
+        gameObject.showGameStats({playerObject: gameObject.gameInitData.gameData.playerObject, mainGameObject: gameObject})
     }
     if(gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
         gameObject.showPauseWindow()

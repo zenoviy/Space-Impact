@@ -10,10 +10,12 @@
         "numberOfItems": 1,
         "numberOfVerticalItems": 1,
         "playerDirectionHorizontal": "left",
-        "detectRange": 550,
+        "detectRange": 450,
         "speed": 1,
-        "healthPoint": 300,
+        "healthPoint": 80,
         "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
         "animations": {
             "stand": {
                 "row": 1,
@@ -58,6 +60,11 @@
                 "numberOfItems": 3
             }
         },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
         "data": {
             "guns": [
                 {
@@ -67,12 +74,12 @@
                         "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
                         "imageHeight":294,
-                        "animationSteps": 2,
+                        "animationSteps": 1,
                         "numberOfItems": 44,
                         "sx": 0,
                         "sy": 0,
-                        "width": 50,
-                        "height": 50,
+                        "width": 20,
+                        "height": 20,
                         "sound": {
                             "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
@@ -83,10 +90,10 @@
                         "soundLoop": false
                     },
                     "type": "blaster",
-                    "fireRepead": 50,
+                    "fireRepead": 7,
                     "speed": 8,
-                    "width": 45,
-                    "height": 20,
+                    "width": 20,
+                    "height": 15,
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
@@ -97,8 +104,8 @@
                     "sWidth": 299,
                     "sHeight": 109,
                     "damage": 30,
-                    "firePosition": 25,
-                    "firePositionX": 25
+                    "firePosition": 1,
+                    "firePositionX": 10
                 }
             ]
         }

@@ -8,7 +8,7 @@ import { enterToTheShopDialog } from '../ui/shop/gameShopModule';
 import { angleFinder } from '../engine/engineModules';
 import { horizontalVerticalSearch} from '../engine/gameModules/changeLevels';
 
-function drawcircle({ctx, x, y, width, height, color}){
+function drawCircle({ctx, x, y, width, height, color}){
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(x, y, width/2, 0, 2 * Math.PI);
@@ -34,7 +34,7 @@ async function placeEnemyes(mainGameObject){
     mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
     mainGameObject.gameInitData.ctxActionField.fillRect(this.x, this.y, this.width, this.height)
     if(this.objectNameFlag != "bullet"){
-        drawcircle({
+        drawCircle({
             ctx: mainGameObject.gameInitData.ctxActionField,
             x: this.x + this.width/2,
             y: this.y + this.height/2,
@@ -91,8 +91,10 @@ function shot(BulletConstruct, mainGameObject, SoundCreator, owner, bulletArray)
 
     let guns = (this.guns)? this.guns : this.data.guns;
     for(let item of guns){
-        if(!item || item.type ==='object') continue
-        if( 1 > mainGameObject.gameRandomizer( item.fireRepead ) || owner == 'player' && item){
+        if(!item || item.type === 'object') continue
+
+        let shotRandomizer = mainGameObject.gameRandomizer( item.fireRepead )
+        if( 1 > shotRandomizer || owner == 'player' && item){
 
             bulletsCreateModule.call(this, {
                 item: item,
@@ -215,12 +217,21 @@ function bulletCollision({hitObject, mainGameObject}){
 
 
 function groundBulletCollision({hitObject, mainGameObject}){
-    if(!mainGameObject.gameInitData.dynamicLevelsActive || !hitObject.details) return true
-    //console.log(1)  this.objectOwner = "groundEnemy";
-    if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.details.collision ||
-    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "groundEnemy" ||
-    this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemy" && hitObject.details.collision){
-        //type == "ground"
+    if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemyBullet" && hitObject.objectOwner == "groundPlayer"){
+        return bulletExplosion.call(this)
+    }
+
+    if(!mainGameObject.gameInitData.dynamicLevelsActive || !hitObject.details && hitObject.objectOwner != "groundEnemy" ||
+    !hitObject.details && hitObject.objectOwner != "groundEnemyBullet") return true
+
+        if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.details.collision ||
+        this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "groundEnemy" ||
+        this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemyBullet" && hitObject.details.collision && hitObject.objectOwner != "groundEnemy" ){
+            return bulletExplosion.call(this)
+        }
+    return true
+
+    function bulletExplosion(){
         explosionFire({
             targetData: this,
             mainGameObject: mainGameObject,
@@ -232,8 +243,56 @@ function groundBulletCollision({hitObject, mainGameObject}){
         this.objectPresent = false;
         return true
     }
-    return true
+}
 
+
+function groundUnitsDamage({hitObject, mainGameObject}){
+    if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
+    var levelData = mainGameObject.getLevelUserData()
+
+    if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundPlayer" && hitObject.objectOwner == "groundEnemyBullet"){
+        //console.log('bullet hit to player')
+        this.healthPoint -= hitObject.damage;
+        damageProcedure.call(this)
+    }
+    if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundPlayer" && hitObject.objectOwner == "groundEnemy"){
+        //console.log('Enemy hit to player')
+        this.healthPoint -= hitObject.damage;
+        damageProcedure.call(this)
+    }
+    if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "player"){
+        //console.log('Player bullet hit the enemy')
+        this.healthPoint -= hitObject.damage;
+        damageProcedure.call(this)
+    }
+
+    function damageProcedure(){
+        if(this.objectOwner != "groundPlayer" && this.healthPoint <= 0){
+            //console.log(this.healthPoint)
+            this.objectPresent = false;
+        }
+        if(this.objectOwner == "groundPlayer" && this.healthPoint <= 0){
+
+            console.log(levelData.source.playerObject)
+            let mainPlayerData = levelData.source.playerObject;
+            // gameData.currentPoint
+            // gameData.playerObject.numberOflife
+            mainPlayerData.numberOflife -= 1;
+
+            if(mainPlayerData.numberOflife > 0) this.healthPoint = this.defaultHealth
+
+            if(levelData.source.playerObject.numberOflife <= 0){
+                mainGameObject.gameOverWindow()
+                mainGameObject.gameInitData.gameOver = true;
+                mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
+                setTimeout(function(){
+                     mainGameObject.backToStartScreen(constructors)
+                }, 3000)
+                return
+            }
+
+        }
+    }
 }
 
 
@@ -314,13 +373,14 @@ function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
     let bulletStop = bulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
     let groundBulletStop = groundBulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
 
-
     if(!bulletStop && !groundBulletStop) return false
+
+    groundUnitsDamage.call(this, {hitObject: hitObject, mainGameObject: mainGameObject})
 
     grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
     enterToTheShopHangar.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
 
-
+    //if()
     /* Hit detection collision */
     if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "hangarbullet" ||

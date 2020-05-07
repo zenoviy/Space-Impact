@@ -2,6 +2,7 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 
 function gameInformationScreen(extra: any, ctx: any, width: number, height: number, pictureDirrection: any, info: any){
+   
     return [
         {
             name: "lifePoint",
@@ -57,8 +58,25 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             init: init,
             getObjectPosition: getUIObjectPosition
         }, {
-            name: "Time to end f level",
-            text: (info.minutes || info.minutes === 0 || info.seconds || info.seconds === 0)? (`Time to level end ${(info.minutes - 10 >=0)? '': 0}${info.minutes}:${(info.seconds - 10 >= 0)? '': 0}${info.seconds}`): 'Boss level',
+            name: "Time to end level",
+            text: (function(){
+                    let mainGameObject = info.mainGameObject;
+                    let dynamicLevelsActive = mainGameObject.gameInitData.dynamicLevelsActive;
+                    let isBossLevel = (process.env.BOSS_LOAD_AT_LEVEL === 'true')? true: false;
+                    let displayText = '';
+                    if(info.minutes || info.minutes === 0 || info.seconds || info.seconds === 0){
+                        let minutes = (info.minutes - 10 >=0)? '' : 0;
+                        let seconds = (info.seconds - 10 >=0)? '' : 0;
+                        displayText = `Time to level end ${minutes}${info.minutes}:${seconds}${info.seconds}`;
+                    }
+                    if(isBossLevel){
+                        displayText = "Boss level";
+                    }
+                    if(dynamicLevelsActive){
+                        displayText = `${info.source.levelData.description.name}`;
+                    }
+                    return displayText;
+            })(),
             description: "Game part the name",
             clicked: false,
             fontSize: "light 16px Roboto",

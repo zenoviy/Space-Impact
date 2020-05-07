@@ -30,6 +30,9 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     nextGroundBlock: any
     nextWallBlock: any
     jumpSpeed: number;
+    details: any;
+    shotProbability: number;
+    objectPresent: boolean;
 
     groundEnemyMove: any;
     detectPlayer: any;
@@ -46,6 +49,9 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
         this.defaultSpeed = data.speed;
         this.unitRandomize = Math.floor(Math.random()*100);
         this.jumpSpeed = data.jumpSpeed;
+        this.details = data.details;
+        this.shotProbability = data.shotProbability;
+        this.objectPresent = true;
 
     }
 }

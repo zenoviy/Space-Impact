@@ -4,7 +4,7 @@
         "texture": "/level-creator/assets/enemyObject/enemy-1.png",
         "description": "spawn point of enemy",
         "type": "enemy_spawner",
-        "collision": false,
+        "collision": true,
         "innerObject": "main_character",
         "width": 50,
         "height": 50,

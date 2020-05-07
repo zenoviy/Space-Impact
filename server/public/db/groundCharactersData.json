@@ -11,6 +11,7 @@
         "animationSteps": 10,
         "numberOfItems": 2,
         "numberOfVerticalItems": 2,
+        "healthPoint": 300,
         "speed": 3,
         "animations": {
             "stand": {
@@ -74,10 +75,11 @@
                         "imageHeight":294,
                         "animationSteps": 1,
                         "numberOfItems": 44,
+                        "playerObject": true,
                         "sx": 0,
                         "sy": 0,
-                        "width": 25,
-                        "height": 25,
+                        "width": 15,
+                        "height": 15,
                         "sound": {
                             "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
                             "soundLoop": false
@@ -91,8 +93,8 @@
                     "fireRepead": 3,
                     "speed": 10,
                     "color": "rgba(81, 255, 0, 1)",
-                    "width": 105,
-                    "height": 20,
+                    "width": 60,
+                    "height": 15,
                     "sx": 0,
                     "sy": 20,
                     "imageWidth": 3587,
