@@ -177,8 +177,9 @@ function levelTimer(){
 async function getSecondMeasure(callback, ...data){
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
-    if(this.gameInitData.gameExtraSeconds % gameSecond == 0){
 
+    console.log('Sec', gameSecond, )
+    if(this.gameInitData.gameExtraSeconds % gameSecond == 0){
         this.gameInitData.gameExtraSeconds = 0;
         if(!this.gameInitData.shopActive) this.gameInitData.tradeShipTimeToUndock -= 1;
         if(this.gameInitData.tradeShipTimeToUndock < 0) this.gameInitData.tradeShipTimeToUndock = 0;

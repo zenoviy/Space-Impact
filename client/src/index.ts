@@ -299,28 +299,40 @@ async function gameDynamicEnemyRender({ gameObject }){
         enemy.placeEnemyes(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
-                enemy.groundEnemyMove({ mainGameObject: gameObject, levelInformation: levelInformation })
+                enemy.groundEnemyMove({
+                    mainGameObject: gameObject,
+                    levelInformation: levelInformation
+                })
                 await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: enemy,
                     callback: objectIntersectionDetect,
                     mainGameObject: gameObject
                 })
-                enemy.detectPlayer({
+                await enemy.detectPlayer({
                     mainGameObject: gameObject,
                     dynamicMainCharacter: dynamicMainCharacter,
                     allBlocks: allBlocks,
                     callback: objectIntersectionDetect
                 })
-                enemy.groundEnemyDecided({
+                await enemy.groundEnemyDecided({
                     mainGameObject: gameObject,
                     allBlocks: allBlocks
                 })
-                enemy.groundEnemyPathFinder({
+                await enemy.groundEnemyPathFinder({
                     mainGameObject: gameObject,
                     allBlocks: allBlocks
                 })
-                enemy.groundEnemyShot({mainGameObject: gameObject, allBlocks: allBlocks, callback: shot, constructors: constructors})
+                await enemy.groundPlayerJump({
+                    mainGameObject: gameObject,
+                    allBlocks: allBlocks,
+                    levelInformation: levelInformation
+                })
+                await enemy.groundEnemyShot({mainGameObject: gameObject,
+                    allBlocks: allBlocks,
+                    callback: shot,
+                    constructors: constructors
+                })
                /* if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
                     shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }*/

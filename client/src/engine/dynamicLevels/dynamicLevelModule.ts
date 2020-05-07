@@ -180,7 +180,7 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
 
     //if( (y > this.height || x > this.width )  && !isWall && distance < this.width && this.objectOwner != "groundEnemy" ||
     //    this.objectOwner === "groundEnemy" && y > 0 && !isWall && distance < this.width){
-    if(this.y < target.y && collision && !isWall && distance < this.width && this.objectOwner != "groundEnemy" ||
+    if(this.y + this.height -1 < target.y + target.height/2  && collision && !isWall && distance < this.width && this.objectOwner != "groundEnemy" ||
         this.objectOwner === "groundEnemy" && y > 0 && !isWall && distance < this.width){
             //console.log('Bottom side of block', target)
 
@@ -205,7 +205,7 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     }
 
     // ==========================================
-    if(this.x < target.x && this.x + this.width > target.x && this.y > target.y &&
+    if( this.x < target.x && this.x + this.width > target.x && this.y > target.y &&
         this.y > target.y && this.y < target.y + target.height -1 && this.playerDirectionHorizontal === 'right'){
             if(target.details){
                 if(target.details.type === 'elevator' ){
@@ -236,7 +236,7 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     }
     //if(y > (target.height * -1) && y < 0 && !isBottomWall  && distance < this.width/2 && collision){
     if(target.y + target.height > this.y && this.y + this.height > target.y + target.height &&
-         !isBottomWall  && collision && target.details.type != 'elevator'){
+         !isBottomWall  && collision && target.details.type != 'elevator' && !this.groundTouch){
        // console.log('Top side of block')
         if(target.details){
             if(target.details.type === 'elevator' ){
@@ -363,6 +363,8 @@ function openInventory(){
 
 
 function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player }){
+    if(player.objectOwner != "groundPlayer") return false
+
     let gravity = levelInformation.gravity;
     levelInformation.jumpImpuls = (Math.sign(elevator.details.speed) > 0)? (elevator.details.speed + gravity-1)* -1: (elevator.details.speed )  ;
     player.onElevatorSpeed = (Math.sign(elevator.details.speed) > 0)? (elevator.details.speed + gravity -1)* -1: (elevator.details.speed)  ;

@@ -21,7 +21,7 @@ async function generateInput({fileContainer, target}){
         <h1>Block size</h1>
         <h3>Block width</h3>
             <p>Size of block width in pixels</p>
-            <input type='number' min="1" max="200" id=${'width-property-'+ currentDescriptionId} value=${(target.width)? target.width : 0} />
+            <input type='number' min="1" max="50" id=${'width-property-'+ currentDescriptionId} value=${(target.width)? target.width : 0} />
             <button data-target='save-width-btn' class="main-btn">Save width</button>`
             itemData = elementCreator({
                 tagname: "div",
@@ -247,9 +247,15 @@ async function generateInput({fileContainer, target}){
 
 
 async function changeDataInBlock({key, fieldSelector, target}){
-    console.log(fieldSelector, 'selector',  target)
+    let blockAlertMessage = document.querySelector('#block-alert-message');
+    //console.log(fieldSelector, 'selector',  target)
     let currentField = await document.querySelector(fieldSelector);
-
+console.log(currentField.validity.valid)
+    if(!currentField.validity.valid){
+        blockAlertMessage.innerHTML = `Invalid Value of ${key}`;
+        
+        return false
+    }
     target[key] = (currentField.value)? currentField.value : null;
     return (currentField.value && target[key] && key && fieldSelector)? true : false
 }

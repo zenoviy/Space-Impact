@@ -29,7 +29,7 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             },
             init: function(callback, data?){
                 data = (data)? data: this;
-
+                if(!info.life || info.life < 0) return false
                 let steps = Array(info.life).fill(0).map((o, i) => i*30);
                 let marginLeft = 30;
                 for(let i = 0; i < this.number; i++){

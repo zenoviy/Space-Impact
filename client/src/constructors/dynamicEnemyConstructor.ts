@@ -4,7 +4,8 @@ import { groundEnemyMove } from '../engine/dynamicLevels/dynamicLevelEnemyModule
 import { detectPlayer,
     groundEnemyDecided,
     groundEnemyPathFinder,
-    groundEnemyShot } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
+    groundEnemyShot,
+    groundPlayerJump } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
 import { findAngleToShip } from '../engine/gameSideObjectsModule';
 
 
@@ -19,20 +20,25 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     mapFinder: any[];
     defaultSpeed: number;
     isStop: boolean;
+    isJump: boolean;
     unitRandomize: number;
 
     targetAngle: number;
-    behavior: any[];
+    behavior: any;
     currentBehavior: string;
     detectRange: number;
     currentGroundBlock: any;
     currentWallBlock: any;
     nextGroundBlock: any
     nextWallBlock: any
+    nextBottomBlock: any;
+    backBlock: any;
     jumpSpeed: number;
+    jumpImpuls: number;
     details: any;
     shotProbability: number;
     objectPresent: boolean;
+    changeModeRandomizer: number;
 
     groundEnemyMove: any;
     detectPlayer: any;
@@ -41,17 +47,21 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     groundEnemyPathFinder: any;
     groundEnemyShot: any;
     takeDamage: any;
+    groundPlayerJump: any;
     constructor({ ...data}){
         super({...data})
         this.objectOwner = "groundEnemy";
         this.detectRange = data.detectRange;
-        this.behavior = data.behavior;
+        this.behavior = data.behavior[Math.floor(Math.random() * data.behavior.length)];
+        this.currentBehavior = this.behavior;
         this.defaultSpeed = data.speed;
-        this.unitRandomize = Math.floor(Math.random()*100);
+        this.unitRandomize = Math.floor(Math.random()*50 + 10);
+        this.changeModeRandomizer = 10;
         this.jumpSpeed = data.jumpSpeed;
         this.details = data.details;
         this.shotProbability = data.shotProbability;
         this.objectPresent = true;
+        this.isJump = false;
 
     }
 }
@@ -63,6 +73,7 @@ DynamicEnemyConstructor.prototype.groundEnemyDecided = groundEnemyDecided;
 DynamicEnemyConstructor.prototype.groundEnemyPathFinder = groundEnemyPathFinder;
 DynamicEnemyConstructor.prototype.groundEnemyShot = groundEnemyShot;
 DynamicEnemyConstructor.prototype.takeDamage = takeDamage;
+DynamicEnemyConstructor.prototype.groundPlayerJump = groundPlayerJump;
 export {
     DynamicEnemyConstructor
 }
