@@ -11,6 +11,8 @@ class BlockConstructor{
     width: number;
     height: number;
     index: number;
+    blockRelativeXPos: number;
+    blockRelativeYPos: number;
     details: any;
     imageWidth: number;
     imageHeight: number;
@@ -26,6 +28,8 @@ class BlockConstructor{
         this.y = data.y;
         this.xMove = data.x;
         this.yMove = data.y;
+        this.blockRelativeXPos = 0;
+        this.blockRelativeYPos = 0;
         this.width = data.width;
         this.height = data.height;
         this.index = data.index;

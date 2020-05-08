@@ -193,7 +193,13 @@ async function createBlockPicture({ mainObject }){
     //mainObject.ctx.save();
     let img = new Image();
     img.src = globalVariable.__HOST + this.details.texture;
-    await mainObject.ctx.drawImage(img, 0, 0, this.details.imageWidth, this.details.imageHeight, this.xMove, this.yMove, this.width, this.height)
+    await mainObject.ctx.drawImage(img, 0, 0,
+        this.details.imageWidth,
+        this.details.imageHeight,
+        this.xMove + parseInt(this.blockRelativeXPos),
+        this.yMove + parseInt(this.blockRelativeYPos),
+        this.width,
+        this.height)
    // mainObject.ctx.restore()
 
 

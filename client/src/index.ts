@@ -295,10 +295,21 @@ function gameDynamicLevelBoxRender({ gameObject }){
                 block.backgroundTexture.degree = 0
             }
             if(block.details.type === 'enemy_spawner') continue
+            //let blockXPos = block.x;  //  + (this.blockRelativeXPos)? parseInt(this.blockRelativeXPos) : 0
+            //let blockYPos = block.y;
+            //console.log(block.y, blockYPos, '::')
+            //block.x = (block.x + (block.blockRelativeXPos)? parseInt(block.blockRelativeXPos) : 0);
+            //block.y = (block.y + (block.blockRelativeYPos)? parseInt(block.blockRelativeYPos) : 0);
+
+
             if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
 
+            //console.log(block.y, blockYPos, "||", (block.blockRelativeYPos)? parseInt(block.blockRelativeYPos) : 0)
             block.placeEnemyes(gameObject)
-
+            
+            
+            //block.x = blockXPos;
+            //block.y = blockYPos;
             // hitObject
     }
 }
@@ -325,14 +336,14 @@ async function gameDynamicEnemyRender({ gameObject }){
                 await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: enemy,
-                    callback: objectIntersectionDetect,
+                    objectIntersectionDetect: objectIntersectionDetect,
                     mainGameObject: gameObject
                 })
                 await enemy.detectPlayer({
                     mainGameObject: gameObject,
                     dynamicMainCharacter: dynamicMainCharacter,
                     allBlocks: allBlocks,
-                    callback: objectIntersectionDetect
+                    objectIntersectionDetect: objectIntersectionDetect
                 })
                 await enemy.groundEnemyDecided({
                     mainGameObject: gameObject,
@@ -382,10 +393,9 @@ async function gameDynamicPlayer({ gameObject }){
                await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: dynamicMainCharacter,
-                    callback: objectIntersectionDetect,
+                    objectIntersectionDetect: objectIntersectionDetect,
                     mainGameObject: gameObject
                 })
-
                 await mapGravityInit({mainGameObject: gameObject,
                     mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
                     targetObject: dynamicMainCharacter,

@@ -31,10 +31,10 @@ async function placeEnemyes(mainGameObject){
     translateIndexAdjustY = (translateIndexAdjustY && this.objectNameFlag === "bullet")? translateIndexAdjustY: 0;
 
 
-    /*   // Development box
-    mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
+       // Development box
+    /*mainGameObject.gameInitData.ctxActionField.fillStyle = 'rgba(41, 201, 7, .2)';
     mainGameObject.gameInitData.ctxActionField.fillRect(this.x, this.y, this.width, this.height)
-    if(this.objectNameFlag != "bullet"){
+    //if(this.objectNameFlag != "bullet"){
         drawCircle({
             ctx: mainGameObject.gameInitData.ctxActionField,
             x: this.x + this.width/2,
@@ -43,7 +43,7 @@ async function placeEnemyes(mainGameObject){
             height: this.height,
             color: 'rgba(201, 97, 28, .4)'
         })
-    }*/
+    //}*/
 
 
     //console.log(mainGameObject.gameInitData.ctxActionField)
@@ -55,7 +55,8 @@ async function placeEnemyes(mainGameObject){
         this.img,
         this.sx, this.sy,
         this.sWidth, this.sHeight,
-        0, 0,
+        0 + (this.blockRelativeXPos)? parseInt(this.blockRelativeXPos) : 0,
+        0 + (this.blockRelativeYPos)? parseInt(this.blockRelativeYPos) : 0,
         this.width,this.height)
     mainGameObject.gameInitData.ctxActionField.restore();
 }
@@ -583,18 +584,26 @@ async function explosionDamage({ hitObject, mainGameObject }){
 
 
 function objectIntersectionDetect({object, target}){
+
+    let objectBlockRelativeXPos = (object.blockRelativeXPos)? object.blockRelativeXPos : 0;
+    let objectBlockRelativeYPos = (object.blockRelativeYPos)? object.blockRelativeYPos : 0;
+
+    let targetBlockRelativeXPos = (target.blockRelativeXPos)? target.blockRelativeXPos : 0;
+    let targetBlockRelativeYPos = (target.blockRelativeYPos)? target.blockRelativeYPos : 0;
+
+
     let collision = null;
 
-    let xMin = Math.max( object.x, target.x );
-    let yMin = Math.max( object.y, target.y );
-    let xMax = Math.min( object.x + object.width, target.x + target.width );
-    let yMax = Math.min( object.y + object.height, target.y + target.height);
+    let xMin = Math.max( object.x + objectBlockRelativeXPos, target.x + targetBlockRelativeXPos );
+    let yMin = Math.max( object.y + objectBlockRelativeYPos, target.y + targetBlockRelativeYPos );
+    let xMax = Math.min( object.x + objectBlockRelativeXPos + object.width, target.x + targetBlockRelativeXPos + target.width );
+    let yMax = Math.min( object.y + objectBlockRelativeYPos + object.height, target.y + targetBlockRelativeYPos + target.height);
 
 
-    let x2 = target.x + ((target.hasOwnProperty('bulletType'))? target.width :target.width/2);
-    let y2 = target.y + target.height/2;
-    let x1 = object.x + ((object.hasOwnProperty('bulletType'))? object.width :object.width/2);
-    let y1 = object.y + object.height/2;
+    let x2 = target.x + targetBlockRelativeXPos + ((target.hasOwnProperty('bulletType'))? target.width :target.width/2);
+    let y2 = target.y + targetBlockRelativeYPos + target.height/2;
+    let x1 = object.x + objectBlockRelativeXPos + ((object.hasOwnProperty('bulletType'))? object.width :object.width/2);
+    let y1 = object.y + objectBlockRelativeYPos + object.height/2;
     var x = x2 - x1;
     var y = y2 - y1;
 
@@ -628,6 +637,7 @@ function hitDetection({object1, objectsArr, mainGameObject, GrappleObject}){
     for(let object2 of objectsArr){
         let object1Position = object1.getObjectPosition.call(object1);
 
+        
         collision = objectIntersectionDetect({object: {
             x: object1Position.x,
             y: object1Position.y,

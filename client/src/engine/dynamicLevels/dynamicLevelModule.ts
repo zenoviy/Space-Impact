@@ -124,7 +124,7 @@ function enemyGroundGravity({mainGameObject}){
 
 
 
-async function blockCollision({objectsToCollide, targetObject, callback, mainGameObject}){
+async function blockCollision({objectsToCollide, targetObject, objectIntersectionDetect, mainGameObject}){
     if(!objectsToCollide) return false
 
     targetObject.groundTouch = false;
@@ -140,7 +140,7 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     for(let item of objectsToCollide){
         //item.elevatorMove()
         if(!item) continue
-        let collision = callback({object: item, target: targetObject })
+        let collision = objectIntersectionDetect({object: item, target: targetObject })
         if(collision){
            if(item.details.collision){
                floorCollision = findPointOfCollision.call(targetObject, {object: targetObject, target: item, mainGameObject: mainGameObject})
@@ -161,8 +161,16 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;
     let dynamicMainCharacter = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
 
-    let x2 = target.x + target.width;
-    let y2 = target.y + target.height;
+    let blockRelativeXPos = ((target.blockRelativeXPos)? parseInt(target.blockRelativeXPos) : 0);
+    let blockRelativeYPos = ((target.blockRelativeYPos)? parseInt(target.blockRelativeYPos) : 0);
+
+    let targetX = target.x + blockRelativeXPos;
+    let targetY = target.y + blockRelativeYPos;
+
+    //console.log(targetX, targetY, target.x, target.y)
+
+    let x2 = targetX  + target.width;
+    let y2 = targetY + target.height;
     let x1 = this.x + (this.objectOwner != "groundEnemy")? this.width/2 : this.width;
     let y1 = this.y + this.height;
     var x = x2 - x1;
@@ -196,8 +204,9 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     }
 
 
+    //console.log(this.y + this.height, targetY + target.height/2)
 
-    if(this.y + this.height < target.y + target.height/2 && collision && !isWall ){
+    if(this.y + this.height < targetY + target.height/2 && collision && !isWall ){
         //console.log("Ground To" )
         if(target.details ){
            if(target.details.type === 'elevator' ){
@@ -218,8 +227,15 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
     }
 
     // ==========================================
-    if( this.x < target.x && this.x + this.width > target.x &&
-        this.y + this.height > target.y + 5 && this.playerDirectionHorizontal === 'right'){
+    if( this.x < targetX && this.x + this.width > targetX &&
+        this.y + this.height > targetY + 5 && this.playerDirectionHorizontal === 'right'){
+            if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && target.height < 20){
+                console.log('Steps')
+                this.rightWallTouch = false;
+                levelInformation.jumpImpuls = levelInformation.gravity * -1 //this.height * -1;
+                this.groundTouch = false;
+                return false
+            }
             if(target.details){
                 if(target.details.type === 'elevator' ){
                     return false
@@ -230,8 +246,8 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
             }
         }
 
-    if(this.x < target.x + target.width && this.x + this.width > target.x  &&
-        this.y + this.height > target.y + 5 &&
+    if(this.x < targetX + target.width && this.x + this.width > targetX  &&
+        this.y + this.height > targetY + 5 &&
         this.playerDirectionHorizontal === 'left'){
            if(target.details){
                if(target.details.type === 'elevator' ){
@@ -244,7 +260,7 @@ async function blockCollision({objectsToCollide, targetObject, callback, mainGam
    }
 
 
-    if(target.y + target.height > this.y && this.y + this.height > target.y + target.height &&
+    if(targetY + target.height > this.y && this.y + this.height > targetY + target.height &&
         !isBottomWall  && collision && target.details.type != 'elevator' && !this.groundTouch){
         //console.log('Top side of block', target)
         if(target.details){

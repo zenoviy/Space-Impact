@@ -25,6 +25,8 @@ class DynamicBlockConstructor {
     backgroundTexture: any;
     backgroundTextureImg: any;
     backgroundImageLink: any;
+    blockRelativeXPos: number;
+    blockRelativeYPos: number;
 
     moveMap: any;
     placeEnemyes: any;
@@ -59,6 +61,8 @@ class DynamicBlockConstructor {
         this.defaultSpeed = data.speed;
         this.index = data.index;
         this.backgroundTexture = (data.backgroundTexture)? data.backgroundTexture : null ;
+        this.blockRelativeXPos = (data.blockRelativeXPos)? parseInt(data.blockRelativeXPos) : 0 ;
+        this.blockRelativeYPos = (data.blockRelativeYPos)? parseInt(data.blockRelativeYPos) : 0 ;
     }
 }
 DynamicBlockConstructor.prototype.placeEnemyes = placeEnemyes;

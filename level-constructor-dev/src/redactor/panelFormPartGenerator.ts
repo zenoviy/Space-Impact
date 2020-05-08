@@ -22,7 +22,13 @@ async function generateInput({fileContainer, target}){
         <h3>Block width</h3>
             <p>Size of block width in pixels</p>
             <input type='number' min="1" max="200" id=${'width-property-'+ currentDescriptionId} value=${(target.width)? target.width : 0} />
-            <button data-target='save-width-btn' class="main-btn">Save width</button>`
+            <button data-target='save-width-btn' class="main-btn">Save width</button>
+
+            <h3>Block height</h3>
+            <p>Size of block height in pixels</p>
+            <input type='number' min="1" max="200" id=${'height-property-'+ currentDescriptionId} value=${(target.height)? target.height : 0} />
+            <button data-target='save-height-btn' class="main-btn">Save height</button>
+            `
             itemData = elementCreator({
                 tagname: "div",
                 classList: 'single-block-description',
@@ -32,19 +38,31 @@ async function generateInput({fileContainer, target}){
             blockPreviewImage['width'] = target.width;
         fileContainer.appendChild(itemData);
 
+
+
+
         innerText = `
-        <h3>Block height</h3>
-            <p>Size of block height in pixels</p>
-            <input type='number' min="1" max="200" id=${'height-property-'+ currentDescriptionId} value=${(target.height)? target.height : 0} />
-            <button data-target='save-height-btn' class="main-btn">Save height</button>`
+            <h1>Block Position</h1>
+            <h3>Block X</h3>
+            <p>X position of block</p>
+            <input type='number' min="0" max="50" id=${'x-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeXPos)? target.blockRelativeXPos : 0} />
+            <button data-target='save-x-pos-btn' class="main-btn">Save X Position</button>
+
+            <h3>Block Y</h3>
+            <p>Y position of block</p>
+            <input type='number' min="0" max="50" id=${'y-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeYPos)? target.blockRelativeYPos : 0} />
+            <button data-target='save-y-pos-btn' class="main-btn">Save Y Position</button>
+            `
             itemData = elementCreator({
                 tagname: "div",
                 classList: 'single-block-description',
                 innerText: innerText,
-                idName: 'block-height-'+ currentDescriptionId
+                idName: 'block-x-pos-'+ currentDescriptionId
             })
             blockPreviewImage['height'] = target.height;
         fileContainer.appendChild(itemData);
+
+
 
     /*  ==============================    Description  ===================== */
     if(blockDetails.description){
@@ -64,7 +82,7 @@ async function generateInput({fileContainer, target}){
     if(blockDetails.rules){
             // tips
             innerText = `<h3>Tips</h3>
-            <p>A tips how to us this objects, it could be a part of some message</p>
+            <p>A tips how to us this objects, it could be a part of some message, "Use *  to start new line"</p>
             <textarea type='text' id=${'tips-field-'+ currentDescriptionId} >${(blockDetails.rules.tips)? blockDetails.rules.tips : ''}</textarea>
             <button data-target='save-tips-btn' class="main-btn">Save Tips</button> <hr>`
             itemData = elementCreator({
@@ -171,6 +189,26 @@ async function generateInput({fileContainer, target}){
                 blockPreviewImage['width'] = target.width;
                 blockPreviewImage['height'] = target.height;
                 break;
+
+            case 'save-x-pos-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'blockRelativeXPos',
+                    fieldSelector: '#'+'x-pos-property-'+ currentDescriptionId,
+                    target: target
+                })
+                fieldName = (fieldResults)? 'width is set': ' save width field';
+                console.log(target)
+                break;
+
+            case 'save-y-pos-btn':
+                    fieldResults = await changeDataInBlock({
+                        key: 'blockRelativeYPos',
+                        fieldSelector: '#'+'y-pos-property-'+ currentDescriptionId,
+                        target: target
+                    })
+                    fieldName = (fieldResults)? 'width is set': ' save width field';
+                    console.log(target)
+                    break;
             case 'save-description-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'description',
@@ -252,7 +290,6 @@ async function changeDataInBlock({key, fieldSelector, target}){
 console.log(currentField.validity.valid)
     if(!currentField.validity.valid){
         blockAlertMessage.innerHTML = `Invalid Value of ${key}`;
-        
         return false
     }
     target[key] = (currentField.value)? currentField.value : null;
@@ -265,9 +302,11 @@ function loadInnerData({fileContainer, target}){
     let blockDetails = target.details;
     let backgroundImage = (target.backgroundTexture)? `<img width="50" src="${__HOST + target.backgroundTexture.texture}" alt="${target.backgroundTexture.id}">`:"";
     let innerText = `<div class="block-description-wrapper">
-    <img id="block-preview-image" width="200" src="${__HOST + blockDetails.texture}">
-    <div id="block-alert-message"></div>
-    <ul>
+    <div class="material-preview-wrapper">
+        <img id="block-preview-image" width="200" src="${__HOST + blockDetails.texture}">
+    </div>
+
+    <ul><div id="block-alert-message"></div>
         <li>Name: ${ blockDetails.id }</li>
         <li>Index: ${ target.index }</li>
         <li>Type: ${ (blockDetails.type)? blockDetails.type : '' }</li>
