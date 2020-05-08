@@ -1,14 +1,12 @@
 /*
 
-    - ai logic
+    V- ai logic
     v- patrol
      V   - when detect attack
       V  - shot when in sight
 
 */
 import { getData } from '../../server/serverRequestModules';
-//import { objectIntersectionDetect } from '../../enemies/enemiesModules';
-//import { findAngleToShip } from '../gameSideObjectsModule';
 
 async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
     let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
@@ -71,19 +69,17 @@ async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformatio
 async function groundPlayerJump({ mainGameObject, allBlocks, levelInformation }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(extraSeconds % 10 === 0 ) //this.isJump = true
-
-    //console.log('Jump', extraSeconds)
-    //if(extraSeconds % 5 === 0 ) return false//this.playerInRange = false;
     if(!this.groundTouch && this.jumpImpuls < 0 && extraSeconds % 10 === 0){
-
-        //this.y += this.jumpImpuls;
-       // this.jumpImpuls += 0.1;
         this.isRun = true;
         this.isJump = false;
     }
     if(this.groundTouch && this.isJump){
-        this.jumpImpuls = (this.jumpSpeed*4 + levelInformation.gravity) * -1;
-        this.y += this.jumpImpuls;  //jumpSpeed;
+        let blockHeight = (this.jumpBlock)? this.jumpBlock.height + this.height : 0;
+        console.log(this.jumpBlock)
+        blockHeight = (blockHeight > 120)? 120: blockHeight;
+        this.jumpImpuls = (this.jumpSpeed * levelInformation.gravity + blockHeight) * -1;
+        //console.log(this.jumpImpuls, "JUMPING")
+        this.y += this.jumpImpuls;
         this.groundTouch = false;
     }
 }
@@ -93,23 +89,23 @@ async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, ca
 
    if(!dynamicMainCharacter || !allBlocks) return false
    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
-   if(extraSeconds % 100 === 0){ 
+
+   if(extraSeconds % 100 === 0){
         if( this.playerInRange ) this.currentBehavior = "find";
        this.playerInRange = false;
     }
 
-
     let distanceX = Math.max(this.x, dynamicMainCharacter.x) - Math.min(this.x, dynamicMainCharacter.x);
     let distanceY = Math.max(this.y, dynamicMainCharacter.y) - Math.min(this.y, dynamicMainCharacter.y);
     let angle =  this.findAngleToShip({closestUnit: dynamicMainCharacter});
-
+    if(this.currentBehavior === "destroy"){
+        this.targetAngle = angle;
+    }
     if(this.detectRange < distanceX || this.detectRange < distanceY) return false
     let findBarrier = {};
 
-
     let directionX = (this.x >= dynamicMainCharacter.x)? true : false;
     let directionY = (this.y >= dynamicMainCharacter.y)? true : false;
-
 
     if(extraSeconds % 15 != 0) return false
     let searchSteps = 5;
@@ -118,9 +114,7 @@ async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, ca
         let localXRay = this.x, localYRay = this.y;
         let decreaseValue = distanceY/distanceX;
 
-        //while(distanceX > 0){
         for(let index = distanceX; index > 0; index -= searchSteps){
-            //distanceX--
             if(directionX && directionY){
                 localXRay -= searchSteps;
                 localYRay -= decreaseValue * searchSteps;
@@ -157,11 +151,8 @@ async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, ca
             if(findBarrier) break
         }
         if(findBarrier) return false
-        console.log('I see you')
         this.playerInRange = true;
         this.currentBehavior = "destroy";
-       // this.targetXLastLocation = findBarrier['x'];
-       // this.targetYLastLocation = findBarrier['y'];
         this.targetAngle = angle;
     }
 }
@@ -194,9 +185,8 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
     let maxBoxToMove = (this.currentBehavior === "find")? 2 : (this.currentBehavior === "destroy")? 4 : 1;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(extraSeconds % 5 === 0){
-    console.log(this.currentBehavior)
+    //console.log(this.currentBehavior)
         if(this.currentBehavior === "stand") {
-            
             this.isRun = false;
             return
         }
@@ -222,6 +212,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         let currentBlockIndex = (this.currentGroundBlock)? this.currentGroundBlock.index : null;
 
         // change direction if on edge, continue run
+       // console.log(extraSeconds , this.changeModeRandomizer, this.isRun, "||")
         if(extraSeconds % this.changeModeRandomizer === 0 && !this.isRun && this.groundTouch && !this.playerInRange){
             this.playerDirectionHorizontal = (this.playerDirectionHorizontal === 'right')? 'left' : 'right';
            // console.log('continue move if on the edge')
@@ -237,9 +228,10 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 return block.index === indexOfNextBlock && block.details.collision
             })
             this.nextGroundBlock = (findHorizontalBlock)? findHorizontalBlock: null;
+           // console.log('Ground Block', this.nextGroundBlock)
         }
         // find block on the back
-        if(currentBlockIndex){
+        if(currentBlockIndex && !this.nextGroundBlock){
             let backBlockIndex = (this.playerDirectionHorizontal === 'right')?
             currentBlockIndex - parseInt(this.currentGroundBlock.mapSizeVertical) - 1:
             currentBlockIndex + parseInt(this.currentGroundBlock.mapSizeVertical) - 1;
@@ -247,7 +239,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             findBackBlock = allBlocks.find(block =>{ 
                 return block.index === backBlockIndex && block.details.collision
             })
-            //console.log('Back block', findBackBlock)
+           // console.log('Back block', findBackBlock)
         }
 
 
@@ -270,12 +262,30 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         if(!this.nextGroundBlock && this.isRun && !this.playerInRange ||
             !this.nextGroundBlock && this.isRun && !findBottomBlock){
             this.changeModeRandomizer = Math.floor(Math.random() * this.unitRandomize + 100);
-            //console.log('stop')
+           // console.log('stop')
             this.isRun = false;
         }
 
         // continue move if block on back and block on the bottom and cant see target
-        if(!this.playerInRange && findBottomBlock && !this.isRun && findBackBlock){
+        
+
+        // if block at the front jump to the block
+        if(this.playerInRange && this.leftWallTouch && this.currentBehavior != "find" && this.currentGroundBlock ||
+         this.playerInRange && this.rightWallTouch && this.currentBehavior != "find" && this.currentGroundBlock ||
+            this.currentBehavior === "find" && this.rightWallTouch && this.currentGroundBlock || this.currentBehavior === "find" && this.currentGroundBlock && this.currentWallBlock ||
+            this.currentBehavior === "destroy" && this.leftWallTouch && this.currentGroundBlock || this.currentBehavior === "destroy" && this.currentGroundBlock && this.currentWallBlock){
+           // console.log(' Jump on the block')
+
+            this.jumpBlock = allBlocks.find(block =>{
+                let bottomBlockIndex = (this.playerDirectionHorizontal === 'right')?
+                currentBlockIndex + parseInt(this.currentGroundBlock.mapSizeVertical) - 1:
+                currentBlockIndex - parseInt(this.currentGroundBlock.mapSizeVertical) - 1;
+                return block.index === bottomBlockIndex  && block.details.collision
+            })
+            this.isJump = true;
+        }
+        if(!this.playerInRange && findBottomBlock && !this.isRun && findBackBlock ||
+             !this.isRun && !findBottomBlock && this.playerInRange && this.jumpBlock){
             this.isRun = true;
         }
 
@@ -284,24 +294,19 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         }else if(this.currentBehavior === "find" && !findBottomBlock && !this.nextGroundBlock && !this.isRun){
             this.isRun = false;
         }
-
-        // if block at the front jump to the block
-        if(this.playerInRange && this.leftWallTouch && this.currentBehavior != "find" || this.playerInRange && this.rightWallTouch && this.currentBehavior != "find" || 
-            this.currentBehavior === "find" && this.rightWallTouch || this.currentBehavior === "find" && this.leftWallTouch){
-            //console.log(' Jump on the block')
-            this.isJump = true;
-        }
-
-        console.log(maxBoxToMove, this.playerInRange, this.isJump, this.isRun, findBottomBlock, findBackBlock, this.nextGroundBlock, this.leftWallTouch, this.rightWallTouch, this.playerDirectionHorizontal)
+       // console.log(maxBoxToMove, this.playerInRange, this.isJump, this.isRun, findBottomBlock, findBackBlock, this.nextGroundBlock, this.leftWallTouch, this.rightWallTouch, this.playerDirectionHorizontal)
 
         // if see target continue walk
         if(this.playerInRange && findBottomBlock || this.playerInRange && this.nextGroundBlock) this.isRun = true;
+        if(this.playerInRange && !this.nextGroundBlock && !findBottomBlock) this.isRun = false;
         //console.log(this.changeModeRandomizer, this.playerInRange, extraSeconds, this.nextGroundBlock, this.currentGroundBlock)
         // this.isJump = true
         //console.log(this.currentGroundBlock, findHorizontalBlock)
         //this.nextGroundBlock = (this.playerDirectionHorizontal === 'right')? allBlocks.indexOf(this.currentGroundBlock) + this.currentGroundBlock.mapSizeHorizontal: 
         this.currentGroundBlock = null;
         this.currentWallBlock  = null;
+        this.currentWallBlock = null;
+
     }
 }
 
@@ -321,7 +326,7 @@ function groundEnemyShot({ mainGameObject, allBlocks, callback, constructors }){
     // data.guns
     // playerInRange
     if(this.shotAngle && this.playerInRange && this.objectPresent){
-        console.log('Shoot', this.shotAngle)
+       // console.log('Shoot', this.shotAngle)
         this.isShot = true;
         this.shotAngle = this.targetAngle;
         callback.call(this, constructors.BulletConstruct,

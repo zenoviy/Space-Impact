@@ -2,7 +2,9 @@ import { createWindow, createShapeRoundBorder, createRoundButton } from './windo
 
 
 function draw(context, element, ...property){
+    context.save();
     context[element](...property);
+    context.restore();
 }
 
 function createImage(ctx, pictureName, ...props){

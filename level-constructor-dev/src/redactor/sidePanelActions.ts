@@ -146,13 +146,12 @@ async function saveMap({ mainObject }){
                 messageField.innerHTML = `<p class="side-panel-error">Fail to save map, check map Name</p> `
                 return false;
             }
-            console.log(resultForm, '<<')
             resultForm['mapSize'] = {
                 width: mainObject.mapWidth,
                 height: mainObject.mapHeight
             }
-
-            resultForm['creatingTime'] = new Date().getTime();
+            let saveData = new Date()
+            resultForm['creatingTime'] = saveData.getTime();
             resultForm['allMapObjects'] = mainObject.allRedactorBlock;
 
             console.log(resultForm, 'save', mainObject)
@@ -162,7 +161,8 @@ async function saveMap({ mainObject }){
                 headers: null})
 
             if(mapFile){
-                messageField.innerHTML = `<a href=${ mapFile.url } onclick="(function(){ window.open('${ mapFile.url }')})()" target="_blank">Open in new window</a>`
+                messageField.innerHTML = `<p>Save time: ${saveData.getHours() -1} : ${saveData.getMinutes()} : ${saveData.getSeconds()}</p>
+                <a href=${ mapFile.url } onclick="(function(){ window.open('${ mapFile.url }')})()" target="_blank">Open in new window</a>`
             }
         }
     })

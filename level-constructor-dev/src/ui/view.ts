@@ -80,16 +80,16 @@ function mapMoveControllers({ mainObject }){
 
         switch(buttonId){
             case 'redactorBlocks':
-                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.blockDatabase })
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.blockDatabase, selectItem: null })
                 break;
             case 'redactorDecoration':
-                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.backgroundDatabase })
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.backgroundDatabase, selectItem: buttonId })
                 break;
             case 'redactorCharacters':
-                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.charactersDatabase })
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.charactersDatabase, selectItem: null })
                 break;
             case 'redactorEnemy':
-                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.enemyDatabase })
+                renderItemsToSideList( { mainObject: mainObject, dataBase: mainObject.enemyDatabase, selectItem: null })
                // console.log('enemy')  enemyDatabase
                 break;
             default:
@@ -104,14 +104,15 @@ function mapMoveControllers({ mainObject }){
 
 
 
-function renderItemsToSideList({ mainObject, dataBase }){
+function renderItemsToSideList({ mainObject, dataBase, selectItem }){
     var target: any = document.querySelector('#side-instrumental-panel');
     target.innerHTML = '';
     for(let blockItem of dataBase){
+        //console.log(blockItem)
         let obj = blockCreator({
             tag: 'div',
             styleClass: 'single-block-item',
-            innerContent: `<img width="100%" src='${ globalVariable.__HOST + blockItem['texture'] }'>`
+            innerContent: `<img width="100%" title="${(blockItem.details)? blockItem.details.description : blockItem.description}" src='${ globalVariable.__HOST + blockItem['texture'] }'>`
         });
 
         obj.addEventListener('click', (event) => {
@@ -119,7 +120,7 @@ function renderItemsToSideList({ mainObject, dataBase }){
         })
         target.appendChild(obj)
     }
-    target.prepend(createDestroyBlock({ mainObject: mainObject }))
+    target.prepend(createDestroyBlock({ mainObject: mainObject, selectItem: selectItem }))
 }
 
 
@@ -128,6 +129,7 @@ function renderItemsToSideList({ mainObject, dataBase }){
 
 
 function sidePanelItemsSelectProcess({ mainObject, blockItem }){
+    console.log(blockItem)
     if(mainObject.selectedBlockPanelItem){
         mainObject.selectedBlockPanelItem = (blockItem.id != mainObject.selectedBlockPanelItem.id)? blockItem : null;
     }else mainObject.selectedBlockPanelItem = blockItem;
@@ -141,14 +143,14 @@ function sidePanelItemsSelectProcess({ mainObject, blockItem }){
 
 
 
-function createDestroyBlock({ mainObject }){
+function createDestroyBlock({ mainObject, selectItem }){
     let obj = document.createElement('div');
     obj.className = 'single-block-item';
-    obj.innerHTML = `<img width="100%" src='${ globalVariable.__HOST + '/level-creator/assets/block/destroy.png' }'>`;
+    obj.innerHTML = `<img title="${(selectItem === "redactorDecoration")? 'Delete only background': 'Delete block item'}" width="100%" src='${ globalVariable.__HOST + '/level-creator/assets/block/destroy.png' }'>`;
     obj.addEventListener('click', (event) => {
         sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: {
             id: 'destroyer',
-            destroyer: true,
+            destroyer: (selectItem)? selectItem :'destroyer',
             texture: '/level-creator/assets/block/destroy.png'
         } })
     })
@@ -169,13 +171,32 @@ function clearView(){
 
 
 
-
-function createBlockPicture({ mainObject }){
+async function backgroundRender({ mainObject }){
     if(!this.details) return false
 
+    if(this.backgroundTexture){
+        let imgBackground = new Image();
+        imgBackground.src = globalVariable.__HOST + this.backgroundTexture.texture;
+        await mainObject.ctx.drawImage(imgBackground, 0, 0,
+            this.backgroundTexture.imageWidth,
+            this.backgroundTexture.imageHeight,
+            this.xMove,
+            this.yMove,
+            this.backgroundTexture.width,
+            this.backgroundTexture.height)
+        //console.log(this.backgroundTexture)
+    }
+}
+
+async function createBlockPicture({ mainObject }){
+    if(!this.details) return false
+    //mainObject.ctx.save();
     let img = new Image();
     img.src = globalVariable.__HOST + this.details.texture;
-    mainObject.ctx.drawImage(img, 0, 0, this.details.imageWidth, this.details.imageHeight, this.xMove, this.yMove, this.width, this.height)
+    await mainObject.ctx.drawImage(img, 0, 0, this.details.imageWidth, this.details.imageHeight, this.xMove, this.yMove, this.width, this.height)
+   // mainObject.ctx.restore()
+
+
 }
 
 
@@ -202,5 +223,6 @@ export {
     clearView,
     createFrame,
     renderItemsToSideList,
-    createBlockPicture
+    createBlockPicture,
+    backgroundRender
 }

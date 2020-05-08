@@ -17,6 +17,7 @@ function drawCircle({ctx, x, y, width, height, color}){
 }
 
 async function placeEnemyes(mainGameObject){
+  
 
     if(this.y < 0 - this.height && this.x < 0 - this.width &&
         this.y < window.innerHeight + this.height && this.x > window.innerWidth + this.width) return false
@@ -45,6 +46,7 @@ async function placeEnemyes(mainGameObject){
     }*/
 
 
+    //console.log(mainGameObject.gameInitData.ctxActionField)
     mainGameObject.gameInitData.ctxActionField.translate(this.x + translateIndexAdjustX, this.y + translateIndexAdjustY);
     mainGameObject.gameInitData.ctxActionField.rotate( ((this.degree)? this.degree: 0 ) * Math.PI / 180);
 
@@ -239,7 +241,8 @@ function groundBulletCollision({hitObject, mainGameObject}){
             SideObject: constructors.SideObject,
             explosion: "explosion"
         })
-
+        // this.currentBehavior = "destroy";
+        if(hitObject.objectOwner == "groundEnemy") hitObject.currentBehavior = "destroy";
         this.objectPresent = false;
         return true
     }

@@ -6,14 +6,18 @@ function elevatorMove(){
 
         //console.log(currentValue)
         if(this.details.constructorDirection){
-            this.yMove += this.details.speed;
+            if(this.details.moveDirection === "vertical") this.yMove += this.details.speed;
+            if(this.details.moveDirection === "horizontal") this.xMove += this.details.speed;
             this.details.constructorValueOfMove -= this.details.speed;
 
             if(currentValue <= 0) this.details.constructorDirection = false
         }else if(!this.details.constructorDirection){
 
-            this.yMove -= this.details.speed;
+            //this.yMove -= this.details.speed;
+            if(this.details.moveDirection === "vertical") this.yMove -= this.details.speed;
+            if(this.details.moveDirection === "horizontal") this.xMove -= this.details.speed;
             this.details.constructorValueOfMove += this.details.speed;
+
 
             if(currentValue >= defaultValue){
                 this.details.constructorDirection = true;
@@ -21,6 +25,7 @@ function elevatorMove(){
         }
     }
 }
+
 /*
 
 "currentValueOfMove": 100,
@@ -38,6 +43,12 @@ function elevatorMove(){
         "type": "elevator",
         "collision": true
 */
+
+
+function stairsMove(){
+
+}
 export {
-    elevatorMove
+    elevatorMove,
+    stairsMove
 }

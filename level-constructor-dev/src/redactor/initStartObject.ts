@@ -1,5 +1,5 @@
 import * as globalVariable from './globalVariables';
-import { createFrame, createBlockPicture } from '../ui/view';
+import { createFrame, createBlockPicture, backgroundRender } from '../ui/view';
 import { getData } from '../server-requests/requestsModule';
 
 
@@ -89,11 +89,14 @@ function backToObject({data, constructor}){
 }
 
 
-function renderBlockBox({ mainObject }){
+async function renderBlockBox({ mainObject }){
 
     if(this.yMove > 0 - 100 && this.xMove > 0 - 100 && this.yMove < window.innerHeight + 100 && this.xMove < window.innerWidth + 100){
         if(!this.details) createFrame.call(this, { mainObject: mainObject })
-        else createBlockPicture.call(this, { mainObject: mainObject })
+        else{ 
+           await backgroundRender.call(this, { mainObject: mainObject })
+           await createBlockPicture.call(this, { mainObject: mainObject })
+        }
     }
 }
 

@@ -7,10 +7,45 @@ import { initMainEngine } from './redactor/initStartObject';
 import { loadMap, saveMap, setMapSize, createNewMap } from './redactor/sidePanelActions';
 
 /*
-- add stears
+V- create map net
+    V- vertical direction of block
+    V- block information
+        V - delete block
+        V- preview
+        V- information
+        V- change data
+            V- width
+            V- height
+            - x
+            - y
+            V- description
+            V- rulers
+            - elevator speed
+V- side panel
+    V- new map
+        V- map name
+        V- save map in json
+        V- change map size
+        V- overwrite map
+    V- load map
+    V- minimap
+    V- different sections of objects
+        V- block
+        V- characters
+        V- enemy
+        V- background
+
+
+- add stairs
 - add leaders
-- add horizontal elevator
-- add background array and texture and display it
+V- add horizontal elevator
+V- add background texture and display it
+    V- destroy/ change textures separately
+    - add texture animations
+- add NPC
+    - dialog
+
+
 */
 (async function(){
 
@@ -18,9 +53,11 @@ import { loadMap, saveMap, setMapSize, createNewMap } from './redactor/sidePanel
     mainObject.initView()
     mainObject.renderItemsToSideList({ mainObject: mainObject, dataBase: mainObject.blockDatabase })
 
-    const engine = setInterval(function(){ redactorEngine() }, 60)
+    const engine = setInterval(function(){
+        redactorEngine()
+    }, 60)
 
-    console.log(mainObject)
+    //console.log(mainObject)
     mapMoveControllers({ mainObject: mainObject })
     saveMap({ mainObject: mainObject })
     loadMap({ mainObject: mainObject })
@@ -28,12 +65,12 @@ import { loadMap, saveMap, setMapSize, createNewMap } from './redactor/sidePanel
     createNewMap()
 
 
-    function redactorEngine(){
+    async function redactorEngine(){
         mainObject.clearView()
 
         for(let block of mainObject.allRedactorBlock){
-            block.elevatorMove()
-            block.renderBlockBox({ mainObject: mainObject })
+           await block.elevatorMove()
+           await block.renderBlockBox({ mainObject: mainObject })
         }
     }
 })()

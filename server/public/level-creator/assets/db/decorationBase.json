@@ -1,19 +1,11 @@
 [
     {
-        "id": "block_1",
-        "collision": false,
-        "texture": "/level-creator/assets/block/block-1.png",
-        "isDestroy": false,
-        "type": "wall",
-        "imageWidth": 59,
-        "imageHeight": 58
-    },
-    {
         "id": "block_9",
         "collision": false,
         "texture": "/level-creator/assets/block/brick-map.png",
+        "description": "background block",
         "isDestroy": false,
-        "type": "wall",
+        "type": "background-wall",
         "imageWidth": 59,
         "imageHeight": 58
     },
@@ -21,8 +13,9 @@
         "id": "block_9",
         "collision": false,
         "texture": "/level-creator/assets/block/brick-decor-1.png",
+        "description": "background block",
         "isDestroy": false,
-        "type": "wall",
+        "type": "background-wall",
         "imageWidth": 59,
         "imageHeight": 58
     },
@@ -30,8 +23,9 @@
         "id": "block_10",
         "collision": false,
         "texture": "/level-creator/assets/block/brick-window-1.png",
+        "description": "background block",
         "isDestroy": false,
-        "type": "wall",
+        "type": "background-wall",
         "imageWidth": 59,
         "imageHeight": 58
     },
@@ -39,8 +33,9 @@
         "id": "block_10",
         "collision": false,
         "texture": "/level-creator/assets/block/brick-window-2.png",
+        "description": "background block",
         "isDestroy": false,
-        "type": "wall",
+        "type": "background-wall",
         "imageWidth": 59,
         "imageHeight": 58
     }

@@ -13,7 +13,7 @@ import { createScreenshots, deleteObjectsOnDemand } from './engine/engineModules
 import { mapGravityInit, blockCollision } from './engine/dynamicLevels/dynamicLevelModule';
 import { objectIntersectionDetect } from './enemies/enemiesModules';
 import { syncKeyControl } from './engine/playerShipModule';
-import { shot } from './enemies/enemiesModules';
+import { shot, placeEnemyes } from './enemies/enemiesModules';
 
 
 
@@ -278,9 +278,28 @@ function gameDynamicLevelBoxRender({ gameObject }){
     if(!allBlocks) return false
     for(let block of allBlocks){
         if(!block) continue
+            if(block.backgroundTexture){
+               placeEnemyes.call({
+                   title: 'test',
+                    x: block.x,
+                    y: block.y,
+                    sx: 0,
+                    sy: 0,
+                    sWidth: block.backgroundTexture.imageWidth,
+                    sHeight: block.backgroundTexture.imageHeight,
+                    width: block.backgroundTexture.width,
+                    height: block.backgroundTexture.height,
+                    degree: 0,
+                    img: block.backgroundTextureImg
+                }, gameObject)/**/
+                block.backgroundTexture.degree = 0
+            }
             if(block.details.type === 'enemy_spawner') continue
             if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
+
             block.placeEnemyes(gameObject)
+
+            // hitObject
     }
 }
 async function gameDynamicEnemyRender({ gameObject }){
@@ -333,9 +352,6 @@ async function gameDynamicEnemyRender({ gameObject }){
                     callback: shot,
                     constructors: constructors
                 })
-               /* if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
-                    shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
-                }*/
             }
     }
    // dynamicMainCharacter.xPos = 0;
@@ -355,23 +371,21 @@ async function gameDynamicPlayer({ gameObject }){
             let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
 
             dynamicMainCharacter.placeEnemyes(gameObject)
-
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 dynamicMainCharacter.changeVerticalAnimationPicture()
                 dynamicMainCharacter.enemyAnimation()
-
 
                 if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
                     shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }
                 dynamicMainCharacter.isRun = false;
-
                await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: dynamicMainCharacter,
                     callback: objectIntersectionDetect,
                     mainGameObject: gameObject
                 })
+
                 await mapGravityInit({mainGameObject: gameObject,
                     mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
                     targetObject: dynamicMainCharacter,
@@ -383,6 +397,7 @@ async function gameDynamicPlayer({ gameObject }){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
+                dynamicMainCharacter.xPos = 0;
         }
     }
 

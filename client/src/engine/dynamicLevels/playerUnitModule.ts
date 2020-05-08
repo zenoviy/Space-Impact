@@ -26,11 +26,16 @@
             V- complicated player animation
                 - change textures
     V - Level ends when player reach the dor or final object
-        - grapple coin
+        V- grapple coin
         - grapple life
         - add minimap
         - add inventory elements
     V - one hit - one life
+
+
+    // ============== Editor ================= //
+
+
 
 */
 import { getData } from '../../server/serverRequestModules';
@@ -87,24 +92,19 @@ function playerAnimation({ groundPlayer, mainGameObject }){
 function changeAnimationParameters(){
 
     if(this.isRun && this.groundTouch){
-        if(this.numberOfItems != this.animations.run.numberOfItems){
-            renewAnimation.call(this)
-        }
+        if(this.numberOfItems != this.animations.run.numberOfItems) renewAnimation.call(this)
+
         this.img.src = __dirname + this.animations.run.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.run })
     }
-    else if(this.isRun === false && this.groundTouch || this.onElevator){
-        if(this.numberOfItems != this.animations.stand.numberOfItems){
-            renewAnimation.call(this)
-        }
+    else if(this.isRun === false && this.groundTouch && !this.onStairs || this.onElevator){
+        if(this.numberOfItems != this.animations.stand.numberOfItems) renewAnimation.call(this)
+
         this.img.src = __dirname + this.animations.stand.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.stand })
     }
-    else if(!this.groundTouch && !this.onElevator){
-
-        if(this.numberOfItems != this.animations.jump.numberOfItems){
-            renewAnimation.call(this)
-        }
+    else if(!this.groundTouch && !this.onElevator && !this.onStairs){
+        if(this.numberOfItems != this.animations.jump.numberOfItems) renewAnimation.call(this)
         this.img.src = __dirname + this.animations.jump.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.jump })
     }

@@ -44,17 +44,33 @@ function changeObjectModel({ result, mainObject }){
     let currentBlock = allBlocks[result.index];
 
     if(!mainObject.selectedBlockPanelItem.destroyer){
+
+        if(mainObject.selectedBlockPanelItem.type === "background-wall" && currentBlock.details){
+            mainObject.selectedBlockPanelItem.width = mainObject.blockSize;
+            mainObject.selectedBlockPanelItem.height = mainObject.blockSize;
+            mainObject.selectedBlockPanelItem.x = currentBlock.x;
+            mainObject.selectedBlockPanelItem.y = currentBlock.y;
+            mainObject.selectedBlockPanelItem.xMove = currentBlock.xMove;
+            mainObject.selectedBlockPanelItem.yMove = currentBlock.yMove;
+
+            currentBlock.backgroundTexture = mainObject.selectedBlockPanelItem;
+            return false
+        }else if(mainObject.selectedBlockPanelItem.type === "background-wall" && !currentBlock.details){
+            currentBlock.details = mainObject.selectedBlockPanelItem;
+        }
         currentBlock.details = mainObject.selectedBlockPanelItem;
-    }else{
+    }else if(mainObject.selectedBlockPanelItem.destroyer === 'destroyer'){
         if(currentBlock.details && currentBlock.details.valueOfMove){
             positionReducer({ allBlocks: allBlocks })
-            //currentBlock.yMove -= (currentBlock.details.valueOfMove - currentBlock.details.constructorValueOfMove);
         }
-        console.log(mainObject.blockSize)
+        //console.log(mainObject.blockSize)
         currentBlock.width = mainObject.blockSize;
         currentBlock.height = mainObject.blockSize;
 
         currentBlock.details = null;
+        currentBlock.backgroundTexture = null;
+    }else if(mainObject.selectedBlockPanelItem.destroyer === 'redactorDecoration'){
+        currentBlock.backgroundTexture = null;
     }
 }
 

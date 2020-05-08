@@ -21,7 +21,7 @@ async function generateInput({fileContainer, target}){
         <h1>Block size</h1>
         <h3>Block width</h3>
             <p>Size of block width in pixels</p>
-            <input type='number' min="1" max="50" id=${'width-property-'+ currentDescriptionId} value=${(target.width)? target.width : 0} />
+            <input type='number' min="1" max="200" id=${'width-property-'+ currentDescriptionId} value=${(target.width)? target.width : 0} />
             <button data-target='save-width-btn' class="main-btn">Save width</button>`
             itemData = elementCreator({
                 tagname: "div",
@@ -60,7 +60,6 @@ async function generateInput({fileContainer, target}){
         fileContainer.appendChild(itemData);
     }
 
-    
     /*  ==============================    rulers & tips  ===================== */
     if(blockDetails.rules){
             // tips
@@ -264,6 +263,7 @@ console.log(currentField.validity.valid)
 
 function loadInnerData({fileContainer, target}){
     let blockDetails = target.details;
+    let backgroundImage = (target.backgroundTexture)? `<img width="50" src="${__HOST + target.backgroundTexture.texture}" alt="${target.backgroundTexture.id}">`:"";
     let innerText = `<div class="block-description-wrapper">
     <img id="block-preview-image" width="200" src="${__HOST + blockDetails.texture}">
     <div id="block-alert-message"></div>
@@ -276,6 +276,8 @@ function loadInnerData({fileContainer, target}){
         <li>X: ${ target.x }</li>
         <li>Y: ${ target.y }</li>
 
+    <p>${(target.backgroundTexture)? "Background texture" : ""}</p>
+    ${backgroundImage}
     </ul></div><hr>`;
 
 

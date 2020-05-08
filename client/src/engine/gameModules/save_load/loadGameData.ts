@@ -306,6 +306,10 @@ function loadSaveProcedure({mainGameObject, currentSave}){
                 let loadMapElement = backToObject({data: item, constructor: constructor.DynamicBlockConstructor})
                 loadMapElement.img = new Image();
                 loadMapElement.loadTexture()
+                if(loadMapElement.backgroundTexture){
+                    loadMapElement.backgroundTextureImg = new Image();
+                    loadMapElement.backgroundTextureImg.src = process.env.HOST + loadMapElement.backgroundTexture.texture;
+                }
                 return loadMapElement
             });
         }

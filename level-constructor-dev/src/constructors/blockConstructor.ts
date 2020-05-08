@@ -1,6 +1,6 @@
-import { renderBlockBox } from '../redactor/initStartObject';
+import { renderBlockBox, } from '../redactor/initStartObject';
 import { moveSingleBlock } from '../redactor/blockInteractModule';
-import { elevatorMove } from '../redactor/blocksFunctionality';
+import { elevatorMove, stairsMove } from '../redactor/blocksFunctionality';
 import { clearView } from '../ui/view';
 
 class BlockConstructor{
@@ -14,10 +14,13 @@ class BlockConstructor{
     details: any;
     imageWidth: number;
     imageHeight: number;
+    backgroundTexture: any;
+
 
     renderBlockBox: any;
     moveSingleBlock: any;
     elevatorMove: any;
+    stairsMove: any;
     constructor({...data}){
         this.x = data.x;
         this.y = data.y;
@@ -29,6 +32,7 @@ class BlockConstructor{
         this.details = (data.details)? data.details : null;
         this.imageWidth = (data.imageWidth)? data.imageWidth: data.width;
         this.imageHeight = (data.imageHeight)? data.imageHeight: data.width;
+        this.backgroundTexture = null;
     }
 }
 

@@ -5,6 +5,7 @@ import { changeAnimationParameters,
     changeVerticalAnimationPicture } from '../engine/dynamicLevels/playerUnitModule';
 import { bulletSpeed } from '../engine/bulletsModule';
 import { getObjectPosition } from '../engine/engineModules';
+import { stairsMove } from '../engine/dynamicLevels/dynamicLevelModule';
 
 
 class DynamicUserConstructor {
@@ -33,6 +34,7 @@ class DynamicUserConstructor {
     numberOfItems: number;
     detectFrame: number;
     isRun: boolean;
+    onStairs: number;
     onElevator: boolean;
     onElevatorSpeed: number;
     xPos: number;
@@ -55,6 +57,7 @@ class DynamicUserConstructor {
     bulletSpeed: any;
     takeDamage: any;
     getObjectPosition: any;
+    stairsMove: any;
     ///  enemyAnimation
     constructor({...data}){
         this.x = (data.x)? data.x: window.innerWidth/2 - data.width/2;
@@ -81,6 +84,7 @@ class DynamicUserConstructor {
         this.playerDirectionVertical = "down";
         this.isRun = false;
         this.onElevator = false;
+        this.onStairs = 0;
         this.animations = data.animations;
         this.animationSteps = data.animationSteps;
         this.numberOfVerticalItems = data.numberOfVerticalItems;
@@ -108,6 +112,7 @@ DynamicUserConstructor.prototype.changeVerticalAnimationPicture = changeVertical
 DynamicUserConstructor.prototype.bulletSpeed = bulletSpeed;
 DynamicUserConstructor.prototype.takeDamage = takeDamage;
 DynamicUserConstructor.prototype.getObjectPosition = getObjectPosition;
+DynamicUserConstructor.prototype.stairsMove = stairsMove;
 export {
     DynamicUserConstructor
 }

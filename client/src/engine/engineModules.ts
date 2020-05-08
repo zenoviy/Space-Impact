@@ -178,7 +178,7 @@ async function getSecondMeasure(callback, ...data){
 
     let gameSecond = 1000/this.gameInitData.intervalCount;
 
-    console.log('Sec', gameSecond, )
+    //console.log('Sec', gameSecond, )
     if(this.gameInitData.gameExtraSeconds % gameSecond == 0){
         this.gameInitData.gameExtraSeconds = 0;
         if(!this.gameInitData.shopActive) this.gameInitData.tradeShipTimeToUndock -= 1;
@@ -376,7 +376,7 @@ async function getImageFromFields({saveGameData, screenshot }){
                 filename: new Date().getTime(), screenshot: screenshot})
             return reducePreviewImageSize({ picUrl: 'data:image/png;base64,' + pic.replace(/^data:image\/png;base64,/, "")})
             .then( resolve => {
-                console.log('resolve', resolve)
+                //console.log('resolve', resolve)
                 return  resolve
             })
         })

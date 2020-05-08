@@ -33,6 +33,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     nextWallBlock: any
     nextBottomBlock: any;
     backBlock: any;
+    jumpBlock: any;
     jumpSpeed: number;
     jumpImpuls: number;
     details: any;

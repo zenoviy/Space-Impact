@@ -136,16 +136,12 @@ function shipControl(mainGameObject: any){
             let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
             groundPlayer.shotState = true;
         }
-        //console.log(mainGameObject.gameInitData.gameData.groundPlayerCharacter)
-        //console.log('mousedown')
-
     })
     document.addEventListener("mouseup", (event: any) => {
         if(mainGameObject.gameInitData.dynamicLevelsActive){
             let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
             groundPlayer.shotState = false;
         }
-        //console.log('mouseup')
     })
 }
 
@@ -285,8 +281,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             groundPlayer.playerDirectionVertical = playerDirection;
             break
     }
-    groundPlayer.xPos =  (xPos)? xPos : groundPlayer.xPos ;
-//console.log(groundPlayer.groundTouch)
+    groundPlayer.xPos =  (xPos)? xPos : groundPlayer.xPos;
     for(let block of dynamicLevelMapBlocks){
         if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch ||
         groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch){
@@ -294,7 +289,6 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
                 mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
                 block.x -= xPos;
         }
-
         if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch || yPos && groundPlayer.onElevator){
             if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls +=  4;
@@ -304,15 +298,14 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             if(groundPlayer.onElevator){
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 4;
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
+                groundPlayer.groundTouch = false;
             }
             block.verticalSpeed = yPos;
-            //block.y -= mainGameObject.gameInitData.gameData.levelData.jumpImpuls;
         }
     }
     for(let enemy of allEnemy){
         if(groundPlayer.rightWallTouch || groundPlayer.leftWallTouch) continue
         enemy.x -= xPos;
-        
     }
     mainGameObject.mapNearActiveElement = null;
     playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
