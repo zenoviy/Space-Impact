@@ -34,7 +34,7 @@ class DynamicUserConstructor {
     numberOfItems: number;
     detectFrame: number;
     isRun: boolean;
-    onStairs: number;
+    onStairs: boolean;
     onElevator: boolean;
     onElevatorSpeed: number;
     xPos: number;
@@ -84,7 +84,7 @@ class DynamicUserConstructor {
         this.playerDirectionVertical = "down";
         this.isRun = false;
         this.onElevator = false;
-        this.onStairs = 0;
+        this.onStairs = false;
         this.animations = data.animations;
         this.animationSteps = data.animationSteps;
         this.numberOfVerticalItems = data.numberOfVerticalItems;

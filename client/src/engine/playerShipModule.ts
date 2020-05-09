@@ -49,6 +49,7 @@ function userKeyAction({ mainGameObject, controlKeys, event}){
     }else{
         if(controlKeys.inventory.some(obj => event.keyCode == obj) ) showGroundPlayerInventory({mainGameObject: mainGameObject});
         if(controlKeys.useKey.some(obj => event.keyCode == obj) ) interactWithObjects({mainGameObject: mainGameObject, constructors: constructors});
+        if(controlKeys.miniMap.some(obj => event.keyCode == obj) ) console.log('mini Map')
     }
 }
 

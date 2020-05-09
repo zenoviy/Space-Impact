@@ -295,22 +295,9 @@ function gameDynamicLevelBoxRender({ gameObject }){
                 block.backgroundTexture.degree = 0
             }
             if(block.details.type === 'enemy_spawner') continue
-            //let blockXPos = block.x;  //  + (this.blockRelativeXPos)? parseInt(this.blockRelativeXPos) : 0
-            //let blockYPos = block.y;
-            //console.log(block.y, blockYPos, '::')
-            //block.x = (block.x + (block.blockRelativeXPos)? parseInt(block.blockRelativeXPos) : 0);
-            //block.y = (block.y + (block.blockRelativeYPos)? parseInt(block.blockRelativeYPos) : 0);
-
-
             if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
 
-            //console.log(block.y, blockYPos, "||", (block.blockRelativeYPos)? parseInt(block.blockRelativeYPos) : 0)
             block.placeEnemyes(gameObject)
-            
-            
-            //block.x = blockXPos;
-            //block.y = blockYPos;
-            // hitObject
     }
 }
 async function gameDynamicEnemyRender({ gameObject }){
@@ -320,7 +307,7 @@ async function gameDynamicEnemyRender({ gameObject }){
     let dynamicMainCharacter = gameObject.gameInitData.gameData.groundPlayerCharacter;
     let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
     let extraSeconds = gameObject.gameInitData.gameExtraSeconds;
-
+    dynamicMainCharacter.isRun = false;
     //levelInformation.jumpImpuls;
     if(!allEnemy) return false
 
@@ -389,8 +376,8 @@ async function gameDynamicPlayer({ gameObject }){
                 if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
                     shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }
-                dynamicMainCharacter.isRun = false;
-               await blockCollision({
+                //dynamicMainCharacter.isRun = false;
+                await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: dynamicMainCharacter,
                     objectIntersectionDetect: objectIntersectionDetect,
@@ -407,6 +394,7 @@ async function gameDynamicPlayer({ gameObject }){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
+
                 dynamicMainCharacter.xPos = 0;
         }
     }
@@ -592,9 +580,10 @@ function initAppGlobalVariable(){
         bulletEngineFunction({ gameObject: gameObject })
         gameDynamicLevelBoxRender({ gameObject: gameObject })
 
-        gameDynamicEnemyRender({ gameObject: gameObject })
-        gameDynamicPlayer({ gameObject: gameObject })
         groundBulletEngineFunction({ gameObject: gameObject })
+        gameDynamicPlayer({ gameObject: gameObject })
+        gameDynamicEnemyRender({ gameObject: gameObject })
+
 
         syncKeyControl({ mainGameObject: gameObject })
 

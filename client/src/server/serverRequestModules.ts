@@ -66,7 +66,8 @@ function getDefaultSettings(){
             "destroyEnemy":[84],
             "shield":[69],
             "inventory":[73],
-            "useKey": [69]},
+            "useKey": [69],
+            "miniMap": [77]},
         "screenResolution":{
             "title":"800x600",
             "width":800,

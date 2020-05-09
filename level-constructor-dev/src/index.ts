@@ -16,8 +16,8 @@ V- create map net
         V- change data
             V- width
             V- height
-            - x
-            - y
+            V- x
+            V- y
             V- description
             V- rulers
             - elevator speed
@@ -36,7 +36,7 @@ V- side panel
         V- background
 
 
-- add stairs
+V- add stairs
 - add leaders
 V- add horizontal elevator
 V- add background texture and display it

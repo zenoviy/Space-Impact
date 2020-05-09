@@ -131,6 +131,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.rightWallTouch = false;
     targetObject.leftWallTouch = false;
     targetObject.ceilingTouch = false;
+    targetObject.onStairs = false;
     let floorCollision = false;
     let currentActiveBlock;
     //mainGameObject.mapNearActiveElement = null;
@@ -190,7 +191,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
 
 
     if(target.details.type === "stairs-left" || target.details.type === "stairs-right"){
-        //console.log(target.details)
         stairsMove({
             mainGameObject: mainGameObject,
             levelInformation: levelInformation,
@@ -199,7 +199,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
             x: x,
             y: y
         })
-        //this.groundTouch = true;
         return false
     }
 
@@ -223,13 +222,20 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
                 if(this.objectOwner != "groundEnemy") levelInformation.jumpImpuls = levelInformation.gravity
                 this.groundTouch = true;
            }
+
+           
        }
+       if(this.y < targetY && this.onStairs && this.x <= targetX && target.details.type === "stairs-left" || 
+           this.y < targetY && this.onStairs && this.x >= targetX + target.width && target.details.type === "stairs-right"){
+                console.log('on top')
+        }
     }
 
     // ==========================================
     if( this.x < targetX && this.x + this.width > targetX &&
         this.y + this.height > targetY + 5 && this.playerDirectionHorizontal === 'right'){
-            if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && target.height < 20){
+            if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && target.height < 20 ||
+            this.groundTouch && this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy"){
                 console.log('Steps')
                 this.rightWallTouch = false;
                 levelInformation.jumpImpuls = levelInformation.gravity * -1 //this.height * -1;
@@ -249,6 +255,13 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     if(this.x < targetX + target.width && this.x + this.width > targetX  &&
         this.y + this.height > targetY + 5 &&
         this.playerDirectionHorizontal === 'left'){
+            if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && target.height < 20 ||
+            this.groundTouch && this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy"){
+                this.rightWallTouch = false;
+                levelInformation.jumpImpuls = levelInformation.gravity * -1 //this.height * -1;
+                this.groundTouch = false;
+                return false
+            }
            if(target.details){
                if(target.details.type === 'elevator' ){
                    return false
@@ -459,49 +472,33 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     let numberOfHorizontalSteps = Math.floor(stairs.width/10);
     let numberOfVerticalSteps = Math.floor(stairs.height/10);
 
-    if(!stairs.details.angle) return false
+    //if(!stairs.details.angle) return false
     let percentOfSteps = stairs.height/stairs.details.angle;
-
+        player.onStairs = true;
     if(!player.isRun){
+        console.log('exit stairs', player.isRun)
         player.groundTouch = true;
-        //levelInformation.jumpImpuls = 0;
+        levelInformation.jumpImpuls = -1;
+
+        if(player.y < stairs.y && player.onStairs && player.x <= stairs.x && stairs.details.type === "stairs-left" ||
+        player.y < stairs.y && player.onStairs && player.x <= stairs.x + stairs.width && stairs.details.type === "stairs-right"){
+                player.groundTouch = false;
+                levelInformation.jumpImpuls = levelInformation.gravity;
+        }
         return false
     }
-
     let xMax = Math.max(player.x + player.width, stairs.x) - Math.min(player.x + player.width, stairs.x);
-    console.log(xMax, '||', percentOfSteps, levelInformation.jumpImpuls)
-    console.log("change steps left", numberOfHorizontalSteps, numberOfVerticalSteps, xMax, stairsVerticalIndex);
 
-    if(stairs.details.type === "stairs-left" && player.isRun){
+    if(stairs.details.type === "stairs-left"){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
-        -100 :
-        levelInformation.jumpImpuls + stairsVerticalIndex; //(xMax * percentOfSteps) * -1 : xMax * percentOfSteps ;
-        console.log('|>', levelInformation.jumpImpuls)
-    }else if(stairs.details.type === "stairs-right" && player.isRun){
+        (levelInformation.gravity + stairsVerticalIndex) * -1 :
+        levelInformation.gravity;
 
+    }else if(stairs.details.type === "stairs-right" && player.isRun){
+        levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
+        levelInformation.gravity/stairsVerticalIndex:
+        (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
     }
-    /*if(stairs.details.type === "stairs-left" ){
-        if(xMax % numberOfHorizontalSteps == 0){
-            console.log("change steps left", numberOfHorizontalSteps, numberOfVerticalSteps, xMax, stairsVerticalIndex)
-            player.onStairs = ( player.playerDirectionHorizontal === 'right' )? (  Math.pow(numberOfVerticalSteps, 2) ) * -1 : numberOfVerticalSteps ;  //numberOfVerticalSteps * 10;
-        }
-    }else if(stairs.details.type === "stairs-right"){
-        if(xMax % numberOfHorizontalSteps == 0){
-            console.log("change steps right")
-            player.onStairs = ( player.playerDirectionHorizontal === 'right' )? numberOfVerticalSteps : (  Math.pow(numberOfVerticalSteps, 2) ) * -1;
-        }
-    }*/
-    /*if(stairs.details.type === "stairs-left" ){
-        if(player.isRun){
-            console.log("change steps left", stairs)  // player.onStairs =
-            levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )? levelInformation.jumpImpuls - percentOfSteps * xMax: levelInformation.jumpImpuls + percentOfSteps * xMax; //(xMax * percentOfSteps) * -1 : xMax * percentOfSteps ;  //numberOfVerticalSteps * 10;
-        }
-    }else if(stairs.details.type === "stairs-right"){
-        if(player.isRun){
-            console.log("change steps right")
-            levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )? levelInformation.jumpImpuls + percentOfSteps * xMax: levelInformation.jumpImpuls - percentOfSteps * xMax; //xMax * percentOfSteps : (xMax * percentOfSteps) * -1;
-        }
-    }*/
 }
 
 

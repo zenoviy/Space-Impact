@@ -1,6 +1,6 @@
 /*  Dynamic level
 
-    - level constructor
+   V - level constructor
        V - create level
        V - save level
        V - load level
@@ -15,8 +15,8 @@
        V - place player at particular location ( level started )
    V - change background move and level timing
        V - enemy moves waiting and attack player
-            - enemy detect empty blocks and stop
-            - switch behavior
+           V - enemy detect empty blocks and stop
+           V - switch behavior
            V - !maybe load parts of map!
        V - everything depends on player move
            V - Player on center Map move  right, up or down
@@ -97,13 +97,13 @@ function changeAnimationParameters(){
         this.img.src = __dirname + this.animations.run.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.run })
     }
-    else if(this.isRun === false && this.groundTouch && !this.onStairs || this.onElevator){
+    else if(this.isRun === false && this.groundTouch || this.onElevator){
         if(this.numberOfItems != this.animations.stand.numberOfItems) renewAnimation.call(this)
 
         this.img.src = __dirname + this.animations.stand.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.stand })
     }
-    else if(!this.groundTouch && !this.onElevator && !this.onStairs){
+    else if(!this.groundTouch && !this.onElevator  ){
         if(this.numberOfItems != this.animations.jump.numberOfItems) renewAnimation.call(this)
         this.img.src = __dirname + this.animations.jump.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.jump })
