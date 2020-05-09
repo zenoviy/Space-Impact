@@ -1,6 +1,7 @@
 import * as globalVariable from './globalVariables';
 import { createFrame, createBlockPicture, backgroundRender } from '../ui/view';
 import { getData } from '../server-requests/requestsModule';
+import { blockAnimations } from '../redactor/blocksFunctionality';
 
 
 
@@ -75,8 +76,10 @@ function fillBlockMap({ BlockConstructor, horizontalBlocks, verticalBlock, block
         verticalEnds = (verticalEnds < ( (verticalBlock - 1) * blockSize ))? verticalEnds + blockSize : 0;
 
         horizontalEnds = (verticalEnds == 0)? horizontalEnds + blockSize : horizontalEnds;
+        //console.log()
         blockArray = blockArray.concat(new BlockConstructor({...blockData}));
     }
+    console.log(BlockConstructor, blockArray)
     return blockArray
 }
 
@@ -93,11 +96,15 @@ async function renderBlockBox({ mainObject }){
 
     if(this.yMove > 0 - 100 && this.xMove > 0 - 100 && this.yMove < window.innerHeight + 100 && this.xMove < window.innerWidth + 100){
         if(!this.details) createFrame.call(this, { mainObject: mainObject })
-        else{ 
+        else{
            await backgroundRender.call(this, { mainObject: mainObject })
            await createBlockPicture.call(this, { mainObject: mainObject })
         }
     }
+}
+
+function blockAnimationRender({ block }){
+    block.blockAnimations()
 }
 
 
@@ -107,5 +114,6 @@ export {
     renderBlockBox,
     fillBlockMap,
     backToObject,
-    setMapSizeToForm
+    setMapSizeToForm,
+    blockAnimationRender
 }

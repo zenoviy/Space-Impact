@@ -15,42 +15,30 @@
         "speed": 3,
         "animations": {
             "stand": {
-                "row": 1,
-                "width": 30,
-                "range": [1, 2],
                 "innerTexture": "/public/images/characters/stand.png",
-                "picturesWidth": 48,
                 "imageWidth": 48,
                 "imageHeight": 70,
                 "animationSteps": 10,
                 "numberOfItems": 2
             },
             "run": {
-                "row": 2,
-                "width": 30,
-                "range": [1, 6],
                 "innerTexture": "/public/images/characters/main_character_run.png",
-                "picturesWidth": 120,
                 "imageWidth": 120,
                 "imageHeight": 70,
                 "animationSteps": 10,
                 "numberOfItems": 6
             },
             "runAndShotTop": {
-                "row": 2,
-                "range": [7, 9],
+
                 "innerTexture": "/public/images/characters/run_shot_top.png"
             },
             "runAndShotBottom": {
-                "row": 2,
-                "range": [10, 12],
+
                 "innerTexture": "/public/images/characters/run_shot_top.png"
             },
             "jump": {
-                "row": 1,
-                "range": [6, 9],
+
                 "innerTexture": "/public/images/characters/jump.png",
-                "picturesWidth": 60,
                 "imageWidth": 60,
                 "imageHeight": 70,
                 "animationSteps": 10,

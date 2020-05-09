@@ -36,9 +36,33 @@
         "imageHeight": 58
     },
     {
-        "id": "block_4",
+        "id": "block_4_top",
+        "collision": true,
+        "texture": "/level-creator/assets/block/block-4-ground.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C98",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_4_body",
         "collision": true,
         "texture": "/level-creator/assets/block/block-4.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C98",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "platform_top",
+        "collision": true,
+        "texture": "/level-creator/assets/block/platform-top.png",
         "description": "Solid block",
         "isDestroy": false,
         "type": "ground",

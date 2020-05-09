@@ -1,7 +1,8 @@
 [
     {
         "id": "character_spawner",
-        "texture": "/level-creator/assets/charactersObjects/spawner.png",
+        "texture": "/level-creator/assets/charactersObjects/spawner-animation.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/spawner.png",
         "description": "spawn point of player",
         "type": "spawner",
         "collision": false,
@@ -11,8 +12,18 @@
             "tips": "Find the way to finish this level"
         },
         "mapColor": "#37FF00",
-        "imageWidth": 59,
-        "imageHeight": 58
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
     },
     {
         "id": "escape_door",

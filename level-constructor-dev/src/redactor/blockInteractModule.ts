@@ -43,6 +43,7 @@ function changeObjectModel({ result, mainObject }){
     let allBlocks = mainObject.allRedactorBlock;
     let currentBlock = allBlocks[result.index];
 
+    console.log(mainObject.selectedBlockPanelItem, "<<")
     if(!mainObject.selectedBlockPanelItem.destroyer){
 
         if(mainObject.selectedBlockPanelItem.type === "background-wall" && currentBlock.details){

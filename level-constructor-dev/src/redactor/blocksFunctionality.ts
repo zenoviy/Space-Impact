@@ -44,11 +44,43 @@ function elevatorMove(){
         "collision": true
 */
 
+function blockAnimations(state = true){
+    this.detectFrame += 1;
+    if(this.detectFrame % this.animationSteps == 0 && state){
+        // console.log(this)
+        this.detectFrame = 0;
+        this.sx += this.sWidth;
+        if(Math.round(this.sx) >= this.picturesWidth){
+            this.sx = 0;
+        }
+    }else if(this.backgroundTexture){
+        if(this.detectFrame % this.backgroundTexture.animationSteps == 0 && state){
+           // console.log(this)
+           this.detectFrame = 0;
+           this.backgroundTexture.sx += this.backgroundTexture.sWidth ;
+           if(Math.round(this.backgroundTexture.sx) >= this.backgroundTexture.picturesWidth){
+               this.backgroundTexture.sx = 0;
+           }
+        } 
+    }else if(this.details){
+        if(this.detectFrame % this.details.animationSteps == 0 && state){
+         //  console.log(this)
+           this.detectFrame = 0;
+           this.details.sx += this.details.sWidth ;
+           if(Math.round(this.details.sx) >= this.details.picturesWidth){
+               this.details.sx = 0;
+           }
+        }
+   }
+}
+
+
 
 function stairsMove(){
 
 }
 export {
     elevatorMove,
-    stairsMove
+    stairsMove,
+    blockAnimations
 }

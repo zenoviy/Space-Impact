@@ -300,10 +300,17 @@ console.log(currentField.validity.valid)
 
 function loadInnerData({fileContainer, target}){
     let blockDetails = target.details;
-    let backgroundImage = (target.backgroundTexture)? `<img width="50" src="${__HOST + target.backgroundTexture.texture}" alt="${target.backgroundTexture.id}">`:"";
+    console.log(target  )
+    let itemBackgroundImage = (blockDetails['previewTexture'])? blockDetails['previewTexture']: blockDetails['texture'];  // previewTexture
+    itemBackgroundImage = (target.backgroundTexture && blockDetails['previewTexture'])? target.backgroundTexture['previewTexture'] :
+    (target.backgroundTexture)? target.backgroundTexture.texture : blockDetails['texture'];
+
+    let itemImage = (blockDetails['previewTexture'])? blockDetails['previewTexture']: blockDetails['texture'];
+
+    let backgroundImage = (target.backgroundTexture)? `<img width="50" src="${__HOST + itemBackgroundImage}" alt="${target.backgroundTexture.id}">`:"";
     let innerText = `<div class="block-description-wrapper">
     <div class="material-preview-wrapper">
-        <img id="block-preview-image" width="200" src="${__HOST + blockDetails.texture}">
+        <img id="block-preview-image" width="200" src="${__HOST + itemImage}">
     </div>
 
     <ul><div id="block-alert-message"></div>

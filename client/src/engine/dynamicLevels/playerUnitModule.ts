@@ -103,7 +103,7 @@ function changeAnimationParameters(){
         this.img.src = __dirname + this.animations.stand.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.stand })
     }
-    else if(!this.groundTouch && !this.onElevator  ){
+    else if( !this.groundTouch && !this.onElevator ){
         if(this.numberOfItems != this.animations.jump.numberOfItems) renewAnimation.call(this)
         this.img.src = __dirname + this.animations.jump.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.jump })

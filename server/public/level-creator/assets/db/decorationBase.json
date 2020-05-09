@@ -7,7 +7,17 @@
         "isDestroy": false,
         "type": "background-wall",
         "imageWidth": 59,
-        "imageHeight": 58
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
     },
     {
         "id": "block_9",
@@ -17,7 +27,17 @@
         "isDestroy": false,
         "type": "background-wall",
         "imageWidth": 59,
-        "imageHeight": 58
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
     },
     {
         "id": "block_10",
@@ -27,7 +47,17 @@
         "isDestroy": false,
         "type": "background-wall",
         "imageWidth": 59,
-        "imageHeight": 58
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
     },
     {
         "id": "block_10",
@@ -37,6 +67,37 @@
         "isDestroy": false,
         "type": "background-wall",
         "imageWidth": 59,
-        "imageHeight": 58
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+    {
+        "id": "alert_box",
+        "collision": false,
+        "texture": "/level-creator/assets/background/alert-box.png",
+        "previewTexture": "/level-creator/assets/background/alert-box-preview.png",
+        "description": "background block \n alert box",
+        "isDestroy": false,
+        "type": "background-wall",
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
     }
 ]

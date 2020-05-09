@@ -204,7 +204,6 @@ function setMapAsClick({ mainObject, x, y }){
         block.xMove -= Math.floor(cameraPositionX);
         block.yMove -= Math.floor(cameraPositionY);
     }
-
 }
 
 export {

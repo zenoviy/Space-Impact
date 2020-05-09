@@ -1,6 +1,6 @@
 import { renderBlockBox, } from '../redactor/initStartObject';
 import { moveSingleBlock } from '../redactor/blockInteractModule';
-import { elevatorMove, stairsMove } from '../redactor/blocksFunctionality';
+import { elevatorMove, stairsMove, blockAnimations } from '../redactor/blocksFunctionality';
 import { clearView } from '../ui/view';
 
 class BlockConstructor{
@@ -17,12 +17,22 @@ class BlockConstructor{
     imageWidth: number;
     imageHeight: number;
     backgroundTexture: any;
+    previewTexture: string;
+    sx: number; sy: number;
+    picturesWidth: number;
+    sWidth: number;
+    sHeight: number;
+    animationSteps: number;
+    numberOfVerticalItems: number;
+    numberOfItems: number;
+    detectFrame: number;
 
 
     renderBlockBox: any;
     moveSingleBlock: any;
     elevatorMove: any;
     stairsMove: any;
+    blockAnimations: any;
     constructor({...data}){
         this.x = data.x;
         this.y = data.y;
@@ -37,12 +47,18 @@ class BlockConstructor{
         this.imageWidth = (data.imageWidth)? data.imageWidth: data.width;
         this.imageHeight = (data.imageHeight)? data.imageHeight: data.width;
         this.backgroundTexture = null;
+        this.previewTexture = (data.previewTexture)? data.previewTexture : false;
+        this.sx = 0;
+        this.sy = 0;
+        this.picturesWidth = data.imageWidth;
+        this.detectFrame = 0;
     }
 }
 
 BlockConstructor.prototype.renderBlockBox = renderBlockBox;
 BlockConstructor.prototype.moveSingleBlock = moveSingleBlock;
 BlockConstructor.prototype.elevatorMove = elevatorMove;
+BlockConstructor.prototype.blockAnimations = blockAnimations;
 export {
     BlockConstructor
 }

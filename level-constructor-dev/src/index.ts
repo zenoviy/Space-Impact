@@ -3,12 +3,13 @@ import '../sass/main.sass'
 import { MainGameConstructor } from './constructors/renderConstructor';
 import { BlockConstructor } from './constructors/blockConstructor';
 import { initView, mapMoveControllers } from './ui/view';
-import { initMainEngine } from './redactor/initStartObject';
+import { initMainEngine, blockAnimationRender } from './redactor/initStartObject';
 import { loadMap, saveMap, setMapSize, createNewMap } from './redactor/sidePanelActions';
 
 /*
 V- create map net
     V- vertical direction of block
+    - destroy some blocks
     V- block information
         V - delete block
         V- preview
@@ -70,6 +71,7 @@ V- add background texture and display it
 
         for(let block of mainObject.allRedactorBlock){
            await block.elevatorMove()
+           blockAnimationRender({ block: block })
            await block.renderBlockBox({ mainObject: mainObject })
         }
     }

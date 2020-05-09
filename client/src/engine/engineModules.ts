@@ -8,7 +8,7 @@ const { ipcRenderer, remote } = require( "electron" );
 
 
 
-function initField(screenWidth = window.innerWidth, screenHeight = window.innerHeight){
+function initField (screenWidth = window.innerWidth, screenHeight = window.innerHeight){
     let gameField = [].concat(
         this.gameInitData.gameField,
         this.gameInitData.gameActionField,
@@ -23,7 +23,7 @@ function initField(screenWidth = window.innerWidth, screenHeight = window.innerH
 
 
 
-function setGameFields(){
+function setGameFields (){
     this.initField();
     this.createContext();
     this.initPlayerShip();
@@ -31,8 +31,7 @@ function setGameFields(){
 
 
 
-function warpEffect(constructors){
-    //let screenSiz = this.getScreenSize();
+function warpEffect (constructors){
     let ctx = this.gameInitData.ctx;
     let gameWarpObjects = this.gameInitData.warpObjects;
     this.getSecondMeasure(warpTimer, {timeToEressLevel: this.gameInitData.timeToEressLevel, ctx: ctx, screenSiz: this.getScreenSize()})
@@ -57,7 +56,7 @@ function warpEffect(constructors){
             ctx.fill();
         }
     }
-    function warpTimer(levelData){
+    function warpTimer (levelData){
         let leveChangeStatus = (this.gameInitData.timeToEressLevel >=0 )? false : true;
         if(this.gameInitData.timeToEressLevel >=0 && !leveChangeStatus) this.gameInitData.timeToEressLevel -= 1;
         if(this.gameInitData.timeToEressLevel < 0 && !leveChangeStatus){
@@ -70,20 +69,19 @@ function warpEffect(constructors){
 
 
 
-function levelInit(GameBackground, ctx, mainGameObject){
+function levelInit (GameBackground, ctx, mainGameObject){
     let gameData = this.showLevelData();
     let allBackgroundElements = gameData.levelBackgroundElements;
     let levelStandartMap = gameData.levelStandartMap;
     mainGameObject.gameInitData.backScreenPause = false;
 
     loadMapBackgroud.call(this, allBackgroundElements)
-    //console.log(gameData.levelBottomPart)
     if(gameData.levelBottomPart){
         loadMapBackgroud.call(this, gameData.levelBottomPart, window.innerHeight-200, window.innerHeight + 300)
     }
 
 
-    function loadMapBackgroud( backgroundElementsArr, yPosition , height){
+    function loadMapBackgroud ( backgroundElementsArr, yPosition , height){
         for(let mapObject of backgroundElementsArr){
 
             let mapItem = new GameBackground({
@@ -175,10 +173,8 @@ function levelTimer(){
 
 
 async function getSecondMeasure(callback, ...data){
-
     let gameSecond = 1000/this.gameInitData.intervalCount;
 
-    //console.log('Sec', gameSecond, )
     if(this.gameInitData.gameExtraSeconds % gameSecond == 0){
         this.gameInitData.gameExtraSeconds = 0;
         if(!this.gameInitData.shopActive) this.gameInitData.tradeShipTimeToUndock -= 1;

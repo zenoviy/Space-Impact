@@ -203,8 +203,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     }
 
 
-    //console.log(this.y + this.height, targetY + target.height/2)
-
     if(this.y + this.height < targetY + target.height/2 && collision && !isWall ){
         //console.log("Ground To" )
         if(target.details ){
@@ -222,8 +220,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
                 if(this.objectOwner != "groundEnemy") levelInformation.jumpImpuls = levelInformation.gravity
                 this.groundTouch = true;
            }
-
-           
        }
        if(this.y < targetY && this.onStairs && this.x <= targetX && target.details.type === "stairs-left" || 
            this.y < targetY && this.onStairs && this.x >= targetX + target.width && target.details.type === "stairs-right"){

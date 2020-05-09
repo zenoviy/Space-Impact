@@ -279,14 +279,14 @@ function gameDynamicLevelBoxRender({ gameObject }){
     for(let block of allBlocks){
         if(!block) continue
             if(block.backgroundTexture){
+                //console.log(block)
                placeEnemyes.call({
-                   title: 'test',
                     x: block.x,
                     y: block.y,
-                    sx: 0,
-                    sy: 0,
-                    sWidth: block.backgroundTexture.imageWidth,
-                    sHeight: block.backgroundTexture.imageHeight,
+                    sx: block.backgroundSx,
+                    sy: block.backgroundSy,
+                    sWidth: block.backgroundTexture.sWidth,
+                    sHeight: block.backgroundTexture.sWidth,
                     width: block.backgroundTexture.width,
                     height: block.backgroundTexture.height,
                     degree: 0,
@@ -296,10 +296,24 @@ function gameDynamicLevelBoxRender({ gameObject }){
             }
             if(block.details.type === 'enemy_spawner') continue
             if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
-
+            
+            if(!gameObject.gameInitData.gamePause) block.enemyAnimation()
             block.placeEnemyes(gameObject)
     }
 }
+/*
+let sx = (this.backgroundTexture.sx)? this.backgroundTexture.sx: 0;
+        let sy = (this.backgroundTexture.sy)? this.backgroundTexture.sy: 0;
+        await mainObject.ctx.drawImage(imgBackground, sx, sy,
+            this.backgroundTexture.sWidth,
+            this.backgroundTexture.sHeight,
+            this.xMove,
+            this.yMove,
+            this.backgroundTexture.width,
+            this.backgroundTexture.height)
+        //console.log(this.backgroundTexture)
+    }
+*/
 async function gameDynamicEnemyRender({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     let levelInformation = gameObject.gameInitData.gameData.levelData;

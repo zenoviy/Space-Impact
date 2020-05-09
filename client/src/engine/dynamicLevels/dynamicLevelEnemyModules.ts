@@ -85,7 +85,7 @@ async function groundPlayerJump({ mainGameObject, allBlocks, levelInformation })
 }
 
 
-async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, callback}){
+async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, objectIntersectionDetect}){
 
    if(!dynamicMainCharacter || !allBlocks) return false
    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
@@ -132,7 +132,7 @@ async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, ca
                 localYRay -= decreaseValue * searchSteps;
             }
             findBarrier = allBlocks.find(block => {
-                let searchCollision = callback({
+                let searchCollision = objectIntersectionDetect({
                     object: {
                         x: localXRay,
                         y: localYRay,
@@ -163,8 +163,7 @@ function groundEnemyDecided({mainGameObject, allBlocks}){
         //this.currentBehavior = this.behavior[Math.floor(Math.random() * this.behavior.length)];
     }
 }
-// "pursuit"
-// "patrol"  "destroy"   "find"
+
 function groundEnemyPatrol(){
 
 }

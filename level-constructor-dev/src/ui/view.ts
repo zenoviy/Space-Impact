@@ -109,10 +109,11 @@ function renderItemsToSideList({ mainObject, dataBase, selectItem }){
     target.innerHTML = '';
     for(let blockItem of dataBase){
         //console.log(blockItem)
+        let itemImage = (blockItem['previewTexture'])? blockItem['previewTexture']: blockItem['texture'];
         let obj = blockCreator({
             tag: 'div',
             styleClass: 'single-block-item',
-            innerContent: `<img width="100%" title="${(blockItem.details)? blockItem.details.description : blockItem.description}" src='${ globalVariable.__HOST + blockItem['texture'] }'>`
+            innerContent: `<img width="100%" title="${(blockItem.details)? blockItem.details.description : blockItem.description}" src='${ globalVariable.__HOST + itemImage }'>`
         });
 
         obj.addEventListener('click', (event) => {
@@ -177,9 +178,12 @@ async function backgroundRender({ mainObject }){
     if(this.backgroundTexture){
         let imgBackground = new Image();
         imgBackground.src = globalVariable.__HOST + this.backgroundTexture.texture;
-        await mainObject.ctx.drawImage(imgBackground, 0, 0,
-            this.backgroundTexture.imageWidth,
-            this.backgroundTexture.imageHeight,
+
+        let sx = (this.backgroundTexture.sx)? this.backgroundTexture.sx: 0;
+        let sy = (this.backgroundTexture.sy)? this.backgroundTexture.sy: 0;
+        await mainObject.ctx.drawImage(imgBackground, sx, sy,
+            this.backgroundTexture.sWidth,
+            this.backgroundTexture.sHeight,
             this.xMove,
             this.yMove,
             this.backgroundTexture.width,
@@ -190,12 +194,19 @@ async function backgroundRender({ mainObject }){
 
 async function createBlockPicture({ mainObject }){
     if(!this.details) return false
-    //mainObject.ctx.save();
+    //mainObject.ctx.save(); // sWidth
     let img = new Image();
     img.src = globalVariable.__HOST + this.details.texture;
-    await mainObject.ctx.drawImage(img, 0, 0,
-        this.details.imageWidth,
-        this.details.imageHeight,
+
+    let sWidth = (this.details.sWidth)? this.details.sWidth: this.details.imageWidth;
+    let sHeight = (this.details.sHeight)? this.details.sHeight: this.details.imageHeight;
+    
+    let sx = (this.details.sx)? this.details.sx: 0;
+    let sy = (this.details.sy)? this.details.sy: 0;
+    //.details.sx
+    await mainObject.ctx.drawImage(img, sx, sy,
+        sWidth,
+        sHeight,
         this.xMove + parseInt(this.blockRelativeXPos),
         this.yMove + parseInt(this.blockRelativeYPos),
         this.width,
@@ -223,6 +234,7 @@ function createFrame({ mainObject }){
 
 
 
+
 export {
     initView,
     mapMoveControllers,
@@ -230,5 +242,5 @@ export {
     createFrame,
     renderItemsToSideList,
     createBlockPicture,
-    backgroundRender
+    backgroundRender,
 }

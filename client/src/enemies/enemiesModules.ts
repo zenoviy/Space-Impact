@@ -17,13 +17,9 @@ function drawCircle({ctx, x, y, width, height, color}){
 }
 
 async function placeEnemyes(mainGameObject){
-  
-
     if(this.y < 0 - this.height && this.x < 0 - this.width &&
         this.y < window.innerHeight + this.height && this.x > window.innerWidth + this.width) return false
-
     mainGameObject.gameInitData.ctxActionField.save();
-
 
     let translateIndexAdjustX = await (this.degree < 180)? (this.width/180)*this.degree: (this.width/180)*(360 - this.degree);
     let translateIndexAdjustY = await (this.degree < 180)? (this.height/180)*this.degree: (this.height/180)*(360 - this.degree);
@@ -44,21 +40,31 @@ async function placeEnemyes(mainGameObject){
             color: 'rgba(201, 97, 28, .4)'
         })
     //}*/
-
-
-    //console.log(mainGameObject.gameInitData.ctxActionField)
     mainGameObject.gameInitData.ctxActionField.translate(this.x + translateIndexAdjustX, this.y + translateIndexAdjustY);
     mainGameObject.gameInitData.ctxActionField.rotate( ((this.degree)? this.degree: 0 ) * Math.PI / 180);
+    let sx = (this.backgroundTexture)? this.backgroundSx : this.sx;
+    let sy = (this.backgroundTexture)? this.backgroundSy : this.sy;
 
-    createImage(
-        mainGameObject.gameInitData.ctxActionField,
-        this.img,
-        this.sx, this.sy,
-        this.sWidth, this.sHeight,
-        0 + (this.blockRelativeXPos)? parseInt(this.blockRelativeXPos) : 0,
-        0 + (this.blockRelativeYPos)? parseInt(this.blockRelativeYPos) : 0,
-        this.width,this.height)
+    let sWidth = (this.backgroundTexture)? this.backgroundTexture.sWidth : this.sWidth;
+    let sHeight = (this.backgroundTexture)? this.backgroundTexture.sHeight : this.sHeight;
+
+        imageRender({
+            ctx: mainGameObject.gameInitData.ctxActionField,
+            img: this.img,
+            sx: this.sx,
+            sy: this.sy,
+            sWidth: sWidth,
+            sHeight: sHeight,
+            x: 0 + (this.blockRelativeXPos)? parseInt(this.blockRelativeXPos) : 0,
+            y: 0 + (this.blockRelativeYPos)? parseInt(this.blockRelativeYPos) : 0,
+            width: this.width,
+            height: this.height
+        })
     mainGameObject.gameInitData.ctxActionField.restore();
+
+    async function imageRender({ ctx, img, sx, sy, sWidth, sHeight, x, y, width, height }){
+       await createImage(ctx, img, sx, sy, sWidth, sHeight, x, y, width, height)
+    }
 }
 
 
@@ -82,7 +88,48 @@ function moveEnemyes(moveX: number, moveY: number = 0){
 }
 
 
+async function enemyAnimation(state = true){
+    if(this.backgroundTexture){
+        this.backgroundTexture.detectFrame += 1;
+        if(this.backgroundTexture.detectFrame % this.backgroundTexture.animationSteps == 0 && state){
+            this.backgroundTexture.detectFrame = 0;
+            let blockTexturePositionX = this.backgroundTexture.sWidth;
+            this.backgroundSx += parseInt(blockTexturePositionX);//this.backgroundTexture.sx + this.backgroundTexture.sWidth ;
+            if(Math.round(this.backgroundSx) >= this.backgroundTexture.picturesWidth){
+                this.backgroundSx = 0;
+            }
+        }
+    }
+    this.detectFrame += 1;
+    if(this.detectFrame % this.animationSteps == 0 && state){
 
+
+        this.detectFrame = 0;
+        this.sx += this.sWidth;
+        if(Math.round(this.sx) >= this.picturesWidth){
+            this.sx = 0;
+        }
+    }
+}
+
+
+
+
+function enemyDamageAnimation(){
+    if(this.numberOfVerticalItems > 1){
+        let damageAnimationPoint = this.originalHealthPoint/this.numberOfVerticalItems;
+        let damagePoint = new Array(this.numberOfVerticalItems).fill(null)
+        damagePoint = damagePoint.map((item, index) =>damageAnimationPoint*(index+1)).sort((a, b) => a - b).reverse();
+        for(let i = 0; i < damagePoint.length; i++){
+            if(this.healthPoint < damagePoint[i] && this.healthPoint > damagePoint[i+1] && damagePoint[i+1]){
+                this.sy = this.sHeight*(i);
+                break
+            }else if(!damagePoint[i+1]){
+                this.sy = this.sHeight * (this.numberOfVerticalItems - 1)
+            }
+        }
+    }
+}
 
 
 
@@ -148,35 +195,7 @@ function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, Soun
 }
 
 
-function enemyAnimation(state = true){
-    this.detectFrame += 1;
-    if(this.detectFrame % this.animationSteps == 0 && state){
-        this.detectFrame = 0;
-        this.sx += this.sWidth;
-        if(Math.round(this.sx) >= this.picturesWidth){
-            this.sx = 0;
-        }
-    }
-}
 
-
-
-
-function enemyDamageAnimation(){
-    if(this.numberOfVerticalItems > 1){
-        let damageAnimationPoint = this.originalHealthPoint/this.numberOfVerticalItems;
-        let damagePoint = new Array(this.numberOfVerticalItems).fill(null)
-        damagePoint = damagePoint.map((item, index) =>damageAnimationPoint*(index+1)).sort((a, b) => a - b).reverse();
-        for(let i = 0; i < damagePoint.length; i++){
-            if(this.healthPoint < damagePoint[i] && this.healthPoint > damagePoint[i+1] && damagePoint[i+1]){
-                this.sy = this.sHeight*(i);
-                break
-            }else if(!damagePoint[i+1]){
-                this.sy = this.sHeight * (this.numberOfVerticalItems - 1)
-            }
-        }
-    }
-}
 
 
 

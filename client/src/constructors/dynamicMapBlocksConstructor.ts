@@ -13,6 +13,7 @@ class DynamicBlockConstructor {
     degree: number;
     img: any;
     sx: number; sy: number;
+    backgroundSx: number; backgroundSy: number;
     sWidth: number; sHeight: number;
     texture: string;
     xTarget: number; yTarget: number;
@@ -27,6 +28,11 @@ class DynamicBlockConstructor {
     backgroundImageLink: any;
     blockRelativeXPos: number;
     blockRelativeYPos: number;
+    detectFrame: number;
+    animationSteps: number;
+    numberOfVerticalItems: number;
+    numberOfItems: number;
+    picturesWidth: number;
 
     moveMap: any;
     placeEnemyes: any;
@@ -54,8 +60,9 @@ class DynamicBlockConstructor {
         this.backgroundImageLink = (data.backgroundTexture)? process.env.HOST + data.backgroundTexture.texture: false;
         this.backgroundTextureImg.src = (data.backgroundTexture)? process.env.HOST + data.backgroundTexture.texture: '#';
         this.sx = 0; this.sy = 0;
-        this.sWidth = data.details.imageWidth;
-        this.sHeight = data.details.imageHeight;
+        this.backgroundSx = 0; this.backgroundSy = 0;
+        this.sWidth = (data.details.sWidth)? data.details.sWidth : data.details.imageWidth;
+        this.sHeight = (data.details.sHeight)? data.details.sHeight : data.details.imageHeight;
         this.verticalSpeed = 0;
         this.horizontalSpeed = 0;
         this.defaultSpeed = data.speed;
@@ -63,6 +70,11 @@ class DynamicBlockConstructor {
         this.backgroundTexture = (data.backgroundTexture)? data.backgroundTexture : null ;
         this.blockRelativeXPos = (data.blockRelativeXPos)? parseInt(data.blockRelativeXPos) : 0 ;
         this.blockRelativeYPos = (data.blockRelativeYPos)? parseInt(data.blockRelativeYPos) : 0 ;
+        this.detectFrame = 0;
+        this.animationSteps = (data.details.animationSteps)? data.details.animationSteps : 0;
+        this.numberOfVerticalItems = (data.details.numberOfVerticalItems)? data.details.numberOfVerticalItems : 0;
+        this.numberOfItems = (data.details.numberOfItems)? data.details.numberOfItems : 0;
+        this.picturesWidth = (data.details.picturesWidth)? data.details.picturesWidth : 0;
     }
 }
 DynamicBlockConstructor.prototype.placeEnemyes = placeEnemyes;
@@ -74,3 +86,16 @@ DynamicBlockConstructor.prototype.takeDamage = takeDamage;
 export {
     DynamicBlockConstructor
 }
+
+/*
+"imageHeight": 58,
+        "picturesWidth": 59,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+*/
