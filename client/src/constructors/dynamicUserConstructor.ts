@@ -48,6 +48,8 @@ class DynamicUserConstructor {
     objectPresent: boolean;
     healthPoint: number;
     defaultHealth: number;
+    currentWallBlock: any;
+    currentGroundBlock: any;
 
     placeEnemyes: any;
     loadTexture: any;
@@ -100,6 +102,8 @@ class DynamicUserConstructor {
         this.objectPresent = true;
         this.healthPoint = data.healthPoint;
         this.defaultHealth = data.healthPoint;
+        this.currentWallBlock = null;
+        this.currentGroundBlock = null;
     }
 }
 

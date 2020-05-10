@@ -42,7 +42,7 @@ V- add stairs
 V- add horizontal elevator
 V- add background texture and display it
     V- destroy/ change textures separately
-    - add texture animations
+    V- add texture animations
 - add NPC
     - dialog
 

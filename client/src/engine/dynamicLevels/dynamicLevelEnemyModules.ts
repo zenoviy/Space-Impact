@@ -41,7 +41,7 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
 
 
 async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformation: levelInformation }){
-    let dynamicMainCharacter = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
 
     if(this.playerInRange && this.targetAngle > 90 && this.targetAngle <= 270) this.playerDirectionHorizontal = 'left';
     if(this.playerInRange && this.targetAngle > 270 || this.playerInRange && this.targetAngle >= 0 && this.targetAngle <= 90) this.playerDirectionHorizontal = 'right';
@@ -51,10 +51,10 @@ async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformatio
 
     if(this.playerDirectionHorizontal === 'right' && this.isRun) this.x += this.speed;
     if(this.playerDirectionHorizontal === 'left' && this.isRun) this.x -= this.speed;
-    if(!this.groundTouch && dynamicMainCharacter.groundTouch){
+    if(!this.groundTouch && groundPlayer.groundTouch){
         this.y += levelInformation.jumpImpuls
     };
-    if(!this.groundTouch && !dynamicMainCharacter.groundTouch){
+    if(!this.groundTouch && !groundPlayer.groundTouch){
         this.y += levelInformation.jumpImpuls + levelInformation.gravity;
     }
 }
@@ -85,9 +85,9 @@ async function groundPlayerJump({ mainGameObject, allBlocks, levelInformation })
 }
 
 
-async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, objectIntersectionDetect}){
+async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectIntersectionDetect}){
 
-   if(!dynamicMainCharacter || !allBlocks) return false
+   if(!groundPlayer || !allBlocks) return false
    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
 
    if(extraSeconds % 100 === 0){
@@ -95,17 +95,17 @@ async function detectPlayer({mainGameObject, dynamicMainCharacter, allBlocks, ob
        this.playerInRange = false;
     }
 
-    let distanceX = Math.max(this.x, dynamicMainCharacter.x) - Math.min(this.x, dynamicMainCharacter.x);
-    let distanceY = Math.max(this.y, dynamicMainCharacter.y) - Math.min(this.y, dynamicMainCharacter.y);
-    let angle =  this.findAngleToShip({closestUnit: dynamicMainCharacter});
+    let distanceX = Math.max(this.x, groundPlayer.x) - Math.min(this.x, groundPlayer.x);
+    let distanceY = Math.max(this.y, groundPlayer.y) - Math.min(this.y, groundPlayer.y);
+    let angle =  this.findAngleToShip({closestUnit: groundPlayer});
     if(this.currentBehavior === "destroy"){
         this.targetAngle = angle;
     }
     if(this.detectRange < distanceX || this.detectRange < distanceY) return false
     let findBarrier = {};
 
-    let directionX = (this.x >= dynamicMainCharacter.x)? true : false;
-    let directionY = (this.y >= dynamicMainCharacter.y)? true : false;
+    let directionX = (this.x >= groundPlayer.x)? true : false;
+    let directionY = (this.y >= groundPlayer.y)? true : false;
 
     if(extraSeconds % 15 != 0) return false
     let searchSteps = 5;
@@ -266,11 +266,11 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         }
 
         // continue move if block on back and block on the bottom and cant see target
-        
+
 
         // if block at the front jump to the block
         if(this.playerInRange && this.leftWallTouch && this.currentBehavior != "find" && this.currentGroundBlock ||
-         this.playerInRange && this.rightWallTouch && this.currentBehavior != "find" && this.currentGroundBlock ||
+            this.playerInRange && this.rightWallTouch && this.currentBehavior != "find" && this.currentGroundBlock ||
             this.currentBehavior === "find" && this.rightWallTouch && this.currentGroundBlock || this.currentBehavior === "find" && this.currentGroundBlock && this.currentWallBlock ||
             this.currentBehavior === "destroy" && this.leftWallTouch && this.currentGroundBlock || this.currentBehavior === "destroy" && this.currentGroundBlock && this.currentWallBlock){
            // console.log(' Jump on the block')
@@ -314,8 +314,8 @@ function groundEnemyShot({ mainGameObject, allBlocks, callback, constructors }){
     if(mainGameObject.gameInitData.gameOver) return false
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     // when see character enemy stop shot to its location
-/* if(dynamicMainCharacter.shotState && extraSeconds % 10 === 0 && dynamicMainCharacter.shotAngle){
-                    shot.call(dynamicMainCharacter, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
+/* if(groundPlayer.shotState && extraSeconds % 10 === 0 && groundPlayer.shotAngle){
+                    shot.call(groundPlayer, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }*/
     //console.log(this)
     //shotProbability

@@ -7,7 +7,8 @@ import { replaceItemFromStorage } from '../ui/shop/gameInventoryModules';
 import { enterToTheShopDialog, leaveShop } from '../ui/shop/gameShopModule';
 import { show, hide } from '../appMenu/appMenu';
 import { showGroundPlayerInventory, playerAnimation, groundPlayerShot } from '../engine/dynamicLevels/playerUnitModule';
-import { interactWithObjects, backgroundMoveDuringMove, mapGravityInit } from '../engine/dynamicLevels/dynamicLevelModule';
+import { backgroundMoveDuringMove, mapGravityInit } from '../engine/dynamicLevels/dynamicLevelModule';
+import { interactWithObjects } from '../engine/dynamicLevels/dynamicDialog';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -288,7 +289,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
         groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch){
             groundPlayer.isRun = true;
                 mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
-                block.x -= xPos;
+                block.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;
         }
         if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch || yPos && groundPlayer.onElevator){
             if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
@@ -306,7 +307,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     }
     for(let enemy of allEnemy){
         if(groundPlayer.rightWallTouch || groundPlayer.leftWallTouch) continue
-        enemy.x -= xPos;
+        enemy.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;
     }
     mainGameObject.mapNearActiveElement = null;
     playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
