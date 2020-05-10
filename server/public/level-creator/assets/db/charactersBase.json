@@ -99,6 +99,20 @@
         "imageHeight": 58
     },
     {
+        "id": "leader_1",
+        "texture": "/level-creator/assets/charactersObjects/leader-1.png",
+        "description": "leader",
+        "speed": 2,
+        "moveDirection": "vertical",
+        "constructorDirection": true,
+        "backgroundTexture": null,
+        "type": "leader",
+        "collision": false,
+        "mapColor": "#ADA507",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
         "id": "door-1",
         "texture": "/level-creator/assets/charactersObjects/door_1.png",
         "previewTexture": "/level-creator/assets/charactersObjects/door-1-preview.png",

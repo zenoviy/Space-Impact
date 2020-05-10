@@ -39,6 +39,8 @@ V- side panel
 
 V- add stairs
 - add leaders
+V- doors
+    - doors access card
 V- add horizontal elevator
 V- add background texture and display it
     V- destroy/ change textures separately

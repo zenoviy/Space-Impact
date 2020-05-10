@@ -129,6 +129,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.leftWallTouch = false;
     targetObject.ceilingTouch = false;
     targetObject.onStairs = false;
+    //targetObject.onLeader = false;
     targetObject.currentWallBlock = null;
     let floorCollision = false;
     let currentActiveBlock;
@@ -141,7 +142,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
         if(!item) continue
         let collision = objectIntersectionDetect({object: item, target: targetObject })
         if(collision){
-           if(item.details.collision || item.details.type === 'door'){
+           if(item.details.collision || item.details.type === 'door' || item.details.type === 'leader'){
                floorCollision = findPointOfCollision.call(targetObject, {object: targetObject, target: item, mainGameObject: mainGameObject})
            }
            if(targetObject.objectOwner != "groundEnemy") currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item})
@@ -177,6 +178,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
 
     let floorCollision = false;
     var distance = Math.sqrt(x*x + y*y)-(this.height/2 + target.height/2);
+    
     if(!distance) return false
     var isWall = wallFinder({ mainGameObject: mainGameObject, currentBlock: target})
     var isBottomWall = wallBottomFinder({ mainGameObject: mainGameObject, currentBlock: target})
@@ -219,6 +221,13 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
            }
        }
     }
+    if(this.objectOwner != "groundEnemy" && target.details.type === "leader" ){
+        this.onLeader = true;
+        this.ceilingTouch = false;
+        this.rightWallTouch = false;
+        this.leftWallTouch = false;
+        return false
+    }
 
     // ==========================================
     if( this.x < targetX && this.x + this.width > targetX &&
@@ -239,9 +248,8 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
                     this.rightWallTouch = false;
                     this.groundTouch = true;
                 }
-                
                 this.currentWallBlock = target;
-                console.log('Right side of block V!')
+                //console.log('Right side of block V!')
             }
         }
 
@@ -264,9 +272,8 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
                     this.leftWallTouch = false;
                     this.groundTouch = true;
                 }
-                
                 this.currentWallBlock = target;
-               console.log('Left side of block V')
+               //console.log('Left side of block V')
            }
    }
 
@@ -279,7 +286,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
                 this.ceilingTouch = false;
                 return false
             }
-
             this.ceilingTouch = true;
         }
     }

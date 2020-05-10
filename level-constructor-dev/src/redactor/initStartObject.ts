@@ -11,8 +11,8 @@ async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
     let blockSize = 50,
     defaultWidth = (window.innerWidth/blockSize).toFixed(),
     defaultHeight = (window.innerHeight/blockSize).toFixed(),
-    maxHorizontalBlocks = 200,
-    maxVerticalBlocks = 150
+    maxHorizontalBlocks = 300,
+    maxVerticalBlocks = 200
 
 
     setMapSizeToForm({ width: defaultWidth, height: defaultHeight})

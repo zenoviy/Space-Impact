@@ -37,6 +37,7 @@ class DynamicUserConstructor {
     onStairs: boolean;
     onElevator: boolean;
     onElevatorSpeed: number;
+    onLeader: boolean;
     xPos: number;
     data: any;
     isShot: boolean;
@@ -104,6 +105,7 @@ class DynamicUserConstructor {
         this.defaultHealth = data.healthPoint;
         this.currentWallBlock = null;
         this.currentGroundBlock = null;
+        this.onLeader = false;
     }
 }
 

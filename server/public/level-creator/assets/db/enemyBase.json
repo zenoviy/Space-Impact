@@ -12,5 +12,19 @@
         "mapColor": "#FF0800",
         "imageWidth": 34,
         "imageHeight": 45
+    },
+    {
+        "id": "professor_1",
+        "texture": "/level-creator/assets/enemyObject/professor-1.png",
+        "description": "spawn point of NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "width": 30,
+        "height": 40,
+        "name": "professor-1",
+        "mapColor": "#DB8063",
+        "imageWidth": 34,
+        "imageHeight": 45
     }
 ]

@@ -109,9 +109,8 @@ function doorFunctionality({ mainGameObject }){
 
         return block.index === bottomBlockIndex
     })
-    console.log(compareBlock, currentWallBlock)
-    if(!currentWallBlock || currentGroundBlock === currentWallBlock || 
-        compareBlock === currentWallBlock && this.x + this.width > currentWallBlock.x + currentWallBlock.width/2 && this.x < currentWallBlock.x + currentWallBlock.width - 5) return false
+    if(!currentWallBlock || currentGroundBlock === currentWallBlock ||
+        compareBlock === currentWallBlock && this.x + this.width > currentWallBlock.x + currentWallBlock.width && this.x < currentWallBlock.x + currentWallBlock.width - 5) return false
 
 
     if(currentWallBlock.details.type === 'door'){
@@ -152,9 +151,18 @@ function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
             currentWallBlock.sx += doorPictureWidth;
         }
     }
-    //console.log(currentWallBlock )
 }
 
+
+
+function leadersFunctionality(){
+    if(!this.currentGroundBlock) return true
+    console.log(this.currentGroundBlock)
+    let currentGroundBlock = this.currentGroundBlock;
+    console.log(currentGroundBlock)
+    if(currentGroundBlock.details.type != "leader") return true
+    else return false
+}
 
 
 
@@ -163,5 +171,6 @@ export {
     elevatorMove,
     stairsMove,
     doorFunctionality,
-    openClosedDoorAnimation
+    openClosedDoorAnimation,
+    leadersFunctionality
 }

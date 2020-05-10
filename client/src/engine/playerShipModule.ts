@@ -9,6 +9,7 @@ import { show, hide } from '../appMenu/appMenu';
 import { showGroundPlayerInventory, playerAnimation, groundPlayerShot } from '../engine/dynamicLevels/playerUnitModule';
 import { backgroundMoveDuringMove, mapGravityInit } from '../engine/dynamicLevels/dynamicLevelModule';
 import { interactWithObjects } from '../engine/dynamicLevels/dynamicDialog';
+import { leadersFunctionality } from '../engine/dynamicLevels/dynamicLevelInteractiveElements';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -291,18 +292,30 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
                 mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
                 block.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;
         }
-        if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch || yPos && groundPlayer.onElevator){
+        if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" || 
+        yPos  && groundPlayer.onElevator){
             if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
-                mainGameObject.gameInitData.gameData.levelData.jumpImpuls +=  4;
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls +=  2;
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
                 groundPlayer.groundTouch = false;
             }
-            if(groundPlayer.onElevator){
-                mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 4;
+            if(groundPlayer.onElevator && groundPlayer.playerDirectionVertical === "up"){
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6;
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
                 groundPlayer.groundTouch = false;
             }
             block.verticalSpeed = yPos;
+        }// leadersFunctionality
+        if(groundPlayer.onLeader){
+            if(groundPlayer.playerDirectionVertical === "up"){
+                //mainGameObject.gameInitData.gameData.levelData.jumpImpuls += -2;
+                groundPlayer.groundTouch = false;
+            }else if(groundPlayer.playerDirectionVertical === "down"){
+                //mainGameObject.gameInitData.gameData.levelData.jumpImpuls += 2;
+                let downBlock = leadersFunctionality.call(groundPlayer)
+                groundPlayer.groundTouch = (downBlock)? true : false;
+            }
+            console.log(" on leader ")
         }
     }
     for(let enemy of allEnemy){
@@ -311,6 +324,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     }
     mainGameObject.mapNearActiveElement = null;
     playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
+    groundPlayer.onLeader = false;
 }
 
 export {
