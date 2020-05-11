@@ -8,6 +8,7 @@
 */
 import { getData } from '../../server/serverRequestModules';
 
+
 async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
     let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
     let dynamicEnemy = [];
@@ -18,22 +19,49 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         headers: null
     })
     let allEnemyOnMap = levelDynamicMapBlocks.filter( block => {
-        return block.details.type === 'enemy_spawner';
+        return block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner';
     })
     if(!allEnemyOnMap) return false
 
-    dynamicEnemy = allEnemyOnMap.map(enemyBlock => {
+    dynamicEnemy = allEnemyOnMap.map( enemyBlock => {
         let currentEnemyServerData = resultGroundEnemyData.find(item => item.id === enemyBlock.details.name)
         let prepareData = Object.assign(enemyBlock, currentEnemyServerData )
-        prepareData.texture = currentEnemyServerData.texture
+        prepareData.texture = currentEnemyServerData.texture;
         enemyBlock.details.collision = false;
         return new constructors.DynamicEnemyConstructor({...prepareData})
     })
+
+
+    for(let enemy of dynamicEnemy){
+        enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects): false;
+    }
     levelDynamicMapBlocks = levelDynamicMapBlocks.map( block => {
-        return block.details.type != 'enemy_spawner';
+        return block.details.type != 'enemy_spawner' && block.details.type != 'npc_spawner';
     })
     return dynamicEnemy
 }
+
+
+
+
+
+
+
+async function loadExtraObjectToGroundEnemy (extraObjects){
+    let randomObject = extraObjects[Math.floor(Math.random() * extraObjects.length)],
+        loadProbability = Math.floor(Math.random() * randomObject.randomizer),
+        numberOfElement = Math.floor(Math.random() * randomObject.maxNumber + 1);
+
+        if(randomObject.object != 'goldCoin' && loadProbability > randomObject.randomizer/2) randomObject = extraObjects[0];
+        let result = [];
+        let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': randomObject.object}})
+
+        for(let i = 0; i < numberOfElement; i++){
+            result = result.concat(callObject)
+        }
+        return result
+}
+
 
 
 
@@ -75,7 +103,6 @@ async function groundPlayerJump({ mainGameObject, allBlocks, levelInformation })
     }
     if(this.groundTouch && this.isJump){
         let blockHeight = (this.jumpBlock)? this.jumpBlock.height + this.height : 0;
-        console.log(this.jumpBlock)
         blockHeight = (blockHeight > 120)? 120: blockHeight;
         this.jumpImpuls = (this.jumpSpeed * levelInformation.gravity + blockHeight) * -1;
         //console.log(this.jumpImpuls, "JUMPING")
@@ -83,6 +110,10 @@ async function groundPlayerJump({ mainGameObject, allBlocks, levelInformation })
         this.groundTouch = false;
     }
 }
+
+
+
+
 
 
 async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectIntersectionDetect}){
@@ -184,37 +215,19 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
     let maxBoxToMove = (this.currentBehavior === "find")? 2 : (this.currentBehavior === "destroy")? 4 : 1;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(extraSeconds % 5 === 0){
-    //console.log(this.currentBehavior)
         if(this.currentBehavior === "stand") {
             this.isRun = false;
             return
         }
-
-    /*
-        playerDirectionHorizontal: "right"
-        shotState: false
-        shotAngle: 360
-        groundTouch: true
-        leftWallTouch: false
-        rightWallTouch: false
-        ceilingTouch: false
-        speed: 1
-        defaultSpeed
-        unitRandomize
-        nextGroundBlock
-        nextWallBlock
-        nextBottomBlock
-    */
         let indexOfNextBlock = null;
         let findBottomBlock = null;
         let findBackBlock = null;
         let currentBlockIndex = (this.currentGroundBlock)? this.currentGroundBlock.index : null;
 
-        // change direction if on edge, continue run
-       // console.log(extraSeconds , this.changeModeRandomizer, this.isRun, "||")
+
+        // Continue to move
         if(extraSeconds % this.changeModeRandomizer === 0 && !this.isRun && this.groundTouch && !this.playerInRange){
             this.playerDirectionHorizontal = (this.playerDirectionHorizontal === 'right')? 'left' : 'right';
-           // console.log('continue move if on the edge')
             this.isRun = true;
         }
         //  find next block in front
@@ -227,7 +240,6 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 return block.index === indexOfNextBlock && block.details.collision
             })
             this.nextGroundBlock = (findHorizontalBlock)? findHorizontalBlock: null;
-           // console.log('Ground Block', this.nextGroundBlock)
         }
         // find block on the back
         if(currentBlockIndex && !this.nextGroundBlock){
@@ -238,7 +250,6 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             findBackBlock = allBlocks.find(block =>{ 
                 return block.index === backBlockIndex && block.details.collision
             })
-           // console.log('Back block', findBackBlock)
         }
 
 
@@ -254,14 +265,12 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 if(findBottomBlock) break
             }
             this.nextBottomBlock = (findBottomBlock)? findBottomBlock: null;
-           // console.log('Bottom block', findBottomBlock)
         }
 
         // stop on the edge
         if(!this.nextGroundBlock && this.isRun && !this.playerInRange ||
             !this.nextGroundBlock && this.isRun && !findBottomBlock){
             this.changeModeRandomizer = Math.floor(Math.random() * this.unitRandomize + 100);
-           // console.log('stop')
             this.isRun = false;
         }
 
@@ -293,16 +302,11 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         }else if(this.currentBehavior === "find" && !findBottomBlock && !this.nextGroundBlock && !this.isRun){
             this.isRun = false;
         }
-       // console.log(maxBoxToMove, this.playerInRange, this.isJump, this.isRun, findBottomBlock, findBackBlock, this.nextGroundBlock, this.leftWallTouch, this.rightWallTouch, this.playerDirectionHorizontal)
+
 
         // if see target continue walk
         if(this.playerInRange && findBottomBlock || this.playerInRange && this.nextGroundBlock) this.isRun = true;
         if(this.playerInRange && !this.nextGroundBlock && !findBottomBlock) this.isRun = false;
-        //console.log(this.changeModeRandomizer, this.playerInRange, extraSeconds, this.nextGroundBlock, this.currentGroundBlock)
-        // this.isJump = true
-        //console.log(this.currentGroundBlock, findHorizontalBlock)
-        //this.nextGroundBlock = (this.playerDirectionHorizontal === 'right')? allBlocks.indexOf(this.currentGroundBlock) + this.currentGroundBlock.mapSizeHorizontal: 
-        this.currentGroundBlock = null;
         this.currentWallBlock  = null;
         this.currentWallBlock = null;
 
@@ -314,18 +318,7 @@ function groundEnemyShot({ mainGameObject, allBlocks, callback, constructors }){
     if(mainGameObject.gameInitData.gameOver) return false
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     // when see character enemy stop shot to its location
-/* if(groundPlayer.shotState && extraSeconds % 10 === 0 && groundPlayer.shotAngle){
-                    shot.call(groundPlayer, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
-                }*/
-    //console.log(this)
-    //shotProbability
-    // unitRandomize
-    //isRun
-    // shotAngle
-    // data.guns
-    // playerInRange
-    if(this.shotAngle && this.playerInRange && this.objectPresent){
-       // console.log('Shoot', this.shotAngle)
+    if(this.shotAngle && this.playerInRange && this.objectPresent && extraSeconds % 5 === 0){
         this.isShot = true;
         this.shotAngle = this.targetAngle;
         callback.call(this, constructors.BulletConstruct,

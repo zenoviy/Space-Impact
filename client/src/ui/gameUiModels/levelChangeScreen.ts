@@ -27,9 +27,15 @@ function levelChangeScreen(data: any,ctx: any, width: number, height: number, pi
         },
         {
             name: "wrap head",
-            text: `${(levelData.description)? levelData.description.name: ''}`,
+            text: (function(){
+                let text = (levelData.description)? levelData.description.name: ''
+
+                    let textSplit = text.split('\n')
+                //console.log(textSplit)
+                return `${text}`
+            })(),
             description: "text for game over window",
-            fontSize: "100px Roboto",
+            fontSize: "70px Roboto",
             clicked: false,
             properties:{
                 ctx: ctx,

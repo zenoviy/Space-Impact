@@ -24,12 +24,14 @@
             V- Player Jump
             V- player shoot using mouse direction
             V- complicated player animation
-                - change textures
+               V - change textures
+                    - add leader animation
+                    - shoot up down
     V - Level ends when player reach the dor or final object
         V- grapple coin
         - grapple life
         - add minimap
-        - add inventory elements
+        V - add inventory elements
     V - one hit - one life
 
 
@@ -41,6 +43,7 @@
 import { getData } from '../../server/serverRequestModules';
 import { show, hide} from '../../appMenu/appMenu';
 import { angleFinder } from '../engineModules';
+import { createElements } from '../../appMenu/pagesBuilder';
 
 
 /// process.env.GROUND_CHARACTERS_URL
@@ -69,6 +72,7 @@ function showGroundPlayerInventory({ mainGameObject }){
     if(process.env.GROUND_CHARACTERS_INVENTORY === 'false'){
         process.env.GROUND_CHARACTERS_INVENTORY = 'true';
         show(inventoryWrapper)
+        loadItemsToGroundInventory({groundPlayer : groundPlayer})
     }else{
         process.env.GROUND_CHARACTERS_INVENTORY = 'false';
         hide(inventoryWrapper)
@@ -76,9 +80,35 @@ function showGroundPlayerInventory({ mainGameObject }){
 }
 
 
-function loadPlayerCharacter({ mainGameObject }){
+function loadItemsToGroundInventory({groundPlayer}){
+    let playerInventory = groundPlayer.inventory;
+    let objectToRender = document.querySelector("#backpack-body");
 
+    if(playerInventory.length > 0){     // createElements
+        console.log(playerInventory)
+        let allInnerObject = loadPlayerCharacter({ playerInventory: playerInventory })
+        objectToRender.innerHTML = allInnerObject;
+    }else {
+        objectToRender.innerHTML = "No items in this inventory";
+    }
 }
+
+
+
+
+function loadPlayerCharacter({ playerInventory }){
+    let items = '';
+
+    for(let item of playerInventory){
+        items += `<div class="backpack-wrapper">
+            <img class="back-pack-item-picture" src="${(item.objectPicture)? item.objectPicture : item.texture}"> <p>${item.innerData}</p>
+        </div>
+        `
+    }
+    return items
+}
+
+
 
 function playerAnimation({ groundPlayer, mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
@@ -153,6 +183,7 @@ function backToTheMapAgain({ mainGameObject, player }){
         let spawnPoint = allBlocks.find(obj => {
             if(obj.details) return obj.details.type === "spawner";
         })
+        if(!spawnPoint) return false
         let xRangeCompensation = window.innerWidth/2 - (spawnPoint.x + spawnPoint.width/2);
         let yRangeCompensation = window.innerHeight/2 - spawnPoint.y;
 

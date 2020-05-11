@@ -1,5 +1,4 @@
-import { useObject } from './dynamicDialog';
-
+import { useObject, searchInPlayerInventory } from './dynamicDialog';
 
 function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player }){
     if(player.objectOwner != "groundPlayer") return false
@@ -13,7 +12,6 @@ function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player
         levelInformation.jumpImpuls = 0;
         //player.onElevatorSpeed = (elevator.details.currentDirection)? (elevator.details.speed + gravity -1)* -1: (elevator.details.speed);
         player.onElevatorSpeed = 0;
-        //console.log( levelInformation.horizontalSpeed, elevator)
     }
 
     player.ceilingTouch = false;
@@ -104,9 +102,12 @@ function doorFunctionality({ mainGameObject }){
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let currentBlockIndex = (currentGroundBlock)? currentGroundBlock.index : null;
+
+    
+
+
     let compareBlock = allBlocks.find(block =>{
         let bottomBlockIndex = currentBlockIndex - 1;
-
         return block.index === bottomBlockIndex
     })
     if(!currentWallBlock || currentGroundBlock === currentWallBlock ||
@@ -114,18 +115,32 @@ function doorFunctionality({ mainGameObject }){
 
 
     if(currentWallBlock.details.type === 'door'){
+
+        if(currentWallBlock.details.rules.require){
+            let searchObject = searchInPlayerInventory({
+                data: this.inventory,
+                searchTarget: currentWallBlock.details.rules.require
+            })
+            console.log(currentWallBlock.details.rules.require, searchObject, this.inventory)
+            if(!searchObject) return false
+        }
         if(currentWallBlock.details.collision === true){
-            currentWallBlock.details.rules.successText = "door are open";
+            currentWallBlock.details.rules.successText = "door is open";
             currentWallBlock.details.collision = false;
         } else {
-            currentWallBlock.details.rules.successText = "door are closed";
+            currentWallBlock.details.rules.successText = "door is closed";
             currentWallBlock.details.collision = true;
         }
         levelInformation.horizontalSpeed = 3;
     }
 }
-/*
 
+
+/*
+requireData = searchInPlayerInventory({
+    data: groundPlayer.inventory,
+    searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
+})
 "picturesWidth": 236,
         "picturesHeight": 58,
         "animationSteps": 10,
@@ -157,9 +172,9 @@ function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
 
 function leadersFunctionality(){
     if(!this.currentGroundBlock) return true
-    console.log(this.currentGroundBlock)
+    //console.log(this.currentGroundBlock)
     let currentGroundBlock = this.currentGroundBlock;
-    console.log(currentGroundBlock)
+    //console.log(currentGroundBlock)
     if(currentGroundBlock.details.type != "leader") return true
     else return false
 }

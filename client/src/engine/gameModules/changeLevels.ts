@@ -2,6 +2,7 @@ import { serverRequest } from './satartGame';
 import { loadLevelMap } from '../dynamicLevels/dynamicLevelModule';
 import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
 import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
+import { loadExtraObject } from '../../ai/regularEnemyAiModules';
 import * as constructors from '../../constructors';
 
 async function nextLevelDataReload(levelData, constructors){

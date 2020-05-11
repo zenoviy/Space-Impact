@@ -1,5 +1,5 @@
 import { DynamicUserConstructor } from './dynamicUserConstructor';
-import { placeEnemyes, takeDamage } from '../enemies/enemiesModules';
+import { placeEnemyes, takeDamage, spawnCoin } from '../enemies/enemiesModules';
 import { groundEnemyMove } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
 import { detectPlayer,
     groundEnemyDecided,
@@ -7,6 +7,7 @@ import { detectPlayer,
     groundEnemyShot,
     groundPlayerJump } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
 import { findAngleToShip } from '../engine/gameSideObjectsModule';
+
 
 
 class DynamicEnemyConstructor extends DynamicUserConstructor {
@@ -18,6 +19,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     playerInRange: boolean;
     healthPoint: number;
     mapFinder: any[];
+    extraObjects: any[];
     defaultSpeed: number;
     isStop: boolean;
     isJump: boolean;
@@ -49,6 +51,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     groundEnemyShot: any;
     takeDamage: any;
     groundPlayerJump: any;
+    spawnCoin: any;
     constructor({ ...data}){
         super({...data})
         this.objectOwner = "groundEnemy";
@@ -63,6 +66,8 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
         this.shotProbability = data.shotProbability;
         this.objectPresent = true;
         this.isJump = false;
+        this.extraObjects = (data.extraObjects)? data.extraObjects : null;
+        //this.details.type = ()
 
     }
 }
@@ -75,6 +80,7 @@ DynamicEnemyConstructor.prototype.groundEnemyPathFinder = groundEnemyPathFinder;
 DynamicEnemyConstructor.prototype.groundEnemyShot = groundEnemyShot;
 DynamicEnemyConstructor.prototype.takeDamage = takeDamage;
 DynamicEnemyConstructor.prototype.groundPlayerJump = groundPlayerJump;
+DynamicEnemyConstructor.prototype.spawnCoin = spawnCoin;
 export {
     DynamicEnemyConstructor
 }

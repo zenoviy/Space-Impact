@@ -4,6 +4,8 @@
         "displayTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
         "texture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
         "behavior": ["patrol", "find", "stand"],
+        "width": 46,
+        "height": 46,
         "imageWidth": 34,
         "imageHeight": 45,
         "animationSteps": 10,
@@ -107,6 +109,81 @@
                     "firePosition": 1,
                     "firePositionX": 10
                 }
+            ]
+        }
+    },
+
+    {
+        "id": "professor_1",
+        "displayTexture": "/public/images/characters/professor-1/professor-1.png",
+        "texture": "/public/images/characters/professor-1/professor-1.png",
+        "behavior": ["patrol", "stand", "work"],
+        "width": 23,
+        "height": 43,
+        "imageWidth": 35,
+        "imageHeight": 80,
+        "animationSteps": 10,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 0,
+        "speed": 0.5,
+        "healthPoint": 450,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "row": 1,
+                "width": 30,
+                "range": [1, 2],
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
+                "picturesWidth": 48,
+                "imageWidth": 48,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 2
+            },
+            "run": {
+                "row": 2,
+                "width": 30,
+                "range": [1, 6],
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
+                "picturesWidth": 120,
+                "imageWidth": 120,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 6
+            },
+            "runAndShotTop": {
+                "row": 2,
+                "range": [7, 9],
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png"
+            },
+            "runAndShotBottom": {
+                "row": 2,
+                "range": [10, 12],
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png"
+            },
+            "jump": {
+                "row": 1,
+                "range": [6, 9],
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
+                "picturesWidth": 60,
+                "imageWidth": 60,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 3
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+
             ]
         }
     }

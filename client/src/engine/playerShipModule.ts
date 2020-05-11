@@ -113,7 +113,9 @@ function shipControl(mainGameObject: any){
 
     document.addEventListener("click", (event: any) => {
         let userShipData = mainGameObject.gameInitData.gameData.playerObject
-        if(mainGameObject.gameInitData.dynamicLevelsActive) return false
+        let data = mainGameObject.getLevelUserData();
+
+        if(mainGameObject.gameInitData.dynamicLevelsActive || data.currentLevel === 0) return false
 
         if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
         if(mainGameObject.gameInitData.shopActive) return
@@ -315,7 +317,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
                 let downBlock = leadersFunctionality.call(groundPlayer)
                 groundPlayer.groundTouch = (downBlock)? true : false;
             }
-            console.log(" on leader ")
+            //console.log(" on leader ")
         }
     }
     for(let enemy of allEnemy){

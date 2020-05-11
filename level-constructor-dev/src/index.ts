@@ -38,14 +38,14 @@ V- side panel
 
 
 V- add stairs
-- add leaders
+V- add leaders
 V- doors
     - doors access card
 V- add horizontal elevator
 V- add background texture and display it
     V- destroy/ change textures separately
     V- add texture animations
-- add NPC
+V- add NPC
     - dialog
 
 

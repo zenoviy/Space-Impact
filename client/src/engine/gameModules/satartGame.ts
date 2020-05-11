@@ -7,6 +7,7 @@ import { loadLevelMap } from '../dynamicLevels/dynamicLevelModule';
 import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
 import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
 import * as constructors from '../../constructors';
+import { loadExtraObject } from '../../ai/regularEnemyAiModules';
 
 
 async function serverRequest(gameInformation){
@@ -92,7 +93,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
-    let level = 2, shipType = 3, shipLife = 5;
+    let level = 1, shipType = 3, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameDialogField = document.querySelector('#gameActionDialogfield'),

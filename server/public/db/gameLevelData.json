@@ -1,6 +1,224 @@
 [
     {
+        "level" : 0,
+        "enemyType" : [],
+        "grappleObject": [],
+        "levelOBjects" : [],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 2448,
+            "imageHeight": 1131,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
+        "levelMap" : "vhoa0.jpg",
+        "levelBackgroundElements" : [
+            {
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
+                "speed": 0.2,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
+                "speed": 0.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/mountains.png",
+                "speed": 0.3,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/mountains.png",
+                "speed": 0.3,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.5,
+                "description": "first frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.5,
+                "description": "second frame back building"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_2.png",
+                "speed": 0.5,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_2.png",
+                "speed": 0.5,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            }
+        ],
+        "levelDetails" : {
+            "levelMinutes": 0,
+            "levelSeconds": 0
+        }
+    },
+
+    {
         "level" : 1,
+        "enemyType" : ["dart", "mine", "mine", "mine"],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
+        "dynamicBlockMap": "map-level-night-city-1",
+        "enemyProbability" : 1200,
+        "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "dynamicLevelsActive": true,
+        "gravity": 4,
+        "jumpImpuls": 4,
+        "horizontalSpeed": 2,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 2448,
+            "imageHeight": 1131,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Communication \n Center",
+            "description": "Find important data"
+        },
+        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
+        "levelMap" : "vhoa0.jpg",
+        "levelBottomPart" : [
+            {
+                "levelMap" : "/public/images/locations/night city/bottom-part-of-ruins.png",
+                "speed": 1.8,
+                "description": "first frame",
+                "imageWidth": 2448,
+                "imageHeight": 3108,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            },
+            {
+                "levelMap" : "/public/images/locations/night city/bottom-part-of-ruins.png",
+                "speed": 1.8,
+                "description": "second frame",
+                "imageWidth": 2448,
+                "imageHeight": 3108,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            }
+        ],
+        "levelBackgroundElements" : [
+            {
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
+                "speed": 0.2,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
+                "speed": 0.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/mountains.png",
+                "speed": 0.3,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/night city/mountains.png",
+                "speed": 0.3,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.5,
+                "description": "first frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.5,
+                "description": "second frame back building"
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_2.png",
+                "speed": 0.5,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_2.png",
+                "speed": 0.5,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/night city/vhoa0_build_section_1.png",
+                "speed": 1,
+                "description": "second frame back building",
+                "imageWidth": 9788,
+                "imageHeight":1131,
+                "animationSteps": 40,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            }
+        ],
+        "levelDetails" : {
+            "levelMinutes": null,
+            "levelSeconds": null
+        }
+    },
+    {
+        "level" : 2,
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
@@ -16,6 +234,10 @@
             "animationSteps": 1,
             "numberOfItems": 1,
             "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Night City Battle",
+            "description": "Reach communication center"
         },
         "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
@@ -110,11 +332,11 @@
 
 
     {
-        "level" : 2,
+        "level" : 3,
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
-        "dynamicBlockMap": "map-level-night-city-1",
+        "dynamicBlockMap": "map-level-night-city-2",
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
@@ -133,7 +355,7 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Ground battle",
+            "name": "Communication Center",
             "description": "Find important data"
         },
         "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
@@ -261,7 +483,7 @@
 
 
     {
-        "level" : 3,
+        "level" : 4,
         "enemyType" : ["dart"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["ground_turret_day",
@@ -355,7 +577,7 @@
 
 
     {
-        "level" : 4,
+        "level" : 5,
         "enemyType" : ["dart", "blade"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_desert"],
@@ -456,7 +678,7 @@
 
 
     {
-        "level" : 5,
+        "level" : 6,
         "enemyType" : ["dart", "scorpio"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["build_1", "build_2", "cloud_1", "tradepost_sky_city"],
@@ -592,7 +814,7 @@
 
 
     {
-        "level" : 6,
+        "level" : 7,
         "enemyType" : ["megalit", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["cloud_1", "cloud_2", "cloud_3", "cloud_4", "cloud_5"],
@@ -676,7 +898,7 @@
 
 
     {
-        "level" : 7,
+        "level" : 8,
         "enemyType" : ["scorpio", "mine", "rhodes" ],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -741,7 +963,7 @@
 
 
     {
-        "level" : 8,
+        "level" : 9,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_space_moon", "gate_1"],
@@ -815,7 +1037,7 @@
 
 
     {
-        "level" : 9,
+        "level" : 10,
         "enemyType" : ["scorpio", "moscit", "serpanter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -914,7 +1136,7 @@
             "levelSeconds": 30
         }
     },{
-        "level" : 10,
+        "level" : 11,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -963,7 +1185,7 @@
             "levelSeconds": 30
         }
     },{
-        "level" : 11,
+        "level" : 12,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_venus", "gate_1"],
@@ -1041,7 +1263,7 @@
             "levelSeconds": 30
         }
     },{
-        "level" : 12,
+        "level" : 13,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -1101,7 +1323,7 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 13,
+        "level" : 14,
         "enemyType" : ["hunter", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_mars"],
@@ -1215,7 +1437,7 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 14,
+        "level" : 15,
         "enemyType" : ["megaRock", "hunter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : [],
@@ -1329,7 +1551,7 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 15,
+        "level" : 16,
         "enemyType" : ["Chaser", "hunter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["asteroid_1", "asteroid_2", "gate_1"],
@@ -1416,7 +1638,7 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 16,
+        "level" : 17,
         "enemyType" : ["Chaser", "Grisle"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -1501,7 +1723,7 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 17,
+        "level" : 18,
         "enemyType" : ["Chaser", "Grisle", "hunter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_venus", "gate_1"],
@@ -1583,7 +1805,7 @@
 
 
     {
-        "level" : 18,
+        "level" : 19,
         "enemyType" : ["baldrin", "mine", "dart"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["ice_spikes"],

@@ -32,8 +32,9 @@ async function loadLevelMap({ levelMapName, constructors }){
     let spawnPoint = await resultData.allMapObjects.find(obj => {
         if(obj.details) return obj.details.type === "spawner";
     })
-    let xRangeCompensation = window.innerWidth/2 - (spawnPoint.x + spawnPoint.width/2);
-    let yRangeCompensation = window.innerHeight/2 - spawnPoint.y;
+    if(!spawnPoint) return false
+    let xRangeCompensation = window.innerWidth/2 - ( await spawnPoint.x + spawnPoint.width/2);
+    let yRangeCompensation = window.innerHeight/2 - await spawnPoint.y;
 
 
     let levelBlocks = await resultData.allMapObjects.filter(block => {
@@ -105,14 +106,34 @@ function mapGravityInit({mainGameObject, mapObjects, targetObject, constructors}
     for(let enemy of allEnemy){
         enemy.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
         enemy.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
+        //useObject({ mainGameObject: mainGameObject, player: targetObject, item: enemy})
     }
     backToTheMapAgain({ mainGameObject: mainGameObject, player: groundPlayer })
     groundPlayer.onStairs = 0;
 }
 
-function enemyGroundGravity({mainGameObject}){
-    let allEnemy
+
+function npcCollisionDetect({mainGameObject, enemy}){
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+
+    let x2 = enemy.x + enemy.width;
+    let y2 = enemy.y + enemy.height;
+    let x1 = groundPlayer.x + groundPlayer.width;
+    let y1 = groundPlayer.y + groundPlayer.height;
+    var x = x2 - x1;
+    var y = y2 - y1;
+
+    var distance = Math.sqrt(x*x + y*y)-(enemy.height/2 + groundPlayer.height/2);
+
+    if(distance < 0){
+        enemy.isRun = false;
+        useObject({ mainGameObject: mainGameObject, player: groundPlayer, item: enemy})
+    }
+
 }
+
+
+
 
 
 
@@ -167,8 +188,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     let targetX = target.x + blockRelativeXPos;
     let targetY = target.y + blockRelativeYPos;
 
-    //console.log(targetX, targetY, target.x, target.y)
-
     let x2 = targetX  + target.width;
     let y2 = targetY + target.height;
     let x1 = this.x + (this.objectOwner != "groundEnemy")? this.width/2 : this.width;
@@ -178,7 +197,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
 
     let floorCollision = false;
     var distance = Math.sqrt(x*x + y*y)-(this.height/2 + target.height/2);
-    
+
     if(!distance) return false
     var isWall = wallFinder({ mainGameObject: mainGameObject, currentBlock: target})
     var isBottomWall = wallBottomFinder({ mainGameObject: mainGameObject, currentBlock: target})
@@ -202,6 +221,14 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
         return false
     }
 
+    if(this.objectOwner === "groundEnemy"){
+        //console.log(this.x, this.y)
+        if(this.x < 0 || this.y < 0){
+            this.isRun = false;
+            this.groundTouch = true;
+            return false
+        }
+    }
 
     if(this.y + this.height < targetY + target.height/2 && collision && !isWall ){
         //console.log("Ground To" )
@@ -235,7 +262,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
             if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && target.height < 20 ||
             this.groundTouch && this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy"){
                 this.rightWallTouch = false;
-                levelInformation.jumpImpuls = levelInformation.gravity * -1 //this.height * -1;
+                levelInformation.jumpImpuls = levelInformation.gravity * -1;
                 this.groundTouch = false;
                 return false
             }
@@ -373,5 +400,6 @@ export {
     interactWithObjects,
     elevatorMove,
     backgroundMoveDuringMove,
-    stairsMove
+    stairsMove,
+    npcCollisionDetect
 }

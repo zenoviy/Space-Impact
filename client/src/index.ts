@@ -10,7 +10,7 @@ import { appMenu, hideShowMenu, dialogWindow } from './appMenu/appMenu';
 import { loadShopArea } from './ui/shop/gameShopModule';
 import { saveGameEvents } from './appMenu/saveLoadMenu';
 import { createScreenshots, deleteObjectsOnDemand } from './engine/engineModules';
-import { mapGravityInit, blockCollision } from './engine/dynamicLevels/dynamicLevelModule';
+import { mapGravityInit, blockCollision, npcCollisionDetect } from './engine/dynamicLevels/dynamicLevelModule';
 import { doorFunctionality, openClosedDoorAnimation } from './engine/dynamicLevels/dynamicLevelInteractiveElements';
 import { objectIntersectionDetect } from './enemies/enemiesModules';
 import { syncKeyControl } from './engine/playerShipModule';
@@ -198,7 +198,6 @@ function sideObjectsEngineFunction({gameObject}){
 
 
 function gameBackgroundEngineFunction({ gameObject }){
-
     if(!gameObject.gameInitData.backScreenPause || !gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
         if(gameObject.gameInitData.ctx){
             clearField(
@@ -234,7 +233,9 @@ function levelChangesEngineFunction({ gameObject }){
 
 
 function spaceShipEngineFunction({ gameObject }){
-    if(gameObject.gameInitData.dynamicLevelsActive) return false
+    let data = gameObject.getLevelUserData();
+    
+    if(gameObject.gameInitData.dynamicLevelsActive || data.currentLevel === 0) return false
     if(!gameObject.gameInitData.gameOver){
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
             if(!gameObject.gameInitData.shopActive){
@@ -295,7 +296,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
                 }, gameObject)/**/
                 block.backgroundTexture.degree = 0
             }
-            if(block.details.type === 'enemy_spawner') continue
+            if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner') continue
             if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
             openClosedDoorAnimation({ currentWallBlock : block, mainGameObject: gameObject })
@@ -365,6 +366,8 @@ async function gameDynamicEnemyRender({ gameObject }){
                     callback: shot,
                     constructors: constructors
                 })
+
+                npcCollisionDetect({ mainGameObject: gameObject, enemy: enemy })
             }
     }
    // groundPlayer.xPos = 0;

@@ -42,8 +42,6 @@ async function placeEnemyes(mainGameObject){
     //}*/
     mainGameObject.gameInitData.ctxActionField.translate(this.x + translateIndexAdjustX, this.y + translateIndexAdjustY);
     mainGameObject.gameInitData.ctxActionField.rotate( ((this.degree)? this.degree: 0 ) * Math.PI / 180);
-    let sx = (this.backgroundTexture)? this.backgroundSx : this.sx;
-    let sy = (this.backgroundTexture)? this.backgroundSy : this.sy;
 
     let sWidth = (this.backgroundTexture)? this.backgroundTexture.sWidth : this.sWidth;
     let sHeight = (this.backgroundTexture)? this.backgroundTexture.sHeight : this.sHeight;
@@ -307,7 +305,7 @@ function groundLevelBackgroundBulletDetect({hitObject, mainGameObject, GrappleOb
 
 
 
-function groundUnitsDamage({hitObject, mainGameObject}){
+function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
     var levelData = mainGameObject.getLevelUserData()
 
@@ -330,6 +328,11 @@ function groundUnitsDamage({hitObject, mainGameObject}){
     function damageProcedure(){
         if(this.objectOwner != "groundPlayer" && this.healthPoint <= 0){
             this.objectPresent = false;
+            
+            if(this.spawnCoin){
+                console.log('gold')
+                this.spawnCoin(mainGameObject, constructors.GrappleObject);
+            }
         }
         if(this.objectOwner == "groundPlayer" && this.healthPoint <= 0){
 
@@ -364,7 +367,6 @@ function groundUnitsDamage({hitObject, mainGameObject}){
 
 
 function grappleObjectCollision({ hitObject, mainGameObject }){
-
     if(this.objectPresent && this.objectOwner == "grappleObject" &&
     hitObject.objectOwner == "player" && !hitObject.hasOwnProperty('bulletType') ||
     this.objectPresent && this.objectOwner == "grappleObject" &&
@@ -433,8 +435,9 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
     let groundBulletStop = groundBulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
     let backgroundTextureDetect = await groundLevelBackgroundBulletDetect.call(this, {hitObject: hitObject, mainGameObject: mainGameObject})
 
-    groundUnitsDamage.call(this, {hitObject: hitObject, mainGameObject: mainGameObject, GrappleObject: GrappleObject})
+    groundUnitsDamage.call(this, {hitObject: hitObject, mainGameObject: mainGameObject, constructors: constructors})
     grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
+
     if(backgroundTextureDetect || this.atBackground || hitObject.atBackground) return false
     let bulletStop = bulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
 
@@ -442,7 +445,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
     if(!bulletStop && !groundBulletStop ) return false
 
 
-    grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
+    //grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
     enterToTheShopHangar.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
 
     /* Hit detection collision */
@@ -546,6 +549,7 @@ function bossEnemyDestruction({ mainGameObject }){
 }
 
 function spawnCoin(mainGameObject, GrappleObject){
+    //console.log("coin",  this.extraObjects)
     if(this.hasOwnProperty('extraObjects')){
         for(let coin of this.extraObjects){
             coin.x = this.x;

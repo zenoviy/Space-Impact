@@ -3,6 +3,7 @@ import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
 import { angleFinder, searchExplosionObject } from './engineModules';
 import { explosionDamage } from '../enemies/enemiesModules';
+import { getData } from '../server/serverRequestModules';
 
 function explosionFire({targetData, mainGameObject, hitObject, SideObject, explosion}){
     let allExplosionObject = searchExplosionObject({ mainGameObject: mainGameObject })
@@ -213,6 +214,9 @@ function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, al
     this.shotAngle = angle;
     this.shot(BulletConstruct, mainGameObject, SoundCreator, owner, "allGameBullets")
 }
+
+
+
 
 export {
     explosionFire,

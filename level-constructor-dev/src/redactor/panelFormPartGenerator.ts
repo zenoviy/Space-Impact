@@ -135,7 +135,8 @@ async function generateInput({fileContainer, target}){
             // contain
             let localPicture = (blockDetails.rules.objectPicture)? blockDetails.rules.objectPicture : 'computer-data.png';
             innerText = `<h3>Contain Object</h3>
-            <p>Object or data inside this object press 'E' button to collect \n exit  - special object to finish the level</p>
+            <p>Object or data inside this object press 'E' button to collect \n exit  - special object to finish the level
+            <span>computer_data</span><span>blue_card</span><span>green_card</span> <span>yellow_card</span> <span>red_card</span> </p>
             <textarea type='text' id=${'contain-field-'+ currentDescriptionId} >${(blockDetails.rules.contain)? blockDetails.rules.contain : ''}</textarea>
             <img width="100" id=${'contain-picture-'+ currentDescriptionId}
             src="${__HOST + '/level-creator/assets/charactersObjects/inner-objects/' + localPicture}">
@@ -157,6 +158,17 @@ async function generateInput({fileContainer, target}){
             fileContainer.appendChild(itemData);
 
     }
+    if(blockDetails.dialog){
+        innerText = `<h3>Dialog</h3>
+            <p></p>
+            <button data-target='save-contain-btn' class="main-btn">Save</button> <hr>`;
+            itemData = elementCreator({
+                tagname: "div",
+                classList: 'single-block-description',
+                innerText: innerText,
+                idName: 'description-requireText-'+ currentDescriptionId
+            })
+    }
     if(blockDetails.innerObject){
 
     }
@@ -172,7 +184,7 @@ async function generateInput({fileContainer, target}){
             case 'save-width-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'width',
-                    fieldSelector: '#'+'width-property-'+ currentDescriptionId,
+                    fieldSelector: '#width-property-'+ currentDescriptionId,
                     target: target
                 })
                 fieldName = (fieldResults)? 'width is set': ' save width field';
@@ -182,7 +194,7 @@ async function generateInput({fileContainer, target}){
             case 'save-height-btn':
                 fieldResults = await changeDataInBlock({
                         key: 'height',
-                        fieldSelector: '#'+'height-property-'+ currentDescriptionId,
+                        fieldSelector: '#height-property-'+ currentDescriptionId,
                         target: target
                 })
                 fieldName = (fieldResults)? 'width is set': ' save width field';
@@ -193,7 +205,7 @@ async function generateInput({fileContainer, target}){
             case 'save-x-pos-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'blockRelativeXPos',
-                    fieldSelector: '#'+'x-pos-property-'+ currentDescriptionId,
+                    fieldSelector: '#x-pos-property-'+ currentDescriptionId,
                     target: target
                 })
                 fieldName = (fieldResults)? 'width is set': ' save width field';
@@ -203,7 +215,7 @@ async function generateInput({fileContainer, target}){
             case 'save-y-pos-btn':
                     fieldResults = await changeDataInBlock({
                         key: 'blockRelativeYPos',
-                        fieldSelector: '#'+'y-pos-property-'+ currentDescriptionId,
+                        fieldSelector: '#y-pos-property-'+ currentDescriptionId,
                         target: target
                     })
                     fieldName = (fieldResults)? 'width is set': ' save width field';
@@ -212,7 +224,7 @@ async function generateInput({fileContainer, target}){
             case 'save-description-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'description',
-                    fieldSelector: '#'+'description-field-'+ currentDescriptionId,
+                    fieldSelector: '#description-field-'+ currentDescriptionId,
                     target: target.details
                 })
                 fieldName = (fieldResults)? 'description field': ' save description field';
@@ -220,7 +232,7 @@ async function generateInput({fileContainer, target}){
             case 'save-tips-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'tips',
-                    fieldSelector: '#'+'tips-field-'+ currentDescriptionId,
+                    fieldSelector: '#tips-field-'+ currentDescriptionId,
                     target: target.details.rules
                 })
                 fieldName = (fieldResults)? 'tips field': ' save tips field';
@@ -228,7 +240,7 @@ async function generateInput({fileContainer, target}){
             case 'save-success-text-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'successText',
-                    fieldSelector: '#'+'successText-field-'+ currentDescriptionId,
+                    fieldSelector: '#successText-field-'+ currentDescriptionId,
                     target: target.details.rules
                 })
                 fieldName = (fieldResults)? 'description field': ' save description field';
@@ -236,7 +248,7 @@ async function generateInput({fileContainer, target}){
             case 'save-require-text-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'requireText',
-                    fieldSelector: '#'+'requireText-field-'+ currentDescriptionId,
+                    fieldSelector: '#requireText-field-'+ currentDescriptionId,
                     target: target.details.rules
                 })
                 fieldName = (fieldResults)? 'require text field': ' save require text field';
@@ -244,7 +256,7 @@ async function generateInput({fileContainer, target}){
             case 'save-require-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'require',
-                    fieldSelector: '#'+'require-field-'+ currentDescriptionId,
+                    fieldSelector: '#require-field-'+ currentDescriptionId,
                     target: target.details.rules
                 })
                 fieldName = (fieldResults)? 'require field': ' save require field';
@@ -252,7 +264,7 @@ async function generateInput({fileContainer, target}){
             case 'save-contain-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'contain',
-                    fieldSelector: '#'+'contain-field-'+ currentDescriptionId,
+                    fieldSelector: '#contain-field-'+ currentDescriptionId,
                     target: target.details.rules
                 })
                 fieldName = (fieldResults)? 'contain object': ' save contain object';
@@ -274,10 +286,13 @@ async function generateInput({fileContainer, target}){
             default:
                 return false
         }
+        let dataCheck = document.querySelector('#preview-contain-object')['value']
         let requiredPreviewPic = document.querySelector('#contain-picture-'+ currentDescriptionId);
         let pic = (target.details.rules.objectPicture)? target.details.rules.objectPicture : 'computer-data.png';
-        let link = __HOST + '/level-creator/assets/charactersObjects/inner-objects/' + pic;
-        console.log(pic, link)
+        let link = __HOST + '/level-creator/assets/charactersObjects/inner-objects/' + dataCheck;
+
+        target.details.rules.objectPicture = link;
+        console.log(target)
         requiredPreviewPic['src'] = link; //computer-data.png
     })
 }
@@ -287,7 +302,7 @@ async function changeDataInBlock({key, fieldSelector, target}){
     let blockAlertMessage = document.querySelector('#block-alert-message');
     //console.log(fieldSelector, 'selector',  target)
     let currentField = await document.querySelector(fieldSelector);
-console.log(currentField.validity.valid)
+    if(!currentField) return false
     if(!currentField.validity.valid){
         blockAlertMessage.innerHTML = `Invalid Value of ${key}`;
         return false
@@ -300,7 +315,6 @@ console.log(currentField.validity.valid)
 
 function loadInnerData({fileContainer, target}){
     let blockDetails = target.details;
-    console.log(target  )
     let itemBackgroundImage = (blockDetails['previewTexture'])? blockDetails['previewTexture']: blockDetails['texture'];  // previewTexture
     itemBackgroundImage = (target.backgroundTexture && blockDetails['previewTexture'])? target.backgroundTexture['previewTexture'] :
     (target.backgroundTexture)? target.backgroundTexture.texture : blockDetails['texture'];

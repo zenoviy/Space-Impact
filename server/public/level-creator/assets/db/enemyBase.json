@@ -20,11 +20,27 @@
         "type": "npc_spawner",
         "collision": true,
         "innerObject": "main_character",
-        "width": 30,
-        "height": 40,
-        "name": "professor-1",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": "blue_card",
+            "requireText": null,
+            "successText": "You get blue card",
+            "innerObject": null
+        },
+        "dialog": [
+            {
+                "name": "hello",
+                "text": "Hello there",
+                "connect": "none",
+                "repeat": true
+            }
+        ],
+        "width": 20,
+        "height": 30,
+        "name": "professor_1",
         "mapColor": "#DB8063",
-        "imageWidth": 34,
-        "imageHeight": 45
+        "imageWidth": 55,
+        "imageHeight": 80
     }
 ]

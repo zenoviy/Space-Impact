@@ -17,12 +17,23 @@ function useObject({ mainGameObject, player, item }){
             case 'door':
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
                 break;
+            case 'npc_spawner':
+                //console.log('npc')
+                currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
+                npcDialog()
+                break;
             default:
                 return currentActiveBlock
         }
         return currentActiveBlock
 }
 
+
+
+
+function npcDialog(){
+
+}
 
 
 
@@ -34,19 +45,20 @@ function displayText({ mainGameObject, player, item }){
 
     //console.log(details)
     if(details.rules.requireText){
-        renderText(details.rules.requireText, player.x, player.y - 50, 'red')
+        renderText(contexts, details.rules.requireText, player.x, player.y + 70, 'red')
     }
     if(details.rules.successText && !details.rules.requireText && !details.rules.tips ||
         details.type === 'door' && details.rules.successText){
-        renderText(details.rules.successText, player.x, player.y - 50, 'white')
+        renderText(contexts, details.rules.successText, player.x, player.y - 50, 'white')
     }
     if(details.rules.tips){
-        renderText(details.rules.tips, player.x + 50, player.y, 'orange')
+        renderText(contexts, details.rules.tips, player.x, player.y - 20, 'orange')
     }
 
     process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'true';
     return item
-    function renderText(displayText, x, y, color){
+}
+function renderText( contexts, displayText, x, y, color){
         let textDivider = displayText.split('*');
 
         textDivider.forEach((text, index) => {
@@ -59,8 +71,6 @@ function displayText({ mainGameObject, player, item }){
             contexts.gameDialogField.fillText(text, x, y + (index * 12) )
         })
     }
-}
-
 
 
 function interactWithObjects({ mainGameObject, constructors }){
@@ -77,31 +87,50 @@ function interactWithObjects({ mainGameObject, constructors }){
                 searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
             })
 
+            activateInteractObjectData({
+                mainGameObject: mainGameObject,
+                requireData: requireData,
+                constructors: constructors,
+                groundPlayer: groundPlayer
+            })
+    }
+}
 
-        if( mainGameObject.mapNearActiveElement.details.rules.contain && !mainGameObject.mapNearActiveElement.details.rules.require ||
-            mainGameObject.mapNearActiveElement.details.rules.require && requireData ){
-            if( mainGameObject.mapNearActiveElement.details.rules.contain == 'exit' ){
 
-                levelRestore({mainGameObject: mainGameObject, constructors: constructors})
-            }
+function activateInteractObjectData({mainGameObject, requireData, constructors, groundPlayer }){
+    if( mainGameObject.mapNearActiveElement.details.rules.contain && !mainGameObject.mapNearActiveElement.details.rules.require ||
+        mainGameObject.mapNearActiveElement.details.rules.require && requireData ){
+        if( mainGameObject.mapNearActiveElement.details.rules.contain == 'exit' ){
+
+            levelRestore({mainGameObject: mainGameObject, constructors: constructors})
+        }
+
+        console.log(mainGameObject.mapNearActiveElement.details)
+        let objectDetails = mainGameObject.mapNearActiveElement.details;
+        let previewPicture = (objectDetails.rules.objectPicture)? objectDetails.rules.objectPicture :  process.env.HOST + objectDetails.texture;
+
+        if(mainGameObject.mapNearActiveElement.details.rules.contain){
             groundPlayer.inventory = groundPlayer.inventory.concat({
                 innerData: mainGameObject.mapNearActiveElement.details.rules.contain,
-                texture: process.env.HOST + mainGameObject.mapNearActiveElement.details.texture
+                texture: previewPicture
             })
-
-            mainGameObject.mapNearActiveElement.details.rules.tips = null;
-            mainGameObject.mapNearActiveElement.details.rules.contain = null;
-            mainGameObject.mapNearActiveElement.details.rules.requireText = null;
-            mainGameObject.mapNearActiveElement.details.rules.require = null;
-
-            return
         }
+        mainGameObject.mapNearActiveElement.details.rules.tips = null;
+        mainGameObject.mapNearActiveElement.details.rules.contain = null;
+        mainGameObject.mapNearActiveElement.details.rules.requireText = null;
+        mainGameObject.mapNearActiveElement.details.rules.require = null;
+
+        return
     }
 }
 
 
 
+
+
+
 function searchInPlayerInventory({ data, searchTarget }){
+    if(data.length <= 0 || !data) return false
     let searchData = data.find( data => data.innerData === searchTarget );
     return searchData
 }
@@ -122,7 +151,6 @@ async function levelRestore({mainGameObject, constructors}){
     mainGameObject.gameInitData.dynamicLevelsActive = false;
     mainGameObject.gameInitData.levelChange = true;
     mainGameObject.warpEffect(constructors)
-
 }
 
 
@@ -130,5 +158,6 @@ export {
     useObject,
     displayText,
     interactWithObjects,
-    levelRestore
+    levelRestore,
+    searchInPlayerInventory
 }
