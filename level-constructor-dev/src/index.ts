@@ -40,7 +40,7 @@ V- side panel
 V- add stairs
 V- add leaders
 V- doors
-    - doors access card
+   V - doors access card
 V- add horizontal elevator
 V- add background texture and display it
     V- destroy/ change textures separately
@@ -58,7 +58,7 @@ V- add NPC
 
     const engine = setInterval(function(){
         redactorEngine()
-    }, 60)
+    }, 50)
 
     //console.log(mainObject)
     mapMoveControllers({ mainObject: mainObject })
@@ -68,13 +68,15 @@ V- add NPC
     createNewMap()
 
 
-    async function redactorEngine(){
+     async function redactorEngine(){
         mainObject.clearView()
-
+        //console.log(mainObject.allRedactorBlock)
         for(let block of mainObject.allRedactorBlock){
-           await block.elevatorMove()
-           blockAnimationRender({ block: block })
-           await block.renderBlockBox({ mainObject: mainObject })
+            if(block.xMove > 0 && block.xMove < window.innerWidth ||  block.yMove > 0 && block.yMove < window.innerHeight){
+                await block.renderBlockBox({ mainObject: mainObject })
+               await block.elevatorMove()
+               await blockAnimationRender({ block: block })
+            }else continue
         }
     }
 })()

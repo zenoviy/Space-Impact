@@ -5,7 +5,9 @@ import { detectPlayer,
     groundEnemyDecided,
     groundEnemyPathFinder,
     groundEnemyShot,
-    groundPlayerJump } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
+    groundPlayerJump,
+    enemyDetectNpc,
+    jumpDown } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
 import { findAngleToShip } from '../engine/gameSideObjectsModule';
 
 
@@ -23,6 +25,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     defaultSpeed: number;
     isStop: boolean;
     isJump: boolean;
+    isJumpDown: boolean;
     unitRandomize: number;
 
     targetAngle: number;
@@ -42,6 +45,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     shotProbability: number;
     objectPresent: boolean;
     changeModeRandomizer: number;
+    damage: number;
 
     groundEnemyMove: any;
     detectPlayer: any;
@@ -52,9 +56,11 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     takeDamage: any;
     groundPlayerJump: any;
     spawnCoin: any;
+    enemyDetectNpc: any;
+    jumpDown: any;
     constructor({ ...data}){
         super({...data})
-        this.objectOwner = "groundEnemy";
+        this.objectOwner = (data.details.type === "enemy_spawner")?  "groundEnemy" : "groundNPC";
         this.detectRange = data.detectRange;
         this.behavior = data.behavior[Math.floor(Math.random() * data.behavior.length)];
         this.currentBehavior = this.behavior;
@@ -66,7 +72,9 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
         this.shotProbability = data.shotProbability;
         this.objectPresent = true;
         this.isJump = false;
+        this.isJumpDown = false;
         this.extraObjects = (data.extraObjects)? data.extraObjects : null;
+        this.damage = (data.damage)? data.damage : 0;
         //this.details.type = ()
 
     }
@@ -81,6 +89,8 @@ DynamicEnemyConstructor.prototype.groundEnemyShot = groundEnemyShot;
 DynamicEnemyConstructor.prototype.takeDamage = takeDamage;
 DynamicEnemyConstructor.prototype.groundPlayerJump = groundPlayerJump;
 DynamicEnemyConstructor.prototype.spawnCoin = spawnCoin;
+DynamicEnemyConstructor.prototype.enemyDetectNpc = enemyDetectNpc;
+DynamicEnemyConstructor.prototype.jumpDown = jumpDown;
 export {
     DynamicEnemyConstructor
 }

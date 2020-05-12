@@ -293,30 +293,23 @@ function gameDynamicLevelBoxRender({ gameObject }){
                     height: block.backgroundTexture.height,
                     degree: 0,
                     img: block.backgroundTextureImg
-                }, gameObject)/**/
-                block.backgroundTexture.degree = 0
+                }, gameObject)
+                block.backgroundTexture.degree = 0;
             }
-            if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner') continue
+            if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner' ||
+             !block.details.display && block.details.type === "health") continue
+
+
             if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
             openClosedDoorAnimation({ currentWallBlock : block, mainGameObject: gameObject })
             block.placeEnemyes(gameObject)
     }
 }
-/*
-let sx = (this.backgroundTexture.sx)? this.backgroundTexture.sx: 0;
-        let sy = (this.backgroundTexture.sy)? this.backgroundTexture.sy: 0;
-        await mainObject.ctx.drawImage(imgBackground, sx, sy,
-            this.backgroundTexture.sWidth,
-            this.backgroundTexture.sHeight,
-            this.xMove,
-            this.yMove,
-            this.backgroundTexture.width,
-            this.backgroundTexture.height)
-        //console.log(this.backgroundTexture)
-    }
-*/
-async function gameDynamicEnemyRender({ gameObject }){
+
+
+
+ function gameDynamicEnemyRender({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     let levelInformation = gameObject.gameInitData.gameData.levelData;
     let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
@@ -332,36 +325,51 @@ async function gameDynamicEnemyRender({ gameObject }){
         enemy.placeEnemyes(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
+                enemy.changeVerticalAnimationPicture()
+                enemy.enemyAnimation()
                 enemy.groundEnemyMove({
                     mainGameObject: gameObject,
                     levelInformation: levelInformation
                 })
-                await blockCollision({
+                blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: enemy,
                     objectIntersectionDetect: objectIntersectionDetect,
                     mainGameObject: gameObject
                 })
-                await enemy.detectPlayer({
+                enemy.enemyDetectNpc({
+                    mainGameObject: gameObject,
+                    npcData: allEnemy,
+                    allBlocks: allBlocks,
+                    objectIntersectionDetect: objectIntersectionDetect
+                })
+
+                enemy.detectPlayer({
                     mainGameObject: gameObject,
                     groundPlayer: groundPlayer,
                     allBlocks: allBlocks,
                     objectIntersectionDetect: objectIntersectionDetect
                 })
-                await enemy.groundEnemyDecided({
+                enemy.groundEnemyDecided({
                     mainGameObject: gameObject,
                     allBlocks: allBlocks
                 })
-                await enemy.groundEnemyPathFinder({
+                enemy.groundEnemyPathFinder({
                     mainGameObject: gameObject,
                     allBlocks: allBlocks
                 })
-                await enemy.groundPlayerJump({
+                enemy.jumpDown({mainGameObject: gameObject})
+                enemy.groundPlayerJump({
                     mainGameObject: gameObject,
                     allBlocks: allBlocks,
                     levelInformation: levelInformation
                 })
-                await enemy.groundEnemyShot({mainGameObject: gameObject,
+                enemy.jumpDown({
+                    mainGameObject: gameObject,
+                    allBlocks: allBlocks,
+                    levelInformation: levelInformation
+                })
+                enemy.groundEnemyShot({mainGameObject: gameObject,
                     allBlocks: allBlocks,
                     callback: shot,
                     constructors: constructors
@@ -369,6 +377,7 @@ async function gameDynamicEnemyRender({ gameObject }){
 
                 npcCollisionDetect({ mainGameObject: gameObject, enemy: enemy })
             }
+            enemy.onLeader = false;
     }
    // groundPlayer.xPos = 0;
 }

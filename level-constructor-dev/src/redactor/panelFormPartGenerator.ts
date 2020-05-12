@@ -45,12 +45,12 @@ async function generateInput({fileContainer, target}){
             <h1>Block Position</h1>
             <h3>Block X</h3>
             <p>X position of block</p>
-            <input type='number' min="0" max="50" id=${'x-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeXPos)? target.blockRelativeXPos : 0} />
+            <input type='number' min="-50" max="50" id=${'x-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeXPos)? target.blockRelativeXPos : 0} />
             <button data-target='save-x-pos-btn' class="main-btn">Save X Position</button>
 
             <h3>Block Y</h3>
             <p>Y position of block</p>
-            <input type='number' min="0" max="50" id=${'y-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeYPos)? target.blockRelativeYPos : 0} />
+            <input type='number' min="-50" max="50" id=${'y-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeYPos)? target.blockRelativeYPos : 0} />
             <button data-target='save-y-pos-btn' class="main-btn">Save Y Position</button>
             `
             itemData = elementCreator({
@@ -119,7 +119,8 @@ async function generateInput({fileContainer, target}){
             fileContainer.appendChild(itemData);
             // require
             innerText = `<h3>Require Object</h3>
-            <p>Require message, display object needs for this block to everything work fine</p>
+            <p>Require message, display object needs for this block to everything work fine <span>computer_data
+            </span><span>blue_card</span><span>green_card</span> <span>yellow_card</span> <span>red_card</span></p>
             <textarea type='text' id=${'require-field-'+ currentDescriptionId} >${(blockDetails.rules.require)? blockDetails.rules.require : ''}</textarea>
             <button data-target='save-require-btn' class="main-btn">Save Require Object</button> <hr>`;
             itemData = elementCreator({
@@ -134,12 +135,13 @@ async function generateInput({fileContainer, target}){
 
             // contain
             let localPicture = (blockDetails.rules.objectPicture)? blockDetails.rules.objectPicture : 'computer-data.png';
+            let mainPicture = (blockDetails.rules.objectPicture)? blockDetails.rules.objectPicture: __HOST + '/level-creator/assets/charactersObjects/inner-objects/' + localPicture;
             innerText = `<h3>Contain Object</h3>
             <p>Object or data inside this object press 'E' button to collect \n exit  - special object to finish the level
-            <span>computer_data</span><span>blue_card</span><span>green_card</span> <span>yellow_card</span> <span>red_card</span> </p>
+            <span>computer_data</span><span>blue_card</span><span>green_card</span> <span>yellow_card</span> <span>red_card</span> <span>exit</span>  exit  - end the level</p>
             <textarea type='text' id=${'contain-field-'+ currentDescriptionId} >${(blockDetails.rules.contain)? blockDetails.rules.contain : ''}</textarea>
             <img width="100" id=${'contain-picture-'+ currentDescriptionId}
-            src="${__HOST + '/level-creator/assets/charactersObjects/inner-objects/' + localPicture}">
+            src="${mainPicture}">
             <select id="preview-contain-object" data-target='select-preview-btn'>
                 <option value="computer-data.png">Computer data</option>
                 <option value="red-card.png">Red card</option>

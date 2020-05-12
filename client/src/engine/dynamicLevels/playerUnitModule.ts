@@ -29,10 +29,17 @@
                     - shoot up down
     V - Level ends when player reach the dor or final object
         V- grapple coin
-        - grapple life
+        V- grapple life
+        - grapple card
         - add minimap
         V - add inventory elements
     V - one hit - one life
+
+    - dialog
+        - scientists
+        - military
+        - civil
+
 
 
     // ============== Editor ================= //
@@ -66,7 +73,6 @@ async function initGroundPlayer({ DynamicUserConstructor }){
 
 
 function showGroundPlayerInventory({ mainGameObject }){
-    console.log('Ground Inventory Show')
     let inventoryWrapper = document.querySelector('#backpack-wrapper');
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     if(process.env.GROUND_CHARACTERS_INVENTORY === 'false'){
@@ -100,7 +106,7 @@ function loadPlayerCharacter({ playerInventory }){
     let items = '';
 
     for(let item of playerInventory){
-        items += `<div class="backpack-wrapper">
+        items += `<div class="backpack-item-wrapper">
             <img class="back-pack-item-picture" src="${(item.objectPicture)? item.objectPicture : item.texture}"> <p>${item.innerData}</p>
         </div>
         `
@@ -120,7 +126,6 @@ function playerAnimation({ groundPlayer, mainGameObject }){
 
 
 function changeAnimationParameters(){
-
     if(this.isRun && this.groundTouch){
         if(this.numberOfItems != this.animations.run.numberOfItems) renewAnimation.call(this)
 
@@ -217,7 +222,6 @@ function groundPlayerCollectable(){
 }
 
 
-//   знімати дані з блоків знаходити блок спавна
 export {
     loadPlayerCharacter,
     initGroundPlayer,

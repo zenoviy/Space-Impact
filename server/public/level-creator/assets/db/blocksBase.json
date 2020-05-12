@@ -60,6 +60,30 @@
         "imageHeight": 58
     },
     {
+        "id": "block_4_stairs_left",
+        "collision": true,
+        "texture": "/level-creator/assets/block/stairs-left.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-left",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C98",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_4_stairs_right",
+        "collision": true,
+        "texture": "/level-creator/assets/block/stairs-right.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-right",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C98",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
         "id": "platform_top",
         "collision": true,
         "texture": "/level-creator/assets/block/platform-top.png",

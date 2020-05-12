@@ -130,7 +130,7 @@ function renderItemsToSideList({ mainObject, dataBase, selectItem }){
 
 
 function sidePanelItemsSelectProcess({ mainObject, blockItem }){
-    console.log(blockItem)
+    //console.log(blockItem)
     if(mainObject.selectedBlockPanelItem){
         mainObject.selectedBlockPanelItem = (blockItem.id != mainObject.selectedBlockPanelItem.id)? blockItem : null;
     }else mainObject.selectedBlockPanelItem = blockItem;
@@ -200,7 +200,7 @@ async function createBlockPicture({ mainObject }){
 
     let sWidth = (this.details.sWidth)? this.details.sWidth: this.details.imageWidth;
     let sHeight = (this.details.sHeight)? this.details.sHeight: this.details.imageHeight;
-    
+
     let sx = (this.details.sx)? this.details.sx: 0;
     let sy = (this.details.sy)? this.details.sy: 0;
     //.details.sx

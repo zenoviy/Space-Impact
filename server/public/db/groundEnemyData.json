@@ -18,48 +18,55 @@
         "jumpSpeed": 5,
         "pointsPerUnit": 10,
         "shotProbability": 20,
+        "damage": 60,
         "animations": {
             "stand": {
-                "row": 1,
-                "width": 30,
-                "range": [1, 2],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
-                "picturesWidth": 48,
-                "imageWidth": 48,
-                "imageHeight": 70,
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
                 "animationSteps": 10,
-                "numberOfItems": 2
+                "numberOfItems": 15
             },
             "run": {
-                "row": 2,
-                "width": 30,
-                "range": [1, 6],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
-                "picturesWidth": 120,
-                "imageWidth": 120,
-                "imageHeight": 70,
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-run.png",
+                "picturesWidth": 405,
+                "imageWidth": 405,
+                "imageHeight": 92,
                 "animationSteps": 10,
-                "numberOfItems": 6
+                "numberOfItems": 9
             },
             "runAndShotTop": {
-                "row": 2,
-                "range": [7, 9],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png"
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
+                "animationSteps": 10,
+                "numberOfItems": 15
             },
             "runAndShotBottom": {
-                "row": 2,
-                "range": [10, 12],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png"
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
+                "animationSteps": 10,
+                "numberOfItems": 15
             },
             "jump": {
-                "row": 1,
-                "range": [6, 9],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
-                "picturesWidth": 60,
-                "imageWidth": 60,
-                "imageHeight": 70,
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
                 "animationSteps": 10,
-                "numberOfItems": 3
+                "numberOfItems": 15
+            },
+            "death": {
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
+                "animationSteps": 10,
+                "numberOfItems": 15
             }
         },
         "extraObjects":[{
@@ -134,46 +141,44 @@
         "shotProbability": 20,
         "animations": {
             "stand": {
-                "row": 1,
-                "width": 30,
-                "range": [1, 2],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
-                "picturesWidth": 48,
-                "imageWidth": 48,
-                "imageHeight": 70,
-                "animationSteps": 10,
-                "numberOfItems": 2
+                "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
+                "picturesWidth": 248,
+                "imageWidth": 248,
+                "imageHeight": 158,
+                "animationSteps": 15,
+                "numberOfItems": 7
             },
             "run": {
-                "row": 2,
-                "width": 30,
-                "range": [1, 6],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
-                "picturesWidth": 120,
-                "imageWidth": 120,
-                "imageHeight": 70,
-                "animationSteps": 10,
-                "numberOfItems": 6
+                "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
+                "picturesWidth": 248,
+                "imageWidth": 248,
+                "imageHeight": 158,
+                "animationSteps": 15,
+                "numberOfItems": 7
             },
             "runAndShotTop": {
-                "row": 2,
-                "range": [7, 9],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png"
+                "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
+                "picturesWidth": 248,
+                "imageWidth": 248,
+                "imageHeight": 158,
+                "animationSteps": 15,
+                "numberOfItems": 7
             },
             "runAndShotBottom": {
-                "row": 2,
-                "range": [10, 12],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png"
+                "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
+                "picturesWidth": 248,
+                "imageWidth": 248,
+                "imageHeight": 158,
+                "animationSteps": 15,
+                "numberOfItems": 7
             },
             "jump": {
-                "row": 1,
-                "range": [6, 9],
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
-                "picturesWidth": 60,
-                "imageWidth": 60,
-                "imageHeight": 70,
-                "animationSteps": 10,
-                "numberOfItems": 3
+                "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
+                "picturesWidth": 248,
+                "imageWidth": 248,
+                "imageHeight": 158,
+                "animationSteps": 15,
+                "numberOfItems": 7
             }
         },
         "extraObjects":[{

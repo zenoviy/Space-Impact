@@ -1,5 +1,6 @@
-function elevatorMove(){
+async function elevatorMove(){
     if(!this.details) return false
+
     if(this.details.type === 'elevator'){
         let currentValue = this.details.constructorValueOfMove;
         let defaultValue = this.details.valueOfMove;
@@ -21,6 +22,8 @@ function elevatorMove(){
 
             if(currentValue >= defaultValue){
                 this.details.constructorDirection = true;
+               // console.log(this, currentValue, defaultValue, "<<<<")
+                
             }
         }
     }

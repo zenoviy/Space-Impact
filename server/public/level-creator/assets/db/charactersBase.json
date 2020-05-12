@@ -149,5 +149,45 @@
         "numberOfItems": 4,
         "numberOfVerticalItems": 1,
         "detectFrame": 0
+    },
+    {
+        "id": "health",
+        "texture": "/level-creator/assets/charactersObjects/life.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/ruby.png",
+        "description": "health",
+        "backgroundTexture": null,
+        "type": "health",
+        "display": true,
+        "active": false,
+        "collision": false,
+        "mapColor": "#7C2302",
+        "imageWidth": 1826,
+        "imageHeight": 200,
+        "picturesWidth": 1826,
+        "picturesHeight": 200,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 202.8,
+        "sHeight": 200,
+        "numberOfItems": 9,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-life.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambiant/collection/little_robot_sound_factory_Jingle_Win_Synth_01.mp3",
+                "soundLoop": false
+            }
+        }
     }
 ]

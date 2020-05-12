@@ -58,8 +58,23 @@ function elevatorMove({ mainGameObject }){
 
 function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     //console.log("Stairs", player.isRun, player.xPos, x, y )  // .objectOwner === "groundEnemy"
-    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let stairsVerticalIndex = stairs.height / stairs.width;
+    if(player.objectOwner === "groundEnemy" || player.objectOwner === "groundNPC"){
+
+        this.y += this.jumpImpuls;
+        if(stairs.details.type === "stairs-left"){
+            player.y += ( player.playerDirectionHorizontal === 'right' )?
+            (levelInformation.gravity + stairsVerticalIndex) * -1 :
+            0;
+        }else if(stairs.details.type === "stairs-right" && player.isRun){
+            player.y += ( player.playerDirectionHorizontal === 'right' )?
+            0:
+            (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
+        }
+        return false
+    }
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+
 
     //if(!stairs.details.angle) return false
     let percentOfSteps = stairs.height/stairs.details.angle;
@@ -103,8 +118,6 @@ function doorFunctionality({ mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let currentBlockIndex = (currentGroundBlock)? currentGroundBlock.index : null;
 
-    
-
 
     let compareBlock = allBlocks.find(block =>{
         let bottomBlockIndex = currentBlockIndex - 1;
@@ -136,22 +149,6 @@ function doorFunctionality({ mainGameObject }){
 }
 
 
-/*
-requireData = searchInPlayerInventory({
-    data: groundPlayer.inventory,
-    searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
-})
-"picturesWidth": 236,
-        "picturesHeight": 58,
-        "animationSteps": 10,
-        "sx": 0,
-        "sy": 0,
-        "sWidth": 59,
-        "sHeight": 58,
-        "numberOfItems": 4,
-        "numberOfVerticalItems": 1,
-        "detectFrame": 0
-*/
 
 function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
@@ -171,6 +168,7 @@ function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
 
 
 function leadersFunctionality(){
+    if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC") return false
     if(!this.currentGroundBlock) return true
     //console.log(this.currentGroundBlock)
     let currentGroundBlock = this.currentGroundBlock;

@@ -43,23 +43,24 @@ function changeObjectModel({ result, mainObject }){
     let allBlocks = mainObject.allRedactorBlock;
     let currentBlock = allBlocks[result.index];
 
-    console.log(mainObject.selectedBlockPanelItem, "<<")
+    //console.log(mainObject.selectedBlockPanelItem, "<<", currentBlock)
+
+    let selectedBlockPanelItem = Object.assign({}, mainObject.selectedBlockPanelItem);
     if(!mainObject.selectedBlockPanelItem.destroyer){
 
         if(mainObject.selectedBlockPanelItem.type === "background-wall" && currentBlock.details){
-            mainObject.selectedBlockPanelItem.width = mainObject.blockSize;
-            mainObject.selectedBlockPanelItem.height = mainObject.blockSize;
-            mainObject.selectedBlockPanelItem.x = currentBlock.x;
-            mainObject.selectedBlockPanelItem.y = currentBlock.y;
-            mainObject.selectedBlockPanelItem.xMove = currentBlock.xMove;
-            mainObject.selectedBlockPanelItem.yMove = currentBlock.yMove;
+            selectedBlockPanelItem.width = mainObject.blockSize;
+            selectedBlockPanelItem.height = mainObject.blockSize;
+            selectedBlockPanelItem.x = currentBlock.x;
+            selectedBlockPanelItem.y = currentBlock.y;
+            selectedBlockPanelItem.xMove = currentBlock.xMove;
+            selectedBlockPanelItem.yMove = currentBlock.yMove;
 
-            currentBlock.backgroundTexture = mainObject.selectedBlockPanelItem;
+            currentBlock.backgroundTexture = selectedBlockPanelItem;
             return false
-        }else if(mainObject.selectedBlockPanelItem.type === "background-wall" && !currentBlock.details){
-            currentBlock.details = mainObject.selectedBlockPanelItem;
         }
-        currentBlock.details = mainObject.selectedBlockPanelItem;
+        currentBlock.details = selectedBlockPanelItem;
+        //console.log(selectedBlockPanelItem)
     }else if(mainObject.selectedBlockPanelItem.destroyer === 'destroyer'){
         if(currentBlock.details && currentBlock.details.valueOfMove){
             positionReducer({ allBlocks: allBlocks })

@@ -241,12 +241,15 @@ function groundBulletCollision({hitObject, mainGameObject}){
         return bulletExplosion.call(this)
     }
 
-    if(!mainGameObject.gameInitData.dynamicLevelsActive || !hitObject.details && hitObject.objectOwner != "groundEnemy" ||
+    if(!mainGameObject.gameInitData.dynamicLevelsActive || !hitObject.details && hitObject.objectOwner != "groundEnemy" || !hitObject.details && hitObject.objectOwner != "groundNPC" ||
     !hitObject.details && hitObject.objectOwner != "groundEnemyBullet") return true
 
         if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.details.collision ||
         this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "groundEnemy" ||
-        this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemyBullet" && hitObject.details.collision && hitObject.objectOwner != "groundEnemy" ){
+        this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemyBullet" && hitObject.details.collision && hitObject.objectOwner != "groundEnemy" ||
+        this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemyBullet" && hitObject.objectOwner == "groundNPC" ||
+        this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "groundNPC"
+        ){ // groundNPC
             return bulletExplosion.call(this)
         }
     return true
@@ -309,18 +312,13 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
     var levelData = mainGameObject.getLevelUserData()
 
-    if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundPlayer" && hitObject.objectOwner == "groundEnemyBullet"){
-        //console.log('bullet hit to player')
-        this.healthPoint -= hitObject.damage;
-        damageProcedure.call(this)
-    }
-    if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundPlayer" && hitObject.objectOwner == "groundEnemy"){
-        //console.log('Enemy hit to player')
-        this.healthPoint -= hitObject.damage;
-        damageProcedure.call(this)
-    }
-    if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "player"){
-        //console.log('Player bullet hit the enemy')
+    if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundPlayer" && hitObject.objectOwner == "groundEnemyBullet" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundPlayer" && hitObject.objectOwner == "groundEnemy" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "player" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "groundNPC" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "groundEnemyBullet" ||
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "player"){  // groundNPC
+        console.log('Player bullet hit the enemy')
         this.healthPoint -= hitObject.damage;
         damageProcedure.call(this)
     }
@@ -328,20 +326,13 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     function damageProcedure(){
         if(this.objectOwner != "groundPlayer" && this.healthPoint <= 0){
             this.objectPresent = false;
-            
             if(this.spawnCoin){
-                console.log('gold')
                 this.spawnCoin(mainGameObject, constructors.GrappleObject);
             }
         }
         if(this.objectOwner == "groundPlayer" && this.healthPoint <= 0){
-
-            console.log(levelData.source.playerObject)
             let mainPlayerData = levelData.source.playerObject;
-            // gameData.currentPoint
-            // gameData.playerObject.numberOflife
             mainPlayerData.numberOflife -= 1;
-
             if(mainPlayerData.numberOflife > 0) this.healthPoint = this.defaultHealth
 
             if(levelData.source.playerObject.numberOflife <= 0){

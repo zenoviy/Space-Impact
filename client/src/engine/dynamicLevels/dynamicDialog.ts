@@ -18,7 +18,6 @@ function useObject({ mainGameObject, player, item }){
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
                 break;
             case 'npc_spawner':
-                //console.log('npc')
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
                 npcDialog()
                 break;
@@ -43,7 +42,6 @@ function displayText({ mainGameObject, player, item }){
     mainGameObject.mapNearActiveElement = item;
     let details = item.details
 
-    //console.log(details)
     if(details.rules.requireText){
         renderText(contexts, details.rules.requireText, player.x, player.y + 70, 'red')
     }
