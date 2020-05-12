@@ -15,6 +15,7 @@ import { doorFunctionality, openClosedDoorAnimation } from './engine/dynamicLeve
 import { objectIntersectionDetect } from './enemies/enemiesModules';
 import { syncKeyControl } from './engine/playerShipModule';
 import { shot, placeEnemyes } from './enemies/enemiesModules';
+import { explosionFire } from './engine/gameSideObjectsModule';
 
 
 
@@ -297,13 +298,13 @@ function gameDynamicLevelBoxRender({ gameObject }){
                 block.backgroundTexture.degree = 0;
             }
             if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner' ||
-             !block.details.display && block.details.type === "health") continue
+             !block.details.display && block.details.type === "health" ||
+             !block.details.display && block.details.type === "blue_card") continue
 
-
+             block.placeEnemyes(gameObject)
             if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
             openClosedDoorAnimation({ currentWallBlock : block, mainGameObject: gameObject })
-            block.placeEnemyes(gameObject)
     }
 }
 
@@ -335,7 +336,9 @@ function gameDynamicLevelBoxRender({ gameObject }){
                     objectsToCollide: allBlocks,
                     targetObject: enemy,
                     objectIntersectionDetect: objectIntersectionDetect,
-                    mainGameObject: gameObject
+                    mainGameObject: gameObject,
+                    explosionFire: explosionFire,
+                    constructors: constructors
                 })
                 enemy.enemyDetectNpc({
                     mainGameObject: gameObject,
@@ -403,12 +406,13 @@ async function gameDynamicPlayer({ gameObject }){
                 if(groundPlayer.shotState && extraSeconds % 10 === 0 && groundPlayer.shotAngle){
                     shot.call(groundPlayer, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
                 }
-                //groundPlayer.isRun = false;
                 await blockCollision({
                     objectsToCollide: allBlocks,
                     targetObject: groundPlayer,
                     objectIntersectionDetect: objectIntersectionDetect,
-                    mainGameObject: gameObject
+                    mainGameObject: gameObject,
+                    explosionFire: explosionFire,
+                    constructors: constructors
                 })
                 await mapGravityInit({mainGameObject: gameObject,
                     mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,

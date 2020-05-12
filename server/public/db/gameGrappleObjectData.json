@@ -369,5 +369,49 @@
                 "soundLoop": false
             }
         }
+    },
+    {
+        "id": "ground_npc_item",
+        "name": "ground_npc_item",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 59,
+        "imageHeight":58,
+        "animationSteps": 5,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 25,
+        "height": 25,
+        "skinName": "/public/images/misc/grapple-objects/blue-card.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "ground_npc_item",
+            "description": "ground_npc_item",
+            "value": 1,
+            "methodName": "groundPlayerCollectable"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
     }
 ]

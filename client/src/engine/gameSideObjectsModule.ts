@@ -8,12 +8,14 @@ import { getData } from '../server/serverRequestModules';
 function explosionFire({targetData, mainGameObject, hitObject, SideObject, explosion}){
     let allExplosionObject = searchExplosionObject({ mainGameObject: mainGameObject })
     if(allExplosionObject.length > process.env.MAX_NUMBER_OF_EXPLOSION) return false
-    if(hitObject.type === "rocket" &&  targetData.type != "rocket" && targetData.type != "player" && targetData.type != "enemy" ||
-    hitObject.type === "homing_rocket" &&  targetData.type != "homing_rocket" && targetData.type != "player" && targetData.type != "enemy"){
-        explosionDamage({
-            hitObject: hitObject,
-            mainGameObject: mainGameObject
-        })
+    if(hitObject.type){
+        if(hitObject.type === "rocket" &&  targetData.type != "rocket" && targetData.type != "player" && targetData.type != "enemy" ||
+        hitObject.type === "homing_rocket" &&  targetData.type != "homing_rocket" && targetData.type != "player" && targetData.type != "enemy"){
+            explosionDamage({
+                hitObject: hitObject,
+                mainGameObject: mainGameObject
+            })
+        }
     }
 
     let flameSpeed = (hitObject.objectOwner === 'player')? targetData.speed: (hitObject.objectOwner === 'groundEnemy' || hitObject.objectOwner === 'groundPlayer')? 0: hitObject.speed/2;
@@ -122,6 +124,7 @@ async function mapRandomObjectSpawn(levelObjects: any[], SideObject: any, allGam
                 animationSteps: levelObjectProps.animationSteps,
                 target: null,
                 numberOfItems: levelObjectProps.numberOfItems,
+                absoluteLink: (levelObjectProps.absoluteLink)? levelObjectProps.absoluteLink : null,
                 texture: levelObjectProps.skinName,
                 speed: levelObjectProps.speed,
                 picturesWidth: levelObjectProps.imageWidth,

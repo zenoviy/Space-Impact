@@ -1,5 +1,6 @@
 import { SideObject } from './gameSideObjectConstructor';
 import { addPlayerLife, collectCoin, collectObjectsToInventory } from '../engine/gameGrappleObjectsModule';
+import { groundPlayerCollectable } from '../engine/dynamicLevels/playerUnitModule';
 
 interface grappleOBject {
     name: string,
@@ -14,6 +15,7 @@ class GrappleObject extends SideObject{
     addPlayerLife: any;
     collectCoin: any;
     collectObjectsToInventory: any;
+    groundPlayerCollectable: any;
     constructor({...data}){
         super({...data})
         this.isGrapple = data.isGrapple;
@@ -25,6 +27,7 @@ class GrappleObject extends SideObject{
 GrappleObject.prototype.addPlayerLife = addPlayerLife;
 GrappleObject.prototype.collectCoin = collectCoin;
 GrappleObject.prototype.collectObjectsToInventory = collectObjectsToInventory;
+GrappleObject.prototype.groundPlayerCollectable = groundPlayerCollectable;
 export {
     GrappleObject
 }

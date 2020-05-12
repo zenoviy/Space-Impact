@@ -8,6 +8,7 @@ import { gameWinScreen } from './gameUiModels/gameWinScreen';
 import { uiImage, uiText } from '../view/elements/uiElementModules';
 import { hitDetection } from '../enemies/enemiesModules';
 import { levelChangeScreen } from './gameUiModels/levelChangeScreen';
+import { hideInventory } from '../engine/dynamicLevels/playerUnitModule';
 
 
 function gameUiPause(){
@@ -15,7 +16,10 @@ function gameUiPause(){
     if(!this.gameInitData.gameUiPause && this.gameInitData.gameStatus) this.gameInitData.gamePause = !this.gameInitData.gamePause;
 }
 function gameUiMenu(gameUiPause){
+    let inventoryWrapper = document.querySelector('#backpack-wrapper');
     this.gameInitData.gameUiPause = !this.gameInitData.gameUiPause;
+    hideInventory()
+    process.env.GROUND_CHARACTERS_INVENTORY = 'false';
     if(this.gameInitData.shopActive && this.gameInitData.inventoryActive || this.gameInitData.inventoryActive) return false
     this.gameInitData.gamePause = (gameUiPause)? false: true;
 }

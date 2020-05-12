@@ -1,4 +1,5 @@
 import { doorFunctionality } from './dynamicLevelInteractiveElements';
+import { hideInventory } from './playerUnitModule';
 
 
 
@@ -72,8 +73,6 @@ function renderText( contexts, displayText, x, y, color){
 
 
 function interactWithObjects({ mainGameObject, constructors }){
-    //
-    //console.log(mainGameObject.mapNearActiveElement, mainGameObject.gameInitData.gameData.groundPlayerCharacter, process.env.GROUND_ACTIVE_BLOCK_IN_RANGE)
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     doorFunctionality.call(groundPlayer, {mainGameObject: mainGameObject})
     if(process.env.GROUND_ACTIVE_BLOCK_IN_RANGE === 'true'){
@@ -103,14 +102,16 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
             levelRestore({mainGameObject: mainGameObject, constructors: constructors})
         }
 
-        console.log(mainGameObject.mapNearActiveElement.details)
+        //console.log(mainGameObject.mapNearActiveElement.details)
         let objectDetails = mainGameObject.mapNearActiveElement.details;
         let previewPicture = (objectDetails.rules.objectPicture)? objectDetails.rules.objectPicture :  process.env.HOST + objectDetails.texture;
 
         if(mainGameObject.mapNearActiveElement.details.rules.contain){
-            groundPlayer.inventory = groundPlayer.inventory.concat({
-                innerData: mainGameObject.mapNearActiveElement.details.rules.contain,
-                texture: previewPicture
+
+            saveObjectToBackPack({
+                groundPlayer: groundPlayer,
+                data: mainGameObject.mapNearActiveElement.details.rules.contain,
+                previewPicture: previewPicture
             })
         }
         mainGameObject.mapNearActiveElement.details.rules.tips = null;
@@ -124,6 +125,13 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
 
 
 
+function saveObjectToBackPack({groundPlayer, data, previewPicture}){
+    hideInventory()
+    groundPlayer.inventory = groundPlayer.inventory.concat({
+        innerData: data,
+        texture: previewPicture
+    })
+}
 
 
 
@@ -157,5 +165,6 @@ export {
     displayText,
     interactWithObjects,
     levelRestore,
-    searchInPlayerInventory
+    searchInPlayerInventory,
+    saveObjectToBackPack
 }

@@ -51,6 +51,7 @@ import { getData } from '../../server/serverRequestModules';
 import { show, hide} from '../../appMenu/appMenu';
 import { angleFinder } from '../engineModules';
 import { createElements } from '../../appMenu/pagesBuilder';
+import { saveObjectToBackPack } from './dynamicDialog';
 
 
 /// process.env.GROUND_CHARACTERS_URL
@@ -76,6 +77,8 @@ function showGroundPlayerInventory({ mainGameObject }){
     let inventoryWrapper = document.querySelector('#backpack-wrapper');
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     if(process.env.GROUND_CHARACTERS_INVENTORY === 'false'){
+        if(mainGameObject.gameInitData.gameOver || !mainGameObject.gameInitData.dynamicLevelsActive ||
+            mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false
         process.env.GROUND_CHARACTERS_INVENTORY = 'true';
         show(inventoryWrapper)
         loadItemsToGroundInventory({groundPlayer : groundPlayer})
@@ -86,16 +89,24 @@ function showGroundPlayerInventory({ mainGameObject }){
 }
 
 
+
+function hideInventory(){
+    let inventoryWrapper = document.querySelector('#backpack-wrapper');
+    hide(inventoryWrapper)
+    process.env.GROUND_CHARACTERS_INVENTORY = 'false';
+}
+
+
+
 function loadItemsToGroundInventory({groundPlayer}){
     let playerInventory = groundPlayer.inventory;
     let objectToRender = document.querySelector("#backpack-body");
 
     if(playerInventory.length > 0){     // createElements
-        console.log(playerInventory)
         let allInnerObject = loadPlayerCharacter({ playerInventory: playerInventory })
         objectToRender.innerHTML = allInnerObject;
     }else {
-        objectToRender.innerHTML = "No items in this inventory";
+        objectToRender.innerHTML = "<p>No items in this inventory</p>";
     }
 }
 
@@ -154,7 +165,6 @@ function changeAnimationParameters(){
 
 function replacerOfValue({ originalObject, dataToReplace }){
     for(let [key, value] of Object.entries(dataToReplace)){
-
         if(originalObject[key]){
             originalObject[key] = value
         }
@@ -217,8 +227,13 @@ function groundPlayerLifeSystem(){
 
 }
 
-function groundPlayerCollectable(){
-
+function groundPlayerCollectable({allGameSideObjects, playerShipData, mainGameObject}){
+    //console.log('gggg', playerShipData, this, this.grapplePower.grappleItem, this.grapplePower.previewPicture)
+    //
+    saveObjectToBackPack({
+        groundPlayer: playerShipData,
+        data: this.grapplePower.grappleItem,
+        previewPicture: this.grapplePower.previewPicture})
 }
 
 
@@ -230,5 +245,7 @@ export {
     changeAnimationParameters,
     changeVerticalAnimationPicture,
     backToTheMapAgain,
-    groundPlayerShot
+    groundPlayerShot,
+    groundPlayerCollectable,
+    hideInventory
 }

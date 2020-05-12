@@ -4,12 +4,13 @@ import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
 import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
 import { loadExtraObject } from '../../ai/regularEnemyAiModules';
 import * as constructors from '../../constructors';
+import { hideInventory } from '../dynamicLevels/playerUnitModule';
 
 async function nextLevelDataReload(levelData, constructors){
+    hideInventory()
     let nextLevel = levelData.gameData.currentLevel;
     let serverNewData = await serverRequest({level: nextLevel, shipConfiguration: 1});
     // (serverNewData.levelData.dynamicLevelsActive)? true : false,
-    console.log(serverNewData.levelData)
     let context = this;
     let refreshLevel = {
         gameData: {
@@ -95,6 +96,7 @@ function horizontalVerticalSearch(mainObject, refreshLevel){
 
 
 function renewPlayerShip({originData, newData}){
+    hideInventory()
     for(let [key, value] of Object.entries(originData)){
         if(newData[key] && originData[key] != newData[key]){
             originData[key] = newData[key]

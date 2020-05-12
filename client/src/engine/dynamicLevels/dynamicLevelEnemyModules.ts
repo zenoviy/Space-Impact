@@ -33,7 +33,7 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
 
 
     for(let enemy of dynamicEnemy){
-        enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects): false;
+        enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects, enemy): false;
     }
     levelDynamicMapBlocks = levelDynamicMapBlocks.map( block => {
         return block.details.type != 'enemy_spawner' && block.details.type != 'npc_spawner';
@@ -47,15 +47,34 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
 
 
 
-async function loadExtraObjectToGroundEnemy (extraObjects){
+async function loadExtraObjectToGroundEnemy (extraObjects, enemy){
     let randomObject = extraObjects[Math.floor(Math.random() * extraObjects.length)],
         loadProbability = Math.floor(Math.random() * randomObject.randomizer),
         numberOfElement = Math.floor(Math.random() * randomObject.maxNumber + 1);
 
         if(randomObject.object != 'goldCoin' && loadProbability > randomObject.randomizer/2) randomObject = extraObjects[0];
         let result = [];
-        let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': randomObject.object}})
 
+        //blue_card   // ground_npc_item
+        let extraObject = randomObject.object;
+        if(enemy.details.rules){
+            if(enemy.details.rules.contain){
+                numberOfElement = 1;
+                extraObject = "ground_npc_item"
+                //console.log(extraObject)
+            }
+
+        }
+        let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': extraObject }})
+        if(enemy.details.rules){
+            if(enemy.details.rules.contain){
+                callObject[0].grapplePower.grappleItem = enemy.details.rules.contain;
+                callObject[0].grapplePower.previewPicture = enemy.details.rules.objectPicture;
+               // console.log(callObject, '//')
+                callObject[0].speed = 0;
+                callObject[0].absoluteLink = enemy.details.rules.objectPicture;
+            }
+        }
         for(let i = 0; i < numberOfElement; i++){
             result = result.concat(callObject)
         }

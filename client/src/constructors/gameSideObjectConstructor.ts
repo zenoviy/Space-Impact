@@ -52,14 +52,14 @@ class SideObject{
             this.sWidth = data.sWidth; this.sHeight = data.sHeight;
             this.width = data.width; this.height = data.height;
             this.img = new Image();
-            this.texture = __dirname + data.texture;
+            this.texture = (data.absoluteLink)? data.absoluteLink : __dirname + data.texture;
             this.animationSteps = data.animationSteps; this.numberOfItems = data.numberOfItems;
             this.target = data.target;
             this.animationState = true;
             this.detectFrame = 0;
             this.objectPresent = true;
-            this.speed = data.speed;
-            this.defaultSpeed = data.speed;
+            this.speed = (data.speed)? data.speed : 0;
+            this.defaultSpeed = (data.speed)? data.speed : 0;
             this.picturesWidth = data.picturesWidth;
             this.damage = (data.damage)? data.damage : null;
             this.objectOwner = (data.objectOwner)? data.objectOwner : null;

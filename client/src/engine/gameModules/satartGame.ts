@@ -8,6 +8,7 @@ import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
 import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
 import * as constructors from '../../constructors';
 import { loadExtraObject } from '../../ai/regularEnemyAiModules';
+import { hideInventory } from '../dynamicLevels/playerUnitModule';
 
 
 async function serverRequest(gameInformation){
@@ -243,6 +244,7 @@ function mapSoundChanger({soundStatus}){
 
 
 async function backToStartScreen(constructors){
+    hideInventory()
     let soundObject = this.showGameInfo().gameData.levelSounds;
     let newInitdata = await gameDataInit.call(this, constructors.PlayerShip, soundObject, constructors);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");

@@ -1,5 +1,6 @@
 import { useObject, searchInPlayerInventory } from './dynamicDialog';
 
+
 function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player }){
     if(player.objectOwner != "groundPlayer") return false
 
@@ -134,7 +135,7 @@ function doorFunctionality({ mainGameObject }){
                 data: this.inventory,
                 searchTarget: currentWallBlock.details.rules.require
             })
-            console.log(currentWallBlock.details.rules.require, searchObject, this.inventory)
+            //console.log(currentWallBlock.details.rules.require, searchObject, this.inventory)
             if(!searchObject) return false
         }
         if(currentWallBlock.details.collision === true){

@@ -20,7 +20,7 @@ async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
     if(randomApear > 10 && target.name != 'goldCoin' || randomApear > 20 && target.name != 'lifepoint') return false
 
     let context = mainGameObject;
-    let objectSpeed = (mainGameObject.gameInitData.dynamicLevelsActive)? -0.1 :  target.speed;
+    let objectSpeed = (mainGameObject.gameInitData.dynamicLevelsActive)? -0.0000001 :  target.speed;
 
     let sideObject = this;
         let objectData = {
@@ -36,7 +36,8 @@ async function loadGrabbleToSideObject(mainGameObject, target, GrappleObject){
             animationSteps: target.animationSteps,
             target: null,
             numberOfItems: target.numberOfItems,
-            texture: target.skinName,
+            absoluteLink: (target.absoluteLink)? target.absoluteLink : null,
+            texture: (target.absoluteLink)? target.absoluteLink : target.skinName,
             speed: objectSpeed,
             picturesWidth: target.imageWidth,
             healthPoint: target.healthPoint,

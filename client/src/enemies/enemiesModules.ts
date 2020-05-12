@@ -16,13 +16,13 @@ function drawCircle({ctx, x, y, width, height, color}){
     ctx.fill();
 }
 
-async function placeEnemyes(mainGameObject){
+ function placeEnemyes(mainGameObject){
     if(this.y < 0 - this.height && this.x < 0 - this.width &&
         this.y < window.innerHeight + this.height && this.x > window.innerWidth + this.width) return false
     mainGameObject.gameInitData.ctxActionField.save();
 
-    let translateIndexAdjustX = await (this.degree < 180)? (this.width/180)*this.degree: (this.width/180)*(360 - this.degree);
-    let translateIndexAdjustY = await (this.degree < 180)? (this.height/180)*this.degree: (this.height/180)*(360 - this.degree);
+    let translateIndexAdjustX =  (this.degree < 180)? (this.width/180)*this.degree: (this.width/180)*(360 - this.degree);
+    let translateIndexAdjustY =  (this.degree < 180)? (this.height/180)*this.degree: (this.height/180)*(360 - this.degree);
     translateIndexAdjustX = (translateIndexAdjustX && this.objectNameFlag === "bullet")? translateIndexAdjustX: 0;
     translateIndexAdjustY = (translateIndexAdjustY && this.objectNameFlag === "bullet")? translateIndexAdjustY: 0;
 
@@ -60,8 +60,8 @@ async function placeEnemyes(mainGameObject){
         })
     mainGameObject.gameInitData.ctxActionField.restore();
 
-    async function imageRender({ ctx, img, sx, sy, sWidth, sHeight, x, y, width, height }){
-       await createImage(ctx, img, sx, sy, sWidth, sHeight, x, y, width, height)
+     function imageRender({ ctx, img, sx, sy, sWidth, sHeight, x, y, width, height }){
+        createImage(ctx, img, sx, sy, sWidth, sHeight, x, y, width, height)
     }
 }
 
@@ -318,7 +318,6 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "groundNPC" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "groundEnemyBullet" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "player"){  // groundNPC
-        console.log('Player bullet hit the enemy')
         this.healthPoint -= hitObject.damage;
         damageProcedure.call(this)
     }
@@ -435,8 +434,6 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
 
     if(!bulletStop && !groundBulletStop ) return false
 
-
-    //grappleObjectCollision.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
     enterToTheShopHangar.call(this, { hitObject: hitObject, mainGameObject: mainGameObject })
 
     /* Hit detection collision */

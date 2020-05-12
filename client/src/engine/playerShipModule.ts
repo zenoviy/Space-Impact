@@ -320,6 +320,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             //console.log(" on leader ")
         }
     }
+
     for(let enemy of allEnemy){
         if(groundPlayer.rightWallTouch || groundPlayer.leftWallTouch) continue
         enemy.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;

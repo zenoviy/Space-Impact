@@ -2,7 +2,7 @@ import { placeEnemyes, takeDamage } from '../enemies/enemiesModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 import { enemyAnimation } from '../enemies/enemiesModules';
 import { changeAnimationParameters,
-    changeVerticalAnimationPicture } from '../engine/dynamicLevels/playerUnitModule';
+    changeVerticalAnimationPicture, groundPlayerCollectable } from '../engine/dynamicLevels/playerUnitModule';
 import { bulletSpeed } from '../engine/bulletsModule';
 import { getObjectPosition } from '../engine/engineModules';
 import { stairsMove } from '../engine/dynamicLevels/dynamicLevelModule';
@@ -51,6 +51,7 @@ class DynamicUserConstructor {
     defaultHealth: number;
     currentWallBlock: any;
     currentGroundBlock: any;
+    type: string;
 
     placeEnemyes: any;
     loadTexture: any;
@@ -106,6 +107,7 @@ class DynamicUserConstructor {
         this.currentWallBlock = null;
         this.currentGroundBlock = null;
         this.onLeader = false;
+        this.type = "ground-object";
     }
 }
 
@@ -119,6 +121,7 @@ DynamicUserConstructor.prototype.bulletSpeed = bulletSpeed;
 DynamicUserConstructor.prototype.takeDamage = takeDamage;
 DynamicUserConstructor.prototype.getObjectPosition = getObjectPosition;
 DynamicUserConstructor.prototype.stairsMove = stairsMove;
+
 export {
     DynamicUserConstructor
 }
