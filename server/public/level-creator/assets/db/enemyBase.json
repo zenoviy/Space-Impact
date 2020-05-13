@@ -28,14 +28,35 @@
             "successText": "You get blue card",
             "innerObject": null
         },
-        "dialog": [
-            {
-                "name": "hello",
-                "text": "Hello there",
-                "connect": "none",
-                "repeat": true
-            }
-        ],
+        "dialog": {
+            "default": {
+                "name": "Doctor D.R. i have blue card",
+                "id": 1,
+                "text": "Hello there!",
+                "questions": [
+                    {
+                        "id": 2,
+                        "text": "i need card"
+                    },
+                    {
+                        "id": 3,
+                        "text": "what is happened?"
+                    }
+                ]
+            },
+            "dialogAnswers": [
+                {
+                    "id": 2,
+                    "text": "i need you card",
+                    "action": "give_object"
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none"
+                }
+            ]
+        },
         "width": 20,
         "height": 30,
         "name": "professor_1",

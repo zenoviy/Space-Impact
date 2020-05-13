@@ -7,6 +7,7 @@ import { enemyAnimation } from '../enemies/enemiesModules';
 
 class DynamicBlockConstructor {
     x: number; y: number;
+    defaultMapX: number; defaultMapY: number;
     xMove: number; yMove: number;
     width: number; height: number;
     details: any;
@@ -43,6 +44,8 @@ class DynamicBlockConstructor {
     constructor({ ...data }){
         this.x = data.x;
         this.y = data.y;
+        this.defaultMapX = data.defaultMapX;
+        this.defaultMapY = data.defaultMapY;
         this.xTarget = data.x;
         this.yTarget = data.y;
         this.mapSizeHorizontal = (data.mapSizeHorizontal)? data.mapSizeHorizontal: 0;

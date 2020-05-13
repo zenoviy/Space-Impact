@@ -6,6 +6,8 @@ import { clearView } from '../ui/view';
 class BlockConstructor{
     x: number;
     y: number;
+    defaultMapX: number;
+    defaultMapY: number;
     xMove: number;
     yMove: number;
     width: number;
@@ -36,6 +38,8 @@ class BlockConstructor{
     constructor({...data}){
         this.x = data.x;
         this.y = data.y;
+        this.defaultMapX = data.x;
+        this.defaultMapY = data.y;
         this.xMove = data.x;
         this.yMove = data.y;
         this.blockRelativeXPos = 0;

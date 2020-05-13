@@ -94,7 +94,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
-    let level = 3, shipType = 3, shipLife = 5;
+    let level = 1, shipType = 3, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameDialogField = document.querySelector('#gameActionDialogfield'),

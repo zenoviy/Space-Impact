@@ -60,17 +60,14 @@ async function loadExtraObjectToGroundEnemy (extraObjects, enemy){
         if(enemy.details.rules){
             if(enemy.details.rules.contain){
                 numberOfElement = 1;
-                extraObject = "ground_npc_item"
-                //console.log(extraObject)
+                extraObject = "ground_npc_item";
             }
-
         }
         let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': extraObject }})
         if(enemy.details.rules){
             if(enemy.details.rules.contain){
                 callObject[0].grapplePower.grappleItem = enemy.details.rules.contain;
                 callObject[0].grapplePower.previewPicture = enemy.details.rules.objectPicture;
-               // console.log(callObject, '//')
                 callObject[0].speed = 0;
                 callObject[0].absoluteLink = enemy.details.rules.objectPicture;
             }

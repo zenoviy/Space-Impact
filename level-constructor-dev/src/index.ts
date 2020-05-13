@@ -22,6 +22,7 @@ V- create map net
             V- description
             V- rulers
             - elevator speed
+            - direction
 V- side panel
     V- new map
         V- map name

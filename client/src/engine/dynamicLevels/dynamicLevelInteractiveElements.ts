@@ -58,30 +58,32 @@ function elevatorMove({ mainGameObject }){
 
 
 function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
-    //console.log("Stairs", player.isRun, player.xPos, x, y )  // .objectOwner === "groundEnemy"
     let stairsVerticalIndex = stairs.height / stairs.width;
-    if(player.objectOwner === "groundEnemy" || player.objectOwner === "groundNPC"){
-
-        this.y += this.jumpImpuls;
-        if(stairs.details.type === "stairs-left"){
-            player.y += ( player.playerDirectionHorizontal === 'right' )?
-            (levelInformation.gravity + stairsVerticalIndex) * -1 :
-            0;
-        }else if(stairs.details.type === "stairs-right" && player.isRun){
-            player.y += ( player.playerDirectionHorizontal === 'right' )?
-            0:
-            (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
-        }
-        return false
-    }
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
 
+    player.onStairs = true;
+    if(player.objectOwner === "groundEnemy" || player.objectOwner === "groundNPC"){
+        if(extraSeconds % 5 === 0){
+            this.y += this.jumpImpuls;
+            if(stairs.details.type === "stairs-left" && player.isRun){
+                player.y += ( player.playerDirectionHorizontal === 'right' )?
+                (levelInformation.gravity + stairsVerticalIndex * 2) * -1 :
+                0;
+            }else if(stairs.details.type === "stairs-right" && player.isRun){
+                player.y += ( player.playerDirectionHorizontal === 'right' )?
+                0: (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
+            }
+            this.rightWallTouch = false;
+            this.leftWallTouch = false;
+            return false
+        }
+        player.groundTouch = true;
+        return false
+    }
 
-    //if(!stairs.details.angle) return false
     let percentOfSteps = stairs.height/stairs.details.angle;
         player.onStairs = true;
     if(!player.isRun){
-       // console.log('exit stairs', player.isRun)
         player.groundTouch = true;
         levelInformation.jumpImpuls = -1;
 
@@ -96,14 +98,17 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
 
     if(stairs.details.type === "stairs-left"){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
-        (levelInformation.gravity + stairsVerticalIndex) * -1 :
-        levelInformation.gravity;
+        //(levelInformation.gravity + stairsVerticalIndex) * -1 :
+        //levelInformation.gravity;
+        levelInformation.gravity * -1: levelInformation.gravity
 
     }else if(stairs.details.type === "stairs-right" && player.isRun){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
-        levelInformation.gravity/stairsVerticalIndex:
-        (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
+        //levelInformation.gravity/stairsVerticalIndex:
+        //(levelInformation.gravity + stairsVerticalIndex * 2) * -1;
+        levelInformation.gravity: (levelInformation.gravity + stairsVerticalIndex * 2) * -1
     }
+    //player.groundTouch = true;
 }
 
 

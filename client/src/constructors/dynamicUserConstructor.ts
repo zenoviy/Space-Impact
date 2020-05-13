@@ -6,6 +6,7 @@ import { changeAnimationParameters,
 import { bulletSpeed } from '../engine/bulletsModule';
 import { getObjectPosition } from '../engine/engineModules';
 import { stairsMove } from '../engine/dynamicLevels/dynamicLevelModule';
+import { detectObjectsAsMap } from '../engine/dynamicLevels/minimap';
 
 
 class DynamicUserConstructor {
@@ -23,6 +24,7 @@ class DynamicUserConstructor {
     ceilingTouch: boolean;
     texture: string;
     numberOfJump: number;
+    mapFinder: any[];
     inventory: any[];
     guns: any[];
     playerDirectionHorizontal: string;
@@ -62,6 +64,7 @@ class DynamicUserConstructor {
     takeDamage: any;
     getObjectPosition: any;
     stairsMove: any;
+    detectObjectsAsMap: any;
     ///  enemyAnimation
     constructor({...data}){
         this.x = (data.x)? data.x: window.innerWidth/2 - data.width/2;
@@ -108,6 +111,7 @@ class DynamicUserConstructor {
         this.currentGroundBlock = null;
         this.onLeader = false;
         this.type = "ground-object";
+        this.mapFinder = [];
     }
 }
 
@@ -121,6 +125,7 @@ DynamicUserConstructor.prototype.bulletSpeed = bulletSpeed;
 DynamicUserConstructor.prototype.takeDamage = takeDamage;
 DynamicUserConstructor.prototype.getObjectPosition = getObjectPosition;
 DynamicUserConstructor.prototype.stairsMove = stairsMove;
+DynamicUserConstructor.prototype.detectObjectsAsMap = detectObjectsAsMap;
 
 export {
     DynamicUserConstructor

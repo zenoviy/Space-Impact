@@ -170,6 +170,7 @@ async function generateInput({fileContainer, target}){
                 innerText: innerText,
                 idName: 'description-requireText-'+ currentDescriptionId
             })
+            fileContainer.appendChild(itemData);
     }
     if(blockDetails.innerObject){
 

@@ -277,11 +277,47 @@ function gameChangeEngineFunction({ gameObject }){
 function gameDynamicLevelBoxRender({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
-
+    
     if(!allBlocks) return false
+
+
+    let allElevators = allBlocks.filter(block => block.details.type === 'elevator')
+    let allBackgrounds = allBlocks.filter(block => !block.details.collision || block.backgroundTexture)
+    
+
+    for(let background of allBackgrounds){
+        if(!background) continue
+        if(background.backgroundTexture){
+            //console.log(block)
+           placeEnemyes.call({
+                x: background.x,
+                y: background.y,
+                sx: background.backgroundSx,
+                sy: background.backgroundSy,
+                sWidth: background.backgroundTexture.sWidth,
+                sHeight: background.backgroundTexture.sWidth,
+                width: background.backgroundTexture.width,
+                height: background.backgroundTexture.height + 1,
+                degree: 0,
+                img: background.backgroundTextureImg
+            }, gameObject)
+            background.backgroundTexture.degree = 0;
+        }
+        if(!gameObject.gameInitData.gamePause && background.details.type != 'door') background.enemyAnimation()
+        if(background.details.type === 'enemy_spawner' || background.details.type === 'npc_spawner' || background.details.type === 'elevator' ||
+             !background.details.display && background.details.type === "health" ||
+             !background.details.display && background.details.type === "blue_card" ) continue
+        
+        openClosedDoorAnimation({ currentWallBlock : background, mainGameObject: gameObject })
+        background.placeEnemyes(gameObject)
+    }
+    for(let elevator of allElevators){
+        if(!gameObject.gameInitData.gamePause) elevator.elevatorMove({ mainGameObject: gameObject })
+        elevator.placeEnemyes(gameObject)
+    }
     for(let block of allBlocks){
         if(!block) continue
-            if(block.backgroundTexture){
+            /*if(block.backgroundTexture){
                 //console.log(block)
                placeEnemyes.call({
                     x: block.x,
@@ -296,16 +332,16 @@ function gameDynamicLevelBoxRender({ gameObject }){
                     img: block.backgroundTextureImg
                 }, gameObject)
                 block.backgroundTexture.degree = 0;
-            }
-            if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner' ||
+            }*/
+            if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
              !block.details.display && block.details.type === "health" ||
-             !block.details.display && block.details.type === "blue_card") continue
+             !block.details.display && block.details.type === "blue_card" || !block.details.collision ) continue
 
-             block.placeEnemyes(gameObject)
-            if(!gameObject.gameInitData.gamePause) block.elevatorMove({ mainGameObject: gameObject })
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
-            openClosedDoorAnimation({ currentWallBlock : block, mainGameObject: gameObject })
+            
+            block.placeEnemyes(gameObject)
     }
+   
 }
 
 
@@ -402,6 +438,10 @@ async function gameDynamicPlayer({ gameObject }){
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 groundPlayer.changeVerticalAnimationPicture()
                 groundPlayer.enemyAnimation()
+                groundPlayer.detectObjectsAsMap({
+                    mainGameObject: gameObject,
+                    objectIntersectionDetect: objectIntersectionDetect
+                })
 
                 if(groundPlayer.shotState && extraSeconds % 10 === 0 && groundPlayer.shotAngle){
                     shot.call(groundPlayer, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")

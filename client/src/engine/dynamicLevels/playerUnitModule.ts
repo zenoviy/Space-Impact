@@ -74,21 +74,23 @@ async function initGroundPlayer({ DynamicUserConstructor }){
 
 
 function showGroundPlayerInventory({ mainGameObject }){
-    let inventoryWrapper = document.querySelector('#backpack-wrapper');
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     if(process.env.GROUND_CHARACTERS_INVENTORY === 'false'){
         if(mainGameObject.gameInitData.gameOver || !mainGameObject.gameInitData.dynamicLevelsActive ||
             mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false
-        process.env.GROUND_CHARACTERS_INVENTORY = 'true';
-        show(inventoryWrapper)
+        openInventory()
         loadItemsToGroundInventory({groundPlayer : groundPlayer})
     }else{
-        process.env.GROUND_CHARACTERS_INVENTORY = 'false';
-        hide(inventoryWrapper)
+        hideInventory()
     }
 }
 
 
+function openInventory(){
+    let inventoryWrapper = document.querySelector('#backpack-wrapper');
+    show(inventoryWrapper)
+    process.env.GROUND_CHARACTERS_INVENTORY = 'true';
+}
 
 function hideInventory(){
     let inventoryWrapper = document.querySelector('#backpack-wrapper');
@@ -101,6 +103,7 @@ function hideInventory(){
 function loadItemsToGroundInventory({groundPlayer}){
     let playerInventory = groundPlayer.inventory;
     let objectToRender = document.querySelector("#backpack-body");
+    objectToRender['width'] = "auto";
 
     if(playerInventory.length > 0){     // createElements
         let allInnerObject = loadPlayerCharacter({ playerInventory: playerInventory })
@@ -247,5 +250,6 @@ export {
     backToTheMapAgain,
     groundPlayerShot,
     groundPlayerCollectable,
-    hideInventory
+    hideInventory,
+    openInventory
 }

@@ -20,7 +20,6 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     nextPointOfMoveY: number;
     playerInRange: boolean;
     healthPoint: number;
-    mapFinder: any[];
     extraObjects: any[];
     defaultSpeed: number;
     isStop: boolean;

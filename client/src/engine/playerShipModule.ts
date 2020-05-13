@@ -10,6 +10,7 @@ import { showGroundPlayerInventory, playerAnimation, groundPlayerShot } from '..
 import { backgroundMoveDuringMove, mapGravityInit } from '../engine/dynamicLevels/dynamicLevelModule';
 import { interactWithObjects } from '../engine/dynamicLevels/dynamicDialog';
 import { leadersFunctionality } from '../engine/dynamicLevels/dynamicLevelInteractiveElements';
+import { createMapRenderField } from '../engine/dynamicLevels/minimap';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -51,7 +52,7 @@ function userKeyAction({ mainGameObject, controlKeys, event}){
     }else{
         if(controlKeys.inventory.some(obj => event.keyCode == obj) ) showGroundPlayerInventory({mainGameObject: mainGameObject});
         if(controlKeys.useKey.some(obj => event.keyCode == obj) ) interactWithObjects({mainGameObject: mainGameObject, constructors: constructors});
-        if(controlKeys.miniMap.some(obj => event.keyCode == obj) ) console.log('mini Map')
+        if(controlKeys.miniMap.some(obj => event.keyCode == obj) ) createMapRenderField({ mainGameObject: mainGameObject })
     }
 }
 
