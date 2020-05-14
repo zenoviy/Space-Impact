@@ -53,6 +53,7 @@ class DynamicUserConstructor {
     defaultHealth: number;
     currentWallBlock: any;
     currentGroundBlock: any;
+    currentDialogCharacter: any;
     type: string;
 
     placeEnemyes: any;
@@ -109,6 +110,7 @@ class DynamicUserConstructor {
         this.defaultHealth = data.healthPoint;
         this.currentWallBlock = null;
         this.currentGroundBlock = null;
+        this.currentDialogCharacter = null;
         this.onLeader = false;
         this.type = "ground-object";
         this.mapFinder = [];

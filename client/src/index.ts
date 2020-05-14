@@ -521,6 +521,7 @@ function initAppGlobalVariable(){
     process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL = 'api/get-constructor-ground-enemy';
     process.env.GROUND_CHARACTERS_INVENTORY = 'false';
     process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
+    process.env.GROUND_NPC_DIALOG_ACTIVE = 'false';
 
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';

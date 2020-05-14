@@ -1,5 +1,5 @@
 import { __HOST } from './globalVariables';
-
+import { createOtherDialog, dialogAnswerButton, createDialogForm } from './dialogFormModule';
 
 async function generateInput({fileContainer, target}){
     let blockDetails = target.details;
@@ -161,16 +161,7 @@ async function generateInput({fileContainer, target}){
 
     }
     if(blockDetails.dialog){
-        innerText = `<h3>Dialog</h3>
-            <p></p>
-            <button data-target='save-contain-btn' class="main-btn">Save</button> <hr>`;
-            itemData = elementCreator({
-                tagname: "div",
-                classList: 'single-block-description',
-                innerText: innerText,
-                idName: 'description-requireText-'+ currentDescriptionId
-            })
-            fileContainer.appendChild(itemData);
+            await createDialogForm({blockDetails: blockDetails, currentDescriptionId: currentDescriptionId, fileContainer: fileContainer})
     }
     if(blockDetails.innerObject){
 
@@ -272,12 +263,31 @@ async function generateInput({fileContainer, target}){
                 })
                 fieldName = (fieldResults)? 'contain object': ' save contain object';
                 break;
+            case 'save-dialog-btn':
+                console.log('Save')
+                fieldResults = await changeDataInBlock({
+                    key: 'contain',
+                    fieldSelector: '#contain-field-'+ currentDescriptionId,
+                    target: target.details.dialog.default
+                })
+                fieldResults = await changeDataInBlock({
+                    key: 'name',
+                    fieldSelector: '#npc-name',
+                    target: target.details.dialog.default
+                })
+                /*fieldResults = await changeDataInBlock({
+                    key: 'text',
+                    fieldSelector: '#default-dialog-text',
+                    target: target.details.dialog.default
+                })*/
+
+                fieldName = (fieldResults)? 'contain object': ' save contain object';
             default:
                 return false
         }
         blockAlertMessage.innerHTML = (fieldResults)? `<p class="side-panel-success" > Successfully saved '${fieldName}' </p>`: `<p class="side-panel-error" >There is a problem in '${fieldName}' i can't save</p>`;
     })
-    fileContainer.addEventListener('change', async function(event){
+    fileContainer.addEventListener('click', async function(event){
         switch(event.target.dataset.target){
             case 'select-preview-btn':
                 await changeDataInBlock({
@@ -285,6 +295,28 @@ async function generateInput({fileContainer, target}){
                     fieldSelector: '#preview-require-object',
                     target: target.details.rules
                 })
+
+                let dataCheck = document.querySelector('#preview-contain-object')['value']
+                let requiredPreviewPic = document.querySelector('#contain-picture-'+ currentDescriptionId);
+                let pic = (target.details.rules.objectPicture)? target.details.rules.objectPicture : 'computer-data.png';
+                let link = __HOST + '/level-creator/assets/charactersObjects/inner-objects/' + dataCheck;
+
+                target.details.rules.objectPicture = link;
+                console.log(target)
+                requiredPreviewPic['src'] = link; //computer-data.png
+                break;
+            case 'preview-dialog-face':
+                /*await changeDataInBlock({
+                    key: 'facePictureAbsolute',
+                    fieldSelector: '#preview-require-object',
+                    target: blockDetails.dialog.default
+                })*/
+
+                let dataFace = document.querySelector('#preview-dialog-face')['value'];
+                blockDetails.dialog.default.facePictureAbsolute = __HOST + '/level-creator/assets/enemyObject/avatar/' + dataFace;
+
+                let picture = document.querySelector('#dialog-face-picture-'+ currentDescriptionId);
+                picture['src'] = blockDetails.dialog.default.facePictureAbsolute;
                 break;
             default:
                 return false
@@ -298,6 +330,7 @@ async function generateInput({fileContainer, target}){
         console.log(target)
         requiredPreviewPic['src'] = link; //computer-data.png
     })
+
 }
 
 
@@ -313,6 +346,15 @@ async function changeDataInBlock({key, fieldSelector, target}){
     target[key] = (currentField.value)? currentField.value : null;
     return (currentField.value && target[key] && key && fieldSelector)? true : false
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -342,17 +384,6 @@ function loadInnerData({fileContainer, target}){
     <p>${(target.backgroundTexture)? "Background texture" : ""}</p>
     ${backgroundImage}
     </ul></div><hr>`;
-
-
-
-    /*"imageWidth": 34,
-    "imageHeight": 45,
-    "animationSteps": 10,
-    "numberOfItems": 1,
-    "numberOfVerticalItems": 1,
-    "playerDirectionHorizontal": "left",
-    "detectRange": 550,
-    "speed": 1,*/
     let itemData = elementCreator({
         tagname: "div",
         classList: 'single-block-description',
@@ -361,6 +392,7 @@ function loadInnerData({fileContainer, target}){
     })
     fileContainer.appendChild(itemData)
 }
+
 
 
 

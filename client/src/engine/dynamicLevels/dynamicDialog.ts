@@ -1,5 +1,6 @@
 import { doorFunctionality } from './dynamicLevelInteractiveElements';
-import { hideInventory } from './playerUnitModule';
+import { openInventory, hideInventory } from './playerUnitModule';
+import { createSimpleElements } from '../../appMenu/pagesBuilder';
 
 
 
@@ -19,10 +20,17 @@ function useObject({ mainGameObject, player, item }){
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
                 break;
             case 'npc_spawner':
+                player.currentDialogCharacter = item;
+                process.env.GROUND_NPC_DIALOG_ACTIVE = 'true';
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
-                npcDialog()
+                //npcDialog()
                 break;
             default:
+                player.currentDialogCharacter = null;
+                if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'true' && player.isRun){
+                     process.env.GROUND_NPC_DIALOG_ACTIVE = 'false';
+                     hideInventory()
+                }
                 return currentActiveBlock
         }
         return currentActiveBlock
@@ -31,9 +39,128 @@ function useObject({ mainGameObject, player, item }){
 
 
 
-function npcDialog(){
+function npcDialog({ currentDialogCharacter, data, searchTarget, mainGameObject, requireData, constructors,groundPlayer }){
+        openInventory()
+        displayDialog({ 
+            currentDialogCharacter: currentDialogCharacter,
+            currentDialog: 0,
+            data: data,
+            searchTarget: searchTarget,
+            mainGameObject: mainGameObject,
+            requireData: requireData,
+            constructors: constructors,
+            groundPlayer: groundPlayer })
+        process.env.GROUND_CHARACTERS_INVENTORY = 'true';
 
 }
+
+
+
+function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarget, mainGameObject, requireData, constructors,groundPlayer }){
+    
+    if(!currentDialogCharacter) return false
+    let defaultNpcData = currentDialogCharacter.details.dialog.default;
+    let dialogAnswersNpcData = currentDialogCharacter.details.dialog.dialogAnswers;
+    let backpackBody = document.querySelector('#backpack-body');
+    backpackBody.innerHTML = '';
+
+    let dialogHeader = createSimpleElements({
+        tagname: 'div',
+        classList: 'dialog-header',
+        innerText: `
+        <h3>${defaultNpcData.name}</h3>
+        <img src="${(defaultNpcData.facePictureAbsolute)? defaultNpcData.facePictureAbsolute : process.env.HOST + defaultNpcData.facePicture}" alt="${defaultNpcData.name}">`,
+        idName: null
+    })
+
+
+    backpackBody.appendChild(dialogHeader)
+    if(!dialogAnswersNpcData) return false
+    let selecteDialog = dialogAnswersNpcData.find(dialog => dialog.id == currentDialog)
+    //console.log(selecteDialog, currentDialog, '|||')
+    if(!selecteDialog || !selecteDialog.questions) return false
+
+    let innerDialog = createSimpleElements({
+        tagname: 'div',
+        classList: 'dialog-body',
+        innerText: `<p>${selecteDialog.text}</p>`,
+        idName: null
+    })
+
+    for(let answerButtons of selecteDialog.questions){
+        let questionsButton = createSimpleElements({
+            tagname: 'button',
+            classList: 'answer-dialog-button',
+            innerText: `
+            <p>${answerButtons.text}</p>
+          `,
+            idName: null
+        })
+        questionsButton.addEventListener('click', () => {
+            console.log(answerButtons, answerButtons.text, selecteDialog, "()")
+            displayDialog({
+                currentDialogCharacter: currentDialogCharacter, currentDialog: parseInt(answerButtons.id),
+                data: data,
+                searchTarget: searchTarget,
+                mainGameObject: mainGameObject,
+                requireData: requireData,
+                constructors: constructors,
+                groundPlayer: groundPlayer
+            })
+
+        })
+        innerDialog.appendChild(questionsButton)
+    }
+    if(selecteDialog.action === "give_object"){
+                requireData = searchInPlayerInventory({
+                    data: groundPlayer.inventory,
+                    searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
+                })
+
+                activateInteractObjectData({
+                    mainGameObject: mainGameObject,
+                    requireData: requireData,
+                    constructors: constructors,
+                    groundPlayer: groundPlayer
+                })
+            }
+    backpackBody.appendChild(innerDialog)
+}
+
+/*
+"dialog": {
+    "default": {
+        "name": "Doctor D.R. i have blue card",
+        "facePicture": "/level-creator/assets/enemyObject/avatar/face-1.png",
+        "facePictureAbsolute": null
+       
+    },
+    "dialogAnswers": [
+        {
+            "id": 2,
+            "text": "i give you a card",
+            "action": "give_object",
+            "questions": [
+                {
+                    "id": 3,
+                    "text": "what is happened?"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "text": "Enemy attack from unknown",
+            "action": "none",
+            "questions": [
+                {
+                    "id": 2,
+                    "text": "i need card"
+                }
+            ]
+        }
+    ]
+}
+*/
 
 
 
@@ -79,6 +206,21 @@ function interactWithObjects({ mainGameObject, constructors }){
         let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
         let requireData;
         if(!mainGameObject.mapNearActiveElement) return false
+
+            if(groundPlayer.currentDialogCharacter){  //.details.type === 'npc_spawner'
+            //console.log(groundPlayer.currentDialogCharacter)
+                npcDialog({ 
+                    currentDialogCharacter: groundPlayer.currentDialogCharacter,
+                    data: groundPlayer.inventory,
+                    searchTarget: mainGameObject.mapNearActiveElement.details.rules.require,
+                    mainGameObject: mainGameObject,
+                    requireData: requireData,
+                    constructors: constructors,
+                    groundPlayer: groundPlayer
+                })
+                return false
+            }
+
             requireData = searchInPlayerInventory({
                 data: groundPlayer.inventory,
                 searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
@@ -95,6 +237,7 @@ function interactWithObjects({ mainGameObject, constructors }){
 
 
 function activateInteractObjectData({mainGameObject, requireData, constructors, groundPlayer }){
+
     if( mainGameObject.mapNearActiveElement.details.rules.contain && !mainGameObject.mapNearActiveElement.details.rules.require ||
         mainGameObject.mapNearActiveElement.details.rules.require && requireData ){
         if( mainGameObject.mapNearActiveElement.details.rules.contain == 'exit' ){
@@ -102,7 +245,6 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
             levelRestore({mainGameObject: mainGameObject, constructors: constructors})
         }
 
-        //console.log(mainGameObject.mapNearActiveElement.details)
         let objectDetails = mainGameObject.mapNearActiveElement.details;
         let previewPicture = (objectDetails.rules.objectPicture)? objectDetails.rules.objectPicture :  process.env.HOST + objectDetails.texture;
 
@@ -143,9 +285,6 @@ function searchInPlayerInventory({ data, searchTarget }){
 
 
 
-function openInventory(){
-
-}
 
 
 

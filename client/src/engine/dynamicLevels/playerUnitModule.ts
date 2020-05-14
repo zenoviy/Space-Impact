@@ -231,8 +231,6 @@ function groundPlayerLifeSystem(){
 }
 
 function groundPlayerCollectable({allGameSideObjects, playerShipData, mainGameObject}){
-    //console.log('gggg', playerShipData, this, this.grapplePower.grappleItem, this.grapplePower.previewPicture)
-    //
     saveObjectToBackPack({
         groundPlayer: playerShipData,
         data: this.grapplePower.grappleItem,

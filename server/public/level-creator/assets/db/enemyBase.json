@@ -31,29 +31,46 @@
         "dialog": {
             "default": {
                 "name": "Doctor D.R. i have blue card",
-                "id": 1,
-                "text": "Hello there!",
-                "questions": [
-                    {
-                        "id": 2,
-                        "text": "i need card"
-                    },
-                    {
-                        "id": 3,
-                        "text": "what is happened?"
-                    }
-                ]
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-1.png",
+                "facePictureAbsolute": null
             },
             "dialogAnswers": [
                 {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "give_object",
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
                     "id": 2,
-                    "text": "i need you card",
-                    "action": "give_object"
+                    "text": "i give you a card",
+                    "action": "give_object",
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
                 },
                 {
                     "id": 3,
                     "text": "Enemy attack from unknown",
-                    "action": "none"
+                    "action": "none",
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        }
+                    ]
                 }
             ]
         },
