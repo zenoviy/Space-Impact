@@ -1,4 +1,4 @@
-import { placeEnemyes, takeDamage } from '../enemies/enemiesModules';
+import { displayObjectAtScene, takeDamage } from '../enemies/enemiesModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 import { elevatorMove } from '../engine/dynamicLevels/dynamicLevelModule';
 import { enemyAnimation } from '../enemies/enemiesModules';
@@ -34,9 +34,10 @@ class DynamicBlockConstructor {
     numberOfVerticalItems: number;
     numberOfItems: number;
     picturesWidth: number;
+    explosionAnimation: any;
 
     moveMap: any;
-    placeEnemyes: any;
+    displayObjectAtScene: any;
     loadTexture: any;
     elevatorMove: any;
     enemyAnimation: any;
@@ -78,9 +79,10 @@ class DynamicBlockConstructor {
         this.numberOfVerticalItems = (data.details.numberOfVerticalItems)? data.details.numberOfVerticalItems : 0;
         this.numberOfItems = (data.details.numberOfItems)? data.details.numberOfItems : 0;
         this.picturesWidth = (data.details.picturesWidth)? data.details.picturesWidth : 0;
+        this.explosionAnimation = (data.details.explosionAnimation)? data.details.explosionAnimation : null;
     }
 }
-DynamicBlockConstructor.prototype.placeEnemyes = placeEnemyes;
+DynamicBlockConstructor.prototype.displayObjectAtScene = displayObjectAtScene;
 DynamicBlockConstructor.prototype.loadTexture = loadTexture;
 DynamicBlockConstructor.prototype.elevatorMove = elevatorMove;
 DynamicBlockConstructor.prototype.enemyAnimation = enemyAnimation;

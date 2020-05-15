@@ -14,7 +14,7 @@ import { mapGravityInit, blockCollision, npcCollisionDetect } from './engine/dyn
 import { doorFunctionality, openClosedDoorAnimation } from './engine/dynamicLevels/dynamicLevelInteractiveElements';
 import { objectIntersectionDetect } from './enemies/enemiesModules';
 import { syncKeyControl } from './engine/playerShipModule';
-import { shot, placeEnemyes } from './enemies/enemiesModules';
+import { shot, displayObjectAtScene } from './enemies/enemiesModules';
 import { explosionFire } from './engine/gameSideObjectsModule';
 
 
@@ -24,7 +24,7 @@ import { explosionFire } from './engine/gameSideObjectsModule';
 function bulletEngineFunction({gameObject}){
     if(gameObject.gameInitData.allGameBullets.length > 0){
         for(let bullet of gameObject.gameInitData.allGameBullets){
-            bullet.placeEnemyes(gameObject)
+            bullet.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                 bullet.moveBullets(gameObject.gameInitData.gameData.playerObject, gameObject);
 
@@ -60,7 +60,7 @@ function groundBulletEngineFunction({gameObject}){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     if(gameObject.gameInitData.allGroundGameBullets.length > 0){
         for(let bullet of gameObject.gameInitData.allGroundGameBullets){
-            bullet.placeEnemyes(gameObject)
+            bullet.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                 bullet.moveBullets(gameObject.gameInitData.gameData.playerObject, gameObject);
 
@@ -99,12 +99,12 @@ function groundBulletEngineFunction({gameObject}){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
-                gameObject.hitDetection({
+                /*gameObject.hitDetection({
                     object1: bullet,
                     objectsArr: gameObject.gameInitData.dynamicLevelEnemy,
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
-                })
+                })*/
                 bullet.enemyAnimation();
             }
         }
@@ -114,7 +114,7 @@ function groundBulletEngineFunction({gameObject}){
 function enemyEngineFunction({gameObject}){
     if(gameObject.gameInitData.allGameEnemies.length > 0){
         for(let enemy of gameObject.gameInitData.allGameEnemies){
-            enemy.placeEnemyes(gameObject)
+            enemy.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                 enemy.moveEnemyes();
                 enemy.enemyShipLogicVertical({
@@ -179,7 +179,7 @@ function sideObjectBehaviour({object, gameObject}){
 function sideObjectsEngineFunction({gameObject}){
     if(gameObject.gameInitData.allGameSideObjects.length > 0){
         for(let object of gameObject.gameInitData.allGameSideObjects){
-            object.placeEnemyes(gameObject);
+            object.displayObjectAtScene(gameObject);
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                 if (object.objectOwner == "explosion" || object.objectOwner == "smoke"){
                     object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
@@ -244,7 +244,7 @@ function spaceShipEngineFunction({ gameObject }){
             }
             gameObject.gameInitData.gameData.playerObject.enemyAnimation()
         }
-        if(gameObject.gameInitData.gameStatus) gameObject.gameInitData.gameData.playerObject.placeEnemyes(gameObject);
+        if(gameObject.gameInitData.gameStatus) gameObject.gameInitData.gameData.playerObject.displayObjectAtScene(gameObject);
     }
 }
 
@@ -277,19 +277,17 @@ function gameChangeEngineFunction({ gameObject }){
 function gameDynamicLevelBoxRender({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
-    
-    if(!allBlocks) return false
 
+    if(!allBlocks) return false
 
     let allElevators = allBlocks.filter(block => block.details.type === 'elevator')
     let allBackgrounds = allBlocks.filter(block => !block.details.collision || block.backgroundTexture)
-    
 
     for(let background of allBackgrounds){
         if(!background) continue
         if(background.backgroundTexture){
             //console.log(block)
-           placeEnemyes.call({
+           displayObjectAtScene.call({
                 x: background.x,
                 y: background.y,
                 sx: background.backgroundSx,
@@ -303,45 +301,34 @@ function gameDynamicLevelBoxRender({ gameObject }){
             }, gameObject)
             background.backgroundTexture.degree = 0;
         }
+
         if(!gameObject.gameInitData.gamePause && background.details.type != 'door') background.enemyAnimation()
         if(background.details.type === 'enemy_spawner' || background.details.type === 'npc_spawner' || background.details.type === 'elevator' ||
-             !background.details.display && background.details.type === "health" ||
-             !background.details.display && background.details.type === "blue_card" ) continue
-        
-        openClosedDoorAnimation({ currentWallBlock : background, mainGameObject: gameObject })
-        background.placeEnemyes(gameObject)
+            background.details.type === "health" ||
+             !background.details.display && background.details.type === "blue_card" || background.details.type === "ground-destruct" ) continue
+             openClosedDoorAnimation({ currentWallBlock : background, mainGameObject: gameObject })
+        background.displayObjectAtScene(gameObject)
+
+        if(background.details.type === "health"){
+            console.log(background)
+        }
     }
+
     for(let elevator of allElevators){
         if(!gameObject.gameInitData.gamePause) elevator.elevatorMove({ mainGameObject: gameObject })
-        elevator.placeEnemyes(gameObject)
+        elevator.displayObjectAtScene(gameObject)
     }
     for(let block of allBlocks){
         if(!block) continue
-            /*if(block.backgroundTexture){
-                //console.log(block)
-               placeEnemyes.call({
-                    x: block.x,
-                    y: block.y,
-                    sx: block.backgroundSx,
-                    sy: block.backgroundSy,
-                    sWidth: block.backgroundTexture.sWidth,
-                    sHeight: block.backgroundTexture.sWidth,
-                    width: block.backgroundTexture.width,
-                    height: block.backgroundTexture.height,
-                    degree: 0,
-                    img: block.backgroundTextureImg
-                }, gameObject)
-                block.backgroundTexture.degree = 0;
-            }*/
             if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
              !block.details.display && block.details.type === "health" ||
-             !block.details.display && block.details.type === "blue_card" || !block.details.collision ) continue
+             !block.details.display && block.details.type === "blue_card" || block.details.type === "ground-destruct" &&
+             block.details.isDestroy && block.details.healthPoint < 0 || !block.details.collision && block.details.type === "background-wall" ||
+             !block.details.collision && block.details.type === 'door') continue
 
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
-            
-            block.placeEnemyes(gameObject)
+            block.displayObjectAtScene(gameObject)
     }
-   
 }
 
 
@@ -359,10 +346,16 @@ function gameDynamicLevelBoxRender({ gameObject }){
 
     for(let enemy of allEnemy){
         if(!enemy) continue
-        enemy.placeEnemyes(gameObject)
+            enemy.displayObjectAtScene(gameObject)
+            enemy.changeVerticalAnimationPicture()
+            if(!enemy.objectPresent ){
+                if(enemy.details.collision)  enemy.details.collision = false;
+
+                continue
+            }
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
-                deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
-                enemy.changeVerticalAnimationPicture()
+                //deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
+                
                 enemy.enemyAnimation()
                 enemy.groundEnemyMove({
                     mainGameObject: gameObject,
@@ -434,7 +427,7 @@ async function gameDynamicPlayer({ gameObject }){
             let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
             let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
 
-            groundPlayer.placeEnemyes(gameObject)
+            groundPlayer.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 groundPlayer.changeVerticalAnimationPicture()
                 groundPlayer.enemyAnimation()
@@ -444,7 +437,9 @@ async function gameDynamicPlayer({ gameObject }){
                 })
 
                 if(groundPlayer.shotState && extraSeconds % 10 === 0 && groundPlayer.shotAngle){
-                    shot.call(groundPlayer, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
+                    if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'false'){
+                        shot.call(groundPlayer, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
+                    }
                 }
                 await blockCollision({
                     objectsToCollide: allBlocks,

@@ -27,15 +27,16 @@
                V - change textures
                     - add leader animation
                     - shoot up down
+                   V - death
     V - Level ends when player reach the dor or final object
         V- grapple coin
         V- grapple life
-        - grapple card
-        - add minimap
+        V - grapple card
+        V - add minimap
         V - add inventory elements
     V - one hit - one life
 
-    - dialog
+    V - dialog
         - scientists
         - military
         - civil
@@ -140,23 +141,33 @@ function playerAnimation({ groundPlayer, mainGameObject }){
 
 
 function changeAnimationParameters(){
-    if(this.isRun && this.groundTouch){
+    if( !this.objectPresent ){  // death
+        if(this.numberOfItems != this.animations.death.numberOfItems) renewAnimation.call(this)
+
+        this.img.src = __dirname + this.animations.death.innerTexture;
+        this.width = (this.animations.death.width)? this.animations.death.width : this.width
+        this.height = (this.animations.death.height)? this.animations.death.height : this.height
+        replacerOfValue({ originalObject: this, dataToReplace: this.animations.death })
+
+    }else
+    if(this.isRun && this.groundTouch  && this.objectOwner){
         if(this.numberOfItems != this.animations.run.numberOfItems) renewAnimation.call(this)
 
         this.img.src = __dirname + this.animations.run.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.run })
     }
-    else if(this.isRun === false && this.groundTouch || this.onElevator){
+    else if(this.isRun === false && this.groundTouch && this.objectOwner || this.onElevator && this.objectOwner){
         if(this.numberOfItems != this.animations.stand.numberOfItems) renewAnimation.call(this)
 
         this.img.src = __dirname + this.animations.stand.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.stand })
     }
-    else if( !this.groundTouch && !this.onElevator ){
+    else if( !this.groundTouch && !this.onElevator && this.objectOwner){
         if(this.numberOfItems != this.animations.jump.numberOfItems) renewAnimation.call(this)
         this.img.src = __dirname + this.animations.jump.innerTexture;
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.jump })
     }
+    
     this.sWidth = this.imageWidth/this.numberOfItems;
     function renewAnimation(){
         this.sx = 0;

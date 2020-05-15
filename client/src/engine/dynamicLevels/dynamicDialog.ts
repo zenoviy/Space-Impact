@@ -6,6 +6,7 @@ import { createSimpleElements } from '../../appMenu/pagesBuilder';
 
 function useObject({ mainGameObject, player, item }){
     let currentActiveBlock;
+    if(item.objectOwner && !item.objectPresent) return false
         switch(item.details.type){
             case 'exit':
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
@@ -23,7 +24,6 @@ function useObject({ mainGameObject, player, item }){
                 player.currentDialogCharacter = item;
                 process.env.GROUND_NPC_DIALOG_ACTIVE = 'true';
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
-                //npcDialog()
                 break;
             default:
                 player.currentDialogCharacter = null;
@@ -39,9 +39,13 @@ function useObject({ mainGameObject, player, item }){
 
 
 
+
+
+
+
 function npcDialog({ currentDialogCharacter, data, searchTarget, mainGameObject, requireData, constructors,groundPlayer }){
         openInventory()
-        displayDialog({ 
+        displayDialog({
             currentDialogCharacter: currentDialogCharacter,
             currentDialog: 0,
             data: data,
@@ -69,7 +73,7 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
         classList: 'dialog-header',
         innerText: `
         <h3>${defaultNpcData.name}</h3>
-        <img src="${(defaultNpcData.facePictureAbsolute)? defaultNpcData.facePictureAbsolute : process.env.HOST + defaultNpcData.facePicture}" alt="${defaultNpcData.name}">`,
+        <img class="dialog-picture" src="${(defaultNpcData.facePictureAbsolute)? defaultNpcData.facePictureAbsolute : process.env.HOST + defaultNpcData.facePicture}" alt="${defaultNpcData.name}">`,
         idName: null
     })
 
@@ -83,7 +87,7 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
     let innerDialog = createSimpleElements({
         tagname: 'div',
         classList: 'dialog-body',
-        innerText: `<p>${selecteDialog.text}</p>`,
+        innerText: `<p class="dialog-text-wrapper">${selecteDialog.text}</p>`,
         idName: null
     })
 
@@ -97,7 +101,7 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
             idName: null
         })
         questionsButton.addEventListener('click', () => {
-            console.log(answerButtons, answerButtons.text, selecteDialog, "()")
+        
             displayDialog({
                 currentDialogCharacter: currentDialogCharacter, currentDialog: parseInt(answerButtons.id),
                 data: data,
@@ -107,11 +111,7 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
                 constructors: constructors,
                 groundPlayer: groundPlayer
             })
-
-        })
-        innerDialog.appendChild(questionsButton)
-    }
-    if(selecteDialog.action === "give_object"){
+            if(selecteDialog.action === "give_object"){
                 requireData = searchInPlayerInventory({
                     data: groundPlayer.inventory,
                     searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
@@ -124,43 +124,16 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
                     groundPlayer: groundPlayer
                 })
             }
+        })
+        innerDialog.appendChild(questionsButton)
+    }
     backpackBody.appendChild(innerDialog)
 }
 
-/*
-"dialog": {
-    "default": {
-        "name": "Doctor D.R. i have blue card",
-        "facePicture": "/level-creator/assets/enemyObject/avatar/face-1.png",
-        "facePictureAbsolute": null
-       
-    },
-    "dialogAnswers": [
-        {
-            "id": 2,
-            "text": "i give you a card",
-            "action": "give_object",
-            "questions": [
-                {
-                    "id": 3,
-                    "text": "what is happened?"
-                }
-            ]
-        },
-        {
-            "id": 3,
-            "text": "Enemy attack from unknown",
-            "action": "none",
-            "questions": [
-                {
-                    "id": 2,
-                    "text": "i need card"
-                }
-            ]
-        }
-    ]
-}
-*/
+
+
+
+
 
 
 
@@ -236,6 +209,13 @@ function interactWithObjects({ mainGameObject, constructors }){
 }
 
 
+
+
+
+
+
+
+
 function activateInteractObjectData({mainGameObject, requireData, constructors, groundPlayer }){
 
     if( mainGameObject.mapNearActiveElement.details.rules.contain && !mainGameObject.mapNearActiveElement.details.rules.require ||
@@ -264,6 +244,12 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
         return
     }
 }
+
+
+
+
+
+
 
 
 

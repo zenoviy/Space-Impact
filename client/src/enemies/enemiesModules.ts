@@ -8,15 +8,24 @@ import { enterToTheShopDialog } from '../ui/shop/gameShopModule';
 import { angleFinder } from '../engine/engineModules';
 import { horizontalVerticalSearch} from '../engine/gameModules/changeLevels';
 
+/* display development box and cyrcle at active objects */
 function drawCircle({ctx, x, y, width, height, color}){
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(x, y, width/2, 0, 2 * Math.PI);
-
     ctx.fill();
 }
 
- function placeEnemyes(mainGameObject){
+
+
+
+/*===============
+
+Main object display function ( daisplay object with texture and angel, method of object) 
+
+============== */
+
+ function displayObjectAtScene(mainGameObject, secondTexture?){
     if(this.y < 0 - this.height && this.x < 0 - this.width &&
         this.y < window.innerHeight + this.height && this.x > window.innerWidth + this.width) return false
     mainGameObject.gameInitData.ctxActionField.save();
@@ -43,8 +52,8 @@ function drawCircle({ctx, x, y, width, height, color}){
     mainGameObject.gameInitData.ctxActionField.translate(this.x + translateIndexAdjustX, this.y + translateIndexAdjustY);
     mainGameObject.gameInitData.ctxActionField.rotate( ((this.degree)? this.degree: 0 ) * Math.PI / 180);
 
-    let sWidth = (this.backgroundTexture)? this.backgroundTexture.sWidth : this.sWidth;
-    let sHeight = (this.backgroundTexture)? this.backgroundTexture.sHeight : this.sHeight;
+    let sWidth = (secondTexture && this.backgroundTexture)? this.backgroundTexture.sWidth : this.sWidth;
+    let sHeight = (secondTexture && this.backgroundTexture)? this.backgroundTexture.sHeight : this.sHeight;
 
         imageRender({
             ctx: mainGameObject.gameInitData.ctxActionField,
@@ -67,6 +76,14 @@ function drawCircle({ctx, x, y, width, height, color}){
 
 
 
+/*===============
+
+Method for background picture to display it
+Used only at GameBackground constructor
+
+============== */
+
+
 function placeBackground(){
     createImage(
         this.ctx,
@@ -78,13 +95,30 @@ function placeBackground(){
 }
 
 
+/*===============
 
+Method for move flying Enemy
+
+============== */
 
 function moveEnemyes(moveX: number, moveY: number = 0){
     this.x -= this.speed;
     this.y -= moveY;
 }
 
+
+
+
+/*===============
+
+Main animation method move picture by time steps at sx coordinats
+detectFrame - Object animation timer
+animationSteps - key of animation time animation changing when detectFrame % animationSteps === 0
+sx - picture current frame
+sWidth - width of picture frame
+picturesWidth - total width of all picture frames
+
+============== */
 
 async function enemyAnimation(state = true){
     if(this.backgroundTexture){
@@ -100,8 +134,6 @@ async function enemyAnimation(state = true){
     }
     this.detectFrame += 1;
     if(this.detectFrame % this.animationSteps == 0 && state){
-
-
         this.detectFrame = 0;
         this.sx += this.sWidth;
         if(Math.round(this.sx) >= this.picturesWidth){
@@ -112,15 +144,22 @@ async function enemyAnimation(state = true){
 
 
 
+/*===============
+
+Change picture of flying units animation when it taken damage
+move picture by number of vertical image
+
+============== */
+
 
 function enemyDamageAnimation(){
     if(this.numberOfVerticalItems > 1){
         let damageAnimationPoint = this.originalHealthPoint/this.numberOfVerticalItems;
         let damagePoint = new Array(this.numberOfVerticalItems).fill(null)
-        damagePoint = damagePoint.map((item, index) =>damageAnimationPoint*(index+1)).sort((a, b) => a - b).reverse();
+        damagePoint = damagePoint.map((item, index) => damageAnimationPoint * (index+1)).sort((a, b) => a - b).reverse();
         for(let i = 0; i < damagePoint.length; i++){
             if(this.healthPoint < damagePoint[i] && this.healthPoint > damagePoint[i+1] && damagePoint[i+1]){
-                this.sy = this.sHeight*(i);
+                this.sy = this.sHeight * (i);
                 break
             }else if(!damagePoint[i+1]){
                 this.sy = this.sHeight * (this.numberOfVerticalItems - 1)
@@ -132,9 +171,16 @@ function enemyDamageAnimation(){
 
 
 
+/*===============
 
+Main method to create a bullet and single shot
+BulletConstruct - main bullet constructor
+bulletArray - different array to store bullets objects
+allGameBullets: []  - all bullets at flying mode
+allGroundGameBullets: []    - all bullets at ground mode
+
+============== */
 function shot(BulletConstruct, mainGameObject, SoundCreator, owner, bulletArray){
-    //console.log(1, this, this.isShot )
     if(mainGameObject.gameInitData.gamePause || !this.isShot) return false;
 
     let guns = (this.guns)? this.guns : this.data.guns;
@@ -195,7 +241,12 @@ function bulletsCreateModule({item, mainGameObject, owner, BulletConstruct, Soun
 
 
 
+/*===============
 
+Bullet colision for flying enemy
+compare objects position and object owner if bullet intercept object colision detected
+
+============== */
 
 function bulletCollision({hitObject, mainGameObject}){
     if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
@@ -234,15 +285,23 @@ function bulletCollision({hitObject, mainGameObject}){
 
 
 
+/*===============
 
+Bullet colision for ground enemy
+compare objects position and object owner if bullet intercept object colision detected
+for groundNPC, groundEnemy, groundPlayer
+anbullets player, groundEnemyBullet
+
+============== */
 
 function groundBulletCollision({hitObject, mainGameObject}){
+    if(!hitObject.objectPresent && hitObject.objectOwner) return false
     if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemyBullet" && hitObject.objectOwner == "groundPlayer"){
         return bulletExplosion.call(this)
     }
 
     if(!mainGameObject.gameInitData.dynamicLevelsActive || !hitObject.details && hitObject.objectOwner != "groundEnemy" || !hitObject.details && hitObject.objectOwner != "groundNPC" ||
-    !hitObject.details && hitObject.objectOwner != "groundEnemyBullet") return true
+    !hitObject.details && hitObject.objectOwner != "groundEnemyBullet" ) return true
 
         if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.details.collision ||
         this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "player" && hitObject.objectOwner == "groundEnemy" ||
@@ -262,7 +321,6 @@ function groundBulletCollision({hitObject, mainGameObject}){
             SideObject: constructors.SideObject,
             explosion: "explosion"
         })
-        // this.currentBehavior = "destroy";
         if(hitObject.objectOwner == "groundEnemy") hitObject.currentBehavior = "destroy";
         this.objectPresent = false;
         return true
@@ -275,9 +333,13 @@ function groundBulletCollision({hitObject, mainGameObject}){
 
 
 
+/*===============
 
+Detect is current block background or not
+
+============== */
 function groundLevelBackgroundBulletDetect({hitObject, mainGameObject, GrappleObject}){
-    if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
+    if(!mainGameObject.gameInitData.dynamicLevelsActive ) return false
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     let collision
     for(let background of allBlocks){
@@ -306,10 +368,15 @@ function groundLevelBackgroundBulletDetect({hitObject, mainGameObject, GrappleOb
 
 
 
+/*===============
 
+Method Bullet colision for ground enemy
+using healthPoint and damage to make objects active or deactive
+
+============== */
 
 function groundUnitsDamage({hitObject, mainGameObject, constructors}){
-    if(!mainGameObject.gameInitData.dynamicLevelsActive) return false
+    if(!mainGameObject.gameInitData.dynamicLevelsActive ) return false
     var levelData = mainGameObject.getLevelUserData()
 
     if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundPlayer" && hitObject.objectOwner == "groundEnemyBullet" ||
@@ -317,12 +384,42 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "groundNPC" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "groundEnemyBullet" ||
-    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "player"){  // groundNPC
-        this.healthPoint -= hitObject.damage;
+    this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "player" ||
+    !this.objectOwner && this.details && hitObject.objectOwner == "player" ||
+    !this.objectOwner && this.details && hitObject.objectOwner == "groundNPC" ||
+    !this.objectOwner && this.details && hitObject.objectOwner == "groundEnemyBullet"){  // groundNPC ground-destruct  
+        if(this.details){
+            if(this.details.isDestroy && this.details.healthPoint >= 0){
+                this.details.healthPoint -= hitObject.damage;
+            }else if(this.healthPoint >= 0) this.healthPoint -= hitObject.damage;
+
+        }else this.healthPoint -= hitObject.damage;
+        //if(this.healthPoint <= 0 || this.details.healthPoint <= 0) return false
         damageProcedure.call(this)
     }
-
     function damageProcedure(){
+        if(this.details){
+            if(this.details.healthPoint && this.details.isDestroy && this.details.type === "ground-destruct"){
+                if(this.details.healthPoint <= 0 && this.details.isDestroy){
+
+                    let objectWithFire = Object.assign(this, {
+                            explosion: this.explosionAnimation,
+                            width: (this.width)? this.width: 100,
+                            height: (this.height)? this.height: 100,
+                        })
+                        console.log(objectWithFire, "objectWithFire")
+                    explosionFire({
+                        targetData: objectWithFire,
+                        mainGameObject: mainGameObject,
+                        hitObject: hitObject,
+                        SideObject: constructors.SideObject,
+                        explosion: "explosion"
+                    });
+                    this.details.collision = false;
+                }
+            }
+        }
+
         if(this.objectOwner != "groundPlayer" && this.healthPoint <= 0){
             this.objectPresent = false;
             if(this.spawnCoin){
@@ -353,10 +450,16 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
 
 
 
+/*===============
 
+Method detect when player collide with 'extra object'
+'extra object' - spawn when other object is destroyed
+
+============== */
 
 
 function grappleObjectCollision({ hitObject, mainGameObject }){
+
     if(this.objectPresent && this.objectOwner == "grappleObject" &&
     hitObject.objectOwner == "player" && !hitObject.hasOwnProperty('bulletType') ||
     this.objectPresent && this.objectOwner == "grappleObject" &&
@@ -648,7 +751,6 @@ function hitDetection({object1, objectsArr, mainGameObject, GrappleObject}){
     for(let object2 of objectsArr){
         let object1Position = object1.getObjectPosition.call(object1);
 
-        
         collision = objectIntersectionDetect({object: {
             x: object1Position.x,
             y: object1Position.y,
@@ -676,7 +778,7 @@ function hitDetection({object1, objectsArr, mainGameObject, GrappleObject}){
 
 
 export  {
-    placeEnemyes,
+    displayObjectAtScene,
     placeBackground,
     moveEnemyes,
     shot,

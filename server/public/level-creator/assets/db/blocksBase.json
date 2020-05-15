@@ -204,6 +204,35 @@
         "mapColor": "#9B9798",
         "imageWidth": 59,
         "imageHeight": 58
+    },
+    {
+        "id": "box-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/box-1.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 600,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#4D8B76",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
     }
 
 ]

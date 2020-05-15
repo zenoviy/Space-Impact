@@ -9,7 +9,7 @@ import { loadMap, saveMap, setMapSize, createNewMap } from './redactor/sidePanel
 /*
 V- create map net
     V- vertical direction of block
-    - destroy some blocks
+    V- destroy some blocks
     V- block information
         V - delete block
         V- preview
@@ -36,6 +36,7 @@ V- side panel
         V- characters
         V- enemy
         V- background
+        - dynamic spawn
 
 
 V- add stairs
@@ -47,7 +48,7 @@ V- add background texture and display it
     V- destroy/ change textures separately
     V- add texture animations
 V- add NPC
-    - dialog
+   V - dialog
 
 
 */

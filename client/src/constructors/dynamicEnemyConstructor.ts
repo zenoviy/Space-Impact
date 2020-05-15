@@ -1,5 +1,5 @@
 import { DynamicUserConstructor } from './dynamicUserConstructor';
-import { placeEnemyes, takeDamage, spawnCoin } from '../enemies/enemiesModules';
+import { displayObjectAtScene, takeDamage, spawnCoin } from '../enemies/enemiesModules';
 import { groundEnemyMove } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
 import { detectPlayer,
     groundEnemyDecided,
@@ -45,6 +45,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     objectPresent: boolean;
     changeModeRandomizer: number;
     damage: number;
+    explosionAnimation: any;
 
     groundEnemyMove: any;
     detectPlayer: any;
@@ -74,6 +75,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
         this.isJumpDown = false;
         this.extraObjects = (data.extraObjects)? data.extraObjects : null;
         this.damage = (data.damage)? data.damage : 0;
+        this.explosionAnimation = (data.explosionAnimation)? data.explosionAnimation : null;
         //this.details.type = ()
 
     }

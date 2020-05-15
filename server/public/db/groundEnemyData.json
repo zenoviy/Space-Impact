@@ -61,12 +61,12 @@
                 "numberOfItems": 15
             },
             "death": {
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
-                "picturesWidth": 510,
-                "imageWidth": 510,
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-death.png",
+                "picturesWidth": 62,
+                "imageWidth": 62,
                 "imageHeight": 90,
-                "animationSteps": 10,
-                "numberOfItems": 15
+                "animationSteps": 1,
+                "numberOfItems": 1
             }
         },
         "extraObjects":[{
@@ -179,6 +179,15 @@
                 "imageHeight": 158,
                 "animationSteps": 15,
                 "numberOfItems": 7
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/professor-1/professor-1-death.png",
+                "width": 60,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
             }
         },
         "extraObjects":[{

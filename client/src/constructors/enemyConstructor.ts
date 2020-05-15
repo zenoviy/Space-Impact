@@ -1,5 +1,5 @@
 import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regularEnemyAiModules';
-import { placeEnemyes,
+import { displayObjectAtScene,
     moveEnemyes,
     shot,
     enemyAnimation,
@@ -57,7 +57,7 @@ class EnemyObject {
     shotAngle: number;  defaultAngle: any; hitShape: string;
     atBackground: boolean;
 
-    placeEnemyes: any;
+    displayObjectAtScene: any;
     moveEnemyes: any;
     shot: any;
     enemyAnimation: any;
@@ -109,7 +109,7 @@ class EnemyObject {
     }
 }
 
-EnemyObject.prototype.placeEnemyes = placeEnemyes;
+EnemyObject.prototype.displayObjectAtScene = displayObjectAtScene;
 EnemyObject.prototype.moveEnemyes = moveEnemyes;
 EnemyObject.prototype.shot = shot;
 EnemyObject.prototype.enemyAnimation = enemyAnimation;

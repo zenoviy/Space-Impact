@@ -35,6 +35,29 @@
         canvas
             background: #000000
             position: absolute
+        .dialog-text-wrapper
+            text-align: left
+        .answer-dialog-button
+            width: 100%
+            background: none
+            border: 1px solid #b9b9b9
+            color:#c1c1c1
+                transition: .5s linear
+        .answer-dialog-button:hover
+            border: 1px solid #ff9900
+            color:#ff9900
+        .answer-dialog-button:active
+            color: #ffffff
+            background:#ff9900
+        .dialog-header
+            width: 100%
+            display: grid
+            grid-template-columns: auto auto
+            .dialog-picture
+                width: 100px
+                float: right
+        .dialog-body
+            width: 100%
 
 .backpack-body::-webkit-scrollbar
     width: 12px

@@ -163,7 +163,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.onElevator = false;
 
     for(let item of objectsToCollide){
-        //item.elevatorMove()
         if(!item) continue
         let collision = objectIntersectionDetect({object: item, target: targetObject })
         if(collision){
@@ -179,10 +178,9 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
                     constructors: constructors
                 })
            }
-           if(targetObject.objectOwner != "groundEnemy" && targetObject.objectOwner != "groundNPC") currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item})
+           if(targetObject.objectOwner != "groundEnemy" && targetObject.objectOwner != "groundNPC" && item.details.type != 'npc_spawner') currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item})
         }
     }
-    //targetObject.isRun = false;
 }
 
 
@@ -266,6 +264,64 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
         }
     }
 
+    groundBlockCollision.call(this, {
+        mainGameObject: mainGameObject,
+        target: target,
+        targetX: targetX,
+        targetY: targetY,
+        levelInformation: levelInformation,
+        collision: collision,
+        isWall: isWall
+    })
+    if(target.details.type === "leader"){
+        this.onLeader = true;
+    }
+    if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && target.details.type === "leader" ){
+        this.ceilingTouch = false;
+        return false
+    }
+
+    // ==========================================
+    rightSideBlockCollision.call(this, {
+        mainGameObject: mainGameObject,
+        target: target,
+        targetX: targetX,
+        targetY: targetY,
+        levelInformation: levelInformation,
+        x: x,
+        y: y
+    })
+    leftSideBlockCollision.call(this, {
+        mainGameObject: mainGameObject,
+        target: target,
+        targetX: targetX,
+        targetY: targetY,
+        levelInformation: levelInformation,
+        x: x,
+        y: y
+    })
+
+    if(targetY + target.height > this.y && this.y + this.height > targetY + target.height &&
+        !isBottomWall  && collision && target.details.type != 'elevator' && !this.groundTouch){
+        //console.log('Top side of block', target)
+        if(target.details){
+            if(target.details.type === 'elevator' ){
+                this.ceilingTouch = false;
+                return false
+            }
+            this.ceilingTouch = true;
+        }
+    }
+    return floorCollision
+}
+
+
+
+
+
+/*=============== block side collision detect ============== */
+
+function groundBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, collision, isWall}){
     if(this.y + this.height < targetY + target.height/2 && collision && !isWall &&
         target.details.type != "stairs-left" && target.details.type != "stairs-right"){
         // console.log("Ground To" )
@@ -285,17 +341,9 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
            }
        }
     }
-    if(target.details.type === "leader"){
-        this.onLeader = true;
-    }
-    if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && target.details.type === "leader" ){
-        this.ceilingTouch = false;
-        //this.rightWallTouch = false;
-        //this.leftWallTouch = false;
-        return false
-    }
+}
 
-    // ==========================================
+function rightSideBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, x, y}){
     if( this.x < targetX && this.x + this.width > targetX &&
         this.y + this.height > targetY + 5 && this.playerDirectionHorizontal === 'right'){
             if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && target.height < 20 ||
@@ -332,7 +380,9 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
                 //console.log('Right side of block V!')
             }
         }
+}
 
+function leftSideBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, x, y}){
     if(this.x < targetX + target.width && this.x + this.width > targetX  && this.x > targetX &&
         this.y + this.height > targetY + 5 &&
         this.playerDirectionHorizontal === 'left'){
@@ -370,26 +420,9 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
                //console.log('Left side of block V')
            }
    }
-
-    if(targetY + target.height > this.y && this.y + this.height > targetY + target.height &&
-        !isBottomWall  && collision && target.details.type != 'elevator' && !this.groundTouch){
-        //console.log('Top side of block', target)
-        if(target.details){
-            if(target.details.type === 'elevator' ){
-                this.ceilingTouch = false;
-                return false
-            }
-            this.ceilingTouch = true;
-        }
-    }
-    return floorCollision
 }
 
-
-
-
-
-
+/*=============== block side collision detect end ============== */
 
 
 
@@ -454,6 +487,8 @@ function dynamicLevelGrappleObjects({ mainGameObject, groundPlayer, target, expl
 
 
 
+/*=============== block wall detector ============== */
+
 function wallFinder({ mainGameObject, currentBlock}){
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     let currentBlockIndex = allBlocks.indexOf(currentBlock);
@@ -465,12 +500,6 @@ function wallFinder({ mainGameObject, currentBlock}){
     }
     return (upperBlocks)? true : false
 }
-
-
-
-
-
-
 
 function wallBottomFinder({ mainGameObject, currentBlock }){
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
@@ -484,10 +513,10 @@ function wallBottomFinder({ mainGameObject, currentBlock }){
     return (bottomBlocks)? true : false;
 }
 
+/*=============== block wall detector end ============== */
 
 
-
-
+/*=============== Moving all background object at scene ============== */
 function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlayer, constructors}){
     let allBullets = mainGameObject.gameInitData.allGameBullets;
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;

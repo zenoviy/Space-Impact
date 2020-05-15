@@ -8,7 +8,7 @@ import { initPlayerShip,
     addVehicleSpeed
 } from '../engine/playerShipModule';
 import { getObjectPosition } from '../engine/engineModules';
-import { takeDamage, enemyAnimation, placeEnemyes } from '../enemies/enemiesModules';
+import { takeDamage, enemyAnimation, displayObjectAtScene } from '../enemies/enemiesModules';
 import { bulletSpeed } from '../engine/bulletsModule';
 
 
@@ -60,7 +60,7 @@ class PlayerShip{
     getObjectPosition: any;
     takeDamage: any;
     enemyAnimation: any;
-    placeEnemyes: any;
+    displayObjectAtScene: any;
     bulletSpeed: any;
     playerShipTextureChange: any;
     addVehicleSpeed: any;
@@ -108,7 +108,7 @@ PlayerShip.prototype.getObjectPosition = getObjectPosition;
 
 PlayerShip.prototype.takeDamage = takeDamage;
 PlayerShip.prototype.enemyAnimation = enemyAnimation;
-PlayerShip.prototype.placeEnemyes = placeEnemyes;
+PlayerShip.prototype.displayObjectAtScene = displayObjectAtScene;
 PlayerShip.prototype.bulletSpeed = bulletSpeed;
 PlayerShip.prototype.playerShipTextureChange = playerShipTextureChange;
 PlayerShip.prototype.addVehicleSpeed = addVehicleSpeed;

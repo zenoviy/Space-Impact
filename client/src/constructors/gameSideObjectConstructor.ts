@@ -1,6 +1,6 @@
 import * as enemyModules from '../enemies';
 import { fireAnimationEnded, mapObjectMove, sideObjectShot, loadTexture } from '../engine/gameSideObjectsModule';
-import { placeEnemyes,
+import { displayObjectAtScene,
     moveEnemyes,
     shot, enemyAnimation,
     takeDamage,
@@ -36,7 +36,7 @@ class SideObject{
     tradePropertyes: any; defaultAngle: any; timingMinutesPlaced: number; timingSecondsPlaced: number;
 
     fireAnimationEnded: any;
-    placeEnemyes: any;
+    displayObjectAtScene: any;
     shot: any;
     enemyAnimation: any;
     takeDamage: any;
@@ -84,7 +84,7 @@ class SideObject{
 }
 
 SideObject.prototype.enemyAnimation = enemyModules.enemyAnimation;
-SideObject.prototype.placeEnemyes = enemyModules.placeEnemyes;
+SideObject.prototype.displayObjectAtScene = enemyModules.displayObjectAtScene;
 SideObject.prototype.shot = enemyModules.shot;
 SideObject.prototype.fireAnimationEnded = fireAnimationEnded;
 

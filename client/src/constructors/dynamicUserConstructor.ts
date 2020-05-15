@@ -1,4 +1,4 @@
-import { placeEnemyes, takeDamage } from '../enemies/enemiesModules';
+import { displayObjectAtScene, takeDamage } from '../enemies/enemiesModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 import { enemyAnimation } from '../enemies/enemiesModules';
 import { changeAnimationParameters,
@@ -56,7 +56,7 @@ class DynamicUserConstructor {
     currentDialogCharacter: any;
     type: string;
 
-    placeEnemyes: any;
+    displayObjectAtScene: any;
     loadTexture: any;
     enemyAnimation: any;
     changeAnimationParameters: any;
@@ -118,7 +118,7 @@ class DynamicUserConstructor {
 }
 
 
-DynamicUserConstructor.prototype.placeEnemyes = placeEnemyes;
+DynamicUserConstructor.prototype.displayObjectAtScene = displayObjectAtScene;
 DynamicUserConstructor.prototype.loadTexture = loadTexture;
 DynamicUserConstructor.prototype.enemyAnimation = enemyAnimation;
 DynamicUserConstructor.prototype.changeAnimationParameters = changeAnimationParameters;
