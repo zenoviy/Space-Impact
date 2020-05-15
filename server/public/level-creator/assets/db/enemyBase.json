@@ -14,6 +14,20 @@
         "imageHeight": 45
     },
     {
+        "id": "enemy_soldier_1_hidden",
+        "texture": "/level-creator/assets/enemyObject/enemy-1-hidden.png",
+        "description": "hidden spawn point of enemy",
+        "type": "hidden_enemy_spawner",
+        "collision": false,
+        "innerObject": "main_character",
+        "width": 50,
+        "height": 50,
+        "name": "enemy-soldier-1",
+        "mapColor": "#FF0800",
+        "imageWidth": 34,
+        "imageHeight": 45
+    },
+    {
         "id": "professor_1",
         "texture": "/level-creator/assets/enemyObject/professor-1.png",
         "description": "spawn point of NPC",

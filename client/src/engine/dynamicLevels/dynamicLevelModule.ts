@@ -15,11 +15,28 @@ import {
     levelRestore,
     saveObjectToBackPack
 } from './dynamicDialog';
-
+import { respawnEnemy } from './dynamicLevelEnemyModules';
 
 
 // process.env.DYNAMIC_LEVEL_BLOCKS
 // process.env.HOST
+
+
+
+/*===========
+
+Module to load ground level block to game
+and operate with block scripts
+
+============== */
+
+
+/*===========
+
+Method to load data from .json file with map object, sorted elements
+position map related to main character
+
+============== */
 async function loadLevelMap({ levelMapName, constructors }){
     let dynamicMap = process.env.HOST + process.env.DYNAMIC_LEVEL_BLOCKS + '/' + levelMapName;
     let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
@@ -30,7 +47,6 @@ async function loadLevelMap({ levelMapName, constructors }){
         data: null,
         headers: null
     })
-
 
     let spawnPoint = await resultData.allMapObjects.find(obj => {
         if(obj.details) return obj.details.type === "spawner";
@@ -53,7 +69,11 @@ async function loadLevelMap({ levelMapName, constructors }){
     return levelBlocks
 }
 
+/*===========
 
+Gravity simulation, accelerate object
+
+============== */
 async function mapGravityInit({mainGameObject, mapObjects, targetObject, constructors}){
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
@@ -82,7 +102,6 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
         groundPlayer.xPos = 0;
     }
 
-    
 
     if(targetObject.groundTouch && !groundPlayer.onElevator) return false
     if(levelInformation.jumpImpuls != levelInformation.gravity && extraSeconds % 2 === 0){
@@ -110,14 +129,17 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
         enemy.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
         enemy.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
     }
-    
     backToTheMapAgain({ mainGameObject: mainGameObject, player: groundPlayer })
     groundPlayer.onStairs = 0;
 }
 
 
 
+/*===========
 
+Method to detect colision betwean player and NPC
+
+============== */
 
 
 function npcCollisionDetect({mainGameObject, enemy}){
@@ -147,7 +169,11 @@ function npcCollisionDetect({mainGameObject, enemy}){
 
 
 
+/*===========
 
+Main method to detect collide and stop of block
+
+============== */
 
 async function blockCollision({objectsToCollide, targetObject, objectIntersectionDetect, mainGameObject, explosionFire, constructors}){
     if(!objectsToCollide) return false
@@ -168,7 +194,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
         if(collision){
            if(item.details.collision || item.details.type === 'door' ||
            item.details.type === 'leader' || item.details.type === "health" && item.details.display ||
-            item.details.type === "blue_card" && item.details.display){
+            item.details.type === "blue_card" && item.details.display || item.details.type === "scenario_object" && item.details.display){
                floorCollision = findPointOfCollision.call(targetObject,
                 {
                     object: targetObject,
@@ -319,7 +345,11 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
 
 
 
-/*=============== block side collision detect ============== */
+/*===============
+
+block side collision detect
+
+============== */
 
 function groundBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, collision, isWall}){
     if(this.y + this.height < targetY + target.height/2 && collision && !isWall &&
@@ -422,19 +452,23 @@ function leftSideBlockCollision({mainGameObject, target, targetX, targetY, level
    }
 }
 
-/*=============== block side collision detect end ============== */
+/*===============
+
+block side collision detect end
+
+============== */
 
 
 
+/*===========
 
+Main method to detect and launch script during take grapple objects
+
+============== */
 
 function dynamicLevelGrappleObjects({ mainGameObject, groundPlayer, target, explosionFire, constructors }){
     var levelData = mainGameObject.getLevelUserData();
     let mainPlayerData = levelData.source.playerObject;
-    //mainPlayerData.numberOflife += 1;
-    //"type": "health",
-    //"display": true,
-      //  "active": false,
     let prepareTarget = null;
     if(groundPlayer.objectOwner === "groundPlayer" && target.details.type === "health" && target.details.display){
         target.details.display = false;
@@ -451,13 +485,19 @@ function dynamicLevelGrappleObjects({ mainGameObject, groundPlayer, target, expl
             speed: 0,
             type: target.details.type
         })
-        //return true
-    }else if(groundPlayer.objectOwner === "groundPlayer" && target.details.type === "blue_card" && target.details.display){
+    }else if(groundPlayer.objectOwner === "groundPlayer" && target.details.type === "blue_card" && target.details.display || 
+    groundPlayer.objectOwner === "groundPlayer" && target.details.type === "scenario_object" && target.details.display){
+
+        //if("scripts": "respawnEnemy",)
+        if(target.details.scripts){
+            respawnEnemy({ mainGameObject: mainGameObject, constructors: constructors })
+        }
         saveObjectToBackPack({
             groundPlayer: groundPlayer,
             data: target.details.type,
             previewPicture: process.env.HOST + target.details.previewTexture
         })
+
         target.details.display = false;
         target.details.active = false;
 
@@ -487,7 +527,11 @@ function dynamicLevelGrappleObjects({ mainGameObject, groundPlayer, target, expl
 
 
 
-/*=============== block wall detector ============== */
+/*===============
+
+block wall detector
+
+============== */
 
 function wallFinder({ mainGameObject, currentBlock}){
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
@@ -533,7 +577,7 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
             if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos ||
                 !groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && !groundPlayer.groundTouch && xPos) item.x -= item.speed;
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch)item.y -= item.defaultSpeed * (jumpImpuls/10)
-            continue
+            //continue
         }
         if(item instanceof constructors.EnemyObject){
             if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
@@ -541,14 +585,16 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
             }
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch) item.y += ((jumpImpuls * 0.50)* -1)
         }
-        if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject ||
-             item instanceof constructors.GrappleObject  ){
+        if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject || item instanceof constructors.GrappleObject ){
                 if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
                     item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPos:
                     ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
                     ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
                 }
-                if(groundPlayer.groundTouch){
+                if(!groundPlayer.groundTouch && item instanceof constructors.GrappleObject){
+                    console.log(1, levelInformation.jumpImpuls)
+                    item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
+                    item.x += levelInformation.horizontalSpeed * -1;
                     jumpImpuls = 0;
                 }
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch || !groundPlayer.groundTouch){
@@ -556,6 +602,21 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
                 item.y = (item.Grapple)?  item.y - jumpImpulsVertical : item.y + jumpImpulsVertical * -1;
             }
         }
+        /*if(item instanceof constructors.GrappleObject){
+            if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
+                item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPos:
+                    ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
+                    ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
+
+                    
+            }
+            if(!groundPlayer.groundTouch){
+                console.log('grapple')
+                item.y += levelInformation.horizontalSpeed * -1;//(item.playerDirectionVertical === "up")?  item.y + (jumpImpuls) : item.y + (jumpImpuls) * -1;
+            }
+            //(levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
+        //enemy.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
+        }*/
     }
 }
 

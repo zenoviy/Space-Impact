@@ -23,6 +23,7 @@ function useObject({ mainGameObject, player, item }){
             case 'npc_spawner':
                 player.currentDialogCharacter = item;
                 process.env.GROUND_NPC_DIALOG_ACTIVE = 'true';
+                if( process.env.GROUND_NPC_DIALOG_ACTIVE === 'true' && process.env.GROUND_CHARACTERS_INVENTORY === 'true') break;
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
                 break;
             default:

@@ -17,7 +17,6 @@ function createMapRenderField ({ mainGameObject }){
     if(process.env.GROUND_CHARACTERS_INVENTORY === 'false'){
         let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
         let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
-        //if(!this.mapFinder) return false
         let mapProps = {
             width: parseInt(allBlocks[0].mapSizeHorizontal),
             height: parseInt(allBlocks[0].mapSizeVertical),
@@ -45,7 +44,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
     canvas.height = mapProps.height * blockIndex;
 
     var mapEngine = setInterval(function(){ // process.env.GROUND_CHARACTERS_INVENTORY = 'true';
-        if(process.env.GROUND_CHARACTERS_INVENTORY === 'false') clearInterval(mapEngine)
+        if(process.env.GROUND_CHARACTERS_INVENTORY === 'false' || process.env.GROUND_NPC_DIALOG_ACTIVE === 'true') clearInterval(mapEngine)
         let playerPositionX = groundPlayer.currentGroundBlock.defaultMapX;
         let playerPositionY = groundPlayer.currentGroundBlock.defaultMapY - mapProps.blockSize;
 
@@ -53,7 +52,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
 
         objectToRender.appendChild(canvas)
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        console.log(mapProps.inventoryMap[0])
+
         mapProps.inventoryMap.forEach(item => {
             if(item.details){
                 ctx.save();
@@ -65,7 +64,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
                 ctx.fillRect( xPos/blockIndex,  yPos/blockIndex,  blockIndex, blockIndex)
                 ctx.restore()
             }
-        });/**/
+        });
             ctx.fillStyle = "rgba(225, 225, 225, 1)";
             ctx.fillRect( playerPositionX/blockIndex,  playerPositionY/blockIndex,  blockIndex, blockIndex)
     }, 200)

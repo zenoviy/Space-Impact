@@ -303,15 +303,12 @@ function gameDynamicLevelBoxRender({ gameObject }){
         }
 
         if(!gameObject.gameInitData.gamePause && background.details.type != 'door') background.enemyAnimation()
-        if(background.details.type === 'enemy_spawner' || background.details.type === 'npc_spawner' || background.details.type === 'elevator' ||
-            background.details.type === "health" ||
+        if(background.details.type === 'enemy_spawner' || background.details.type === 'hidden_enemy_spawner' ||
+        background.details.type === 'npc_spawner' || background.details.type === 'elevator' ||
+            background.details.type === "health" || background.details.isDestroy || !background.details.display && background.details.type === "scenario_object" ||
              !background.details.display && background.details.type === "blue_card" || background.details.type === "ground-destruct" ) continue
              openClosedDoorAnimation({ currentWallBlock : background, mainGameObject: gameObject })
         background.displayObjectAtScene(gameObject)
-
-        if(background.details.type === "health"){
-            console.log(background)
-        }
     }
 
     for(let elevator of allElevators){
@@ -320,10 +317,11 @@ function gameDynamicLevelBoxRender({ gameObject }){
     }
     for(let block of allBlocks){
         if(!block) continue
-            if(block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
-             !block.details.display && block.details.type === "health" ||
+            if(block.details.type === 'enemy_spawner' ||  block.details.type === 'hidden_enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
+             !block.details.display && block.details.type === "health" || !block.details.display && block.details.type === "scenario_object" ||
              !block.details.display && block.details.type === "blue_card" || block.details.type === "ground-destruct" &&
-             block.details.isDestroy && block.details.healthPoint < 0 || !block.details.collision && block.details.type === "background-wall" ||
+             block.details.isDestroy && block.details.healthPoint <= 0 || !block.details.type &&
+             block.details.isDestroy && block.details.healthPoint <= 0 || !block.details.collision && block.details.type === "background-wall" ||
              !block.details.collision && block.details.type === 'door') continue
 
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
@@ -355,7 +353,6 @@ function gameDynamicLevelBoxRender({ gameObject }){
             }
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 //deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
-                
                 enemy.enemyAnimation()
                 enemy.groundEnemyMove({
                     mainGameObject: gameObject,
@@ -437,9 +434,9 @@ async function gameDynamicPlayer({ gameObject }){
                 })
 
                 if(groundPlayer.shotState && extraSeconds % 10 === 0 && groundPlayer.shotAngle){
-                    if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'false'){
+                    //if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'false'){
                         shot.call(groundPlayer, constructors.BulletConstruct, gameObject, constructors.SoundCreator, "player", "allGroundGameBullets")
-                    }
+                    //}
                 }
                 await blockCollision({
                     objectsToCollide: allBlocks,

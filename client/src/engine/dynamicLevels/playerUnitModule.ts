@@ -34,12 +34,14 @@
         V - grapple card
         V - add minimap
         V - add inventory elements
+        V - add script to element activate script
     V - one hit - one life
 
     V - dialog
         - scientists
         - military
         - civil
+            - add tasks
 
 
 
@@ -237,15 +239,14 @@ function groundPlayerShot({ groundPlayer, event }){
     else if(groundPlayer.playerDirectionHorizontal === "right" && angle > 270 && angle <= 360 || groundPlayer.playerDirectionHorizontal === "right" && angle > 0 && angle <= 90) return angle
     else return false
 }
-function groundPlayerLifeSystem(){
 
-}
 
 function groundPlayerCollectable({allGameSideObjects, playerShipData, mainGameObject}){
     saveObjectToBackPack({
         groundPlayer: playerShipData,
         data: this.grapplePower.grappleItem,
-        previewPicture: this.grapplePower.previewPicture})
+        previewPicture: this.grapplePower.previewPicture
+    })
 }
 
 

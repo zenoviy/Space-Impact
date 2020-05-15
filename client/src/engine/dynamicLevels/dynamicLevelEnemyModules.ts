@@ -31,17 +31,45 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         return new constructors.DynamicEnemyConstructor({...prepareData})
     })
 
-
+    //console.log(allEnemyOnMap, 'all Enemy')
     for(let enemy of dynamicEnemy){
         enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects, enemy): false;
     }
     levelDynamicMapBlocks = levelDynamicMapBlocks.map( block => {
-        return block.details.type != 'enemy_spawner' && block.details.type != 'npc_spawner';
+        return block.details.type != 'enemy_spawner' && block.details.type != 'npc_spawner' && block.details.type != 'hidden_enemy_spawner';
     })
     return dynamicEnemy
 }
 
 
+
+
+
+
+
+async function loadEnemyToObjectArray ({ mainGameObject, levelDynamicMapBlocks, constructors, characterSelector }){
+    let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
+    let dynamicEnemy = [];
+    let resultGroundEnemyData = await getData({
+        url: dynamicEnemyCollection,
+        method: 'GET',
+        data: null,
+        headers: null
+    })
+    let allEnemyOnMap = levelDynamicMapBlocks.filter( block => {
+        return block.details.type === characterSelector;
+    })
+    if(!allEnemyOnMap) return false
+    dynamicEnemy = await allEnemyOnMap.map( enemyBlock => {
+        let currentEnemyServerData = resultGroundEnemyData.find(item => item.id === enemyBlock.details.name)
+        let prepareData = Object.assign(enemyBlock, currentEnemyServerData )
+        prepareData.texture = currentEnemyServerData.texture;
+        enemyBlock.details.collision = false;
+        return new constructors.DynamicEnemyConstructor({...prepareData})
+    })
+    if(!dynamicEnemy) return false
+    mainGameObject.gameInitData.dynamicLevelEnemy = mainGameObject.gameInitData.dynamicLevelEnemy.concat([...dynamicEnemy]);
+}
 
 
 
@@ -376,9 +404,14 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 this.isJump = false;
             }
         }
+        if(this.playerInRange && this.onLeader){
+            this.isJump = true;
+        }
         if(!this.playerInRange && findBottomBlock && !this.isRun && findBackBlock ||
-            !this.isRun && !findBottomBlock && this.playerInRange && this.jumpBlock && !blockUnderTheJump){
-                //console.log(1)
+            !this.isRun && !findBottomBlock && this.playerInRange && this.jumpBlock && !blockUnderTheJump
+            
+            ){
+                
             this.isRun = true;
         }
         groundEnemyFind.call(this, { findBottomBlock: findBottomBlock})
@@ -426,6 +459,19 @@ function groundEnemyShot({ mainGameObject, allBlocks, callback, constructors }){
 }
 
 
+
+function respawnEnemy ({ mainGameObject, constructors }){ //  "scripts": "respawnEnemy",
+
+    let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    loadEnemyToObjectArray({
+        mainGameObject: mainGameObject,
+        levelDynamicMapBlocks: allBlocks,
+        constructors: constructors,
+        characterSelector: "hidden_enemy_spawner"
+    })
+}
+
+
 export {
     loadLevelEnemy,
     groundEnemyMove,
@@ -435,5 +481,6 @@ export {
     groundEnemyShot,
     groundPlayerJump,
     enemyDetectNpc,
-    jumpDown
+    jumpDown,
+    respawnEnemy
 }
