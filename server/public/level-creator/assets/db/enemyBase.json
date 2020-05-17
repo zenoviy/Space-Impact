@@ -5,10 +5,18 @@
         "description": "spawn point of enemy",
         "type": "enemy_spawner",
         "collision": true,
-        "innerObject": "main_character",
+        "innerObject": "enemy-soldier-1",
         "width": 50,
         "height": 50,
         "name": "enemy-soldier-1",
+        "rules": {
+            "tips": "",
+            "require": null,
+            "contain": "",
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
         "mapColor": "#FF0800",
         "imageWidth": 34,
         "imageHeight": 45
@@ -19,10 +27,18 @@
         "description": "hidden spawn point of enemy",
         "type": "hidden_enemy_spawner",
         "collision": false,
-        "innerObject": "main_character",
+        "innerObject": "enemy-soldier-1",
         "width": 50,
         "height": 50,
         "name": "enemy-soldier-1",
+        "rules": {
+            "tips": "",
+            "require": null,
+            "contain": "",
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
         "mapColor": "#FF0800",
         "imageWidth": 34,
         "imageHeight": 45
@@ -53,6 +69,7 @@
                     "id": 0,
                     "text": "Hello there!",
                     "action": "give_object",
+                    "numberOfRequireItems": 0,
                     "questions": [
                         {
                             "id": 2,
@@ -68,6 +85,7 @@
                     "id": 2,
                     "text": "i give you a card",
                     "action": "give_object",
+                    "numberOfRequireItems": 0,
                     "questions": [
                         {
                             "id": 3,
@@ -79,6 +97,7 @@
                     "id": 3,
                     "text": "Enemy attack from unknown",
                     "action": "none",
+                    "numberOfRequireItems": 0,
                     "questions": [
                         {
                             "id": 2,

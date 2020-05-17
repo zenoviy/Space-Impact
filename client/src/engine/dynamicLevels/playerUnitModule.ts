@@ -34,6 +34,7 @@
         V - grapple card
         V - add minimap
         V - add inventory elements
+           V - stack elements
         V - add script to element activate script
     V - one hit - one life
 
@@ -42,6 +43,7 @@
         - military
         - civil
             - add tasks
+            - quest journal
 
 
 
@@ -124,7 +126,10 @@ function loadPlayerCharacter({ playerInventory }){
 
     for(let item of playerInventory){
         items += `<div class="backpack-item-wrapper">
-            <img class="back-pack-item-picture" src="${(item.objectPicture)? item.objectPicture : item.texture}"> <p>${item.innerData}</p>
+        <span class="number-of-items">${item.numberOfItems}</span>
+            <img class="back-pack-item-picture" src="${(item.objectPicture)? item.objectPicture : item.texture}">
+
+            <p>${item.innerData.split("_").join(" ")}</p>
         </div>
         `
     }

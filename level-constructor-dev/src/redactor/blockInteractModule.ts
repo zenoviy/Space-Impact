@@ -46,6 +46,8 @@ function changeObjectModel({ result, mainObject }){
     //console.log(mainObject.selectedBlockPanelItem, "<<", currentBlock)
 
     let selectedBlockPanelItem = Object.assign({}, mainObject.selectedBlockPanelItem);
+    //console.log( mainObject.selectedBlockPanelItem, selectedBlockPanelItem, currentBlock )
+   // console.log(mainObject.selectedBlockPanelItem, "|")
     if(!mainObject.selectedBlockPanelItem.destroyer){
 
         if(mainObject.selectedBlockPanelItem.type === "background-wall" && currentBlock.details){
@@ -65,7 +67,6 @@ function changeObjectModel({ result, mainObject }){
         if(currentBlock.details && currentBlock.details.valueOfMove){
             positionReducer({ allBlocks: allBlocks })
         }
-        //console.log(mainObject.blockSize)
         currentBlock.width = mainObject.blockSize;
         currentBlock.height = mainObject.blockSize;
 
@@ -74,6 +75,8 @@ function changeObjectModel({ result, mainObject }){
     }else if(mainObject.selectedBlockPanelItem.destroyer === 'redactorDecoration'){
         currentBlock.backgroundTexture = null;
     }
+
+   // console.log(mainObject.selectedBlockPanelItem, "||")
 }
 
 

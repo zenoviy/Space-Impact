@@ -67,7 +67,9 @@ function getDefaultSettings(){
             "shield":[69],
             "inventory":[73],
             "useKey": [69],
-            "miniMap": [77]},
+            "miniMap": [77],
+            "journal": [74]
+        },
         "screenResolution":{
             "title":"800x600",
             "width":800,

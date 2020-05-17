@@ -14,7 +14,7 @@
         "playerDirectionHorizontal": "left",
         "detectRange": 450,
         "speed": 1,
-        "healthPoint": 450,
+        "healthPoint": 300,
         "jumpSpeed": 5,
         "pointsPerUnit": 10,
         "shotProbability": 20,

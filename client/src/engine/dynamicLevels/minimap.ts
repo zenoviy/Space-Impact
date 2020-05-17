@@ -38,15 +38,17 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
     objectToRender.innerHTML = '';
 
     let canvas = document.createElement('canvas');
-    let blockIndex = (objectToRender['offsetWidth'])/Math.max(mapProps.width , mapProps.height);
-
-    canvas.width = mapProps.width * blockIndex;
-    canvas.height = mapProps.height * blockIndex;
+    //let blockIndex = (objectToRender['offsetWidth']/mapProps.width); ////Math.max(mapProps.width , mapProps.height);
+    let blockIndex = (objectToRender['offsetWidth']/(mapProps.width * mapProps.blockSize));
+    canvas.width = mapProps.width * (objectToRender['offsetWidth']/mapProps.width);   //mapProps.width * blockIndex;
+    canvas.height = mapProps.height * (objectToRender['offsetWidth']/mapProps.width); //mapProps.height * blockIndex;
 
     var mapEngine = setInterval(function(){ // process.env.GROUND_CHARACTERS_INVENTORY = 'true';
         if(process.env.GROUND_CHARACTERS_INVENTORY === 'false' || process.env.GROUND_NPC_DIALOG_ACTIVE === 'true') clearInterval(mapEngine)
         let playerPositionX = groundPlayer.currentGroundBlock.defaultMapX;
         let playerPositionY = groundPlayer.currentGroundBlock.defaultMapY - mapProps.blockSize;
+
+        let mapPixelIndex = objectToRender['offsetWidth']/mapProps.width;
 
         let ctx = canvas.getContext('2d');
 
@@ -55,18 +57,20 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
 
         mapProps.inventoryMap.forEach(item => {
             if(item.details){
-                ctx.save();
-                ctx.fillStyle = (item.details.mapColor)? item.details.mapColor: "rgba(225, 169, 0, 1)";//item.details.mapColor//"rgba(225, 169, 0, 1)";
-                let xPos = (item.defaultMapX)? item.defaultMapX : item.x;
-                let yPos = (item.defaultMapY)? item.defaultMapY : item.y;
-                //defaultMapX
-                //ctx.fillRect( item.x/(Math.pow(blockIndex, 2)),  item.y/(Math.pow(blockIndex, 2)),  blockIndex, blockIndex)
-                ctx.fillRect( xPos/blockIndex,  yPos/blockIndex,  blockIndex, blockIndex)
-                ctx.restore()
+                if(item.details.collision){
+                    ctx.save();
+                    ctx.fillStyle = (item.details.mapColor)? item.details.mapColor: "rgba(225, 169, 0, 1)";//item.details.mapColor//"rgba(225, 169, 0, 1)";
+                    let xPos = (item.defaultMapX)? item.defaultMapX : item.x;
+                    let yPos = (item.defaultMapY)? item.defaultMapY : item.y;
+                    //defaultMapX
+                    //ctx.fillRect( item.x/(Math.pow(blockIndex, 2)),  item.y/(Math.pow(blockIndex, 2)),  blockIndex, blockIndex)
+                    ctx.fillRect( xPos*blockIndex,  yPos*blockIndex,  mapPixelIndex, mapPixelIndex)
+                    ctx.restore()
+                }
             }
         });
-            ctx.fillStyle = "rgba(225, 225, 225, 1)";
-            ctx.fillRect( playerPositionX/blockIndex,  playerPositionY/blockIndex,  blockIndex, blockIndex)
+            ctx.fillStyle = "rgba(225, 196, 0, 1)";
+            ctx.fillRect( playerPositionX*blockIndex ,  playerPositionY*blockIndex,  mapPixelIndex, mapPixelIndex)
     }, 200)
 }
 

@@ -67,13 +67,20 @@ async function loadEnemyToObjectArray ({ mainGameObject, levelDynamicMapBlocks, 
         enemyBlock.details.collision = false;
         return new constructors.DynamicEnemyConstructor({...prepareData})
     })
+    for(let enemy of dynamicEnemy){
+        enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects, enemy): false;
+    }
     if(!dynamicEnemy) return false
     mainGameObject.gameInitData.dynamicLevelEnemy = mainGameObject.gameInitData.dynamicLevelEnemy.concat([...dynamicEnemy]);
 }
 
 
 
+/*
 
+script to create grapple object based on NPC inner objects
+
+*/
 
 async function loadExtraObjectToGroundEnemy (extraObjects, enemy){
     let randomObject = extraObjects[Math.floor(Math.random() * extraObjects.length)],
@@ -83,7 +90,7 @@ async function loadExtraObjectToGroundEnemy (extraObjects, enemy){
         if(randomObject.object != 'goldCoin' && loadProbability > randomObject.randomizer/2) randomObject = extraObjects[0];
         let result = [];
 
-        //blue_card   // ground_npc_item
+
         let extraObject = randomObject.object;
         if(enemy.details.rules){
             if(enemy.details.rules.contain){
@@ -250,8 +257,8 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
                     object: {
                         x: localXRay,
                         y: localYRay,
-                        width: 20,
-                        height: 20
+                        width: 30,
+                        height: 30
                     },
                     target: {
                         x: block.x,
@@ -288,7 +295,9 @@ function groundEnemyDestroy(){
 }
 
 function groundEnemyFind({ findBottomBlock }){
-    if(this.currentBehavior === "find" && findBottomBlock && !this.isRun){
+    if(this.currentBehavior === "find" && findBottomBlock && !this.isRun && !this.leftWallTouch ||
+    this.currentBehavior === "find" && findBottomBlock && !this.isRun && !this.rightWallTouch
+    ){
         this.isRun = true;
     }else if(this.currentBehavior === "find" && !findBottomBlock && !this.nextGroundBlock && !this.isRun){
         this.isRun = false;
@@ -297,7 +306,11 @@ function groundEnemyFind({ findBottomBlock }){
 
 function groundEnemyPursuit({ findBottomBlock }){
      // if see target continue walk
-     if(this.playerInRange && findBottomBlock || this.playerInRange && this.nextGroundBlock) this.isRun = true;
+     if(this.playerInRange && findBottomBlock && !this.leftWallTouch ||
+        this.playerInRange && findBottomBlock && !this.rightWallTouch ||
+        this.playerInRange && this.nextGroundBlock && !this.leftWallTouch ||
+        this.playerInRange && this.nextGroundBlock && !this.rightWallTouch
+        ) this.isRun = true;
      if(this.playerInRange && !this.nextGroundBlock && !findBottomBlock) this.isRun = false;
 }
 
@@ -326,7 +339,6 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         if(extraSeconds % this.changeModeRandomizer === 0 && !this.isRun && this.groundTouch && !this.playerInRange){
             this.playerDirectionHorizontal = (this.playerDirectionHorizontal === 'right')? 'left' : 'right';
             this.isRun = true;
-            //console.log(5)
         }
         //  find next block in front
         if(currentBlockIndex){
@@ -337,7 +349,6 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             let findHorizontalBlock = allBlocks.find(block =>{ 
                 return block.index === indexOfNextBlock && block.details.collision || block.index === indexOfNextBlock && block.details.type === "leader"
             })
-            //console.log(4)
             this.nextGroundBlock = (findHorizontalBlock)? findHorizontalBlock: null;
         }
         // find block on the back
@@ -370,13 +381,9 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             !this.nextGroundBlock && this.isRun && !findBottomBlock){
             this.changeModeRandomizer = Math.floor(Math.random() * this.unitRandomize + 100);
             this.isRun = false;
-            //console.log(3)
         }
 
         // continue move if block on back and block on the bottom and cant see target
-
-
-
         // if block at the front jump to the block
         if(this.playerInRange && this.leftWallTouch && this.currentBehavior != "find" && this.currentGroundBlock ||
             this.playerInRange && this.rightWallTouch && this.currentBehavior != "find" && this.currentGroundBlock ||
@@ -395,11 +402,9 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 return block.index === bottomBlockIndex  && block.details.collision
             })
             if(this.jumpBlock){
-                //console.log(2, "a")
                 this.isJump = true;
-            } 
+            }
             if(blockUnderTheJump){
-                //console.log(2)
                 this.isRun = false;
                 this.isJump = false;
             }
@@ -409,15 +414,14 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         }
         if(!this.playerInRange && findBottomBlock && !this.isRun && findBackBlock ||
             !this.isRun && !findBottomBlock && this.playerInRange && this.jumpBlock && !blockUnderTheJump
-            
             ){
-                
             this.isRun = true;
         }
         groundEnemyFind.call(this, { findBottomBlock: findBottomBlock})
         groundEnemyPursuit.call(this, { findBottomBlock: findBottomBlock})// if see target continue walk
 
-        if(blockUnderTheJump && this.jumpBlock){
+        if(blockUnderTheJump && this.jumpBlock && this.leftWallTouch ||
+            blockUnderTheJump && this.jumpBlock && this.rightWallTouch ){
             this.isRun = false;
         }
         if(this.playerInRange && this.targetAngle && this.onLeader){
@@ -428,11 +432,16 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             }
             // target.details.type === "leader"
         }
-        if(this.currentWallBlock){
+        if(this.currentWallBlock ){
             if(this.currentWallBlock.details.collision && this.currentWallBlock.details.type === "door"){
                 this.isRun = false;
                 this.isJump = false;
-                this.x += (this.playerDirectionHorizontal === 'right')? (this.speed * 2) * -1 : this.speed * 2;
+                this.groundTouch = true;
+                let rightSide = (this.x + this.width) - this.currentWallBlock.x;
+                let leftSide =  (this.currentWallBlock.x + this.currentWallBlock.width) - this.x;
+
+                this.x += (this.playerDirectionHorizontal === 'right')? rightSide -1 : leftSide;
+               // this.x += (this.playerDirectionHorizontal === 'right')? (this.speed * 2) * -1 : this.speed * 2;
                 this.currentBehavior = "find";
             }
         }

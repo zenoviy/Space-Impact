@@ -312,7 +312,7 @@ function groundBulletCollision({hitObject, mainGameObject}){
                 if(hitObject.details){
                     if(hitObject.details.type == "hidden_enemy_spawner" && hitObject.objectOwner == "groundEnemy"
                      && this.objectOwner == "groundEnemyBullet") return false
-                console.log(1, hitObject.details.type, hitObject.objectOwner, this.objectOwner)
+                //console.log(1, hitObject.details.type, hitObject.objectOwner, this.objectOwner)
                 }
             return bulletExplosion.call(this)
         }

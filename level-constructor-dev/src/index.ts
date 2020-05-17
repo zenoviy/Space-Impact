@@ -36,7 +36,7 @@ V- side panel
         V- characters
         V- enemy
         V- background
-        - dynamic spawn
+        V- dynamic spawn
 
 
 V- add stairs
@@ -49,6 +49,33 @@ V- add background texture and display it
     V- add texture animations
 V- add NPC
    V - dialog
+        - 7 - 8 levels
+            - start base base
+                - find ship
+            - command center
+                - get importend data
+                - urn on defence system
+            - desert archeological excavations
+                - find ancient artifact
+            - sky city
+                - talk with commander and scientist
+                - get importend data
+            - moon base
+                - fixed transportation gate center
+                - rescue facility personal
+            - venus
+                - save platform
+                - repare station
+                - activete defence system
+                - recharge you ship
+            - mars
+                - activate tracking system
+                - trace of enemy
+                - activate transpotrt system
+
+            - Jupiter ?
+                - 0G
+                - spaceStation Io
 
 
 */

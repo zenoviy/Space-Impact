@@ -1,3 +1,6 @@
+@import '~/../../page-style/page-asets.sass'
+
+
 .backpack-wrapper
     position: absolute
     width: 100vw
@@ -37,6 +40,8 @@
             position: absolute
         .dialog-text-wrapper
             text-align: left
+            span
+                color: $orange-color
         .answer-dialog-button
             width: 100%
             background: none
@@ -44,11 +49,11 @@
             color:#c1c1c1
                 transition: .5s linear
         .answer-dialog-button:hover
-            border: 1px solid #ff9900
-            color:#ff9900
+            border: 1px solid $orange-color
+            color: $orange-color
         .answer-dialog-button:active
             color: #ffffff
-            background:#ff9900
+            background: $orange-color
         .dialog-header
             width: 100%
             display: grid

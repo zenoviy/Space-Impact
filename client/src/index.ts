@@ -303,12 +303,17 @@ function gameDynamicLevelBoxRender({ gameObject }){
         }
 
         if(!gameObject.gameInitData.gamePause && background.details.type != 'door') background.enemyAnimation()
+       
         if(background.details.type === 'enemy_spawner' || background.details.type === 'hidden_enemy_spawner' ||
         background.details.type === 'npc_spawner' || background.details.type === 'elevator' ||
             background.details.type === "health" || background.details.isDestroy || !background.details.display && background.details.type === "scenario_object" ||
-             !background.details.display && background.details.type === "blue_card" || background.details.type === "ground-destruct" ) continue
-             openClosedDoorAnimation({ currentWallBlock : background, mainGameObject: gameObject })
-        background.displayObjectAtScene(gameObject)
+             !background.details.display && background.details.type === "blue_card" ||
+             !background.details.display && background.details.type === "green_card" ||
+             !background.details.display && background.details.type === "yellow_card" ||
+             !background.details.display && background.details.type === "red_card" ||
+             !background.details.display && background.details.type === "laptop_with_data" || background.details.type === "ground-destruct" ) continue
+        openClosedDoorAnimation({ currentWallBlock : background, mainGameObject: gameObject })
+             background.displayObjectAtScene(gameObject)
     }
 
     for(let elevator of allElevators){
@@ -319,11 +324,17 @@ function gameDynamicLevelBoxRender({ gameObject }){
         if(!block) continue
             if(block.details.type === 'enemy_spawner' ||  block.details.type === 'hidden_enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
              !block.details.display && block.details.type === "health" || !block.details.display && block.details.type === "scenario_object" ||
-             !block.details.display && block.details.type === "blue_card" || block.details.type === "ground-destruct" &&
+             !block.details.display && block.details.type === "blue_card" ||
+             !block.details.display && block.details.type === "green_card" ||
+             !block.details.display && block.details.type === "yellow_card" ||
+             !block.details.display && block.details.type === "red_card" ||
+             !block.details.display && block.details.type === "laptop_with_data" || block.details.type === "ground-destruct" &&
              block.details.isDestroy && block.details.healthPoint <= 0 || !block.details.type &&
              block.details.isDestroy && block.details.healthPoint <= 0 || !block.details.collision && block.details.type === "background-wall" ||
              !block.details.collision && block.details.type === 'door') continue
 
+
+             openClosedDoorAnimation({ currentWallBlock : block, mainGameObject: gameObject })
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
             block.displayObjectAtScene(gameObject)
     }

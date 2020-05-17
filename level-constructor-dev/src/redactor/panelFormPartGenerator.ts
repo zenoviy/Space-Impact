@@ -119,8 +119,19 @@ async function generateInput({fileContainer, target}){
             fileContainer.appendChild(itemData);
             // require
             innerText = `<h3>Require Object</h3>
-            <p>Require message, display object needs for this block to everything work fine <span>computer_data
-            </span><span>blue_card</span><span>green_card</span> <span>yellow_card</span> <span>red_card</span></p>
+            <p>Require message, display object needs for this block to everything work fine 
+            <span>computer_data</span>
+            <span>blue_card</span>
+            <span>green_card</span>
+            <span>yellow_card</span>
+            <span>red_card</span>
+            <span>power_cell</span>
+            <span>enemy_helmet</span>
+            <span>enemy_details</span>
+            <span>med_kit</span>
+            <span>laptop_with_data</span>
+            <span>tools_case</span>
+            </p>
             <textarea type='text' id=${'require-field-'+ currentDescriptionId} >${(blockDetails.rules.require)? blockDetails.rules.require : ''}</textarea>
             <button data-target='save-require-btn' class="main-btn">Save Require Object</button> <hr>`;
             itemData = elementCreator({
@@ -138,7 +149,20 @@ async function generateInput({fileContainer, target}){
             let mainPicture = (blockDetails.rules.objectPicture)? blockDetails.rules.objectPicture: __HOST + '/level-creator/assets/charactersObjects/inner-objects/' + localPicture;
             innerText = `<h3>Contain Object</h3>
             <p>Object or data inside this object press 'E' button to collect \n exit  - special object to finish the level
-            <span>computer_data</span><span>blue_card</span><span>green_card</span> <span>yellow_card</span> <span>red_card</span> <span>exit</span>  exit  - end the level</p>
+            <span>computer_data</span>
+            <span>blue_card</span>
+            <span>green_card</span>
+            <span>yellow_card</span>
+            <span>red_card</span>
+            <span>exit</span>  exit  - end the level
+            <span>power_cell</span>
+            <span>enemy_helmet</span>
+            <span>enemy_details</span>
+            <span>med_kit</span>
+            <span>laptop_with_data</span>
+            <span>tools_case</span>
+            </p>
+            
             <textarea type='text' id=${'contain-field-'+ currentDescriptionId} >${(blockDetails.rules.contain)? blockDetails.rules.contain : ''}</textarea>
             <img width="100" id=${'contain-picture-'+ currentDescriptionId}
             src="${mainPicture}">
@@ -149,6 +173,11 @@ async function generateInput({fileContainer, target}){
                 <option value="green-card.png">Green card</option>
                 <option value="yellow-card.png">Yellow card</option>
                 <option value="power-cell.png">Power Cell</option>
+                <option value="med-kit.png">Med kit</option>
+                <option value="laptop.png">Laptop case</option>
+                <option value="tools-case.png">Tools case</option>
+                <option value="Enemy-head.png">Enemy helmet A</option>
+                <option value="enemy-details.png">Enemy detail 1</option>
             </select>
             <button data-target='save-contain-btn' class="main-btn">Save</button> <hr>`;
             itemData = elementCreator({
@@ -365,6 +394,12 @@ function loadInnerData({fileContainer, target}){
     (target.backgroundTexture)? target.backgroundTexture.texture : blockDetails['texture'];
 
     let itemImage = (blockDetails['previewTexture'])? blockDetails['previewTexture']: blockDetails['texture'];
+
+
+
+    console.log(target.backgroundTexture, blockDetails['previewTexture'], blockDetails['texture'], itemBackgroundImage)
+
+
 
     let backgroundImage = (target.backgroundTexture)? `<img width="50" src="${__HOST + itemBackgroundImage}" alt="${target.backgroundTexture.id}">`:"";
     let innerText = `<div class="block-description-wrapper">

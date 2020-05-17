@@ -26,6 +26,7 @@ class DynamicUserConstructor {
     numberOfJump: number;
     mapFinder: any[];
     inventory: any[];
+    tasks: any[];
     guns: any[];
     playerDirectionHorizontal: string;
     playerDirectionVertical: string;

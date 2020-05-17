@@ -54,7 +54,7 @@ function mapMoveControllers({ mainObject }){
         event.preventDefault()
         let result = null;
         for( let block of mainObject.allRedactorBlock ){
-
+        //let copyOfblock = Object.assign({}, block)
             if(event.target['nodeName'] != 'CANVAS') continue
             result = collisionDetector({ object: block, target: {
                 x: event.clientX - event.target['offsetLeft'],
@@ -63,6 +63,7 @@ function mapMoveControllers({ mainObject }){
                 height: 5
             } })
             if(result){
+                
                 //console.log( block.index, " < Block index")
                 openRedactorWindow({ blockData: block, mainObject: mainObject })
                 changeObjectModel({ result: result, mainObject: mainObject})
@@ -107,17 +108,20 @@ function mapMoveControllers({ mainObject }){
 function renderItemsToSideList({ mainObject, dataBase, selectItem }){
     var target: any = document.querySelector('#side-instrumental-panel');
     target.innerHTML = '';
+
+    console.log(dataBase)
     for(let blockItem of dataBase){
         //console.log(blockItem)
-        let itemImage = (blockItem['previewTexture'])? blockItem['previewTexture']: blockItem['texture'];
+        let copyOfBlockData = Object.assign({}, blockItem)
+        let itemImage = (copyOfBlockData['previewTexture'])? copyOfBlockData['previewTexture']: copyOfBlockData['texture'];
         let obj = blockCreator({
             tag: 'div',
             styleClass: 'single-block-item',
-            innerContent: `<img width="100%" title="${(blockItem.details)? blockItem.details.description : blockItem.description}" src='${ globalVariable.__HOST + itemImage }'>`
+            innerContent: `<img width="100%" title="${(copyOfBlockData.details)? copyOfBlockData.details.description : copyOfBlockData.description}" src='${ globalVariable.__HOST + itemImage }'>`
         });
 
         obj.addEventListener('click', (event) => {
-            sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: blockItem})
+            sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: copyOfBlockData})
         })
         target.appendChild(obj)
     }
@@ -131,9 +135,10 @@ function renderItemsToSideList({ mainObject, dataBase, selectItem }){
 
 function sidePanelItemsSelectProcess({ mainObject, blockItem }){
     //console.log(blockItem)
+    let copyOfblockItem = Object.assign({}, blockItem)
     if(mainObject.selectedBlockPanelItem){
-        mainObject.selectedBlockPanelItem = (blockItem.id != mainObject.selectedBlockPanelItem.id)? blockItem : null;
-    }else mainObject.selectedBlockPanelItem = blockItem;
+        mainObject.selectedBlockPanelItem = (copyOfblockItem.id != mainObject.selectedBlockPanelItem.id)? copyOfblockItem : null;
+    }else mainObject.selectedBlockPanelItem = copyOfblockItem;
 
     previewOfBlock({ selectedBlockPanelItem:  mainObject.selectedBlockPanelItem, event: event })
 }

@@ -194,7 +194,12 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
         if(collision){
            if(item.details.collision || item.details.type === 'door' ||
            item.details.type === 'leader' || item.details.type === "health" && item.details.display ||
-            item.details.type === "blue_card" && item.details.display || item.details.type === "scenario_object" && item.details.display){
+            item.details.type === "blue_card" && item.details.display ||
+             item.details.type === "green_card" && item.details.display ||
+             item.details.type === "yellow_card" && item.details.display ||
+             item.details.type === "red_card" && item.details.display ||
+             item.details.type === "laptop_with_data" && item.details.display ||
+             item.details.type === "scenario_object" && item.details.display){
                floorCollision = findPointOfCollision.call(targetObject,
                 {
                     object: targetObject,
@@ -269,7 +274,7 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
                 x: x,
                 y: y
             })
-        return false
+            return false
         }else if(!this.isRun){
             this.isRun = false;
             this.isJump = false;
@@ -366,7 +371,15 @@ function groundBlockCollision({mainGameObject, target, targetX, targetY, levelIn
                 })
            }else{
                 this.currentGroundBlock = target;
-                if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC") levelInformation.jumpImpuls = levelInformation.gravity
+                if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC"){
+
+                    levelInformation.jumpImpuls = levelInformation.gravity
+                }
+                if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){
+                    if(this.y + this.height - 5 > targetY){
+                        this.y -= 0.01;
+                    }
+                }
                 this.groundTouch = true;
            }
        }
@@ -402,6 +415,14 @@ function rightSideBlockCollision({mainGameObject, target, targetX, targetY, leve
                     return false
                 }
                 this.rightWallTouch = true;
+                //let rightSide = (this.x + this.width) - targetX;
+                //let leftSide =  (targetX + target.width) - this.x;
+                if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){
+                    if(target.details.type != "leader" && target.details.collision && this.y > targetY){
+                        let rightSide = (this.x + this.width) - targetX;
+                        this.x -= rightSide;
+                    }
+                }
                if(!target.details.collision && target.details.type === 'door'){
                     this.rightWallTouch = false;
                     this.groundTouch = true;
@@ -441,6 +462,12 @@ function leftSideBlockCollision({mainGameObject, target, targetX, targetY, level
                if(target.details.type === 'elevator' ){
                    return false
                }
+               if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){
+                   if(target.details.type != "leader" && target.details.collision && this.y > targetY){
+                       let leftSide =  (targetX + target.width) - this.x;
+                       this.x += leftSide;
+                   }
+                }
                this.leftWallTouch = true;
                if(!target.details.collision && target.details.type === 'door'){
                     this.leftWallTouch = false;
@@ -485,10 +512,12 @@ function dynamicLevelGrappleObjects({ mainGameObject, groundPlayer, target, expl
             speed: 0,
             type: target.details.type
         })
-    }else if(groundPlayer.objectOwner === "groundPlayer" && target.details.type === "blue_card" && target.details.display || 
+    }else if(groundPlayer.objectOwner === "groundPlayer" && target.details.type === "blue_card" && target.details.display ||
+    groundPlayer.objectOwner === "groundPlayer" && target.details.type === "green_card" && target.details.display ||
+    groundPlayer.objectOwner === "groundPlayer" && target.details.type === "yellow_card" && target.details.display ||
+    groundPlayer.objectOwner === "groundPlayer" && target.details.type === "red_card" && target.details.display ||
+    groundPlayer.objectOwner === "groundPlayer" && target.details.type === "laptop_with_data" && target.details.display ||
     groundPlayer.objectOwner === "groundPlayer" && target.details.type === "scenario_object" && target.details.display){
-
-        //if("scripts": "respawnEnemy",)
         if(target.details.scripts){
             respawnEnemy({ mainGameObject: mainGameObject, constructors: constructors })
         }
@@ -557,10 +586,18 @@ function wallBottomFinder({ mainGameObject, currentBlock }){
     return (bottomBlocks)? true : false;
 }
 
-/*=============== block wall detector end ============== */
+/*===============
+
+block wall detector end
+
+============== */
 
 
-/*=============== Moving all background object at scene ============== */
+/*===============
+
+Moving all background object at scene
+
+============== */
 function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlayer, constructors}){
     let allBullets = mainGameObject.gameInitData.allGameBullets;
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;
@@ -577,7 +614,6 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
             if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos ||
                 !groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && !groundPlayer.groundTouch && xPos) item.x -= item.speed;
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch)item.y -= item.defaultSpeed * (jumpImpuls/10)
-            //continue
         }
         if(item instanceof constructors.EnemyObject){
             if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
@@ -592,7 +628,6 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
                     ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
                 }
                 if(!groundPlayer.groundTouch && item instanceof constructors.GrappleObject){
-                    console.log(1, levelInformation.jumpImpuls)
                     item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
                     item.x += levelInformation.horizontalSpeed * -1;
                     jumpImpuls = 0;
@@ -602,21 +637,6 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
                 item.y = (item.Grapple)?  item.y - jumpImpulsVertical : item.y + jumpImpulsVertical * -1;
             }
         }
-        /*if(item instanceof constructors.GrappleObject){
-            if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
-                item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPos:
-                    ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
-                    ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
-
-                    
-            }
-            if(!groundPlayer.groundTouch){
-                console.log('grapple')
-                item.y += levelInformation.horizontalSpeed * -1;//(item.playerDirectionVertical === "up")?  item.y + (jumpImpuls) : item.y + (jumpImpuls) * -1;
-            }
-            //(levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
-        //enemy.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
-        }*/
     }
 }
 

@@ -19,13 +19,23 @@ async function createOtherDialog({allDialogs}){
         let questionItems = loadQuestionsSection({questionBase: dialog.questions, currentId: id});
         finalDialogBlocks += `<div id="dialog-block-wrapper-${id}" class="dialog-block-wrapper">
             <h4>Dialog ID: ${dialog.id}
-            <input id="dialog-id-field-${id}" type="number" value="${dialog.id}">   
+            <input id="dialog-id-field-${id}" type="number" value="${dialog.id}">
             <button id="remove-dialog-${id}" >
                     <span class="button-reject">delete dialog</span>
                 </button>
             </h4>
-            <p>Dialog actions <span>"none"</span>  <span>"give_object"</span></p>
-            <input id="dialog-action-${id}" type="text" placeholder="dialog actions" value="${dialog.action}">
+            <div class="requirement-item-wrapper">
+                <lable>
+                    <p>Dialog actions <span>"none"</span>  <span>"give_object"</span> <span>"require_object"</span></p>
+                    <input id="dialog-action-${id}" type="text" placeholder="dialog actions" value="${dialog.action}">
+                </lable>
+                <lable>
+                    <p>Number of require objects to activate dialog</p>
+                    <input id="number-of-elements-${id}" type="number" placeholder="number of require elements" value="${(dialog.numberOfRequireItems)? dialog.numberOfRequireItems : ""}">
+                </lable>
+            </div>
+
+            <p>Dialog main text</p>
             <textarea id="dialog-block-${id}" name="">${dialog.text}</textarea>
                 <div id="">${(questionItems)? questionItems.questions : '' }</div>
                 <button id="add-new-question-${id}">
@@ -42,6 +52,8 @@ async function createOtherDialog({allDialogs}){
             addNewQuestion: "add-new-question-" + id,
             removeDialog: "remove-dialog-" + id,
             dialogActionField: "dialog-action-" + id,
+            numberOfElements: "number-of-elements-" + id,
+            test: "test",
             lastBlockId: allDialogs.length - 1,
             questionsData: (questionItems)? questionItems.allInnerQuestionsButtonObjects : null
         });
@@ -55,6 +67,7 @@ async function createOtherDialog({allDialogs}){
         id: id,
         dialogBlockWrapper: "dialog-block-wrapper-" + id,
         textAreaSelector: "dialog-block-" + id,
+        dialogIdField: "dialog-id-field-" + id,
         addDialog: "add-dialog-" + id,
         addNewQuestion: null,
         removeDialog: null,
@@ -121,6 +134,7 @@ async function dialogAnswerButton({allInnerButtonObjects, allOthersDialogs, bloc
         let addDialog = (button.addDialog)? document.querySelector('#' + button.addDialog) : null;
         let dialogActionField = (button.dialogActionField)? document.querySelector('#' + button.dialogActionField) : null;
         let dialogIdField = (button.dialogIdField)? document.querySelector('#' + button.dialogIdField) : null;
+        let numberOfElements = (button.numberOfElements)? document.querySelector('#' + button.numberOfElements) : null;
 
         let textAreaSelector = (button.textAreaSelector)? document.querySelector('#' + button.textAreaSelector) : null;
 
@@ -187,6 +201,16 @@ async function dialogAnswerButton({allInnerButtonObjects, allOthersDialogs, bloc
         if(dialogIdField){
             dialogIdField.addEventListener('change', function(){
                 blockDetails.dialog.dialogAnswers[button.id].id = this.value;
+            })
+        }
+        if(button.numberOfElements){
+             console.log(button)
+        }
+        if(numberOfElements){
+           
+            numberOfElements.addEventListener('change', function(){
+                
+                blockDetails.dialog.dialogAnswers[button.id].numberOfRequireItems = this.value;
             })
         }
 

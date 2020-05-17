@@ -56,17 +56,19 @@ function npcDialog({ currentDialogCharacter, data, searchTarget, mainGameObject,
             constructors: constructors,
             groundPlayer: groundPlayer })
         process.env.GROUND_CHARACTERS_INVENTORY = 'true';
-
 }
 
 
 
+
+
+
 function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarget, mainGameObject, requireData, constructors,groundPlayer }){
-    
     if(!currentDialogCharacter) return false
     let defaultNpcData = currentDialogCharacter.details.dialog.default;
     let dialogAnswersNpcData = currentDialogCharacter.details.dialog.dialogAnswers;
     let backpackBody = document.querySelector('#backpack-body');
+    let localId = new Date().getTime();
     backpackBody.innerHTML = '';
 
     let dialogHeader = createSimpleElements({
@@ -82,13 +84,12 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
     backpackBody.appendChild(dialogHeader)
     if(!dialogAnswersNpcData) return false
     let selecteDialog = dialogAnswersNpcData.find(dialog => dialog.id == currentDialog)
-    //console.log(selecteDialog, currentDialog, '|||')
-    if(!selecteDialog || !selecteDialog.questions) return false
 
+    if(!selecteDialog || !selecteDialog.questions) return false
     let innerDialog = createSimpleElements({
         tagname: 'div',
         classList: 'dialog-body',
-        innerText: `<p class="dialog-text-wrapper">${selecteDialog.text}</p>`,
+        innerText: `<p class="dialog-text-wrapper" id="main-dialog-arrea-${ localId }">${selecteDialog.text}</p>`,
         idName: null
     })
 
@@ -102,7 +103,16 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
             idName: null
         })
         questionsButton.addEventListener('click', () => {
-        
+
+            let answerState = checkDialogTaskConditions({
+                currentDialogCharacter: currentDialogCharacter,
+                inventory: groundPlayer.inventory,
+                targetDialog: answerButtons.id,
+                dialogTextId: `main-dialog-arrea-${ localId }`,
+            })
+
+            if(!answerState) return false
+
             displayDialog({
                 currentDialogCharacter: currentDialogCharacter, currentDialog: parseInt(answerButtons.id),
                 data: data,
@@ -112,6 +122,9 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
                 constructors: constructors,
                 groundPlayer: groundPlayer
             })
+            if(selecteDialog.action === "require_object"){
+
+            }
             if(selecteDialog.action === "give_object"){
                 requireData = searchInPlayerInventory({
                     data: groundPlayer.inventory,
@@ -122,7 +135,8 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
                     mainGameObject: mainGameObject,
                     requireData: requireData,
                     constructors: constructors,
-                    groundPlayer: groundPlayer
+                    groundPlayer: groundPlayer,
+                    currentDialogCharacter: currentDialogCharacter
                 })
             }
         })
@@ -133,6 +147,41 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
 
 
 
+
+
+
+
+
+
+function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDialog, dialogTextId }){
+    let dialogTextArea = document.querySelector('#' + dialogTextId);
+    let npcDetails = currentDialogCharacter.details;
+    let requireObject = npcDetails.rules.require;
+    let dialogArea = npcDetails.dialog.dialogAnswers[targetDialog];
+    let requireData = searchInPlayerInventory({
+            data: inventory,
+            searchTarget: requireObject
+        })
+    let taskCompleate = true;
+    if(dialogArea && requireObject){
+        if(dialogArea.numberOfRequireItems){
+            if(requireData){
+                taskCompleate = (dialogArea.numberOfRequireItems &&
+            requireData.numberOfItems === parseInt(dialogArea.numberOfRequireItems))? true: false;
+                if(!taskCompleate){
+                    dialogTextArea.innerHTML = `I cant do that, first i need <span>${dialogArea.numberOfRequireItems}</span>
+                    <span>${requireObject.split("_").join(" ")}</span> you got <span>${(requireData.numberOfItems)? requireData.numberOfItems : 0}</span>`;
+                }
+            }else
+            if(dialogArea.numberOfRequireItems){
+                dialogTextArea.innerHTML = `I cant do that, first i need <span>${dialogArea.numberOfRequireItems}</span>
+                <span>${requireObject.split("_").join(" ")}</span>`;
+                return false
+            }
+        }
+    }
+    return  taskCompleate
+}
 
 
 
@@ -180,32 +229,31 @@ function interactWithObjects({ mainGameObject, constructors }){
         let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
         let requireData;
         if(!mainGameObject.mapNearActiveElement) return false
-
-            if(groundPlayer.currentDialogCharacter){  //.details.type === 'npc_spawner'
-            //console.log(groundPlayer.currentDialogCharacter)
-                npcDialog({ 
-                    currentDialogCharacter: groundPlayer.currentDialogCharacter,
-                    data: groundPlayer.inventory,
-                    searchTarget: mainGameObject.mapNearActiveElement.details.rules.require,
-                    mainGameObject: mainGameObject,
-                    requireData: requireData,
-                    constructors: constructors,
-                    groundPlayer: groundPlayer
-                })
-                return false
-            }
-
-            requireData = searchInPlayerInventory({
+        if(groundPlayer.currentDialogCharacter){
+            npcDialog({
+                currentDialogCharacter: groundPlayer.currentDialogCharacter,
                 data: groundPlayer.inventory,
-                searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
-            })
-
-            activateInteractObjectData({
+                searchTarget: mainGameObject.mapNearActiveElement.details.rules.require,
                 mainGameObject: mainGameObject,
                 requireData: requireData,
                 constructors: constructors,
                 groundPlayer: groundPlayer
             })
+            return false
+        }
+
+        requireData = searchInPlayerInventory({
+            data: groundPlayer.inventory,
+            searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
+        })
+
+        activateInteractObjectData({
+            mainGameObject: mainGameObject,
+            requireData: requireData,
+            constructors: constructors,
+            groundPlayer: groundPlayer,
+            currentDialogCharacter: null
+        })
     }
 }
 
@@ -217,20 +265,19 @@ function interactWithObjects({ mainGameObject, constructors }){
 
 
 
-function activateInteractObjectData({mainGameObject, requireData, constructors, groundPlayer }){
-
+function activateInteractObjectData({mainGameObject, requireData, constructors, groundPlayer, currentDialogCharacter }){
     if( mainGameObject.mapNearActiveElement.details.rules.contain && !mainGameObject.mapNearActiveElement.details.rules.require ||
         mainGameObject.mapNearActiveElement.details.rules.require && requireData ){
         if( mainGameObject.mapNearActiveElement.details.rules.contain == 'exit' ){
 
             levelRestore({mainGameObject: mainGameObject, constructors: constructors})
         }
-
         let objectDetails = mainGameObject.mapNearActiveElement.details;
         let previewPicture = (objectDetails.rules.objectPicture)? objectDetails.rules.objectPicture :  process.env.HOST + objectDetails.texture;
 
         if(mainGameObject.mapNearActiveElement.details.rules.contain){
-
+    
+            deleteInventoryObject({ currentDialogCharacter: currentDialogCharacter, requireData: requireData, groundPlayer: groundPlayer })
             saveObjectToBackPack({
                 groundPlayer: groundPlayer,
                 data: mainGameObject.mapNearActiveElement.details.rules.contain,
@@ -241,7 +288,6 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
         mainGameObject.mapNearActiveElement.details.rules.contain = null;
         mainGameObject.mapNearActiveElement.details.rules.requireText = null;
         mainGameObject.mapNearActiveElement.details.rules.require = null;
-
         return
     }
 }
@@ -249,6 +295,19 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
 
 
 
+function deleteInventoryObject ({ currentDialogCharacter, requireData, groundPlayer }){
+    if(!currentDialogCharacter) return false
+    let requireStatment = currentDialogCharacter.details.rules.require;
+    if(!requireStatment) return false
+
+    let inventory = groundPlayer.inventory;
+    let searchDataName = requireData.innerData;
+    let numberOfRequireElements = requireData.numberOfItems;
+    let allRequireObjects = inventory.find(item =>item.innerData === searchDataName);
+
+    groundPlayer.inventory.splice(inventory.indexOf(allRequireObjects), 1)
+
+}
 
 
 
@@ -256,11 +315,15 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
 
 function saveObjectToBackPack({groundPlayer, data, previewPicture}){
     hideInventory()
+    let inventoryStack = stackItemAtInventory({ data: data, inventory: groundPlayer.inventory })
+    if(inventoryStack) return false
     groundPlayer.inventory = groundPlayer.inventory.concat({
         innerData: data,
-        texture: previewPicture
+        texture: previewPicture,
+        numberOfItems: 1
     })
 }
+
 
 
 
@@ -271,6 +334,12 @@ function searchInPlayerInventory({ data, searchTarget }){
 }
 
 
+
+function stackItemAtInventory ({ data, inventory }){
+    let findObjectAtInventory = searchInPlayerInventory({ data: inventory, searchTarget: data })
+    if(findObjectAtInventory) findObjectAtInventory.numberOfItems += 1;
+    return findObjectAtInventory
+}
 
 
 

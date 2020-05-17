@@ -11,13 +11,10 @@ function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player
     }else if(elevator.details.moveDirection === "horizontal"){
         levelInformation.horizontalSpeed = (elevator.details.currentDirection)? elevator.details.speed/5: (elevator.details.speed/5 ) * -1;
         levelInformation.jumpImpuls = 0;
-        //player.onElevatorSpeed = (elevator.details.currentDirection)? (elevator.details.speed + gravity -1)* -1: (elevator.details.speed);
         player.onElevatorSpeed = 0;
     }
-
     player.ceilingTouch = false;
     player.groundTouch = true;
-
 }
 
 
@@ -39,7 +36,6 @@ function elevatorMove({ mainGameObject }){
                 this.details.currentDirection = false;
             }
         }else if(!this.details.currentDirection){
-           // this.y -= this.details.speed/elevatorCompensation;
             if(this.details.moveDirection === "vertical") this.y -= this.details.speed/elevatorCompensation;
             if(this.details.moveDirection === "horizontal") this.x -= this.details.speed/elevatorCompensation;
             this.details.currentValueOfMove += this.details.speed/elevatorCompensation;
@@ -98,17 +94,13 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
 
     if(stairs.details.type === "stairs-left"){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
-        //(levelInformation.gravity + stairsVerticalIndex) * -1 :
-        //levelInformation.gravity;
+
         levelInformation.gravity * -1: levelInformation.gravity
 
     }else if(stairs.details.type === "stairs-right" && player.isRun){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
-        //levelInformation.gravity/stairsVerticalIndex:
-        //(levelInformation.gravity + stairsVerticalIndex * 2) * -1;
         levelInformation.gravity: (levelInformation.gravity + stairsVerticalIndex * 2) * -1
     }
-    //player.groundTouch = true;
 }
 
 
@@ -140,7 +132,6 @@ function doorFunctionality({ mainGameObject }){
                 data: this.inventory,
                 searchTarget: currentWallBlock.details.rules.require
             })
-            //console.log(currentWallBlock.details.rules.require, searchObject, this.inventory)
             if(!searchObject) return false
         }
         if(currentWallBlock.details.collision === true){
@@ -159,9 +150,12 @@ function doorFunctionality({ mainGameObject }){
 function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(currentWallBlock.details.type != 'door') return false
+
+   
     let doorState = currentWallBlock.details.collision;
     let doorAnimationItems = currentWallBlock.details.numberOfItems;
     let doorPictureWidth = currentWallBlock.details.sWidth;
+
     if(extraSeconds % 5 === 0){
         if(doorState &&  currentWallBlock.sx > 0){
             currentWallBlock.sx -= doorPictureWidth;
