@@ -29,19 +29,115 @@
                 "numberOfItems": 6
             },
             "runAndShotTop": {
-
-                "innerTexture": "/public/images/characters/run_shot_top.png"
+                "innerTexture": "/public/images/characters/main_character_run_shot_top.png",
+                "imageWidth": 120,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 6
             },
             "runAndShotBottom": {
-
-                "innerTexture": "/public/images/characters/run_shot_top.png"
+                "innerTexture": "/public/images/characters/main_character_run_shot_bottom.png",
+                "imageWidth": 120,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 6
+            },
+            "runAndShotForward": {
+                "innerTexture": "/public/images/characters/main_character_run_shot.png",
+                "imageWidth": 138,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 6
+            },
+            "standAndShotTop": {
+                "innerTexture": "/public/images/characters/stand-shot-top.png",
+                "imageWidth": 48,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 2
+            },
+            "standAndShotBottom": {
+                "innerTexture": "/public/images/characters/stand-shot-down.png",
+                "imageWidth": 48,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 2
             },
             "jump": {
-
                 "innerTexture": "/public/images/characters/jump.png",
                 "imageWidth": 60,
                 "imageHeight": 70,
                 "animationSteps": 10,
+                "numberOfItems": 3
+            },
+            "jumpShotBottom": {
+                "innerTexture": "/public/images/characters/jump_shot_down.png",
+                "imageWidth": 60,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 3
+            },
+            "jumpShotCenter": {
+                "innerTexture": "/public/images/characters/jump_shot_center.png",
+                "imageWidth": 60,
+                "imageHeight": 70,
+                "animationSteps": 10,
+                "numberOfItems": 3
+            },
+            "sit": {
+                "innerTexture": "/public/images/characters/sit.png",
+                "height": 35,
+                "imageWidth": 48,
+                "imageHeight": 59,
+                "animationSteps": 10,
+                "numberOfItems": 2
+            },
+            "sitShotTop": {
+                "innerTexture": "/public/images/characters/sit_shot_top.png",
+                "height": 35,
+                "imageWidth": 48,
+                "imageHeight": 59,
+                "animationSteps": 10,
+                "numberOfItems": 2
+            },
+            "sitShotBottom": {
+                "innerTexture": "/public/images/characters/sit_shot_bottom.png",
+                "height": 35,
+                "imageWidth": 48,
+                "imageHeight": 59,
+                "animationSteps": 10,
+                "numberOfItems": 2
+            },
+            "leader": {
+                "innerTexture": "/public/images/characters/leader.png",
+                "height": 50,
+                "imageWidth": 57,
+                "imageHeight": 79,
+                "animationSteps": 4,
+                "numberOfItems": 3
+            },
+            "leaderShotBottom": {
+                "innerTexture": "/public/images/characters/leader_shot_down.png",
+                "height": 50,
+                "imageWidth": 57,
+                "imageHeight": 79,
+                "animationSteps": 4,
+                "numberOfItems": 3
+            },
+            "leaderShotTop": {
+                "innerTexture": "/public/images/characters/leader_shot_top.png",
+                "height": 50,
+                "imageWidth": 57,
+                "imageHeight": 79,
+                "animationSteps": 4,
+                "numberOfItems": 3
+            },
+            "leaderShotSide": {
+                "innerTexture": "/public/images/characters/leader_shot_side.png",
+                "height": 50,
+                "imageWidth": 57,
+                "imageHeight": 79,
+                "animationSteps": 4,
                 "numberOfItems": 3
             }
         },
@@ -56,7 +152,7 @@
                     "status": "mechanic gun",
                     "description": "blaster gun, regular weapon for you spaceship",
                     "hangarImage": "static/shop/weapons/Machinegun.png",
-                    "texture": "/public/images/misc/bullets/bullet-gun.png",
+                    "texture": "/public/images/misc/bullets/bullet-gun-ground.png",
                     "explosionAnimation": {
                         "texture": "/public/images/misc/fire/explosion.png",
                         "imageWidth": 12891,
@@ -81,20 +177,20 @@
                     "fireRepead": 3,
                     "speed": 15,
                     "color": "rgba(81, 255, 0, 1)",
-                    "width": 60,
-                    "height": 15,
+                    "width": 20,
+                    "height": 5,
                     "sx": 0,
-                    "sy": 20,
-                    "imageWidth": 3587,
-                    "imageHeight":109,
-                    "animationSteps": 5,
-                    "numberOfItems": 12,
+                    "sy": 0,
+                    "imageWidth": 2107,
+                    "imageHeight":31,
+                    "animationSteps": 10,
+                    "numberOfItems": 7,
                     "numberOfVerticalItems": 1,
-                    "sWidth": 299,
-                    "sHeight": 109,
+                    "sWidth": 301,
+                    "sHeight": 31,
                     "damage": 10,
                     "firePosition": 10,
-                    "firePositionX": -20,
+                    "firePositionX": 0,
                     "defaultAngle": 0
                 }
             ]

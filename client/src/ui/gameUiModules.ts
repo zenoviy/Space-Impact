@@ -114,7 +114,9 @@ function showGameStats({ playerObject, mainGameObject }){
         uiText,
         uiImage,
         uiText,
-        uiImage
+        uiImage,
+        uiText,
+        uiText
     ];
     this.initUiElements(drawMethods, gameInformationScreen, data)
 }

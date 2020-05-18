@@ -50,11 +50,12 @@ function userKeyAction({ mainGameObject, controlKeys, event}){
         if(controlKeys.homingRocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Homing Rocket'});
         if(controlKeys.destroyEnemy.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Nuclear Blast'});
         if(controlKeys.shield.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Defence Shield'});
+        if(controlKeys.journal.some(obj => event.keyCode == obj) ) openJournal({ mainGameObject: mainGameObject, userShipData: userShipData });
     }else{
         if(controlKeys.inventory.some(obj => event.keyCode == obj) ) showGroundPlayerInventory({mainGameObject: mainGameObject});
         if(controlKeys.useKey.some(obj => event.keyCode == obj) ) interactWithObjects({mainGameObject: mainGameObject, constructors: constructors});
         if(controlKeys.miniMap.some(obj => event.keyCode == obj) ) createMapRenderField({ mainGameObject: mainGameObject });
-        if(controlKeys.journal.some(obj => event.keyCode == obj) ) openJournal({ mainGameObject: mainGameObject });
+        if(controlKeys.journal.some(obj => event.keyCode == obj) ) openJournal({ mainGameObject: mainGameObject, userShipData: userShipData });
     }
 }
 
@@ -281,9 +282,11 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             break
         case "left":
             groundPlayer.playerDirectionHorizontal = playerDirection;
+            groundPlayer.playerDirectionVertical = "stand";
             break
         case "right":
             groundPlayer.playerDirectionHorizontal = playerDirection;
+            groundPlayer.playerDirectionVertical = "stand";
             break
         case "up":
             groundPlayer.playerDirectionVertical = playerDirection;
@@ -310,27 +313,27 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
                 groundPlayer.groundTouch = false;
             }
             block.verticalSpeed = yPos;
-        }// leadersFunctionality
+        }
         if(groundPlayer.onLeader){
+            groundPlayer.leaderClimb = true;
             if(groundPlayer.playerDirectionVertical === "up"){
-                //mainGameObject.gameInitData.gameData.levelData.jumpImpuls += -2;
                 groundPlayer.groundTouch = false;
             }else if(groundPlayer.playerDirectionVertical === "down"){
-                //mainGameObject.gameInitData.gameData.levelData.jumpImpuls += 2;
                 let downBlock = leadersFunctionality.call(groundPlayer)
                 groundPlayer.groundTouch = (downBlock)? true : false;
             }
-            //console.log(" on leader ")
         }
     }
-
+    if(playerDirection === "down" && !groundPlayer.onLeader){
+        groundPlayer.isRun = false;
+    }
     for(let enemy of allEnemy){
         if(groundPlayer.rightWallTouch || groundPlayer.leftWallTouch) continue
         enemy.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;
     }
     mainGameObject.mapNearActiveElement = null;
     playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
-    groundPlayer.onLeader = false;
+    //groundPlayer.onLeader = false;
 }
 
 export {

@@ -12,11 +12,15 @@ import { detectObjectsAsMap } from '../engine/dynamicLevels/minimap';
 class DynamicUserConstructor {
     x: number; y: number;
     width: number; height: number;
+    defaultWidth: number; defaultHeight: number;
     imageWidth: number;
     imageHeight: number;
+    imageWidthDefault: number;
+    imageHeightDefault: number;
     img: any;
     sx: number; sy: number;
     sWidth: number; sHeight: number;
+    sWidthDefault: number; sHeightDefault: number;
     speed: number;
     groundTouch: boolean;
     leftWallTouch: boolean;
@@ -44,6 +48,7 @@ class DynamicUserConstructor {
     xPos: number;
     data: any;
     isShot: boolean;
+    leaderClimb: false;
     defaultAngle: number;
     shotAngle: number;
     xAdj: number;
@@ -73,8 +78,12 @@ class DynamicUserConstructor {
         this.y = (data.y)? data.y: window.innerHeight/2 - data.height/2;
         this.width = data.width;
         this.height = data.height;
+        this.defaultWidth = data.width;
+        this.defaultHeight = data.height;
         this.imageWidth = data.imageWidth;
-        this.imageHeight = data.imageHeight
+        this.imageHeight = data.imageHeight;
+        this.imageWidthDefault = data.imageWidth;
+        this.imageHeightDefault = data.imageHeight;
         this.texture = __dirname + data.texture;
         this.img = new Image();
         this.img.src = __dirname + data.texture;
@@ -82,6 +91,8 @@ class DynamicUserConstructor {
         this.picturesWidth = data.imageWidth;
         this.sWidth = data.imageWidth/data.numberOfItems;
         this.sHeight = data.imageHeight/data.numberOfVerticalItems;
+        this.sWidthDefault = data.imageWidth/data.numberOfItems;
+        this.sHeightDefault = data.imageHeight/data.numberOfVerticalItems;
         this.speed = data.speed;
         this.groundTouch = false;
         this.leftWallTouch = false;
@@ -90,7 +101,7 @@ class DynamicUserConstructor {
         this.numberOfJump = 2;
         this.inventory = [];
         this.playerDirectionHorizontal = "right";
-        this.playerDirectionVertical = "down";
+        this.playerDirectionVertical = "stand";
         this.isRun = false;
         this.onElevator = false;
         this.onStairs = false;

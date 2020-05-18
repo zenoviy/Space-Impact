@@ -1,4 +1,5 @@
 import { getData, getLocalData, getElectronLocalData } from '../../server/serverRequestModules';
+import { serverDataRequest } from '../../server/gameDataRequestsServicesModule';
 import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
 import { horizontalVerticalSearch, renewPlayerShip } from './changeLevels';
@@ -13,53 +14,7 @@ import { hideInventory } from '../dynamicLevels/playerUnitModule';
 
 async function serverRequest(gameInformation){
         console.log(process.env.NODE_ENV, process.env.HOST)
-
-        const levelData = await getData({
-            url: process.env.HOST + process.env.LEVEL_DATA_URL,
-            method: 'GET',
-            data: null,
-            headers:{ 'maplevel': gameInformation.level}
-        })
-        const levelObjects = await getData({
-            url: process.env.HOST + process.env.LEVEL_OBJECT_URL,
-            method: 'GET',
-            data: null,
-            headers:{ 'mapObject': levelData.levelOBjects}
-        })
-        const grappleObjects = await getData({
-            url: process.env.HOST + process.env.LEVEL_GRAPPLE_OBJECTS_URL,
-            method: 'GET',
-            data: null,
-            headers:{ 'grappleObject': levelData.grappleObject}
-        })
-        const preloadData = await getLocalData({ fileName: 'preloadData.json' })
-
-        const gameSetings: any = await getElectronLocalData({ fileName: 'game-settings.json' })
-        const userData = await getData({
-            url: process.env.HOST + process.env.USER_SHIP_URL,
-            method: 'GET',
-            data: null,
-            headers:{ 'usership': gameInformation.shipConfiguration}
-        })
-        const enemyData = await getData({
-            url: process.env.HOST + process.env.ENEMY_SHIP_URL,
-            method: 'GET',
-            data: null,
-            headers:{ 'ship-type-number': levelData.enemyType}
-        })
-
-        preloadImage(enemyData)
-        preloadImage(levelData)
-        preloadImage(levelObjects)
-        return {
-            levelData: levelData,
-            levelObjects: levelObjects,
-            grappleObjects : grappleObjects,
-            preloadData: preloadData,
-            gameSetings: await gameSetings,
-            userData: userData,
-            enemyData: enemyData
-        }
+        return await serverDataRequest(gameInformation)
 }
 
 function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){

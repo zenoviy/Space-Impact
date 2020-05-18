@@ -1,17 +1,18 @@
 import { show, hide, toggler, addClassList, removeClassList } from './appMenu';
 import { createElements, pageBuilder } from './pagesBuilder';
 import { getData, postData } from '../server/serverRequestModules';
+import { getGameResultData } from '../server/gameDataRequestsServicesModule';
 import { avatarButton, convertPictureToData } from './userAvatarModules';
 
 async function showResultScreen(){
     let windowElement = document.querySelector('#show-result-area');
     windowElement.innerHTML = "";
 
-    let gameData = await getData({
+    let gameData = await getGameResultData({ method: 'GET', data: null });/*await getData({
         url: process.env.HOST + 'api/game-result',
         method: 'GET',
         data: null,
-        headers: null})
+        headers: null})*/
 
     if(gameData.hasOwnProperty('message')){
         windowElement.innerHTML = `<div class="result-message-wrapper"><p>${gameData.message}</p></div>`;
@@ -280,11 +281,11 @@ function initResultScreen(mainGameObject){
         let formResult = transferDataToObject(this, mainGameObject, formState)
 
         if(formResult){
-            let res = await getData({
+            let res = await getGameResultData({ method: 'POST', data: formResult }) /* await getData({
             url: process.env.HOST + 'api/game-result',
             method: 'POST',
             data: formResult,
-            headers: null})
+            headers: null})*/
             errorFormMessage({message: res.message, status: res.status})
             return
         }else{
@@ -297,11 +298,11 @@ function initResultScreen(mainGameObject){
         let formResult = transferDataToObject(this, mainGameObject, formState)
 
         if(formResult){
-            let res = await getData({
+            let res = await getGameResultData({method: 'PUT', data: formResult})/*await getData({
             url: process.env.HOST + 'api/game-result',
             method: 'PUT',
             data: formResult,
-            headers: null})
+            headers: null})*/
             errorFormMessage({message: res.message, status: res.status})
             return
         }else{

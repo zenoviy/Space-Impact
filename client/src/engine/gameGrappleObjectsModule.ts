@@ -1,4 +1,5 @@
 import { getData } from '../server/serverRequestModules';
+import { getShopServerData } from '../server/gameDataRequestsServicesModule';
 import { shopInventory,
     selectInventoryItem,
     inventoryFreeItem,
@@ -94,7 +95,7 @@ function collectCoin({ allGameSideObjects = null, playerShipData = null, mainGam
 }
 
 
-async function collectObjectsToInventory({allGameSideObjects, playerShipData, mainGameObject}){
+async function collectObjectsToInventory ({allGameSideObjects, playerShipData, mainGameObject}){
     let shopAreaItems = mainGameObject.shopArea.selectedShopItem;
         let playerObject = mainGameObject.gameInitData.gameData.playerObject
         let playerObjectData = playerObject.data;
@@ -105,15 +106,14 @@ async function collectObjectsToInventory({allGameSideObjects, playerShipData, ma
             mainGameObject.shopArea.shopErrorMessage.innerHTML = 'Your`s inventory is full';
             return false
         }
-    let shopUrl
-    switch (this.grapplePower.store){
-        case "market":
-            shopUrl = process.env.SHOP_STORE_ITEMS;
-            break;
-        default:
-            shopUrl = process.env.SHOP_GUNS_URL;
-    }
-    let data = await getData({url: process.env.HOST + shopUrl, method: 'PUT', data: null, headers: headers})
+    let shopUrl = (this.grapplePower.store === 'market')?
+    process.env.SHOP_STORE_ITEMS :
+    process.env.SHOP_GUNS_URL;
+
+    let data = await getShopServerData({
+        shopUrl: shopUrl,
+        headers: headers
+    });
     if(this.grapplePower.type === "inventory weapon"){
         let searchItem: any = findIntInventory({ inventory: playerObjectData.inventory, searchObject: data.data})
         inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data.data, targetData: searchItem })

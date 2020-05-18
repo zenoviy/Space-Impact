@@ -1,4 +1,5 @@
 import { getData } from '../server/serverRequestModules';
+import { getExtraObjects } from '../server/gameDataRequestsServicesModule';
 
 
 function enemyShipLogicVertical(target, mainGameObject){
@@ -215,7 +216,7 @@ async function loadExtraObject(extraObjects){
 
         if(randomObject.object != 'goldCoin' && loadProbability > randomObject.randomizer/2) randomObject = extraObjects[0];
         let result = [];
-        let callObject = await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': randomObject.object}})
+        let callObject = await getExtraObjects({ randomObject: randomObject })//await getData({url: process.env.HOST + "api/grapple-objects", method: "GET", data: null, headers: { 'grappleObject': randomObject.object}})
 
         for(let i = 0; i < numberOfElement; i++){
             result = result.concat(callObject)

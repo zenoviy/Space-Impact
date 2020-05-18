@@ -50,6 +50,7 @@ class PlayerShip{
     isShot: boolean; shotAngle: number;
     img: any; defaultSpeed: number;
     defaultShipData: any;
+    journal: any;
 
     initPlayerShip: any;
     shipControl: any;
@@ -90,6 +91,12 @@ class PlayerShip{
         this.shotAngle = 0;
         this.defaultSpeed = data.data.minSpeed;
         this.img = new Image();
+        this.journal = {
+            defaultData: {
+                numberOfEnemy: 0
+            },
+            levelTasks: []
+        };
     }
     getPlayerInformation(){
         return {

@@ -1,4 +1,5 @@
 import { openInventory, hideInventory } from './playerUnitModule';
+import { createSimpleElements } from '../../appMenu/pagesBuilder';
 
 
 function detectObjectsAsMap({ mainGameObject, objectIntersectionDetect }){  // find nearest object
@@ -37,13 +38,19 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     objectToRender.innerHTML = '';
 
+    let mapName = createSimpleElements({
+        tagname: 'h3',
+        classList: "side-panel-name",
+        innerText: 'Level Map',
+        idName: null
+    })
     let canvas = document.createElement('canvas');
-    //let blockIndex = (objectToRender['offsetWidth']/mapProps.width); ////Math.max(mapProps.width , mapProps.height);
-    let blockIndex = (objectToRender['offsetWidth']/(mapProps.width * mapProps.blockSize));
-    canvas.width = mapProps.width * (objectToRender['offsetWidth']/mapProps.width);   //mapProps.width * blockIndex;
-    canvas.height = mapProps.height * (objectToRender['offsetWidth']/mapProps.width); //mapProps.height * blockIndex;
 
-    var mapEngine = setInterval(function(){ // process.env.GROUND_CHARACTERS_INVENTORY = 'true';
+    let blockIndex = (objectToRender['offsetWidth']/(mapProps.width * mapProps.blockSize));
+    canvas.width = mapProps.width * (objectToRender['offsetWidth']/mapProps.width);
+    canvas.height = mapProps.height * (objectToRender['offsetWidth']/mapProps.width);
+
+    var mapEngine = setInterval(function(){
         if(process.env.GROUND_CHARACTERS_INVENTORY === 'false' || process.env.GROUND_NPC_DIALOG_ACTIVE === 'true') clearInterval(mapEngine)
         let playerPositionX = groundPlayer.currentGroundBlock.defaultMapX;
         let playerPositionY = groundPlayer.currentGroundBlock.defaultMapY - mapProps.blockSize;
@@ -52,18 +59,18 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
 
         let ctx = canvas.getContext('2d');
 
-        objectToRender.appendChild(canvas)
+        objectToRender.appendChild(canvas);
+        objectToRender.prepend(mapName);
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
         mapProps.inventoryMap.forEach(item => {
             if(item.details){
                 if(item.details.collision){
                     ctx.save();
-                    ctx.fillStyle = (item.details.mapColor)? item.details.mapColor: "rgba(225, 169, 0, 1)";//item.details.mapColor//"rgba(225, 169, 0, 1)";
+                    ctx.fillStyle = (item.details.mapColor)? item.details.mapColor: "rgba(225, 169, 0, 1)";
                     let xPos = (item.defaultMapX)? item.defaultMapX : item.x;
                     let yPos = (item.defaultMapY)? item.defaultMapY : item.y;
-                    //defaultMapX
-                    //ctx.fillRect( item.x/(Math.pow(blockIndex, 2)),  item.y/(Math.pow(blockIndex, 2)),  blockIndex, blockIndex)
+
                     ctx.fillRect( xPos*blockIndex,  yPos*blockIndex,  mapPixelIndex, mapPixelIndex)
                     ctx.restore()
                 }

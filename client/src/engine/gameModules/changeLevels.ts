@@ -10,7 +10,6 @@ async function nextLevelDataReload(levelData, constructors){
     hideInventory()
     let nextLevel = levelData.gameData.currentLevel;
     let serverNewData = await serverRequest({level: nextLevel, shipConfiguration: 1});
-    // (serverNewData.levelData.dynamicLevelsActive)? true : false,
     let context = this;
     let refreshLevel = {
         gameData: {
@@ -66,16 +65,7 @@ async function nextLevelDataReload(levelData, constructors){
     context.gameInitData.dynamicLevelEnemy = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelEnemy({
         levelDynamicMapBlocks: context.gameInitData.dynamicLevelMapBlocks,
         constructors: constructors  }) : [];
-
-    /*let dynamicLevelMapBlocks: any = context.gameInitData.dynamicLevelMapBlocks;
-    context.gameInitData.dynamicLevelEnemy = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelEnemy({
-        levelMapName: dynamicLevelMapBlocks,
-        constructors: constructors  }) : [];**/
     this.mapSoundChanger({soundStatus:'regular_level'})
-
-    /*let dynamicLevelEnemy = (levelData.dynamicLevelsActive)? await loadLevelEnemy({
-        levelDynamicMapBlocks: dynamicLevelMapBlocks,
-        constructors: constructors }) : [];*/
 }
 function horizontalVerticalSearch(mainObject, refreshLevel){
     for(let [key, value] of Object.entries(mainObject)){

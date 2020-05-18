@@ -25,8 +25,8 @@
             V- player shoot using mouse direction
             V- complicated player animation
                V - change textures
-                    - add leader animation
-                    - shoot up down
+                   V - add leader animation
+                    V - shoot up down
                    V - death
     V - Level ends when player reach the dor or final object
         V- grapple coin
@@ -42,8 +42,8 @@
         - scientists
         - military
         - civil
-            - add tasks
-            - quest journal
+            V - add tasks
+            V - quest journal
 
 
 
@@ -53,24 +53,16 @@
 
 */
 import { getData } from '../../server/serverRequestModules';
+import { loadGroundPlayer } from '../../server/gameDataRequestsServicesModule';
 import { show, hide} from '../../appMenu/appMenu';
 import { angleFinder } from '../engineModules';
 import { createElements } from '../../appMenu/pagesBuilder';
 import { saveObjectToBackPack } from './dynamicDialog';
 
 
-/// process.env.GROUND_CHARACTERS_URL
-// process.env.HOST
-
 async function initGroundPlayer({ DynamicUserConstructor }){
-    let character = await getData({
-        url: process.env.HOST + process.env.GROUND_CHARACTERS_URL,
-        method: 'GET',
-        data: null,
-        headers: {
-            'item-id': "main_character",
-        }
-    })
+    let character = await loadGroundPlayer();
+
     if(!character) return false
     let user = new DynamicUserConstructor({...character[0]});
     return user
@@ -110,7 +102,7 @@ function loadItemsToGroundInventory({groundPlayer}){
     let objectToRender = document.querySelector("#backpack-body");
     objectToRender['width'] = "auto";
 
-    if(playerInventory.length > 0){     // createElements
+    if(playerInventory.length > 0){
         let allInnerObject = loadPlayerCharacter({ playerInventory: playerInventory })
         objectToRender.innerHTML = allInnerObject;
     }else {
@@ -130,8 +122,7 @@ function loadPlayerCharacter({ playerInventory }){
             <img class="back-pack-item-picture" src="${(item.objectPicture)? item.objectPicture : item.texture}">
 
             <p>${item.innerData.split("_").join(" ")}</p>
-        </div>
-        `
+        </div>`
     }
     return items
 }
@@ -140,45 +131,159 @@ function loadPlayerCharacter({ playerInventory }){
 
 function playerAnimation({ groundPlayer, mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
-    //console.log(groundPlayer.playerDirectionHorizontal)
-    //console.log(groundPlayer.playerDirectionVertical)
 }
 
 
 
 
+
+/* ==========================
+
+Method to change unit animations, based on json data
+
+ ========================== */
+
+function runAnimation({renewAnimation, layerDefaultSize, shotAngleAnimation}){
+    if(this.numberOfItems != this.animations.run.numberOfItems) renewAnimation.call(this)
+
+    layerDefaultSize.call(this)
+    this.playerDirectionVertical = 'stand';
+
+    this.onLeader = false;
+    this.img.src = __dirname + this.animations.run.innerTexture;
+    replacerOfValue({ originalObject: this, dataToReplace: this.animations.run })
+    if(this.objectOwner === "groundPlayer" && this.isShot){
+        shotAngleAnimation.call(this, 'runAndShotTop', 'runAndShotBottom', 'runAndShotForward')
+    }
+}
+
+function sittingAnimation({renewAnimation, shotAngleAnimation}){
+    if(this.numberOfItems != this.animations.sit.numberOfItems) renewAnimation.call(this);
+
+        this.height = this.animations.sit.height;
+        this.sHeight = this.animations.sit.imageHeight/2;
+        this.img.src = __dirname + this.animations.sit.innerTexture;
+        replacerOfValue({ originalObject: this, dataToReplace: this.animations.sit })
+        if(this.objectOwner === "groundPlayer" && this.isShot){
+            shotAngleAnimation.call(this, 'sitShotTop', 'sitShotBottom', 'sit')
+        }
+}
+
+function leaderAnimation({renewAnimation, shotAngleAnimation}){
+    if(this.numberOfItems != this.animations.leader.numberOfItems) renewAnimation.call(this);
+        this.height = this.animations.leader.height;
+        this.sWidth = this.animations.leader.imageWidth/this.animations.leader.numberOfItems;
+        this.sHeight = this.animations.leader.imageHeight/2;
+        this.img.src = __dirname + this.animations.leader.innerTexture;
+        replacerOfValue({ originalObject: this, dataToReplace: this.animations.leader })
+
+        if(this.objectOwner === "groundPlayer" && this.isShot){
+            shotAngleAnimation.call(this, 'leaderShotTop', 'leaderShotBottom', 'leaderShotSide')
+       }
+}
+function standingAnimation({renewAnimation, shotAngleAnimation, layerDefaultSize}){
+    if(this.numberOfItems != this.animations.stand.numberOfItems) renewAnimation.call(this)
+        layerDefaultSize.call(this)
+        this.playerDirectionVertical = 'stand';
+        this.onLeader = false;
+        this.img.src = __dirname + this.animations.stand.innerTexture;
+        replacerOfValue({ originalObject: this, dataToReplace: this.animations.stand })
+        if(this.objectOwner === "groundPlayer"){
+            shotAngleAnimation.call(this, 'standAndShotTop', 'standAndShotBottom', null)
+        }
+}
+function jumpAnimation({renewAnimation, layerDefaultSize, shotAngleAnimation}){
+    if(this.numberOfItems != this.animations.jump.numberOfItems) renewAnimation.call(this)
+        layerDefaultSize.call(this)
+        this.playerDirectionVertical = 'stand';
+        this.onLeader = false;
+        this.img.src = __dirname + this.animations.jump.innerTexture;
+        replacerOfValue({ originalObject: this, dataToReplace: this.animations.jump })
+        if(this.objectOwner === "groundPlayer"){
+            shotAngleAnimation.call(this, 'jump', 'jumpShotBottom', 'jumpShotCenter')   // standAndShotTop  standAndShotBottom
+        }
+}
+
+
+
 function changeAnimationParameters(){
-    if( !this.objectPresent ){  // death
+
+    if( !this.objectPresent ){
         if(this.numberOfItems != this.animations.death.numberOfItems) renewAnimation.call(this)
 
         this.img.src = __dirname + this.animations.death.innerTexture;
         this.width = (this.animations.death.width)? this.animations.death.width : this.width
         this.height = (this.animations.death.height)? this.animations.death.height : this.height
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.death })
-
-    }else
-    if(this.isRun && this.groundTouch  && this.objectOwner){
-        if(this.numberOfItems != this.animations.run.numberOfItems) renewAnimation.call(this)
-
-        this.img.src = __dirname + this.animations.run.innerTexture;
-        replacerOfValue({ originalObject: this, dataToReplace: this.animations.run })
+    }else if(this.objectOwner === "groundPlayer" && this.onLeader && this.playerDirectionVertical === "up" ||
+    this.objectOwner === "groundPlayer" && this.onLeader && this.playerDirectionVertical === "down" ){
+       leaderAnimation.call(this, {
+           renewAnimation: renewAnimation,
+           shotAngleAnimation: shotAngleAnimation
+        })
+    }
+    else if(this.playerDirectionVertical === "down" && !this.onLeader && this.objectOwner === "groundPlayer"){
+        sittingAnimation.call(this, {
+            renewAnimation: renewAnimation,
+            shotAngleAnimation: shotAngleAnimation
+        })
+    }
+    else if(this.isRun && this.groundTouch && this.objectOwner){
+        runAnimation.call(this, {
+            renewAnimation: renewAnimation,
+            layerDefaultSize: layerDefaultSize,
+            shotAngleAnimation: shotAngleAnimation
+        })
     }
     else if(this.isRun === false && this.groundTouch && this.objectOwner || this.onElevator && this.objectOwner){
-        if(this.numberOfItems != this.animations.stand.numberOfItems) renewAnimation.call(this)
-
-        this.img.src = __dirname + this.animations.stand.innerTexture;
-        replacerOfValue({ originalObject: this, dataToReplace: this.animations.stand })
+        standingAnimation.call(this, {
+            renewAnimation: renewAnimation,
+            shotAngleAnimation: shotAngleAnimation,
+            layerDefaultSize: layerDefaultSize
+        })
     }
     else if( !this.groundTouch && !this.onElevator && this.objectOwner){
-        if(this.numberOfItems != this.animations.jump.numberOfItems) renewAnimation.call(this)
-        this.img.src = __dirname + this.animations.jump.innerTexture;
-        replacerOfValue({ originalObject: this, dataToReplace: this.animations.jump })
+        jumpAnimation({
+            renewAnimation: renewAnimation,
+            layerDefaultSize: layerDefaultSize,
+            shotAngleAnimation: shotAngleAnimation
+        })
     }
-    
     this.sWidth = this.imageWidth/this.numberOfItems;
     function renewAnimation(){
         this.sx = 0;
         this.detectFrame = 0;
+    }
+        this.onLeader = false;
+        this.leaderClimb = false;
+    function layerDefaultSize(){
+        if(this.objectOwner === "groundPlayer"){
+            this.width = this.defaultWidth;
+            this.height = this.defaultHeight;
+            this.sHeight = this.imageHeightDefault/2;
+            this.sWidth = this.imageWidthDefault/this.numberOfItems;
+        }
+    }
+
+    function shotAngleAnimation(animationNameTop, animationNameBottom, animationNameStand){
+        if(this.shotAngle < 335 && this.shotAngle > 200){
+
+            this.img.src = __dirname + this.animations[animationNameTop].innerTexture;
+            replacerOfValue({ originalObject: this, dataToReplace: this.animations[animationNameTop] })
+
+        }else if(this.shotAngle > 30 && this.shotAngle < 160){
+
+            this.img.src = __dirname + this.animations[animationNameBottom].innerTexture;
+            replacerOfValue({ originalObject: this, dataToReplace: this.animations[animationNameBottom] })
+
+        }else if(this.shotState && animationNameStand && this.shotAngle > 0 && this.shotAngle < 30 ||
+
+            this.shotState && animationNameStand && this.shotAngle < 360 && this.shotAngle > 200 ||
+            this.shotState && animationNameStand && this.shotAngle > 160 && this.shotAngle < 200){
+                this.img.src = __dirname + this.animations[animationNameStand].innerTexture;
+            if(this.numberOfItems != this.animations[animationNameStand].numberOfItems) renewAnimation.call(this)
+            replacerOfValue({ originalObject: this, dataToReplace: this.animations[animationNameStand] })
+        }
     }
 }
 
@@ -239,6 +344,11 @@ function groundPlayerShot({ groundPlayer, event }){
         object: groundPlayer,
         target: {x: event.clientX, y: event.clientY, width: 1, height: 1, speed: 1}
     })
+    if(groundPlayer.onLeader && groundPlayer.leaderClimb){
+        groundPlayer.playerDirectionHorizontal = (angle > 90 && angle <= 270)?  groundPlayer.playerDirectionHorizontal = "left"
+        : groundPlayer.playerDirectionHorizontal = "right";
+        return false
+    }
 
     if(groundPlayer.playerDirectionHorizontal === "left" && angle > 90 && angle <= 270)return angle
     else if(groundPlayer.playerDirectionHorizontal === "right" && angle > 270 && angle <= 360 || groundPlayer.playerDirectionHorizontal === "right" && angle > 0 && angle <= 90) return angle

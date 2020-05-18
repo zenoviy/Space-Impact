@@ -2,11 +2,10 @@
 
 
 .backpack-wrapper
-    position: absolute
-    width: 100vw
+    position: fixed
     height: 100vh
-    background: rgba(0, 0, 0, .1)
     z-index: 100
+    right: 0
     .backpack-body
         background: #26002f
         border-radius: 5px
@@ -38,6 +37,11 @@
         canvas
             background: #000000
             position: absolute
+            align-self: center
+        h3.side-panel-name
+            position: absolute
+            z-index: 100
+            margin-top: 0px
         .dialog-text-wrapper
             text-align: left
             span
@@ -78,3 +82,7 @@
 
 .backpack-body::-webkit-scrollbar-thumb:window-inactive
     background: rgba(255,0,0,0.1)
+
+
+.complete-task
+    color: $orange-color

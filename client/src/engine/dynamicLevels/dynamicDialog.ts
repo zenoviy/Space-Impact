@@ -1,6 +1,7 @@
 import { doorFunctionality } from './dynamicLevelInteractiveElements';
 import { openInventory, hideInventory } from './playerUnitModule';
 import { createSimpleElements } from '../../appMenu/pagesBuilder';
+import { writeDataToJournal, completeJournalTask } from './journalModules';
 
 
 
@@ -109,6 +110,7 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
                 inventory: groundPlayer.inventory,
                 targetDialog: answerButtons.id,
                 dialogTextId: `main-dialog-arrea-${ localId }`,
+                mainGameObject: mainGameObject
             })
 
             if(!answerState) return false
@@ -153,7 +155,7 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
 
 
 
-function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDialog, dialogTextId }){
+function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDialog, dialogTextId, mainGameObject }){
     let dialogTextArea = document.querySelector('#' + dialogTextId);
     let npcDetails = currentDialogCharacter.details;
     let requireObject = npcDetails.rules.require;
@@ -165,6 +167,13 @@ function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDi
     let taskCompleate = true;
     if(dialogArea && requireObject){
         if(dialogArea.numberOfRequireItems){
+            writeDataToJournal({
+                mainGameObject: mainGameObject,
+                dialogArea: dialogArea,
+                requireData: requireData,
+                npcDetails: npcDetails,
+                requireObject: requireObject
+            })
             if(requireData){
                 taskCompleate = (dialogArea.numberOfRequireItems &&
             requireData.numberOfItems === parseInt(dialogArea.numberOfRequireItems))? true: false;
@@ -276,8 +285,13 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
         let previewPicture = (objectDetails.rules.objectPicture)? objectDetails.rules.objectPicture :  process.env.HOST + objectDetails.texture;
 
         if(mainGameObject.mapNearActiveElement.details.rules.contain){
-    
-            deleteInventoryObject({ currentDialogCharacter: currentDialogCharacter, requireData: requireData, groundPlayer: groundPlayer })
+
+            deleteInventoryObject({
+                currentDialogCharacter: currentDialogCharacter,
+                requireData: requireData,
+                groundPlayer: groundPlayer,
+                mainGameObject: mainGameObject
+            })
             saveObjectToBackPack({
                 groundPlayer: groundPlayer,
                 data: mainGameObject.mapNearActiveElement.details.rules.contain,
@@ -295,7 +309,7 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
 
 
 
-function deleteInventoryObject ({ currentDialogCharacter, requireData, groundPlayer }){
+function deleteInventoryObject ({ currentDialogCharacter, requireData, groundPlayer, mainGameObject }){
     if(!currentDialogCharacter) return false
     let requireStatment = currentDialogCharacter.details.rules.require;
     if(!requireStatment) return false
@@ -304,6 +318,8 @@ function deleteInventoryObject ({ currentDialogCharacter, requireData, groundPla
     let searchDataName = requireData.innerData;
     let numberOfRequireElements = requireData.numberOfItems;
     let allRequireObjects = inventory.find(item =>item.innerData === searchDataName);
+
+    completeJournalTask({mainGameObject: mainGameObject, allRequireObjects: allRequireObjects})
 
     groundPlayer.inventory.splice(inventory.indexOf(allRequireObjects), 1)
 

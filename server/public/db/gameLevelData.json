@@ -17,7 +17,7 @@
             "numberOfItems": 1,
             "numberOfVerticalItems": 1
         },
-        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
+        "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
@@ -117,10 +117,10 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Communication \n Center",
-            "description": "Find important data"
+            "name": "City\n operation",
+            "description": "Take control of this area"
         },
-        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
+        "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBottomPart" : [
             {
@@ -239,7 +239,7 @@
             "name": "Night City Battle",
             "description": "Reach communication center"
         },
-        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
+        "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
@@ -358,7 +358,7 @@
             "name": "Communication Center",
             "description": "Find important data"
         },
-        "levelSound": "/public/sound/ambiant/03 Highway Star.mp3",
+        "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBottomPart" : [
             {
@@ -507,7 +507,7 @@
             "name": "Battle in canyon",
             "description": "Battlefield"
         },
-        "levelSound": "/public/sound/ambiant/Guitar-Mayhem.mp3",
+        "levelSound": "/public/sound/ambient/Guitar-Mayhem.mp3",
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
             "levelMap" : "/public/images/locations/canyon/canyon.png",
@@ -598,7 +598,7 @@
             "name": "White sands",
             "description": "Huge desert area with lost city"
         },
-        "levelSound": "/public/sound/ambiant/desert_theme.mp3",
+        "levelSound": "/public/sound/ambient/desert_theme.mp3",
         "levelMap" : "desert.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/desert/desert-sky.png",
@@ -699,7 +699,7 @@
             "name": "Cloud city",
             "description": "One of the largest and and modern city of the world"
         },
-        "levelSound": "/public/sound/ambiant/02_Main Theme.mp3",
+        "levelSound": "/public/sound/ambient/02_Main Theme.mp3",
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
@@ -836,7 +836,7 @@
             "name": "In the sky cloud",
             "description": "One of the space impactors try to escape "
         },
-        "levelSound": "/public/sound/ambiant/05 Peter Gunn Theme.mp3",
+        "levelSound": "/public/sound/ambient/05 Peter Gunn Theme.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
@@ -920,7 +920,7 @@
             "name": "Earth orbit",
             "description": "Leave Earth"
         },
-        "levelSound": "/public/sound/ambiant/gaseous tethanus_earth.mp3",
+        "levelSound": "/public/sound/ambient/gaseous tethanus_earth.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -985,7 +985,7 @@
             "name": "Moon outpost",
             "description": "Leave Earth"
         },
-        "levelSound": "/public/sound/ambiant/final battle_moon.mp3",
+        "levelSound": "/public/sound/ambient/final battle_moon.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1059,7 +1059,7 @@
             "name": "Solar Power Station",
             "description": "Power station near Mercury orbit"
         },
-        "levelSound": "/public/sound/ambiant/high in the mountains_sun.mp3",
+        "levelSound": "/public/sound/ambient/high in the mountains_sun.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1158,7 +1158,7 @@
             "name": "Venus",
             "description": "Arrive to Venus"
         },
-        "levelSound": "/public/sound/ambiant/endless sands_space2.mp3",
+        "levelSound": "/public/sound/ambient/endless sands_space2.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1207,7 +1207,7 @@
             "name": "Venus Clouds",
             "description": "Venus flying industrial city"
         },
-        "levelSound": "/public/sound/ambiant/underground cavern venus.mp3",
+        "levelSound": "/public/sound/ambient/underground cavern venus.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1285,7 +1285,7 @@
             "name": "Trip to Mars",
             "description": "Fly to Mars"
         },
-        "levelSound": "/public/sound/ambiant/ship interior_space_1.mp3",
+        "levelSound": "/public/sound/ambient/ship interior_space_1.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1345,7 +1345,7 @@
             "name": "Mars Alpha side",
             "description": "Mars colony largest city"
         },
-        "levelSound": "/public/sound/ambiant/lava city_mars.mp3",
+        "levelSound": "/public/sound/ambient/lava city_mars.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1459,7 +1459,7 @@
             "name": "Mars Alpha side",
             "description": "Mars colony largest city"
         },
-        "levelSound": "/public/sound/ambiant/running wild_mars boss2.mp3",
+        "levelSound": "/public/sound/ambient/running wild_mars boss2.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1573,7 +1573,7 @@
             "name": "Asteroid field",
             "description": "Asteroids"
         },
-        "levelSound": "/public/sound/ambiant/die vonstantine_asteroids.mp3",
+        "levelSound": "/public/sound/ambient/die vonstantine_asteroids.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1660,7 +1660,7 @@
             "name": "Jupiter fly By",
             "description": "Jupiter"
         },
-        "levelSound": "/public/sound/ambiant/stone fortress Jupiter.mp3",
+        "levelSound": "/public/sound/ambient/stone fortress Jupiter.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1745,7 +1745,7 @@
             "name": "Neptune arrive",
             "description": "Neptune orbit"
         },
-        "levelSound": "/public/sound/ambiant/the end_neptune.mp3",
+        "levelSound": "/public/sound/ambient/the end_neptune.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1827,7 +1827,7 @@
             "name": "Neptune ice",
             "description": "Final fight in the hart of enemy"
         },
-        "levelSound": "/public/sound/ambiant/Guitar-Mayhem-5.mp3",
+        "levelSound": "/public/sound/ambient/Guitar-Mayhem-5.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",

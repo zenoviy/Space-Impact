@@ -223,7 +223,34 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
 
             },
             getObjectPosition: getUIObjectPosition
-        }
+        }, {
+            name: "Game controls part 1",
+            text: (function(){
+                let mainGameObject = info.mainGameObject;
+                let dynamicLevelsActive = mainGameObject.gameInitData.dynamicLevelsActive;
+                let pause = mainGameObject.gameInitData.gamePause;
+                let gameControls = (dynamicLevelsActive)?
+                `esc - menu   P - pause  W - jump` :
+                `esc - menu   P - pause  I - inventory`
+                return gameControls
+            })(), // W - jump  D - right  A - left   LKM - shot  E - activate M - map I - inventory j - journal
+            description: "Game controll button tips [art 1",
+            clicked: false,
+            fontSize: "thin 10px Roboto",
+            properties:{
+                ctx: ctx,
+                width: -50,
+                height: 0,
+                x: width - 200,
+                y: height - 50,
+                background: false,
+                borderColor: 'rgba(255, 255, 255, 1)',
+                shadowColor: 'rgba(0, 0, 0, 1)',
+                radius: null,
+            },
+            init: init,
+            getObjectPosition: getUIObjectPosition
+        },
     ]
 }
 

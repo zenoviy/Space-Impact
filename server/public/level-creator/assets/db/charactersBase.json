@@ -185,7 +185,7 @@
             "height": 50,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/ambiant/collection/little_robot_sound_factory_Jingle_Win_Synth_01.mp3",
+                "levelSound": "/public/sound/ambient/collection/little_robot_sound_factory_Jingle_Win_Synth_01.mp3",
                 "soundLoop": false
             }
         }
@@ -229,7 +229,7 @@
             "height": 40,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
                 "soundLoop": false
             }
         }
@@ -273,7 +273,7 @@
             "height": 40,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
                 "soundLoop": false
             }
         }
@@ -317,7 +317,7 @@
             "height": 40,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
                 "soundLoop": false
             }
         }
@@ -361,7 +361,7 @@
             "height": 40,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
                 "soundLoop": false
             }
         }
@@ -405,7 +405,7 @@
             "height": 40,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
                 "soundLoop": false
             }
         }
@@ -450,7 +450,7 @@
             "height": 40,
             "central": true,
             "sound": {
-                "levelSound": "/public/sound/ambiant/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
                 "soundLoop": false
             }
         }

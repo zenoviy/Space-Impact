@@ -7,17 +7,21 @@
 
 */
 import { getData } from '../../server/serverRequestModules';
+import { loadGroundEnemy } from '../../server/gameDataRequestsServicesModule';
 
+
+/* ==========================
+
+load data from server
+filtered block, hide editor spawn block
+create enemy based on editor data
+
+ ========================== */
 
 async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
     let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
     let dynamicEnemy = [];
-    let resultGroundEnemyData = await getData({
-        url: dynamicEnemyCollection,
-        method: 'GET',
-        data: null,
-        headers: null
-    })
+    let resultGroundEnemyData = await loadGroundEnemy({dynamicEnemyCollection: dynamicEnemyCollection});
     let allEnemyOnMap = levelDynamicMapBlocks.filter( block => {
         return block.details.type === 'enemy_spawner' || block.details.type === 'npc_spawner';
     })
@@ -31,7 +35,6 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         return new constructors.DynamicEnemyConstructor({...prepareData})
     })
 
-    //console.log(allEnemyOnMap, 'all Enemy')
     for(let enemy of dynamicEnemy){
         enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects, enemy): false;
     }
@@ -45,17 +48,19 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
 
 
 
+/* ==========================
 
+special method to load single type of enemy from server
+to spawn hidden enemy
+
+
+
+ ========================== */
 
 async function loadEnemyToObjectArray ({ mainGameObject, levelDynamicMapBlocks, constructors, characterSelector }){
     let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
     let dynamicEnemy = [];
-    let resultGroundEnemyData = await getData({
-        url: dynamicEnemyCollection,
-        method: 'GET',
-        data: null,
-        headers: null
-    })
+    let resultGroundEnemyData = await loadGroundEnemy({dynamicEnemyCollection: dynamicEnemyCollection}); 
     let allEnemyOnMap = levelDynamicMapBlocks.filter( block => {
         return block.details.type === characterSelector;
     })
@@ -76,11 +81,11 @@ async function loadEnemyToObjectArray ({ mainGameObject, levelDynamicMapBlocks, 
 
 
 
-/*
+/* ==========================
 
 script to create grapple object based on NPC inner objects
 
-*/
+ ========================== */
 
 async function loadExtraObjectToGroundEnemy (extraObjects, enemy){
     let randomObject = extraObjects[Math.floor(Math.random() * extraObjects.length)],
@@ -117,7 +122,12 @@ async function loadExtraObjectToGroundEnemy (extraObjects, enemy){
 
 
 
+/* ==========================
 
+Method to move enemy, change dirrection
+and gravity effects
+
+ ========================== */
 
 async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformation: levelInformation }){
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
@@ -146,7 +156,11 @@ async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformatio
 
 
 
+/* ==========================
 
+Jump of enemy unit
+
+ ========================== */
 
 
 async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }){
@@ -160,7 +174,6 @@ async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }
             }
         }
         if(this.groundTouch && this.isJump && !this.isJumpDown){
-            
             let blockHeight = (this.jumpBlock)? this.jumpBlock.height + this.height : 0;
             blockHeight = (blockHeight > 120)? 120: blockHeight;
             this.jumpImpuls = (this.jumpSpeed * levelInformation.gravity + blockHeight) * -1;
@@ -174,23 +187,31 @@ async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }
 }
 
 
+/* ==========================
+
+Method to use stairs when enemy at the top of the leader
+
+ ========================== */
+
 
 function jumpDown ({ mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(extraSeconds % 10 === 0 ){
-        if(this.groundTouch && this.onLeader && this.isJumpDown && this.currentGroundBlock.details.type === "leader"){ // !this.currentGroundBlock
-           // console.log('leader down')
+        if(this.groundTouch && this.onLeader && this.isJumpDown && this.currentGroundBlock.details.type === "leader"){
             this.jumpImpuls = this.jumpSpeed;
             this.isRun = false;
             this.y += this.jumpImpuls;
         }
     }
-    // isJumpDown
 }
 
 
 
+/* ==========================
 
+init detect NPC and player
+
+ ========================== */
 function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectIntersectionDetect }){
     if(this.playerInRange) return false
     if(this.details.type != 'npc_spawner'){
@@ -340,7 +361,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             this.playerDirectionHorizontal = (this.playerDirectionHorizontal === 'right')? 'left' : 'right';
             this.isRun = true;
         }
-        //  find next block in front
+        // =============  find next block in front
         if(currentBlockIndex){
             indexOfNextBlock = (this.playerDirectionHorizontal === 'right')?
             currentBlockIndex + parseInt(this.currentGroundBlock.mapSizeVertical):
@@ -351,7 +372,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             })
             this.nextGroundBlock = (findHorizontalBlock)? findHorizontalBlock: null;
         }
-        // find block on the back
+        // ============= find block on the back
         if(currentBlockIndex && !this.nextGroundBlock){
             let backBlockIndex = (this.playerDirectionHorizontal === 'right')?
             currentBlockIndex - parseInt(this.currentGroundBlock.mapSizeVertical) - 1:
@@ -363,7 +384,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         }
 
 
-        // find block on the bottom
+        // ================  find block on the bottom
         if(!this.nextGroundBlock && this.currentGroundBlock){
             for(let blockNumber = 1; blockNumber <= maxBoxToMove; blockNumber++){
             findBottomBlock = allBlocks.find(block =>{
@@ -376,7 +397,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
             }
             this.nextBottomBlock = (findBottomBlock)? findBottomBlock: null;
         }
-        // stop on the edge
+        // =============== stop on the edge
         if(!this.nextGroundBlock && this.isRun && !this.playerInRange ||
             !this.nextGroundBlock && this.isRun && !findBottomBlock){
             this.changeModeRandomizer = Math.floor(Math.random() * this.unitRandomize + 100);

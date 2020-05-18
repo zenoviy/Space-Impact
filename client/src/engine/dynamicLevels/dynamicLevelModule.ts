@@ -79,7 +79,7 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
-    groundPlayer.playerDirectionVertical = null;
+    //groundPlayer.playerDirectionVertical = null;
 
     await backgroundMoveDuringMove({
         mainGameObject: mainGameObject,
