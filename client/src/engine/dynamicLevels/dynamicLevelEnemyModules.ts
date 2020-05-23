@@ -212,45 +212,55 @@ function jumpDown ({ mainGameObject }){
 init detect NPC and player
 
  ========================== */
-function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectIntersectionDetect }){
+async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectIntersectionDetect }){
     if(this.playerInRange) return false
-    if(this.details.type != 'npc_spawner'){
+    //if(this.details.type != 'npc_spawner'){
         for(let person of npcData){
-            if(person.details.type === 'npc_spawner'){
-               let findUnit = detectPlayer.call(this, {mainGameObject: mainGameObject, groundPlayer: person, allBlocks: allBlocks, objectIntersectionDetect: objectIntersectionDetect})
+
+            if(this.details.type === 'enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ||
+            this.details.type === 'npc_spawner' && person.details.type === 'enemy_spawner' && person.objectPresent ||
+            this.details.type === 'npc_spawner' && person.details.type === 'hidden_enemy_spawner' && person.objectPresent ||
+            this.details.type === 'hidden_enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent){
+               let findUnit = await detectPlayer.call(this, {mainGameObject: mainGameObject, groundPlayer: person, allBlocks: allBlocks, objectIntersectionDetect: objectIntersectionDetect})
                 if(findUnit){
+                    //console.log(this.details.type, person.details.type)
                     return findUnit
                 }
             }
         }
-    }
+    //}
 }
 
 
 
 async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectIntersectionDetect}){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
-    if(extraSeconds % 100 === 0){
+    if(extraSeconds % 200 === 0){
         if( this.playerInRange ) this.currentBehavior = "find";
        this.playerInRange = false;
     }
    if(!groundPlayer || !allBlocks || this.playerInRange) return false
-
+    if((this.x > window.innerWidth + 100 || this.x  < -100) ||
+    (this.y > window.innerHeight + 100 || this.y  < -100)) return false
 
     let distanceX = Math.max(this.x, groundPlayer.x) - Math.min(this.x, groundPlayer.x);
     let distanceY = Math.max(this.y, groundPlayer.y) - Math.min(this.y, groundPlayer.y);
-    let angle =  this.findAngleToShip({closestUnit: groundPlayer});
+    let angle = this.findAngleToShip({closestUnit: groundPlayer});
     if(this.currentBehavior === "destroy"){
         this.targetAngle = angle;
     }
+
     if(this.detectRange < distanceX || this.detectRange < distanceY) return false
     let findBarrier = {};
 
     let directionX = (this.x >= groundPlayer.x)? true : false;
     let directionY = (this.y >= groundPlayer.y)? true : false;
 
-    if(extraSeconds % 15 != 0) return false
+    let randomizerCheck = mainGameObject.gameRandomizer(50, 20);
+    if(extraSeconds % randomizerCheck != 0) return false
     let searchSteps = 5;
+
+
     if( distanceX && distanceY && !this.playerInRange){
         let localXRayIndex = 0, localYRayIndex = 0;
         let localXRay = this.x, localYRay = this.y;
@@ -296,6 +306,7 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
         this.playerInRange = true;
         this.currentBehavior = "destroy";
         this.targetAngle = angle;
+        //console.log(groundPlayer, this.objectOwner, "|||")
         return true
     }
 }
@@ -451,7 +462,6 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 this.isJumpDown = true;
                 this.isRun = false;
             }
-            // target.details.type === "leader"
         }
         if(this.currentWallBlock ){
             if(this.currentWallBlock.details.collision && this.currentWallBlock.details.type === "door"){
@@ -462,12 +472,10 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 let leftSide =  (this.currentWallBlock.x + this.currentWallBlock.width) - this.x;
 
                 this.x += (this.playerDirectionHorizontal === 'right')? rightSide -1 : leftSide;
-               // this.x += (this.playerDirectionHorizontal === 'right')? (this.speed * 2) * -1 : this.speed * 2;
                 this.currentBehavior = "find";
             }
         }
         this.currentWallBlock  = null;
-        //this.jumpBlock = null;
     }
 }
 
@@ -482,16 +490,19 @@ function groundEnemyShot({ mainGameObject, allBlocks, callback, constructors }){
         this.isShot = true;
         this.shotAngle = Math.floor(this.targetAngle);
 
-        callback.call(this, constructors.BulletConstruct,
-            mainGameObject, constructors.SoundCreator,
-            "groundEnemyBullet", "allGroundGameBullets")
+        callback.call(this,
+            constructors.BulletConstruct,
+            mainGameObject,
+            constructors.SoundCreator,
+            (this.details.type === 'npc_spawner')? "player" : "groundEnemyBullet",
+            "allGroundGameBullets")
+        if(this.details.type === 'npc_spawner') this.playerInRange = false
     }
 }
 
 
 
-function respawnEnemy ({ mainGameObject, constructors }){ //  "scripts": "respawnEnemy",
-
+function respawnEnemy ({ mainGameObject, constructors }){
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     loadEnemyToObjectArray({
         mainGameObject: mainGameObject,

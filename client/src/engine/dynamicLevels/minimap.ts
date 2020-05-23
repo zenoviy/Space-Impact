@@ -26,7 +26,12 @@ function createMapRenderField ({ mainGameObject }){
         }
 
         openInventory()
-        createMapContext({ mainGameObject: mainGameObject, allBlocks: allBlocks, mapProps: mapProps, groundPlayer: groundPlayer})
+        createMapContext({
+            mainGameObject: mainGameObject,
+            allBlocks: allBlocks,
+            mapProps: mapProps,
+            groundPlayer: groundPlayer
+        })
     }else {
         hideInventory()
     }

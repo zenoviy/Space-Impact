@@ -275,6 +275,8 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
 
+    let lastActionVertical = groundPlayer.playerDirectionVertical;  // this.playerDirectionVertical === "down"
+
     //groundPlayer.playerDirectionHorizontal = playerDirection;
     switch (playerDirection){
         case "down":
@@ -293,6 +295,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             break
     }
     groundPlayer.xPos =  (xPos)? xPos : groundPlayer.xPos;
+    //console.log(groundPlayer.leftWallTouch, groundPlayer.rightWallTouch, groundPlayer.groundTouch)
     for(let block of dynamicLevelMapBlocks){
         if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch ||
         groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch){
@@ -303,13 +306,14 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
         if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" || 
         yPos  && groundPlayer.onElevator){
             if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
-                mainGameObject.gameInitData.gameData.levelData.jumpImpuls +=  2;
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls +=  2 + ((lastActionVertical === "down")? 1 : 0);
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
                 groundPlayer.groundTouch = false;
             }
             if(groundPlayer.onElevator && groundPlayer.playerDirectionVertical === "up"){
-                mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6;
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6 + ((lastActionVertical === "down")? 1 : 0);
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
+
                 groundPlayer.groundTouch = false;
             }
             block.verticalSpeed = yPos;

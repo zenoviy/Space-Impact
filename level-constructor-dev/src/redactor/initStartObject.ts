@@ -94,8 +94,8 @@ function backToObject({data, constructor}){
 
 async function renderBlockBox({ mainObject }){
 
-    if(this.yMove > 0 - 100 && this.xMove > 0 - 100 && this.yMove < window.innerHeight + 100 && this.xMove < window.innerWidth + 100){
-        if(!this.details) createFrame.call(this, { mainObject: mainObject })
+if(this.yMove > 0 - 100 && this.xMove > 0 - 100 && this.yMove < window.innerHeight + 100 && this.xMove < window.innerWidth + 100){
+    if(!this.details) createFrame.call(this, { mainObject: mainObject })
         else{
            await backgroundRender.call(this, { mainObject: mainObject })
            await createBlockPicture.call(this, { mainObject: mainObject })
@@ -104,7 +104,10 @@ async function renderBlockBox({ mainObject }){
 }
 
 function blockAnimationRender({ block }){
-    block.blockAnimations()
+    if(this.yMove > 0 - 100 && this.xMove > 0 - 100 && this.yMove < window.innerHeight + 100 && this.xMove < window.innerWidth + 100){
+        block.blockAnimations()
+    }
+    
 }
 
 

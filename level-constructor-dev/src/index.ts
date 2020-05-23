@@ -21,8 +21,7 @@ V- create map net
             V- y
             V- description
             V- rulers
-            - elevator speed
-            - direction
+            V- elevator speed
 V- side panel
     V- new map
         V- map name
@@ -101,7 +100,7 @@ V- add NPC
         mainObject.clearView()
         //console.log(mainObject.allRedactorBlock)
         for(let block of mainObject.allRedactorBlock){
-            if(block.xMove > 0 && block.xMove < window.innerWidth ||  block.yMove > 0 && block.yMove < window.innerHeight){
+            if(block.xMove > 0 -100 && block.xMove < window.innerWidth + 100 &&  block.yMove > 0 -100 && block.yMove < window.innerHeight + 100){
                 await block.renderBlockBox({ mainObject: mainObject })
                await block.elevatorMove()
                await blockAnimationRender({ block: block })

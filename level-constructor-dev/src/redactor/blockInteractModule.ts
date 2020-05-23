@@ -74,6 +74,9 @@ function changeObjectModel({ result, mainObject }){
         currentBlock.backgroundTexture = null;
     }else if(mainObject.selectedBlockPanelItem.destroyer === 'redactorDecoration'){
         currentBlock.backgroundTexture = null;
+        if(!currentBlock.backgroundTexture && currentBlock.details.type === 'background-wall'){
+            currentBlock.details = null;
+        }
     }
 
    // console.log(mainObject.selectedBlockPanelItem, "||")

@@ -5,6 +5,7 @@ import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
 import { loadExtraObject } from '../../ai/regularEnemyAiModules';
 import * as constructors from '../../constructors';
 import { hideInventory } from '../dynamicLevels/playerUnitModule';
+import { backgroundAdjustment } from '../dynamicLevels/dynamicLevelModule';
 
 async function nextLevelDataReload(levelData, constructors){
     hideInventory()
@@ -66,6 +67,9 @@ async function nextLevelDataReload(levelData, constructors){
         levelDynamicMapBlocks: context.gameInitData.dynamicLevelMapBlocks,
         constructors: constructors  }) : [];
     this.mapSoundChanger({soundStatus:'regular_level'})
+
+    backgroundAdjustment({mainGameObject: this})
+    //console.log(1)
 }
 function horizontalVerticalSearch(mainObject, refreshLevel){
     for(let [key, value] of Object.entries(mainObject)){

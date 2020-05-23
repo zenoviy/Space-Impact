@@ -4,7 +4,7 @@ import { preloadImage } from '../engineModules';
 import { loadWindow } from '../../ui/loadScreen';
 import { horizontalVerticalSearch, renewPlayerShip } from './changeLevels';
 const { ipcRenderer, remote } = require( "electron" );
-import { loadLevelMap } from '../dynamicLevels/dynamicLevelModule';
+import { loadLevelMap, backgroundAdjustment } from '../dynamicLevels/dynamicLevelModule';
 import { loadLevelEnemy } from '../dynamicLevels/dynamicLevelEnemyModules';
 import { initGroundPlayer } from '../dynamicLevels/playerUnitModule';
 import * as constructors from '../../constructors';
@@ -49,7 +49,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
-    let level = 1, shipType = 3, shipLife = 5;
+    let level = 3, shipType = 1, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameDialogField = document.querySelector('#gameActionDialogfield'),
@@ -95,8 +95,6 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
         let dynamicLevelEnemy = (levelData.dynamicLevelsActive)? await loadLevelEnemy({
             levelDynamicMapBlocks: dynamicLevelMapBlocks,
             constructors: constructors }) : [];
-
-
         return {data: {
             ctx: null,
             gameField: (gameField)? gameField: null,
@@ -106,9 +104,11 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                gameCoins: 1000000,
+                gameCoins: 0,
                 playerObject: playerShipData,
-                groundPlayerCharacter: await initGroundPlayer({ DynamicUserConstructor: constructors.DynamicUserConstructor}),
+                groundPlayerCharacter: await initGroundPlayer({
+                    DynamicUserConstructor: constructors.DynamicUserConstructor
+                }),
                 levelData: levelData,
                 levelObjects: levelObjects,
                 grappleObjects: grappleObjects,

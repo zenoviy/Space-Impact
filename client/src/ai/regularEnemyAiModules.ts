@@ -164,14 +164,18 @@ async function spawnEnemyLogic( EnemyObject: any){
             for(let i = numberEnemyPerSpawn; i < levelData.enemyMaxNumber; i++){
                 let enemyShip = enemyData[ this.gameRandomizer(enemyData.length) ];
 
-                if(process.env.BOSS_LOAD_AT_LEVEL === 'true' && enemyShip.details.isBoss ||
-                enemyShip.details.subBoss && process.env.SUB_LOAD_AT_LEVEL === "true") return false
-                if(enemyShip.details.isBoss) process.env.BOSS_LOAD_AT_LEVEL = "true";
-                if(enemyShip.details.subBoss){
-                    process.env.SUB_LOAD_AT_LEVEL = "true";
+                if(process.env.BOSS_LOAD_AT_LEVEL === 'true' && enemyShip.details ||
+                process.env.SUB_LOAD_AT_LEVEL === 'true' && enemyShip.details){
+                    if( enemyShip.details.isBoss ||
+                    enemyShip.details.subBoss && process.env.SUB_LOAD_AT_LEVEL === "true") return false
+                    if(enemyShip.details.isBoss) process.env.BOSS_LOAD_AT_LEVEL = "true";
+                    if(enemyShip.details.subBoss){
+                        process.env.SUB_LOAD_AT_LEVEL = "true";
+                    }
                 }
 
                 let enemyShipObject = await this.createNewEnemy( { enemyData: enemyShip, EnemyObject: EnemyObject });
+                if(!enemyShipObject) return false
                 enemyShipObject.loadTexture();
                 this.gameInitData.allGameEnemies = this.gameInitData.allGameEnemies.concat(enemyShipObject);
             }
@@ -179,7 +183,9 @@ async function spawnEnemyLogic( EnemyObject: any){
     }
 }
 async function createNewEnemy({ enemyData, EnemyObject }){
-    if(!enemyData) return console.error('no ship data')
+    if(!enemyData){ 
+        console.error('no ship data');
+        return false}
     let x = window.innerWidth + 300,
     y = this.gameRandomizer(window.innerHeight- 200, 100)
     if(enemyData.details){

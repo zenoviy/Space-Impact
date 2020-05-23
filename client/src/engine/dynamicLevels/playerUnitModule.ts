@@ -58,11 +58,11 @@ import { show, hide} from '../../appMenu/appMenu';
 import { angleFinder } from '../engineModules';
 import { createElements } from '../../appMenu/pagesBuilder';
 import { saveObjectToBackPack } from './dynamicDialog';
+//import * as constructors from '../../constructors/index';
 
 
 async function initGroundPlayer({ DynamicUserConstructor }){
     let character = await loadGroundPlayer();
-
     if(!character) return false
     let user = new DynamicUserConstructor({...character[0]});
     return user
@@ -157,7 +157,7 @@ function runAnimation({renewAnimation, layerDefaultSize, shotAngleAnimation}){
     }
 }
 
-function sittingAnimation({renewAnimation, shotAngleAnimation}){
+function sitingAnimation({renewAnimation, shotAngleAnimation}){
     if(this.numberOfItems != this.animations.sit.numberOfItems) renewAnimation.call(this);
 
         this.height = this.animations.sit.height;
@@ -217,13 +217,13 @@ function changeAnimationParameters(){
         replacerOfValue({ originalObject: this, dataToReplace: this.animations.death })
     }else if(this.objectOwner === "groundPlayer" && this.onLeader && this.playerDirectionVertical === "up" ||
     this.objectOwner === "groundPlayer" && this.onLeader && this.playerDirectionVertical === "down" ){
-       leaderAnimation.call(this, {
+        leaderAnimation.call(this, {
            renewAnimation: renewAnimation,
            shotAngleAnimation: shotAngleAnimation
         })
     }
     else if(this.playerDirectionVertical === "down" && !this.onLeader && this.objectOwner === "groundPlayer"){
-        sittingAnimation.call(this, {
+        sitingAnimation.call(this, {
             renewAnimation: renewAnimation,
             shotAngleAnimation: shotAngleAnimation
         })
@@ -243,17 +243,14 @@ function changeAnimationParameters(){
         })
     }
     else if( !this.groundTouch && !this.onElevator && this.objectOwner){
-        jumpAnimation({
+        jumpAnimation.call(this, {
             renewAnimation: renewAnimation,
             layerDefaultSize: layerDefaultSize,
             shotAngleAnimation: shotAngleAnimation
         })
     }
     this.sWidth = this.imageWidth/this.numberOfItems;
-    function renewAnimation(){
-        this.sx = 0;
-        this.detectFrame = 0;
-    }
+    
         this.onLeader = false;
         this.leaderClimb = false;
     function layerDefaultSize(){
@@ -287,7 +284,10 @@ function changeAnimationParameters(){
     }
 }
 
-
+function renewAnimation(){
+    this.sx = 0;
+    this.detectFrame = 0;
+}
 
 function replacerOfValue({ originalObject, dataToReplace }){
     for(let [key, value] of Object.entries(dataToReplace)){
@@ -306,19 +306,39 @@ function changeVerticalAnimationPicture(){
 }
 
 
+function groundPlayerMinusLife({mainGameObject, constructors}){
+    var levelData = mainGameObject.getLevelUserData();
+
+    let mainPlayerData = levelData.source.playerObject;
+    mainPlayerData.numberOflife -= 1;
+    //if(mainPlayerData.numberOflife > 0) this.healthPoint = this.defaultHealth
+
+            if(mainPlayerData.numberOflife <= 0){
+                mainGameObject.gameOverWindow()
+                mainGameObject.gameInitData.gameOver = true;
+                mainGameObject.mapSoundChanger({soundStatus:'game_over_screen'})
+                setTimeout(function(){
+                     mainGameObject.backToStartScreen(constructors)
+                }, 3000)
+                return
+            }
+}
 
 
-function backToTheMapAgain({ mainGameObject, player }){
+function backToTheMapAgain({ mainGameObject, player, constructors }){
+
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
 
     let maxDistance = 1000;
-    let closestBloc = allBlocks.find(block => {
+    let closestBlock = allBlocks.find(block => {
         if(Math.max(block.x, player.x) - Math.min(block.x, player.x) < maxDistance &&
         Math.max(block.y, player.y) - Math.min(block.y, player.y) < maxDistance) return block
     })
 
-    if(!closestBloc){
+    if(!closestBlock){
+        console.log("minus life")
+        groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
         let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
         let allGamesObject = [].concat(allGameBackgroundElements)
         let spawnPoint = allBlocks.find(obj => {
@@ -335,6 +355,10 @@ function backToTheMapAgain({ mainGameObject, player }){
         for(let map of allGamesObject ){
             map.y = map.defaultY;
         }
+        for(let enemy of allEnemy){
+            allEnemy.isRun = false;
+            allEnemy.groundTouch = true;
+        }
     }
 }
 
@@ -349,7 +373,6 @@ function groundPlayerShot({ groundPlayer, event }){
         : groundPlayer.playerDirectionHorizontal = "right";
         return false
     }
-
     if(groundPlayer.playerDirectionHorizontal === "left" && angle > 90 && angle <= 270)return angle
     else if(groundPlayer.playerDirectionHorizontal === "right" && angle > 270 && angle <= 360 || groundPlayer.playerDirectionHorizontal === "right" && angle > 0 && angle <= 90) return angle
     else return false

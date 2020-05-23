@@ -62,7 +62,25 @@ async function generateInput({fileContainer, target}){
             blockPreviewImage['height'] = target.height;
         fileContainer.appendChild(itemData);
 
-
+        console.log(blockDetails)
+    if(blockDetails.type === 'elevator'){
+        innerText = `
+        <h1>Elevator range</h1>
+        <input id="elevator-range-${currentDescriptionId}" type="number" min="100" value=${blockDetails.valueOfMove}>
+        <button data-target='save-elevator-range-btn' class="main-btn">Save Elevator Range</button>`
+        itemData = elementCreator({
+            tagname: "div",
+            classList: 'single-block-description',
+            innerText: innerText,
+            idName: ''
+        })
+        fileContainer.appendChild(itemData);
+    }
+    /*
+    "valueOfMove": 150,
+        "currentValueOfMove": 150,
+        "constructorValueOfMove": 150,
+    */
 
     /*  ==============================    Description  ===================== */
     if(blockDetails.description){
@@ -162,7 +180,7 @@ async function generateInput({fileContainer, target}){
             <span>laptop_with_data</span>
             <span>tools_case</span>
             </p>
-            
+
             <textarea type='text' id=${'contain-field-'+ currentDescriptionId} >${(blockDetails.rules.contain)? blockDetails.rules.contain : ''}</textarea>
             <img width="100" id=${'contain-picture-'+ currentDescriptionId}
             src="${mainPicture}">
@@ -201,9 +219,24 @@ async function generateInput({fileContainer, target}){
     // change-size
     fileContainer.addEventListener('click', async function(event){
         //console.log('sdfd', event.target.dataset.target)
+        /*
+    "valueOfMove": 150,
+        "currentValueOfMove": 150,
+        "constructorValueOfMove": 150,
+    */
         let fieldName = '';
         let fieldResults: boolean;
-        switch(event.target.dataset.target){
+        switch(event.target.dataset.target){ // save-elevator-range-btn
+            case 'save-elevator-range-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'valueOfMove',
+                    fieldSelector: '#elevator-range-'+ currentDescriptionId,
+                    target: target.details
+                })
+                fieldName = (fieldResults)? 'width is set': ' save width field';
+                blockPreviewImage['width'] = target.width;
+                blockPreviewImage['height'] = target.height;
+                break;
             case 'save-width-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'width',

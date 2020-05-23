@@ -54,7 +54,6 @@ function mapMoveControllers({ mainObject }){
         event.preventDefault()
         let result = null;
         for( let block of mainObject.allRedactorBlock ){
-        //let copyOfblock = Object.assign({}, block)
             if(event.target['nodeName'] != 'CANVAS') continue
             result = collisionDetector({ object: block, target: {
                 x: event.clientX - event.target['offsetLeft'],
@@ -63,8 +62,6 @@ function mapMoveControllers({ mainObject }){
                 height: 5
             } })
             if(result){
-                
-                //console.log( block.index, " < Block index")
                 openRedactorWindow({ blockData: block, mainObject: mainObject })
                 changeObjectModel({ result: result, mainObject: mainObject})
                 break
@@ -151,7 +148,7 @@ function sidePanelItemsSelectProcess({ mainObject, blockItem }){
 
 function createDestroyBlock({ mainObject, selectItem }){
     let obj = document.createElement('div');
-    obj.className = 'single-block-item';
+    obj.className = 'single-block-item destroy-block-wrapper';
     obj.innerHTML = `<img title="${(selectItem === "redactorDecoration")? 'Delete only background': 'Delete block item'}" width="100%" src='${ globalVariable.__HOST + '/level-creator/assets/block/destroy.png' }'>`;
     obj.addEventListener('click', (event) => {
         sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: {

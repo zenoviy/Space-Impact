@@ -102,13 +102,19 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
         groundPlayer.xPos = 0;
     }
 
+    //console.log(process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH)
+    //console.log(groundPlayer.groundTouch, targetObject.groundTouch, groundPlayer.onElevator, "|||")
+    if(targetObject.groundTouch && !groundPlayer.onElevator ){
+        //targetObject.groundTouch = false;
+        return false
+    }  // if(targetObject.groundTouch && !groundPlayer.onElevator) return false
 
-    if(targetObject.groundTouch && !groundPlayer.onElevator) return false
     if(levelInformation.jumpImpuls != levelInformation.gravity && extraSeconds % 2 === 0){
         if(!groundPlayer.onElevator) levelInformation.jumpImpuls += 0.5;
     }
     if(groundPlayer.groundTouch){
-        levelInformation.jumpImpuls = (groundPlayer.onElevatorSpeed)?  groundPlayer.onElevatorSpeed + levelInformation.gravity + 0.6: levelInformation.gravity/2 * -1;
+        levelInformation.jumpImpuls = (groundPlayer.onElevatorSpeed)? groundPlayer.onElevatorSpeed + levelInformation.gravity + 0.6
+        : levelInformation.gravity/2 * -1;
     }
     if(groundPlayer.leftWallTouch || groundPlayer.rightWallTouch){
         levelInformation.horizontalSpeed = 0;
@@ -121,7 +127,9 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
     if(levelInformation.jumpImpuls > levelInformation.gravity*3) levelInformation.jumpImpuls = levelInformation.gravity;
     if(levelInformation.jumpImpuls * -1 > levelInformation.gravity*3) levelInformation.jumpImpuls = levelInformation.gravity * -1;
 
+    //console.log(levelInformation.jumpImpuls)
     for(let item of mapObjects){
+        //console.log(levelInformation.jumpImpuls)
         item.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
         item.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
     }
@@ -129,8 +137,9 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
         enemy.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
         enemy.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
     }
-    backToTheMapAgain({ mainGameObject: mainGameObject, player: groundPlayer })
+    backToTheMapAgain({ mainGameObject: mainGameObject, player: groundPlayer, constructors: constructors })
     groundPlayer.onStairs = 0;
+    //targetObject.groundTouch = false;
 }
 
 
@@ -177,6 +186,8 @@ Main method to detect collide and stop of block
 
 async function blockCollision({objectsToCollide, targetObject, objectIntersectionDetect, mainGameObject, explosionFire, constructors}){
     if(!objectsToCollide) return false
+    let floorCollision = false;
+    let currentActiveBlock;
 
     targetObject.groundTouch = false;
     targetObject.rightWallTouch = false;
@@ -184,9 +195,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.ceilingTouch = false;
     targetObject.onStairs = false;
     targetObject.currentWallBlock = null;
-    let floorCollision = false;
-    let currentActiveBlock;
-    targetObject.onElevator = false;
+    targetObject.onElevator = false;/**/
 
     for(let item of objectsToCollide){
         if(!item) continue
@@ -212,6 +221,8 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
            if(targetObject.objectOwner != "groundEnemy" && targetObject.objectOwner != "groundNPC" && item.details.type != 'npc_spawner') currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item})
         }
     }
+    //console.log(targetObject.leftWallTouch, targetObject.rightWallTouch)
+    //console.log(targetObject.groundTouch , "targetObject.groundTouch ")
 }
 
 
@@ -219,8 +230,8 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
 
 
 
-
-function findPointOfCollision({object, target, mainGameObject, explosionFire, constructors}){
+async function findPointOfCollision({object, target, mainGameObject, explosionFire, constructors}){
+    var moveStopState = true;
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
 
@@ -247,9 +258,10 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
 
     if(target.details.type === 'elevator' && this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC"){
         this.onElevator = true;
+        if(target.details.moveDirection === "vertical") this.playerDirectionVertical = "down";
     }
 
-    let grappleObject = dynamicLevelGrappleObjects({
+    let grappleObject =  dynamicLevelGrappleObjects({
         mainGameObject: mainGameObject,
         groundPlayer: this,
         target: target,
@@ -258,12 +270,6 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
     if(grappleObject) return false;
 
     if(target.details.type === "stairs-left" || target.details.type === "stairs-right"){
-        /*if(target.details.type === "stairs-left" &&  this.y + this.height < target.y + target.height - 10 &&
-            this.x + this.width < target.x + target.width  ||
-            target.details.type === "stairs-right" &&  this.y + this.height < target.y + target.height - 10 &&
-            this.x + this.width > target.x + target.width){
-                this.groundTouch = false;
-        }*/
         if(this.objectOwner != "groundPlayer"){
             //this.onStairs = true;
             stairsMove({
@@ -276,10 +282,11 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
             })
             return false
         }else if(!this.isRun){
-            this.isRun = false;
+            //console.log(this.groundTouch)
             this.isJump = false;
             this.jumpImpuls = 0;
             this.groundTouch = true;
+            console.log(11)
             return false
         }
     }
@@ -302,7 +309,8 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
         targetY: targetY,
         levelInformation: levelInformation,
         collision: collision,
-        isWall: isWall
+        isWall: isWall,
+        y: y
     })
     if(target.details.type === "leader"){
         this.onLeader = true;
@@ -313,16 +321,7 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
     }
 
     // ==========================================
-    rightSideBlockCollision.call(this, {
-        mainGameObject: mainGameObject,
-        target: target,
-        targetX: targetX,
-        targetY: targetY,
-        levelInformation: levelInformation,
-        x: x,
-        y: y
-    })
-    leftSideBlockCollision.call(this, {
+    leftRightBlockInteract.call(this, {
         mainGameObject: mainGameObject,
         target: target,
         targetX: targetX,
@@ -332,6 +331,8 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
         y: y
     })
 
+    //console.log(this.groundTouch)
+    // =============================================
     if(targetY + target.height > this.y && this.y + this.height > targetY + target.height &&
         !isBottomWall  && collision && target.details.type != 'elevator' && !this.groundTouch){
         //console.log('Top side of block', target)
@@ -341,6 +342,7 @@ function findPointOfCollision({object, target, mainGameObject, explosionFire, co
                 return false
             }
             this.ceilingTouch = true;
+            this.groundTouch = false;
         }
     }
     return floorCollision
@@ -356,7 +358,50 @@ block side collision detect
 
 ============== */
 
-function groundBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, collision, isWall}){
+
+
+function leftRightBlockInteract({mainGameObject, target, targetX, targetY, levelInformation, x, y}){
+    if(this.rightWallTouch || this.leftWallTouch) return false
+    let stearsStateProps = {
+        state: false
+    }
+    let moveStopState = true;
+
+    moveStopState =  rightSideBlockCollision.call(this, {
+        mainGameObject: mainGameObject,
+        target: target,
+        targetX: targetX,
+        targetY: targetY,
+        levelInformation: levelInformation,
+        x: x,
+        y: y
+    })
+    if(!moveStopState) return false
+    moveStopState =  leftSideBlockCollision.call(this, {
+        mainGameObject: mainGameObject,
+        target: target,
+        targetX: targetX,
+        targetY: targetY,
+        levelInformation: levelInformation,
+        x: x,
+        y: y
+    })
+
+    //this.groundTouch = false
+   //console.log(stearsStateProps.state, '||')
+}
+
+async function groundBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, collision, isWall, y}){
+    if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && isWall){
+        //if(y < this.height && y > this.height - 5){
+            let playerMeedle = this.width/2;
+        if(this.y + this.height > targetY && this.x + playerMeedle/2 > targetX &&
+            ((this.x + this.width) - playerMeedle/2) < targetX + target.width){
+            //this.groundTouch = true;
+            //console.log('bottom')
+            //return false
+        }/**/
+    }
     if(this.y + this.height < targetY + target.height/2 && collision && !isWall &&
         target.details.type != "stairs-left" && target.details.type != "stairs-right"){
         // console.log("Ground To" )
@@ -370,9 +415,7 @@ function groundBlockCollision({mainGameObject, target, targetX, targetY, levelIn
                     player: this
                 })
            }else{
-                this.currentGroundBlock = target;
                 if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC"){
-
                     levelInformation.jumpImpuls = levelInformation.gravity
                 }
                 if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){
@@ -382,11 +425,13 @@ function groundBlockCollision({mainGameObject, target, targetX, targetY, levelIn
                 }
                 this.groundTouch = true;
            }
+           this.currentGroundBlock = target;
        }
     }
+    return true
 }
 
-function rightSideBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, x, y}){
+function rightSideBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, x, y, stearsStateProps}){
     if( this.x < targetX && this.x + this.width > targetX &&
         this.y + this.height > targetY + 5 && this.playerDirectionHorizontal === 'right'){
             if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && target.height < 20 ||
@@ -397,10 +442,12 @@ function rightSideBlockCollision({mainGameObject, target, targetX, targetY, leve
                 return false
             }
             if(target.details.type === "stairs-left"){
+               // this.rightWallTouch = false;
                 this.rightWallTouch = false;
-                this.rightWallTouch = false;
+                //this.groundTouch = false;
+                let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
                 this.groundTouch = false;
-                stairsMove({
+               stairsMove({
                     mainGameObject: mainGameObject,
                     levelInformation: levelInformation,
                     stairs: target,
@@ -414,9 +461,8 @@ function rightSideBlockCollision({mainGameObject, target, targetX, targetY, leve
                 if(target.details.type === 'elevator' ){
                     return false
                 }
+                //console.log('right wall Touch')
                 this.rightWallTouch = true;
-                //let rightSide = (this.x + this.width) - targetX;
-                //let leftSide =  (targetX + target.width) - this.x;
                 if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){
                     if(target.details.type != "leader" && target.details.collision && this.y > targetY){
                         let rightSide = (this.x + this.width) - targetX;
@@ -428,15 +474,19 @@ function rightSideBlockCollision({mainGameObject, target, targetX, targetY, leve
                     this.groundTouch = true;
                 }
                 this.currentWallBlock = target;
+                return false
                 //console.log('Right side of block V!')
             }
         }
+        return true
 }
 
-function leftSideBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, x, y}){
+function leftSideBlockCollision({mainGameObject, target, targetX, targetY, levelInformation, x, y, stearsStateProps}){
     if(this.x < targetX + target.width && this.x + this.width > targetX  && this.x > targetX &&
         this.y + this.height > targetY + 5 &&
         this.playerDirectionHorizontal === 'left'){
+            this.leftWallTouch = true; 
+            //console.log(1, this.leftWallTouch)
             if( this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && target.height < 20 ||
             this.groundTouch && this.y + this.height >= targetY - 20 && targetY - 20 > this.y && this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC"){
                 this.leftWallTouch = false;
@@ -445,10 +495,10 @@ function leftSideBlockCollision({mainGameObject, target, targetX, targetY, level
                 return false
             }
             if(target.details.type === "stairs-right"){
-                this.rightWallTouch = false;
+                //this.rightWallTouch = false;
                 this.leftWallTouch = false;
                 this.groundTouch = false;
-                stairsMove({
+               stairsMove({
                     mainGameObject: mainGameObject,
                     levelInformation: levelInformation,
                     stairs: target,
@@ -456,8 +506,10 @@ function leftSideBlockCollision({mainGameObject, target, targetX, targetY, level
                     x: x,
                     y: y
                 })
+                this.groundTouch = false;
+                //console.log('left', groundPlayer.groundTouch)
                 return false
-            }
+            } /**/
            if(target.details){
                if(target.details.type === 'elevator' ){
                    return false
@@ -474,9 +526,11 @@ function leftSideBlockCollision({mainGameObject, target, targetX, targetY, level
                     this.groundTouch = true;
                 }
                 this.currentWallBlock = target;
+                return false
                //console.log('Left side of block V')
            }
-   }
+    }
+   return true
 }
 
 /*===============
@@ -613,7 +667,20 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
              item.speed = ( groundPlayer.playerDirectionHorizontal === 'right')? (item.defaultSpeed/2): (item.defaultSpeed/2) * -1;
             if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos ||
                 !groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && !groundPlayer.groundTouch && xPos) item.x -= item.speed;
-            if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch)item.y -= item.defaultSpeed * (jumpImpuls/10)
+            if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch ) item.y -= item.defaultSpeed * (jumpImpuls/10)
+
+            if(groundPlayer.currentGroundBlock){
+                if(groundPlayer.currentGroundBlock.details.type === 'elevator' ){
+                    let elevatorSpeed = groundPlayer.currentGroundBlock.details.speed;
+                    if(item.speed != 0 && groundPlayer.groundTouch && groundPlayer.onElevator && !groundPlayer.ceilingTouch && groundPlayer.currentGroundBlock.details.moveDirection === "vertical"){
+
+                        item.y -= (!groundPlayer.currentGroundBlock.details.currentDirection)? (item.defaultSpeed/(jumpImpuls ) * (elevatorSpeed/10)) : 0;
+                    }else if(item.speed != 0 && groundPlayer.groundTouch && groundPlayer.onElevator && !groundPlayer.ceilingTouch && groundPlayer.currentGroundBlock.details.moveDirection === "horizontal"){
+                        item.x -= (!groundPlayer.currentGroundBlock.details.currentDirection)? (item.defaultSpeed/(elevatorSpeed)) * -1 : item.defaultSpeed/(elevatorSpeed)
+                    }
+                }
+            }
+
         }
         if(item instanceof constructors.EnemyObject){
             if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
@@ -640,6 +707,37 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
     }
 }
 
+
+
+
+function backgroundAdjustment({mainGameObject}){
+    //console.log("map-position", mainGameObject.gameInitData.dynamicLevelsActive, mainGameObject.gameInitData.mapBackgroundObjects)
+    if(!mainGameObject.gameInitData.dynamicLevelsActive || mainGameObject.gameInitData.mapBackgroundObjects.length === 0) return false
+    let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
+    let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+    let levelInformation = mainGameObject.gameInitData.gameData.levelData;
+
+    let upperObjectYNumber = {
+        y: Infinity,
+        object: null
+    };
+    for(let i = 0; i < allBlocks.length; i++){
+        if(allBlocks[i].y < upperObjectYNumber.y){
+            upperObjectYNumber.y = allBlocks[i].y;
+            upperObjectYNumber.object = allBlocks[i];
+        }
+    }
+    let userUpperWidth = groundPlayer.y - ((upperObjectYNumber.y < Infinity)? upperObjectYNumber.y : 0);
+
+    for(let background of allGameBackgroundElements){
+        if(!background.defaultSpeed) continue
+        background.y -= background.defaultSpeed*(userUpperWidth/(levelInformation.gravity*2)) - 100;//-100//(background.defaultSpeed/(levelInformation.jumpImpuls ))
+        background.defaultY = background.y;
+    }
+    //item.y -= (!groundPlayer.currentGroundBlock.details.currentDirection)? (item.defaultSpeed/(jumpImpuls ) * (elevatorSpeed/10)) : 0;
+}
+
 export {
     loadLevelMap,
     mapGravityInit,
@@ -648,5 +746,6 @@ export {
     elevatorMove,
     backgroundMoveDuringMove,
     stairsMove,
-    npcCollisionDetect
+    npcCollisionDetect,
+    backgroundAdjustment
 }

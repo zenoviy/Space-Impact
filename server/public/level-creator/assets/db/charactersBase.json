@@ -26,6 +26,32 @@
         "detectFrame": 0
     },
     {
+        "id": "character_spawner_car",
+        "texture": "/level-creator/assets/charactersObjects/car-military-part-1.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/car-military-part-1.png",
+        "description": "spawn point of player",
+        "type": "spawner",
+        "collision": false,
+        "innerObject": "main_character",
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Clear the level"
+        },
+        "mapColor": "#37FF00",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 1,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+    {
         "id": "escape_door",
         "texture": "/level-creator/assets/charactersObjects/escape_door.png",
         "description": "door to escape the level",
@@ -43,6 +69,92 @@
         "imageWidth": 59,
         "imageHeight": 58
     },
+
+
+
+
+
+    {
+        "id": "ship_back",
+        "collision": false,
+        "texture": "/level-creator/assets/block/background/ship_back.png",
+        "description": "background block",
+        "isDestroy": false,
+        "type": "background-wall",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },{
+        "id": "ship_cockpit",
+        "texture": "/level-creator/assets/charactersObjects/cockpit-1.png",
+        "description": "cockpit to escape the level",
+        "type": "exit",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "require": "computer_data",
+            "contain": "exit",
+            "requireText": "You must find computer Data first",
+            "successText": "Congratulation",
+            "innerObject": null
+        },
+        "mapColor": "#FFFF00",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "ship_nose",
+        "collision": false,
+        "texture": "/level-creator/assets/block/background/ship_nose.png",
+        "description": "background block",
+        "isDestroy": false,
+        "type": "background-wall",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },{
+        "id": "ship_nose_end",
+        "collision": false,
+        "texture": "/level-creator/assets/block/background/ship_nose_end.png",
+        "description": "background block",
+        "isDestroy": false,
+        "type": "background-wall",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+
+
+
+
+
+
     {
         "id": "computer_with_data",
         "texture": "/level-creator/assets/charactersObjects/computer-3.png",
@@ -63,14 +175,44 @@
         "imageHeight": 58
     },
     {
+        "id": "computer_with_data_2",
+        "texture": "/level-creator/assets/charactersObjects/computer-center.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/computer-center-prev.png",
+        "description": "computer with data",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Press 'E' to collect the data",
+            "require": null,
+            "contain": "computer_data",
+            "requireText": null,
+            "successText": "You get computer Data now you can continue you journey",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+    {
         "id": "elevator_1",
         "texture": "/level-creator/assets/charactersObjects/elevator.png",
         "description": "Elevator vertical",
         "speed": 2,
         "moveDirection": "vertical",
-        "valueOfMove": 150,
-        "currentValueOfMove": 150,
-        "constructorValueOfMove": 150,
+        "valueOfMove": 50,
+        "currentValueOfMove": 0,
+        "constructorValueOfMove": 50,
         "currentDirection": true,
         "constructorDirection": true,
         "backgroundTexture": null,
@@ -86,9 +228,9 @@
         "description": "Elevator horizontal",
         "speed": 2,
         "moveDirection": "horizontal",
-        "valueOfMove": 150,
-        "currentValueOfMove": 150,
-        "constructorValueOfMove": 150,
+        "valueOfMove": 50,
+        "currentValueOfMove": 0,
+        "constructorValueOfMove": 50,
         "currentDirection": true,
         "constructorDirection": true,
         "backgroundTexture": null,
@@ -101,6 +243,46 @@
     {
         "id": "leader_1",
         "texture": "/level-creator/assets/charactersObjects/leader-1.png",
+        "description": "leader",
+        "speed": 2,
+        "moveDirection": "vertical",
+        "constructorDirection": true,
+        "backgroundTexture": null,
+        "type": "leader",
+        "collision": false,
+        "mapColor": "#ADA507",
+        "imageWidth": 59,
+        "imageHeight": 58
+    }, {
+        "id": "leader_1a",
+        "texture": "/level-creator/assets/charactersObjects/leader-1-outside.png",
+        "description": "leader",
+        "speed": 2,
+        "moveDirection": "vertical",
+        "constructorDirection": true,
+        "backgroundTexture": null,
+        "type": "leader",
+        "collision": false,
+        "mapColor": "#ADA507",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "leader_2",
+        "texture": "/level-creator/assets/charactersObjects/leader-2.png",
+        "description": "leader",
+        "speed": 2,
+        "moveDirection": "vertical",
+        "constructorDirection": true,
+        "backgroundTexture": null,
+        "type": "leader",
+        "collision": false,
+        "mapColor": "#ADA507",
+        "imageWidth": 59,
+        "imageHeight": 58
+    }, {
+        "id": "leader_3",
+        "texture": "/level-creator/assets/charactersObjects/leader-1-outside_side.png",
         "description": "leader",
         "speed": 2,
         "moveDirection": "vertical",

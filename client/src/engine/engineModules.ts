@@ -4,6 +4,7 @@ var storage = require('electron-json-storage');
 import mergeImages from 'merge-images';
 import { draw } from '../view/displayModules';
 import { addClassList, removeClassList } from '../appMenu/appMenu';
+import { backgroundAdjustment } from './dynamicLevels/dynamicLevelModule';
 const { ipcRenderer, remote } = require( "electron" );
 
 
@@ -69,7 +70,7 @@ function warpEffect (constructors){
 
 
 
-function levelInit (GameBackground, ctx, mainGameObject){
+async function levelInit (GameBackground, ctx, mainGameObject){
     let gameData = this.showLevelData();
     let allBackgroundElements = gameData.levelBackgroundElements;
     let levelStandartMap = gameData.levelStandartMap;
@@ -77,9 +78,9 @@ function levelInit (GameBackground, ctx, mainGameObject){
 
     loadMapBackgroud.call(this, allBackgroundElements)
     if(gameData.levelBottomPart){
-        loadMapBackgroud.call(this, gameData.levelBottomPart, window.innerHeight-200, window.innerHeight + 300)
+        await loadMapBackgroud.call(this, gameData.levelBottomPart, window.innerHeight-200, window.innerHeight)
+        backgroundAdjustment({mainGameObject: mainGameObject})
     }
-
 
     function loadMapBackgroud ( backgroundElementsArr, yPosition , height){
         for(let mapObject of backgroundElementsArr){
