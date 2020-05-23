@@ -1,0 +1,27 @@
+Rebuild App to standalone version
+
+	1) rebuild server routs to local json reader
+
+	V - level-data
+	V - level-objects
+	V - grapple-objects
+	V - user-ship
+	V - enemy-ship
+	V - get-ground-characters
+	V - api/shop/guns 
+	V - api/grapple-objects 
+	
+	2) picture absolute url rebuild to Base64 encoding
+		- editor must save picture in this format
+		- transform picture
+	3) Ground level area
+		- grapple objects
+		- inventory
+		- enemy spawn
+		
+	4) Make shop work with local json files
+		- buy/sell
+		- hangar
+		- switch list
+		
+	5) save result local to AppData

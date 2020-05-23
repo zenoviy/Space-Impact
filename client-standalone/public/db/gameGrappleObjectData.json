@@ -1,0 +1,417 @@
+[
+    {
+        "id": "lifepoint",
+        "name": "lifepoint",
+        "probability": 500,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 1826,
+        "imageHeight":200,
+        "animationSteps": 10,
+        "numberOfItems": 9,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 30,
+        "height": 30,
+        "skinName": "/public/images/misc/grapple-objects/life.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "life",
+            "description": "add 1 life for player",
+            "value": 1,
+            "methodName": "addPlayerLife"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-life.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/little_robot_sound_factory_Jingle_Win_Synth_01.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+
+    {
+        "id": "goldCoin",
+        "name": "goldCoin",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 700,
+        "imageHeight":200,
+        "animationSteps": 5,
+        "numberOfItems": 6,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 25,
+        "height": 25,
+        "skinName": "/public/images/misc/grapple-objects/animated-coin.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "coin",
+            "description": "coin",
+            "value": 100,
+            "methodName": "collectCoin"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+    {
+        "id": "Reaper-box",
+        "name": "Reaper-box",
+        "loadImage": "static/shop/store/Reaper.png",
+        "background": "static/shop/misc/blue-card.png",
+        "probability": 100,
+        "objectOwner": "grappleObject",
+        "price": 100,
+        "title": "Box",
+        "status": "inventory object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 35,
+        "height": 35,
+        "skinName": "/public/images/misc/grapple-objects/animated-enemy-gun.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "gun",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "store": "guns",
+            "content": {
+                "name": "Reaper"
+            }
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+    {
+        "id": "shield-box",
+        "name": "shield-box",
+        "loadImage": "static/shop/store/Reaper.png",
+        "background": "static/shop/misc/red-card.png",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "price": 100,
+        "title": "Box",
+        "status": "inventory object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 40,
+        "height": 40,
+        "skinName": "/public/images/misc/grapple-objects/animated-shield-box.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "Defence Shield",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "store": "market",
+            "type": "inventory weapon",
+            "content": {
+                "name": "Defence Shield"
+            }
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+
+    {
+        "id": "Rocket-box",
+        "name": "Rocket-box",
+        "loadImage": "static/shop/store/Reaper.png",
+        "background": "static/shop/misc/red-card.png",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "price": 100,
+        "title": "Box",
+        "status": "inventory object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 35,
+        "height": 35,
+        "skinName": "/public/images/misc/grapple-objects/animated-rocket.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "Rocket",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "store": "market",
+            "type": "inventory weapon",
+            "content": {
+                "name": "Rocket"
+            }
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+    {
+        "id": "Homing-Rocket-box",
+        "name": "Homing-Rocket-box",
+        "loadImage": "static/shop/store/Reaper.png",
+        "background": "static/shop/misc/red-card.png",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "price": 100,
+        "title": "Box",
+        "status": "inventory object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 35,
+        "height": 35,
+        "skinName": "/public/images/misc/grapple-objects/animated-homing-rocket.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "Homing Rocket",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "store": "market",
+            "type": "inventory weapon",
+            "content": {
+                "name": "Homing Rocket"
+            }
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+
+
+
+    {
+        "id": "Destructor-box",
+        "name": "Destructor-box",
+        "loadImage": "static/shop/store/Destructor.png",
+        "background": "static/shop/misc/red-card.png",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "price": 8000,
+        "title": "Box",
+        "status": "inventory object",
+        "description": "box with goods",
+        "type": "object",
+        "healthPoint": null,
+        "imageWidth": 1689,
+        "imageHeight":200,
+        "animationSteps": 6,
+        "numberOfItems": 7,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 45,
+        "height": 45,
+        "skinName": "/public/images/misc/grapple-objects/animated-enemy-gun-destructor.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "Destructor",
+            "description": "object with gun",
+            "methodName": "collectObjectsToInventory",
+            "store": "guns",
+            "content": {
+                "name": "Destructor"
+            }
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+    {
+        "id": "ground_npc_item",
+        "name": "ground_npc_item",
+        "probability": 10,
+        "objectOwner": "grappleObject",
+        "healthPoint": null,
+        "imageWidth": 59,
+        "imageHeight":58,
+        "animationSteps": 5,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "sx": 0,
+        "sy": 0,
+        "width": 25,
+        "height": 25,
+        "skinName": "/public/images/misc/grapple-objects/blue-card.png",
+        "speed": 4,
+        "isGrapple": true,
+        "grapplePower": {
+            "name": "ground_npc_item",
+            "description": "ground_npc_item",
+            "value": 1,
+            "methodName": "groundPlayerCollectable"
+        },
+        "spawnDetails": {
+            "position": "scene"
+        },
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion-coin.png",
+            "imageWidth": 4696,
+            "imageHeight":294,
+            "animationSteps": 2,
+            "numberOfItems": 16,
+            "sx": 0,
+            "sy": 0,
+            "width": 40,
+            "height": 40,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/ambient/collection/zapsplat_multimedia_game_sound_collect_treasure_coin_001_40559.mp3",
+                "soundLoop": false
+            }
+        }
+    }
+]

@@ -1,0 +1,39 @@
+<template class="section-template">
+    <section id="settings" class="menu-pages-wrapper">
+        <div class="menu-screen">
+            <form action="" id="menu-settings-form">
+                <h1>settings</h1>
+
+                <p>Music level</p>
+                <p id="volume-display"></p>
+                <input name="soundLevel" type="range" min="0" max="100" value="50" class="settings-slider" id="soundLevel">
+
+                <p>Effect level</p>
+                <p id="volume-effect-display"></p>
+                <input name="soundEffect" type="range" min="0" max="100" value="50" class="settings-slider" id="soundEffect">
+
+                <p>Enable sound</p>
+                <p>
+                    <label class="switch">
+                        <input name="soundOn" id="soundOn" type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </p>
+                <p>Fullscreen </p>
+                <p>
+                    <label class="switch">
+                        <input name="fullScreen" id="fullScreen" type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </p>
+                <div id="settings-message" class="success-text message-slide-text" style="display: none"></div>
+                <div class="dialog-btn-area">
+                    <button class="accept-btn btn-main">save</button>
+                    <button class="reject-btn btn-main btn-orange-reject" data-button-id="cancel-settings">cancel</button>
+                    <button class="btn-main" id="settings-reload-btn">reload game</button>
+                </div>
+            </form>
+        </div>
+        <button data-button-id="close" class="close-button btn-main btn-sticky">close</button>
+    </section>
+</template>

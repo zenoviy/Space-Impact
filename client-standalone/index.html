@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Space Attack Game</title>
+    <script src="./javascript/openLink.js"></script>
+    
+    <link rel="stylesheet" href="./css/style.css">
+
+    <link rel="import" href="sections/about.html">
+    <link rel="import" href="sections/about-pages/game-enemy.html">
+    <link rel="import" href="sections/about-pages/game-control.html">
+    <link rel="import" href="sections/about-pages/game-history.html">
+
+
+
+    <link rel="import" href="sections/dialog.html">
+    <link rel="import" href="sections/settings.html">
+    <link rel="import" href="sections/gameResult.html">
+
+    <link rel="import" href="sections/saveResult.html">
+
+    <link rel="import" href="sections/save.html">
+    <link rel="import" href="sections/load.html">
+</head>
+<body>
+    <div id="main-load-screen" class="main-load-screen">
+        <p>Loading...</p>
+        <img width="300" style="display: block; margin: 0 auto;" src="./public/icons/png/1024x1024.png" alt="logotype">
+        <h1>Space <span>Attack</span></span></h1>
+        <p>Standalone version</p>
+    </div>
+    <div id="load-screen" class="load-screen-wrapper"></div>
+    <div class="game-field-wrapper">
+        <div class="backpack-wrapper" id="backpack-wrapper" style="display: none;">
+            <div id="backpack-body" class="backpack-body"></div>
+        </div>
+        <div id="shop-wrapper" class="shop-wrapper" style="display: none;">
+            <div class="inner-shop-wrapper">
+                <div id="shop-area" class="display-area-wrapper" style="display: block;">
+                    <img class="shop-frame" src="./public/images/misc/shop/tablet.png" alt="tablet">
+                    <header class="shop-header">
+                        <nav>
+                            <h1>Nuke Shop</h1>
+                            <div class="shop-menu-wrapper">
+                                <button data-target-btn-id="weapons" class="btn-main shop-upper-button">weapons</button>
+                                <button data-target-btn-id="ship" class="btn-main shop-upper-button">ship</button data-target-btn-id="weapon">
+                                <button data-target-btn-id="market" class="btn-main shop-upper-button">market</button data-target-btn-id="ship">
+                            </div>
+                        </nav>
+                    </header>
+                    <button class="shop-button tablet-btn btn-to-left" data-target-btn-id="previous-items">&#x276E;</button>
+                    <button class="shop-button tablet-btn btn-to-right" data-target-btn-id="next-items">&#x276F;</button>
+                    <div id="display-shop-items" class="display-shop-items"></div>
+
+                    <p>
+                        <button  data-target-btn-id="to-hangar" class="btn-main to-hangar-btn">to hangar</button>
+                    </p>
+                </div>
+                <div id="hangar-area" class="display-area-wrapper" style="display: none;">
+                    <img class="shop-frame" src="./public/images/misc/shop/tablet.png" alt="tablet">
+                    <div class="hangar-body-wrapper">
+                        <h1>Hangar</h1>
+                        <div id="hangar-text"></div>
+                        <canvas  id="hangar-ship-area"></canvas>
+                        <div id="items-area"></div>
+                    </div>
+                    <div class="botoom-shop-navigation-area">
+                         <p>
+                            <button  data-target-btn-id="to-shop" class="btn-main to-hangar-btn">to shop</button>
+                        </p>
+                    </div>
+                </div>
+                <div id="shop-inventory-wrapper" class="right-side-inventory"></div>
+
+                <div id="item-description" class="item-description" style="display: none;"></div>
+                <img id="item-dragable-picture" class="item-dragable-picture" style="display: none;">
+            </div>
+            <button data-target-btn-id="exit" class="btn-main btn-orange-reject external-btn">exit</button>
+        </div>
+        <div id="shop-dialog" class="shop-dialog" style="display: none;">
+            <p id="shop-dialog-text"></p>
+            <p id="shop-error-message" style="color: red"></p>
+            <div class="dialog-btn-area">
+                <button data-target-btn-id="ok" class="btn-main">Ok</button>
+                <button  data-target-btn-id="cancel" class="btn-main btn-orange-reject">cancel</button>
+            </div>
+        </div>
+
+    <!-- Game render fields -->
+        <img id="preloader">
+        <canvas class="game-fields" id="gamefield"></canvas>
+        <canvas class="game-fields" id="gameObjectsfield"></canvas>
+        <canvas class="game-fields" id="gameActionDialogfield"></canvas>
+        <canvas class="game-fields" id="gameUifield"></canvas>
+    </div>
+
+    <!-- UI -->
+    <div class="static-wrapper">
+        <asside class="menu-wrapper">
+            <div id="main-menu" class="main-menu">
+                <ul>
+                    <li><a data-section="about" href="#">about</a></li>
+                    <li><a data-section="game-results" href="#">game results</a></li>
+                    <li><a data-section="settings" href="#">settings</a></li>
+                    <li><a data-section="save" href="#">save</a></li>
+                    <li><a data-section="load" href="#">load</a></li>
+                    <br>
+                    <li><a data-button-id="exit" href="#">exit</a></li>
+                </ul>
+                <div><div id="message-screenshot" class="message-screenshot">test</div>
+                <button id="screenshot" class="screenshot-button">
+                    <img src="./public/images/page/icons/camera.png" alt="camera">
+                </button>
+            </div>
+            </div>
+        </asside>
+        <div id="wrapper" class="content-wrapper"></div>
+    </div>
+    <script src="./public/dist/main.js"></script>
+</body>
+</html>

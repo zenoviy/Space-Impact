@@ -1,0 +1,37 @@
+body {
+    cursor: url("../public/images/misc/cursor_2.cur"), crosshair;
+}
+button, a, .slider, button[type="submit"], form button,
+input[type="range"] {
+    cursor: url("../public/images/misc/cursor_2_selected.cur"), pointer;
+}
+.load-circle-image {
+    background-image: url("../public/images/page/icons/loading.png");
+}
+
+.main-load-screen{
+    background-image: url("../public/images/page/about/background.png");
+}
+.display-area-wrapper canvas{
+    background-image: url("../public/images/misc/shop/landing-pad.png");
+    display: block;
+    margin: 0 auto;
+}
+.right-side-inventory{
+    background-image: url("../public/images/misc/shop/tablet.png");
+}
+.shop-wrapper .shop-sale-part{
+    background-image: url("../public/images/misc/shop/sale-box.png");
+}
+.shop-wrapper .shop-inventory-part{
+    background-image: url("../public/images/misc/shop/inventory-box.png");
+}
+.tablet-btn{
+    background-image: url("../public/images/misc/shop/button.png");
+}
+.tablet-btn:hover{
+    background-image: url("../public/images/misc/shop/button_hover.png");
+}
+.avatar-button{
+    background-image: url("../public/images/misc/avatars/picture_icon.png");
+}

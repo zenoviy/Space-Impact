@@ -1,0 +1,140 @@
+@import '~/../../page-style/page-asets.sass'
+
+$dialog-btn-padding: 10px
+
+@mixin accept-btn
+    button.accept-btn
+        background: $accept-color
+        width: $button-width
+        transition: .5s linear
+    button.accept-btn:hover
+        background: $accept-color-selected
+
+@mixin reject-btn
+    button.reject-btn
+        background: $reject-color
+        width: $button-width
+        transition: .5s linear
+    button.accept-btn:hover
+        background: $reject-color-selected
+
+.btn-main
+    padding: $dialog-btn-padding
+    border: 0px
+    border-radius: $border-radius
+    transition: .5s linear
+.btn-main:hover
+    background: $grey-color
+
+.selected-items
+    background: #161325
+
+.btn-sticky
+    position: fixed
+    top: 90%
+    z-index: 100
+    left: 0
+    width: 220px
+    background: $orange-color
+    transition: .5s linear
+.btn-sticky:hover
+    background: $orange-color-selected
+
+.btn-orange
+    background: $orange-color
+    padding: $dialog-btn-padding
+    margin: 0 auto
+    display: block
+    min-width: 250px
+    transition: .5s linear
+.btn-orange:hover
+    background: $orange-color-selected
+
+.btn-orange-reject
+    background: $orange-color
+    padding: $dialog-btn-padding
+    transition: .5s linear
+.btn-orange-reject:hover
+    background: $orange-color-selected
+
+button
+    height: 40px
+    min-width: 100px
+
+.to-hangar-btn
+  float: right
+  background: #d22020
+  z-index: 10
+  position: relative
+  margin-top: -68px
+
+button:focus, li:focus, ul:focus, img:focus, div:focus, p:focus
+    outline: 0
+
+.tablet-btn
+    height: 160px
+    padding: 15px
+    min-width: 10px
+    background-size: cover
+    background-position: center
+    border: 0px
+    border-radius: 20px
+    color: #fff
+    font-size: 20px
+    box-shadow: 2px 4px 9px #000
+    transition: .3s linear
+    border: 5px solid #542801
+
+.avatar-close
+    background: none
+    border: 0px
+    color: #ffffff
+    text-align: left
+    font-size: 18px
+
+.avatar-button
+    width: 100px
+    height: 100px
+    background-color: #4f3563
+    background-size: contain
+    display: block
+    margin: 0 auto
+    border-radius: 50%
+    border: 0px
+    padding: 0px
+    overflow: hidden
+
+.screenshot-button
+    position: absolute
+    right: 15px
+    background: none
+    border: 0px
+    img
+        width: 50px
+        transition: .5s linear
+        display: block
+        float: right
+    img:hover
+        transform: scale(1.2)
+
+.message-screenshot
+    background-color: $accept-color
+    color: $white-color
+    padding: 20px
+    right: -200%
+    top: 0
+    position: absolute
+.active-message-box
+    animation: apear-message 5s linear forwards
+.screenshot-button:active
+    opacoty: .3
+
+@keyframes apear-message
+    0%
+        right: -200%
+    10%
+        right: 0%
+    90%
+        right: 0%
+    100%
+        right: -200%

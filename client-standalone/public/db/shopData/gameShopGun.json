@@ -1,0 +1,336 @@
+[
+    {
+        "name": "Machinegun",
+        "loadImage": "static/shop/weapons/Machinegun.png",
+        "background": "static/shop/misc/blue-card.png",
+        "price": 2500,
+        "title": "Machinegun",
+        "status": "mechanic gun",
+        "description": "blaster gun, regular weapon for you spaceship",
+        "hangarImage": "static/shop/weapons/Machinegun.png",
+        "texture": "/public/images/misc/bullets/bullet-gun.png",
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/explosion.png",
+            "imageWidth": 12891,
+            "imageHeight":294,
+            "animationSteps": 1,
+            "numberOfItems": 44,
+            "sx": 0,
+            "sy": 0,
+            "width": 25,
+            "height": 25,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                "soundLoop": false
+            }
+        },
+        "sound": {
+            "levelSound": "/public/sound/weapons/weapon_gun_ak_47_C_30.mp3",
+            "soundLoop": false
+        },
+        "type": "cannon",
+        "fireRepead": 3,
+        "speed": 10,
+        "color": "rgba(81, 255, 0, 1)",
+        "width": 105,
+        "height": 20,
+        "sx": 0,
+        "sy": 20,
+        "imageWidth": 3587,
+        "imageHeight":109,
+        "animationSteps": 5,
+        "numberOfItems": 12,
+        "numberOfVerticalItems": 1,
+        "sWidth": 299,
+        "sHeight": 109,
+        "damage": 10,
+        "firePosition": 10,
+        "firePositionX": 25
+    },
+        {
+            "name": "Blaster",
+            "loadImage": "static/shop/weapons/blaster.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 8000,
+            "title": "Blaster",
+            "status": "energo gun",
+            "description": "blaster gun, regular weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/green-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                "soundLoop": false
+            },
+            "type": "blaster",
+            "fireRepead": 3,
+            "speed": 8,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 20,
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 30,
+            "firePosition": 15
+        },
+
+
+        {
+            "name": "Reaper",
+            "loadImage": "static/shop/weapons/Reaper.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 20000,
+            "title": "Reaper",
+            "status": "energo gun",
+            "description": "blaster gun, regular weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/red-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                "soundLoop": false
+            },
+            "type": "blaster",
+            "fireRepead": 3,
+            "speed": 8,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 20,
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 40,
+            "firePosition": 15
+        },
+
+
+        {
+            "name": "Repiter",
+            "loadImage": "static/shop/weapons/Repiter.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 25000,
+            "title": "Repiter",
+            "status": "gun",
+            "description": "blaster gun, regular weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/yellow-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                "soundLoop": false
+            },
+            "type": "blaster",
+            "fireRepead": 3,
+            "speed": 8,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 20,
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 45,
+            "firePosition": 15
+        },
+
+
+
+        {
+            "name": "Destroyer",
+            "loadImage": "static/shop/weapons/Destroyer.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 40000,
+            "title": "Destroyer",
+            "status": "power gun",
+            "description": "blaster gun, regular weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/blue-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/laser_sms.mp3",
+                "soundLoop": false
+            },
+            "type": "blaster",
+            "fireRepead": 3,
+            "speed": 8,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 20,
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 60,
+            "firePosition": 15
+        },
+
+
+        {
+            "name": "Sabre",
+            "loadImage": "static/shop/weapons/Sabre.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 65000,
+            "title": "Sabre",
+            "status": "power gun",
+            "description": "rail gun, weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/violet-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/julien_matthey_science_fiction_laser_001.mp3",
+                "soundLoop": false
+            },
+            "type": "beam",
+            "fireRepead": 30,
+            "speed": 70,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 20,
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 120,
+            "firePosition": 15
+        },
+
+        {
+            "name": "Destructor",
+            "loadImage": "static/shop/weapons/destructor.png",
+            "background": "static/shop/misc/blue-card.png",
+            "price": 95000,
+            "title": "Destructor",
+            "status": "power gun",
+            "description": "rail gun constructed using enemy, technology, weapon for you spaceship",
+            "texture": "/public/images/misc/bullets/color-laser.png",
+            "explosionAnimation": {
+                "texture": "/public/images/misc/fire/explosion.png",
+                "imageWidth": 12891,
+                "imageHeight":294,
+                "animationSteps": 2,
+                "numberOfItems": 44,
+                "sx": 0,
+                "sy": 0,
+                "width": 50,
+                "height": 50,
+                "sound": {
+                    "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                    "soundLoop": false
+                }
+            },
+            "sound": {
+                "levelSound": "/public/sound/weapons/julien_matthey_science_fiction_laser_001.mp3",
+                "soundLoop": false
+            },
+            "type": "beam",
+            "fireRepead": 30,
+            "speed": 80,
+            "color": "rgba(81, 255, 0, 1)",
+            "width": 45,
+            "height": 30,
+            "sx": 0,
+            "sy": 20,
+            "imageWidth": 3587,
+            "imageHeight":109,
+            "animationSteps": 5,
+            "numberOfItems": 12,
+            "numberOfVerticalItems": 1,
+            "sWidth": 299,
+            "sHeight": 109,
+            "damage": 220,
+            "firePosition": 15
+        }
+]

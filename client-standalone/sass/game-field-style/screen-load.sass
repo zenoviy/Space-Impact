@@ -1,0 +1,20 @@
+.load-screen-wrapper
+    z-index: 2000
+    width: 100vw
+    height: 100vh
+    top: 0
+    position: relative
+    .load-circe-wrapper
+        width: 100px
+        height: 100px
+        background-size: cover
+        animation: load-circle-rotate 1s infinite steps(11, end)
+    p
+        text-align: left
+
+
+@keyframes load-circle-rotate
+    0%
+        transform: rotate(0deg)
+    100%
+        transform: rotate(360deg)

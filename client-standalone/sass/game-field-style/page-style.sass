@@ -1,0 +1,264 @@
+@import '~/../canvas.sass'
+@import '~/../buttons.sass'
+@import '~/../form-style.sass'
+@import '~/../../page-style/page-asets.sass'
+
+
+body
+  font-family: 'Roboto'
+  color: $white-color
+  background: $main-color
+  margin: 0
+  padding: 0
+  overflow: hidden
+  @include canvas-properties
+  -khtml-user-select: none
+  user-select: none
+  @include menu-screen
+
+*, *::after, *::before
+	-webkit-user-select: none
+	-webkit-user-drag: none
+	-webkit-app-region: no-drag
+
+.header-full-banner
+  position: fixed
+  display: flex
+  top: 0
+  z-index: 2
+  .header-description
+    position: absolute
+    width: 100%
+    height: 100%
+    display: flex
+    flex-flow: column
+    justify-content: center
+    font-size: 50px
+    h1, h2
+      margin-top: 10px
+      margin-bottom: 20px
+
+  img
+    width: 101%
+    margin-left: -20px
+
+main
+    z-index: 10
+    position: relative
+    background: $right-page-gradient
+    background-attachment: fixed
+    padding: 20px
+    margin-top: 350px
+    margin-left: -20px
+    width: 100%
+    h1, h2, h3
+      text-transform: uppercase
+      text-align: center
+      font-weight: 900
+      color: $orange-color
+
+section
+  h1:first-letter, h2:first-letter, h3:first-letter
+    text-transform: uppercase
+
+
+.static-wrapper
+  display: flex
+  position: absolute
+  top: 0
+  width: 100vw
+  asside.menu-backgroud
+    background: $left-menu-gradient
+  asside
+    z-index: 1088
+    .main-menu
+      z-index: 1210
+      top: 10px
+      ul
+        display: grid
+        top: 105px
+        position: relative
+        text-shadow: 0px 0px 6px rgba(92, 2, 108, .5)
+        padding: 0
+        li
+          min-width: 160px
+          padding: 10px
+          list-style: none
+          padding-left: 50px
+          transition: .5s linear
+        li:hover
+          background: #1d111f
+          a
+            color: #ffba3a
+        li::first-letter
+        text-transform: uppercase
+        a
+          color: #fff
+          text-decoration: none
+          font-size: 17px
+          width: 100%
+          padding: 5px
+          display: block
+          outline: none
+        a:active
+          color: red
+
+
+.content-wrapper
+  width: 100%
+  max-height: 100vh
+  overflow-y: scroll
+  z-index: 1100
+  .menu-pages-wrapper
+    background: $right-page-gradient
+    margin-top: -20px
+    min-height: 100vh
+    padding: 20px
+    background-attachment: fixed
+
+.content-wrapper::-webkit-scrollbar
+  width: 12px
+
+
+.content-wrapper::-webkit-scrollbar-track
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0)
+  border-radius: 10px
+
+
+.content-wrapper::-webkit-scrollbar-thumb
+  border-radius: 10px
+  background: rgba(71,6,83,0.8)
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1)
+
+.content-wrapper::-webkit-scrollbar-thumb:window-inactive
+	background: rgba(255,0,0,0.1)
+
+
+
+.dialog-box
+  position: absolute
+  margin: 0 auto
+  padding: 10px
+  min-width: 100%
+  min-height: 100vh
+  position: fixed
+  left: 0
+
+  .dialog-wrapper
+    display: flex
+    height: 100vh
+    justify-content: center
+    align-items: center
+
+    .dialog-window
+      background: $window-color
+      padding: 20px
+      min-width: 400px
+      min-height: 100px
+      border-radius: $border-radius
+      box-shadow: $main-shadow-box
+      @include save-form
+      div
+        padding: 10px
+        p
+          text-align: center
+
+      .dialog-bottom-area
+        display: flex
+        justify-content: space-evenly
+        @include accept-btn
+        //@include reject-btn
+
+.dialog-btn-area
+  display: flex
+  justify-content: space-evenly
+  @include accept-btn
+  //@include reject-btn
+
+.load-screen-button-wrapper
+  margin-top: 38vh
+  button
+    margin-top: 10px
+
+
+#wrapper
+  section
+    z-index: 50
+    top: 0
+
+.gameBackground
+  background: #000
+
+.game-fields
+  position: absolute
+
+.game-field-wrapper
+  display: flex
+  justify-content: center
+  height: 100vh
+  width: 100%
+  align-items: center
+
+.hide-menu
+  display: none
+
+.dialog-text
+  text-align: center
+  button
+    width: 50%
+    border-radius: 0px
+    background: none
+    color: #fff
+  .selected-form
+    box-sizing: border-box
+    border-bottom: 3px solid #c90000
+
+.main-load-screen
+  background-size: cover
+  overflow: hidden
+  position: absolute
+  z-index: 2000
+  width: 100vw
+  height: 100vh
+  h1
+    text-align: center
+    font-size: 100px
+    margin-top: 10px
+    font-weight: 900
+  p
+    padding: 20px
+  span
+    font-weight: 100
+
+.inner-page-container
+  .single-news-item
+    padding-top: 30px
+    padding-bottom: 50px
+    border-bottom: 1px solid #4d0094
+    .single-items-content-area
+      display: flex
+      flex-wrap: wrap
+      .article-part-item
+        width: 47%
+        padding: 10px
+        display: grid
+        justify-content: center
+        align-items: center
+        p, li
+          color: $grey-color
+      img
+        width: 100%
+        padding: 3px
+      h2
+        text-align: right
+
+
+
+.hide-animation
+  animation: hide-animation 1s forwards linear
+
+@keyframes hide-animation
+  0%
+    opacity: 1
+  100%
+    opacity: 0

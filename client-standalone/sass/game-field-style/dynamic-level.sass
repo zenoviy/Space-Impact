@@ -1,0 +1,89 @@
+@import '~/../../page-style/page-asets.sass'
+
+
+.backpack-wrapper
+    position: fixed
+    height: 100vh
+    z-index: 100
+    right: 0
+    .backpack-body
+        background: #26002f
+        border-radius: 5px
+        max-width: 300px
+        max-height: 60%
+        min-width: 300px
+        min-height: 60%
+        overflow-y: scroll
+        right: 0
+        position: absolute
+        padding: 5px
+        color: #ffffff
+        display: flex
+        flex-wrap: wrap
+        .backpack-item-wrapper
+            width: 27%
+            padding: 5px
+            position: relative
+            font-size: 10px
+        .back-pack-item-picture
+            width: 100%
+            height: auto
+            background: #6e5177
+            border-radius: 5px
+        p
+            width: 100%
+            text-align: center
+            align-self: center
+        canvas
+            background: #000000
+            position: absolute
+            align-self: center
+        h3.side-panel-name
+            position: absolute
+            z-index: 100
+            margin-top: 0px
+        .dialog-text-wrapper
+            text-align: left
+            span
+                color: $orange-color
+        .answer-dialog-button
+            width: 100%
+            background: none
+            border: 1px solid #b9b9b9
+            color:#c1c1c1
+                transition: .5s linear
+        .answer-dialog-button:hover
+            border: 1px solid $orange-color
+            color: $orange-color
+        .answer-dialog-button:active
+            color: #ffffff
+            background: $orange-color
+        .dialog-header
+            width: 100%
+            display: grid
+            grid-template-columns: auto auto
+            .dialog-picture
+                width: 100px
+                float: right
+        .dialog-body
+            width: 100%
+
+.backpack-body::-webkit-scrollbar
+    width: 12px
+
+.backpack-body::-webkit-scrollbar-track
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0)
+    border-radius: 10px
+
+.backpack-body::-webkit-scrollbar-thumb
+    border-radius: 10px
+    background: rgba(71,6,83,0.8)
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1)
+
+.backpack-body::-webkit-scrollbar-thumb:window-inactive
+    background: rgba(255,0,0,0.1)
+
+
+.complete-task
+    color: $orange-color
+

@@ -1,0 +1,79 @@
+@import '~/../../page-style/page-asets.sass'
+
+
+@mixin form-input-center
+    input
+        &[type="text"], &[type="email"], &[type="password"]
+            width: 60%
+            padding: $dialog-btn-padding
+            border-radius: $border-radius
+            background: rgba(255, 255, 255, .1)
+            border: 0px
+            color: white
+            margin: 0 auto
+            display: inherit
+    button
+        min-width: 15%
+        margin: 0 auto
+        display: block
+        margin-top: 18px
+
+
+@mixin save-form
+    form
+        input
+            &[type="text"], &[type="email"], &[type="password"]
+                width: 93%
+                padding: $dialog-btn-padding
+                border-radius: $border-radius
+                background: rgba(255, 255, 255, .1)
+                border: 0px
+                color: white
+        label
+            font-size: 12px
+            color: #eee
+        .alert-message
+            font-size: 12px
+            p
+                padding: $dialog-btn-padding
+            .reject-text
+                @include reject-text
+            .warning-text
+                @include warning-text
+            .success-text
+                @include success-text
+
+@mixin menu-screen
+    form
+        .reject-text
+            @include reject-text
+        .warning-text
+            @include warning-text
+        .success-text
+            @include success-text
+        .message-slide-text
+            right: 0
+            width: 0px
+            padding: 0px
+        .show-message
+            position: fixed
+            right: 10px
+            top: 0
+            padding: 10px
+            background: green
+            color: #fff
+            dialog: block
+            width: 30%
+            text-align: center
+            animation: message-apear 5s linear forwards
+
+
+@keyframes message-apear
+    0%
+        top: -100px
+    10%
+        top: 0px
+    90%
+        top: 0px
+    100%
+        top: -100px

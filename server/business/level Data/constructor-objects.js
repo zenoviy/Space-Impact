@@ -25,21 +25,6 @@ async function saveMap (req, res) {
 
 
     res.send({ url: process.env.HOST +  process.env.PORT + '/temp/mapData.json'})
-    //fs.readFile(__dirname + '../../../public/temp/mapData.json', "utf8", (err, data) => {
-       /* if(err){ res.send(`We cant find such file ${err}`); return console.log(err)};
-        //let readObject = JSON.parse(data)
-        let resData = req.body;
-        console.log(3)
-         res.send({ message: 'success'})
-
-        console.log(req.body)
-        //await dataWriter({fileName: '../../../public/temp/mapData.json', data: JSON.stringify(req.body)})
-        res.setHeader('Content-disposition', 'attachment; filename= myFile.json');
-        res.setHeader('Content-type', 'application/json');
-        res.write(JSON.stringify(resData), function (err) {
-            res.end()
-        })*/
-    //})
 }
 
 async function loadAllMap(req, res) {
@@ -58,9 +43,10 @@ async function loadAllMap(req, res) {
         });
         res.send(JSON.stringify(allFiles))
       });
-
-
 }
+
+
+
 
 async function loadMap (req, res) {
     if(!req ) return console.log('no request')
