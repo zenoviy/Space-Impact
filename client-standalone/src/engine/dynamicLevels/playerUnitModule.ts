@@ -326,7 +326,6 @@ function groundPlayerMinusLife({mainGameObject, constructors}){
 
 
 function backToTheMapAgain({ mainGameObject, player, constructors }){
-
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
 
@@ -337,8 +336,7 @@ function backToTheMapAgain({ mainGameObject, player, constructors }){
     })
 
     if(!closestBlock){
-        console.log("minus life")
-        groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+        if(!mainGameObject.gameInitData.levelChange) groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
         let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
         let allGamesObject = [].concat(allGameBackgroundElements)
         let spawnPoint = allBlocks.find(obj => {

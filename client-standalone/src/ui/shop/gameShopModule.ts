@@ -1,3 +1,4 @@
+var path = require('path');
 import { show, hide, addClassList, removeClassList } from '../../appMenu/appMenu';
 import { getData } from '../../server/serverRequestModules';
 import { createElements } from '../../appMenu/pagesBuilder';
@@ -324,9 +325,13 @@ function compareTitle({ listNotToDisplay, item }){
 function createCard({ card, customWrapperClass, playerObject, mainGameObject, element }){
         let shipDescription = (customWrapperClass === 'shipyard-item')? shipCardDescription({shipData: card}) : weaponsCardDescription({card: card});
         let currentShip = labelShip({playerObject: playerObject, card: card, mainGameObject: mainGameObject});
+        //console.log(path.join(process.env.HOST + card.background))
+        let backgroundImage = `background-image: url('${'./'+ card.background}');`;
+        //backgroundImage.replace(" ", "%")
+        console.log(backgroundImage)
         let cardRender = createElements({tagName: 'div',
         styleClass: (customWrapperClass)? `${customWrapperClass} ${(playerObject.data.title === card.title)? 'current-ship' : ''}` : 'shop-card',
-        inlineStyle: `background-image: url(${process.env.HOST + card.background} )`,
+        inlineStyle: `${backgroundImage}' `,
         pictureUrl: null, linkUrl: null, text: null,
         innerContent: `<div class="inner-card">
             <h2>${card.title} ${currentShip}</h2>

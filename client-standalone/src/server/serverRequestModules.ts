@@ -12,8 +12,6 @@ interface DataFetch {
 async function getData({url, method, data, headers}){
     let resultHeader = Object.assign({
         'Content-Type': 'application/json'}, headers || false)
-
-    //let promise = new Promise((resolve, reject) => {
         if(url === 'api/level-data' ||
         url === 'api/level-objects' ||
         url === 'api/grapple-objects' ||
@@ -21,12 +19,13 @@ async function getData({url, method, data, headers}){
         url === 'api/enemy-ship' ||
         url === 'api/get-ground-characters'||
         url === 'api/shop/guns' ||
-        url === 'api/get-constructor-ground-enemy'){
+        url === 'api/get-constructor-ground-enemy' ||
+        url === 'api/shop/shipyard' ||
+        url === 'api/shop/store-items'){
             let resultData = await searchDataInFile({url: url, headers: headers, method: method})
             return resultData
         }
 
-    //})
 
     return fetch(url, {
         method: method,

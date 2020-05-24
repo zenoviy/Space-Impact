@@ -58,7 +58,7 @@ to spawn hidden enemy
  ========================== */
 
 async function loadEnemyToObjectArray ({ mainGameObject, levelDynamicMapBlocks, constructors, characterSelector }){
-    let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
+    let dynamicEnemyCollection = process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
     let dynamicEnemy = [];
     let resultGroundEnemyData = await loadGroundEnemy({dynamicEnemyCollection: dynamicEnemyCollection}); 
     let allEnemyOnMap = levelDynamicMapBlocks.filter( block => {

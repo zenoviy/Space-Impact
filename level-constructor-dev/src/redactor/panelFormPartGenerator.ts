@@ -220,6 +220,27 @@ async function generateInput({fileContainer, target}){
     fileContainer.addEventListener('click', async function(event){
         //console.log('sdfd', event.target.dataset.target)
         /*
+
+.toDataURL();
+
+// convert to base url
+let canvas = document.createElement('canvas');
+            canvas.width = 100;
+            canvas.height = 100;
+            let ctx = canvas.getContext('2d');
+            let img = new Image();
+            img.src = picture;
+
+        mg.onload = () =>{
+                ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height)
+                var dataURL = canvas.toDataURL();
+
+                let getPictureBase = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+                let pictureBaseUrl = 'data:image/png;base64,' + getPictureBase;
+
+
+
+
     "valueOfMove": 150,
         "currentValueOfMove": 150,
         "constructorValueOfMove": 150,
@@ -363,19 +384,16 @@ async function generateInput({fileContainer, target}){
                 let pic = (target.details.rules.objectPicture)? target.details.rules.objectPicture : 'computer-data.png';
                 let link = __HOST + '/level-creator/assets/charactersObjects/inner-objects/' + dataCheck;
 
-                target.details.rules.objectPicture = link;
-                console.log(target)
-                requiredPreviewPic['src'] = link; //computer-data.png
+                //target.details.rules.objectPicture = link;
+                target.details.rules.objectPicture = await createBase64EncodingPicture({pictureLink: link, targetObject: target.details.rules.objectPicture})
+                requiredPreviewPic['src'] = target.details.rules.objectPicture;// link; //computer-data.png
                 break;
             case 'preview-dialog-face':
-                /*await changeDataInBlock({
-                    key: 'facePictureAbsolute',
-                    fieldSelector: '#preview-require-object',
-                    target: blockDetails.dialog.default
-                })*/
 
                 let dataFace = document.querySelector('#preview-dialog-face')['value'];
-                blockDetails.dialog.default.facePictureAbsolute = __HOST + '/level-creator/assets/enemyObject/avatar/' + dataFace;
+                let faceLink = __HOST + '/level-creator/assets/enemyObject/avatar/' + dataFace;
+                
+                blockDetails.dialog.default.facePictureAbsolute = await createBase64EncodingPicture({pictureLink: faceLink, targetObject: blockDetails.dialog.default.facePictureAbsolute})
 
                 let picture = document.querySelector('#dialog-face-picture-'+ currentDescriptionId);
                 picture['src'] = blockDetails.dialog.default.facePictureAbsolute;
@@ -388,12 +406,49 @@ async function generateInput({fileContainer, target}){
         let pic = (target.details.rules.objectPicture)? target.details.rules.objectPicture : 'computer-data.png';
         let link = __HOST + '/level-creator/assets/charactersObjects/inner-objects/' + dataCheck;
 
-        target.details.rules.objectPicture = link;
-        console.log(target)
-        requiredPreviewPic['src'] = link; //computer-data.png
+        target.details.rules.objectPicture = await createBase64EncodingPicture({pictureLink: link, targetObject: target.details.rules.objectPicture});
+        //console.log(target)
+        requiredPreviewPic['src'] = target.details.rules.objectPicture; //computer-data.png
     })
 
 }
+
+
+
+async function createBase64EncodingPicture({pictureLink, targetObject}){
+    if(!pictureLink) return false
+
+    return new Promise(function(response, reject){
+        let canvas = document.createElement('canvas');
+        canvas.width = 59;
+        canvas.height = 58;
+        let ctx = canvas.getContext('2d');
+        let img = new Image();
+        img.src = pictureLink;
+
+        img.onload = async() =>{
+            ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height)
+            var dataURL = await canvas.toDataURL();
+
+            let getPictureBase = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+            let pictureBaseUrl = 'data:image/png;base64,' + getPictureBase;
+                //console.log(pictureBaseUrl)
+            targetObject = pictureBaseUrl;
+            return response(targetObject)
+        }
+
+    }).then(response => {
+        //console.log(response)
+        return response
+    }, reject => {
+        console.error('Cant rebase')
+    })
+    
+}
+
+
+
+
 
 
 async function changeDataInBlock({key, fieldSelector, target}){

@@ -106,7 +106,6 @@ function renderItemsToSideList({ mainObject, dataBase, selectItem }){
     var target: any = document.querySelector('#side-instrumental-panel');
     target.innerHTML = '';
 
-    console.log(dataBase)
     for(let blockItem of dataBase){
         //console.log(blockItem)
         let copyOfBlockData = Object.assign({}, blockItem)

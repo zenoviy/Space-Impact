@@ -79,7 +79,7 @@ function fillBlockMap({ BlockConstructor, horizontalBlocks, verticalBlock, block
         //console.log()
         blockArray = blockArray.concat(new BlockConstructor({...blockData}));
     }
-    console.log(BlockConstructor, blockArray)
+    //console.log(BlockConstructor, blockArray)
     return blockArray
 }
 

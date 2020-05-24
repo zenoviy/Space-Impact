@@ -49,7 +49,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
-    let level = 3, shipType = 1, shipLife = 5;
+    let level = 18, shipType = 4, shipLife = 15;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameDialogField = document.querySelector('#gameActionDialogfield'),
@@ -104,7 +104,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                gameCoins: 0,
+                gameCoins: 1000000,
                 playerObject: playerShipData,
                 groundPlayerCharacter: await initGroundPlayer({
                     DynamicUserConstructor: constructors.DynamicUserConstructor

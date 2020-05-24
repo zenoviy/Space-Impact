@@ -14,7 +14,7 @@ const configuration = {
     devServer: {
       contentBase: path.join(__dirname, 'public/dist'),
       compress: true,
-      port: 9000
+      port: 9200
     },
     module:{
         rules:[

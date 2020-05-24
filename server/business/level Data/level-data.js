@@ -12,7 +12,7 @@ async function levelData (req, res) {
         let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
 
         if(!responseItem) return res.send({message: "no-level-found"});
-        responseItem.allLevels = readObject.length;
+        responseItem.allLevels = readObject.length - 1;
         res.send(responseItem);
     })
 }

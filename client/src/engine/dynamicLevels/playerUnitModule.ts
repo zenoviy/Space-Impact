@@ -207,7 +207,6 @@ function jumpAnimation({renewAnimation, layerDefaultSize, shotAngleAnimation}){
 
 
 function changeAnimationParameters(){
-
     if( !this.objectPresent ){
         if(this.numberOfItems != this.animations.death.numberOfItems) renewAnimation.call(this)
 
@@ -250,7 +249,6 @@ function changeAnimationParameters(){
         })
     }
     this.sWidth = this.imageWidth/this.numberOfItems;
-    
         this.onLeader = false;
         this.leaderClimb = false;
     function layerDefaultSize(){
@@ -337,8 +335,7 @@ function backToTheMapAgain({ mainGameObject, player, constructors }){
     })
 
     if(!closestBlock){
-        console.log("minus life")
-        groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+        if(!mainGameObject.gameInitData.levelChange)  groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
         let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
         let allGamesObject = [].concat(allGameBackgroundElements)
         let spawnPoint = allBlocks.find(obj => {

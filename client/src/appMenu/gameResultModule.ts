@@ -142,11 +142,11 @@ function initResultScreen(mainGameObject){
                 </label>
                 <label for="mail">
                     <p>Please enter you email</p>
-                    <input id="mail" name="userEmail" type="email" required placeholder="Enter you email address">
+                    <input id="mail" name="userEmail" type="email" required placeholder="Create you email address">
                 </label>
                 <label for="password">
                     <p>Create password</p>
-                    <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Enter you email address">
+                    <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Password">
                 </label>
                 <div id="alert-message" class="alert-message"></div>
                 <div id="dialog-bottom-area" class="dialog-bottom-area">
@@ -188,7 +188,7 @@ function initResultScreen(mainGameObject){
                     </label>
                     <label for="password">
                         <p>Create password</p>
-                        <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Enter you email address">
+                        <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Enter you password">
                     </label>
                     <div id="alert-message" class="alert-message"></div>
                     <div id="dialog-bottom-area" class="dialog-bottom-area">

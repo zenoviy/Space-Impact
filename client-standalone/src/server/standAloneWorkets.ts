@@ -32,6 +32,15 @@ async function searchDataInFile({url, headers, method}){
                 if(method === "GET") resultData = await shopGunsWorker({url: url, headers: headers});
                 if(method === "PUT") resultData = await shopGunsWorkerPut({url: url, headers: headers});//console.log("shop put")
                 break
+            case 'api/shop/shipyard':
+                if(method === "GET") resultData = await shipYardWorker({url: url, headers: headers});
+                if(method === "PUT") resultData = await shipYardWorkerPut({url: url, headers: headers});
+                break
+            case 'api/shop/store-items':
+                if(method === "GET") resultData = await storeItemsWorkerGet({url: url, headers: headers});
+                if(method === "PUT") resultData = await storeItemsWorkerPut({url: url, headers: headers});
+                break
+
         }
     if(resultData) return resultData
 }
@@ -44,17 +53,18 @@ async function levelDataWorker({url, headers}){
                 if(err){
                     return console.log(err)
                 };
+                if(!headers['maplevel']) return resolve({message: "no-level-identificator"});
 
                 console.log(headers)
                 let readObject = JSON.parse(data)
                 let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
-                responseItem.allLevels = readObject.length;
+                if(!responseItem) return resolve({message: "no-level-found"});
+                responseItem.allLevels = readObject.length-1;
                 if(responseItem) resolve(responseItem)
                 else reject(err)
             })
         })
 }
-
 
 
 
@@ -231,6 +241,129 @@ async function shopGunsWorkerPut({url, headers}){
         })
     })
 }
+
+async function shipYardWorker({url, headers}){
+    return new Promise(async (resolve, reject) => {
+        fs.readFile(path.join(__dirname, './public/db/playerShipsData.json'), (err, data) => {
+            if(err){ resolve(`We dont find such file ${err}`); return console.log(err)};
+
+            if(data.length === 0){
+                resolve({message: 'there is no data yet'})
+                return
+            }
+            console.log('Shipyard')
+            let readObject = JSON.parse(data).map((obj) => { return {
+                loadImage: obj.hangarImage,
+                background: obj.background,
+                price: obj.price,
+                title: obj.title,
+                description: obj.description,
+                status: obj.status,
+                armor: obj.armor,
+                minSpeed: obj.minSpeed,
+                inventoryCapacity: obj.inventoryCapacity,
+                healthPoint: obj.healthPoint,
+                firespots: obj.firespot.length
+            }});
+            resolve(readObject)
+        })
+    })
+}
+
+
+async function shipYardWorkerPut({url, headers}){
+    return new Promise(async (resolve, reject) => {
+        fs.readFile(path.join(__dirname, './public/db/playerShipsData.json'), (err, data) => {
+            if(err){ resolve(`We dont find such file ${err}`); return console.log(err)};
+            if(data.length === 0){
+                resolve({message: 'there is no data yet'})
+                return
+            }
+            let userCoins = headers['usercoins'];
+            let itemName = headers['itemname'];
+            let currentShipName = headers['currentshipname'];
+            let playerObjectDataInventory = headers['shipinventoryitems'];
+            let playerObjectDataGuns = headers['shipgunsitems'];
+
+            if(currentShipName == itemName )  return resolve({message: `You already have that ship`, status: "false"})
+        if(!userCoins || !itemName) return resolve({message: `wrong data: there is no coin or itemname`, status: "false"})
+
+        let readObject = JSON.parse(data).find((obj) => { return obj.title === itemName });
+        if(!readObject) return {message: `ship unavailable`, status: "false"}
+        let accesibleShip = compareItems(playerObjectDataInventory, playerObjectDataGuns, readObject);
+        if(!accesibleShip) return resolve({message: `This ship has less space for yours gusn and other staff`, status: "false"})
+
+
+        if(!readObject.price) return resolve({message: `no price`, status: "false"})
+        if(readObject && parseInt(userCoins) < readObject.price) return resolve({message: `you have no coin it cost: ${readObject.price}`, status: "false"})
+            resolve({data: readObject, status: 'success', money: userCoins - readObject.price })
+        })
+    })
+}
+
+
+function compareItems(playerObjectDataInventory, playerObjectDataGuns, readObject){
+    let accesibility = true;
+    if(playerObjectDataInventory > readObject.inventoryCapacity -1 ||
+        readObject.guns.length - 1 < playerObjectDataGuns) accesibility = false
+    return accesibility
+}
+
+
+
+
+function storeItemsWorkerGet({url, headers}){
+    return new Promise(async (resolve, reject) => {
+        fs.readFile(path.join(__dirname, './public/db/shopData/gameShopMarket.json'), (err, data) => {
+            if(err){ resolve(`We dont find such file ${err}`); return console.log(err)};
+            if(data.length === 0){
+                resolve({message: 'there is no data yet'})
+                return
+            }
+            console.log('Store')
+            let readObject = JSON.parse(data).map((obj) => { return {
+                loadImage: obj.loadImage,
+                background: obj.background,
+                price: obj.price,
+                title: obj.title,
+                description: obj.description,
+                status: obj.status
+            }});
+            resolve(readObject)
+        })
+    })
+}
+
+
+
+async function storeItemsWorkerPut({url, headers}){
+    return new Promise(async (resolve, reject) => {
+        fs.readFile(path.join(__dirname, './public/db/shopData/gameShopMarket.json'), (err, data) => { 
+            if(err){ resolve(`We dont find such file ${err}`); return console.log(err)};
+
+            if(data.length === 0){
+                resolve({message: 'there is no data yet'})
+                return
+            }
+            let userCoins = headers['usercoins'];
+            let itemName = headers['itemName'];
+
+
+
+            if(!userCoins || !itemName) return resolve({message: `wrong data: there is no coin or itemname`, status: "false"})
+            let readObject = JSON.parse(data).find((obj) => { return obj.title === itemName });
+
+            if(!readObject) return resolve({message: `item not fond`, status: "false"})
+            if(readObject && parseInt(userCoins) < readObject.price) return resolve({message: `you have no coin it cost: ${readObject.price}`, status: "false"})
+            resolve({data: readObject, status: 'success', money: userCoins - readObject.price })
+        })
+    })
+}
+
+
+
+
+
 /*
 static/shop/misc
 
@@ -240,7 +373,9 @@ V - grapple-objects
 V - user-ship
 V - enemy-ship
 V - get-ground-characters
-- api/shop/guns api/grapple-objects 
+V- api/shop/guns api/grapple-objects
+V - api/shop/shipyard
+- api/shop/store-items
 */
 
 export {

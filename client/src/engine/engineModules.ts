@@ -198,6 +198,7 @@ function getLevelUserData(){
     let dataSourse = this.gameInitData.gameData;
     let levelTime = this.gameInitData.gameData.levelData.levelDetails;
     let playerObjectData = this.gameInitData.gameData.playerObject
+
     return {
         source: dataSourse,
         currentLevel: dataSourse.currentLevel,

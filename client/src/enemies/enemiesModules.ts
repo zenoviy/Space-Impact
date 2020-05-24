@@ -26,10 +26,7 @@ Main object display function ( daisplay object with texture and angel, method of
 ============== */
 
  function displayObjectAtScene(mainGameObject, secondTexture?){
-    //if(this.y < 0 - this.height && this.x < 0 - this.width &&
-     //   this.y < window.innerHeight + this.height && this.x > window.innerWidth + this.width) return false
-
-     if(this.y > 0 - this.height && this.x > 0 - this.width && this.y < window.innerHeight + this.height && this.x < window.innerWidth + this.width){
+     if(this.y > 0 - this.height && this.x > 0 - this.width && this.y < window.innerHeight + this.height && this.x < window.innerWidth + this.width || this.objectNameFlag === "bullet"){
     //if(this.y > 100 && this.x > 100 && this.y < window.innerHeight - 300 && this.x < window.innerWidth - 300){
      
     mainGameObject.gameInitData.ctxActionField.save();
@@ -564,7 +561,6 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "enemy"
      ){
-        
         if(hitObject.objectOwner === "player" && hitObject.type != "nuclear_blast" &&
         hitObject.objectOwner === "player" && hitObject.type != "defence_shield" && hitObject.objectNameFlag != "bullet"){
             if(this.x < hitObject.x + (hitObject.width/2) &&
