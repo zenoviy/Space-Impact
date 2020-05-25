@@ -1,1 +1,1 @@
-export * from './enemiesModules';
+export * from './animationHitBoxModules';

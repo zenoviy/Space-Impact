@@ -1,5 +1,5 @@
 import { DynamicUserConstructor } from './dynamicUserConstructor';
-import { displayObjectAtScene, takeDamage, spawnCoin } from '../enemies/enemiesModules';
+import { displayObjectAtScene, takeDamage, spawnCoin } from '../enemies/animationHitBoxModules';
 import { groundEnemyMove } from '../engine/dynamicLevels/dynamicLevelEnemyModules';
 import { detectPlayer,
     groundEnemyDecided,

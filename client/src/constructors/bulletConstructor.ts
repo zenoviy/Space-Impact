@@ -1,6 +1,6 @@
 import { moveBullets } from '../engine/bulletsModule';
 import { getObjectPosition } from '../engine/engineModules';
-import { takeDamage, enemyAnimation, displayObjectAtScene } from '../enemies/enemiesModules';
+import { takeDamage, spriteObjectsAnimation, displayObjectAtScene } from '../enemies/animationHitBoxModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 
 
@@ -45,7 +45,7 @@ class BulletConstruct{
     moveBullets: any;
     getObjectPosition: any;
     takeDamage: any;
-    enemyAnimation: any;
+    spriteObjectsAnimation: any;
     displayObjectAtScene: any;
     loadTexture: any;
     constructor({...data}){
@@ -90,7 +90,7 @@ BulletConstruct.prototype.moveBullets = moveBullets;
 BulletConstruct.prototype.getObjectPosition = getObjectPosition;
 
 BulletConstruct.prototype.takeDamage = takeDamage;
-BulletConstruct.prototype.enemyAnimation = enemyAnimation;
+BulletConstruct.prototype.spriteObjectsAnimation = spriteObjectsAnimation;
 BulletConstruct.prototype.displayObjectAtScene = displayObjectAtScene;
 
 BulletConstruct.prototype.loadTexture = loadTexture;

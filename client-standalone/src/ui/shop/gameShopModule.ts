@@ -2,7 +2,7 @@ var path = require('path');
 import { show, hide, addClassList, removeClassList } from '../../appMenu/appMenu';
 import { getData } from '../../server/serverRequestModules';
 import { createElements } from '../../appMenu/pagesBuilder';
-import { objectIntersectionDetect } from '../../enemies/enemiesModules';
+import { objectIntersectionDetect } from '../../enemies/animationHitBoxModules';
 import { loadHangar } from './gameHangarModules';
 import { shopInventory,
     selectInventoryItem,

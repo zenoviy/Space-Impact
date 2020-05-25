@@ -2,7 +2,7 @@ import { loadExtraObject } from "../ai/regularEnemyAiModules";
 import * as constructors from '../constructors/';
 import { initSoundObject } from './soundModules';
 import { angleFinder, searchExplosionObject } from './engineModules';
-import { explosionDamage } from '../enemies/enemiesModules';
+import { explosionDamage } from '../enemies/animationHitBoxModules';
 
 function explosionFire({targetData, mainGameObject, hitObject, SideObject, explosion}){
     let allExplosionObject = searchExplosionObject({ mainGameObject: mainGameObject })

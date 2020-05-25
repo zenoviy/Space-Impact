@@ -1,6 +1,6 @@
-import { displayObjectAtScene, takeDamage } from '../enemies/enemiesModules';
+import { displayObjectAtScene, takeDamage } from '../enemies/animationHitBoxModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
-import { enemyAnimation } from '../enemies/enemiesModules';
+import { spriteObjectsAnimation } from '../enemies/animationHitBoxModules';
 import { changeAnimationParameters,
     changeVerticalAnimationPicture, groundPlayerCollectable } from '../engine/dynamicLevels/playerUnitModule';
 import { bulletSpeed } from '../engine/bulletsModule';
@@ -64,7 +64,7 @@ class DynamicUserConstructor {
 
     displayObjectAtScene: any;
     loadTexture: any;
-    enemyAnimation: any;
+    spriteObjectsAnimation: any;
     changeAnimationParameters: any;
     changeVerticalAnimationPicture: any;
     bulletSpeed: any;
@@ -72,7 +72,7 @@ class DynamicUserConstructor {
     getObjectPosition: any;
     stairsMove: any;
     detectObjectsAsMap: any;
-    ///  enemyAnimation
+    ///  spriteObjectsAnimation
     constructor({...data}){
         this.x = (data.x)? data.x: window.innerWidth/2 - data.width/2;
         this.y = (data.y)? data.y: window.innerHeight/2 - data.height/2;
@@ -132,7 +132,7 @@ class DynamicUserConstructor {
 
 DynamicUserConstructor.prototype.displayObjectAtScene = displayObjectAtScene;
 DynamicUserConstructor.prototype.loadTexture = loadTexture;
-DynamicUserConstructor.prototype.enemyAnimation = enemyAnimation;
+DynamicUserConstructor.prototype.spriteObjectsAnimation = spriteObjectsAnimation;
 DynamicUserConstructor.prototype.changeAnimationParameters = changeAnimationParameters;
 DynamicUserConstructor.prototype.changeVerticalAnimationPicture = changeVerticalAnimationPicture;
 DynamicUserConstructor.prototype.bulletSpeed = bulletSpeed;

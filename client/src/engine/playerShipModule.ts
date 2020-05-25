@@ -1,7 +1,7 @@
 
 
 import * as constructors from '../constructors/';
-import { shot, bulletsCreateModule } from '../enemies/enemiesModules';
+import { shot, bulletsCreateModule } from '../enemies/animationHitBoxModules';
 import { inventoryColisionEvent, findIntInventory } from '../ui/shop/shopEvents/shopEventsModules';
 import { replaceItemFromStorage } from '../ui/shop/gameInventoryModules';
 import { enterToTheShopDialog, leaveShop } from '../ui/shop/gameShopModule';

@@ -1,6 +1,6 @@
 import { explosionFire } from "./gameSideObjectsModule";
 import { findAngleToShip, findCloseObject } from './gameSideObjectsModule';
-import { objectIntersectionDetect } from '../enemies/enemiesModules';
+import { objectIntersectionDetect } from '../enemies/animationHitBoxModules';
 import * as constructors from '../constructors/';
 
 

@@ -1,6 +1,6 @@
 import * as constructors from '../../constructors';
 import { getData } from '../../server/serverRequestModules';
-import { objectIntersectionDetect } from '../../enemies/enemiesModules';
+import { objectIntersectionDetect } from '../../enemies/animationHitBoxModules';
 import {  show, hide} from '../../appMenu/appMenu';
 import { backToTheMapAgain } from './playerUnitModule';
 import { stairsMove,

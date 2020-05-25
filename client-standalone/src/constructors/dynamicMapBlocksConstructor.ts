@@ -1,7 +1,7 @@
-import { displayObjectAtScene, takeDamage } from '../enemies/enemiesModules';
+import { displayObjectAtScene, takeDamage } from '../enemies/animationHitBoxModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 import { elevatorMove } from '../engine/dynamicLevels/dynamicLevelModule';
-import { enemyAnimation } from '../enemies/enemiesModules';
+import { spriteObjectsAnimation } from '../enemies/animationHitBoxModules';
 
 
 
@@ -40,7 +40,7 @@ class DynamicBlockConstructor {
     displayObjectAtScene: any;
     loadTexture: any;
     elevatorMove: any;
-    enemyAnimation: any;
+    spriteObjectsAnimation: any;
     takeDamage: any;
     constructor({ ...data }){
         this.x = data.x;
@@ -85,7 +85,7 @@ class DynamicBlockConstructor {
 DynamicBlockConstructor.prototype.displayObjectAtScene = displayObjectAtScene;
 DynamicBlockConstructor.prototype.loadTexture = loadTexture;
 DynamicBlockConstructor.prototype.elevatorMove = elevatorMove;
-DynamicBlockConstructor.prototype.enemyAnimation = enemyAnimation;
+DynamicBlockConstructor.prototype.spriteObjectsAnimation = spriteObjectsAnimation;
 DynamicBlockConstructor.prototype.takeDamage = takeDamage;
 
 export {

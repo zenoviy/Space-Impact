@@ -60,6 +60,7 @@ V- ai logic
 	V - fixed pause/nogame movement
 	V - fixed ingame different dirrection movement
 	V -- fixed elevator wall
+	- add teleport door
 
 	- add sound
 		- jump

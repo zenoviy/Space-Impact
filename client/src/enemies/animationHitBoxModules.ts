@@ -26,12 +26,8 @@ Main object display function ( daisplay object with texture and angel, method of
 ============== */
 
  function displayObjectAtScene(mainGameObject, secondTexture?){
-    //if(this.y < 0 - this.height && this.x < 0 - this.width &&
-     //   this.y < window.innerHeight + this.height && this.x > window.innerWidth + this.width) return false
-
      if(this.y > 0 - this.height && this.x > 0 - this.width && this.y < window.innerHeight + this.height && this.x < window.innerWidth + this.width || this.objectNameFlag === "bullet"){
     //if(this.y > 100 && this.x > 100 && this.y < window.innerHeight - 300 && this.x < window.innerWidth - 300){
-     
     mainGameObject.gameInitData.ctxActionField.save();
 
     let translateIndexAdjustX =  (this.degree < 180)? (this.width/180)*this.degree: (this.width/180)*(360 - this.degree);
@@ -125,7 +121,7 @@ picturesWidth - total width of all picture frames
 
 ============== */
 
-async function enemyAnimation(state = true){
+async function spriteObjectsAnimation(state = true){
     if(this.backgroundTexture){
         this.backgroundTexture.detectFrame += 1;
         if(this.backgroundTexture.detectFrame % this.backgroundTexture.animationSteps == 0 && state){
@@ -602,7 +598,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
             if(this.isBoss) bossEnemyDestruction({mainGameObject: mainGameObject})
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner === "player" && (hitObject.objectOwner === "enemy" || hitObject.objectOwner == "collide")){
-        if(mainGameObject.gameInitData.dynamicLevelsActive) return false
+        if(mainGameObject.gameInitData.dynamicLevelsActive || mainGameObject.gameInitData.gameWin) return false
         if(hitObject.objectOwner === "collide" && gameSeconds % 1000 != 0 ||
         hitObject.hasOwnProperty('healthPoint') && hitObject.objectOwner === "enemy" && gameSeconds % 1000 != 0) return false
         playerDamage.call(this, { mainGameObject: mainGameObject, damage: damage})
@@ -626,6 +622,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
 
 
 function unitDamage({data, mainGameObject, damage}){
+    //if(mainGameObject.gameInitData.gameWin) return false
     this.healthPoint -= damage;
     if(this.healthPoint <= 0){
         if(data && data.life > 0 && !mainGameObject.gameInitData.gameWin){
@@ -799,7 +796,7 @@ export  {
     moveEnemyes,
     shot,
     bulletsCreateModule,
-    enemyAnimation,
+    spriteObjectsAnimation,
     objectIntersectionDetect,
     hitDetection,
     takeDamage,

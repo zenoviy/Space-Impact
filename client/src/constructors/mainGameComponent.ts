@@ -1,6 +1,6 @@
 //import { viewModules } from '../view/displayModules';
 import { spawnEnemyLogic, createNewEnemy, gameRandomizer } from '../ai/regularEnemyAiModules';
-import  { hitDetection } from '../enemies/enemiesModules';
+import  { hitDetection } from '../enemies/animationHitBoxModules';
 import { nextLevelDataReload } from '../engine/gameModules/changeLevels';
 import {
     createContext,

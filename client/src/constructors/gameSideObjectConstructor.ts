@@ -2,10 +2,10 @@ import * as enemyModules from '../enemies';
 import { fireAnimationEnded, mapObjectMove, sideObjectShot, loadTexture } from '../engine/gameSideObjectsModule';
 import { displayObjectAtScene,
     moveEnemyes,
-    shot, enemyAnimation,
+    shot, spriteObjectsAnimation,
     takeDamage,
     enemyDamageAnimation,
-    spawnCoin} from '../enemies/enemiesModules';
+    spawnCoin} from '../enemies/animationHitBoxModules';
 import { bulletSpeed } from '../engine/bulletsModule';
 
 interface grappleOBject {
@@ -38,7 +38,7 @@ class SideObject{
     fireAnimationEnded: any;
     displayObjectAtScene: any;
     shot: any;
-    enemyAnimation: any;
+    spriteObjectsAnimation: any;
     takeDamage: any;
     mapObjectMove: any;
     enemyDamageAnimation: any;
@@ -83,7 +83,7 @@ class SideObject{
     }
 }
 
-SideObject.prototype.enemyAnimation = enemyModules.enemyAnimation;
+SideObject.prototype.spriteObjectsAnimation = enemyModules.spriteObjectsAnimation;
 SideObject.prototype.displayObjectAtScene = enemyModules.displayObjectAtScene;
 SideObject.prototype.shot = enemyModules.shot;
 SideObject.prototype.fireAnimationEnded = fireAnimationEnded;

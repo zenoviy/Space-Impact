@@ -16,9 +16,9 @@ import {
     npcCollisionDetect
 } from './engine/dynamicLevels/dynamicLevelModule';
 import { doorFunctionality, openClosedDoorAnimation } from './engine/dynamicLevels/dynamicLevelInteractiveElements';
-import { objectIntersectionDetect } from './enemies/enemiesModules';
+import { objectIntersectionDetect } from './enemies/animationHitBoxModules';
 import { syncKeyControl } from './engine/playerShipModule';
-import { shot, displayObjectAtScene } from './enemies/enemiesModules';
+import { shot, displayObjectAtScene } from './enemies/animationHitBoxModules';
 import { explosionFire } from './engine/gameSideObjectsModule';
 import { initAppGlobalVariable } from './server/globalVariables';
 import { fillJournalDefaultData } from './engine/dynamicLevels/journalModules';
@@ -56,7 +56,7 @@ function bulletEngineFunction({gameObject}){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
-                bullet.enemyAnimation();
+                bullet.spriteObjectsAnimation();
             }
         }
     }
@@ -107,7 +107,7 @@ function groundBulletEngineFunction({gameObject}){
                     GrappleObject : constructors.GrappleObject
                 })
 
-                bullet.enemyAnimation();
+                bullet.spriteObjectsAnimation();
             }
         }
     }
@@ -123,7 +123,7 @@ function enemyEngineFunction({gameObject}){
                     x: gameObject.gameInitData.gameData.playerObject.x,
                     y: gameObject.gameInitData.gameData.playerObject.y
                 }, gameObject);
-                enemy.enemyAnimation(true);
+                enemy.spriteObjectsAnimation(true);
                 enemy.shot(constructors.BulletConstruct, gameObject, constructors.SoundCreator, "enemy", "allGameBullets")
                 gameObject.deleteObjects({ object: enemy, target: ''} )
                 gameObject.hitDetection({
@@ -187,7 +187,7 @@ function sideObjectsEngineFunction({gameObject}){
                     object.fireAnimationEnded(gameObject.gameInitData.allGameSideObjects);
                 }else{
                     sideObjectBehaviour({object: object, gameObject: gameObject})
-                    object.enemyAnimation()
+                    object.spriteObjectsAnimation()
                 }
                 if(!gameObject.gameInitData.shopActive){
                     object.mapObjectMove()
@@ -212,7 +212,7 @@ function gameBackgroundEngineFunction({ gameObject }){
             if(!gameObject.gameInitData.gamePause || !gameObject.gameInitData.gameStatus){
                 if(!gameObject.gameInitData.shopActive){
                 backgroundMap.updateMap({ mainGameObject: gameObject })}
-                backgroundMap.enemyAnimation()
+                backgroundMap.spriteObjectsAnimation()
             }
             backgroundMap.placeBackground();
             backgroundMap.changePartOfTexture(gameObject, gameObject.gameInitData.mapBackgroundObjects);
@@ -244,7 +244,7 @@ function spaceShipEngineFunction({ gameObject }){
             if(!gameObject.gameInitData.shopActive){
                 gameObject.gameInitData.gameData.playerObject.placeShip()
             }
-            gameObject.gameInitData.gameData.playerObject.enemyAnimation()
+            gameObject.gameInitData.gameData.playerObject.spriteObjectsAnimation()
         }
         if(gameObject.gameInitData.gameStatus) gameObject.gameInitData.gameData.playerObject.displayObjectAtScene(gameObject);
     }
@@ -304,7 +304,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
             background.backgroundTexture.degree = 0;
         }
 
-        if(!gameObject.gameInitData.gamePause && background.details.type != 'door') background.enemyAnimation()
+        if(!gameObject.gameInitData.gamePause && background.details.type != 'door') background.spriteObjectsAnimation()
         if(background.details.type === 'enemy_spawner' || background.details.type === 'hidden_enemy_spawner' ||
         background.details.type === 'npc_spawner' || background.details.type === 'elevator' ||
             background.details.type === "health" || background.details.isDestroy || !background.details.display && background.details.type === "scenario_object" ||
@@ -336,7 +336,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
 
 
              openClosedDoorAnimation({ currentWallBlock : block, mainGameObject: gameObject })
-            if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.enemyAnimation()
+            if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.spriteObjectsAnimation()
             block.displayObjectAtScene(gameObject)
     }
 }
@@ -365,7 +365,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
             }
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
                 //deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
-                enemy.enemyAnimation()
+                enemy.spriteObjectsAnimation()
                 enemy.groundEnemyMove({
                     mainGameObject: gameObject,
                     levelInformation: levelInformation
@@ -441,9 +441,9 @@ async function gameDynamicPlayer({ gameObject }){
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
 
                 if(groundPlayer.onLeader && groundPlayer.leaderClimb){
-                    groundPlayer.enemyAnimation()
+                    groundPlayer.spriteObjectsAnimation()
                 }else if(!groundPlayer.onLeader){
-                    groundPlayer.enemyAnimation()
+                    groundPlayer.spriteObjectsAnimation()
                 }
                 groundPlayer.changeVerticalAnimationPicture()
                 groundPlayer.detectObjectsAsMap({

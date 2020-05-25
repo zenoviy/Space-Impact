@@ -2,10 +2,10 @@ import { enemyShipLogicVertical, enemyVerticalMoveCalculation } from '../ai/regu
 import { displayObjectAtScene,
     moveEnemyes,
     shot,
-    enemyAnimation,
+    spriteObjectsAnimation,
     takeDamage,
     enemyDamageAnimation,
-    spawnCoin } from '../enemies/enemiesModules';
+    spawnCoin } from '../enemies/animationHitBoxModules';
 import { getObjectPosition, bulletSpeed } from '../engine';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 
@@ -60,7 +60,7 @@ class EnemyObject {
     displayObjectAtScene: any;
     moveEnemyes: any;
     shot: any;
-    enemyAnimation: any;
+    spriteObjectsAnimation: any;
     getObjectPosition: any;
     takeDamage: any;
     enemyDamageAnimation: any;
@@ -112,7 +112,7 @@ class EnemyObject {
 EnemyObject.prototype.displayObjectAtScene = displayObjectAtScene;
 EnemyObject.prototype.moveEnemyes = moveEnemyes;
 EnemyObject.prototype.shot = shot;
-EnemyObject.prototype.enemyAnimation = enemyAnimation;
+EnemyObject.prototype.spriteObjectsAnimation = spriteObjectsAnimation;
 EnemyObject.prototype.getObjectPosition = getObjectPosition;
 EnemyObject.prototype.enemyDamageAnimation = enemyDamageAnimation;
 EnemyObject.prototype.enemyShipLogicVertical = enemyShipLogicVertical;

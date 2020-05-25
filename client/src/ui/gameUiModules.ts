@@ -6,7 +6,7 @@ import { gameInformationScreen } from './gameUiModels/gameStatsScreen';
 import { gameOverScreen } from './gameUiModels/gameGameOverScreen';
 import { gameWinScreen } from './gameUiModels/gameWinScreen';
 import { uiImage, uiText } from '../view/elements/uiElementModules';
-import { hitDetection } from '../enemies/enemiesModules';
+import { hitDetection } from '../enemies/animationHitBoxModules';
 import { levelChangeScreen } from './gameUiModels/levelChangeScreen';
 import { hideInventory } from '../engine/dynamicLevels/playerUnitModule';
 

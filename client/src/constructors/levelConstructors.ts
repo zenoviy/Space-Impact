@@ -1,6 +1,6 @@
 import { warpEffect } from '../engine/engineModules';
 import { updateMap, changePartOfTexture } from '../engine/backgroundModule';
-import { enemyAnimation, moveEnemyes, placeBackground } from '../enemies/enemiesModules';
+import { spriteObjectsAnimation, moveEnemyes, placeBackground } from '../enemies/animationHitBoxModules';
 import { loadTexture } from '../engine/gameSideObjectsModule';
 
 class GameBackground{
@@ -30,7 +30,7 @@ class GameBackground{
     updateMap: any;
     warpEffect: any;
     changePartOfTexture: any;
-    enemyAnimation: any;
+    spriteObjectsAnimation: any;
     moveEnemyes: any;
     placeBackground: any;
     loadTexture: any;
@@ -73,7 +73,7 @@ class GameBackground{
 GameBackground.prototype.updateMap = updateMap;
 GameBackground.prototype.warpEffect = warpEffect;
 GameBackground.prototype.changePartOfTexture = changePartOfTexture;
-GameBackground.prototype.enemyAnimation = enemyAnimation;
+GameBackground.prototype.spriteObjectsAnimation = spriteObjectsAnimation;
 GameBackground.prototype.moveEnemyes = moveEnemyes;
 GameBackground.prototype.placeBackground = placeBackground;
 GameBackground.prototype.loadTexture = loadTexture;
