@@ -1,7 +1,9 @@
 var fs = require('fs');
 var path = require('path');
+var storage = require('electron-json-storage');
+import { writeElectronLocalData } from './serverRequestModules';
 
-async function searchDataInFile({url, headers, method}){
+async function searchDataInFile({url, headers, method, data}){
     //let promise = new Promise(async (resolve, reject) => {
         let resultData = null;
         switch(url){
@@ -40,9 +42,20 @@ async function searchDataInFile({url, headers, method}){
                 if(method === "GET") resultData = await storeItemsWorkerGet({url: url, headers: headers});
                 if(method === "PUT") resultData = await storeItemsWorkerPut({url: url, headers: headers});
                 break
+            case 'api/game-result':
+                if(method === "GET") resultData = await getResultlData({url: url, headers: headers});
+                if(method === "POST") resultData = await postResultlData({url: url, headers: headers, saveData: data});  // data
+                if(method === "PUT") resultData = await updateResultlData({url: url, headers: headers, saveData: data});
+                break
 
         }
     if(resultData) return resultData
+}
+
+
+
+async function postGameResultWorker(){
+
 }
 
 
@@ -361,8 +374,244 @@ async function storeItemsWorkerPut({url, headers}){
 }
 
 
+//  =======================  save/show result
 
 
+async function getResultlData ({url, headers}) {
+    return new Promise((resolve, reject) => {
+        storage.get('gameResults', async function(err, data) {
+            var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
+            if(!fs.existsSync(path.join(dir, '/', 'gameResults.json'))){
+                storage.setDataPath(dir);
+                await writeElectronLocalData({fileName: 'gameResults', data: "[]"});
+                resolve({message: 'there is no data yet'});
+                console.log(fs.existsSync(dir + '/' + 'gameResults.json'), dir + '/' + 'gameResults.json');
+                return
+            }
+
+            let readObject = JSON.parse(data);
+            console.log(readObject)
+            if(readObject.length === 0){
+                resolve({message: 'there is no data yet'});
+                return
+            }
+            if(!readObject)return resolve({message: "problem occurred in result data"});
+            let publicData = readObject.sort((a, b) => a.gamePoints - b.gamePoints ).reverse().map(item => { return {
+                userName: item.userName,
+                gamePoints: item.gamePoints,
+                time: item.id,
+                gameCoins: item.gameCoins,
+                userAvatar: item.userAvatar
+            }})
+            resolve(publicData)
+        })
+    })
+}
+
+
+async function postResultlData ({url, headers, saveData}) {
+    return new Promise((resolve, reject) => {
+        storage.get('gameResults', async function(err, data) {
+            var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
+            if(!fs.existsSync(path.join(dir, '/', 'gameResults.json'))){
+                storage.setDataPath(dir);
+                await writeElectronLocalData({fileName: 'gameResults', data: "[]"});
+            }
+            saveData.id = new Date().getTime();
+            let readObject = null, dataArr = [];
+            if(!saveData.userName || typeof saveData.userName != 'string' || saveData.userName.length > 30 || saveData.userName.length < 3){
+                resolve({message: "Name field is incorrect, must be max 30 character min 3", status: "warning"})
+                return
+            }
+            if(!saveData.userEmail || typeof saveData.userEmail != 'string'){
+                resolve({message: "Email field is incorrect, must be max 30 character min 3", status: "warning"})
+                return
+            }
+            if(!saveData.userPassword || typeof saveData.userPassword != 'string'){
+                resolve({message: "Password field is incorrect, must be max 30 character min 3", status: "warning"})
+                return
+            }
+            if(!saveData.gamePoints || typeof saveData.gamePoints != 'number'){
+                resolve({message: "name too long or too short"})
+                return
+            }
+            if(data && saveData.gamePoints && saveData.userPassword && saveData.userEmail && saveData.userName && saveData.gameCoins){
+                readObject = JSON.parse(data)
+                let findUser = dataFinder(readObject, saveData)
+                if(findUser['status'] === "not-found" ){
+                    dataArr = dataArr.concat(readObject, saveData).sort((a, b) => a.gamePoints - b.gamePoints).reverse();
+                    writeElectronLocalData({fileName: 'gameResults', data:JSON.stringify(dataArr)})
+
+                    resolve({message: `Successfully save Result!!! ${saveData.userName} added`, status: "success"})
+                    return
+                }else{
+                    if(!findUser) return false
+                    writeElectronLocalData({fileName: 'gameResults', data:JSON.stringify(findUser.data)})
+                    let messageText = "";
+                    switch(findUser.status){
+                        case "found-email":
+                            messageText = `Email already exist `;
+                            break
+                        case "found-name":
+                            messageText = `Name already exist `;
+                            break
+                        default:
+                            "_ - _ - _"
+                    }
+                    resolve({message: messageText, status: "warning"})
+                    return
+                }
+            }else{
+                dataArr = dataArr.concat(dataArr, resolve)
+                if(!dataArr || dataArr.length == 0)return resolve({message: "there is no data to write"})
+                writeElectronLocalData({fileName: 'gameResults', data:JSON.stringify(dataArr)})
+                resolve({message: `Successfully save Result!!! ${saveData.userName} added`, status: "success"})
+            }
+        })
+    })
+}
+
+function dataFinder(data, finderData){
+    if( !data || !finderData) return false
+    let resuletEmail = data.find( (element) => {return element.userEmail === finderData.userEmail})
+    let resuletName = data.find( (element) => {return element.userName === finderData.userName})
+    if(resuletEmail) return {data: data, status: "found-email"}
+    else if(resuletName) return {data: data, status: "found-name"}
+    else return {data: null, status: "not-found"}
+}
+
+
+
+async function updateResultlData ({url, headers, saveData}) {
+    return new Promise((resolve, reject) => {
+        storage.get('gameResults', async function(err, data) {
+            var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
+            if(!fs.existsSync(path.join(dir, '/', 'gameResults.json'))){
+                storage.setDataPath(dir);
+                await writeElectronLocalData({fileName: 'gameResults', data: "[]"});
+            }
+            if(!saveData.userEmail || typeof saveData.userEmail != 'string'){
+                resolve({message: "Email field is incorrect, must be max 30 character min 3", status: "warning"})
+                return
+            }
+            if(!saveData.userPassword || typeof saveData.userPassword != 'string'){
+                resolve({message: "Password field is incorrect, must be max 30 character min 3", status: "warning"})
+                return
+            }
+            let readObject = null, dataArr = [];
+            if(data && saveData.gamePoints && saveData.userPassword && saveData.userEmail && saveData.gameCoins){
+                readObject = JSON.parse(data)
+                let findUser = dataUpdater(readObject, saveData)
+                let messageText = "", status;
+                switch(findUser['status']){
+                    case "replace":
+                        messageText = `Congratulation ${findUser['name']} your score is saved`;
+                        status = "success";
+                        break
+                    case "lo-result":
+                        messageText = `Your score is less than existing one`;
+                        status = "warning";
+                        break
+                    case "equal-result":
+                        messageText = `Your score the same as existing one`;
+                        status = "warning";
+                        break
+                    case "wrong-password":
+                        messageText = `Wrong password try again`;
+                        status = "reject";
+                        break
+                    case "not-exist":
+                        messageText = `There is no such email`;
+                        status = "reject";
+                        break
+                    default:
+                        messageText = `There is no such user`;
+                        status = "reject"
+                }
+                resolve({message: messageText, status: status})
+                if( status != "reject") writeElectronLocalData({fileName: 'gameResults', data:JSON.stringify(findUser['data'])})
+                return
+            }
+        })
+    })
+
+
+
+    function dataUpdater(data, finderData){
+        if(!data.length || !data || !finderData) return false
+        let resulet = data.find( (element) => {return element.userEmail === finderData.userEmail})
+        let index = (resulet)? data.indexOf(resulet) : null;
+        if(resulet && resulet.gamePoints < finderData.gamePoints &&
+             resulet.userPassword === finderData.userPassword){
+
+            resulet.gamePoints = finderData.gamePoints;
+            resulet.gameCoins = finderData.gameCoins;
+            resulet.userAvatar = (finderData.userAvatar)? finderData.userAvatar : (resulet.userAvatar)? resulet.userAvatar : null;
+            data[index] = resulet;
+            return {data: data, status: "replace", name: resulet.userName}
+        }else if(resulet && resulet.gamePoints > finderData.gamePoints &&
+            resulet.userPassword === finderData.userPassword){
+            return {data: data, status: "lo-result", name: null}
+        }else if(resulet && resulet.gamePoints === finderData.gamePoints &&
+            resulet.userPassword === finderData.userPassword){
+            return {data: data, status: "equal-result", name: null}
+        }else if(resulet && resulet.userPassword != finderData.userPassword){
+            return {data: data, status: "wrong-password", name: null}
+        }else return {data: data, status: "not-exist", name: null}
+    }
+   /* let dir = __dirname + '../../../public/userData/';
+    if (!fs.existsSync(dir + 'gameResults.json')){
+        await dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify([])})
+    }
+    fs.readFile(__dirname + '../../../public/userData/gameResults.json', "utf8", (err, data) => {
+        if(err){ res.send(`We cant find such file ${err}`); return console.log(err)};
+
+        if(!req.body.userEmail || typeof req.body.userEmail != 'string'){
+            res.send({message: "Email field is incorrect, must be max 30 character min 3", status: "warning"})
+                return
+        }
+
+        if(!req.body.userPassword || typeof req.body.userPassword != 'string'){
+            res.send({message: "Password field is incorrect, must be max 30 character min 3", status: "warning"})
+                return
+        }
+
+        let readObject = null, dataArr = [];
+        if(data && req.body.gamePoints && req.body.userPassword && req.body.userEmail && req.body.gameCoins){
+            readObject = JSON.parse(data)
+            let findUser = dataUpdater(readObject, req.body)
+            let messageText = "", status;
+            switch(findUser.status){
+                case "replace":
+                    messageText = `Congratulation ${findUser.name} your score is saved`;
+                    status = "success";
+                    break
+                case "lo-result":
+                    messageText = `Your score is less than existing one`;
+                    status = "warning";
+                    break
+                case "equal-result":
+                    messageText = `Your score the same as existing one`;
+                    status = "warning";
+                    break
+                case "wrong-password":
+                    messageText = `Wrong password try again`;
+                    status = "reject";
+                    break
+                case "not-exist":
+                    messageText = `There is no such email`;
+                    status = "reject";
+                    break
+                default:
+                    messageText = `There is no such user`;
+                    status = "reject"
+            }
+            res.send({message: messageText, status: status})
+            if( status != "reject") dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify(findUser.data)})
+            return
+        }
+    })*/
+}
 
 /*
 static/shop/misc

@@ -21,8 +21,9 @@ async function getData({url, method, data, headers}){
         url === 'api/shop/guns' ||
         url === 'api/get-constructor-ground-enemy' ||
         url === 'api/shop/shipyard' ||
-        url === 'api/shop/store-items'){
-            let resultData = await searchDataInFile({url: url, headers: headers, method: method})
+        url === 'api/shop/store-items' ||
+        url === 'api/game-result'){
+            let resultData = await searchDataInFile({url: url, headers: headers, method: method, data: data})
             return resultData
         }
 
@@ -109,6 +110,8 @@ function getDefaultSettings(){
 
 function getElectronLocalSaves({fileName}){
     if(!fileName) throw Error("no local files");
+
+    
     let res = new Promise((resolve, reject) => {
         storage.get(fileName, function(err, data) {
 
@@ -124,7 +127,6 @@ function getElectronLocalSaves({fileName}){
             }
 
             if(err) throw Error(err)
-
             let info = JSON.parse(data);
             if(info) resolve(info)
             else reject("got some problem here")
@@ -180,6 +182,9 @@ async function writeLocalData({fileName, data}){
 
 
 function postData({url, method, data, headers}){
+
+    //console.log('Save smth')
+
     let resultHeader = Object.assign({
         'Content-Type': 'application/json'}, headers || false)
     return fetch(url, {

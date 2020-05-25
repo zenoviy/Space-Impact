@@ -27,3 +27,28 @@ Rebuild App to standalone version
 		V- switch list
 		
 	5) save result local to AppData
+		V - /api/game-result
+
+
+///////////////////////////////////
+
+webpack-builder-version
+
+--platform=linux  
+--arch=armv7l 
+
+--platform=linux  
+--arch=ia32 
+
+--platform=linux  
+--arch=x64
+
+
+--platform=win32  
+--arch=arm64
+
+--platform=win32  
+--arch=ia32
+
+--platform=win32  
+--arch=x64
