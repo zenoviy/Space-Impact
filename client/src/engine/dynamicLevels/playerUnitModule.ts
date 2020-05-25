@@ -1,57 +1,4 @@
-/*  Dynamic level
 
-   V - level constructor
-       V - create level
-       V - save level
-       V - load level
-       V - place characters
-       V - player collect data
-       V - player shoot
-       V - place enemy
-
-    V - change Game mechanics using current level data
-    V- fetch level array with all level blocks
-      V  - display all blocks on screen
-       V - place player at particular location ( level started )
-   V - change background move and level timing
-       V - enemy moves waiting and attack player
-           V - enemy detect empty blocks and stop
-           V - switch behavior
-           V - !maybe load parts of map!
-       V - everything depends on player move
-           V - Player on center Map move  right, up or down
-           V - simulation of gravity
-            V- Player Jump
-            V- player shoot using mouse direction
-            V- complicated player animation
-               V - change textures
-                   V - add leader animation
-                    V - shoot up down
-                   V - death
-    V - Level ends when player reach the dor or final object
-        V- grapple coin
-        V- grapple life
-        V - grapple card
-        V - add minimap
-        V - add inventory elements
-           V - stack elements
-        V - add script to element activate script
-    V - one hit - one life
-
-    V - dialog
-        - scientists
-        - military
-        - civil
-            V - add tasks
-            V - quest journal
-
-
-
-    // ============== Editor ================= //
-
-
-
-*/
 import { getData } from '../../server/serverRequestModules';
 import { loadGroundPlayer } from '../../server/gameDataRequestsServicesModule';
 import { show, hide} from '../../appMenu/appMenu';
@@ -310,7 +257,6 @@ function groundPlayerMinusLife({mainGameObject, constructors}){
     let mainPlayerData = levelData.source.playerObject;
     mainPlayerData.numberOflife -= 1;
     //if(mainPlayerData.numberOflife > 0) this.healthPoint = this.defaultHealth
-
             if(mainPlayerData.numberOflife <= 0){
                 mainGameObject.gameOverWindow()
                 mainGameObject.gameInitData.gameOver = true;
@@ -335,6 +281,7 @@ function backToTheMapAgain({ mainGameObject, player, constructors }){
     })
 
     if(!closestBlock){
+       // console.log('journal renew')
         if(!mainGameObject.gameInitData.levelChange)  groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
         let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
         let allGamesObject = [].concat(allGameBackgroundElements)

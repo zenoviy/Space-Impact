@@ -59,8 +59,7 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     let stairsVerticalIndex = stairs.height / stairs.width;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
-    
-    //console.log(player.onStairs, this.jumpImpuls, player.isRun, stairs.details.type, "|||", player.onElevator)
+
     player.onStairs = true;
     if(player.objectOwner === "groundEnemy" || player.objectOwner === "groundNPC"){
         if(extraSeconds % 5 === 0){
@@ -80,8 +79,6 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
         player.groundTouch = true;
         return false
     }
-
-    //let percentOfSteps = stairs.height/stairs.details.angle;
     player.onStairs = true;
     if(!player.isRun){
         player.groundTouch = true;
@@ -99,15 +96,9 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     if(stairs.details.type === "stairs-left"){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity * -1: levelInformation.gravity;
-        //process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH = 'true';
-        //console.log(levelInformation.jumpImpuls, stairs.details.type, player.playerDirectionHorizontal, player.groundTouch)
-       //console.log(player.groundTouch, groundPlayer.groundTouch, "||1")
     }else if(stairs.details.type === "stairs-right" && player.isRun){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity : (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
-        //process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH = 'true';
-        //console.log(player.groundTouch, "||2")
-        //console.log(levelInformation.jumpImpuls, stairs.details.type, player.playerDirectionHorizontal, player.groundTouch)
     }
 }
 
@@ -159,7 +150,6 @@ function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(currentWallBlock.details.type != 'door') return false
 
-   
     let doorState = currentWallBlock.details.collision;
     let doorAnimationItems = currentWallBlock.details.numberOfItems;
     let doorPictureWidth = currentWallBlock.details.sWidth;

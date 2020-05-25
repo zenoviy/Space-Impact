@@ -6,6 +6,7 @@ import { loadExtraObject } from '../../ai/regularEnemyAiModules';
 import * as constructors from '../../constructors';
 import { hideInventory } from '../dynamicLevels/playerUnitModule';
 import { backgroundAdjustment } from '../dynamicLevels/dynamicLevelModule';
+import { fillJournalDefaultData } from '../dynamicLevels/journalModules';
 
 async function nextLevelDataReload(levelData, constructors){
     hideInventory()
@@ -56,6 +57,7 @@ async function nextLevelDataReload(levelData, constructors){
         context.gameInitData.levelChange = false;
         context.gameInitData.levelWindowDescription = false;
         process.env.BOSS_LOAD_AT_LEVEL = "false";
+        fillJournalDefaultData({mainGameObject: context})
     }, 5000)
 
     horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
@@ -69,7 +71,6 @@ async function nextLevelDataReload(levelData, constructors){
     this.mapSoundChanger({soundStatus:'regular_level'})
 
     backgroundAdjustment({mainGameObject: this})
-    //console.log(1)
 }
 function horizontalVerticalSearch(mainObject, refreshLevel){
     for(let [key, value] of Object.entries(mainObject)){

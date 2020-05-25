@@ -21,6 +21,7 @@ import { syncKeyControl } from './engine/playerShipModule';
 import { shot, displayObjectAtScene } from './enemies/enemiesModules';
 import { explosionFire } from './engine/gameSideObjectsModule';
 import { initAppGlobalVariable } from './server/globalVariables';
+import { fillJournalDefaultData } from './engine/dynamicLevels/journalModules';
 
 
 
@@ -607,7 +608,7 @@ function gameUiEngineFunction({ gameObject }){
     saveGameEvents({mainGameObject: gameObject})
 
     createScreenshots({mainGameObject: gameObject })
-
+    fillJournalDefaultData({mainGameObject: gameObject })
 
 
     //   game engin runing

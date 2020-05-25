@@ -2,7 +2,7 @@
 	V - fixed buttons in shop
 	- finish desription of shop items
 	V - fixed ship name in shop
-	- fixed Journal
+	V - fixed Journal
 	V - fixed game end stop collect points
 	V - fixed object spawn during shop screen
 	
