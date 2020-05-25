@@ -195,7 +195,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.ceilingTouch = false;
     targetObject.onStairs = false;
     targetObject.currentWallBlock = null;
-    targetObject.onElevator = false;/**/
+    targetObject.onElevator = false;
 
     for(let item of objectsToCollide){
         if(!item) continue
@@ -221,8 +221,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
            if(targetObject.objectOwner != "groundEnemy" && targetObject.objectOwner != "groundNPC" && item.details.type != 'npc_spawner') currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item})
         }
     }
-    //console.log(targetObject.leftWallTouch, targetObject.rightWallTouch)
-    //console.log(targetObject.groundTouch , "targetObject.groundTouch ")
 }
 
 
@@ -458,6 +456,8 @@ function rightSideBlockCollision({mainGameObject, target, targetX, targetY, leve
             }
             if(target.details){
                 if(target.details.type === 'elevator' ){
+                    this.rightWallTouch = false;
+                    this.groundTouch = false
                     return false
                 }
                 //console.log('right wall Touch')
@@ -511,6 +511,8 @@ function leftSideBlockCollision({mainGameObject, target, targetX, targetY, level
             } /**/
            if(target.details){
                if(target.details.type === 'elevator' ){
+                    this.leftWallTouch = false;
+                    this.groundTouch = false
                    return false
                }
                if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){

@@ -61,7 +61,6 @@ function userKeyAction({ mainGameObject, controlKeys, event}){
 
 
 async function syncKeyControl({ mainGameObject: mainGameObject }){
-
     if(!mainGameObject.gameInitData || !mainGameObject.gameInitData.dynamicLevelsActive ) return false
     let mapKeyCode = mainGameObject.gameInitData.mapKeyCode;
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
@@ -69,6 +68,7 @@ async function syncKeyControl({ mainGameObject: mainGameObject }){
     if(!mapKeyCode ) return false
     for(let [key, value] of Object.entries(mapKeyCode)){
         if(!key || !value) return false
+        if(key === '68' && mapKeyCode['65'] || key === '65' && mapKeyCode['68']) continue
         if(controlKeys.down.some(obj => key == obj) ){
             moveUnit({xPos: 0, yPos: 0.5, mainGameObject: mainGameObject, playerDirection: "down"});
         }

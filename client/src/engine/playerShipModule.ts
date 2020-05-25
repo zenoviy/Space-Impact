@@ -61,7 +61,6 @@ function userKeyAction({ mainGameObject, controlKeys, event}){
 
 
 async function syncKeyControl({ mainGameObject: mainGameObject }){
-
     if(!mainGameObject.gameInitData || !mainGameObject.gameInitData.dynamicLevelsActive ) return false
     let mapKeyCode = mainGameObject.gameInitData.mapKeyCode;
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
@@ -69,6 +68,7 @@ async function syncKeyControl({ mainGameObject: mainGameObject }){
     if(!mapKeyCode ) return false
     for(let [key, value] of Object.entries(mapKeyCode)){
         if(!key || !value) return false
+        if(key === '68' && mapKeyCode['65'] || key === '65' && mapKeyCode['68']) continue
         if(controlKeys.down.some(obj => key == obj) ){
             moveUnit({xPos: 0, yPos: 0.5, mainGameObject: mainGameObject, playerDirection: "down"});
         }
@@ -275,9 +275,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
 
-    let lastActionVertical = groundPlayer.playerDirectionVertical;  // this.playerDirectionVertical === "down"
-
-    //groundPlayer.playerDirectionHorizontal = playerDirection;
+    let lastActionVertical = groundPlayer.playerDirectionVertical;
     switch (playerDirection){
         case "down":
             groundPlayer.playerDirectionVertical = playerDirection;

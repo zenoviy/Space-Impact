@@ -38,8 +38,8 @@ position map related to main character
 
 ============== */
 async function loadLevelMap({ levelMapName, constructors }){
-    let dynamicMap = process.env.DYNAMIC_LEVEL_BLOCKS + '/' + levelMapName;
-    let dynamicEnemyCollection =  process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
+    let dynamicMap = process.env.HOST + process.env.DYNAMIC_LEVEL_BLOCKS + '/' + levelMapName;
+    let dynamicEnemyCollection = process.env.HOST + process.env.DYNAMIC_LEVEL_ENEMY_COLLECTION_URL;
 
     let resultData = await getData({
         url: dynamicMap,
@@ -195,7 +195,7 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.ceilingTouch = false;
     targetObject.onStairs = false;
     targetObject.currentWallBlock = null;
-    targetObject.onElevator = false;/**/
+    targetObject.onElevator = false;
 
     for(let item of objectsToCollide){
         if(!item) continue
@@ -221,8 +221,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
            if(targetObject.objectOwner != "groundEnemy" && targetObject.objectOwner != "groundNPC" && item.details.type != 'npc_spawner') currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item})
         }
     }
-    //console.log(targetObject.leftWallTouch, targetObject.rightWallTouch)
-    //console.log(targetObject.groundTouch , "targetObject.groundTouch ")
 }
 
 
@@ -286,7 +284,6 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
             this.isJump = false;
             this.jumpImpuls = 0;
             this.groundTouch = true;
-            console.log(11)
             return false
         }
     }
@@ -459,6 +456,8 @@ function rightSideBlockCollision({mainGameObject, target, targetX, targetY, leve
             }
             if(target.details){
                 if(target.details.type === 'elevator' ){
+                    this.rightWallTouch = false;
+                    this.groundTouch = false
                     return false
                 }
                 //console.log('right wall Touch')
@@ -512,6 +511,8 @@ function leftSideBlockCollision({mainGameObject, target, targetX, targetY, level
             } /**/
            if(target.details){
                if(target.details.type === 'elevator' ){
+                    this.leftWallTouch = false;
+                    this.groundTouch = false
                    return false
                }
                if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){

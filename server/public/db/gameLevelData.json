@@ -118,7 +118,8 @@
         },
         "description": {
             "name": "City\n operation",
-            "description": "Take control of this area"
+            "description": "Take control of this area",
+            "levelMainTask": "find the ship"
         },
         "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",

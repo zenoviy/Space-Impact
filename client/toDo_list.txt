@@ -58,8 +58,8 @@ V- ai logic
             V - add tasks
             V - quest journal
 	V - fixed pause/nogame movement
-	- fixed ingame different dirrection movement
-	- fixed elevator wall
+	V - fixed ingame different dirrection movement
+	V -- fixed elevator wall
 
 	- add sound
 		- jump
