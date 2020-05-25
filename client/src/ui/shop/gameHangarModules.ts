@@ -14,7 +14,7 @@ function loadHangar({element, mainGameObject}){
     element.hangarShipArea.width = 600;
     element.hangarShipArea.height = 350;
     img.src = process.env.HOST + playerObjectData.hangarImage;
-    hangarTextArea.innerHTML = `<p>${playerObjectData.name}</p>`;
+    hangarTextArea.innerHTML = `<p>${playerObjectData.name.split('_').join(' ')}</p>`;
     img.onload = () => {
         createImage(ctx, img, 80, 20, 500, 300)
         for(let i = 0; i < playerObjectData.firespot.length; i++){

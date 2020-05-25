@@ -105,12 +105,7 @@ function groundBulletEngineFunction({gameObject}){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
-                /*gameObject.hitDetection({
-                    object1: bullet,
-                    objectsArr: gameObject.gameInitData.dynamicLevelEnemy,
-                    mainGameObject: gameObject,
-                    GrappleObject : constructors.GrappleObject
-                })*/
+
                 bullet.enemyAnimation();
             }
         }
@@ -261,11 +256,11 @@ function gameChangeEngineFunction({ gameObject }){
     if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
         if(gameObject.gameInitData.gameStatus){
             if(gameObject.gameInitData.gameData.levelObjects){
-                if(!gameObject.gameInitData.dynamicLevelsActive){
-                gameObject.mapRandomObjectSpawn(
-                    gameObject.gameInitData.gameData.levelObjects,
-                    constructors.SideObject,
-                    gameObject.gameInitData.allGameSideObjects)
+                if(!gameObject.gameInitData.dynamicLevelsActive && !gameObject.gameInitData.shopActive){
+                    gameObject.mapRandomObjectSpawn(
+                        gameObject.gameInitData.gameData.levelObjects,
+                        constructors.SideObject,
+                        gameObject.gameInitData.allGameSideObjects)
                 }
             }
             if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);

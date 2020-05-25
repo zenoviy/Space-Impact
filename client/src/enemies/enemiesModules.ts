@@ -564,13 +564,12 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
         if(hitObject.objectOwner === "player" && hitObject.type != "nuclear_blast" &&
         hitObject.objectOwner === "player" && hitObject.type != "defence_shield" && hitObject.objectNameFlag != "bullet"){
             if(this.x < hitObject.x + (hitObject.width/2) &&
-            hitObject.x + hitObject.width/2 < this.x + (this.width)){
+            hitObject.x + hitObject.width/2 < this.x + (this.width) && !mainGameObject.gameInitData.shopActive){
                 hitObject.x -= hitObject.speed;
-            }else if(
-             hitObject.x > this.x + (this.width)){
+            }else if( hitObject.x > this.x + (this.width) && !mainGameObject.gameInitData.shopActive){
                 hitObject.x += hitObject.speed;
             }else{
-                hitObject.x -= hitObject.speed;
+                if(!mainGameObject.gameInitData.shopActive) hitObject.x -= hitObject.speed;
             }
         }
         unitDamage.call(this, {
@@ -600,7 +599,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
             if(this.isBoss) bossEnemyDestruction({mainGameObject: mainGameObject})
         }
     }else if(this.hasOwnProperty('healthPoint') &&  this.objectOwner === "player" && (hitObject.objectOwner === "enemy" || hitObject.objectOwner == "collide")){
-        if(mainGameObject.gameInitData.dynamicLevelsActive) return false
+        if(mainGameObject.gameInitData.dynamicLevelsActive || mainGameObject.gameInitData.gameWin) return false
         if(hitObject.objectOwner === "collide" && gameSeconds % 1000 != 0 ||
         hitObject.hasOwnProperty('healthPoint') && hitObject.objectOwner === "enemy" && gameSeconds % 1000 != 0) return false
         playerDamage.call(this, { mainGameObject: mainGameObject, damage: damage})
@@ -624,9 +623,10 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
 
 
 function unitDamage({data, mainGameObject, damage}){
+    //if(mainGameObject.gameInitData.gameWin) return false
     this.healthPoint -= damage;
     if(this.healthPoint <= 0){
-        if(data && data.life > 0){
+        if(data && data.life > 0 && !mainGameObject.gameInitData.gameWin){
             data.source.playerObject.numberOflife -= 1;
             if(data.source.playerObject.numberOflife <= 0){
                 mainGameObject.gameOverWindow()
@@ -639,7 +639,7 @@ function unitDamage({data, mainGameObject, damage}){
             this.healthPoint = data.source.playerObject.maxHealth;
             return false
         }
-        mainGameObject.collectPoints(this.pointsPerUnit)
+        if(!mainGameObject.gameInitData.gameWin) mainGameObject.collectPoints(this.pointsPerUnit)
         return this.objectPresent = false;
     }
 }

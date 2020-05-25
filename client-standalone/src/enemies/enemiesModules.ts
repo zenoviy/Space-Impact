@@ -564,17 +564,15 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "environment" && hitObject.objectOwner == "enemy"
      ){
-        
         if(hitObject.objectOwner === "player" && hitObject.type != "nuclear_blast" &&
         hitObject.objectOwner === "player" && hitObject.type != "defence_shield" && hitObject.objectNameFlag != "bullet"){
             if(this.x < hitObject.x + (hitObject.width/2) &&
-            hitObject.x + hitObject.width/2 < this.x + (this.width)){
+            hitObject.x + hitObject.width/2 < this.x + (this.width) && !mainGameObject.gameInitData.shopActive){
                 hitObject.x -= hitObject.speed;
-            }else if(
-             hitObject.x > this.x + (this.width)){
+            }else if( hitObject.x > this.x + (this.width) && !mainGameObject.gameInitData.shopActive){
                 hitObject.x += hitObject.speed;
             }else{
-                hitObject.x -= hitObject.speed;
+                if(!mainGameObject.gameInitData.shopActive) hitObject.x -= hitObject.speed;
             }
         }
         unitDamage.call(this, {
@@ -630,7 +628,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
 function unitDamage({data, mainGameObject, damage}){
     this.healthPoint -= damage;
     if(this.healthPoint <= 0){
-        if(data && data.life > 0){
+        if(data && data.life > 0 && !mainGameObject.gameInitData.gameWin){
             data.source.playerObject.numberOflife -= 1;
             if(data.source.playerObject.numberOflife <= 0){
                 mainGameObject.gameOverWindow()
@@ -643,7 +641,7 @@ function unitDamage({data, mainGameObject, damage}){
             this.healthPoint = data.source.playerObject.maxHealth;
             return false
         }
-        mainGameObject.collectPoints(this.pointsPerUnit)
+        if(!mainGameObject.gameInitData.gameWin) mainGameObject.collectPoints(this.pointsPerUnit)
         return this.objectPresent = false;
     }
 }

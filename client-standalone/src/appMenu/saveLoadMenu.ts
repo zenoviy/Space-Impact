@@ -20,6 +20,7 @@ async function initSaveLoadScreen({mainGameObject}){
 
 
 async function saveGameEvents({mainGameObject}){
+    //if(mainGameObject.gameStatus)
     let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject})
     getContext.saveForm.addEventListener('submit', async function (event) {
         event.preventDefault()

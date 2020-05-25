@@ -286,7 +286,6 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
             this.isJump = false;
             this.jumpImpuls = 0;
             this.groundTouch = true;
-            console.log(11)
             return false
         }
     }

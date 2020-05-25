@@ -4,13 +4,6 @@ function initAppGlobalVariable(){
 
     process.env.SAVE_DATA_FILE = 'game-saves';
 
-    /*process.env.LEVEL_DATA_URL = './public/db/gameLevelData.json';//'api/level-data';
-    process.env.LEVEL_OBJECT_URL = './public/db/gameLevelObject.json';
-    process.env.LEVEL_GRAPPLE_OBJECTS_URL = './public/db/gameGrappleObjectData.json';
-    process.env.GAME_SETTINGS_URL = '';
-    process.env.USER_SHIP_URL = './public/db/playerShipsData.json';
-    process.env.ENEMY_SHIP_URL = './public/db/groundEnemyData.json';*/
-
     process.env.LEVEL_DATA_URL = 'api/level-data';
     process.env.LEVEL_OBJECT_URL = 'api/level-objects';
     process.env.LEVEL_GRAPPLE_OBJECTS_URL = 'api/grapple-objects';

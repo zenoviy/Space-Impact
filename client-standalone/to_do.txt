@@ -52,3 +52,15 @@ webpack-builder-version
 
 --platform=win32  
 --arch=x64
+
+================================================================== 
+			change list
+==================================================================
+	change process.env.HOST to  __dirname + '/'
+	src/server/gameDataRequestsServicesModule.ts	- change all url remove  process.env.HOST
+	src/server/standAloneWorkets.ts			- create new fele with all data operations methods
+	src/server/serverRequestModules.ts		- change getData() method go catche data from local storage
+	
+	src/ui/shop/gameShopModule.ts			- changed img url  "" and change `background-image: url('${'./'+ card.background}');`;
+
+	src/engine/dynamicLevels/dynamicLevelEnemyModules	- loadLevelEnemy()  remove  process.env.HOST

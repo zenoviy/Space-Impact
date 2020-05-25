@@ -177,6 +177,10 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
                     })
                     break
                 case 'overwrite-save':
+                    if(!mainGameObject.gameInitData.gameStatus || mainGameObject.gameInitData.gameOver ||
+                        mainGameObject.gameInitData.gameWin || mainGameObject.gameInitData.shopActive ||
+                        mainGameObject.gameInitData.levelChange) return false
+
                     process.env.OVERWRITE_SAVE = (process.env.OVERWRITE_SAVE === 'true')? 'false' : 'true';
                     if(process.env.OVERWRITE_SAVE) addClassList(contextElement, 'selected-overwrite-data')
 

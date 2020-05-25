@@ -270,7 +270,7 @@ function moveShip({xPos=0, yPos=0}){
 
 
 function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
-    if(mainGameObject.gameInitData.gamePause) return false
+    if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
