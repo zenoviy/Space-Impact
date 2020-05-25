@@ -299,7 +299,8 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
             saveObjectToBackPack({
                 groundPlayer: groundPlayer,
                 data: mainGameObject.mapNearActiveElement.details.rules.contain,
-                previewPicture: previewPicture
+                previewPicture: previewPicture,
+                name: (mainGameObject.mapNearActiveElement.details.objectName)? mainGameObject.mapNearActiveElement.details.objectName: null
             })
         }
         mainGameObject.mapNearActiveElement.details.rules.tips = null;
@@ -333,14 +334,15 @@ function deleteInventoryObject ({ currentDialogCharacter, requireData, groundPla
 
 
 
-function saveObjectToBackPack({groundPlayer, data, previewPicture}){
+function saveObjectToBackPack({groundPlayer, data, previewPicture, name}){
     hideInventory()
     let inventoryStack = stackItemAtInventory({ data: data, inventory: groundPlayer.inventory })
     if(inventoryStack) return false
     groundPlayer.inventory = groundPlayer.inventory.concat({
         innerData: data,
         texture: previewPicture,
-        numberOfItems: 1
+        numberOfItems: 1,
+        name: name
     })
 }
 

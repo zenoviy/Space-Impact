@@ -108,6 +108,7 @@ async function loadExtraObjectToGroundEnemy (extraObjects, enemy){
             if(enemy.details.rules.contain){
                 callObject[0].grapplePower.grappleItem = enemy.details.rules.contain;
                 callObject[0].grapplePower.previewPicture = enemy.details.rules.objectPicture;
+                callObject[0].grapplePower.name = (enemy.details.objectName)? enemy.details.objectName : null;
                 callObject[0].speed = 0;
                 callObject[0].absoluteLink = enemy.details.rules.objectPicture;
             }
@@ -163,8 +164,13 @@ Jump of enemy unit
  ========================== */
 
 
-async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }){
+ async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+    let currentBlockIndex = (this.currentGroundBlock)? this.currentGroundBlock.index : null;
+    let leaderBlock = allBlocks.find(block =>{
+        let bottomBlockIndex = currentBlockIndex - 1;
+        return block.index === bottomBlockIndex
+    });
     if(extraSeconds % 10 === 0 ){
         if(!this.groundTouch && this.jumpImpuls < 0 && extraSeconds % 10 === 0){
             this.isRun = true;
@@ -175,16 +181,29 @@ async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }
         }
         if(this.groundTouch && this.isJump && !this.isJumpDown){
             let blockHeight = (this.jumpBlock)? this.jumpBlock.height + this.height : 0;
+            if(leaderBlock){
+                if(leaderBlock.details.type === "leader"){
+                    blockHeight = leaderBlock.height;
+                }
+            }
             blockHeight = (blockHeight > 120)? 120: blockHeight;
             this.jumpImpuls = (this.jumpSpeed * levelInformation.gravity + blockHeight) * -1;
 
             this.isRun = false;
-            //console.log('Jump Up', this.jumpImpuls)
+
             this.y += this.jumpImpuls;
             this.groundTouch = false;
+            if(leaderBlock){
+                if(leaderBlock.details.type === "leader"){
+                    this.groundTouch = true;
+                    this.isRun = false;
+                }
+            }
+
         }
     }
 }
+
 
 
 /* ==========================
@@ -256,9 +275,10 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let directionX = (this.x >= groundPlayer.x)? true : false;
     let directionY = (this.y >= groundPlayer.y)? true : false;
 
+ 
     let randomizerCheck = mainGameObject.gameRandomizer(50, 20);
     if(extraSeconds % randomizerCheck != 0) return false
-    let searchSteps = 5;
+    let searchSteps = 20;
 
 
     if( distanceX && distanceY && !this.playerInRange){

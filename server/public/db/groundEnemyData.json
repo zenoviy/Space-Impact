@@ -99,7 +99,7 @@
                         "soundLoop": false
                     },
                     "type": "blaster",
-                    "fireRepead": 7,
+                    "fireRepead": 9,
                     "speed": 8,
                     "width": 20,
                     "height": 15,

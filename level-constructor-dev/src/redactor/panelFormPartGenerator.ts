@@ -207,12 +207,7 @@ async function generateInput({fileContainer, target}){
             fileContainer.appendChild(itemData);
 
 
-        // Teleport door settings
            if(blockDetails.rules.targetId){
-               console.log(1)
-            //"doorId": 1
-            //"targetId": 2
-
             innerText = `<h3>Teleport settings</h3>
             <p>Set teleport target and id</p>
             <lable>
@@ -239,8 +234,22 @@ async function generateInput({fileContainer, target}){
     if(blockDetails.innerObject){
 
     }
-    if(blockDetails.type){
+    if(blockDetails.type === "scenario_object"){
+        innerText = `<h3>Scenario object name</h3>
+            <p>Set Scenario name</p>
+            <lable>
+                <p>Name</p>
+                <textarea id="scenario-object-name-id-${currentDescriptionId}"  min="3">${blockDetails.objectName}</textarea>
+            </lable>
 
+            <button data-target='save-scenario-object-name-btn' class="main-btn">Save object name</button> <hr>`
+            itemData = elementCreator({
+                tagname: "div",
+                classList: 'single-block-description',
+                innerText: innerText,
+                idName: 'object-name-'+ currentDescriptionId
+            })
+            fileContainer.appendChild(itemData);
     }
     // change-size
     fileContainer.addEventListener('click', async function(event){
@@ -385,7 +394,7 @@ let canvas = document.createElement('canvas');
                 })
 
                 fieldName = (fieldResults)? 'contain object': ' save contain object';
-
+                break;
             case 'save-door-settings-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'doorId',
@@ -396,6 +405,13 @@ let canvas = document.createElement('canvas');
                     key: 'targetId',
                     fieldSelector: '#teleport-target-set-id-'+ currentDescriptionId,
                     target: target.details.rules
+                })
+                break;
+            case 'save-scenario-object-name-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'objectName',
+                    fieldSelector: '#scenario-object-name-id-'+ currentDescriptionId,
+                    target: target.details
                 })
                 break;
             default:

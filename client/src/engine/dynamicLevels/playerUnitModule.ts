@@ -62,13 +62,13 @@ function loadItemsToGroundInventory({groundPlayer}){
 
 function loadPlayerCharacter({ playerInventory }){
     let items = '';
-
+    console.log(playerInventory)
     for(let item of playerInventory){
         items += `<div class="backpack-item-wrapper">
         <span class="number-of-items">${item.numberOfItems}</span>
             <img class="back-pack-item-picture" src="${(item.objectPicture)? item.objectPicture : item.texture}">
 
-            <p>${item.innerData.split("_").join(" ")}</p>
+            <p>${(item.name)? item.name : item.innerData.split("_").join(" ")}</p>
         </div>`
     }
     return items
@@ -342,7 +342,8 @@ function groundPlayerCollectable({allGameSideObjects, playerShipData, mainGameOb
     saveObjectToBackPack({
         groundPlayer: playerShipData,
         data: this.grapplePower.grappleItem,
-        previewPicture: this.grapplePower.previewPicture
+        previewPicture: this.grapplePower.previewPicture,
+        name: this.grapplePower.name
     })
 }
 

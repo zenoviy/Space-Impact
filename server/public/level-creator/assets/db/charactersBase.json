@@ -597,7 +597,7 @@
         "texture": "/level-creator/assets/charactersObjects/inner-objects/x-object-1.png",
         "previewTexture": "/level-creator/assets/charactersObjects/inner-objects/x-object-1.png",
         "description": "x-object",
-        "name": "Unknown object",
+        "objectName": "Unknown object",
         "backgroundTexture": null,
         "type": "scenario_object",
         "display": true,

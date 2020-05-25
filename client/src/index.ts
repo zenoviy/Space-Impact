@@ -343,7 +343,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
 
 
 
- function gameDynamicEnemyRender({ gameObject }){
+async function gameDynamicEnemyRender({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     let levelInformation = gameObject.gameInitData.gameData.levelData;
     let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
@@ -385,7 +385,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
                     objectIntersectionDetect: objectIntersectionDetect
                 })
                 if(enemy.details.type != "npc_spawner"){
-                    enemy.detectPlayer({
+                   await enemy.detectPlayer({
                         mainGameObject: gameObject,
                         groundPlayer: groundPlayer,
                         allBlocks: allBlocks,

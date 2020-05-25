@@ -332,6 +332,8 @@ function groundBulletCollision({hitObject, mainGameObject}){
             hitObject.playerInRange = true;
             if(hitObject.details.role != "military"){
                 hitObject.currentBehavior = "patrol";
+            }else if(hitObject.details.role == "destroy"){
+                hitObject.currentBehavior = "destroy";
             }
         };
         this.objectPresent = false;

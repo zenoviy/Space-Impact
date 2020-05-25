@@ -61,6 +61,8 @@ V- ai logic
 	V - fixed ingame different dirrection movement
 	V -- fixed elevator wall
 	V - add teleport door
+	V - reduce enemy search source
+	V - inventory object name
 
 	- add sound
 		- jump

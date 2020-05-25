@@ -579,7 +579,8 @@ function dynamicLevelGrappleObjects({ mainGameObject, groundPlayer, target, expl
         saveObjectToBackPack({
             groundPlayer: groundPlayer,
             data: target.details.type,
-            previewPicture: process.env.HOST + target.details.previewTexture
+            previewPicture: process.env.HOST + target.details.previewTexture,
+            name: (target.details.objectName)? target.details.objectName : null
         })
 
         target.details.display = false;
