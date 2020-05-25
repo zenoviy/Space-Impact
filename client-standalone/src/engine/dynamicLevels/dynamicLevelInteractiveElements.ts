@@ -1,4 +1,5 @@
 import { useObject, searchInPlayerInventory } from './dynamicDialog';
+import { playerChangeMapPosition } from './playerUnitModule';
 
 
 function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player }){
@@ -59,8 +60,7 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     let stairsVerticalIndex = stairs.height / stairs.width;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
-    
-    //console.log(player.onStairs, this.jumpImpuls, player.isRun, stairs.details.type, "|||", player.onElevator)
+
     player.onStairs = true;
     if(player.objectOwner === "groundEnemy" || player.objectOwner === "groundNPC"){
         if(extraSeconds % 5 === 0){
@@ -80,8 +80,6 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
         player.groundTouch = true;
         return false
     }
-
-    //let percentOfSteps = stairs.height/stairs.details.angle;
     player.onStairs = true;
     if(!player.isRun){
         player.groundTouch = true;
@@ -99,15 +97,9 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     if(stairs.details.type === "stairs-left"){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity * -1: levelInformation.gravity;
-        //process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH = 'true';
-        //console.log(levelInformation.jumpImpuls, stairs.details.type, player.playerDirectionHorizontal, player.groundTouch)
-       //console.log(player.groundTouch, groundPlayer.groundTouch, "||1")
     }else if(stairs.details.type === "stairs-right" && player.isRun){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity : (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
-        //process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH = 'true';
-        //console.log(player.groundTouch, "||2")
-        //console.log(levelInformation.jumpImpuls, stairs.details.type, player.playerDirectionHorizontal, player.groundTouch)
     }
 }
 
@@ -124,14 +116,12 @@ function doorFunctionality({ mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let currentBlockIndex = (currentGroundBlock)? currentGroundBlock.index : null;
 
-
     let compareBlock = allBlocks.find(block =>{
         let bottomBlockIndex = currentBlockIndex - 1;
         return block.index === bottomBlockIndex
     })
     if(!currentWallBlock || currentGroundBlock === currentWallBlock ||
         compareBlock === currentWallBlock && this.x + this.width > currentWallBlock.x + currentWallBlock.width && this.x < currentWallBlock.x + currentWallBlock.width - 5) return false
-
 
     if(currentWallBlock.details.type === 'door'){
 
@@ -155,11 +145,39 @@ function doorFunctionality({ mainGameObject }){
 
 
 
+async function teleportFunctionality({ mainGameObject }){
+    let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    let currentGroundBlock = this.currentGroundBlock;
+    let currentBlockIndex = (currentGroundBlock)? currentGroundBlock.index : null;
+    if(!currentGroundBlock || !currentBlockIndex) return false
+    let teleportDoor = allBlocks.find(block =>{
+        let bottomBlockIndex = currentBlockIndex - 1;
+        return block.index === bottomBlockIndex
+    });
+    if(!teleportDoor) return false
+    if(!teleportDoor.details ) return false
+    if(teleportDoor.details.type === "teleport_door"){
+        let doorId = teleportDoor.details.rules.doorId
+        let targetId = teleportDoor.details.rules.targetId
+
+        let spawnPoint = allBlocks.filter(obj =>{ 
+            if(obj.details) return obj.details.type === "teleport_door"
+        }).find(obj => {
+            if(obj.details.rules) return  targetId === obj.details.rules.doorId;
+        })
+
+        if(!spawnPoint) return false
+        let positionRange = await playerChangeMapPosition({newSpawnPoint: spawnPoint, mainGameObject: mainGameObject})
+        backgroundChange({mainGameObject: mainGameObject, positionRange: positionRange})
+    }
+}
+
+
+
 function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(currentWallBlock.details.type != 'door') return false
 
-   
     let doorState = currentWallBlock.details.collision;
     let doorAnimationItems = currentWallBlock.details.numberOfItems;
     let doorPictureWidth = currentWallBlock.details.sWidth;
@@ -178,13 +196,22 @@ function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
 function leadersFunctionality(){
     if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC") return false
     if(!this.currentGroundBlock) return true
-    //console.log(this.currentGroundBlock)
     let currentGroundBlock = this.currentGroundBlock;
-    //console.log(currentGroundBlock)
     if(currentGroundBlock.details.type != "leader") return true
     else return false
 }
 
+
+
+function backgroundChange({mainGameObject, positionRange}){
+    let levelInformation = mainGameObject.gameInitData.gameData.levelData;
+    let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
+
+    console.log(positionRange.yRangeCompensation)
+    for(let item of allGameBackgroundElements){
+        item.y += (item.defaultSpeed/(10)) * (positionRange.yRangeCompensation -1);
+    } /// 56
+}
 
 
 export {
@@ -193,5 +220,6 @@ export {
     stairsMove,
     doorFunctionality,
     openClosedDoorAnimation,
-    leadersFunctionality
+    leadersFunctionality,
+    teleportFunctionality
 }

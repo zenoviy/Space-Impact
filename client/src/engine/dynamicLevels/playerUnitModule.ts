@@ -281,7 +281,6 @@ function backToTheMapAgain({ mainGameObject, player, constructors }){
     })
 
     if(!closestBlock){
-       // console.log('journal renew')
         if(!mainGameObject.gameInitData.levelChange)  groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
         let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
         let allGamesObject = [].concat(allGameBackgroundElements)
@@ -289,22 +288,38 @@ function backToTheMapAgain({ mainGameObject, player, constructors }){
             if(obj.details) return obj.details.type === "spawner";
         })
         if(!spawnPoint) return false
-        let xRangeCompensation = window.innerWidth/2 - (spawnPoint.x + spawnPoint.width/2);
-        let yRangeCompensation = window.innerHeight/2 - spawnPoint.y;
+        playerChangeMapPosition({newSpawnPoint: spawnPoint, mainGameObject: mainGameObject})
+        for(let map of allGamesObject ){
+            map.y = map.defaultY;
+        }
+    }
+}
+
+function playerChangeMapPosition({newSpawnPoint, mainGameObject}){
+    if(!newSpawnPoint) return false
+    let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
+    let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
+    let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
+    let allGamesObject = [].concat(allGameBackgroundElements)
+    let xRangeCompensation = window.innerWidth/2 - (newSpawnPoint.x + newSpawnPoint.width/2);
+    let yRangeCompensation = window.innerHeight/2 - newSpawnPoint.y;
 
         for(let block of allBlocks){
             block.x += xRangeCompensation;
             block.y += yRangeCompensation;
         }
         for(let map of allGamesObject ){
-            map.y = map.defaultY;
+           // map.y = map.defaultY;
         }
         for(let enemy of allEnemy){
             allEnemy.isRun = false;
             allEnemy.groundTouch = true;
         }
-    }
+        return {xRangeCompensation: xRangeCompensation, yRangeCompensation: yRangeCompensation}
 }
+
+
+
 
 
 function groundPlayerShot({ groundPlayer, event }){
@@ -343,5 +358,6 @@ export {
     groundPlayerShot,
     groundPlayerCollectable,
     hideInventory,
-    openInventory
+    openInventory,
+    playerChangeMapPosition
 }

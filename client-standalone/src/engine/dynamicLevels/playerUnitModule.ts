@@ -154,7 +154,6 @@ function jumpAnimation({renewAnimation, layerDefaultSize, shotAngleAnimation}){
 
 
 function changeAnimationParameters(){
-
     if( !this.objectPresent ){
         if(this.numberOfItems != this.animations.death.numberOfItems) renewAnimation.call(this)
 
@@ -197,7 +196,6 @@ function changeAnimationParameters(){
         })
     }
     this.sWidth = this.imageWidth/this.numberOfItems;
-    
         this.onLeader = false;
         this.leaderClimb = false;
     function layerDefaultSize(){
@@ -259,7 +257,6 @@ function groundPlayerMinusLife({mainGameObject, constructors}){
     let mainPlayerData = levelData.source.playerObject;
     mainPlayerData.numberOflife -= 1;
     //if(mainPlayerData.numberOflife > 0) this.healthPoint = this.defaultHealth
-
             if(mainPlayerData.numberOflife <= 0){
                 mainGameObject.gameOverWindow()
                 mainGameObject.gameInitData.gameOver = true;
@@ -273,6 +270,7 @@ function groundPlayerMinusLife({mainGameObject, constructors}){
 
 
 function backToTheMapAgain({ mainGameObject, player, constructors }){
+
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
 
@@ -283,29 +281,45 @@ function backToTheMapAgain({ mainGameObject, player, constructors }){
     })
 
     if(!closestBlock){
-        if(!mainGameObject.gameInitData.levelChange) groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+        if(!mainGameObject.gameInitData.levelChange)  groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
         let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
         let allGamesObject = [].concat(allGameBackgroundElements)
         let spawnPoint = allBlocks.find(obj => {
             if(obj.details) return obj.details.type === "spawner";
         })
         if(!spawnPoint) return false
-        let xRangeCompensation = window.innerWidth/2 - (spawnPoint.x + spawnPoint.width/2);
-        let yRangeCompensation = window.innerHeight/2 - spawnPoint.y;
+        playerChangeMapPosition({newSpawnPoint: spawnPoint, mainGameObject: mainGameObject})
+        for(let map of allGamesObject ){
+            map.y = map.defaultY;
+        }
+    }
+}
+
+function playerChangeMapPosition({newSpawnPoint, mainGameObject}){
+    if(!newSpawnPoint) return false
+    let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
+    let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
+    let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
+    let allGamesObject = [].concat(allGameBackgroundElements)
+    let xRangeCompensation = window.innerWidth/2 - (newSpawnPoint.x + newSpawnPoint.width/2);
+    let yRangeCompensation = window.innerHeight/2 - newSpawnPoint.y;
 
         for(let block of allBlocks){
             block.x += xRangeCompensation;
             block.y += yRangeCompensation;
         }
         for(let map of allGamesObject ){
-            map.y = map.defaultY;
+           // map.y = map.defaultY;
         }
         for(let enemy of allEnemy){
             allEnemy.isRun = false;
             allEnemy.groundTouch = true;
         }
-    }
+        return {xRangeCompensation: xRangeCompensation, yRangeCompensation: yRangeCompensation}
 }
+
+
+
 
 
 function groundPlayerShot({ groundPlayer, event }){
@@ -344,5 +358,6 @@ export {
     groundPlayerShot,
     groundPlayerCollectable,
     hideInventory,
-    openInventory
+    openInventory,
+    playerChangeMapPosition
 }

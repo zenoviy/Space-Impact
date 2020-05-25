@@ -60,7 +60,7 @@ V- ai logic
 	V - fixed pause/nogame movement
 	V - fixed ingame different dirrection movement
 	V -- fixed elevator wall
-	- add teleport door
+	V - add teleport door
 
 	- add sound
 		- jump
@@ -93,7 +93,7 @@ V- ai logic
 	- button sound
 ======  Code
 	- change name of methods  
-		- enemy
+		V- enemy
 
 ///////////////////////////////////
 

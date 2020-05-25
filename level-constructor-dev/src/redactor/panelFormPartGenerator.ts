@@ -206,6 +206,32 @@ async function generateInput({fileContainer, target}){
             })
             fileContainer.appendChild(itemData);
 
+
+        // Teleport door settings
+           if(blockDetails.rules.targetId){
+               console.log(1)
+            //"doorId": 1
+            //"targetId": 2
+
+            innerText = `<h3>Teleport settings</h3>
+            <p>Set teleport target and id</p>
+            <lable>
+                <p>Id of this door side</p>
+                <input id="teleport-set-id-${currentDescriptionId}" type="number" min="1" value=${blockDetails.rules.doorId}>
+            </lable>
+            <lable>
+                <p>Id of target door side</p>
+                <input id="teleport-target-set-id-${currentDescriptionId}" type="number" min="1" value=${blockDetails.rules.targetId}>
+            </lable>
+            <button data-target='save-door-settings-btn' class="main-btn">Save teleport door data</button> <hr>`
+            itemData = elementCreator({
+                tagname: "div",
+                classList: 'single-block-description',
+                innerText: innerText,
+                idName: 'teleport-settings-'+ currentDescriptionId
+            })
+            fileContainer.appendChild(itemData);
+           }
     }
     if(blockDetails.dialog){
             await createDialogForm({blockDetails: blockDetails, currentDescriptionId: currentDescriptionId, fileContainer: fileContainer})
@@ -347,7 +373,6 @@ let canvas = document.createElement('canvas');
                 fieldName = (fieldResults)? 'contain object': ' save contain object';
                 break;
             case 'save-dialog-btn':
-                console.log('Save')
                 fieldResults = await changeDataInBlock({
                     key: 'contain',
                     fieldSelector: '#contain-field-'+ currentDescriptionId,
@@ -358,13 +383,21 @@ let canvas = document.createElement('canvas');
                     fieldSelector: '#npc-name',
                     target: target.details.dialog.default
                 })
-                /*fieldResults = await changeDataInBlock({
-                    key: 'text',
-                    fieldSelector: '#default-dialog-text',
-                    target: target.details.dialog.default
-                })*/
 
                 fieldName = (fieldResults)? 'contain object': ' save contain object';
+
+            case 'save-door-settings-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'doorId',
+                    fieldSelector: '#teleport-set-id-'+ currentDescriptionId,
+                    target: target.details.rules
+                })
+                fieldResults = await changeDataInBlock({
+                    key: 'targetId',
+                    fieldSelector: '#teleport-target-set-id-'+ currentDescriptionId,
+                    target: target.details.rules
+                })
+                break;
             default:
                 return false
         }

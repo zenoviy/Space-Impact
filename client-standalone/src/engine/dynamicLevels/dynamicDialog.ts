@@ -1,4 +1,4 @@
-import { doorFunctionality } from './dynamicLevelInteractiveElements';
+import { doorFunctionality, teleportFunctionality } from './dynamicLevelInteractiveElements';
 import { openInventory, hideInventory } from './playerUnitModule';
 import { createSimpleElements } from '../../appMenu/pagesBuilder';
 import { writeDataToJournal, completeJournalTask } from './journalModules';
@@ -25,6 +25,9 @@ function useObject({ mainGameObject, player, item }){
                 player.currentDialogCharacter = item;
                 process.env.GROUND_NPC_DIALOG_ACTIVE = 'true';
                 if( process.env.GROUND_NPC_DIALOG_ACTIVE === 'true' && process.env.GROUND_CHARACTERS_INVENTORY === 'true') break;
+                currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
+                break;
+            case 'teleport_door':
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
                 break;
             default:
@@ -234,6 +237,7 @@ function renderText( contexts, displayText, x, y, color){
 function interactWithObjects({ mainGameObject, constructors }){
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     doorFunctionality.call(groundPlayer, {mainGameObject: mainGameObject})
+    teleportFunctionality.call(groundPlayer, {mainGameObject: mainGameObject})
     if(process.env.GROUND_ACTIVE_BLOCK_IN_RANGE === 'true'){
         let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
         let requireData;
