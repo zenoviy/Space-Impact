@@ -2,7 +2,6 @@
 import { init, getUIObjectPosition } from './uiModelMethods';
 
 function gameInformationScreen(extra: any, ctx: any, width: number, height: number, pictureDirrection: any, info: any){
-   
     return [
         {
             name: "lifePoint",
@@ -228,25 +227,29 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
             text: (function(){
                 let mainGameObject = info.mainGameObject;
                 let dynamicLevelsActive = mainGameObject.gameInitData.dynamicLevelsActive;
+                let levelChange = mainGameObject.gameInitData.levelChange;
+                //levelChange
                 let pause = mainGameObject.gameInitData.gamePause;
                 let gameControls = (dynamicLevelsActive && !pause)?
-                `esc - menu P - pause LMB(hold) - shot` : (!pause)?
-                `esc - menu P - pause` : (dynamicLevelsActive && pause)?
-                `esc - back to game P - pause  W - jump` :
-                `esc - menu   P - pause  I - inventory`
+                `esc - menu P - pause LMB(hold) - shot  W - jump  D - right  S - down  A - left` : (!pause)?
+                `esc - menu P - pause  LMB - shot  I - inventory  J -journal` : (dynamicLevelsActive && pause)?
+                `esc - back to game P - pause  W - jump  D - right  S - down  A - left  J - journal  M - map  I - inventory` :
+                `esc - menu   P - pause  I - inventory  J - journal`;
+
+                if(!levelChange && !pause) return ''
                 return gameControls
             })(), // W - jump  D - right  A - left   LKM - shot  E - activate M - map I - inventory j - journal
-            description: "Game controll button tips [art 1",
+            description: "Game controll button tips part 1",
             clicked: false,
-            fontSize: "thin 9px Roboto",
+            fontSize: "thin 12px Roboto",
             properties:{
                 ctx: ctx,
-                width: -50,
+                width: 50,
                 height: 0,
-                x: width - 200,
+                x: 0,
                 y: height - 50,
                 background: false,
-                borderColor: 'rgba(205, 205, 205, 1)',
+                borderColor: 'rgba(196, 198, 201, 1)',
                 shadowColor: 'rgba(0, 0, 0, 1)',
                 radius: null,
             },

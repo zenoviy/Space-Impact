@@ -21,7 +21,7 @@ function fillJournalDefaultData ({mainGameObject}){
     let gameInfo = mainGameObject.showGameInfo();
     let userShipData = mainGameObject.gameInitData.gameData.playerObject;
     let userShipJournal = userShipData.journal;
-    if(userShipJournal.levelTasks && !userShipJournal.levelTasks[gameInfo.gameData.levelData.level]){
+    if(userShipJournal.levelTasks && !userShipJournal.levelTasks[gameInfo.gameData.levelData.level] && gameInfo.gameData.levelData.level){
         let levelDataDescription = gameInfo.gameData.levelData.description;
         let cureentLevalTasks = {
             levelName: gameInfo.gameData.levelData.description.name,
