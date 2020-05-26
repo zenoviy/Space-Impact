@@ -6,7 +6,7 @@
         "price": 2500,
         "title": "Machinegun",
         "status": "mechanic gun",
-        "description": "blaster gun, regular weapon for you spaceship",
+        "description": "Bullet gun is a fully automatic and mounted on you ship, very fast but it needs a lot of shots to brake ship armor, usually this gun used in sky battle",
         "hangarImage": "static/shop/weapons/Machinegun.png",
         "texture": "/public/images/misc/bullets/bullet-gun.png",
         "explosionAnimation": {
@@ -54,7 +54,7 @@
             "price": 8000,
             "title": "Blaster",
             "status": "energo gun",
-            "description": "blaster gun, regular weapon for you spaceship",
+            "description": "Energy gun, a prototype build based on enemy technology, not so powerful gun",
             "texture": "/public/images/misc/bullets/green-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
@@ -102,7 +102,7 @@
             "price": 20000,
             "title": "Reaper",
             "status": "energo gun",
-            "description": "blaster gun, regular weapon for you spaceship",
+            "description": "Energy gun, a trophy weapon from enemy ship, piece of enemy technology",
             "texture": "/public/images/misc/bullets/red-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
@@ -150,7 +150,7 @@
             "price": 25000,
             "title": "Repiter",
             "status": "gun",
-            "description": "blaster gun, regular weapon for you spaceship",
+            "description": "Plasma gun, this type of gun is better then enemy gun, but still not enough to destroy large ship",
             "texture": "/public/images/misc/bullets/yellow-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
@@ -199,7 +199,7 @@
             "price": 40000,
             "title": "Destroyer",
             "status": "power gun",
-            "description": "blaster gun, regular weapon for you spaceship",
+            "description": "Enforced version of energy gun, this gun has enough power to fight in sky or in space",
             "texture": "/public/images/misc/bullets/blue-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
@@ -247,7 +247,7 @@
             "price": 65000,
             "title": "Sabre",
             "status": "power gun",
-            "description": "rail gun, weapon for you spaceship",
+            "description": "Rail gun type, large and powerful weapon, designed to be mounted on large ship, and can break almost any armor",
             "texture": "/public/images/misc/bullets/violet-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",
@@ -294,7 +294,7 @@
             "price": 95000,
             "title": "Destructor",
             "status": "power gun",
-            "description": "rail gun constructed using enemy, technology, weapon for you spaceship",
+            "description": "Very rear piece of enemy technology, the most powerful gun, but our scientist cant solve how this gun work",
             "texture": "/public/images/misc/bullets/color-laser.png",
             "explosionAnimation": {
                 "texture": "/public/images/misc/fire/explosion.png",

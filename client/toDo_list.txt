@@ -1,10 +1,11 @@
 =======  Fly part Game
 	V - fixed buttons in shop
-	- finish desription of shop items
+	V - finish desription of shop items
 	V - fixed ship name in shop
 	V - fixed Journal
 	V - fixed game end stop collect points
 	V - fixed object spawn during shop screen
+	- add space destruction for plane
 	
 ====== Ground Game
 /*  Dynamic level
@@ -89,7 +90,7 @@ V- ai logic
 
 ======  UI
 	- button tips in pause or level change but not in game
-	- add buttons style to history
+	V - add buttons style to history
 	- add pages for game desription
 	- finished game story
 	- button sound

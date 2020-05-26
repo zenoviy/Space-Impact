@@ -4,33 +4,56 @@
             <form action="" id="menu-settings-form">
                 <h1>settings</h1>
 
-                <p>Music level</p>
-                <p id="volume-display"></p>
-                <input name="soundLevel" type="range" min="0" max="100" value="50" class="settings-slider" id="soundLevel">
+                <div class="settings-wrapper single-items-content-area">
+                    <div class="article-part-item wide-text-column">
+                        <h4>Music level</h4>
+                        <p id="volume-display"></p>
+                        <input name="soundLevel" type="range" min="0" max="100" value="50" class="settings-slider" id="soundLevel">
 
-                <p>Effect level</p>
-                <p id="volume-effect-display"></p>
-                <input name="soundEffect" type="range" min="0" max="100" value="50" class="settings-slider" id="soundEffect">
+                        <h4>Effect level</h4>
+                        <p id="volume-effect-display"></p>
+                        <input name="soundEffect" type="range" min="0" max="100" value="50" class="settings-slider" id="soundEffect">
 
-                <p>Enable sound</p>
-                <p>
-                    <label class="switch">
-                        <input name="soundOn" id="soundOn" type="checkbox" checked>
-                        <span class="slider round"></span>
-                    </label>
-                </p>
-                <p>Fullscreen </p>
-                <p>
-                    <label class="switch">
-                        <input name="fullScreen" id="fullScreen" type="checkbox" checked>
-                        <span class="slider round"></span>
-                    </label>
-                </p>
-                <div id="settings-message" class="success-text message-slide-text" style="display: none"></div>
-                <div class="dialog-btn-area">
-                    <button class="accept-btn btn-main">save</button>
-                    <button class="reject-btn btn-main btn-orange-reject" data-button-id="cancel-settings">cancel</button>
-                    <button class="btn-main" id="settings-reload-btn">reload game</button>
+                        <h4>Enable sound<h4>
+                        <p>
+                            <label class="switch">
+                                <input name="soundOn" id="soundOn" type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </p>
+                        <h4>Fullscreen </h4>
+                        <p>
+                            <label class="switch">
+                                <input name="fullScreen" id="fullScreen" type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="article-part-item wide-text-column">
+                        <div id="settings-message" class="success-text message-slide-text" style="display: none"></div>
+                        <div class="settings-tip-area">
+                            <h4>Buttons list</h4>
+                            <p><span>ESC</span> - enter to menu, pause of the game / back to the game</p>
+                            <p><span>P</span> - pause of the game / back to the game</p>
+                            <p><span>W</span> - move up / jump</p>
+                            <p><span>D</span> - move right</p>
+                            <p><span>S</span> - move down</p>
+                            <p><span>A</span> - move left</p>
+                            <p><span>LMB</span> - (ship) shot, (ground) hold to shot </p>
+                            <p><span>I</span> - inventory (ground / ship) show / hide</p>
+                            <p><span>J</span> - quest journal (ground / ship) show / hide</p>
+                            <p><span>M</span> - map (ground) show / hide</p>
+                            <p><span>R</span> - launch rocket</p>
+                            <p><span>H</span> - launch homing rocket</p>
+                            <p><span>T</span> - detonate nuclear bomb</p>
+                            <p><span>E</span> - (ship) activate plasma shield,  (on ground) activate events, dialog</p>
+                        </div>
+                        <div class="dialog-btn-area dialog-button-columns">
+                            <button class="accept-btn btn-main btn-column">save</button>
+                            <button class="reject-btn btn-main btn-orange-reject btn-column" data-button-id="cancel-settings">cancel</button>
+                            <button class="btn-main btn-column" id="settings-reload-btn">reload game</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
