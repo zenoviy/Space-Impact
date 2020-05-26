@@ -76,7 +76,6 @@ function loadPlayerCharacter({ playerInventory }){
 
 
 
-
 function playerAnimation({ groundPlayer, mainGameObject }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
 }
@@ -361,5 +360,6 @@ export {
     groundPlayerCollectable,
     hideInventory,
     openInventory,
-    playerChangeMapPosition
+    playerChangeMapPosition,
+    groundPlayerMinusLife
 }

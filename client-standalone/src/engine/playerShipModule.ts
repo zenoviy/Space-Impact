@@ -12,6 +12,7 @@ import { interactWithObjects } from '../engine/dynamicLevels/dynamicDialog';
 import { leadersFunctionality } from '../engine/dynamicLevels/dynamicLevelInteractiveElements';
 import { createMapRenderField } from '../engine/dynamicLevels/minimap';
 import { openJournal } from '../engine/dynamicLevels/journalModules';
+import { groundPlayerMinusLife } from './dynamicLevels/playerUnitModule';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -275,9 +276,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
 
-    let lastActionVertical = groundPlayer.playerDirectionVertical;  // this.playerDirectionVertical === "down"
-
-    //groundPlayer.playerDirectionHorizontal = playerDirection;
+    let lastActionVertical = groundPlayer.playerDirectionVertical;
     switch (playerDirection){
         case "down":
             groundPlayer.playerDirectionVertical = playerDirection;
@@ -340,6 +339,19 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     //groundPlayer.onLeader = false;
 }
 
+
+
+function shipInSpace({mainGameObject, playerShip, constructors}){
+    let levelInformation = mainGameObject.gameInitData.gameData.levelData;
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+    if(extraSeconds % 1000 === 0){
+        if(playerShip.data.status === "small fighter" && levelInformation.space){
+            groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+        }
+    }
+}
+
+
 export {
     initPlayerShip,
     shipControl,
@@ -348,5 +360,6 @@ export {
     setContext,
     playerShipTextureChange,
     addVehicleSpeed,
-    syncKeyControl
+    syncKeyControl,
+    shipInSpace
 }

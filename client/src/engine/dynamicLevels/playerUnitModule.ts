@@ -360,5 +360,6 @@ export {
     groundPlayerCollectable,
     hideInventory,
     openInventory,
-    playerChangeMapPosition
+    playerChangeMapPosition,
+    groundPlayerMinusLife
 }

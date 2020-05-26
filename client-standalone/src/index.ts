@@ -17,7 +17,7 @@ import {
 } from './engine/dynamicLevels/dynamicLevelModule';
 import { doorFunctionality, openClosedDoorAnimation } from './engine/dynamicLevels/dynamicLevelInteractiveElements';
 import { objectIntersectionDetect } from './enemies/animationHitBoxModules';
-import { syncKeyControl } from './engine/playerShipModule';
+import { syncKeyControl, shipInSpace } from './engine/playerShipModule';
 import { shot, displayObjectAtScene } from './enemies/animationHitBoxModules';
 import { explosionFire } from './engine/gameSideObjectsModule';
 import { initAppGlobalVariable } from './server/globalVariables';
@@ -106,6 +106,7 @@ function groundBulletEngineFunction({gameObject}){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
+
                 bullet.spriteObjectsAnimation();
             }
         }
@@ -236,7 +237,7 @@ function levelChangesEngineFunction({ gameObject }){
 
 function spaceShipEngineFunction({ gameObject }){
     let data = gameObject.getLevelUserData();
-    
+
     if(gameObject.gameInitData.dynamicLevelsActive || data.currentLevel === 0) return false
     if(!gameObject.gameInitData.gameOver){
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
@@ -244,6 +245,11 @@ function spaceShipEngineFunction({ gameObject }){
                 gameObject.gameInitData.gameData.playerObject.placeShip()
             }
             gameObject.gameInitData.gameData.playerObject.spriteObjectsAnimation()
+            shipInSpace({
+                mainGameObject: gameObject,
+                playerShip: gameObject.gameInitData.gameData.playerObject,
+                constructors: constructors
+            })
         }
         if(gameObject.gameInitData.gameStatus) gameObject.gameInitData.gameData.playerObject.displayObjectAtScene(gameObject);
     }
@@ -256,11 +262,11 @@ function gameChangeEngineFunction({ gameObject }){
     if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
         if(gameObject.gameInitData.gameStatus){
             if(gameObject.gameInitData.gameData.levelObjects){
-                if(!gameObject.gameInitData.dynamicLevelsActive){
-                gameObject.mapRandomObjectSpawn(
-                    gameObject.gameInitData.gameData.levelObjects,
-                    constructors.SideObject,
-                    gameObject.gameInitData.allGameSideObjects)
+                if(!gameObject.gameInitData.dynamicLevelsActive && !gameObject.gameInitData.shopActive){
+                    gameObject.mapRandomObjectSpawn(
+                        gameObject.gameInitData.gameData.levelObjects,
+                        constructors.SideObject,
+                        gameObject.gameInitData.allGameSideObjects)
                 }
             }
             if(!gameObject.gameInitData.levelChange) gameObject.spawnEnemyLogic(constructors.EnemyObject);
@@ -344,7 +350,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
 
 
 
- function gameDynamicEnemyRender({ gameObject }){
+async function gameDynamicEnemyRender({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     let levelInformation = gameObject.gameInitData.gameData.levelData;
     let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
@@ -387,7 +393,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
                     objectIntersectionDetect: objectIntersectionDetect
                 })
                 if(enemy.details.type != "npc_spawner"){
-                    enemy.detectPlayer({
+                   await enemy.detectPlayer({
                         mainGameObject: gameObject,
                         groundPlayer: groundPlayer,
                         allBlocks: allBlocks,
@@ -573,7 +579,7 @@ function gameUiEngineFunction({ gameObject }){
         await gameObject.gameSettingsMenuInit()
         gameObject.createSound(constructors.SoundCreator)
     }
-    async function gameObjectStart(gameObject, playerShipData){
+    async function gameObjectStart(){
         gameObject.uiController()
         gameObject.setGameFields()
         gameObject.getScreenSize()
@@ -601,14 +607,15 @@ function gameUiEngineFunction({ gameObject }){
     const navigation: any = await appMenuAndSoundInit({gameObject: gameObject});
     await appSoundInit({gameObject: gameObject})
     var engine = await setInterval(gameInterval, gameObject.gameInitData.intervalCount)
-    await gameObjectStart(gameObject, playerShipData);
+    await gameObjectStart();
     saveGameEvents({mainGameObject: gameObject})
 
     createScreenshots({mainGameObject: gameObject })
     fillJournalDefaultData({mainGameObject: gameObject })
 
 
-    //   game engin runing
+
+    /*   game engin runing   */
    async  function gameInterval(){
         //if(gameObject.gameInitData.gamePause) return false
        if(gameObject.gameInitData.ctxUIField){
@@ -652,6 +659,6 @@ function gameUiEngineFunction({ gameObject }){
         gameUiEngineFunction({ gameObject: gameObject })
         hideShowMenu(mainMenu, navigation.menu, gameObject.gameInitData.gameWin, gameObject.gameInitData.gameStatus, gameObject.gameInitData.gameUiPause)
         //process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH = "false";
-    }/**/
+    }
 })()
 

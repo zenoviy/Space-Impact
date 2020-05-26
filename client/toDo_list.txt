@@ -5,7 +5,7 @@
 	V - fixed Journal
 	V - fixed game end stop collect points
 	V - fixed object spawn during shop screen
-	- add space destruction for plane
+	V - add space destruction for plane
 	
 ====== Ground Game
 /*  Dynamic level

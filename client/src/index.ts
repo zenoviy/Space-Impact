@@ -17,7 +17,7 @@ import {
 } from './engine/dynamicLevels/dynamicLevelModule';
 import { doorFunctionality, openClosedDoorAnimation } from './engine/dynamicLevels/dynamicLevelInteractiveElements';
 import { objectIntersectionDetect } from './enemies/animationHitBoxModules';
-import { syncKeyControl } from './engine/playerShipModule';
+import { syncKeyControl, shipInSpace } from './engine/playerShipModule';
 import { shot, displayObjectAtScene } from './enemies/animationHitBoxModules';
 import { explosionFire } from './engine/gameSideObjectsModule';
 import { initAppGlobalVariable } from './server/globalVariables';
@@ -237,7 +237,7 @@ function levelChangesEngineFunction({ gameObject }){
 
 function spaceShipEngineFunction({ gameObject }){
     let data = gameObject.getLevelUserData();
-    
+
     if(gameObject.gameInitData.dynamicLevelsActive || data.currentLevel === 0) return false
     if(!gameObject.gameInitData.gameOver){
         if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
@@ -245,6 +245,11 @@ function spaceShipEngineFunction({ gameObject }){
                 gameObject.gameInitData.gameData.playerObject.placeShip()
             }
             gameObject.gameInitData.gameData.playerObject.spriteObjectsAnimation()
+            shipInSpace({
+                mainGameObject: gameObject,
+                playerShip: gameObject.gameInitData.gameData.playerObject,
+                constructors: constructors
+            })
         }
         if(gameObject.gameInitData.gameStatus) gameObject.gameInitData.gameData.playerObject.displayObjectAtScene(gameObject);
     }
