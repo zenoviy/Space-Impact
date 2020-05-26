@@ -61,6 +61,7 @@ class DynamicUserConstructor {
     currentGroundBlock: any;
     currentDialogCharacter: any;
     type: string;
+    sound: any;
 
     displayObjectAtScene: any;
     loadTexture: any;
@@ -126,6 +127,7 @@ class DynamicUserConstructor {
         this.onLeader = false;
         this.type = "ground-object";
         this.mapFinder = [];
+        this.sound = (data.sound)? data.sound : null;
     }
 }
 

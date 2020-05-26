@@ -235,7 +235,7 @@ function renderText( contexts, displayText, x, y, color){
 
 function interactWithObjects({ mainGameObject, constructors }){
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
-    doorFunctionality.call(groundPlayer, {mainGameObject: mainGameObject})
+    doorFunctionality.call(groundPlayer, {mainGameObject: mainGameObject, constructors: constructors})
     teleportFunctionality.call(groundPlayer, {mainGameObject: mainGameObject})
     if(process.env.GROUND_ACTIVE_BLOCK_IN_RANGE === 'true'){
         let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;

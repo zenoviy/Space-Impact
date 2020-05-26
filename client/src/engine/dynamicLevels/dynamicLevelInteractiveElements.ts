@@ -1,5 +1,6 @@
 import { useObject, searchInPlayerInventory } from './dynamicDialog';
 import { playerChangeMapPosition } from './playerUnitModule';
+import { initSoundObject } from '../soundModules';
 
 
 function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player }){
@@ -108,7 +109,7 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
 
 
 // Open door by pressing E
-function doorFunctionality({ mainGameObject }){
+function doorFunctionality({ mainGameObject, constructors }){
     let currentWallBlock = this.currentWallBlock;
     let currentGroundBlock = this.currentGroundBlock;
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;
@@ -130,7 +131,19 @@ function doorFunctionality({ mainGameObject }){
                 data: this.inventory,
                 searchTarget: currentWallBlock.details.rules.require
             })
-            if(!searchObject) return false
+            if(!searchObject){
+                if(currentWallBlock.details.sound){
+                    initSoundObject({
+                        SoundCreator: constructors.SoundCreator,
+                        mainGameObject: mainGameObject,
+                        soundProps: {
+                            soundUrl: currentWallBlock.details.sound.second,
+                            soundLoop: false
+                        }
+                    })
+                }
+                return false
+            }
         }
         if(currentWallBlock.details.collision === true){
             currentWallBlock.details.rules.successText = "door is open";
@@ -174,7 +187,7 @@ async function teleportFunctionality({ mainGameObject }){
 
 
 
-function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
+function openClosedDoorAnimation({ currentWallBlock, mainGameObject, constructors }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(currentWallBlock.details.type != 'door') return false
 
@@ -185,12 +198,27 @@ function openClosedDoorAnimation({ currentWallBlock, mainGameObject }){
     if(extraSeconds % 5 === 0){
         if(doorState &&  currentWallBlock.sx > 0){
             currentWallBlock.sx -= doorPictureWidth;
+            doorSound({mainGameObject: mainGameObject, door: currentWallBlock, constructors: constructors})
         }else if(!doorState && currentWallBlock.sx >= 0 && currentWallBlock.sx < doorPictureWidth * (doorAnimationItems - 1)){
             currentWallBlock.sx += doorPictureWidth;
+            doorSound({mainGameObject: mainGameObject, door: currentWallBlock, constructors: constructors})
         }
     }
 }
 
+
+
+function doorSound({mainGameObject, door, constructors}){
+    if(!door.details.sound) return false
+   initSoundObject({
+        SoundCreator: constructors.SoundCreator,
+        mainGameObject: mainGameObject,
+        soundProps: {
+            soundUrl: door.details.sound.main,
+            soundLoop: false
+        }
+    })
+}
 
 
 function leadersFunctionality(){
@@ -206,11 +234,9 @@ function leadersFunctionality(){
 function backgroundChange({mainGameObject, positionRange}){
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;
     let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
-
-    console.log(positionRange.yRangeCompensation)
     for(let item of allGameBackgroundElements){
         item.y += (item.defaultSpeed/(10)) * (positionRange.yRangeCompensation -1);
-    } /// 56
+    }
 }
 
 

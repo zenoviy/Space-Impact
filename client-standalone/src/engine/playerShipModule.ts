@@ -13,6 +13,7 @@ import { leadersFunctionality } from '../engine/dynamicLevels/dynamicLevelIntera
 import { createMapRenderField } from '../engine/dynamicLevels/minimap';
 import { openJournal } from '../engine/dynamicLevels/journalModules';
 import { groundPlayerMinusLife } from './dynamicLevels/playerUnitModule';
+import { initSoundObject } from '../engine/soundModules';
 
 function initPlayerShip(){
     if(this.ctx){
@@ -275,6 +276,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
     let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
 
     let lastActionVertical = groundPlayer.playerDirectionVertical;
     switch (playerDirection){
@@ -294,6 +296,17 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             break
     }
     groundPlayer.xPos =  (xPos)? xPos : groundPlayer.xPos;
+
+
+    if(!groundPlayer.onLeader && !groundPlayer.leaderClimb && groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up"){
+        characterSound({
+            mainGameObject: mainGameObject,
+            timing: extraSeconds,
+            soundUrl: groundPlayer.sound.jump,
+            soundLoop: false
+        })
+    }
+
     //console.log(groundPlayer.leftWallTouch, groundPlayer.rightWallTouch, groundPlayer.groundTouch)
     for(let block of dynamicLevelMapBlocks){
         if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch ||
@@ -336,7 +349,40 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     }
     mainGameObject.mapNearActiveElement = null;
     playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
-    //groundPlayer.onLeader = false;
+
+    
+    if(groundPlayer.onLeader && groundPlayer.leaderClimb){
+        characterSound({
+            mainGameObject: mainGameObject,
+            timing: 20,
+            soundUrl: groundPlayer.sound.leaderClimb,
+            soundLoop: false
+        })
+    }
+    if(playerDirection === 'right' && groundPlayer.isRun && groundPlayer.groundTouch ||
+    playerDirection === 'left' && groundPlayer.isRun && groundPlayer.groundTouch){
+        characterSound({
+            mainGameObject: mainGameObject,
+            timing: 20,
+            soundUrl: groundPlayer.sound.run,
+            soundLoop: false
+        })
+    }
+}
+
+
+function characterSound({mainGameObject, timing, soundUrl, soundLoop }){
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+        if(extraSeconds % timing === 0){
+            initSoundObject({
+                SoundCreator: constructors.SoundCreator,
+                mainGameObject: mainGameObject,
+                soundProps: {
+                    soundUrl: (soundUrl)? soundUrl : null,
+                    soundLoop: soundLoop
+                }
+            })
+        }
 }
 
 

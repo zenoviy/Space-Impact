@@ -320,7 +320,11 @@ function gameDynamicLevelBoxRender({ gameObject }){
              !background.details.display && background.details.type === "yellow_card" ||
              !background.details.display && background.details.type === "red_card" ||
              !background.details.display && background.details.type === "laptop_with_data" || background.details.type === "ground-destruct" ) continue
-        openClosedDoorAnimation({ currentWallBlock : background, mainGameObject: gameObject })
+        openClosedDoorAnimation({ 
+            currentWallBlock : background, 
+            mainGameObject: gameObject,
+            constructors: constructors
+        })
              background.displayObjectAtScene(gameObject)
     }
 
@@ -342,7 +346,11 @@ function gameDynamicLevelBoxRender({ gameObject }){
              !block.details.collision && block.details.type === 'door') continue
 
 
-             openClosedDoorAnimation({ currentWallBlock : block, mainGameObject: gameObject })
+             openClosedDoorAnimation({ 
+                 currentWallBlock : block, 
+                 mainGameObject: gameObject,
+                 constructors: constructors
+                })
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.spriteObjectsAnimation()
             block.displayObjectAtScene(gameObject)
     }

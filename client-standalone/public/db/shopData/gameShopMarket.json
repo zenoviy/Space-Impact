@@ -6,7 +6,7 @@
             "price": 15000,
             "title": "Extra life",
             "status": "instant apply object",
-            "description": "Extra life point",
+            "description": "Energy cell with nanorobots, it can fixed you armor on ground and in space, it give an 'Extra life'",
             "type": "power",
             "grapplePower": {
                 "name": "life",
@@ -23,7 +23,7 @@
             "speed": 2,
             "title": "Extra Speed",
             "status": "inventory object",
-            "description": "Add extra speed to you spacecraft",
+            "description": "Power booster to you ship add extra speed to you spacecraft, you need to mount it on you ship in empty cell",
             "type": "object",
             "grapplePower": {
                 "name": "add_speed",
@@ -42,7 +42,7 @@
             "damage": "defence ship for 10seconds",
             "title": "Defence Shield",
             "status": "inventory static",
-            "description": "1 shield for you`r ship press E to activate",
+            "description": "1 shield for the ship, technology of plasma shield allow to create a thick layer of polarized hi-speed particles around ship, press < E > key to activate",
             "type": "inventory weapon",
             "grapplePower": {
                 "name": "defence shield",
@@ -106,7 +106,7 @@
             "damage": 300,
             "title": "Rocket",
             "status": "inventory static",
-            "description": "1 Heavy rocket damage 300",
+            "description": "1 Rocket, damage 300, A Powerful rocket to you ship, it has no control but can destroy everything in radius of 30m, press < R > key to launch the rocket",
             "type": "inventory weapon",
             "grapplePower": {
                 "name": "rocket",
@@ -115,7 +115,7 @@
                 "maxNumber": 100,
                 "value": {
                     "status": "rocket gun",
-                    "description": "Rocket powerful rocket to you ship",
+                    "description": "A Powerful rocket to you ship, it has no control but can destroy everything in radius of 30m",
                     "texture": "/public/images/misc/bullets/rocket-gun.png",
                     "explosionAnimation": {
                         "texture": "/public/images/misc/fire/explosion.png",
@@ -185,7 +185,7 @@
             "damage": 300,
             "title": "Homing Rocket",
             "status": "inventory static",
-            "description": "1 Homing heavy rocket damage 300",
+            "description": "1 Homing rocket, damage 300, Self direction, powerful rocket to you ship, can find the target and chase it, press < H > key to launch rocket",
             "type": "inventory weapon",
             "grapplePower": {
                 "name": "homing rocket",
@@ -194,7 +194,7 @@
                 "maxNumber": 100,
                 "value": {
                     "status": "homing rocket gun",
-                    "description": "Rocket powerful rocket to you ship",
+                    "description": "Self direction powerful rocket to you ship, can find the target and chase it, use <H> key to launch rocket",
                     "texture": "/public/images/misc/bullets/homing-rocket-gun.png",
                     "explosionAnimation": {
                         "texture": "/public/images/misc/fire/explosion.png",
@@ -264,7 +264,7 @@
             "damage": "20000 damage/per sec.",
             "title": "Nuclear Blast",
             "status": "inventory static",
-            "description": "1 Nuclear bomb damage 20000",
+            "description": "1 Nuclear bomb damage 20000, a small overloaded nuclear reactor, destroy almost everything near you ship, press < T > to detonate",
             "type": "inventory weapon",
             "grapplePower": {
                 "name": "nuclear blast",

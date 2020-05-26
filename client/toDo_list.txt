@@ -66,12 +66,11 @@ V- ai logic
 	V - inventory object name
 
 	- add sound
-		- jump
-		- run
-		- door
-		- leaders
-		- stairs
-		- new level music	
+		V - jump
+		V - run
+		V - door
+		V- leaders
+		 - new level music	
 	
 	- create level 6-7
 		- Earth
@@ -89,7 +88,7 @@ V- ai logic
 			- Data center
 
 ======  UI
-	- button tips in pause or level change but not in game
+	V - button tips in pause or level change but not in game
 	V - add buttons style to history
 	- add pages for game desription
 	- finished game story
@@ -120,3 +119,17 @@ webpack-builder-version
 
 --platform=win32  
 --arch=x64/
+
+
+
+////////////////  
+
+initSoundObject({SoundCreator, mainGameObject, soundProps})	 - method to createSound
+
+	SoundCreator - constructor of sound
+	mainGameObject - game controller object, store all data
+	soundProps - {
+        		soundUrl: 'url .mp3',
+        		soundLoop: 'boolean',
+    	}
+///////////////

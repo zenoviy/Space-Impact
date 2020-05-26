@@ -37,7 +37,7 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
             name: "Button end game",
             text: "Restart the game",
             description: "back to start screen",
-            fontSize: "25px Roboto",
+            fontSize: "20px Roboto",
             clicked: false,
             shadowColor: 'rgba(255, 255, 255, 1)',
             properties:{
@@ -54,9 +54,9 @@ function gameSettingsMenu(data: any,ctx: any, width: number, height: number){
                 textProperty: {
                     textColor: '#251536',
                     topPadding: 7,
-                    rightPadding: 80,
+                    rightPadding: 50,
                     bottomPadding: 10,
-                    leftPadding: 20,
+                    leftPadding: 40,
                 },
                 radius: 15,
             },

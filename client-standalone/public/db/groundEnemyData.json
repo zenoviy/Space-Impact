@@ -99,7 +99,7 @@
                         "soundLoop": false
                     },
                     "type": "blaster",
-                    "fireRepead": 7,
+                    "fireRepead": 9,
                     "speed": 8,
                     "width": 20,
                     "height": 15,
@@ -381,23 +381,23 @@
                     "hangarImage": "static/shop/weapons/Machinegun.png",
                     "texture": "/public/images/misc/bullets/bullet-gun-ground.png",
                     "explosionAnimation": {
-                        "texture": "/public/images/misc/fire/explosion.png",
-                        "imageWidth": 12891,
+                        "texture": "/public/images/misc/fire/explosion-bullet.png",
+                        "imageWidth": 4441,
                         "imageHeight":294,
-                        "animationSteps": 1,
-                        "numberOfItems": 44,
+                        "animationSteps": 5,
+                        "numberOfItems": 15,
                         "playerObject": true,
                         "sx": 0,
                         "sy": 0,
                         "width": 15,
                         "height": 10,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/bullet-impact-4.mp3",
                             "soundLoop": false
                         }
                     },
                     "sound": {
-                        "levelSound": "/public/sound/weapons/weapon_gun_ak_47_C_30.mp3",
+                        "levelSound": "/public/sound/weapons/gunshot-1.mp3",
                         "soundLoop": false
                     },
                     "type": "cannon",
@@ -518,23 +518,23 @@
                     "hangarImage": "static/shop/weapons/Machinegun.png",
                     "texture": "/public/images/misc/bullets/bullet-gun-ground.png",
                     "explosionAnimation": {
-                        "texture": "/public/images/misc/fire/explosion.png",
-                        "imageWidth": 12891,
+                        "texture": "/public/images/misc/fire/explosion-bullet.png",
+                        "imageWidth": 4441,
                         "imageHeight":294,
-                        "animationSteps": 1,
-                        "numberOfItems": 44,
+                        "animationSteps": 5,
+                        "numberOfItems": 15,
                         "playerObject": true,
                         "sx": 0,
                         "sy": 0,
                         "width": 15,
                         "height": 10,
                         "sound": {
-                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "levelSound": "/public/sound/weapons/explosions/bullet-impact-4.mp3",
                             "soundLoop": false
                         }
                     },
                     "sound": {
-                        "levelSound": "/public/sound/weapons/weapon_gun_ak_47_C_30.mp3",
+                        "levelSound": "/public/sound/weapons/gunshot-1.mp3",
                         "soundLoop": false
                     },
                     "type": "cannon",

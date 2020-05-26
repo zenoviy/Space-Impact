@@ -118,7 +118,8 @@
         },
         "description": {
             "name": "City\n operation",
-            "description": "Take control of this area"
+            "description": "Take control of this area",
+            "levelMainTask": "find the ship"
         },
         "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
@@ -333,7 +334,7 @@
             }
         ],
         "levelDetails" : {
-            "levelMinutes": 5,
+            "levelMinutes": 1,
             "levelSeconds": 10
         }
     },
@@ -831,6 +832,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": true,
+        "space": false,
         "enemyMaxNumber": 1,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -915,6 +917,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": true,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -980,6 +983,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": true,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1054,6 +1058,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": true,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1153,6 +1158,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": true,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1202,6 +1208,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": false,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1280,6 +1287,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": true,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1340,6 +1348,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": false,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1454,6 +1463,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": true,
+        "space": false,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1568,6 +1578,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": true,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1654,7 +1665,8 @@
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "bossPresent": false,
+        "bossPresent": true,
+        "space": false,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1740,6 +1752,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": false,
+        "space": true,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
@@ -1822,6 +1835,7 @@
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "bossPresent": true,
+        "space": false,
         "enemyMaxNumber": 1,
         "enemyRandomizerIndex": 5,
         "levelStandartMap": {
