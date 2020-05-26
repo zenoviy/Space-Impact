@@ -286,7 +286,9 @@ function gameDynamicLevelBoxRender({ gameObject }){
     let allBackgrounds = allBlocks.filter(block => !block.details.collision || block.backgroundTexture)
 
     for(let background of allBackgrounds){
-        if(!background) continue
+        //if(!background) continue
+        if(!background || background.x > window.innerWidth + 100 || background.x < -100 ||
+            background.y > window.innerHeight + 100 || background.y < -100) continue
         if(background.backgroundTexture){
             //console.log(block)
            displayObjectAtScene.call({
@@ -355,7 +357,8 @@ async function gameDynamicEnemyRender({ gameObject }){
     if(!allEnemy) return false
 
     for(let enemy of allEnemy){
-        if(!enemy) continue
+        if(!enemy || enemy.x > window.innerWidth + 100 || enemy.x < -100 ||
+            enemy.y > window.innerHeight + 100 || enemy.y < -100) continue
             enemy.displayObjectAtScene(gameObject)
             enemy.changeVerticalAnimationPicture()
             if(!enemy.objectPresent ){

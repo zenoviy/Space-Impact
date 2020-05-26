@@ -179,13 +179,12 @@ function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDi
             })
             if(requireData){
                 taskCompleate = (dialogArea.numberOfRequireItems &&
-            requireData.numberOfItems === parseInt(dialogArea.numberOfRequireItems))? true: false;
+            requireData.numberOfItems >= parseInt(dialogArea.numberOfRequireItems))? true: false;
                 if(!taskCompleate){
                     dialogTextArea.innerHTML = `I cant do that, first i need <span>${dialogArea.numberOfRequireItems}</span>
                     <span>${requireObject.split("_").join(" ")}</span> you got <span>${(requireData.numberOfItems)? requireData.numberOfItems : 0}</span>`;
                 }
-            }else
-            if(dialogArea.numberOfRequireItems){
+            }else if(dialogArea.numberOfRequireItems){
                 dialogTextArea.innerHTML = `I cant do that, first i need <span>${dialogArea.numberOfRequireItems}</span>
                 <span>${requireObject.split("_").join(" ")}</span>`;
                 return false

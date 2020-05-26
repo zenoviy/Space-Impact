@@ -275,8 +275,7 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let directionX = (this.x >= groundPlayer.x)? true : false;
     let directionY = (this.y >= groundPlayer.y)? true : false;
 
- 
-    let randomizerCheck = mainGameObject.gameRandomizer(50, 20);
+    let randomizerCheck = mainGameObject.gameRandomizer(30, 20);
     if(extraSeconds % randomizerCheck != 0) return false
     let searchSteps = 20;
 

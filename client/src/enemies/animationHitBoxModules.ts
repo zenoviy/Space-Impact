@@ -329,7 +329,7 @@ function groundBulletCollision({hitObject, mainGameObject}){
         })
         if(hitObject.objectOwner == "groundEnemy" || hitObject.objectOwner == "groundNPC"){ 
             hitObject.currentBehavior = "destroy";
-            hitObject.playerInRange = true;
+            //hitObject.playerInRange = true;
             if(hitObject.details.role != "military"){
                 hitObject.currentBehavior = "patrol";
             }else if(hitObject.details.role == "destroy"){
