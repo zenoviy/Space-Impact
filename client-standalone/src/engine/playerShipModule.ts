@@ -309,8 +309,8 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
 
     //console.log(groundPlayer.leftWallTouch, groundPlayer.rightWallTouch, groundPlayer.groundTouch)
     for(let block of dynamicLevelMapBlocks){
-        if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch ||
-        groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch){
+        if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch  ||
+        groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch ){
             groundPlayer.isRun = true;
                 mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
                 block.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;
@@ -335,9 +335,16 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             if(groundPlayer.playerDirectionVertical === "up"){
                 groundPlayer.groundTouch = false;
             }else if(groundPlayer.playerDirectionVertical === "down"){
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6;
                 let downBlock = leadersFunctionality.call(groundPlayer)
                 groundPlayer.groundTouch = (downBlock)? true : false;
             }
+        }
+        if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "down" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 1){
+            mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 3;
+        }
+        if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 1){
+            mainGameObject.gameInitData.gameData.levelData.jumpImpuls = -3;
         }
     }
     if(playerDirection === "down" && !groundPlayer.onLeader){
@@ -350,7 +357,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     mainGameObject.mapNearActiveElement = null;
     playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
 
-    
+
     if(groundPlayer.onLeader && groundPlayer.leaderClimb){
         characterSound({
             mainGameObject: mainGameObject,
