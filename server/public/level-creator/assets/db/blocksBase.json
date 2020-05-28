@@ -24,6 +24,30 @@
         "imageHeight": 58
     },
     {
+        "id": "block_3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/wall-34.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#6A6D69",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/gray-block_ground.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#6A6D69",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
         "id": "block_brick_roof",
         "collision": true,
         "texture": "/level-creator/assets/block/brick-outside-decoration.png",
@@ -178,6 +202,18 @@
         "imageHeight": 58
     },
     {
+        "id": "block_4_body_ceiling_v2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/gray-block-ceiling-2.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C98",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
         "id": "block_4_body_thin_wall",
         "collision": true,
         "texture": "/level-creator/assets/block/gray-block-thin-wall.png",
@@ -299,6 +335,78 @@
 
 
 
+    {
+        "id": "block_ruins_trash_stairs_left_v2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/ruins-left.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-left",
+        "backgroundTexture": null,
+        "mapColor": "#2C3052",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_ruins_trash_stairs_right_v2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/ruins-right.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-right",
+        "backgroundTexture": null,
+        "mapColor": "#2C3052",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_brick_wall_right",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-block-thin-wall-right.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9C9CBC",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_brick_wall_left",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-block-thin-wall-left.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9C9CBC",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_brick_wall_center",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-block-thin-wall-center.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9C9CBC",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_thin-floor",
+        "collision": true,
+        "texture": "/level-creator/assets/block/thin-floor.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9C9CBC",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+
+
+
+
 
     {
         "id": "block_ruins_trash_stairs_left",
@@ -328,6 +436,18 @@
         "id": "block_ruins_trash",
         "collision": true,
         "texture": "/level-creator/assets/block/ruins-trash-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#2C3052",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_ruins_trash_shadow",
+        "collision": true,
+        "texture": "/level-creator/assets/block/ruins-trash-1-shadow.png",
         "description": "Solid block",
         "isDestroy": false,
         "type": "ground",
@@ -511,6 +631,54 @@
         "id": "block_9",
         "collision": true,
         "texture": "/level-creator/assets/block/road-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_9-road-dark",
+        "collision": true,
+        "texture": "/level-creator/assets/block/road-1-dark.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_9-road-left-edge",
+        "collision": true,
+        "texture": "/level-creator/assets/block/road-left-edge.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_9-road-right-edge",
+        "collision": true,
+        "texture": "/level-creator/assets/block/road-right-edge.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_9-road-right-central",
+        "collision": true,
+        "texture": "/level-creator/assets/block/road-right-central.png",
         "description": "Solid block",
         "isDestroy": false,
         "type": "ground",
@@ -923,6 +1091,28 @@
         "id": "block_broken-car-2a",
         "collision": true,
         "texture": "/level-creator/assets/block/broken-car-2a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_ruins-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-ruin-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_ruins-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-ruin-2.png",
         "description": "Solid block",
         "isDestroy": false,
         "type": "ground",

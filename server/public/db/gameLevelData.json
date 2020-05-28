@@ -127,7 +127,7 @@
         "levelBottomPart" : [
             {
                 "levelMap" : "/public/images/locations/night city/bottom-part-city.png",
-                "speed": 1.8,
+                "speed": 2,
                 "description": "first frame",
                 "imageWidth": 2448,
                 "imageHeight": 1131,
@@ -137,7 +137,7 @@
             },
             {
                 "levelMap" : "/public/images/locations/night city/bottom-part-city.png",
-                "speed": 1.8,
+                "speed": 2,
                 "description": "second frame",
                 "imageWidth": 2448,
                 "imageHeight": 1131,

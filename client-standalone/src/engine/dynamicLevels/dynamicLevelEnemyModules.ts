@@ -256,7 +256,7 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(extraSeconds % 200 === 0){
         if( this.playerInRange ) this.currentBehavior = "find";
-       this.playerInRange = false;
+            this.playerInRange = false;
     }
    if(!groundPlayer || !allBlocks || this.playerInRange) return false
     if((this.x > window.innerWidth + 100 || this.x  < -100) ||
@@ -264,6 +264,8 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
 
     let distanceX = Math.max(this.x, groundPlayer.x) - Math.min(this.x, groundPlayer.x);
     let distanceY = Math.max(this.y, groundPlayer.y) - Math.min(this.y, groundPlayer.y);
+
+
     let angle = this.findAngleToShip({closestUnit: groundPlayer});
     if(this.currentBehavior === "destroy"){
         this.targetAngle = angle;
@@ -279,8 +281,7 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     if(extraSeconds % randomizerCheck != 0) return false
     let searchSteps = 20;
 
-
-    if( distanceX && distanceY && !this.playerInRange){
+    if(distanceX && distanceY && !this.playerInRange){
         let localXRayIndex = 0, localYRayIndex = 0;
         let localXRay = this.x, localYRay = this.y;
         let decreaseValue = distanceY/distanceX;

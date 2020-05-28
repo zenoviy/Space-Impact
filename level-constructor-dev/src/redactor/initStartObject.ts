@@ -11,7 +11,7 @@ async function initMainEngine({ MainGameConstructor,  BlockConstructor}){
     let blockSize = 50,
     defaultWidth = (window.innerWidth/blockSize).toFixed(),
     defaultHeight = (window.innerHeight/blockSize).toFixed(),
-    maxHorizontalBlocks = 300,
+    maxHorizontalBlocks = 400,
     maxVerticalBlocks = 200
 
 

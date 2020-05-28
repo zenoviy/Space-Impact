@@ -70,6 +70,9 @@ function groundBulletEngineFunction({gameObject}){
             bullet.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus ){
                 bullet.moveBullets(gameObject.gameInitData.gameData.playerObject, gameObject);
+                if( bullet.x > window.innerWidth + 100 || bullet.x < -100 ||
+                    bullet.y > window.innerHeight + 100 || bullet.y < -100) continue
+
 
                 gameObject.deleteBullet(bullet, "allGroundGameBullets")
                 gameObject.hitDetection({
@@ -92,17 +95,28 @@ function groundBulletEngineFunction({gameObject}){
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
-
+                let nearGroundEnemy = gameObject.gameInitData.dynamicLevelEnemy.filter(enemy => {
+                    if(Math.max(bullet.x, enemy.x) - Math.min(bullet.x, enemy.x) < 100 &&  Math.max(bullet.y, enemy.y) - Math.min(bullet.y, enemy.y) < 100){
+                        return enemy
+                    }
+                })
                 gameObject.hitDetection({
                     object1: bullet,
-                    objectsArr: gameObject.gameInitData.dynamicLevelEnemy,
+                    objectsArr: nearGroundEnemy,
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
 
+/* */
+                let nearMapBlock = gameObject.gameInitData.dynamicLevelMapBlocks.filter(block => {
+                    if(Math.max(bullet.x, block.x) - Math.min(bullet.x, block.x) < 100 &&
+                    Math.max(bullet.y, block.y) - Math.min(bullet.y, block.y) < 100 && block.details.collision){
+                        return block
+                    }
+                })
                 gameObject.hitDetection({
                     object1: bullet,
-                    objectsArr: gameObject.gameInitData.dynamicLevelMapBlocks,
+                    objectsArr: nearMapBlock,
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
@@ -320,8 +334,8 @@ function gameDynamicLevelBoxRender({ gameObject }){
              !background.details.display && background.details.type === "yellow_card" ||
              !background.details.display && background.details.type === "red_card" ||
              !background.details.display && background.details.type === "laptop_with_data" || background.details.type === "ground-destruct" ) continue
-        openClosedDoorAnimation({ 
-            currentWallBlock : background, 
+        openClosedDoorAnimation({
+            currentWallBlock : background,
             mainGameObject: gameObject,
             constructors: constructors
         })
@@ -329,10 +343,14 @@ function gameDynamicLevelBoxRender({ gameObject }){
     }
 
     for(let elevator of allElevators){
+        if(!elevator || elevator.x > window.innerWidth + 100 || elevator.x < -100 ||
+            elevator.y > window.innerHeight + 100 || elevator.y < -100) continue
         if(!gameObject.gameInitData.gamePause) elevator.elevatorMove({ mainGameObject: gameObject })
         elevator.displayObjectAtScene(gameObject)
     }
     for(let block of allBlocks){
+        if(!block || block.x > block.innerWidth + 100 || block.x < -100 ||
+            block.y > window.innerHeight + 100 || block.y < -100) continue
         if(!block) continue
             if(block.details.type === 'enemy_spawner' ||  block.details.type === 'hidden_enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
              !block.details.display && block.details.type === "health" || !block.details.display && block.details.type === "scenario_object" ||
@@ -346,8 +364,8 @@ function gameDynamicLevelBoxRender({ gameObject }){
              !block.details.collision && block.details.type === 'door') continue
 
 
-             openClosedDoorAnimation({ 
-                 currentWallBlock : block, 
+             openClosedDoorAnimation({
+                 currentWallBlock : block,
                  mainGameObject: gameObject,
                  constructors: constructors
                 })

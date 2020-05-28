@@ -137,7 +137,7 @@ async function generateInput({fileContainer, target}){
             fileContainer.appendChild(itemData);
             // require
             innerText = `<h3>Require Object</h3>
-            <p>Require message, display object needs for this block to everything work fine 
+            <p>Require message, display object needs for this block to everything work fine
             <span>computer_data</span>
             <span>blue_card</span>
             <span>green_card</span>
@@ -149,6 +149,10 @@ async function generateInput({fileContainer, target}){
             <span>med_kit</span>
             <span>laptop_with_data</span>
             <span>tools_case</span>
+            <span>acess_card</span>
+            <span>enemy_gun</span>
+            <span>plane_key</span>
+            <span>special_access</span>
             </p>
             <textarea type='text' id=${'require-field-'+ currentDescriptionId} >${(blockDetails.rules.require)? blockDetails.rules.require : ''}</textarea>
             <button data-target='save-require-btn' class="main-btn">Save Require Object</button> <hr>`;
@@ -179,6 +183,10 @@ async function generateInput({fileContainer, target}){
             <span>med_kit</span>
             <span>laptop_with_data</span>
             <span>tools_case</span>
+            <span>acess_card</span>
+            <span>enemy_gun</span>
+            <span>plane_key</span>
+            <span>special_access</span>
             </p>
 
             <textarea type='text' id=${'contain-field-'+ currentDescriptionId} >${(blockDetails.rules.contain)? blockDetails.rules.contain : ''}</textarea>
@@ -196,6 +204,10 @@ async function generateInput({fileContainer, target}){
                 <option value="tools-case.png">Tools case</option>
                 <option value="Enemy-head.png">Enemy helmet A</option>
                 <option value="enemy-details.png">Enemy detail 1</option>
+                <option value="Access-card.png">Acess card</option>
+                <option value="enemy-guns.png">Enemy gun</option>
+                <option value="plane-key.png">Plane key</option>
+                <option value="importent-data.png">Importent data</option>
             </select>
             <button data-target='save-contain-btn' class="main-btn">Save</button> <hr>`;
             itemData = elementCreator({

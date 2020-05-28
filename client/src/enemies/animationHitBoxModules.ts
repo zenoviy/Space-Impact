@@ -122,7 +122,10 @@ picturesWidth - total width of all picture frames
 ============== */
 
 async function spriteObjectsAnimation(state = true){
+    if( this.x > window.innerWidth + 100 || this.x < -100 ||
+            this.y > window.innerHeight + 100 || this.y < -100) return false
     if(this.backgroundTexture){
+
         this.backgroundTexture.detectFrame += 1;
         if(this.backgroundTexture.detectFrame % this.backgroundTexture.animationSteps == 0 && state){
             this.backgroundTexture.detectFrame = 0;
@@ -330,10 +333,15 @@ function groundBulletCollision({hitObject, mainGameObject}){
         if(hitObject.objectOwner == "groundEnemy" || hitObject.objectOwner == "groundNPC"){ 
             hitObject.currentBehavior = "destroy";
             //hitObject.playerInRange = true;
-            if(hitObject.details.role != "military"){
+            let angleFinder = this.degree - 180;
+
+            if(hitObject.details.role != "military" && hitObject.objectOwner != "groundEnemy"){
+                hitObject.playerDirectionHorizontal = (angleFinder > 90 && angleFinder < 270)? 'right' : 'left';
                 hitObject.currentBehavior = "patrol";
-            }else if(hitObject.details.role == "destroy"){
+            }else {
                 hitObject.currentBehavior = "destroy";
+                hitObject.playerInRange = true;
+                hitObject.targetAngle = (Math.sign(angleFinder) < 0)? 360 + angleFinder: angleFinder;
             }
         };
         this.objectPresent = false;
@@ -537,6 +545,8 @@ function playerDamage({ mainGameObject, damage}){
 
 // complex enemy animation for damage
 async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
+    if( this.x > window.innerWidth + 100 || this.x < -100 ||
+        this.y > window.innerHeight + 100 || this.y < -100) return false
     let gameSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let groundBulletStop = groundBulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
     let backgroundTextureDetect = await groundLevelBackgroundBulletDetect.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
@@ -764,6 +774,13 @@ function objectIntersectionDetect({object, target}){
 function hitDetection({object1, objectsArr, mainGameObject, GrappleObject}){
     let collision = null;
     for(let object2 of objectsArr){
+        if( object2.x > window.innerWidth + 100 || object2.x < -100 ||
+            object2.y > window.innerHeight + 100 || object2.y < -100) continue
+
+
+        if(Math.max(object2.x, object1.x) - Math.min(object2.x, object1.x) > 200 ||  Math.max(object2.y, object1.y) - Math.min(object2.y, object1.y) > 200){
+            continue
+        }
         let object1Position = object1.getObjectPosition.call(object1);
 
         collision = objectIntersectionDetect({object: {

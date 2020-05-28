@@ -167,6 +167,7 @@ async function teleportFunctionality({ mainGameObject }){
         let bottomBlockIndex = currentBlockIndex - 1;
         return block.index === bottomBlockIndex
     });
+    
     if(!teleportDoor) return false
     if(!teleportDoor.details ) return false
     if(teleportDoor.details.type === "teleport_door"){
@@ -174,11 +175,10 @@ async function teleportFunctionality({ mainGameObject }){
         let targetId = teleportDoor.details.rules.targetId
 
         let spawnPoint = allBlocks.filter(obj =>{ 
-            if(obj.details) return obj.details.type === "teleport_door"
+            if(obj.details) return obj.details.type === "teleport_door";
         }).find(obj => {
-            if(obj.details.rules) return  targetId === obj.details.rules.doorId;
+            if(obj.details.rules) return targetId == obj.details.rules.doorId;
         })
-
         if(!spawnPoint) return false
         let positionRange = await playerChangeMapPosition({newSpawnPoint: spawnPoint, mainGameObject: mainGameObject})
         backgroundChange({mainGameObject: mainGameObject, positionRange: positionRange})

@@ -93,7 +93,7 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
         groundPlayer.xPos = 0;
     }
 
-await backgroundMoveDuringMove({
+    await backgroundMoveDuringMove({
         mainGameObject: mainGameObject,
         jumpImpuls: mainGameObject.gameInitData.gameData.levelData.jumpImpuls,
         xPos: groundPlayer.xPos,
@@ -189,8 +189,19 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.currentWallBlock = null;
     targetObject.onElevator = false;
 
-    for(let item of objectsToCollide){
+    let nearMapObjects = objectsToCollide.filter(object => {
+        if(Math.max(targetObject.x, object.x) - Math.min(targetObject.x, object.x) < 100 &&
+        Math.max(targetObject.y, targetObject.y) - Math.min(targetObject.y, object.y) < 200){
+            return object
+        }
+    })
+
+    for(let item of nearMapObjects){
         if(!item) continue
+        if(!item || item.x > window.innerWidth + 100 || item.x < -100 ||
+            item.y > window.innerHeight + 200 || item.y < -100) continue
+
+
         let collision = objectIntersectionDetect({object: item, target: targetObject })
         if(collision){
            if(item.details.collision || item.details.type === 'door' ||
@@ -321,7 +332,7 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
 
     // =============================================
     if(targetY + target.height > this.y && this.y + this.height > targetY + target.height &&
-        !isBottomWall  && collision && target.details.type != 'elevator' && !this.groundTouch){
+        !isBottomWall  && collision && target.details.type != 'elevator' && target.details.type != "stairs-right" && target.details.type != "stairs-left" && !this.groundTouch){
         //console.log('Top side of block', target)
         if(target.details){
             if(target.details.type === 'elevator' ){
@@ -396,7 +407,7 @@ async function groundBlockCollision({mainGameObject, target, targetX, targetY, l
                 })
            }else{
                 if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC"){
-                    levelInformation.jumpImpuls =  levelInformation.gravityIndex;//levelInformation.gravity;
+                    levelInformation.jumpImpuls =  levelInformation.gravityIndex; //levelInformation.gravity;
                 }
                 if(this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC"){
                     if(this.y + this.height - 5 > targetY){
@@ -662,20 +673,24 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
 
         }
         if(item instanceof constructors.EnemyObject){
-            if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPosGround){
+            if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
                 item.x = ( groundPlayer.playerDirectionHorizontal === 'right')? item.x - levelInformation.horizontalSpeed  : item.x - levelInformation.horizontalSpeed ;
             }
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch) item.y += ((jumpImpuls * 0.50)* -1)
         }
         if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject || item instanceof constructors.GrappleObject ){
-                if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPosGround){
-                    item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPosGround:
-                    ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPosGround :
-                    ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPosGround  : item.x - xPosGround ;
+                if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
+                    item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPos:
+                    ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
+                    ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
                 }
-                if(!groundPlayer.groundTouch && item instanceof constructors.GrappleObject){
+                if(!groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject)){
                     item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
                     item.x += xPosGround * -1;
+                    jumpImpuls = 0;
+                }else if(groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject) && xPos){
+                    //item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
+                    item.x += xPos * -1;
                     jumpImpuls = 0;
                 }
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch || !groundPlayer.groundTouch){

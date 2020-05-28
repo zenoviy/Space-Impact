@@ -76,13 +76,13 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
                     let xPos = (item.defaultMapX)? item.defaultMapX : item.x;
                     let yPos = (item.defaultMapY)? item.defaultMapY : item.y;
 
-                    ctx.fillRect( xPos*blockIndex,  yPos*blockIndex,  mapPixelIndex, mapPixelIndex)
-                    ctx.restore()
+                    ctx.fillRect( xPos*blockIndex,  yPos*blockIndex,  mapPixelIndex, mapPixelIndex);
+                    ctx.restore();
                 }
             }
         });
             ctx.fillStyle = "rgba(225, 196, 0, 1)";
-            ctx.fillRect( playerPositionX*blockIndex ,  playerPositionY*blockIndex,  mapPixelIndex, mapPixelIndex)
+            ctx.fillRect( playerPositionX*blockIndex ,  playerPositionY*blockIndex,  5, 5);
     }, 200)
 }
 
