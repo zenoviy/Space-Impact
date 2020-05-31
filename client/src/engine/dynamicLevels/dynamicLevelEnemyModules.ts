@@ -234,7 +234,8 @@ async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectInters
     if(this.playerInRange) return false
     //if(this.details.type != 'npc_spawner'){
         for(let person of npcData){
-
+            if( !person || person.x > window.innerWidth + 100 || person.x < -100 ||
+                person.y > window.innerHeight + 100 || person.y < -100) continue
             if(this.details.type === 'enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'enemy_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'hidden_enemy_spawner' && person.objectPresent ||
@@ -265,12 +266,13 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let distanceY = Math.max(this.y, groundPlayer.y) - Math.min(this.y, groundPlayer.y);
 
 
+
+    if(this.detectRange < distanceX || this.detectRange < distanceY) return false
+
     let angle = this.findAngleToShip({closestUnit: groundPlayer});
     if(this.currentBehavior === "destroy"){
         this.targetAngle = angle;
     }
-
-    if(this.detectRange < distanceX || this.detectRange < distanceY) return false
     let findBarrier = {};
 
     let directionX = (this.x >= groundPlayer.x)? true : false;
@@ -303,21 +305,24 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
                 localYRay -= decreaseValue * searchSteps;
             }
             findBarrier = allBlocks.find(block => {
-                let searchCollision = objectIntersectionDetect({
-                    object: {
-                        x: localXRay,
-                        y: localYRay,
-                        width: 30,
-                        height: 30
-                    },
-                    target: {
-                        x: block.x,
-                        y: block.y,
-                        width: block.width,
-                        height: block.height
-                    }
-                })
-                if(searchCollision && block.details.collision) return block
+                if(Math.max(localXRay, block.x) - Math.min(localXRay, block.x) < 200 ||  
+                Math.max(localYRay, block.y) - Math.min(localYRay, block.y) < 200){
+                    let searchCollision = objectIntersectionDetect({
+                        object: {
+                            x: localXRay,
+                            y: localYRay,
+                            width: 30,
+                            height: 30
+                        },
+                        target: {
+                            x: block.x,
+                            y: block.y,
+                            width: block.width,
+                            height: block.height
+                        }
+                    })
+                    if(searchCollision && block.details.collision) return block
+                }
             })
             if(findBarrier) break
         }

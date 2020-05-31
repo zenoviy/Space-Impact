@@ -318,9 +318,13 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
         if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" || 
         yPos  && groundPlayer.onElevator){
             if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
-                mainGameObject.gameInitData.gameData.levelData.jumpImpuls +=  2 + ((lastActionVertical === "down")? 1 : 0);
+                // (4 + ((lastActionVertical === "down")? 1 : 0))/mainGameObject.gameInitData.gameData.levelData.gravityIndex;
+                let gravity = mainGameObject.gameInitData.gameData.levelData.gravity;
+                let gravityIndex = mainGameObject.gameInitData.gameData.levelData.gravityIndex
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls += (gravity/gravityIndex) + ((lastActionVertical === "down")? 1 : 0);// 1.4  2.5
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
                 groundPlayer.groundTouch = false;
+                console.log(mainGameObject.gameInitData.gameData.levelData.jumpImpuls)
             }
             if(groundPlayer.onElevator && groundPlayer.playerDirectionVertical === "up"){
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6 + ((lastActionVertical === "down")? 1 : 0);
@@ -330,22 +334,22 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             }
             block.verticalSpeed = yPos;
         }
-        if(groundPlayer.onLeader){
-            groundPlayer.leaderClimb = true;
-            if(groundPlayer.playerDirectionVertical === "up"){
-                groundPlayer.groundTouch = false;
-            }else if(groundPlayer.playerDirectionVertical === "down"){
-                mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6;
-                let downBlock = leadersFunctionality.call(groundPlayer)
-                groundPlayer.groundTouch = (downBlock)? true : false;
-            }
+    }
+    if(groundPlayer.onLeader){
+        groundPlayer.leaderClimb = true;
+        if(groundPlayer.playerDirectionVertical === "up"){
+            groundPlayer.groundTouch = false;
+        }else if(groundPlayer.playerDirectionVertical === "down"){
+            mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6;
+            let downBlock = leadersFunctionality.call(groundPlayer)
+            groundPlayer.groundTouch = (downBlock)? true : false;
         }
-        if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "down" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 1){
-            mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 3;
-        }
-        if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 1){
-            mainGameObject.gameInitData.gameData.levelData.jumpImpuls = -3;
-        }
+    }
+    if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "down" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 0.1){
+        mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 3;
+    }
+    if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 0.1){
+        mainGameObject.gameInitData.gameData.levelData.jumpImpuls = -3;
     }
     if(playerDirection === "down" && !groundPlayer.onLeader){
         groundPlayer.isRun = false;

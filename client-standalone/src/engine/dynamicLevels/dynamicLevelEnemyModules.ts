@@ -130,7 +130,7 @@ and gravity effects
 
  ========================== */
 
-async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformation: levelInformation }){
+ async function groundEnemyMove({ mainGameObject: mainGameObject, levelInformation: levelInformation }){
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
 
     if(this.playerInRange && this.targetAngle > 100 && this.targetAngle <= 260){

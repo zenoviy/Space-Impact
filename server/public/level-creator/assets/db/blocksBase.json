@@ -1,5 +1,71 @@
 [
     {
+        "id": "block_brick-wall-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-outside-left-side-corner.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#81847D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_brick-wall-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-outside-right-side-corner.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#81847D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_brick-wall-3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-outside-left-side-window.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#81847D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_brick-wall-3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-outside-right-side-window.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#81847D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_brick-wall-window-wall-1f",
+        "collision": true,
+        "texture": "/level-creator/assets/block/window-wall-1f.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#81847D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block-brick-floor",
+        "collision": true,
+        "texture": "/level-creator/assets/block/brick-block-brick-floor.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#81847D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
         "id": "block_1",
         "collision": true,
         "texture": "/level-creator/assets/block/block-1.png",

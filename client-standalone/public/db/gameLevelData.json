@@ -98,13 +98,13 @@
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
-        "dynamicBlockMap": "map-level-night-city-1",
+        "dynamicBlockMap": "1-map-level-night-city-1",
         "enemyProbability" : 1200,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "dynamicLevelsActive": true,
-        "gravity": 4,
+        "gravity": 5,
         "gravityIndex": 5,
         "jumpImpuls": 4,
         "horizontalSpeed": 2,
@@ -127,7 +127,7 @@
         "levelBottomPart" : [
             {
                 "levelMap" : "/public/images/locations/night city/bottom-part-city.png",
-                "speed": 1.8,
+                "speed": 2,
                 "description": "first frame",
                 "imageWidth": 2448,
                 "imageHeight": 1131,
@@ -137,7 +137,7 @@
             },
             {
                 "levelMap" : "/public/images/locations/night city/bottom-part-city.png",
-                "speed": 1.8,
+                "speed": 2,
                 "description": "second frame",
                 "imageWidth": 2448,
                 "imageHeight": 1131,
@@ -346,14 +346,14 @@
         "enemyType" : ["dart", "mine", "mine", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
-        "dynamicBlockMap": "map-level-night-city-2",
+        "dynamicBlockMap": "2-map-level-night-city-2",
         "enemyProbability" : 900,
         "objectProbability": 1000,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "dynamicLevelsActive": true,
-        "gravity": 4,
-        "gravityIndex": 6,
+        "gravity": 5,
+        "gravityIndex": 5,
         "jumpImpuls": 4,
         "horizontalSpeed": 2,
         "enemyMaxNumber": 2,
@@ -684,12 +684,114 @@
             "levelSeconds": 13
         }
     },
-
+        {
+            "level" : 6,
+            "enemyType" : [],
+            "grappleObject": ["lifepoint"],
+            "levelOBjects" : ["tradepost_desert"],
+            "enemyProbability" : 850,
+            "objectProbability": 1000,
+            "grapleObjectProbability": 1500,
+            "objectMinTimeSpawn": 200,
+            "dynamicBlockMap": "3-map-temple-ruins",
+            "dynamicLevelsActive": true,
+            "gravity": 5,
+            "gravityIndex": 5,
+            "jumpImpuls": 4,
+            "horizontalSpeed": 2,
+            "enemyMaxNumber": 3,
+            "enemyRandomizerIndex": 5,
+            "levelStandartMap": {
+                "imageWidth": 662,
+                "imageHeight": 372,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            },
+            "description": {
+                "name": "Temple ruins",
+                "description": "lost city"
+            },
+            "levelSound": "/public/sound/ambient/desert_theme.mp3",
+            "levelMap" : "desert.png",
+            "levelBackgroundElements" : [{
+                "levelMap" : "/public/images/locations/desert/desert-sky.png",
+                "speed": 0.1,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-sky.png",
+                "speed": 0.1,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/far-mountains.png",
+                "speed": 0.2,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/far-mountains.png",
+                "speed": 0.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-backround.png",
+                "speed": 0.3,
+                "description": "first frame",
+                "extraMap": "/public/images/locations/desert/lostCity.png",
+                "timeToExtraMapSeconds": 40,
+                "timeToExtraMapMinutes": 2
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-backround.png",
+                "speed": 0.3,
+                "description": "second frame",
+                "extraMap": "/public/images/locations/desert/lostCity-2.png",
+                "timeToExtraMapSeconds": 40,
+                "timeToExtraMapMinutes": 2
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-1a.png",
+                "speed": 0.5,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-1b.png",
+                "speed": 0.5,
+                "description": "second frame",
+                "imageWidth": 2648,
+                "imageHeight": 372,
+                "animationSteps": 10,
+                "numberOfItems": 4,
+                "numberOfVerticalItems": 1
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
+                "speed": 0.7,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-1-clouds.png",
+                "speed": 0.7,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-2.png",
+                "speed": 1.2,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-2.png",
+                "speed": 1.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-ground.png",
+                "speed": 2.4,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/desert/desert-ground.png",
+                "speed": 2.4,
+                "description": "second frame"
+            }],
+            "levelDetails" : {
+                "levelMinutes": 4,
+                "levelSeconds": 13
+            }
+        },
 
 
 
     {
-        "level" : 6,
+        "level" : 7,
         "enemyType" : ["dart", "scorpio"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["build_1", "build_2", "cloud_1", "tradepost_sky_city"],
@@ -819,13 +921,149 @@
             "levelSeconds": 43
         }
     },
-
+    {
+        "level" : 8,
+        "enemyType" : [],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : ["build_1", "build_2", "cloud_1", "tradepost_sky_city"],
+        "enemyProbability" : 900,
+        "objectProbability": 1000,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "dynamicBlockMap": "4-map-cloud-city",
+        "dynamicLevelsActive": true,
+        "gravity": 5,
+        "gravityIndex": 5,
+        "jumpImpuls": 4,
+        "horizontalSpeed": 2,
+        "enemyMaxNumber": 4,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Cloud city rooms",
+            "description": "Talk with the commanders"
+        },
+        "levelSound": "/public/sound/ambient/02_Main Theme.mp3",
+        "levelMap" : "skyCity.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-region.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-region.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-build-1.png",
+            "speed": 0.25,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/cyty-far-build-1.png",
+            "speed": 0.25,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/ship-2a.png",
+            "speed": 0.6,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/ship-2.png",
+            "speed": 0.43,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-meedle-1.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-meedle-2.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": -0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/ship-1.png",
+            "speed": -0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-1.png",
+            "speed": -0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-2.png",
+            "speed": -0.8,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-1.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/city-car-2.png",
+            "speed": 1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/build-close-1.png",
+            "speed": 0.7,
+            "description": "first frame",
+            "imageWidth": 3840,
+            "imageHeight":1080,
+            "animationSteps": 20,
+            "numberOfItems": 2,
+            "numberOfVerticalItems": 1
+        },{
+            "levelMap" : "/public/images/locations/skyCity/build-close-2.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
+            "speed": 1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
+            "speed": 1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 1.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/build-1.png",
+            "speed": 1.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map_2a.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/skyCity/clouds_map_2b.png",
+            "speed": 2,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 4,
+            "levelSeconds": 43
+        }
+    },
 
 
 
 
     {
-        "level" : 7,
+        "level" : 9,
         "enemyType" : ["megalit", "mine"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["cloud_1", "cloud_2", "cloud_3", "cloud_4", "cloud_5"],
@@ -910,7 +1148,7 @@
 
 
     {
-        "level" : 8,
+        "level" : 10,
         "enemyType" : ["scorpio", "mine", "rhodes" ],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -976,7 +1214,7 @@
 
 
     {
-        "level" : 9,
+        "level" : 11,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_space_moon", "gate_1"],
@@ -984,6 +1222,85 @@
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
+        "bossPresent": false,
+        "space": true,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Moon outpost approach",
+            "description": "Leave Earth"
+        },
+        "levelSound": "/public/sound/ambient/final battle_moon.mp3",
+        "levelMap" : "Earth_orbit_map.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/space/space.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/space/space.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
+            "speed": 0.2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
+            "speed": 0.2,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_far.png",
+            "speed": 0.4,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_far.png",
+            "speed": 0.4,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
+            "speed": 0.8,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
+            "speed": 0.8,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_closest.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_closest.png",
+            "speed": 2,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": 4,
+            "levelSeconds": 30
+        }
+    },
+
+    {
+        "level" : 12,
+        "enemyType" : [],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : ["tradepost_space_moon", "gate_1"],
+        "enemyProbability" : 950,
+        "objectProbability": 900,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "dynamicBlockMap": "5-map-moon-alpha-side",
+        "dynamicLevelsActive": true,
+        "gravity": 2,
+        "gravityIndex": 0.7,
+        "jumpImpuls": 6,
+        "horizontalSpeed": 2,
         "bossPresent": false,
         "space": true,
         "enemyMaxNumber": 2,
@@ -1048,10 +1365,8 @@
         }
     },
 
-
-
     {
-        "level" : 10,
+        "level" : 13,
         "enemyType" : ["scorpio", "moscit", "serpanter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -1151,7 +1466,7 @@
             "levelSeconds": 30
         }
     },{
-        "level" : 11,
+        "level" : 14,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -1200,8 +1515,13 @@
             "levelMinutes": 2,
             "levelSeconds": 30
         }
-    },{
-        "level" : 12,
+    },
+    
+    
+    
+    
+    {
+        "level" : 15,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_venus", "gate_1"],
@@ -1279,8 +1599,97 @@
             "levelMinutes": 4,
             "levelSeconds": 30
         }
-    },{
-        "level" : 13,
+    },
+    
+        {
+            "level" : 16,
+            "enemyType" : [],
+            "grappleObject": ["lifepoint"],
+            "levelOBjects" : ["tradepost_venus", "gate_1"],
+            "enemyProbability" : 950,
+            "objectProbability": 900,
+            "grapleObjectProbability": 1500,
+            "objectMinTimeSpawn": 200,
+            "dynamicBlockMap": "6-map-venus-factory",
+            "dynamicLevelsActive": true,
+            "gravity": 4,
+            "gravityIndex": 6,
+            "jumpImpuls": 4,
+            "horizontalSpeed": 2,
+            "bossPresent": false,
+            "space": false,
+            "enemyMaxNumber": 2,
+            "enemyRandomizerIndex": 5,
+            "levelStandartMap": {
+                "imageWidth": 1920,
+                "imageHeight":1080,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            },
+            "description": {
+                "name": "Venus Clouds",
+                "description": "Venus flying industrial city"
+            },
+            "levelSound": "/public/sound/ambient/underground cavern venus.mp3",
+            "levelMap" : "sun.png",
+            "levelBackgroundElements" : [{
+                "levelMap" : "/public/images/locations/space/space.png",
+                "speed": 0.05,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/space/space.png",
+                "speed": 0.05,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_blue_atmo.png",
+                "speed": 0,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_blue_atmo.png",
+                "speed": 0,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.2,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_city.png",
+                "speed": 0.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_far_clouds.png",
+                "speed": 0.5,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_far_clouds.png",
+                "speed": 0.5,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_city_v2a.png",
+                "speed": 0.6,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_city_v2.png",
+                "speed": 0.6,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_yellow_atmo.png",
+                "speed": 0,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/Venus/venus_yellow_atmo.png",
+                "speed": 0,
+                "description": "second frame"
+            }],
+            "levelDetails" : {
+                "levelMinutes": 4,
+                "levelSeconds": 30
+            }
+        },
+
+    {
+        "level" : 17,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -1300,7 +1709,7 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Trip to Mars",
+            "name": "Road to Mars",
             "description": "Fly to Mars"
         },
         "levelSound": "/public/sound/ambient/ship interior_space_1.mp3",
@@ -1340,8 +1749,12 @@
             "levelMinutes": 4,
             "levelSeconds": 30
         }
-    }, {
-        "level" : 14,
+    },
+
+
+
+    {
+        "level" : 18,
         "enemyType" : ["hunter", "moscit"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_mars"],
@@ -1455,8 +1868,134 @@
             "levelMinutes": 2,
             "levelSeconds": 30
         }
-    }, {
-        "level" : 15,
+    },
+
+    {
+        "level" : 19,
+        "enemyType" : [],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : ["tradepost_mars"],
+        "enemyProbability" : 950,
+        "objectProbability": 900,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "dynamicBlockMap": "7-mars-city",
+        "dynamicLevelsActive": true,
+        "gravity": 4,
+        "gravityIndex": 1.5,
+        "jumpImpuls": 4,
+        "horizontalSpeed": 2,
+        "bossPresent": false,
+        "space": false,
+        "enemyMaxNumber": 2,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+        "imageWidth": 1920,
+        "imageHeight":1080,
+        "animationSteps": 1,
+        "numberOfItems": 1,
+                    "numberOfVerticalItems": 1
+                },
+                "description": {
+                    "name": "Mars Alpha side",
+                    "description": "Mars colony largest city"
+                },
+                "levelSound": "/public/sound/ambient/lava city_mars.mp3",
+                "levelMap" : "sun.png",
+                "levelBackgroundElements" : [{
+                    "levelMap" : "/public/images/locations/space/space.png",
+                    "speed": 0.05,
+                    "description": "first frame"
+                },{
+                    "levelMap" : "/public/images/locations/space/space.png",
+                    "speed": 0.05,
+                    "description": "second frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars_atmosphere.png",
+                    "speed": 0,
+                    "description": "first frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars_atmosphere.png",
+                    "speed": 0,
+                    "description": "second frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-background-mountains.png",
+                    "speed": 0.2,
+                    "description": "first frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-background-mountains.png",
+                    "speed": 0.2,
+                    "description": "second frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/hills_map.png",
+                    "speed": 0.5,
+                    "description": "first frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/hills_map.png",
+                    "speed": 0.5,
+                    "description": "second frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-far-mountains.png",
+                    "speed": 0.8,
+                    "description": "first frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-far-mountains.png",
+                    "speed": 0.8,
+                    "description": "second frame"
+                },{
+                    "levelMap" : "/public/images/locations/space/empty.png",
+                    "speed": 0.8,
+                    "description": "first frame",
+                    "extraMap": "/public/images/locations/Mars/mars-far-mountains_v2.png",
+                    "timeToExtraMapSeconds": 30,
+                    "timeToExtraMapMinutes": 1
+                },{
+                    "levelMap" : "/public/images/locations/space/empty.png",
+                    "speed": 0.8,
+                    "description": "second frame",
+                    "extraMap": "/public/images/locations/Mars/mars-far-mountains_v2.png",
+                    "timeToExtraMapSeconds": 30,
+                    "timeToExtraMapMinutes": 1
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-far-mountains-a.png",
+                    "speed": 1.3,
+                    "description": "first frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-far-mountains-a.png",
+                    "speed": 1.3,
+                    "description": "second frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-closest-ground.png",
+                    "speed": 2.3,
+                    "description": "first frame"
+                },{
+                    "levelMap" : "/public/images/locations/Mars/mars-closest-ground.png",
+                    "speed": 2.3,
+                    "description": "second frame"
+                },{
+                    "levelMap" : "/public/images/locations/space/empty.png",
+                    "speed": 2.3,
+                    "description": "first frame",
+                    "extraMap": "/public/images/locations/Mars/mars_road_old.png",
+                    "timeToExtraMapSeconds": 30,
+                    "timeToExtraMapMinutes": 1
+                },{
+                    "levelMap" : "/public/images/locations/space/empty.png",
+                    "speed": 2.3,
+                    "description": "second frame",
+                    "extraMap": "/public/images/locations/Mars/mars_road_old.png",
+                    "timeToExtraMapSeconds": 30,
+                    "timeToExtraMapMinutes": 1
+                }],
+                "levelDetails" : {
+                    "levelMinutes": 2,
+                    "levelSeconds": 30
+                }
+            },
+
+
+    {
+        "level" : 20,
         "enemyType" : ["megaRock", "hunter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : [],
@@ -1571,7 +2110,7 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 16,
+        "level" : 21,
         "enemyType" : ["Chaser", "hunter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["asteroid_1", "asteroid_2", "gate_1"],
@@ -1659,7 +2198,7 @@
             "levelSeconds": 30
         }
     }, {
-        "level" : 17,
+        "level" : 22,
         "enemyType" : ["Chaser", "Grisle"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["gate_1"],
@@ -1744,8 +2283,104 @@
             "levelMinutes": 4,
             "levelSeconds": 30
         }
-    }, {
-        "level" : 18,
+    },
+        {
+            "level" : 23,
+            "enemyType" : [],
+            "grappleObject": ["lifepoint"],
+            "levelOBjects" : ["gate_1"],
+            "enemyProbability" : 950,
+            "objectProbability": 900,
+            "grapleObjectProbability": 1500,
+            "objectMinTimeSpawn": 200,
+            "dynamicBlockMap": "8-Jupiter-station",
+            "dynamicLevelsActive": true,
+            "gravity": 4,
+            "gravityIndex": 0.01,
+            "jumpImpuls": 4,
+            "horizontalSpeed": 2,
+            "bossPresent": true,
+            "space": false,
+            "enemyMaxNumber": 2,
+            "enemyRandomizerIndex": 5,
+            "levelStandartMap": {
+                "imageWidth": 1920,
+                "imageHeight":1080,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            },
+            "description": {
+                "name": "Jupiter station",
+                "description": "Jupiter"
+            },
+            "levelSound": "/public/sound/ambient/stone fortress Jupiter.mp3",
+            "levelMap" : "sun.png",
+            "levelBackgroundElements" : [{
+                "levelMap" : "/public/images/locations/space/space.png",
+                "speed": 0.05,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/space/space.png",
+                "speed": 0.05,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/Jupiter/europe.png",
+                "speed": 0.065,
+                "description": "first frame",
+                "extraMap": "/public/images/locations/space/empty.png",
+                "timeToExtraMapSeconds": 30,
+                "timeToExtraMapMinutes": 1
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.05,
+                "description": "second frame",
+                "extraMap": "/public/images/locations/space/empty.png",
+                "timeToExtraMapSeconds": 30,
+                "timeToExtraMapMinutes": 1
+            },{
+                "levelMap" : "/public/images/locations/Jupiter/planets_jupiter.png",
+                "speed": 0.05,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.05,
+                "description": "second frame",
+                "extraMap": "/public/images/locations/space/empty.png",
+                "timeToExtraMapSeconds": 30,
+                "timeToExtraMapMinutes": 2
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.2,
+                "description": "first frame",
+                "extraMap": "/public/images/locations/space/empty.png",
+                "timeToExtraMapSeconds": 30,
+                "timeToExtraMapMinutes": 2
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.2,
+                "description": "second frame"
+            },{
+                "levelMap" : "/public/images/locations/Jupiter/io.png",
+                "speed": 0.056,
+                "description": "first frame"
+            },{
+                "levelMap" : "/public/images/locations/space/empty.png",
+                "speed": 0.05,
+                "description": "second frame",
+                "extraMap": "/public/images/locations/Jupiter/io.png",
+                "timeToExtraMapSeconds": 30,
+                "timeToExtraMapMinutes": 2
+            }],
+            "levelDetails" : {
+                "levelMinutes": 4,
+                "levelSeconds": 30
+            }
+        },
+    
+    
+    {
+        "level" : 24,
         "enemyType" : ["Chaser", "Grisle", "hunter"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["tradepost_venus", "gate_1"],
@@ -1828,7 +2463,7 @@
 
 
     {
-        "level" : 19,
+        "level" : 25,
         "enemyType" : ["baldrin", "mine", "dart"],
         "grappleObject": ["lifepoint"],
         "levelOBjects" : ["ice_spikes"],
@@ -1836,6 +2471,101 @@
         "objectProbability": 800,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
+        "bossPresent": true,
+        "space": false,
+        "enemyMaxNumber": 1,
+        "enemyRandomizerIndex": 5,
+        "levelStandartMap": {
+            "imageWidth": 1920,
+            "imageHeight":1080,
+            "animationSteps": 1,
+            "numberOfItems": 1,
+            "numberOfVerticalItems": 1
+        },
+        "description": {
+            "name": "Neptune enemy base",
+            "description": "Final fight in the hart of enemy"
+        },
+        "levelSound": "/public/sound/ambient/Guitar-Mayhem-5.mp3",
+        "levelMap" : "skyClouds.png",
+        "levelBackgroundElements" : [{
+            "levelMap" : "/public/images/locations/space/space.png",
+            "speed": 0.05,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/space/space.png",
+            "speed": 0.05,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_background_map.png",
+            "speed": 0.02,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.02,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/space/empty.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/protheus.png",
+            "speed": 0.1,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_far_mountains.png",
+            "speed": 0.3,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_far_mountains.png",
+            "speed": 0.3,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_middle.png",
+            "speed": 0.5,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_middle.png",
+            "speed": 0.5,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_close_mountains.png",
+            "speed": 0.7,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_close_mountains.png",
+            "speed": 0.7,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_ice.png",
+            "speed": 2,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/Neptune/Neptune_map_ice.png",
+            "speed": 2,
+            "description": "second frame"
+        }],
+        "levelDetails" : {
+            "levelMinutes": null,
+            "levelSeconds": null
+        }
+    }
+
+    ,{
+        "level" : 26,
+        "enemyType" : [],
+        "grappleObject": ["lifepoint"],
+        "levelOBjects" : ["ice_spikes"],
+        "enemyProbability" : 250,
+        "objectProbability": 800,
+        "grapleObjectProbability": 1500,
+        "objectMinTimeSpawn": 200,
+        "dynamicBlockMap": "9-Neptune-enemy-base",
+        "dynamicLevelsActive": true,
+        "gravity": 4,
+        "gravityIndex": 1,
+        "jumpImpuls": 4,
+        "horizontalSpeed": 2,
         "bossPresent": true,
         "space": false,
         "enemyMaxNumber": 1,

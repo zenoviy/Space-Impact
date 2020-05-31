@@ -133,3 +133,51 @@ initSoundObject({SoundCreator, mainGameObject, soundProps})	 - method to createS
         		soundLoop: 'boolean',
     	}
 ///////////////
+
+mainGameObject - game root object store all data and state  based on constructor (class Game)
+
+
+
+
+
+intervalCount: 20,	- game speed of frame change
+enemyType: null,
+allGameSideObjects: [],
+allGameEnemies: [],
+allGameBullets: [],
+allGroundGameBullets: [],
+mapBackgroundObjects: [],
+warpObjects: [],
+mapKeyCode: {},
+dynamicLevelMapBlocks:  dynamicLevelMapBlocks,
+dynamicLevelEnemy: dynamicLevelEnemy,
+timeToEressLevel: 6,
+levelChange: false,
+gamePause: false,
+gameUiPause: false,
+backScreenPause: true,
+gameStatus: false,
+gameOver: false,
+gameWin: false,
+subBossPresent: false,
+gatePresent: false,
+levelWindowDescription: false,
+grappleObjectOnScreen: false,
+dynamicLevelsActive: (levelData.dynamicLevelsActive)? true : false,
+tradepostInRange: false,
+inventoryActive: false,
+shopActive: false,
+gameExtraSeconds: 0,
+tradeShipTimeToUndock: 0
+
+
+
+let mapFileName = `${req.body.name}.json`;
+    let writeableStream = await fs.createWriteStream(__dirname + '../../../public/level-creator/complete-maps/'+ mapFileName);
+
+    writeableStream.write(JSON.stringify(req.body));
+    writeableStream.end();
+
+    let writableDemoData = await fs.createWriteStream(__dirname + '../../../public/temp/mapData.json');
+    writableDemoData.write(JSON.stringify(req.body));
+    writableDemoData.end();

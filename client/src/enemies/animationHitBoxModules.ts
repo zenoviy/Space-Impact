@@ -15,7 +15,11 @@ function drawCircle({ctx, x, y, width, height, color}){
     ctx.arc(x, y, width/2, 0, 2 * Math.PI);
     ctx.fill();
 }
-
+function drawRectangle({ctx, x, y, width, height, color}){
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, width, height);
+    ctx.fill();
+}
 
 
 
@@ -26,7 +30,7 @@ Main object display function ( daisplay object with texture and angel, method of
 ============== */
 
  function displayObjectAtScene(mainGameObject, secondTexture?){
-     if(this.y > 0 - this.height && this.x > 0 - this.width && this.y < window.innerHeight + this.height && this.x < window.innerWidth + this.width || this.objectNameFlag === "bullet"){
+     if(this.y > 0 - this.height && this.x > (0 - this.width) && this.y < window.innerHeight + this.height && this.x < window.innerWidth + this.width || this.objectNameFlag === "bullet"){
     //if(this.y > 100 && this.x > 100 && this.y < window.innerHeight - 300 && this.x < window.innerWidth - 300){
     mainGameObject.gameInitData.ctxActionField.save();
 
@@ -77,6 +81,20 @@ Main object display function ( daisplay object with texture and angel, method of
 
 
 
+function solidColorFill({mainGameObject}){
+    let ctx = mainGameObject.gameInitData.ctxActionField;
+    drawRectangle({
+        ctx: ctx,
+        x: this.x,
+        y: this.y,
+        width: this.width + 1,
+        height: this.height + 1,
+        color: (this.details.mapColor)? this.details.mapColor: '#000000'
+    })
+}
+
+
+
 /*===============
 
 Method for background picture to display it
@@ -122,8 +140,8 @@ picturesWidth - total width of all picture frames
 ============== */
 
 async function spriteObjectsAnimation(state = true){
-    if( this.x > window.innerWidth + 100 || this.x < -100 ||
-            this.y > window.innerHeight + 100 || this.y < -100) return false
+    if( this.x > window.innerWidth + this.width || this.x < this.width * -1 ||
+            this.y > window.innerHeight + this.height || this.y < this.height * -1) return false
     if(this.backgroundTexture){
 
         this.backgroundTexture.detectFrame += 1;
@@ -361,7 +379,10 @@ Detect are the current block background or not
 
 ============== */
 function groundLevelBackgroundBulletDetect({hitObject, mainGameObject, GrappleObject}){
-    if(!mainGameObject.gameInitData.dynamicLevelsActive ) return false
+    if(!mainGameObject.gameInitData.dynamicLevelsActive ){
+        this.atBackground = false;
+        return false
+    }
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     let collision
     for(let background of allBlocks){
@@ -545,8 +566,9 @@ function playerDamage({ mainGameObject, damage}){
 
 // complex enemy animation for damage
 async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObject){
-    if( this.x > window.innerWidth + 100 || this.x < -100 ||
-        this.y > window.innerHeight + 100 || this.y < -100) return false
+    /*if( this.x > window.innerWidth + 100 || this.x < -100 ||
+        this.y > window.innerHeight + 100 || this.y < -100) return false*/
+
     let gameSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let groundBulletStop = groundBulletCollision.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
     let backgroundTextureDetect = await groundLevelBackgroundBulletDetect.call(this, {hitObject: hitObject, mainGameObject: mainGameObject});
@@ -564,6 +586,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
 
     /* Hit detection collision */
     if(mainGameObject.gameInitData.dynamicLevelsActive && hitObject.objectOwner == "player") return false
+
     if(this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "enemy" && hitObject.objectOwner == "hangarbullet" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "collide" && hitObject.objectOwner == "player" ||
@@ -613,6 +636,7 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
         if(mainGameObject.gameInitData.dynamicLevelsActive || mainGameObject.gameInitData.gameWin) return false
         if(hitObject.objectOwner === "collide" && gameSeconds % 1000 != 0 ||
         hitObject.hasOwnProperty('healthPoint') && hitObject.objectOwner === "enemy" && gameSeconds % 1000 != 0) return false
+
         playerDamage.call(this, { mainGameObject: mainGameObject, damage: damage})
         explosionFire({
             targetData: this,
@@ -774,12 +798,15 @@ function objectIntersectionDetect({object, target}){
 function hitDetection({object1, objectsArr, mainGameObject, GrappleObject}){
     let collision = null;
     for(let object2 of objectsArr){
-        if( object2.x > window.innerWidth + 100 || object2.x < -100 ||
-            object2.y > window.innerHeight + 100 || object2.y < -100) continue
+        if( object2.x > window.innerWidth + object2.width || object2.x < object2.width * -1 ||
+            object2.y > window.innerHeight + object2.height || object2.y < object2.height * -1){
+                if(!object2.objectNameFlag && !object1.objectNameFlag) continue
+            }
 
 
-        if(Math.max(object2.x, object1.x) - Math.min(object2.x, object1.x) > 200 ||  Math.max(object2.y, object1.y) - Math.min(object2.y, object1.y) > 200){
-            continue
+        if(Math.max(object2.x, object1.x) - Math.min(object2.x, object1.x) > 200 ||
+        Math.max(object2.y, object1.y) - Math.min(object2.y, object1.y) > 200){
+            if(!object2.objectNameFlag && !object1.objectNameFlag) continue
         }
         let object1Position = object1.getObjectPosition.call(object1);
 
@@ -823,5 +850,6 @@ export  {
     spawnCoin,
     explosionFire,
     unitDamage,
-    explosionDamage
+    explosionDamage,
+    solidColorFill
 };

@@ -162,8 +162,10 @@ async function saveMap({ mainObject }){
 
             if(mapFile){
                 messageField.innerHTML = `<p>Save time: ${saveData.getHours() -1} : ${saveData.getMinutes()} : ${saveData.getSeconds()}</p>
+                <p>Size: ${mapFile.fileSize}</p>
                 <a href=${ mapFile.url } onclick="(function(){ window.open('${ mapFile.url }')})()" target="_blank">Open in new window</a>`
             }
+            console.log(mapFile)
         }
     })
 

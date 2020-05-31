@@ -163,7 +163,7 @@ async function spawnEnemyLogic( EnemyObject: any){
             let numberEnemyPerSpawn = this.gameRandomizer(levelData.enemyMaxNumber);
             for(let i = numberEnemyPerSpawn; i < levelData.enemyMaxNumber; i++){
                 let enemyShip = enemyData[ this.gameRandomizer(enemyData.length) ];
-
+                if(!enemyShip) continue
                 if(enemyShip.details || enemyShip.details){
                     if( enemyShip.details.isBoss && process.env.BOSS_LOAD_AT_LEVEL === "true" || enemyShip.details.subBoss && process.env.SUB_LOAD_AT_LEVEL === "true") return false
                     if(enemyShip.details.isBoss) process.env.BOSS_LOAD_AT_LEVEL = "true";

@@ -5,27 +5,50 @@ const { dataWriter } = require('../workers/fileWorker');
 
 
 async function saveMap (req, res) {
-    if(!req ) return console.log('no request')
 
+    if(!req ) return console.log('no request')
     let dir = __dirname + '../../../public/temp/';
     if (!fs.existsSync(dir)){
         fs.mkdirSync(dir);
     }
-    if (!fs.existsSync(dir + '.json')){
+
+    let mapFileName = `${req.body.name}.json`;
+    let fileName = __dirname + '../../../public/level-creator/complete-maps/'+ mapFileName;
+    
+    if (!fs.existsSync(fileName)){
+        console.log('not exist')
         if(!req.body || !req.body.name){ res.send({
             message: 'no data'});
             return false
         }
-        let mapFileName = `${req.body.name}.json`;
+        //await dataWriter({fileName: '../../../public/level-creator/complete-maps/' + mapFileName, data: JSON.stringify(req.body)})
 
-        console.log(req.body.name)
-        await dataWriter({fileName: '../../../public/temp/mapData.json', data: JSON.stringify(req.body)})
-        await dataWriter({fileName: '../../../public/level-creator/complete-maps/' + mapFileName, data: JSON.stringify(req.body)})
+        fs.writeFile(fileName, JSON.stringify(req.body), (err) => {
+            if(err) throw err;
+        })
+        res.send({ url: process.env.HOST + process.env.PORT + `/level-creator/complete-maps/${mapFileName}`, fileSize: 'New map created!'})
+        console.log(!fs.existsSync(dir + '.json'))
+        return
     }
+    const stats = fs.statSync(fileName);
+    await fs.unlink(fileName, async function (err) {
+        if (err){
+            console.log('err')
+            throw err;
+        }
+        // if no error, file has been deleted successfully
+        await console.log('File deleted!');
 
-
-    res.send({ url: process.env.HOST +  process.env.PORT + '/temp/mapData.json'})
+        let writeableStream = await fs.createWriteStream(fileName, {flags: 'w+'});
+        await writeableStream.write(JSON.stringify(req.body),  () => {
+            writeableStream.end();
+            res.send({ url: process.env.HOST + process.env.PORT + `/level-creator/complete-maps/${mapFileName}`, fileSize: stats.size})
+        });
+    });
 }
+
+
+
 
 async function loadAllMap(req, res) {
     if(!req ) return console.log('no request')

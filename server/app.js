@@ -36,7 +36,7 @@ process.env.PORT = 3300;
 process.env.HOST = 'http://localhost:';
 
 
-app.use(bodyParser.json({ limit: '13mb' }));
+app.use(bodyParser.json({ limit: '23mb' }));
 const hbs = exphbs.create({extname: ".handlebars",
         layoutsDir: __dirname + "/views/layouts",
         defaultLayout: "main.handlebars",
@@ -75,6 +75,7 @@ app.get('/game-level-creator', cors(), (req, res) => {
 
 
 /*            Dynamic level route       */
+app.use(bodyParser.json({ limit: '23mb' }));
 app.get('/app/get-all-maps', cors(), loadAllMap)
 app.get('/api/get-ground-characters', cors(), gameGroundCharacterData)
 app.get('/api/get-constructor-ground-enemy', cors(), gameGroundEnemyData)
@@ -87,7 +88,7 @@ app.route('/api/get-constructor-characters')
 app.get('/api/get-constructor-background-blocks', cors(), gameDecorationRedactorData)
 app.route('/api/get-constructor-blocks')
     .get(cors(), constructorBlockData)
-    .post(cors(), saveMap)
+    .post(cors(), bodyParser.json({ limit: '23mb' }), saveMap)
     .put(cors(), loadMap)
 
 

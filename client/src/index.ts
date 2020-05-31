@@ -306,8 +306,8 @@ function gameDynamicLevelBoxRender({ gameObject }){
 
     for(let background of allBackgrounds){
         //if(!background) continue
-        if(!background || background.x > window.innerWidth + 100 || background.x < -100 ||
-            background.y > window.innerHeight + 100 || background.y < -100) continue
+        if(!background || background.x > window.innerWidth + background.width || background.x + 50 < background.width * -1 ||
+            background.y > window.innerHeight + background.height || background.y + 50 < (background.height * -1)) continue
         if(background.backgroundTexture){
             //console.log(block)
            displayObjectAtScene.call({
@@ -343,14 +343,14 @@ function gameDynamicLevelBoxRender({ gameObject }){
     }
 
     for(let elevator of allElevators){
-        if(!elevator || elevator.x > window.innerWidth + 100 || elevator.x < -100 ||
-            elevator.y > window.innerHeight + 100 || elevator.y < -100) continue
+        if(!elevator || elevator.x > window.innerWidth + elevator.width || elevator.x < elevator.width * -1 ||
+            elevator.y > window.innerHeight + elevator.height || elevator.y < elevator.height * -1) continue
         if(!gameObject.gameInitData.gamePause) elevator.elevatorMove({ mainGameObject: gameObject })
         elevator.displayObjectAtScene(gameObject)
     }
     for(let block of allBlocks){
-        if(!block || block.x > block.innerWidth + 100 || block.x < -100 ||
-            block.y > window.innerHeight + 100 || block.y < -100) continue
+        if(!block || block.x > window.innerWidth + block.width || block.x + 50 < block.width * -1 ||
+            block.y > window.innerHeight + block.height || block.y + 50 < (block.height * -1)) continue
         if(!block) continue
             if(block.details.type === 'enemy_spawner' ||  block.details.type === 'hidden_enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
              !block.details.display && block.details.type === "health" || !block.details.display && block.details.type === "scenario_object" ||

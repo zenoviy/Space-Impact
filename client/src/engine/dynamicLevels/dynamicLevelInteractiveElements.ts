@@ -96,11 +96,14 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     let xMax = Math.max(player.x + player.width, stairs.x) - Math.min(player.x + player.width, stairs.x);
 
     if(stairs.details.type === "stairs-left"){
+
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity * -1: levelInformation.gravity;
+        player.groundTouch = false;
     }else if(stairs.details.type === "stairs-right" && player.isRun){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity : (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
+        player.groundTouch = false;
     }
 }
 
@@ -167,7 +170,7 @@ async function teleportFunctionality({ mainGameObject }){
         let bottomBlockIndex = currentBlockIndex - 1;
         return block.index === bottomBlockIndex
     });
-    
+
     if(!teleportDoor) return false
     if(!teleportDoor.details ) return false
     if(teleportDoor.details.type === "teleport_door"){

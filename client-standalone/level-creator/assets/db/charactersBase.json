@@ -223,6 +223,36 @@
         "detectFrame": 0
     },
     {
+        "id": "enemy-ship-down",
+        "texture": "/level-creator/assets/charactersObjects/enemy-shoot-down-ship.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/shootdown-ship.png",
+        "description": "enemy ship down",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Press 'E' to search",
+            "require": null,
+            "contain": "enemy_gun",
+            "requireText": null,
+            "successText": "You found part of enemy technology",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+    {
         "id": "elevator_1",
         "texture": "/level-creator/assets/charactersObjects/elevator.png",
         "description": "Elevator vertical",
