@@ -26,6 +26,11 @@
     <link rel="import" href="sections/load.html">
 </head>
 <body>
+    <div id="wait-screen" class="wait-screen" style="display: none;">
+        <div class="wait-screen-inner">
+            <h1>Please wait...</h1>
+        </div>
+    </div>
     <div id="main-load-screen" class="main-load-screen">
         <p>Loading...</p>
         <img width="300" style="display: block; margin: 0 auto;" src="./public/icons/png/1024x1024.png" alt="logotype">
@@ -110,6 +115,7 @@
                     <br>
                     <li><a data-button-id="exit" href="#">exit</a></li>
                 </ul>
+                <p class="text-branding">Standalone v0.0.1</p>
                 <div><div id="message-screenshot" class="message-screenshot">test</div>
                 <button id="screenshot" class="screenshot-button">
                     <img src="./public/images/page/icons/camera.png" alt="camera">

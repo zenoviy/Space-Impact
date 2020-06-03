@@ -53,12 +53,12 @@
                 "numberOfItems": 15
             },
             "jump": {
-                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
-                "picturesWidth": 510,
-                "imageWidth": 510,
-                "imageHeight": 90,
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-run.png",
+                "picturesWidth": 405,
+                "imageWidth": 405,
+                "imageHeight": 92,
                 "animationSteps": 10,
-                "numberOfItems": 15
+                "numberOfItems": 9
             },
             "death": {
                 "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-death.png",
@@ -150,12 +150,12 @@
                 "numberOfItems": 7
             },
             "run": {
-                "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
-                "picturesWidth": 248,
-                "imageWidth": 248,
+                "innerTexture": "/public/images/characters/professor-1/professor-1-run.png",
+                "picturesWidth": 213,
+                "imageWidth": 213,
                 "imageHeight": 158,
                 "animationSteps": 15,
-                "numberOfItems": 7
+                "numberOfItems": 6
             },
             "runAndShotTop": {
                 "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
@@ -174,12 +174,12 @@
                 "numberOfItems": 7
             },
             "jump": {
-                "innerTexture": "/public/images/characters/professor-1/professor-1-stand.png",
-                "picturesWidth": 248,
-                "imageWidth": 248,
+                "innerTexture": "/public/images/characters/professor-1/professor-1-run.png",
+                "picturesWidth": 213,
+                "imageWidth": 213,
                 "imageHeight": 158,
                 "animationSteps": 15,
-                "numberOfItems": 7
+                "numberOfItems": 6
             },
             "death": {
                 "innerTexture": "/public/images/characters/professor-1/professor-1-death.png",
@@ -257,12 +257,12 @@
                 "numberOfItems": 8
             },
             "jump": {
-                "innerTexture": "/public/images/characters/citizen-1/stand.png",
-                "picturesWidth": 184,
-                "imageWidth": 184,
+                "innerTexture": "/public/images/characters/citizen-1/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
                 "imageHeight": 70,
                 "animationSteps": 15,
-                "numberOfItems": 8
+                "numberOfItems": 4
             },
             "death": {
                 "innerTexture": "/public/images/characters/citizen-1/citizen-1-death.png",
@@ -286,8 +286,657 @@
             ]
         }
     },
+    {
+        "id": "citizen_2",
+        "displayTexture": "/public/images/characters/citizen-2/stand.png",
+        "texture": "/public/images/characters/citizen-2/stand.png",
+        "behavior": ["patrol", "stand", "work"],
+        "role": "civil",
+        "width": 27,
+        "height": 42,
+        "imageWidth": 35,
+        "imageHeight": 70,
+        "animationSteps": 10,
+        "numberOfItems": 8,
+        "numberOfVerticalItems": 2,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 0,
+        "speed": 0.5,
+        "healthPoint": 250,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/citizen-2/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/citizen-2/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/citizen-2/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/citizen-2/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/citizen-2/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/citizen-2/citizen-1-death.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+
+            ]
+        }
+    },
+    {
+        "id": "citizen_3",
+        "displayTexture": "/public/images/characters/citizen-3/stand.png",
+        "texture": "/public/images/characters/citizen-3/stand.png",
+        "behavior": ["patrol", "stand", "work"],
+        "role": "civil",
+        "width": 27,
+        "height": 42,
+        "imageWidth": 35,
+        "imageHeight": 70,
+        "animationSteps": 10,
+        "numberOfItems": 8,
+        "numberOfVerticalItems": 2,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 0,
+        "speed": 0.5,
+        "healthPoint": 250,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/citizen-3/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/citizen-3/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/citizen-3/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/citizen-3/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/citizen-3/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/citizen-3/citizen-1-death.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+
+            ]
+        }
+    },
+    {
+        "id": "citizen_4",
+        "displayTexture": "/public/images/characters/citizen-4/stand.png",
+        "texture": "/public/images/characters/citizen-4/stand.png",
+        "behavior": ["patrol", "stand", "work"],
+        "role": "civil",
+        "width": 27,
+        "height": 42,
+        "imageWidth": 35,
+        "imageHeight": 70,
+        "animationSteps": 10,
+        "numberOfItems": 8,
+        "numberOfVerticalItems": 2,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 0,
+        "speed": 0.5,
+        "healthPoint": 250,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/citizen-4/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/citizen-4/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/citizen-4/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/citizen-4/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/citizen-4/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/citizen-4/citizen-1-death.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+
+            ]
+        }
+    },
+    {
+        "id": "citizen_5",
+        "displayTexture": "/public/images/characters/citizen-5/stand.png",
+        "texture": "/public/images/characters/citizen-5/stand.png",
+        "behavior": ["patrol", "stand", "work"],
+        "role": "civil",
+        "width": 27,
+        "height": 42,
+        "imageWidth": 35,
+        "imageHeight": 70,
+        "animationSteps": 10,
+        "numberOfItems": 8,
+        "numberOfVerticalItems": 2,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 0,
+        "speed": 0.5,
+        "healthPoint": 250,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/citizen-5/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/citizen-5/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/citizen-5/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/citizen-5/stand.png",
+                "picturesWidth": 184,
+                "imageWidth": 184,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/citizen-5/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/citizen-5/citizen-1-death.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "Machinegun",
+                    "loadImage": "static/shop/weapons/Machinegun.png",
+                    "background": "static/shop/misc/blue-card.png",
+                    "price": 2500,
+                    "title": "Machinegun",
+                    "status": "mechanic gun",
+                    "description": "blaster gun, regular weapon for you spaceship",
+                    "hangarImage": "static/shop/weapons/Machinegun.png",
+                    "texture": "/public/images/misc/bullets/bullet-gun-ground.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion-bullet.png",
+                        "imageWidth": 4441,
+                        "imageHeight":294,
+                        "animationSteps": 5,
+                        "numberOfItems": 15,
+                        "playerObject": true,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 15,
+                        "height": 10,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/bullet-impact-4.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/gunshot-1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "cannon",
+                    "fireRepead": 3,
+                    "speed": 15,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 20,
+                    "height": 5,
+                    "sx": 0,
+                    "sy": 0,
+                    "imageWidth": 2107,
+                    "imageHeight":31,
+                    "animationSteps": 10,
+                    "numberOfItems": 7,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 301,
+                    "sHeight": 31,
+                    "damage": 10,
+                    "firePosition": 10,
+                    "firePositionX": 0,
+                    "defaultAngle": 0
+                }
+            ]
+        }
+    },
 
 
+
+
+    {
+        "id": "comandor",
+        "displayTexture": "/public/images/characters/comandor/stand.png",
+        "texture": "/public/images/characters/comandor/stand.png",
+        "behavior": ["patrol", "stand", "find"],
+        "width": 35,
+        "height": 43,
+        "imageWidth": 312,
+        "role": "military",
+        "imageHeight": 35,
+        "animationSteps": 10,
+        "numberOfItems": 13,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 500,
+        "speed": 0.5,
+        "healthPoint": 350,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/comandor/stand.png",
+                "picturesWidth": 192,
+                "imageWidth": 192,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/comandor/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/comandor/stand.png",
+                "picturesWidth": 192,
+                "imageWidth": 192,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/comandor/stand.png",
+                "picturesWidth": 192,
+                "imageWidth": 192,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/comandor/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/comandor/officer-1-death.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "Machinegun",
+                    "loadImage": "static/shop/weapons/Machinegun.png",
+                    "background": "static/shop/misc/blue-card.png",
+                    "price": 2500,
+                    "title": "Machinegun",
+                    "status": "mechanic gun",
+                    "description": "blaster gun, regular weapon for you spaceship",
+                    "hangarImage": "static/shop/weapons/Machinegun.png",
+                    "texture": "/public/images/misc/bullets/bullet-gun-ground.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion-bullet.png",
+                        "imageWidth": 4441,
+                        "imageHeight":294,
+                        "animationSteps": 5,
+                        "numberOfItems": 15,
+                        "playerObject": true,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 15,
+                        "height": 10,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/bullet-impact-4.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/gunshot-1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "cannon",
+                    "fireRepead": 3,
+                    "speed": 15,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 20,
+                    "height": 5,
+                    "sx": 0,
+                    "sy": 0,
+                    "imageWidth": 2107,
+                    "imageHeight":31,
+                    "animationSteps": 10,
+                    "numberOfItems": 7,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 301,
+                    "sHeight": 31,
+                    "damage": 10,
+                    "firePosition": 10,
+                    "firePositionX": 0,
+                    "defaultAngle": 0
+                }
+            ]
+        }
+    },
+
+
+    {
+        "id": "general",
+        "displayTexture": "/public/images/characters/general/stand.png",
+        "texture": "/public/images/characters/general/stand.png",
+        "behavior": ["patrol", "stand", "find"],
+        "width": 35,
+        "height": 43,
+        "imageWidth": 312,
+        "role": "military",
+        "imageHeight": 35,
+        "animationSteps": 10,
+        "numberOfItems": 13,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 600,
+        "speed": 0.5,
+        "healthPoint": 350,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/general/stand.png",
+                "picturesWidth": 192,
+                "imageWidth": 192,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/general/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/general/stand.png",
+                "picturesWidth": 192,
+                "imageWidth": 192,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/general/stand.png",
+                "picturesWidth": 192,
+                "imageWidth": 192,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 8
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/general/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/general/officer-1-death.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "Machinegun",
+                    "loadImage": "static/shop/weapons/Machinegun.png",
+                    "background": "static/shop/misc/blue-card.png",
+                    "price": 2500,
+                    "title": "Machinegun",
+                    "status": "mechanic gun",
+                    "description": "blaster gun, regular weapon for you spaceship",
+                    "hangarImage": "static/shop/weapons/Machinegun.png",
+                    "texture": "/public/images/misc/bullets/bullet-gun-ground.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion-bullet.png",
+                        "imageWidth": 4441,
+                        "imageHeight":294,
+                        "animationSteps": 5,
+                        "numberOfItems": 15,
+                        "playerObject": true,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 15,
+                        "height": 10,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/bullet-impact-4.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/gunshot-1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "cannon",
+                    "fireRepead": 3,
+                    "speed": 15,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 20,
+                    "height": 5,
+                    "sx": 0,
+                    "sy": 0,
+                    "imageWidth": 2107,
+                    "imageHeight":31,
+                    "animationSteps": 10,
+                    "numberOfItems": 7,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 301,
+                    "sHeight": 31,
+                    "damage": 10,
+                    "firePosition": 10,
+                    "firePositionX": 0,
+                    "defaultAngle": 0
+                }
+            ]
+        }
+    },
 
 
 
@@ -307,7 +956,7 @@
         "playerDirectionHorizontal": "left",
         "detectRange": 600,
         "speed": 0.5,
-        "healthPoint": 450,
+        "healthPoint": 550,
         "jumpSpeed": 5,
         "pointsPerUnit": 10,
         "shotProbability": 20,
@@ -345,12 +994,12 @@
                 "numberOfItems": 13
             },
             "jump": {
-                "innerTexture": "/public/images/characters/officer/stand.png",
-                "picturesWidth": 312,
-                "imageWidth": 312,
+                "innerTexture": "/public/images/characters/officer/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
                 "imageHeight": 70,
                 "animationSteps": 15,
-                "numberOfItems": 13
+                "numberOfItems": 4
             },
             "death": {
                 "innerTexture": "/public/images/characters/officer/officer-1-death.png",
@@ -424,7 +1073,138 @@
         }
     },
 
-
+    {
+        "id": "robot_1",
+        "displayTexture": "/public/images/characters/robot/stand.png",
+        "texture": "/public/images/characters/robot/stand.png",
+        "behavior": ["patrol", "stand", "find"],
+        "width": 35,
+        "height": 43,
+        "imageWidth": 312,
+        "role": "military",
+        "imageHeight": 35,
+        "animationSteps": 10,
+        "numberOfItems": 13,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 600,
+        "speed": 0.5,
+        "healthPoint": 650,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/robot/stand.png",
+                "picturesWidth": 312,
+                "imageWidth": 312,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 13
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/robot/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/robot/stand.png",
+                "picturesWidth": 312,
+                "imageWidth": 312,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 13
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/robot/stand.png",
+                "picturesWidth": 312,
+                "imageWidth": 312,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 13
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/robot/run.png",
+                "picturesWidth": 96,
+                "imageWidth": 96,
+                "imageHeight": 70,
+                "animationSteps": 15,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/robot/officer-1-death.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "Machinegun",
+                    "loadImage": "static/shop/weapons/Machinegun.png",
+                    "background": "static/shop/misc/blue-card.png",
+                    "price": 2500,
+                    "title": "Machinegun",
+                    "status": "mechanic gun",
+                    "description": "blaster gun, regular weapon for you spaceship",
+                    "hangarImage": "static/shop/weapons/Machinegun.png",
+                    "texture": "/public/images/misc/bullets/bullet-gun-ground.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion-bullet.png",
+                        "imageWidth": 4441,
+                        "imageHeight":294,
+                        "animationSteps": 5,
+                        "numberOfItems": 15,
+                        "playerObject": true,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 15,
+                        "height": 10,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/bullet-impact-4.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/gunshot-1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "cannon",
+                    "fireRepead": 3,
+                    "speed": 15,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 20,
+                    "height": 5,
+                    "sx": 0,
+                    "sy": 0,
+                    "imageWidth": 2107,
+                    "imageHeight":31,
+                    "animationSteps": 10,
+                    "numberOfItems": 7,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 301,
+                    "sHeight": 31,
+                    "damage": 10,
+                    "firePosition": 10,
+                    "firePositionX": 0,
+                    "defaultAngle": 0
+                }
+            ]
+        }
+    },
 
 
 

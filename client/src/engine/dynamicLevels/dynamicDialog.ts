@@ -30,6 +30,12 @@ function useObject({ mainGameObject, player, item }){
             case 'teleport_door':
                 currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
                 break;
+            case 'read_terminal':
+                player.currentDialogCharacter = item;
+                process.env.GROUND_NPC_DIALOG_ACTIVE = 'true';
+                if( process.env.GROUND_NPC_DIALOG_ACTIVE === 'true' && process.env.GROUND_CHARACTERS_INVENTORY === 'true') break;
+                currentActiveBlock = displayText({ mainGameObject: mainGameObject, player: player, item: item })
+                break;
             default:
                 player.currentDialogCharacter = null;
                 if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'true' && player.isRun){
@@ -234,12 +240,13 @@ function renderText( contexts, displayText, x, y, color){
 
 
 function interactWithObjects({ mainGameObject, constructors }){
+    
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     doorFunctionality.call(groundPlayer, {mainGameObject: mainGameObject, constructors: constructors})
     teleportFunctionality.call(groundPlayer, {mainGameObject: mainGameObject})
     if(process.env.GROUND_ACTIVE_BLOCK_IN_RANGE === 'true'){
-        let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
         let requireData;
+        console.log(groundPlayer.currentDialogCharacter)
         if(!mainGameObject.mapNearActiveElement) return false
         if(groundPlayer.currentDialogCharacter){
             npcDialog({

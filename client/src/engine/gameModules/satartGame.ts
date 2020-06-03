@@ -49,7 +49,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
-    let level = 1, shipType = 1, shipLife = 15;
+    let level = 2, shipType = 1, shipLife = 15;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameDialogField = document.querySelector('#gameActionDialogfield'),
@@ -203,13 +203,11 @@ async function backToStartScreen(constructors){
     let soundObject = this.showGameInfo().gameData.levelSounds;
     let newInitdata = await gameDataInit.call(this, constructors.PlayerShip, soundObject, constructors);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
-    console.log(newInitdata)
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
             this.gameInitData[key] = value;
         };
     }
-    console.log(newInitdata)
     this.mapSoundChanger({soundStatus:'start_screen'})
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = false;

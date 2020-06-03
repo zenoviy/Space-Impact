@@ -17,9 +17,50 @@ import { hideLoadScreen } from '../../../ui/loadScreen';
 
 
 async function showSaveData(){
-    let saveData = await getElectronLocalSaves({ fileName: process.env.SAVE_DATA_FILE })
-    if(!saveData || saveData === 0) return false
-    return saveData
+    let allFiles = Object.assign([], await loadSavesFromFolder());
+    var alternateData = [];
+    for(let altData of allFiles){
+        if(!altData) continue
+        if(altData.name === "game-saves" || altData.name === "game-settings") continue
+
+        let localAltData = await getElectronLocalSaves({ fileName: altData.name });
+        alternateData = alternateData.concat(localAltData);
+    }
+    //if(!alternateData || alternateData.length === 0) return []
+    //let saveData = await getElectronLocalSaves({ fileName: process.env.SAVE_DATA_FILE })
+    //if(!saveData || saveData === 0) return false
+    // cycle load all saves from folder   except "game-settings.json"
+
+    return alternateData
+}
+
+
+async function loadSavesFromFolder(){
+    let dir = storage.getDataPath() + '/';
+    let numberOfSaves = 0;
+    return new Promise(function(response, reject){
+        fs.readdir(dir, (err, files) => {
+        let allFiles = [];
+        files.forEach(file => {
+            let fileName = JSON.stringify(file).split('.json');
+            if(fileName[1]){
+                if(fileName[0] != '"game-saves' && fileName[0] != '"game-settings'){
+                    numberOfSaves += 1;
+                    console.log(numberOfSaves);
+                    process.env.NUMBER_OF_SAVES = numberOfSaves.toString();
+                }
+
+                let fileData = {
+                    name: (() => {
+                        return fileName[0].replace('"', '');
+                    })()
+                }
+                allFiles = allFiles.concat(fileData);
+            }
+        });
+        response(allFiles)
+      });
+    })
 }
 
 
@@ -48,18 +89,18 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
     }));
 
     await clearClassSelectorField({target: menuArea})
-    await saveData.sort(function(a, b){ return a.saveTime - b.saveTime});
-    await saveData.reverse()
 
     if(saveData.length < 1){
         for (let item of menuArea){
-            let object = await document.createElement("div");
+            let object = document.createElement("div");
             object.innerHTML = "<div><h2>No save data</h2></div>";
-            await item.object.appendChild(object)
+            item.object.appendChild(object)
         }
         hideLoadScreen()
         return
     }
+    await saveData.sort(function(a, b){ return a.saveTime - b.saveTime});
+    await saveData.reverse()
     for (let item of menuArea){
         if(!saveData || saveData.length < 1) item.object.innerHTML = '';
         let index = 0;
@@ -261,6 +302,23 @@ function backToObject({data, constructor}){
 
 
 
+
+
+function loadedScreenActive(){
+    let object = document.querySelector("#wait-screen");
+    show(object);
+}
+function loadedScreenDective(){
+    let object = document.querySelector("#wait-screen");
+    hide(object);
+}
+
+
+
+
+
+
+
 function loadSaveProcedure({mainGameObject, currentSave}){
     let save = JSON.parse(currentSave.saveData);
     let datanotToChange = {
@@ -428,5 +486,7 @@ function loadSaveProcedure({mainGameObject, currentSave}){
 
 export {
     showSaveData,
-    displaySavesOnScreen
+    displaySavesOnScreen,
+    loadedScreenActive,
+    loadedScreenDective
 }

@@ -9,19 +9,21 @@
     .backpack-body
         background: #26002f
         border-radius: 5px
-        max-width: 300px
-        max-height: 60%
-        min-width: 300px
-        min-height: 60%
+        max-width: 100%
+        max-height: 300px
+        min-width: 100%
+        min-height: 300px
         overflow-y: scroll
         right: 0
-        position: absolute
+        position: fixed
         padding: 5px
         color: #ffffff
         display: flex
         flex-wrap: wrap
+        bottom: 0
+        justify-content: center
         .backpack-item-wrapper
-            width: 27%
+            width: 100px
             padding: 5px
             position: relative
             font-size: 10px
@@ -35,7 +37,7 @@
             text-align: center
             align-self: center
         canvas
-            background: #000000
+            background: #1f071a
             position: absolute
             align-self: center
         h3.side-panel-name
@@ -59,14 +61,14 @@
             color: #ffffff
             background: $orange-color
         .dialog-header
-            width: 100%
+            width: 75%
             display: grid
             grid-template-columns: auto auto
             .dialog-picture
                 width: 100px
                 float: right
         .dialog-body
-            width: 100%
+            width: 75%
 
 .backpack-body::-webkit-scrollbar
     width: 12px
@@ -83,7 +85,13 @@
 .backpack-body::-webkit-scrollbar-thumb:window-inactive
     background: rgba(255,0,0,0.1)
 
-
+.journal-list-container
+    text-align: left
+    border-left: 1px solid #4c4c4c
+    padding: 18px
+    min-width: 37%
+    border-top: 1px solid #4c4c4c
+    list-style: inside
 .complete-task
     color: $orange-color
 

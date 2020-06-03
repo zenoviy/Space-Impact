@@ -613,6 +613,43 @@
         "angle": 45
     },
     {
+        "id": "block_5d ",
+        "collision": true,
+        "texture": "/level-creator/assets/block/mars-ground.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C2C00",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_5d-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/mars-ground-2.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C2C00",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_5d-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/mars-ground-3.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C2C00",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+
+    {
         "id": "block_6",
         "collision": true,
         "texture": "/level-creator/assets/block/ground-1.png",
@@ -1186,5 +1223,465 @@
         "mapColor": "#9B9798",
         "imageWidth": 59,
         "imageHeight": 58
+    },{
+        "id": "block_sand-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-block.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-1a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-block-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-1c",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-block-2.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "sand-sand-1c-brocken",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-block-2-broken.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 300,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C34",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },{
+        "id": "block_sand_stairs_left",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-left-side.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-left",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_sand_stairs_right",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-right-side.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-right",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand_stairs_left_v2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-hill-left-side.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-left",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_sand_stairs_right_v2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-hill-right-side.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-right",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand_stairs_left_v3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-left-side.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-left",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_sand_stairs_right_v3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-right-side.png",
+        "description": "Stairs left",
+        "isDestroy": false,
+        "type": "stairs-right",
+        "backgroundTexture": null,
+        "mapColor": "#8C6F31",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-floor-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-floor-1a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-floor-1b",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1f.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-floor-1c",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1b.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-floor-1d",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1d.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_sand-floor-1e",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1e.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "sand-wall-brocken",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1c.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 300,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C34",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+    {
+        "id": "sand-wall-brocken",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1a1a.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 300,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C34",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+    {
+        "id": "sand-wall-brocken-floor",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1a1.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 300,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C34",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+    {
+        "id": "sand-wall-brocken-floor-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/sand-stone-wall-1g.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 300,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C34",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },{
+        "id": "block_space-station-floor-1a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-2.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-3.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-4.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-5.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    }
+
+
+    ,{
+        "id": "block_alien-station-floor-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-floor-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-3.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-4.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 300,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C34",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },{
+        "id": "block_alien-station-floor-5",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-5.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 300,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#9C9C34",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
     }
 ]

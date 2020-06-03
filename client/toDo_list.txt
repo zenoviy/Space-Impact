@@ -6,6 +6,7 @@
 	V - fixed game end stop collect points
 	V - fixed object spawn during shop screen
 	V - add space destruction for plane
+	- coins to credits
 	
 ====== Ground Game
 /*  Dynamic level
@@ -53,9 +54,9 @@ V- ai logic
     V - one hit - one life
 
     V - dialog
-        - scientists
-        - military
-        - civil
+        V - scientists
+        V - military
+        V - civil
             V - add tasks
             V - quest journal
 	V - fixed pause/nogame movement
@@ -64,6 +65,11 @@ V- ai logic
 	V - add teleport door
 	V - reduce enemy search source
 	V - inventory object name
+V - Deadly block
+V - spawn checkpoints
+- fixed journal when ship renew
+- fixed saves Too many properties to enumerate
+	- each save to file?
 
 	- add sound
 		V - jump
@@ -74,18 +80,27 @@ V- ai logic
 	
 	- create level 6-7
 		- Earth
-			- Hangar
+			- Hangar 
+				- (find ship story begin)
 			- Command Center
+				- (target, continue path)
+			- Desert    6
+				- (find alien communicator, position of alien base on Mars)
+			- Sky city
 		- Moon
 			- Moon base
+				- (fixed transportation system jump gate) 
 		- Venus 
 			- cloud factory
+				- (recharge spccraft, fixed jump gate)
 		- Mars
 			- Alpha side
-		- Io ?
-			
+				- (find another comunicator target Nepturne)
+		- Io ?	23
+			- fixedd Gate recharge spacecraft	
 		- Neptune
-			- Data center
+			- Data center 
+				- Destroy superboss
 
 ======  UI
 	V - button tips in pause or level change but not in game
@@ -181,3 +196,12 @@ let mapFileName = `${req.body.name}.json`;
     let writableDemoData = await fs.createWriteStream(__dirname + '../../../public/temp/mapData.json');
     writableDemoData.write(JSON.stringify(req.body));
     writableDemoData.end();
+
+
+
+
+
+Level 1 Night City 5.20
+level 2 Desert	4.30
+level 3 City  4.13
+level 4 

@@ -21,6 +21,7 @@ function fillJournalDefaultData ({mainGameObject}){
     let gameInfo = mainGameObject.showGameInfo();
     let userShipData = mainGameObject.gameInitData.gameData.playerObject;
     let userShipJournal = userShipData.journal;
+    console.log(gameInfo.gameData.levelData.level)
     if(userShipJournal.levelTasks && !userShipJournal.levelTasks[gameInfo.gameData.levelData.level] && gameInfo.gameData.levelData.level){
         let levelDataDescription = gameInfo.gameData.levelData.description;
         let cureentLevalTasks = {
@@ -57,7 +58,6 @@ function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
     function journalDetails(levelTasks, task){
         let innerTasks = '';
         if(!levelTasks) return innerTasks
-        
         for(let detailTask of levelTasks){
             //console.log(gameInfo.gameData.levelData.level, task.level)
             innerTasks += `<li class="${(detailTask.taskActive || gameInfo.gameData.levelData.level != task.level)? 'complete-task' : 'active-task'}">
@@ -104,9 +104,7 @@ function completeJournalTask ({mainGameObject, allRequireObjects}){
     let userShipJournal = userShipData.journal;
 
     if(!allRequireObjects) return false
-
     let currentTask = userShipJournal.levelTasks[leve].levelTasks.find(task => task.id === allRequireObjects.innerData)
-
     currentTask.taskActive = true;
 }
 

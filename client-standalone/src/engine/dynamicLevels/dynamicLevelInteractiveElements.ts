@@ -1,5 +1,5 @@
 import { useObject, searchInPlayerInventory } from './dynamicDialog';
-import { playerChangeMapPosition } from './playerUnitModule';
+import { playerChangeMapPosition, positionToSpawner, groundPlayerMinusLife} from './playerUnitModule';
 import { initSoundObject } from '../soundModules';
 
 
@@ -96,11 +96,14 @@ function stairsMove({ mainGameObject, levelInformation, stairs, player, x, y }){
     let xMax = Math.max(player.x + player.width, stairs.x) - Math.min(player.x + player.width, stairs.x);
 
     if(stairs.details.type === "stairs-left"){
+
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity * -1: levelInformation.gravity;
+        player.groundTouch = false;
     }else if(stairs.details.type === "stairs-right" && player.isRun){
         levelInformation.jumpImpuls = ( player.playerDirectionHorizontal === 'right' )?
         levelInformation.gravity : (levelInformation.gravity + stairsVerticalIndex * 2) * -1;
+        player.groundTouch = false;
     }
 }
 
@@ -165,16 +168,16 @@ async function teleportFunctionality({ mainGameObject }){
     if(!currentGroundBlock || !currentBlockIndex) return false
     let teleportDoor = allBlocks.find(block =>{
         let bottomBlockIndex = currentBlockIndex - 1;
-        return block.index === bottomBlockIndex
+        return block.index == bottomBlockIndex
     });
-    
+
     if(!teleportDoor) return false
     if(!teleportDoor.details ) return false
     if(teleportDoor.details.type === "teleport_door"){
         let doorId = teleportDoor.details.rules.doorId
         let targetId = teleportDoor.details.rules.targetId
 
-        let spawnPoint = allBlocks.filter(obj =>{ 
+        let spawnPoint = allBlocks.filter(obj =>{
             if(obj.details) return obj.details.type === "teleport_door";
         }).find(obj => {
             if(obj.details.rules) return targetId == obj.details.rules.doorId;
@@ -240,6 +243,25 @@ function backgroundChange({mainGameObject, positionRange}){
 }
 
 
+
+
+function deadlyBlocks({mainGameObject, curentBlock, constructors}){
+    if(!curentBlock.details) return false
+    if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && curentBlock.details.deadly){
+        console.log(this, 'deadly')
+        let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
+        let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
+       positionToSpawner({mainGameObject: mainGameObject, allBlocks: allBlocks})
+        groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+    }else if(curentBlock.details.deadly && (this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC")){
+        this.healthPoint -= 1;
+        if(this.healthPoint <= 0){
+            this.objectPresent = false;
+        }
+    }
+}
+
+
 export {
     elevatorPlayerMove,
     elevatorMove,
@@ -247,5 +269,6 @@ export {
     doorFunctionality,
     openClosedDoorAnimation,
     leadersFunctionality,
-    teleportFunctionality
+    teleportFunctionality,
+    deadlyBlocks
 }

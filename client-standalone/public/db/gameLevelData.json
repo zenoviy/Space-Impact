@@ -708,6 +708,28 @@
                 "numberOfItems": 1,
                 "numberOfVerticalItems": 1
             },
+            "levelBottomPart" : [
+                {
+                    "levelMap" : "/public/images/locations/desert/bottom-part-desert.png",
+                    "speed": 1.8,
+                    "description": "first frame",
+                    "imageWidth": 2448,
+                    "imageHeight": 3108,
+                    "animationSteps": 1,
+                    "numberOfItems": 1,
+                    "numberOfVerticalItems": 1
+                },
+                {
+                    "levelMap" : "/public/images/locations/desert/bottom-part-desert.png",
+                    "speed": 1.8,
+                    "description": "second frame",
+                    "imageWidth": 2448,
+                    "imageHeight": 3108,
+                    "animationSteps": 1,
+                    "numberOfItems": 1,
+                    "numberOfVerticalItems": 1
+                }
+            ],
             "description": {
                 "name": "Temple ruins",
                 "description": "lost city"
@@ -716,11 +738,11 @@
             "levelMap" : "desert.png",
             "levelBackgroundElements" : [{
                 "levelMap" : "/public/images/locations/desert/desert-sky.png",
-                "speed": 0.1,
+                "speed": 0,
                 "description": "first frame"
             },{
                 "levelMap" : "/public/images/locations/desert/desert-sky.png",
-                "speed": 0.1,
+                "speed": 0,
                 "description": "second frame"
             },{
                 "levelMap" : "/public/images/locations/desert/far-mountains.png",
@@ -2318,33 +2340,33 @@
             "levelMap" : "sun.png",
             "levelBackgroundElements" : [{
                 "levelMap" : "/public/images/locations/space/space.png",
-                "speed": 0.05,
+                "speed": 0,
                 "description": "first frame"
             },{
                 "levelMap" : "/public/images/locations/space/space.png",
-                "speed": 0.05,
+                "speed": 0,
                 "description": "second frame"
             },{
                 "levelMap" : "/public/images/locations/Jupiter/europe.png",
-                "speed": 0.065,
+                "speed": 0.0,
                 "description": "first frame",
                 "extraMap": "/public/images/locations/space/empty.png",
                 "timeToExtraMapSeconds": 30,
                 "timeToExtraMapMinutes": 1
             },{
                 "levelMap" : "/public/images/locations/space/empty.png",
-                "speed": 0.05,
+                "speed": 0.0,
                 "description": "second frame",
                 "extraMap": "/public/images/locations/space/empty.png",
                 "timeToExtraMapSeconds": 30,
                 "timeToExtraMapMinutes": 1
             },{
                 "levelMap" : "/public/images/locations/Jupiter/planets_jupiter.png",
-                "speed": 0.05,
+                "speed": 0.0,
                 "description": "first frame"
             },{
                 "levelMap" : "/public/images/locations/space/empty.png",
-                "speed": 0.05,
+                "speed": 0.0,
                 "description": "second frame",
                 "extraMap": "/public/images/locations/space/empty.png",
                 "timeToExtraMapSeconds": 30,

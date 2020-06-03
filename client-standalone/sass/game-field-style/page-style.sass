@@ -181,6 +181,20 @@ section
   button
     margin-top: 10px
 
+.wait-screen
+  width: 100vw
+  height: 100vh
+  background: #21003a80
+  position: absolute
+  z-index: 1500
+  h1
+    text-align: center
+  .wait-screen-inner
+    display: flex
+    height: 100%
+    justify-content: center
+    align-items: center
+
 
 #wrapper
   section
@@ -236,7 +250,7 @@ section
     padding-top: 30px
     padding-bottom: 50px
     border-bottom: 1px solid #4d0094
-    
+
 .single-items-content-area
   display: flex
   flex-wrap: wrap
@@ -254,7 +268,13 @@ section
     h2
       text-align: right
 
-
+p.text-branding
+  position: absolute
+  top: 0
+  padding: 20px
+  font-size: 12px
+  right: 0
+  color: #dea754
 .hide-animation
   animation: hide-animation 1s forwards linear
 

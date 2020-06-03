@@ -40,6 +40,7 @@ function initAppGlobalVariable(){
     process.env.SUB_LOAD_AT_LEVEL = 'false';
 
     process.env.OVERWRITE_SAVE = 'false';
+    process.env.NUMBER_OF_SAVES = "0";
 
     process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH = 'false';
 

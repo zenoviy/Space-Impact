@@ -194,6 +194,294 @@
         "imageHeight": 80
     },
 
+
+    {
+        "id": "citizen_2",
+        "texture": "/level-creator/assets/enemyObject/citizen-2.png",
+        "description": "spawn point of NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": null,
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Jack",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-5.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "null",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "i am citizen",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        }
+                    ]
+                }
+            ]
+        },
+        "width": 20,
+        "height": 30,
+        "name": "citizen_2",
+        "mapColor": "#DB8063",
+        "imageWidth": 55,
+        "imageHeight": 80
+    },
+    {
+        "id": "citizen_3",
+        "texture": "/level-creator/assets/enemyObject/citizen-3.png",
+        "description": "spawn point of NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": null,
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Jack",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-5.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "null",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "i am citizen",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        }
+                    ]
+                }
+            ]
+        },
+        "width": 20,
+        "height": 30,
+        "name": "citizen_3",
+        "mapColor": "#DB8063",
+        "imageWidth": 55,
+        "imageHeight": 80
+    },
+
+    {
+        "id": "citizen_4",
+        "texture": "/level-creator/assets/enemyObject/citizen-4.png",
+        "description": "spawn point of NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": null,
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Jack",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-5.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "null",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "i am citizen",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        }
+                    ]
+                }
+            ]
+        },
+        "width": 20,
+        "height": 30,
+        "name": "citizen_4",
+        "mapColor": "#DB8063",
+        "imageWidth": 55,
+        "imageHeight": 80
+    },
+
+    {
+        "id": "citizen_5",
+        "texture": "/level-creator/assets/enemyObject/citizen-5.png",
+        "description": "spawn point of NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": null,
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Jack",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-5.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "null",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "i am citizen",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "who are you?"
+                        }
+                    ]
+                }
+            ]
+        },
+        "width": 20,
+        "height": 30,
+        "name": "citizen_5",
+        "mapColor": "#DB8063",
+        "imageWidth": 55,
+        "imageHeight": 80
+    },
+
     {
         "id": "officer_1",
         "texture": "/level-creator/assets/enemyObject/officer-1.png",
@@ -333,6 +621,222 @@
         "width": 20,
         "height": 30,
         "name": "soldier_1",
+        "mapColor": "#DB8063",
+        "imageWidth": 55,
+        "imageHeight": 80
+    },
+
+    {
+        "id": "general",
+        "texture": "/level-creator/assets/enemyObject/general.png",
+        "description": "spawn point of officer NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": "blue_card",
+            "requireText": null,
+            "successText": "You get blue card",
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Doctor D.R. i have blue card",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-1.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "give_object",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "i give you a card",
+                    "action": "give_object",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        }
+                    ]
+                }
+            ]
+        },
+        "width": 20,
+        "height": 30,
+        "name": "general",
+        "mapColor": "#DB8063",
+        "imageWidth": 55,
+        "imageHeight": 80
+    },
+
+    {
+        "id": "comandor",
+        "texture": "/level-creator/assets/enemyObject/comandor.png",
+        "description": "spawn point of officer NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": "blue_card",
+            "requireText": null,
+            "successText": "You get blue card",
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Doctor D.R. i have blue card",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-1.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "give_object",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "i give you a card",
+                    "action": "give_object",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        }
+                    ]
+                }
+            ]
+        },
+        "width": 20,
+        "height": 30,
+        "name": "comandor",
+        "mapColor": "#DB8063",
+        "imageWidth": 55,
+        "imageHeight": 80
+    },
+
+    {
+        "id": "robot-1",
+        "texture": "/level-creator/assets/enemyObject/robot-1.png",
+        "description": "spawn point of officer NPC",
+        "type": "npc_spawner",
+        "collision": true,
+        "innerObject": "main_character",
+        "rules": {
+            "tips": "Press 'E' to talk",
+            "require": null,
+            "contain": "blue_card",
+            "requireText": null,
+            "successText": "You get blue card",
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Doctor D.R. i have blue card",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-1.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "Hello there!",
+                    "action": "give_object",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        },
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "i give you a card",
+                    "action": "give_object",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 3,
+                            "text": "what is happened?"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Enemy attack from unknown",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                        {
+                            "id": 2,
+                            "text": "i need card"
+                        }
+                    ]
+                }
+            ]
+        },
+        "width": 20,
+        "height": 30,
+        "name": "robot_1",
         "mapColor": "#DB8063",
         "imageWidth": 55,
         "imageHeight": 80

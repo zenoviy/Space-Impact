@@ -106,7 +106,7 @@ function getElectronLocalSaves({fileName}){
             }
 
             if(err) throw Error(err)
-
+            console.log(2)
             let info = JSON.parse(data);
             if(info) resolve(info)
             else reject("got some problem here")

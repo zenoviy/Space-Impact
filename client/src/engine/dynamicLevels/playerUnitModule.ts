@@ -256,7 +256,7 @@ function groundPlayerMinusLife({mainGameObject, constructors}){
 
     let mainPlayerData = levelData.source.playerObject;
     mainPlayerData.numberOflife -= 1;
-    //if(mainPlayerData.numberOflife > 0) this.healthPoint = this.defaultHealth
+
             if(mainPlayerData.numberOflife <= 0){
                 mainGameObject.gameOverWindow()
                 mainGameObject.gameInitData.gameOver = true;
@@ -282,17 +282,19 @@ function backToTheMapAgain({ mainGameObject, player, constructors }){
 
     if(!closestBlock){
         if(!mainGameObject.gameInitData.levelChange)  groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
-        let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
+        positionToSpawner({mainGameObject: mainGameObject, allBlocks: allBlocks})
+    }
+}
+
+function positionToSpawner({mainGameObject, allBlocks}){
+    let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
         let allGamesObject = [].concat(allGameBackgroundElements)
-        let spawnPoint = allBlocks.find(obj => {
-            if(obj.details) return obj.details.type === "spawner";
-        })
+        let spawnPoint = findSpawnPoint({allBlocks: allBlocks, mainGameObject: mainGameObject});
         if(!spawnPoint) return false
         playerChangeMapPosition({newSpawnPoint: spawnPoint, mainGameObject: mainGameObject})
         for(let map of allGamesObject ){
             map.y = map.defaultY;
         }
-    }
 }
 
 function playerChangeMapPosition({newSpawnPoint, mainGameObject}){
@@ -347,6 +349,65 @@ function groundPlayerCollectable({allGameSideObjects, playerShipData, mainGameOb
     })
 }
 
+function findSpawnPoint({allBlocks, mainGameObject}){
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+    let nearestSpawnPoint = null;
+    let nearestBlockX = Infinity;
+    let nearestBlockY = Infinity;
+
+    let allSpawner = allBlocks.filter(obj => {
+        if(obj.details) return obj.details.type === "spawner" && obj.details.active === "active";
+    })
+    if(allSpawner){
+        for(let spawner of allSpawner){
+            let posX = Math.max(spawner.x, groundPlayer.x) - Math.min(spawner.x, groundPlayer.x);
+            let posY = Math.max(spawner.y, groundPlayer.y) - Math.min(spawner.y, groundPlayer.y);
+
+            //console.log(posX, posY)
+            if(posX <= nearestBlockX && posY <= nearestBlockY){
+                nearestBlockX = posX;
+                nearestBlockY = posY;
+                nearestSpawnPoint = spawner;
+            }
+
+        }
+    }
+    //console.log(allSpawner ,nearestSpawnPoint, groundPlayer.x, groundPlayer.y)
+    if(!nearestSpawnPoint){
+        return allBlocks.find(obj => {
+            if(obj.details) return obj.details.type === "spawner";
+        })
+    }else return nearestSpawnPoint
+}
+
+function groundPlayerCheckpointActivate({block, mainGameObject}){
+    if(!block.details) return false
+        //console.log(block)
+        if(block.details.active === "not-active" && block.details.type === 'spawner'){
+            let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+            /*let allSpawner = allBlocks.filter(obj => {
+                if(obj.details) return obj.details.type === "spawner" && obj.details.active === "active";
+            })*/
+            for(let block of allBlocks){
+                if(!block.details) continue
+                if(block.details.type === "spawner" && block.details.active === "active"){
+                    block.details.active = "not-active";
+                    block.sy = 0;
+                }
+            }
+
+            /*allSpawner.forEach(spawn => {
+                spawn.
+            })*/
+            block.details.active = "active";
+            //console.log(block)
+            block.sy += block.sHeight;
+        }
+}
+
+
+
+
 
 export {
     loadPlayerCharacter,
@@ -361,5 +422,7 @@ export {
     hideInventory,
     openInventory,
     playerChangeMapPosition,
-    groundPlayerMinusLife
+    groundPlayerMinusLife,
+    positionToSpawner,
+    groundPlayerCheckpointActivate
 }

@@ -2,10 +2,11 @@ import * as constructors from '../../constructors';
 import { getData } from '../../server/serverRequestModules';
 import { objectIntersectionDetect } from '../../enemies/animationHitBoxModules';
 import {  show, hide} from '../../appMenu/appMenu';
-import { backToTheMapAgain } from './playerUnitModule';
+import { backToTheMapAgain, groundPlayerCheckpointActivate } from './playerUnitModule';
 import { stairsMove,
     elevatorMove,
-    elevatorPlayerMove
+    elevatorPlayerMove,
+    deadlyBlocks
 } from './dynamicLevelInteractiveElements';
 import {
     useObject,
@@ -159,12 +160,25 @@ function npcCollisionDetect({mainGameObject, enemy}){
         enemy.isRun = false;
         useObject({ mainGameObject: mainGameObject, player: groundPlayer, item: enemy})
     }
-
 }
 
 
 
-
+function computersDialog({mainGameObject, allBlocks}){
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+    let nearestBlocks = allBlocks.filter(block => {
+        if(
+        (Math.max(block.x, groundPlayer.x) - Math.min(block.x, groundPlayer.x)) <= 200 &&
+        (Math.max(block.y, groundPlayer.y) - Math.min(block.y, groundPlayer.y))
+        ) return block
+    })
+    for(let block of nearestBlocks){
+        if(!block.details) return false
+        if(block.details.type === 'read_terminal'){
+            npcCollisionDetect({mainGameObject: mainGameObject, enemy: block})
+        }
+    }
+}
 
 
 
@@ -221,7 +235,14 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
                     constructors: constructors
                 })
            }
-           if(targetObject.objectOwner != "groundEnemy" && targetObject.objectOwner != "groundNPC" && item.details.type != 'npc_spawner') currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item})
+           if(
+               targetObject.objectOwner != "groundEnemy" &&
+               targetObject.objectOwner != "groundNPC" &&
+               item.details.type != 'npc_spawner' &&
+               item.details.type != 'read_terminal'){
+               currentActiveBlock = useObject({ mainGameObject: mainGameObject, player: targetObject, item: item});
+               groundPlayerCheckpointActivate({block: item,  mainGameObject: mainGameObject})
+           }
         }
     }
 }
@@ -299,7 +320,6 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
             return false
         }
     }
-
     groundBlockCollision.call(this, {
         mainGameObject: mainGameObject,
         target: target,
@@ -311,6 +331,7 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
         isBottomWall: isBottomWall,
         y: y
     })
+    deadlyBlocks.call(this, {mainGameObject: mainGameObject, curentBlock: target, constructors: constructors});
     if(target.details.type === "leader"){
         this.onLeader = true;
     }
@@ -684,11 +705,11 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
                     ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
                     ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
                 }
-                if(!groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject)){
+                if(!groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject) && !groundPlayer.ceilingTouch){
                     item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
                     item.x += xPosGround * -1;
                     jumpImpuls = 0;
-                }else if(groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject) && xPos){
+                }else if(groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject) && xPos && !groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch  && !groundPlayer.ceilingTouch){
                     //item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
                     item.x += xPos * -1;
                     jumpImpuls = 0;
@@ -741,5 +762,6 @@ export {
     backgroundMoveDuringMove,
     stairsMove,
     npcCollisionDetect,
-    backgroundAdjustment
+    backgroundAdjustment,
+    computersDialog
 }

@@ -6,7 +6,7 @@ async function initSaveLoadScreen({mainGameObject}){
         saveForm: document.forms['main-save-form'],
         saveScreen: document.querySelectorAll(".save-load-wrapper")
     }
-    let saveData = await showSaveData()
+    let saveData = await showSaveData();
     displaySavesOnScreen({
         saveScreen: menuObjects.saveScreen,
         saveData: saveData,

@@ -28,20 +28,20 @@ function mapMoveControllers({ mainObject }){
 
 
         if( mainObject.activeDescriptionFields ) return false
-        switch (event.keyCode){
-            case 87:
+        switch (true){
+            case (event.keyCode == 87 || event.keyCode == 38):
                 yMoveValue = mainObject.mapMoveSpeed;
                 break
-            case 68:
+            case (event.keyCode == 68 || event.keyCode == 39):
                 xMoveValue = mainObject.mapMoveSpeed * -1;
                 break
-            case 83:
+            case (event.keyCode == 83 || event.keyCode == 40):
                 yMoveValue = mainObject.mapMoveSpeed * -1;
                 break
-            case 65:
+            case (event.keyCode == 65 || event.keyCode == 37):
                 xMoveValue = mainObject.mapMoveSpeed;
                 break
-            case 77:
+            case event.keyCode == 77:
                 miniMapper({ mainObject: mainObject })
                 break
             default:

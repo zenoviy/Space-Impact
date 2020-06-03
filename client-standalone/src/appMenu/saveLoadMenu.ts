@@ -6,7 +6,7 @@ async function initSaveLoadScreen({mainGameObject}){
         saveForm: document.forms['main-save-form'],
         saveScreen: document.querySelectorAll(".save-load-wrapper")
     }
-    let saveData = await showSaveData()
+    let saveData = await showSaveData();
     displaySavesOnScreen({
         saveScreen: menuObjects.saveScreen,
         saveData: saveData,
@@ -20,7 +20,6 @@ async function initSaveLoadScreen({mainGameObject}){
 
 
 async function saveGameEvents({mainGameObject}){
-    //if(mainGameObject.gameStatus)
     let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject})
     getContext.saveForm.addEventListener('submit', async function (event) {
         event.preventDefault()

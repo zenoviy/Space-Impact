@@ -305,10 +305,12 @@ async function createDialogForm ({blockDetails, currentDescriptionId, fileContai
                 <option value="face-3.png">old man</option>
                 <option value="face-4.png">man 1</option>
                 <option value="face-7.png">man 2</option>
-                <option value="face-8.png">Officer</option>
+                <option value="face-8.png">General</option>
                 <option value="face-2.png">Soldier</option>
                 <option value="face-5.png">Robot red</option>
                 <option value="face-6.png">Yellow red</option>
+                <option value="face-9.png">man 3</option>
+                <option value="face-10.png">officer</option>
             </select>
 
             <input id="npc-name" type="text" value="${

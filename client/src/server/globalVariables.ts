@@ -42,6 +42,7 @@ function initAppGlobalVariable(){
     process.env.OVERWRITE_SAVE = 'false';
 
     process.env.GROUND_PLAYER_STAIRS_GROUND_TOUCH = 'false';
+    process.env.NUMBER_OF_SAVES = '0';
 
     if(process.env.NODE_ENV === 'development') process.env.HOST = 'http://localhost:3300/';
     else if(process.env.NODE_ENV === 'production'){ process.env.HOST = 'http://localhost:3300/'; console.log("production mode check HOST")};
