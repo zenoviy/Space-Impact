@@ -190,12 +190,12 @@ V - fixed saves Too many properties to enumerate
 V - map fix
 V- add NPC tasks
 V- add NPC set behavior
-- add npc damageAnimation
-- add enemy spawner by time
-- display life
+V- add enemy spawner by time
+	V- number
+	V- timer
+V- display life
 - background move separatly
-	- number
-	- timer
+	
 
 	- add sound
 		V - jump

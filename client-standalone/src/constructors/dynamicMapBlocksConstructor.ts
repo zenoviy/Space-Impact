@@ -35,6 +35,7 @@ class DynamicBlockConstructor {
     numberOfItems: number;
     picturesWidth: number;
     explosionAnimation: any;
+    defaultHealth: number;
 
     moveMap: any;
     displayObjectAtScene: any;
@@ -81,6 +82,7 @@ class DynamicBlockConstructor {
         this.numberOfItems = (data.details.numberOfItems)? data.details.numberOfItems : 0;
         this.picturesWidth = (data.details.picturesWidth)? data.details.picturesWidth : 0;
         this.explosionAnimation = (data.details.explosionAnimation)? data.details.explosionAnimation : null;
+        this.defaultHealth = (data.details.healthPoint)? data.details.healthPoint : null;
     }
 }
 DynamicBlockConstructor.prototype.displayObjectAtScene = displayObjectAtScene;

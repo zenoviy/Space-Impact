@@ -20,6 +20,10 @@ function drawRectangle({ctx, x, y, width, height, color}){
     ctx.fillRect(x, y, width, height);
     ctx.fill();
 }
+function drawFrame({ctx, width, height, x, y, color}){
+    ctx.strokeStyle = color;
+    ctx.strokeRect(x, y, width, height);
+}
 
 
 
@@ -93,7 +97,32 @@ function solidColorFill({mainGameObject}){
     })
 }
 
-
+function displayObjectLifeSign({mainGameObject, targetObject}){
+    if(targetObject.healthPoint || targetObject.details.isDestroy){
+        if(targetObject.healthPoint > 0 && targetObject.healthPoint < targetObject.defaultHealth ||
+            targetObject.details.healthPoint < targetObject.defaultHealth){
+            let ctx = mainGameObject.gameInitData.ctxActionField;
+            let lifeSignWidth = targetObject.width;
+            let lifeWidth = lifeSignWidth/targetObject.defaultHealth;
+            drawFrame({
+                ctx: ctx,
+                x: targetObject.x,
+                y: targetObject.y - 10,
+                width: lifeSignWidth,
+                height: 5,
+                color: '#691500'
+            })
+            drawRectangle({
+                ctx: ctx,
+                x: targetObject.x,
+                y: targetObject.y - 10,
+                width: lifeWidth * ((targetObject.healthPoint)? targetObject.healthPoint: targetObject.details.healthPoint ),
+                height: 5,
+                color: targetObject.details.mapColor
+            })
+        }
+    }
+}
 
 /*===============
 
@@ -482,7 +511,6 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
                 }, 3000)
                 return
             }
-
         }
     }
 }
@@ -851,5 +879,7 @@ export  {
     explosionFire,
     unitDamage,
     explosionDamage,
-    solidColorFill
+    solidColorFill,
+    drawRectangle,
+    displayObjectLifeSign
 };

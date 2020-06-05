@@ -1,6 +1,7 @@
 import { useObject, searchInPlayerInventory } from './dynamicDialog';
 import { playerChangeMapPosition, positionToSpawner, groundPlayerMinusLife} from './playerUnitModule';
 import { initSoundObject } from '../soundModules';
+import { drawRectangle } from '../../enemies/animationHitBoxModules';
 
 
 function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player }){
@@ -262,6 +263,23 @@ function deadlyBlocks({mainGameObject, curentBlock, constructors}){
 }
 
 
+
+
+/*function displayObjectLifeSign({mainGameObject, targetObject}){
+    if(targetObject.healthPoint){
+        if(targetObject.healthPoint > 0){
+            let ctx = mainGameObject.gameInitData.ctxActionField;
+            drawRectangle({
+                ctx: ctx,
+                x: this.x,
+                y: this.y - 10,
+                width: 10,
+                height: 10,
+                color: '#ff0000'
+            })
+        }
+    }
+}*/
 export {
     elevatorPlayerMove,
     elevatorMove,

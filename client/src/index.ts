@@ -19,7 +19,7 @@ import {
 import { doorFunctionality, openClosedDoorAnimation } from './engine/dynamicLevels/dynamicLevelInteractiveElements';
 import { objectIntersectionDetect } from './enemies/animationHitBoxModules';
 import { syncKeyControl, shipInSpace } from './engine/playerShipModule';
-import { shot, displayObjectAtScene } from './enemies/animationHitBoxModules';
+import { shot, displayObjectAtScene, displayObjectLifeSign } from './enemies/animationHitBoxModules';
 import { explosionFire } from './engine/gameSideObjectsModule';
 import { initAppGlobalVariable } from './server/globalVariables';
 import { fillJournalDefaultData } from './engine/dynamicLevels/journalModules';
@@ -377,6 +377,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
                 })
             if(!gameObject.gameInitData.gamePause && block.details.type != 'door') block.spriteObjectsAnimation()
             block.displayObjectAtScene(gameObject)
+            displayObjectLifeSign({ mainGameObject: gameObject, targetObject: block });
     }
 }
 
@@ -461,8 +462,9 @@ async function gameDynamicEnemyRender({ gameObject }){
                     constructors: constructors
                 })
 
-                npcCollisionDetect({ mainGameObject: gameObject, enemy: enemy })
+                npcCollisionDetect({ mainGameObject: gameObject, enemy: enemy });
             }
+            displayObjectLifeSign({ mainGameObject: gameObject, targetObject: enemy });
             enemy.onLeader = false;
     }
    // groundPlayer.xPos = 0;
