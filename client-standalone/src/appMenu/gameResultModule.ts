@@ -35,7 +35,7 @@ async function showResultScreen(){
                 innerContent: `<p class="single-item"><span class="rate-number">${index}</span>
                 <span>${  "<img class='small-avatar' src=" + img.src + " width='30' alt='avatar'>" }</span>
                 <span>name:</span> <span class="item-name"> ${item.userName}</span>
-                <span>coin:</span> <span class="item-coin"> ${item.gameCoins}</span>
+                <span>credits:</span> <span class="item-coin"> ${item.gameCoins}</span>
                 <span>score:</span> <span class="item-points"> ${item.gamePoints}</span>
                 <span class="item-date"> ${year}/${month}/${day}</span></p>`,
                 attributeName: 'data-button-id',
@@ -111,84 +111,42 @@ function initResultScreen(mainGameObject){
     }
     let dialogData = [
         createElements({
-            tagName: "form",
-            styleClass: "",
-            inlineStyle: null,
-            pictureUrl: null,
-            linkUrl: null,
-            text: "save result",
-            innerContent: `
-            <h1>Create new player</h1>
-            <p>Please fill the fields to save your result</p>
-            <label for="avatar-picture">
-                <p>You profile picture</p>
-
-                <button id="avatar-button" class="avatar-button">
-                    <img id="avatar-picture" class="avatar-inner-picture">
-                </button>
-
-                <section id="avatar-box" class="avatar-box">
-                    <button id="avatar-close" class="avatar-close" >x</button>
-                    <h2>Select you pictures</h2>
-                    <input type="file" id="player-avatar" accept="image/png, image/jpeg">
-
-                    <div id="avatar-inner-box" class="avatar-inner-box"></div>
-                </section>
-            </label>
-
-            <label for="name">
-                <p>Please enter you name</p>
-                <input id="name" maxlength="30" minlength="3" name="userName" type="text" required placeholder="Enter you name">
-            </label>
-            <label for="mail">
-                <p>Please enter you email</p>
-                <input id="mail" name="userEmail" type="email" required placeholder="Create you email address">
-            </label>
-            <label for="password">
-                <p>Create password</p>
-                <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Password">
-            </label>
-            <div id="alert-message" class="alert-message"></div>
-            <div id="dialog-bottom-area" class="dialog-bottom-area">
-                <button type="submit" data-button-id="save-result" class="accept-btn btn-main">save</button>
-                <button data-button-id="cancel" class="reject-btn btn-main btn-orange-reject">cancel</button>
-            </div>`,
-            attributeName: 'name',
-            attribute: "save-result-form",
-            attributeName1: null,
-            attribute1: null}),
-            createElements({
                 tagName: "form",
                 styleClass: "",
-                inlineStyle: "display: none;",
+                inlineStyle: null,
                 pictureUrl: null,
                 linkUrl: null,
                 text: "save result",
                 innerContent: `
-                <h1>Update player</h1>
-                <p>Enter email and password</p>
+                <h1>Create new player</h1>
+                <p>Please fill the fields to save your result</p>
                 <label for="avatar-picture">
-                <p>You profile picture</p>
+                    <p>You profile picture</p>
 
-                <button id="avatar-button-update" class="avatar-button">
-                    <img id="avatar-picture-update" class="avatar-inner-picture">
-                </button>
+                    <button id="avatar-button" class="avatar-button">
+                        <img id="avatar-picture" class="avatar-inner-picture">
+                    </button>
 
-                <section id="avatar-box-update" class="avatar-box">
-                    <button id="avatar-close-update" class="avatar-close" >x</button>
-                    <h2>Select you pictures</h2>
-                    <input type="file" id="player-avatar-update" accept="image/png, image/jpeg">
+                    <section id="avatar-box" class="avatar-box">
+                        <button id="avatar-close" class="avatar-close" >x</button>
+                        <h2>Select you pictures</h2>
+                        <input type="file" id="player-avatar" accept="image/png, image/jpeg">
 
-                    <div id="avatar-inner-box-update" class="avatar-inner-box"></div>
-                </section>
-            </label>
+                        <div id="avatar-inner-box" class="avatar-inner-box"></div>
+                    </section>
+                </label>
+
+                <label for="name">
+                    <p>Please enter you name</p>
+                    <input id="name" maxlength="30" minlength="3" name="userName" type="text" required placeholder="Enter you name">
+                </label>
                 <label for="mail">
                     <p>Please enter you email</p>
-                    <input id="mail" name="userEmail" type="email" required placeholder="Enter you email address">
+                    <input id="mail" name="userEmail" type="email" required placeholder="Create you email address">
                 </label>
                 <label for="password">
                     <p>Create password</p>
-                    <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Enter you password">
+                    <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Password">
                 </label>
                 <div id="alert-message" class="alert-message"></div>
                 <div id="dialog-bottom-area" class="dialog-bottom-area">
@@ -196,10 +154,52 @@ function initResultScreen(mainGameObject){
                     <button data-button-id="cancel" class="reject-btn btn-main btn-orange-reject">cancel</button>
                 </div>`,
                 attributeName: 'name',
-                attribute: "rewrite-result-form",
+                attribute: "save-result-form",
                 attributeName1: null,
-                attribute1: null})
-    ]
+                attribute1: null}),
+                createElements({
+                    tagName: "form",
+                    styleClass: "",
+                    inlineStyle: "display: none;",
+                    pictureUrl: null,
+                    linkUrl: null,
+                    text: "save result",
+                    innerContent: `
+                    <h1>Update player</h1>
+                    <p>Enter email and password</p>
+                    <label for="avatar-picture">
+                    <p>You profile picture</p>
+
+                    <button id="avatar-button-update" class="avatar-button">
+                        <img id="avatar-picture-update" class="avatar-inner-picture">
+                    </button>
+
+                    <section id="avatar-box-update" class="avatar-box">
+                        <button id="avatar-close-update" class="avatar-close" >x</button>
+                        <h2>Select you pictures</h2>
+                        <input type="file" id="player-avatar-update" accept="image/png, image/jpeg">
+
+                        <div id="avatar-inner-box-update" class="avatar-inner-box"></div>
+                    </section>
+                </label>
+                    <label for="mail">
+                        <p>Please enter you email</p>
+                        <input id="mail" name="userEmail" type="email" required placeholder="Enter you email address">
+                    </label>
+                    <label for="password">
+                        <p>Create password</p>
+                        <input id="password" name="userPassword" maxlength="20" minlength="4" type="password" required placeholder="Enter you password">
+                    </label>
+                    <div id="alert-message" class="alert-message"></div>
+                    <div id="dialog-bottom-area" class="dialog-bottom-area">
+                        <button type="submit" data-button-id="save-result" class="accept-btn btn-main">save</button>
+                        <button data-button-id="cancel" class="reject-btn btn-main btn-orange-reject">cancel</button>
+                    </div>`,
+                    attributeName: 'name',
+                    attribute: "rewrite-result-form",
+                    attributeName1: null,
+                    attribute1: null})
+        ]
         for(let item of dialogData){
             formLoadArea.appendChild(item)
         }

@@ -169,7 +169,7 @@ function computersDialog({mainGameObject, allBlocks}){
     let nearestBlocks = allBlocks.filter(block => {
         if(
         (Math.max(block.x, groundPlayer.x) - Math.min(block.x, groundPlayer.x)) <= 200 &&
-        (Math.max(block.y, groundPlayer.y) - Math.min(block.y, groundPlayer.y))
+        (Math.max(block.y, groundPlayer.y) - Math.min(block.y, groundPlayer.y) <= 200)
         ) return block
     })
     for(let block of nearestBlocks){
@@ -204,16 +204,16 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.onElevator = false;
 
     let nearMapObjects = objectsToCollide.filter(object => {
-        if(Math.max(targetObject.x, object.x) - Math.min(targetObject.x, object.x) < 100 &&
-        Math.max(targetObject.y, targetObject.y) - Math.min(targetObject.y, object.y) < 200){
+        if(Math.max(targetObject.x, object.x) - Math.min(targetObject.x, object.x) <= 200 &&
+        Math.max(targetObject.y, targetObject.y) - Math.min(targetObject.y, object.y) <= 200){
             return object
         }
     })
 
     for(let item of nearMapObjects){
         if(!item) continue
-        if(!item || item.x > window.innerWidth + 100 || item.x < -100 ||
-            item.y > window.innerHeight + 200 || item.y < -100) continue
+        if(!item || item.x > window.innerWidth + item.width || item.x < (item.width * -1) ||
+            item.y > window.innerHeight + 200 || item.y < (item.height * -1)) continue
 
 
         let collision = objectIntersectionDetect({object: item, target: targetObject })

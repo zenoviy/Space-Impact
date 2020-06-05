@@ -18,11 +18,13 @@ function openJournal ({ mainGameObject, userShipData }){
 
 
 function fillJournalDefaultData ({mainGameObject}){
+
     let gameInfo = mainGameObject.showGameInfo();
     let userShipData = mainGameObject.gameInitData.gameData.playerObject;
     let userShipJournal = userShipData.journal;
-    console.log(gameInfo.gameData.levelData.level)
+    console.log(userShipJournal, 'start journal')
     if(userShipJournal.levelTasks && !userShipJournal.levelTasks[gameInfo.gameData.levelData.level] && gameInfo.gameData.levelData.level){
+         console.log('fill default data', gameInfo.gameData.levelData.level)
         let levelDataDescription = gameInfo.gameData.levelData.description;
         let cureentLevalTasks = {
             levelName: gameInfo.gameData.levelData.description.name,
@@ -41,7 +43,8 @@ function fillJournalDefaultData ({mainGameObject}){
 function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
     let gameInfo = mainGameObject.showGameInfo();
     let journalLevelElement = '';
-    for(let task of userShipJournal.levelTasks){
+    let journalData = Object.assign([], userShipJournal.levelTasks).reverse();
+    for(let task of journalData){
         if(!task) continue
 
         journalLevelElement += `<h3 class="side-panel-name">Journal</h3>
@@ -60,8 +63,13 @@ function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
         if(!levelTasks) return innerTasks
         for(let detailTask of levelTasks){
             //console.log(gameInfo.gameData.levelData.level, task.level)
+            console.log(userShipJournal)
+            let localTask = (detailTask.numberOfItems)? `${detailTask.dialogOwner} require: ${detailTask.numberOfItems} ${detailTask.requireObject}`:
+            (detailTask.requireObject)? detailTask.requireObject: null;
+
+            if(!localTask) continue
             innerTasks += `<li class="${(detailTask.taskActive || gameInfo.gameData.levelData.level != task.level)? 'complete-task' : 'active-task'}">
-            <p>${detailTask.dialogOwner} require: ${detailTask.numberOfItems} ${detailTask.requireObject}</p></li>`
+            <p>${localTask}</p></li>`
         }
 
         return innerTasks
@@ -79,18 +87,38 @@ function writeDataToJournal({ mainGameObject, dialogArea, requireData, npcDetail
 
     if(userShipJournal.levelTasks && !userShipJournal.levelTasks[gameInfo.gameData.levelData.level]){
         fillJournalDefaultData({mainGameObject: mainGameObject});
+        console.log(userShipJournal.levelTasks, 'write data to journal')
     }
+
     if(userShipJournal.levelTasks[gameInfo.gameData.levelData.level]){
+        console.log(npcDialog.default.name)
+        console.log(npcDialog)
         let checkTask = userShipJournal.levelTasks[gameInfo.gameData.levelData.level].levelTasks.find(task => task.id === requireObject);
         if(checkTask) return false
 
-        let journalDetail = {
-            id: requireObject,
-            requireObject: requireObject.split('_').join(' '),
-            numberOfItems: parseInt(dialogArea.numberOfRequireItems),
-            dialogOwner: npcDialog.default.name,
-            taskActive: false
+        let journalDetail: any;
+
+        if(dialogArea && npcDialog.default.journalTask){
+            if(dialogArea.action === "give_object" && npcDetails.rules.contain){
+                journalDetail = {
+                    id: requireObject,
+                    requireObject: npcDialog.default.journalTask,
+                    numberOfItems: null,
+                    dialogOwner: npcDialog.default.name,
+                    taskActive: false
+                }
+            }
+        }else{
+            journalDetail = {
+                id: requireObject,
+                requireObject: requireObject.split('_').join(' '),
+                numberOfItems: parseInt(dialogArea.numberOfRequireItems),
+                dialogOwner: npcDialog.default.name,
+                taskActive: false
+            }
         }
+
+        
         userShipJournal.levelTasks[gameInfo.gameData.levelData.level].levelTasks.push(journalDetail);
     }
 }

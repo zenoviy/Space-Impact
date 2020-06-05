@@ -293,6 +293,216 @@
         "numberOfItems": 4,
         "numberOfVerticalItems": 1,
         "detectFrame": 0
+    },{
+        "id": "computer_with_text_2",
+        "texture": "/level-creator/assets/charactersObjects/panel-6-animation.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/panel-6.png",
+        "description": "computer with data",
+        "type": "read_terminal",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Press 'E' to read",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Computer",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-3.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "How can i help?",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                    ]
+                }
+            ]
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },{
+        "id": "computer_with_text_3",
+        "texture": "/level-creator/assets/charactersObjects/panel-7-animation.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/panel-7.png",
+        "description": "computer with data",
+        "type": "read_terminal",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Press 'E' to read",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Computer",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-3.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "How can i help?",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                    ]
+                }
+            ]
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+    {
+        "id": "wall-table-1",
+        "texture": "/level-creator/assets/charactersObjects/panel-5.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/panel-5.png",
+        "description": "wall table with text",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Warning",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+    {
+        "id": "wall-table-2",
+        "texture": "/level-creator/assets/charactersObjects/city-sign-1.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/city-sign-1.png",
+        "description": "wall table with text",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "USAF Persington",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },{
+        "id": "wall-table-3",
+        "texture": "/level-creator/assets/charactersObjects/city-sign-2.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/city-sign-2.png",
+        "description": "wall table with text",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "USAF Persington",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },{
+        "id": "wall-table-3",
+        "texture": "/level-creator/assets/charactersObjects/wall-board.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/wall-board.png",
+        "description": "wall table with text",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "USAF Persington",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
     },
     {
         "id": "enemy-ship-down",

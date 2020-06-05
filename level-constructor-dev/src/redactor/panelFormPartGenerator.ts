@@ -240,11 +240,44 @@ async function generateInput({fileContainer, target}){
             fileContainer.appendChild(itemData);
            }
     }
+    if(blockDetails.type === "npc_spawner" || blockDetails.type === "enemy_spawner"){
+        innerText = `<h3>NPC default behavior</h3>
+        <p>Set Scenario name</p>
+        <span>destroy</span>
+        <span>find</span>
+        <span>stand</span>
+        <lable>
+            <textarea id="npc-behavior-id-${currentDescriptionId}"  min="3">${(target.details.behavior)? target.details.behavior: ''}</textarea>
+        </lable>
+
+        <button data-target='save-npc-behavior-btn' class="main-btn">Save behavior</button> <hr>`
+        itemData = elementCreator({
+            tagname: "div",
+            classList: 'single-block-description',
+            innerText: innerText,
+            idName: 'behavior-settings-'+ currentDescriptionId
+        })
+        fileContainer.appendChild(itemData);
+    }
     if(blockDetails.dialog){
-            await createDialogForm({blockDetails: blockDetails, currentDescriptionId: currentDescriptionId, fileContainer: fileContainer})
+        innerText = `<h3>Task to Jornal</h3>
+        <p>Enter default task text that have been added to ship journal</p>
+        <lable>
+            <textarea id="npc-journal-task-id-${currentDescriptionId}"  min="3">${(target.details.dialog.default.journalTask)? target.details.dialog.default.journalTask: ''}</textarea>
+        </lable>
+
+        <button data-target='save-npc-journal-task-btn' class="main-btn">Save journal task</button> <hr>`
+        itemData = elementCreator({
+            tagname: "div",
+            classList: 'single-block-description',
+            innerText: innerText,
+            idName: 'journal-task-'+ currentDescriptionId
+        })
+        fileContainer.appendChild(itemData);
+        await createDialogForm({blockDetails: blockDetails, currentDescriptionId: currentDescriptionId, fileContainer: fileContainer})
     }
     if(blockDetails.innerObject){
-
+        //console.log('inner object')
     }
     if(blockDetails.type === "scenario_object"){
         innerText = `<h3>Scenario object name</h3>
@@ -254,12 +287,35 @@ async function generateInput({fileContainer, target}){
                 <textarea id="scenario-object-name-id-${currentDescriptionId}"  min="3">${blockDetails.objectName}</textarea>
             </lable>
 
-            <button data-target='save-scenario-object-name-btn' class="main-btn">Save object name</button> <hr>`
+            <button data-target='save-scenario-object-name-btn' class="main-btn">Save object name</button> <hr>`;
             itemData = elementCreator({
                 tagname: "div",
                 classList: 'single-block-description',
                 innerText: innerText,
                 idName: 'object-name-'+ currentDescriptionId
+            })
+            fileContainer.appendChild(itemData);
+    }
+   // "maxNumberOfItem": 1,
+    //    "spawnSeconds": 5,
+    if(blockDetails.spawnSeconds){
+        innerText = `<h3>Scenario object name</h3>
+            <p>Set Scenario name</p>
+            <lable>
+                <p>Spawn Seconds</p>
+                <input type="number" id="spawn-seconds-id-${currentDescriptionId}"  min="1" value=${(blockDetails.spawnSeconds)? blockDetails.spawnSeconds : 0} >
+            </lable>
+            <lable>
+                <p>Max Number Of Items</p>
+                <input type="number" id="next-number-of-items-id-${currentDescriptionId}"  min="1" value=${(blockDetails.maxNumberOfItem)? blockDetails.maxNumberOfItem : 0} >
+            </lable>
+            <button data-target='save-object-spawn-data-btn' class="main-btn">Save spawn data</button> <hr>`;
+
+            itemData = elementCreator({
+                tagname: "div",
+                classList: 'single-block-description',
+                innerText: innerText,
+                idName: 'object-spawn-'+ currentDescriptionId
             })
             fileContainer.appendChild(itemData);
     }
@@ -393,6 +449,22 @@ let canvas = document.createElement('canvas');
                 })
                 fieldName = (fieldResults)? 'contain object': ' save contain object';
                 break;
+            case 'save-npc-behavior-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'behavior',
+                    fieldSelector: '#npc-behavior-id-'+ currentDescriptionId,
+                    target: target.details
+                })
+                fieldName = (fieldResults)? 'contain object': ' save contain object';
+                break;
+            case 'save-npc-journal-task-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'journalTask',
+                    fieldSelector: '#npc-journal-task-id-'+ currentDescriptionId,
+                    target: target.details.dialog.default
+                })
+                fieldName = (fieldResults)? 'contain object': ' save contain object';
+                break;
             case 'save-dialog-btn':
                 fieldResults = await changeDataInBlock({
                     key: 'contain',
@@ -423,6 +495,18 @@ let canvas = document.createElement('canvas');
                 fieldResults = await changeDataInBlock({
                     key: 'objectName',
                     fieldSelector: '#scenario-object-name-id-'+ currentDescriptionId,
+                    target: target.details
+                })
+                break;
+            case 'save-object-spawn-data-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'spawnSeconds',
+                    fieldSelector: '#spawn-seconds-id-'+ currentDescriptionId,
+                    target: target.details
+                })
+                fieldResults = await changeDataInBlock({
+                    key: 'maxNumberOfItem',
+                    fieldSelector: '#next-number-of-items-id-'+ currentDescriptionId,
                     target: target.details
                 })
                 break;

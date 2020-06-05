@@ -39,7 +39,8 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects, enemy): false;
     }
     levelDynamicMapBlocks = levelDynamicMapBlocks.map( block => {
-        return block.details.type != 'enemy_spawner' && block.details.type != 'npc_spawner' && block.details.type != 'hidden_enemy_spawner';
+        return block.details.type != 'enemy_spawner' && block.details.type != 'npc_spawner' &&
+        block.details.type != 'hidden_enemy_spawner' && block.details.type === 'timer_enemy_spawner';
     })
     return dynamicEnemy
 }
@@ -239,7 +240,8 @@ async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectInters
             if(this.details.type === 'enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'enemy_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'hidden_enemy_spawner' && person.objectPresent ||
-            this.details.type === 'hidden_enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent){
+            this.details.type === 'hidden_enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ||
+            this.detailstype === 'timer_enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ){
                let findUnit = await detectPlayer.call(this, {mainGameObject: mainGameObject, groundPlayer: person, allBlocks: allBlocks, objectIntersectionDetect: objectIntersectionDetect})
                 if(findUnit){
                     //console.log(this.details.type, person.details.type)
@@ -537,6 +539,33 @@ function respawnEnemy ({ mainGameObject, constructors }){
 }
 
 
+function respawnEnemyByTimer({ mainGameObject, constructors, currentBlock }){
+    if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+    let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy.filter(enemy => {
+        if(enemy.details.type != 'npc_spawner' && enemy.healthPoint > 0 ) return enemy
+    });
+    let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    if(currentBlock.details.type === 'timer_enemy_spawner' ){
+        if(extraSeconds % (parseInt(currentBlock.details.spawnSeconds)* 100) === 0  && allEnemy.length < currentBlock.details.maxNumberOfItem){
+            console.log(extraSeconds, 'test', mainGameObject.gameInitData.gameStatus)
+            respawnEnemy({ mainGameObject, constructors })
+        }
+    }
+    deleteOldEnemy({ mainGameObject: mainGameObject })
+}
+
+
+function deleteOldEnemy({ mainGameObject }){
+    let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy.filter(enemy => {
+        if(enemy.details.type != 'npc_spawner' && enemy.healthPoint <= 0 ) return enemy
+    });
+    if(allEnemy.length > 100){
+        mainGameObject.gameInitData.dynamicLevelEnemy.shift();
+    }
+}
+
+
 export {
     loadLevelEnemy,
     groundEnemyMove,
@@ -547,5 +576,6 @@ export {
     groundPlayerJump,
     enemyDetectNpc,
     jumpDown,
-    respawnEnemy
+    respawnEnemy,
+    respawnEnemyByTimer,
 }

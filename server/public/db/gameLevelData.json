@@ -502,7 +502,7 @@
             "ground_turret_canyon_enemy_walker_1", "ground_turret_canyon_enemy_walker_1",
             "aliance_soldier", "aliance_soldier", "aliance_tank", "fence_1", "tradepost_canyon"],
         "enemyProbability" : 900,
-        "objectProbability": 800,
+        "objectProbability": 1100,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
         "enemyMaxNumber": 4,
@@ -1650,8 +1650,8 @@
                 "numberOfVerticalItems": 1
             },
             "description": {
-                "name": "Venus Clouds",
-                "description": "Venus flying industrial city"
+                "name": "Venus Plant",
+                "description": "Venus flying Carbon Processing Plant"
             },
             "levelSound": "/public/sound/ambient/underground cavern venus.mp3",
             "levelMap" : "sun.png",
@@ -1919,7 +1919,7 @@
                     "numberOfVerticalItems": 1
                 },
                 "description": {
-                    "name": "Mars Alpha side",
+                    "name": "Mars Research center",
                     "description": "Mars colony largest city"
                 },
                 "levelSound": "/public/sound/ambient/lava city_mars.mp3",
@@ -2037,7 +2037,7 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Mars Alpha side",
+            "name": "Mars City 1",
             "description": "Mars colony largest city"
         },
         "levelSound": "/public/sound/ambient/running wild_mars boss2.mp3",
@@ -2422,7 +2422,7 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Neptune arrive",
+            "name": "Neptune approach",
             "description": "Neptune orbit"
         },
         "levelSound": "/public/sound/ambient/the end_neptune.mp3",
@@ -2505,7 +2505,7 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Neptune enemy base",
+            "name": "Neptune ice",
             "description": "Final fight in the hart of enemy"
         },
         "levelSound": "/public/sound/ambient/Guitar-Mayhem-5.mp3",
@@ -2600,7 +2600,7 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Neptune ice",
+            "name": "Neptune enemy base",
             "description": "Final fight in the hart of enemy"
         },
         "levelSound": "/public/sound/ambient/Guitar-Mayhem-5.mp3",

@@ -311,6 +311,11 @@ async function createDialogForm ({blockDetails, currentDescriptionId, fileContai
                 <option value="face-6.png">Yellow red</option>
                 <option value="face-9.png">man 3</option>
                 <option value="face-10.png">officer</option>
+                <option value="face-11.png">officer 1</option>
+                <option value="face-12.png">officer 2</option>
+                <option value="face-13.png">computer 1</option>
+                <option value="face-14.png">computer 2</option>
+                <option value="face-15.png">documents</option>
             </select>
 
             <input id="npc-name" type="text" value="${
@@ -323,7 +328,7 @@ async function createDialogForm ({blockDetails, currentDescriptionId, fileContai
             `;
             let itemData = elementCreator({
                 tagname: "div",
-                classList: 'single-block-description',
+                classList: 'single-block-description dialog-panel-block',
                 innerText: innerText,
                 idName: 'description-requireText-'+ currentDescriptionId
             })

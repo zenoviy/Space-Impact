@@ -72,7 +72,7 @@
         "extraObjects":[{
             "object": "goldCoin",
             "randomizer": 100,
-            "maxNumber": 1
+            "maxNumber": 2
         }],
         "data": {
             "guns": [
@@ -119,7 +119,330 @@
             ]
         }
     },
-
+    {
+        "id": "enemy-soldier-2",
+        "displayTexture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
+        "texture": "/public/images/groundEnemy/enemy-1/enemy-1.png",
+        "behavior": ["patrol", "find", "stand"],
+        "width": 46,
+        "height": 46,
+        "imageWidth": 34,
+        "imageHeight": 45,
+        "animationSteps": 10,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 450,
+        "speed": 1,
+        "healthPoint": 300,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 20,
+        "damage": 60,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
+                "animationSteps": 10,
+                "numberOfItems": 15
+            },
+            "run": {
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-run.png",
+                "picturesWidth": 405,
+                "imageWidth": 405,
+                "imageHeight": 92,
+                "animationSteps": 10,
+                "numberOfItems": 9
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
+                "animationSteps": 10,
+                "numberOfItems": 15
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-stand.png",
+                "picturesWidth": 510,
+                "imageWidth": 510,
+                "imageHeight": 90,
+                "animationSteps": 10,
+                "numberOfItems": 15
+            },
+            "jump": {
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-run.png",
+                "picturesWidth": 405,
+                "imageWidth": 405,
+                "imageHeight": 92,
+                "animationSteps": 10,
+                "numberOfItems": 9
+            },
+            "death": {
+                "innerTexture": "/public/images/groundEnemy/enemy-1/enemy-1-death.png",
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 90,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 2
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 1,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 20,
+                        "height": 20,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 9,
+                    "speed": 8,
+                    "width": 20,
+                    "height": 15,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 10,
+                    "firePositionX": 10
+                }
+            ]
+        }
+    },{
+        "id": "enemy-soldier-boss-1",
+        "displayTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1.png",
+        "texture": "/public/images/groundEnemy/enemy-2-boss/enemy-1.png",
+        "behavior": ["stand"],
+        "width": 150,
+        "height": 150,
+        "imageWidth": 233,
+        "imageHeight": 250,
+        "animationSteps": 10,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 450,
+        "speed": 0,
+        "healthPoint": 1000,
+        "jumpSpeed": 0,
+        "pointsPerUnit": 1000,
+        "shotProbability": 15,
+        "damage": 90,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-stand.png",
+                "picturesWidth": 1631,
+                "imageWidth": 1631,
+                "imageHeight": 500,
+                "animationSteps": 10,
+                "numberOfItems": 7
+            },
+            "run": {
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-run.png",
+                "picturesWidth": 1631,
+                "imageWidth": 1631,
+                "imageHeight": 500,
+                "animationSteps": 10,
+                "numberOfItems": 7
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-stand.png",
+                "picturesWidth": 1631,
+                "imageWidth": 1631,
+                "imageHeight": 500,
+                "animationSteps": 10,
+                "numberOfItems": 7
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-stand.png",
+                "picturesWidth": 1631,
+                "imageWidth": 1631,
+                "imageHeight": 500,
+                "animationSteps": 10,
+                "numberOfItems": 7
+            },
+            "jump": {
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-run.png",
+                "picturesWidth": 1631,
+                "imageWidth": 1631,
+                "imageHeight": 500,
+                "animationSteps": 10,
+                "numberOfItems": 7
+            },
+            "death": {
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-death.png",
+                "picturesWidth": 233,
+                "imageWidth": 233,
+                "imageHeight": 498,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 1,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 20,
+                        "height": 20,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 9,
+                    "speed": 8,
+                    "width": 20,
+                    "height": 15,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": null,
+                    "firePositionX": null
+                },{
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 1,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 20,
+                        "height": 20,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 9,
+                    "speed": 8,
+                    "width": 20,
+                    "height": 15,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": null,
+                    "firePositionX": null
+                },
+                {
+                    "name": "bomb",
+                    "texture": "/public/images/misc/bullets/bomb_round.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 50,
+                        "height": 50,
+                        "central": true,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "bomb",
+                    "fireRepead": 30,
+                    "speed": 7,
+                    "width": 40,
+                    "height": 40,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 2369,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 16,
+                    "numberOfVerticalItems": 1,
+                    "defaultAngle": {
+                        "max": 195,
+                        "min": 120,
+                        "isRandom": true
+                    },
+                    "sWidth": 148.0625,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 60,
+                    "firePositionX": 80
+                }
+            ]
+        }
+    },
     {
         "id": "professor_1",
         "displayTexture": "/public/images/characters/professor-1/professor-1.png",

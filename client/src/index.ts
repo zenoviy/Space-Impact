@@ -23,6 +23,7 @@ import { shot, displayObjectAtScene } from './enemies/animationHitBoxModules';
 import { explosionFire } from './engine/gameSideObjectsModule';
 import { initAppGlobalVariable } from './server/globalVariables';
 import { fillJournalDefaultData } from './engine/dynamicLevels/journalModules';
+import { respawnEnemyByTimer } from './engine/dynamicLevels/dynamicLevelEnemyModules';
 import { hideLoadScreen } from './ui/loadScreen';
 
 
@@ -310,7 +311,9 @@ function gameDynamicLevelBoxRender({ gameObject }){
         //if(!background) continue
         if(!background || background.x > window.innerWidth + background.width || background.x + 50 < background.width * -1 ||
             background.y > window.innerHeight + background.height || background.y + 50 < (background.height * -1)) continue
+        respawnEnemyByTimer({mainGameObject: gameObject, constructors: constructors, currentBlock: background});
         if(background.backgroundTexture){
+            
             //console.log(block)
            displayObjectAtScene.call({
                 x: background.x,
@@ -328,7 +331,7 @@ function gameDynamicLevelBoxRender({ gameObject }){
         }
 
         if(!gameObject.gameInitData.gamePause && background.details.type != 'door') background.spriteObjectsAnimation()
-        if(background.details.type === 'enemy_spawner' || background.details.type === 'hidden_enemy_spawner' ||
+        if(background.details.type === 'enemy_spawner' || background.details.type === 'hidden_enemy_spawner' || background.details.type === 'timer_enemy_spawner' ||
         background.details.type === 'npc_spawner' || background.details.type === 'elevator' ||
             background.details.type === "health" || background.details.isDestroy || !background.details.display && background.details.type === "scenario_object" ||
              !background.details.display && background.details.type === "blue_card" ||
@@ -352,9 +355,10 @@ function gameDynamicLevelBoxRender({ gameObject }){
     }
     for(let block of allBlocks){
         if(!block || block.x > window.innerWidth + block.width || block.x + 50 < block.width * -1 ||
-            block.y > window.innerHeight + block.height || block.y + 50 < (block.height * -1)) continue
+            block.y > window.innerHeight + block.height + 200 || block.y + 50 < (block.height * -1)) continue
         if(!block) continue
-            if(block.details.type === 'enemy_spawner' ||  block.details.type === 'hidden_enemy_spawner' || block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
+            if(block.details.type === 'enemy_spawner' ||  block.details.type === 'hidden_enemy_spawner' || block.details.type === 'timer_enemy_spawner' ||
+            block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
              !block.details.display && block.details.type === "health" || !block.details.display && block.details.type === "scenario_object" ||
              !block.details.display && block.details.type === "blue_card" ||
              !block.details.display && block.details.type === "green_card" ||
@@ -394,8 +398,8 @@ async function gameDynamicEnemyRender({ gameObject }){
     if(!allEnemy) return false
 
     for(let enemy of allEnemy){
-        if(!enemy || enemy.x > window.innerWidth  || enemy.x < (enemy.width * -1) ||
-            enemy.y > window.innerHeight || enemy.y < (enemy.height * -1)) continue
+        if(!enemy || enemy.x > window.innerWidth + enemy.width   || enemy.x < (enemy.width * -1) ||
+            enemy.y > window.innerHeight + enemy.height || enemy.y < (enemy.height * -1)) continue
             enemy.displayObjectAtScene(gameObject)
             enemy.changeVerticalAnimationPicture()
             if(!enemy.objectPresent ){

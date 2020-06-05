@@ -207,6 +207,8 @@ function gameInformationScreen(extra: any, ctx: any, width: number, height: numb
                         activateButton: item.grapplePower.value.activateButton
                     }
                 })
+                let mainGameObject = info.mainGameObject;
+                if(mainGameObject.gameInitData.dynamicLevelsActive) return false
                 for(let i = 0; i < objectsWithProperties.length; i++){
                     if(!objectsWithProperties[i].data) continue
                     let cardObject = objectsWithProperties[i];

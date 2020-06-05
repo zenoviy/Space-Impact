@@ -64,3 +64,5 @@ webpack-builder-version
 	src/ui/shop/gameShopModule.ts			- changed img url  "" and change `background-image: url('${'./'+ card.background}');`;
 
 	src/engine/dynamicLevels/dynamicLevelEnemyModules	- loadLevelEnemy()  remove  process.env.HOST
+
+	src/engine/gameModules/save_load/loadGameData.ts

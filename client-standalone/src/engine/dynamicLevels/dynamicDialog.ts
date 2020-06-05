@@ -121,9 +121,7 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
                 dialogTextId: `main-dialog-arrea-${ localId }`,
                 mainGameObject: mainGameObject
             })
-
             if(!answerState) return false
-
             displayDialog({
                 currentDialogCharacter: currentDialogCharacter, currentDialog: parseInt(answerButtons.id),
                 data: data,
@@ -174,7 +172,7 @@ function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDi
             searchTarget: requireObject
         })
     let taskCompleate = true;
-    if(dialogArea && requireObject){
+    if(dialogArea && requireObject ){
         if(dialogArea.numberOfRequireItems){
             writeDataToJournal({
                 mainGameObject: mainGameObject,
@@ -195,6 +193,17 @@ function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDi
                 <span>${requireObject.split("_").join(" ")}</span>`;
                 return false
             }
+        }
+    }else if(dialogArea && npcDetails.dialog.default.journalTask){
+        if(dialogArea.action === "give_object" && npcDetails.rules.contain){
+            console.log('give objects', dialogArea)
+            writeDataToJournal({
+                mainGameObject: mainGameObject,
+                dialogArea: dialogArea,
+                requireData: requireData,
+                npcDetails: npcDetails,
+                requireObject: requireObject
+            })
         }
     }
     return  taskCompleate

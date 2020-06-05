@@ -35,7 +35,7 @@ async function showResultScreen(){
                 innerContent: `<p class="single-item"><span class="rate-number">${index}</span>
                 <span>${  "<img class='small-avatar' src=" + img.src + " width='30' alt='avatar'>" }</span>
                 <span>name:</span> <span class="item-name"> ${item.userName}</span>
-                <span>coin:</span> <span class="item-coin"> ${item.gameCoins}</span>
+                <span>credits:</span> <span class="item-coin"> ${item.gameCoins}</span>
                 <span>score:</span> <span class="item-points"> ${item.gamePoints}</span>
                 <span class="item-date"> ${year}/${month}/${day}</span></p>`,
                 attributeName: 'data-button-id',

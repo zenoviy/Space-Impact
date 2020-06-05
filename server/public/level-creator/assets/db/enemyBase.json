@@ -46,6 +46,55 @@
         "imageHeight": 45
     },
 
+    {
+        "id": "enemy_soldier_1_timer",
+        "texture": "/level-creator/assets/enemyObject/enemy-1-timer.png",
+        "description": "timer spawn point of enemy",
+        "type": "timer_enemy_spawner",
+        "collision": false,
+        "innerObject": "enemy-soldier-1",
+        "width": 50,
+        "height": 50,
+        "maxNumberOfItem": 1,
+        "spawnSeconds": 5,
+        "name": "enemy-soldier-1",
+        "rules": {
+            "tips": "",
+            "require": null,
+            "contain": "",
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "mapColor": "#FF0800",
+        "imageWidth": 34,
+        "imageHeight": 45
+    }
+    
+    
+    ,{
+        "id": "enemy_soldier_boss_1",
+        "texture": "/level-creator/assets/enemyObject/enemy-boss-1.png",
+        "description": "spawn point of boss",
+        "type": "enemy_spawner",
+        "collision": true,
+        "innerObject": "enemy-soldier-boss-1",
+        "width": 150,
+        "height": 150,
+        "name": "enemy-soldier-boss-1",
+        "rules": {
+            "tips": "",
+            "require": null,
+            "contain": "",
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "mapColor": "#FF0800",
+        "imageWidth": 208,
+        "imageHeight": 242
+    },
+
 
 
     {

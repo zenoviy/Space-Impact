@@ -62,7 +62,7 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
         super({...data})
         this.objectOwner = (data.details.type === "enemy_spawner" || data.details.type === "hidden_enemy_spawner")?  "groundEnemy" : "groundNPC";
         this.detectRange = data.detectRange;
-        this.behavior = data.behavior[Math.floor(Math.random() * data.behavior.length)];
+        this.behavior = (data.details.behavior)? data.details.behavior : data.behavior[Math.floor(Math.random() * data.behavior.length)];
         this.currentBehavior = this.behavior;
         this.defaultSpeed = data.speed;
         this.unitRandomize = Math.floor(Math.random()*50 + 10);

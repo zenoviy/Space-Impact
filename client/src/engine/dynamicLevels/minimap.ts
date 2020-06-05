@@ -54,7 +54,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
     })
     var canvas = document.createElement('canvas');
 
-    var blockIndex = (objectToRender['offsetWidth']/(mapProps.width * mapProps.blockSize));
+    var blockIndex = (objectToRender['offsetWidth']/(mapProps.width * 50));
     canvas.width = mapProps.width * (objectToRender['offsetWidth']/mapProps.width);
     canvas.height = mapProps.height * (objectToRender['offsetWidth']/mapProps.width);
     var mapPixelIndex = objectToRender['offsetWidth']/mapProps.width;
@@ -71,9 +71,11 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
             }
         }
     })
+
+    //console.log(blockIndex, mapPixelIndex, objectToRender['offsetWidth'], mapProps.blockSize, mapProps.width)
     var mapEngine = setInterval(function(){
         if(process.env.GROUND_CHARACTERS_INVENTORY === 'false' || process.env.GROUND_NPC_DIALOG_ACTIVE === 'true'){
-            clearInterval(mapEngine)
+            //clearInterval(mapEngine)
         }
 
 
@@ -84,8 +86,9 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
             let xPos = (mapItem.defaultMapX)? mapItem.defaultMapX : mapItem.x;
             let yPos = (mapItem.defaultMapY)? mapItem.defaultMapY : mapItem.y;
 
-            ctx.fillRect( xPos*blockIndex,  yPos*blockIndex,  mapPixelIndex, mapPixelIndex);
+            ctx.fillRect( xPos * blockIndex,  yPos * blockIndex,  mapPixelIndex, mapPixelIndex);
             ctx.restore();
+
         }/**/
 
             counting += 1;
