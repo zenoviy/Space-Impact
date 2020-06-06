@@ -187,14 +187,20 @@ V - fixed journal when ship renew
 V - fixed saves Too many properties to enumerate
 	V - each save to file?
 - count saving citizen
-V - map fix
+V- counting enemy
+X- enemy damage animation
+V- map fix
 V- add NPC tasks
 V- add NPC set behavior
 V- add enemy spawner by time
 	V- number
 	V- timer
 V- display life
-- background move separatly
+V- background move separatly
+V- collect points
+V- dialog reaction
+	V- default text id when task is set
+	V- default text id when task complete
 	
 
 	- add sound
@@ -208,6 +214,10 @@ V- display life
 		- Earth
 			V - Hangar 
 				- (find ship story begin)
+				- data => 5 heads  data => med kit  med kit => access card 
+				- dialog = > blue card => bunker door
+				- repair tool => main bunker door
+				- shoot down enemy ship/gun => green card
 			- Command Center
 				- (target, continue path)
 			V - Desert    6
@@ -375,6 +385,7 @@ let mapFileName = `${req.body.name}.json`;
 	- initiate global variables initAppGlobalVariable()    process.env
 	- init main game object  calling initGameObject()
 		- constructors.Game
+			- gameDataInit()	- main method to build game objects database    ./engine/ameModules/startGame.ts
 		- constructors.PlayerShip
 		- convert all data and request to gameObject
 	- init menu and sound appMenuAndSoundInit({gameObject: gameObject})		// appMenu()

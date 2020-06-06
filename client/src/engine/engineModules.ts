@@ -9,6 +9,19 @@ const { ipcRenderer, remote } = require( "electron" );
 
 
 
+
+
+function gameNpcUnitsCounting({mainGameObject, target}){
+    let userShipData = mainGameObject.gameInitData.gameData.playerObject;
+    let userShipJournal = userShipData.journal;
+    if(target.objectOwner === "groundEnemy") userShipJournal.defaultData.numberOfGroundEnemy += 1;
+    if(target.objectOwner === "enemy") userShipJournal.defaultData.numberFlyOfEnemy += 1;
+}
+
+
+
+
+
 function initField (screenWidth = window.innerWidth, screenHeight = window.innerHeight){
     let gameField = [].concat(
         this.gameInitData.gameField,
@@ -98,7 +111,8 @@ async function levelInit (GameBackground, ctx, mainGameObject){
                 imageHeight: (mapObject.imageHeight)?  mapObject.imageHeight : levelStandartMap.imageHeight,
                 animationSteps: (mapObject.animationSteps)? mapObject.animationSteps: (mapObject.animationSteps)? mapObject.animationSteps :  levelStandartMap.animationSteps,
                 numberOfItems: (mapObject.numberOfItems)? mapObject.numberOfItems: (mapObject.numberOfItems)? mapObject.numberOfItems : levelStandartMap.numberOfItems,
-                numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems : levelStandartMap.numberOfVerticalItems
+                numberOfVerticalItems: (mapObject.numberOfVerticalItems)? mapObject.numberOfVerticalItems : levelStandartMap.numberOfVerticalItems,
+                alwaysMove: (mapObject.alwaysMove)? mapObject.alwaysMove : false
             });
             mainGameObject.gameInitData.mapBackgroundObjects = mainGameObject.gameInitData.mapBackgroundObjects.concat(mapItem);
             mapItem.loadTexture();
@@ -500,6 +514,7 @@ function angleFinder({object, target}){
 
 
 export  {
+    gameNpcUnitsCounting,
     initField,
     warpEffect,
     setGameFields,

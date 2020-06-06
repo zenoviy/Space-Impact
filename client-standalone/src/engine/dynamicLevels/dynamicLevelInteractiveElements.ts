@@ -25,7 +25,6 @@ function elevatorPlayerMove({ mainGameObject, levelInformation, elevator, player
 
 
 function elevatorMove({ mainGameObject }){
-    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(!this.details) return false
     if(this.details.type === 'elevator'){
 
@@ -248,12 +247,14 @@ function backgroundChange({mainGameObject, positionRange}){
 
 function deadlyBlocks({mainGameObject, curentBlock, constructors}){
     if(!curentBlock.details) return false
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && curentBlock.details.deadly){
-        console.log(this, 'deadly')
         let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
-        let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
-       positionToSpawner({mainGameObject: mainGameObject, allBlocks: allBlocks})
-        groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+        if(extraSeconds % 50 === 0){
+             let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
+            positionToSpawner({mainGameObject: mainGameObject, allBlocks: allBlocks})
+            groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+        }
     }else if(curentBlock.details.deadly && (this.objectOwner === "groundEnemy" || this.objectOwner === "groundNPC")){
         this.healthPoint -= 1;
         if(this.healthPoint <= 0){
@@ -262,24 +263,6 @@ function deadlyBlocks({mainGameObject, curentBlock, constructors}){
     }
 }
 
-
-
-
-/*function displayObjectLifeSign({mainGameObject, targetObject}){
-    if(targetObject.healthPoint){
-        if(targetObject.healthPoint > 0){
-            let ctx = mainGameObject.gameInitData.ctxActionField;
-            drawRectangle({
-                ctx: ctx,
-                x: this.x,
-                y: this.y - 10,
-                width: 10,
-                height: 10,
-                color: '#ff0000'
-            })
-        }
-    }
-}*/
 export {
     elevatorPlayerMove,
     elevatorMove,

@@ -1,6 +1,6 @@
 
-function updateMap({ mainGameObject }){   ///dynamicLevelsActive
-    if( !mainGameObject.gameInitData.dynamicLevelsActive ) this.moveEnemyes()
+function updateMap({ mainGameObject }){
+    if( !mainGameObject.gameInitData.dynamicLevelsActive || this.alwaysMove ) this.moveEnemyes()
 
     if(Math.sign(this.speed) > 0 && this.x + window.innerWidth < 0){
         this.x = window.innerWidth;
@@ -11,7 +11,6 @@ function updateMap({ mainGameObject }){   ///dynamicLevelsActive
 }
 function changePartOfTexture(mainGameObject, backgroundArray){
     let levelData = mainGameObject.getLevelUserData();
-    let screenData = mainGameObject.getScreenSize();
 
     if(levelData.minutes <= this.timeToExtraMapMinutes
     && levelData.seconds <= this.timeToExtraMapSeconds

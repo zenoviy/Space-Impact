@@ -320,6 +320,8 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
             return false
         }
     }
+    deadlyBlocks.call(this, {mainGameObject: mainGameObject, curentBlock: target, constructors: constructors});
+    if(target.details.deadly) return false
     groundBlockCollision.call(this, {
         mainGameObject: mainGameObject,
         target: target,
@@ -331,7 +333,7 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
         isBottomWall: isBottomWall,
         y: y
     })
-    deadlyBlocks.call(this, {mainGameObject: mainGameObject, curentBlock: target, constructors: constructors});
+    
     if(target.details.type === "leader"){
         this.onLeader = true;
     }
@@ -674,7 +676,7 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
     let xPosGround = (xPos && groundPlayer.groundTouch)? xPos: levelInformation.horizontalSpeed
 
     for(let item of allGamesObject){
-        if(item instanceof constructors.GameBackground ){
+        if(item instanceof constructors.GameBackground && !item.alwaysMove){
              item.speed = ( groundPlayer.playerDirectionHorizontal === 'right')? (item.defaultSpeed/2): (item.defaultSpeed/2) * -1;
             if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPosGround ||
                 !groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && !groundPlayer.groundTouch && xPosGround) item.x -= item.speed;

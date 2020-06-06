@@ -648,6 +648,248 @@
         "imageWidth": 59,
         "imageHeight": 58
     },
+    {
+        "id": "block_5d-4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/mars-ground-4.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C2C00",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "block_5d-6",
+        "collision": true,
+        "texture": "/level-creator/assets/block/mars-ground-5.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8C2C00",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+
+
+
+
+
+    
+    {
+        "id": "moon-ground-1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-1.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-2.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-3.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-4.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-5",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-5.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-6",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-6.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-7",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-7.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 150,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+    {
+        "id": "moon-ground-8",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-8.png",
+        "description": "Box block can be destroy",
+        "healthPoint": 150,
+        "isDestroy": true,
+        "type": "ground-destruct",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "explosionAnimation": {
+            "texture": "/public/images/misc/fire/bomb-sprite-explosion.png",
+            "imageWidth": 1764,
+            "imageHeight":122,
+            "animationSteps": 5,
+            "numberOfItems": 14,
+            "sx": 0,
+            "sy": 0,
+            "width": 50,
+            "height": 50,
+            "central": true,
+            "sound": {
+                "levelSound": "/public/sound/weapons/explosions/Explosion+7_max.mp3",
+                "soundLoop": false
+            }
+        }
+    },
+    {
+        "id": "moon-ground-9",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-9.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-10",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-10.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-11",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-11.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon-ground-12",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-12.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#8A8D8D",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },
+    {
+        "id": "moon_hill_1",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-13-left.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "stairs-left",
+        "backgroundTexture": null,
+        "mapColor": "#754027",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "angle": 45
+    },
+    {
+        "id": "moon_hill_2",
+        "collision": true,
+        "texture": "/level-creator/assets/block/moon-ground-13-right.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "stairs-right",
+        "backgroundTexture": null,
+        "mapColor": "#754027",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "angle": 45
+    },
+
+
+
+
+
+
+
+
 
     {
         "id": "block_6",
@@ -1202,6 +1444,138 @@
         "imageWidth": 59,
         "imageHeight": 58
     },{
+        "id": "block_broken-car-3",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-3.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-3a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-3a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-4.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-4a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-4a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-5",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-5.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-5a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-5a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-6",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-6.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-6a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-6a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-7",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-7.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-7a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-7a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-8",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-8.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_broken-car-8a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/broken-car-8a.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#9B9798",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
         "id": "block_ruins-1",
         "collision": true,
         "texture": "/level-creator/assets/block/brick-ruin-1.png",
@@ -1584,6 +1958,314 @@
         "id": "block_space-station-floor-4",
         "collision": true,
         "texture": "/level-creator/assets/block/station-floor-5.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-4",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-6.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-5",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-7.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-6",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-8.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-7",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-9.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-8",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-10.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-9",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-11.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-10",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-12.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-11",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-13.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-12",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-14.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-13",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-15.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-14",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-16.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-15",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-17.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-16",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-18.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-17",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-19.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-18",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-20.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-21",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-21.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-22",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-22.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-23",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-23.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-24",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-24.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-25",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-25.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-26",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-26.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-27",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-27.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-28",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-28.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-29",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-29.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-30",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-30.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-31",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-31.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-32",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-32.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-33",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-33.png",
         "description": "Solid block",
         "isDestroy": false,
         "type": "ground",

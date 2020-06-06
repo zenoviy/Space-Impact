@@ -21,6 +21,7 @@ class BulletConstruct{
     bulletType: string;
     bulletTexture: string;
     objectOwner: string;
+    bulletOriginOwner: string;
     bulletSpeed: number;
     defaultSpeed: number;
     width: number; height: number;
@@ -41,6 +42,7 @@ class BulletConstruct{
     objectNameFlag: string;
     radius: number;
     atBackground: boolean;
+
 
     moveBullets: any;
     getObjectPosition: any;
@@ -79,6 +81,7 @@ class BulletConstruct{
         this.degree = (data.degree)? data.degree : 0;
         this.objectNameFlag = "bullet";
         this.radius = (data.radius)? data.radius : null;
+        this.bulletOriginOwner = (data.originOwner)? data.originOwner: null;
 
         //this.picturesWidth = data.picturesWidth;
     }

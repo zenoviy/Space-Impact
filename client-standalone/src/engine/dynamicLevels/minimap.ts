@@ -86,7 +86,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
             let xPos = (mapItem.defaultMapX)? mapItem.defaultMapX : mapItem.x;
             let yPos = (mapItem.defaultMapY)? mapItem.defaultMapY : mapItem.y;
 
-            ctx.fillRect( xPos * blockIndex,  yPos * blockIndex,  mapPixelIndex, mapPixelIndex);
+            ctx.fillRect( xPos * blockIndex,  (yPos * blockIndex)+50,  mapPixelIndex, mapPixelIndex);
             ctx.restore();
 
         }/**/
@@ -98,7 +98,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
                 let playerPositionY = groundPlayer.currentGroundBlock.defaultMapY - mapProps.blockSize;
                 //ctx.save();
                 ctx.fillStyle = "rgba(225, 8, 0, 1)";
-                ctx.fillRect( playerPositionX*blockIndex ,  playerPositionY*blockIndex,  5, 5);
+                ctx.fillRect( playerPositionX*blockIndex ,  (playerPositionY * blockIndex) + 50, mapPixelIndex*2, mapPixelIndex*2);
                 //ctx.restore();
                 if(counting >= 1){
                     playerShow = false;

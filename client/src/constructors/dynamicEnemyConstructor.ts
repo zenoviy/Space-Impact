@@ -46,6 +46,8 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
     changeModeRandomizer: number;
     damage: number;
     explosionAnimation: any;
+    pointsPerUnit: number;
+    idStartDialog: number;
 
     groundEnemyMove: any;
     detectPlayer: any;
@@ -76,8 +78,8 @@ class DynamicEnemyConstructor extends DynamicUserConstructor {
         this.extraObjects = (data.extraObjects)? data.extraObjects : null;
         this.damage = (data.damage)? data.damage : 0;
         this.explosionAnimation = (data.explosionAnimation)? data.explosionAnimation : null;
-        //this.details.type = ()
-
+        this.pointsPerUnit = (data.pointsPerUnit)? data.pointsPerUnit : null;
+        this.idStartDialog = 0;
     }
 }
 

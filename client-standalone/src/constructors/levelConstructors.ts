@@ -26,6 +26,7 @@ class GameBackground{
     width: number;
     height: number;
     partOfScreenStatus: boolean;
+    alwaysMove: boolean;
 
     updateMap: any;
     warpEffect: any;
@@ -53,6 +54,7 @@ class GameBackground{
             this.timeToExtraMapSeconds = data.timeToExtraMapSeconds;
             this.timeToExtraMapMinutes = data.timeToExtraMapMinutes;
             this.partOfScreenStatus = (data.partOfScreenStatus)? data.partOfScreenStatus: null;
+            this.alwaysMove = (data.alwaysMove)? data.alwaysMove: false;
 
             this.picturesWidth = data.imageWidth;
             this.imageHeight = data.imageHeight;

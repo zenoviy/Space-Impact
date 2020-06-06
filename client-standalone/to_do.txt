@@ -62,6 +62,8 @@ webpack-builder-version
 	src/server/serverRequestModules.ts		- change getData() method go catche data from local storage
 	
 	src/ui/shop/gameShopModule.ts			- changed img url  "" and change `background-image: url('${'./'+ card.background}');`;
+	src/ui/shop/gameInventoryModules.ts
+
 
 	src/engine/dynamicLevels/dynamicLevelEnemyModules	- loadLevelEnemy()  remove  process.env.HOST
 

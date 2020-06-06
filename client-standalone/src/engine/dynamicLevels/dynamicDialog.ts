@@ -55,6 +55,7 @@ function useObject({ mainGameObject, player, item }){
 
 
 function npcDialog({ currentDialogCharacter, data, searchTarget, mainGameObject, requireData, constructors,groundPlayer }){
+        if(!currentDialogCharacter.details.dialog) return false
         openInventory()
         displayDialog({
             currentDialogCharacter: currentDialogCharacter,
@@ -70,15 +71,13 @@ function npcDialog({ currentDialogCharacter, data, searchTarget, mainGameObject,
 
 
 
-
-
-
 function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarget, mainGameObject, requireData, constructors,groundPlayer }){
-    if(!currentDialogCharacter) return false
+    if(!currentDialogCharacter || currentDialog != 0 && !currentDialog || !currentDialogCharacter.details.dialog) return false
     let defaultNpcData = currentDialogCharacter.details.dialog.default;
     let dialogAnswersNpcData = currentDialogCharacter.details.dialog.dialogAnswers;
     let backpackBody = document.querySelector('#backpack-body');
     let localId = new Date().getTime();
+    if(currentDialogCharacter.idStartDialog && currentDialog === 0) currentDialog = currentDialogCharacter.idStartDialog;
     backpackBody.innerHTML = '';
 
     let dialogHeader = createSimpleElements({
@@ -131,10 +130,9 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
                 constructors: constructors,
                 groundPlayer: groundPlayer
             })
-            if(selecteDialog.action === "require_object"){
 
-            }
             if(selecteDialog.action === "give_object"){
+                currentDialogCharacter.idStartDialog = (currentDialogCharacter.details.defaultSuccessDialogId)? currentDialogCharacter.details.defaultSuccessDialogId : 0;
                 requireData = searchInPlayerInventory({
                     data: groundPlayer.inventory,
                     searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
@@ -183,20 +181,21 @@ function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDi
             })
             if(requireData){
                 taskCompleate = (dialogArea.numberOfRequireItems &&
-            requireData.numberOfItems >= parseInt(dialogArea.numberOfRequireItems))? true: false;
+                requireData.numberOfItems >= parseInt(dialogArea.numberOfRequireItems))? true: false;
                 if(!taskCompleate){
                     dialogTextArea.innerHTML = `I cant do that, first i need <span>${dialogArea.numberOfRequireItems}</span>
                     <span>${requireObject.split("_").join(" ")}</span> you got <span>${(requireData.numberOfItems)? requireData.numberOfItems : 0}</span>`;
+                    currentDialogCharacter.idStartDialog = (currentDialogCharacter.details.defaultRequestDialogId)? currentDialogCharacter.details.defaultRequestDialogId : 0;
                 }
             }else if(dialogArea.numberOfRequireItems){
                 dialogTextArea.innerHTML = `I cant do that, first i need <span>${dialogArea.numberOfRequireItems}</span>
                 <span>${requireObject.split("_").join(" ")}</span>`;
+                currentDialogCharacter.idStartDialog = (currentDialogCharacter.details.defaultRequestDialogId)? currentDialogCharacter.details.defaultRequestDialogId : 0;
                 return false
             }
         }
     }else if(dialogArea && npcDetails.dialog.default.journalTask){
         if(dialogArea.action === "give_object" && npcDetails.rules.contain){
-            console.log('give objects', dialogArea)
             writeDataToJournal({
                 mainGameObject: mainGameObject,
                 dialogArea: dialogArea,
@@ -249,13 +248,11 @@ function renderText( contexts, displayText, x, y, color){
 
 
 function interactWithObjects({ mainGameObject, constructors }){
-    
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     doorFunctionality.call(groundPlayer, {mainGameObject: mainGameObject, constructors: constructors})
     teleportFunctionality.call(groundPlayer, {mainGameObject: mainGameObject})
     if(process.env.GROUND_ACTIVE_BLOCK_IN_RANGE === 'true'){
         let requireData;
-        console.log(groundPlayer.currentDialogCharacter)
         if(!mainGameObject.mapNearActiveElement) return false
         if(groundPlayer.currentDialogCharacter){
             npcDialog({

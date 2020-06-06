@@ -118,6 +118,127 @@
                 }
             ]
         }
+    },{
+        "id": "enemy-turret-1",
+        "displayTexture": "/public/images/groundEnemy/enemy-turrets/stand.png",
+        "texture": "/public/images/groundEnemy/enemy-turrets/stand.png",
+        "behavior": ["static"],
+        "width": 46,
+        "height": 46,
+        "imageWidth": 41,
+        "imageHeight": 37,
+        "animationSteps": 20,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 450,
+        "speed": 0,
+        "healthPoint": 300,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 5,
+        "damage": 60,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/groundEnemy/enemy-turrets/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 30,
+                "numberOfItems": 4
+            },
+            "run": {
+                "innerTexture": "/public/images/groundEnemy/enemy-turrets/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 30,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/groundEnemy/enemy-turrets/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 30,
+                "numberOfItems": 4
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/groundEnemy/enemy-turrets/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 30,
+                "numberOfItems": 4
+            },
+            "jump": {
+                "innerTexture": "/public/images/groundEnemy/enemy-turrets/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 30,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/groundEnemy/enemy-turrets/turret-1-brocken.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 2
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "blaster",
+                    "texture": "/public/images/misc/bullets/red-laser.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 1,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 20,
+                        "height": 20,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/sound_spark_Laser-Like_Synth_Laser_Sweep_Burst_13.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "blaster",
+                    "fireRepead": 3,
+                    "speed": 8,
+                    "width": 20,
+                    "height": 15,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 30,
+                    "firePosition": 10,
+                    "firePositionX": 10
+                }
+            ]
+        }
     },
     {
         "id": "enemy-soldier-2",
@@ -1659,6 +1780,142 @@
                     "firePosition": 10,
                     "firePositionX": 0,
                     "defaultAngle": 0
+                }
+            ]
+        }
+    },
+
+
+
+
+
+    {
+        "id": "alliance_turret_1",
+        "displayTexture": "/public/images/characters/alliance-turret-1/stand.png",
+        "texture": "/public/images/characters/alliance-turret-1/stand.png",
+        "behavior": ["static"],
+        "width": 30,
+        "height": 42,
+        "imageWidth": 312,
+        "role": "military",
+        "imageHeight": 35,
+        "animationSteps": 10,
+        "numberOfItems": 13,
+        "numberOfVerticalItems": 1,
+        "playerDirectionHorizontal": "left",
+        "detectRange": 650,
+        "speed": 0,
+        "healthPoint": 650,
+        "jumpSpeed": 5,
+        "pointsPerUnit": 10,
+        "shotProbability": 10,
+        "animations": {
+            "stand": {
+                "innerTexture": "/public/images/characters/alliance-turret-1/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 20,
+                "numberOfItems": 4
+            },
+            "run": {
+                "innerTexture": "/public/images/characters/alliance-turret-1/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 20,
+                "numberOfItems": 4
+            },
+            "runAndShotTop": {
+                "innerTexture": "/public/images/characters/alliance-turret-1/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 20,
+                "numberOfItems": 4
+            },
+            "runAndShotBottom": {
+                "innerTexture": "/public/images/characters/alliance-turret-1/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 20,
+                "numberOfItems": 4
+            },
+            "jump": {
+                "innerTexture": "/public/images/characters/alliance-turret-1/stand.png",
+                "picturesWidth": 164,
+                "imageWidth": 164,
+                "imageHeight": 74,
+                "animationSteps": 20,
+                "numberOfItems": 4
+            },
+            "death": {
+                "innerTexture": "/public/images/characters/alliance-turret-1/turret-1-brocken.png",
+                "width": 60,
+                "height": 43,
+                "picturesWidth": 62,
+                "imageWidth": 62,
+                "imageHeight": 158,
+                "animationSteps": 1,
+                "numberOfItems": 1
+            }
+        },
+        "extraObjects":[{
+            "object": "goldCoin",
+            "randomizer": 100,
+            "maxNumber": 1
+        }],
+        "data": {
+            "guns": [
+                {
+                    "name": "Machinegun",
+                    "loadImage": "static/shop/weapons/Machinegun.png",
+                    "background": "static/shop/misc/blue-card.png",
+                    "price": 2500,
+                    "title": "Machinegun",
+                    "status": "mechanic gun",
+                    "description": "Bullet gun is a fully automatic and mounted on you ship, very fast but it needs a lot of shots to brake ship armor, usually this gun used in sky battle",
+                    "hangarImage": "static/shop/weapons/Machinegun.png",
+                    "texture": "/public/images/misc/bullets/bullet-gun.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion-bullet.png",
+                        "imageWidth": 4441,
+                        "imageHeight":294,
+                        "animationSteps": 5,
+                        "numberOfItems": 15,
+                        "playerObject": true,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 15,
+                        "height": 10,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/bullet-impact-4.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/weapon_gun_ak_47_C_30.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "cannon",
+                    "fireRepead": 1,
+                    "speed": 15,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 50,
+                    "height": 10,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 3587,
+                    "imageHeight":109,
+                    "animationSteps": 5,
+                    "numberOfItems": 12,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 299,
+                    "sHeight": 109,
+                    "damage": 10,
+                    "firePosition": 10,
+                    "firePositionX": 25
                 }
             ]
         }

@@ -13,7 +13,7 @@ function gamePause(data: any,ctx: any, width: number, height: number, pictureDir
                 width: 400,
                 height: 90,
                 x: width/2 - 150,
-                y: height/2 + 50,
+                y: 100,
                 background: 'rgba(255, 255, 255, 1)',
                 isBorder: false,
                 borderRadius: 2,

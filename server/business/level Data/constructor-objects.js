@@ -14,8 +14,7 @@ async function saveMap (req, res) {
 
     let mapFileName = `${req.body.name}.json`;
     let fileName = __dirname + '../../../public/level-creator/complete-maps/'+ mapFileName;
-    
-    if (!fs.existsSync(fileName)){
+    if (!fs.existsSync(process.env.HOST + process.env.PORT + `/level-creator/complete-maps/${mapFileName}`)){
         console.log('not exist')
         if(!req.body || !req.body.name){ res.send({
             message: 'no data'});
@@ -26,7 +25,7 @@ async function saveMap (req, res) {
         fs.writeFile(fileName, JSON.stringify(req.body), (err) => {
             if(err) throw err;
         })
-        res.send({ url: process.env.HOST + process.env.PORT + `/level-creator/complete-maps/${mapFileName}`, fileSize: 'New map created!'})
+        res.send({ url: process.env.HOST + process.env.PORT + `/level-creator/complete-maps/${mapFileName}`, fileSize: 'New map created! and saved'})
         console.log(!fs.existsSync(dir + '.json'))
         return
     }
@@ -36,8 +35,6 @@ async function saveMap (req, res) {
             console.log('err')
             throw err;
         }
-        // if no error, file has been deleted successfully
-        await console.log('File deleted!');
 
         let writeableStream = await fs.createWriteStream(fileName, {flags: 'w+'});
         await writeableStream.write(JSON.stringify(req.body),  () => {

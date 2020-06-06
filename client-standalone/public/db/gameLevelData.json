@@ -975,71 +975,79 @@
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
-            "speed": 0.1,
+            "speed": 0,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
-            "speed": 0.1,
+            "speed": 0,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/cyty-far-region.png",
-            "speed": 0.2,
+            "speed": 0.01,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/cyty-far-region.png",
-            "speed": 0.2,
+            "speed": 0.01,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/cyty-far-build-1.png",
-            "speed": 0.25,
+            "speed": 0.05,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/cyty-far-build-1.png",
-            "speed": 0.25,
+            "speed": 0.05,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/ship-2a.png",
             "speed": 0.6,
-            "description": "first frame"
+            "description": "first frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/ship-2.png",
             "speed": 0.43,
-            "description": "second frame"
+            "description": "second frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/city-meedle-1.png",
-            "speed": 0.4,
+            "speed": 0.2,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/city-meedle-2.png",
-            "speed": 0.4,
+            "speed": 0.2,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": -0.4,
-            "description": "first frame"
+            "description": "first frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/ship-1.png",
             "speed": -0.4,
-            "description": "second frame"
+            "description": "second frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/city-car-1.png",
             "speed": -0.8,
-            "description": "first frame"
+            "description": "first frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/city-car-2.png",
             "speed": -0.8,
-            "description": "second frame"
+            "description": "second frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/city-car-1.png",
             "speed": 1,
-            "description": "first frame"
+            "description": "first frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/city-car-2.png",
             "speed": 1,
-            "description": "second frame"
+            "description": "second frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/build-close-1.png",
-            "speed": 0.7,
+            "speed": 0.4,
             "description": "first frame",
             "imageWidth": 3840,
             "imageHeight":1080,
@@ -1048,31 +1056,23 @@
             "numberOfVerticalItems": 1
         },{
             "levelMap" : "/public/images/locations/skyCity/build-close-2.png",
-            "speed": 0.7,
+            "speed": 0.4,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
-            "speed": 1,
+            "speed": 0.6,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
-            "speed": 1,
+            "speed": 0.6,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
-            "speed": 1.4,
+            "speed": 0.8,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/skyCity/build-1.png",
-            "speed": 1.4,
-            "description": "second frame"
-        },{
-            "levelMap" : "/public/images/locations/skyCity/clouds_map_2a.png",
-            "speed": 2,
-            "description": "first frame"
-        },{
-            "levelMap" : "/public/images/locations/skyCity/clouds_map_2b.png",
-            "speed": 2,
+            "speed": 0.8,
             "description": "second frame"
         }],
         "levelDetails" : {

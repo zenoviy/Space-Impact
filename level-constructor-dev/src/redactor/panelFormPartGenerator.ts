@@ -149,10 +149,11 @@ async function generateInput({fileContainer, target}){
             <span>med_kit</span>
             <span>laptop_with_data</span>
             <span>tools_case</span>
-            <span>acess_card</span>
+            <span>access_card</span>
             <span>enemy_gun</span>
             <span>plane_key</span>
             <span>special_access</span>
+            <span>data_card</span>
             </p>
             <textarea type='text' id=${'require-field-'+ currentDescriptionId} >${(blockDetails.rules.require)? blockDetails.rules.require : ''}</textarea>
             <button data-target='save-require-btn' class="main-btn">Save Require Object</button> <hr>`;
@@ -183,10 +184,11 @@ async function generateInput({fileContainer, target}){
             <span>med_kit</span>
             <span>laptop_with_data</span>
             <span>tools_case</span>
-            <span>acess_card</span>
+            <span>access_card</span>
             <span>enemy_gun</span>
             <span>plane_key</span>
             <span>special_access</span>
+            <span>data_card</span>
             </p>
 
             <textarea type='text' id=${'contain-field-'+ currentDescriptionId} >${(blockDetails.rules.contain)? blockDetails.rules.contain : ''}</textarea>
@@ -246,6 +248,7 @@ async function generateInput({fileContainer, target}){
         <span>destroy</span>
         <span>find</span>
         <span>stand</span>
+        <span>static</span>
         <lable>
             <textarea id="npc-behavior-id-${currentDescriptionId}"  min="3">${(target.details.behavior)? target.details.behavior: ''}</textarea>
         </lable>
@@ -264,6 +267,14 @@ async function generateInput({fileContainer, target}){
         <p>Enter default task text that have been added to ship journal</p>
         <lable>
             <textarea id="npc-journal-task-id-${currentDescriptionId}"  min="3">${(target.details.dialog.default.journalTask)? target.details.dialog.default.journalTask: ''}</textarea>
+        </lable>
+        <lable>
+            <p>Default dialog when require object is set and add to journal</p>
+            <input id="default-request-dialog-id-${currentDescriptionId}" type="number" value="${(target.details.defaultRequestDialogId)? target.details.defaultRequestDialogId : 0}">
+        </lable>
+        <lable>
+            <p>Default dialog when task was completed</p>
+            <input id="default-success-dialog-id-${currentDescriptionId}" type="number" value="${(target.details.defaultSuccessDialogId)? target.details.defaultSuccessDialogId : 0}">
         </lable>
 
         <button data-target='save-npc-journal-task-btn' class="main-btn">Save journal task</button> <hr>`
@@ -296,8 +307,6 @@ async function generateInput({fileContainer, target}){
             })
             fileContainer.appendChild(itemData);
     }
-   // "maxNumberOfItem": 1,
-    //    "spawnSeconds": 5,
     if(blockDetails.spawnSeconds){
         innerText = `<h3>Scenario object name</h3>
             <p>Set Scenario name</p>
@@ -462,6 +471,18 @@ let canvas = document.createElement('canvas');
                     key: 'journalTask',
                     fieldSelector: '#npc-journal-task-id-'+ currentDescriptionId,
                     target: target.details.dialog.default
+                })
+                // default-request-dialog-id-
+
+                fieldResults = await changeDataInBlock({
+                    key: 'defaultRequestDialogId',
+                    fieldSelector: '#default-request-dialog-id-'+ currentDescriptionId,
+                    target: target.details
+                })
+                fieldResults = await changeDataInBlock({
+                    key: 'defaultSuccessDialogId',
+                    fieldSelector: '#default-success-dialog-id-'+ currentDescriptionId,
+                    target: target.details
                 })
                 fieldName = (fieldResults)? 'contain object': ' save contain object';
                 break;

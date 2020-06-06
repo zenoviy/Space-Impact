@@ -44,10 +44,16 @@ function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
     let gameInfo = mainGameObject.showGameInfo();
     let journalLevelElement = '';
     let journalData = Object.assign([], userShipJournal.levelTasks).reverse();
+    console.log(userShipJournal)
     for(let task of journalData){
         if(!task) continue
 
         journalLevelElement += `<h3 class="side-panel-name">Journal</h3>
+        <div class="game-ranked-data">
+            <h4>Enemy log</h4>
+            <p>enemy ships: ${userShipJournal.defaultData.numberFlyOfEnemy}</p>
+            <p>enemy units: ${userShipJournal.defaultData.numberOfGroundEnemy}</p>
+        </div>
         <ul class="journal-list-container">
             <h4 class="${(gameInfo.gameData.levelData.level != task.level)? 'complete-task' : ''}">Level ${task.level} ${task.levelName}</h4>
             <li class="${(task.taskActive || gameInfo.gameData.levelData.level != task.level)? 'complete-task' : 'active-task'}">
@@ -62,7 +68,6 @@ function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
         let innerTasks = '';
         if(!levelTasks) return innerTasks
         for(let detailTask of levelTasks){
-            //console.log(gameInfo.gameData.levelData.level, task.level)
             console.log(userShipJournal)
             let localTask = (detailTask.numberOfItems)? `${detailTask.dialogOwner} require: ${detailTask.numberOfItems} ${detailTask.requireObject}`:
             (detailTask.requireObject)? detailTask.requireObject: null;
@@ -117,8 +122,6 @@ function writeDataToJournal({ mainGameObject, dialogArea, requireData, npcDetail
                 taskActive: false
             }
         }
-
-        
         userShipJournal.levelTasks[gameInfo.gameData.levelData.level].levelTasks.push(journalDetail);
     }
 }
@@ -135,6 +138,10 @@ function completeJournalTask ({mainGameObject, allRequireObjects}){
     let currentTask = userShipJournal.levelTasks[leve].levelTasks.find(task => task.id === allRequireObjects.innerData)
     currentTask.taskActive = true;
 }
+
+
+
+
 
 
 export {

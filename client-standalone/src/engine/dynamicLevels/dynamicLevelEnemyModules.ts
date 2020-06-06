@@ -165,7 +165,7 @@ Jump of enemy unit
  ========================== */
 
 
- async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }){
+async function groundPlayerJump ({ mainGameObject, allBlocks, levelInformation }){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let currentBlockIndex = (this.currentGroundBlock)? this.currentGroundBlock.index : null;
     let leaderBlock = allBlocks.find(block =>{
@@ -206,7 +206,6 @@ Jump of enemy unit
 }
 
 
-
 /* ==========================
 
 Method to use stairs when enemy at the top of the leader
@@ -236,7 +235,8 @@ async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectInters
     if(this.playerInRange) return false
     //if(this.details.type != 'npc_spawner'){
         for(let person of npcData){
-
+            if( !person || person.x > window.innerWidth + 100 || person.x < -100 ||
+                person.y > window.innerHeight + 100 || person.y < -100) continue
             if(this.details.type === 'enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'enemy_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'hidden_enemy_spawner' && person.objectPresent ||
@@ -257,7 +257,7 @@ async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectInters
 async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectIntersectionDetect}){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(extraSeconds % 200 === 0){
-        if( this.playerInRange ) this.currentBehavior = "find";
+        if( this.playerInRange ) this.currentBehavior = (this.currentBehavior === "static")?"static" : "find";
             this.playerInRange = false;
     }
    if(!groundPlayer || !allBlocks || this.playerInRange) return false
@@ -268,12 +268,13 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let distanceY = Math.max(this.y, groundPlayer.y) - Math.min(this.y, groundPlayer.y);
 
 
-    let angle = this.findAngleToShip({closestUnit: groundPlayer});
-    if(this.currentBehavior === "destroy"){
-        this.targetAngle = angle;
-    }
 
     if(this.detectRange < distanceX || this.detectRange < distanceY) return false
+
+    let angle = this.findAngleToShip({closestUnit: groundPlayer});
+    if(this.currentBehavior === "destroy" || this.currentBehavior === "static" && this.playerInRange){
+        this.targetAngle = (angle < 360)? angle + 2 : angle;
+    }
     let findBarrier = {};
 
     let directionX = (this.x >= groundPlayer.x)? true : false;
@@ -306,27 +307,30 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
                 localYRay -= decreaseValue * searchSteps;
             }
             findBarrier = allBlocks.find(block => {
-                let searchCollision = objectIntersectionDetect({
-                    object: {
-                        x: localXRay,
-                        y: localYRay,
-                        width: 30,
-                        height: 30
-                    },
-                    target: {
-                        x: block.x,
-                        y: block.y,
-                        width: block.width,
-                        height: block.height
-                    }
-                })
-                if(searchCollision && block.details.collision) return block
+                if(Math.max(localXRay, block.x) - Math.min(localXRay, block.x) < 200 ||
+                Math.max(localYRay, block.y) - Math.min(localYRay, block.y) < 200){
+                    let searchCollision = objectIntersectionDetect({
+                        object: {
+                            x: localXRay,
+                            y: localYRay,
+                            width: 30,
+                            height: 30
+                        },
+                        target: {
+                            x: block.x,
+                            y: block.y,
+                            width: block.width,
+                            height: block.height
+                        }
+                    })
+                    if(searchCollision && block.details.collision) return block
+                }
             })
             if(findBarrier) break
         }
         if(findBarrier) return false
         this.playerInRange = true;
-        this.currentBehavior = "destroy";
+        this.currentBehavior = (this.currentBehavior === "static")? "static": "destroy";
         this.targetAngle = angle;
         //console.log(groundPlayer, this.objectOwner, "|||")
         return true
@@ -378,10 +382,11 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
     let maxBoxToMove = (this.currentBehavior === "find")? 2 : (this.currentBehavior === "destroy")? 4 : 1;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(extraSeconds % 5 === 0){
-        if(this.currentBehavior === "stand") {
+        if(this.currentBehavior === "stand" ||this.currentBehavior === "static") {
             this.isRun = false;
             return
         }
+        let deadlyBlock = null;
         let indexOfNextBlock = null;
         let findBottomBlock = null;
         let findBackBlock = null;
@@ -456,7 +461,8 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 return block.index === bottomBlockIndex  && block.details.collision
             })
             if(this.jumpBlock){
-                this.isJump = true;
+                this.isJump = (!this.jumpBlock.details.deadly)? true : false;
+                if(this.jumpBlock.details.deadly) this.isRun = false;
             }
             if(blockUnderTheJump){
                 this.isRun = false;
@@ -485,6 +491,25 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 this.isRun = false;
             }
         }
+
+        // deadly block detected
+        //console.log(this.jumpBlock)
+        if(this.nextGroundBlock && this.currentGroundBlock && !this.jumpBlock ){
+            for(let blockNumber = 1; blockNumber <= maxBoxToMove; blockNumber++){
+                deadlyBlock = allBlocks.find(block =>{
+                    let deadlyBlockIndex = (this.playerDirectionHorizontal === 'right')?
+                    currentBlockIndex + parseInt(this.nextGroundBlock.mapSizeVertical) - blockNumber:
+                    currentBlockIndex - (parseInt(this.nextGroundBlock.mapSizeVertical) * 2) - blockNumber;
+                    return block.index === deadlyBlockIndex  && block.details.collision && block.details.deadly
+                })
+                if(deadlyBlock) break
+            }
+            //console.log(deadlyBlock)
+            if(deadlyBlock)  this.isRun = false;
+            //this.nextBottomBlock = (findBottomBlock)? findBottomBlock: null;
+        }
+
+
         if(this.currentWallBlock ){
             if(this.currentWallBlock.details.collision && this.currentWallBlock.details.type === "door"){
                 this.isRun = false;
@@ -494,7 +519,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 let leftSide =  (this.currentWallBlock.x + this.currentWallBlock.width) - this.x;
 
                 this.x += (this.playerDirectionHorizontal === 'right')? rightSide -1 : leftSide;
-                this.currentBehavior = "find";
+                this.currentBehavior = (this.currentBehavior === "static")? "static": "find";
             }
         }
         this.currentWallBlock  = null;
@@ -544,7 +569,6 @@ function respawnEnemyByTimer({ mainGameObject, constructors, currentBlock }){
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     if(currentBlock.details.type === 'timer_enemy_spawner' ){
         if(extraSeconds % (parseInt(currentBlock.details.spawnSeconds)* 100) === 0  && allEnemy.length < currentBlock.details.maxNumberOfItem){
-            console.log(extraSeconds, 'test', mainGameObject.gameInitData.gameStatus)
             respawnEnemy({ mainGameObject, constructors })
         }
     }

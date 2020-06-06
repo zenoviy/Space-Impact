@@ -97,16 +97,16 @@ function saleBoxEvent({ mainGameObject }){
                 if(!inventoryItem) return false
                 leaveShop({element: mainGameObject.shopArea,
                      mainGameObject: mainGameObject,
-                     text: (finalPricePercent)? `You want to sale ${(inventoryItem.title)? inventoryItem.title : 'this item'}
-                    for the ${finalPricePercent} coins`: `You want to destroy this item`})
+                     text: (finalPricePercent)? `You want to sale ${(inventoryItem.title)? inventoryItem.title : 'this item?'}
+                    for the ${finalPricePercent} credits`: `You want to destroy this item?`})
 
             }else if(shopAreaItems.hangarSelectedItem || shopAreaItems.hangarSelectedItem === 0){
                 let hangarItem = playerObjectData.guns[shopAreaItems.hangarSelectedItem];
                 let salePrice = playerObjectData.guns[shopAreaItems.hangarSelectedItem].price;
                 leaveShop({element: mainGameObject.shopArea,
                      mainGameObject: mainGameObject,
-                     text: `You want to sale ${(hangarItem)? hangarItem.title : 'this item'}
-                    for the ${salePercentAddToPrice({price: salePrice, mainGameObject: mainGameObject})} coins`})
+                     text: `You want to sale ${(hangarItem)? hangarItem.title : 'this item?'}
+                    for the ${salePercentAddToPrice({price: salePrice, mainGameObject: mainGameObject})} credits`})
             }
 }
 

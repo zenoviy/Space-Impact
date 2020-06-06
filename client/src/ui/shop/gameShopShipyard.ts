@@ -7,7 +7,6 @@ import * as constructors from '../../constructors';
 
 function replaceShipData({mainGameObject, buyShipData}){
     let playerObject = mainGameObject.gameInitData.gameData.playerObject
-    console.log(playerObject)
     let dataNotToReplace = {
         inventory: playerObject.data.inventory,
         firespot: playerObject.data.firespot,

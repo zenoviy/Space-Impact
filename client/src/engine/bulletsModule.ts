@@ -7,7 +7,7 @@ import * as constructors from '../constructors/';
 
 
 function createRocketSmock({ mainGameObject }){
-    if(Math.floor(this.x) % 3 === 0){
+    if(Math.floor(this.x) % 10 === 0){
         explosionFire({
             targetData: this,
             mainGameObject: mainGameObject,

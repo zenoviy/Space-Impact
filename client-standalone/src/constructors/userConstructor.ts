@@ -93,7 +93,8 @@ class PlayerShip{
         this.img = new Image();
         this.journal = {
             defaultData: {
-                numberOfEnemy: 0
+                numberFlyOfEnemy: 0,
+                numberOfGroundEnemy: 0
             },
             levelTasks: []
         };

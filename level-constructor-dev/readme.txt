@@ -16,5 +16,26 @@ itemData = elementCreator({
                 innerText: innerText,
                 idName: 'description-requireText-'+ currentDescriptionId
             })
-            fileContainer.appendChild(itemData);  // display custom field inside element 
+            fileContainer.appendChild(itemData);  // display custom field inside element
+
+
+
+
+
+======================   set dialog 
+defaultRequestDialogId	- fire when require object is set
+defaultSuccessDialogId	- id of dialog fire when task was completed
+
+
+each dialog has own unique id
+each dialog has question buttons 
+	- each button must have target id  (id of target dialog)
+	- dialog has field   give_object/none    
+		- if give_object then character give to you a contain object
+		- if there is require you need set a number of require items in nearest field 
+		Number of require objects to activate dialog 
+
+
+
+
 		 

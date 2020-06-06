@@ -75,9 +75,11 @@ async function syncKeyControl({ mainGameObject: mainGameObject }){
             moveUnit({xPos: 0, yPos: 0.5, mainGameObject: mainGameObject, playerDirection: "down"});
         }
         if(controlKeys.left.some(obj => key == obj) ){
+            if(!preventSitMove({key: key, mapKeyCode: mapKeyCode})) continue
             moveUnit({xPos: 2 * -1, yPos: 0, mainGameObject: mainGameObject, playerDirection: "left"});
         }
         if(controlKeys.right.some(obj => key == obj) ){
+            if(!preventSitMove({key: key, mapKeyCode: mapKeyCode})) continue
             moveUnit({xPos: 2, yPos:0, mainGameObject: mainGameObject, playerDirection: "right"});
         }
         if(controlKeys.up.some(obj => key == obj) ){
@@ -86,6 +88,13 @@ async function syncKeyControl({ mainGameObject: mainGameObject }){
     }
 }
 
+
+
+function preventSitMove({key, mapKeyCode}){
+    if(key === '83' && mapKeyCode['68'] || key === '68' && mapKeyCode['83'] ||
+        key === '83' && mapKeyCode['65'] || key === '65' && mapKeyCode['83']) return false
+    return true
+}
 
 
 
@@ -324,7 +333,6 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls += (gravity/gravityIndex) + ((lastActionVertical === "down")? 1 : 0);// 1.4  2.5
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
                 groundPlayer.groundTouch = false;
-                console.log(mainGameObject.gameInitData.gameData.levelData.jumpImpuls)
             }
             if(groundPlayer.onElevator && groundPlayer.playerDirectionVertical === "up"){
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6 + ((lastActionVertical === "down")? 1 : 0);
