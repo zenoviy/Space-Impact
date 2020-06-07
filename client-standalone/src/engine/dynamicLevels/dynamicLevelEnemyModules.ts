@@ -1,11 +1,3 @@
-/*
-
-    V- ai logic
-    v- patrol
-     V   - when detect attack
-      V  - shot when in sight
-
-*/
 import { getData } from '../../server/serverRequestModules';
 import { loadGroundEnemy } from '../../server/gameDataRequestsServicesModule';
 
@@ -233,7 +225,6 @@ init detect NPC and player
  ========================== */
 async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectIntersectionDetect }){
     if(this.playerInRange) return false
-    //if(this.details.type != 'npc_spawner'){
         for(let person of npcData){
             if( !person || person.x > window.innerWidth + 100 || person.x < -100 ||
                 person.y > window.innerHeight + 100 || person.y < -100) continue
@@ -244,12 +235,10 @@ async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectInters
             this.detailstype === 'timer_enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ){
                let findUnit = await detectPlayer.call(this, {mainGameObject: mainGameObject, groundPlayer: person, allBlocks: allBlocks, objectIntersectionDetect: objectIntersectionDetect})
                 if(findUnit){
-                    //console.log(this.details.type, person.details.type)
                     return findUnit
                 }
             }
         }
-    //}
 }
 
 

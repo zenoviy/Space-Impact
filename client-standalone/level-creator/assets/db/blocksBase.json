@@ -1,5 +1,16 @@
 [
     {
+        "id": "block_border_wall",
+        "collision": true,
+        "texture": "/level-creator/assets/block/map-border.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#FF00AE",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
         "id": "block_brick-wall-1",
         "collision": true,
         "texture": "/level-creator/assets/block/brick-outside-left-side-corner.png",

@@ -348,8 +348,8 @@ function gameDynamicLevelBoxRender({ gameObject }){
     }
 
     for(let elevator of allElevators){
-        if(!elevator || elevator.x > window.innerWidth + elevator.width || elevator.x < elevator.width * -1 ||
-            elevator.y > window.innerHeight + elevator.height || elevator.y < elevator.height * -1) continue
+        /*if(!elevator || elevator.x > window.innerWidth + elevator.width || elevator.x < elevator.width * -1 ||
+            elevator.y > window.innerHeight + elevator.height || elevator.y < elevator.height * -1) continue*/
         if(!gameObject.gameInitData.gamePause) elevator.elevatorMove({ mainGameObject: gameObject })
         elevator.displayObjectAtScene(gameObject)
     }
@@ -492,10 +492,10 @@ async function gameDynamicPlayer({ gameObject }){
                     groundPlayer.spriteObjectsAnimation()
                 }
                 groundPlayer.changeVerticalAnimationPicture()
-                groundPlayer.detectObjectsAsMap({
+                /*groundPlayer.detectObjectsAsMap({
                     mainGameObject: gameObject,
                     objectIntersectionDetect: objectIntersectionDetect
-                })
+                })*/
                 if(groundPlayer.shotState && extraSeconds % 10 === 0 && (groundPlayer.shotAngle || groundPlayer.shotAngle === 0)){
                     //if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'false'){
                         let anglerandimize = (groundPlayer.playerDirectionVertical === "down")? Math.floor(Math.random() * 1)

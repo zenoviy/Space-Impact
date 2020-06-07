@@ -30,7 +30,6 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
     dynamicEnemy = allEnemyOnMap.map( enemyBlock => {
         let currentEnemyServerData = resultGroundEnemyData.find(item => item.id === enemyBlock.details.name)
         let prepareData = Object.assign(enemyBlock, currentEnemyServerData )
-        console.log(enemyBlock, resultGroundEnemyData)
         prepareData.texture = currentEnemyServerData.texture;
         enemyBlock.details.collision = false;
         return new constructors.DynamicEnemyConstructor({...prepareData})

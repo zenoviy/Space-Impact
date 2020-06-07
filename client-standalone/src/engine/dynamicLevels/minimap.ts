@@ -2,16 +2,20 @@ import { openInventory, hideInventory } from './playerUnitModule';
 import { createSimpleElements } from '../../appMenu/pagesBuilder';
 
 
-function detectObjectsAsMap({ mainGameObject, objectIntersectionDetect }){  // find nearest object
+function detectObjectsAsMap({ mainGameObject }){
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
-
-    this.mapFinder = allBlocks;
-    if(extraSeconds % 10 === 0){
+    if(extraSeconds % 5 === 0){
         for(let block of allBlocks){
-
+            if(block.x > 0 && block.x < window.innerWidth && block.y > 0 && block.y < window.innerHeight){
+                let compareBlock = this.mapFinder.find(object => object.index === block.index)
+                if(!compareBlock){
+                    this.mapFinder = this.mapFinder.concat(block)
+                }
+            }
         }
     }
+    return this.mapFinder
 }
 
 function createMapRenderField ({ mainGameObject }){
@@ -71,16 +75,23 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
             }
         }
     })
-
-    //console.log(blockIndex, mapPixelIndex, objectToRender['offsetWidth'], mapProps.blockSize, mapProps.width)
     var mapEngine = setInterval(function(){
+        let mapBlock = groundPlayer.detectObjectsAsMap({
+            mainGameObject: mainGameObject
+        }).filter(block => {
+            if(block.details){
+                if(block.details.collision){
+                    return block
+                }
+            }
+        })
         if(process.env.GROUND_CHARACTERS_INVENTORY === 'false' || process.env.GROUND_NPC_DIALOG_ACTIVE === 'true'){
-            //clearInterval(mapEngine)
+            clearInterval(mapEngine)
         }
 
 
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        for(let mapItem of solidBlock){
+        for(let mapItem of mapBlock){
             ctx.save();
             ctx.fillStyle = (mapItem.details.mapColor)? mapItem.details.mapColor: "rgba(225, 208, 0, 1)";
             let xPos = (mapItem.defaultMapX)? mapItem.defaultMapX : mapItem.x;
@@ -98,7 +109,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
                 let playerPositionY = groundPlayer.currentGroundBlock.defaultMapY - mapProps.blockSize;
                 //ctx.save();
                 ctx.fillStyle = "rgba(225, 8, 0, 1)";
-                ctx.fillRect( playerPositionX*blockIndex ,  (playerPositionY * blockIndex) + 50, mapPixelIndex*2, mapPixelIndex*2);
+                ctx.fillRect( playerPositionX * blockIndex ,  (playerPositionY * blockIndex) + 60, mapPixelIndex*2, mapPixelIndex*2);
                 //ctx.restore();
                 if(counting >= 1){
                     playerShow = false;

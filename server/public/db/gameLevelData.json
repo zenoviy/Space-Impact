@@ -374,20 +374,20 @@
         "levelBottomPart" : [
             {
                 "levelMap" : "/public/images/locations/night city/bottom-part-of-ruins.png",
-                "speed": 1.8,
+                "speed": 2,
                 "description": "first frame",
                 "imageWidth": 2448,
-                "imageHeight": 3108,
+                "imageHeight": 1131,
                 "animationSteps": 1,
                 "numberOfItems": 1,
                 "numberOfVerticalItems": 1
             },
             {
                 "levelMap" : "/public/images/locations/night city/bottom-part-of-ruins.png",
-                "speed": 1.8,
+                "speed": 2,
                 "description": "second frame",
                 "imageWidth": 2448,
-                "imageHeight": 3108,
+                "imageHeight": 1131,
                 "animationSteps": 1,
                 "numberOfItems": 1,
                 "numberOfVerticalItems": 1
@@ -1286,11 +1286,11 @@
             "speed": 0.4,
             "description": "second frame"
         },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_middle.png",
             "speed": 0.8,
             "description": "first frame"
         },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_middle.png",
             "speed": 0.8,
             "description": "second frame"
         },{
@@ -1338,47 +1338,53 @@
             "name": "Moon outpost",
             "description": "Leave Earth"
         },
+        "levelBottomPart" : [
+            {
+                "levelMap" : "/public/images/locations/moon surface/bottom-part-desert.png",
+                "speed": 0.7,
+                "description": "first frame",
+                "imageWidth": 2448,
+                "imageHeight": 1131,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            },
+            {
+                "levelMap" : "/public/images/locations/moon surface/bottom-part-desert.png",
+                "speed": 0.7,
+                "description": "second frame",
+                "imageWidth": 2448,
+                "imageHeight": 1131,
+                "animationSteps": 1,
+                "numberOfItems": 1,
+                "numberOfVerticalItems": 1
+            }
+        ],
         "levelSound": "/public/sound/ambient/final battle_moon.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
-            "speed": 0.1,
+            "speed": 0,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/space/space.png",
+            "speed": 0,
+            "description": "second frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
+            "speed": 0.1,
+            "description": "first frame"
+        },{
+            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
             "speed": 0.1,
             "description": "second frame"
         },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
+            "levelMap" : "/public/images/locations/moon surface/moon_surface_far.png",
             "speed": 0.2,
             "description": "first frame"
         },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface.png",
-            "speed": 0.2,
-            "description": "second frame"
-        },{
             "levelMap" : "/public/images/locations/moon surface/moon_surface_far.png",
-            "speed": 0.4,
-            "description": "first frame"
-        },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface_far.png",
-            "speed": 0.4,
-            "description": "second frame"
-        },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
-            "speed": 0.8,
-            "description": "first frame"
-        },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface_meadle.png",
-            "speed": 0.8,
-            "description": "second frame"
-        },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface_closest.png",
-            "speed": 2,
-            "description": "first frame"
-        },{
-            "levelMap" : "/public/images/locations/moon surface/moon_surface_closest.png",
-            "speed": 2,
+            "speed":  0.2,
             "description": "second frame"
         }],
         "levelDetails" : {

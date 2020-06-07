@@ -490,10 +490,6 @@ async function gameDynamicPlayer({ gameObject }){
                     groundPlayer.spriteObjectsAnimation()
                 }
                 groundPlayer.changeVerticalAnimationPicture()
-                groundPlayer.detectObjectsAsMap({
-                    mainGameObject: gameObject,
-                    objectIntersectionDetect: objectIntersectionDetect
-                })
                 if(groundPlayer.shotState && extraSeconds % 10 === 0 && (groundPlayer.shotAngle || groundPlayer.shotAngle === 0)){
                     //if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'false'){
                         let anglerandimize = (groundPlayer.playerDirectionVertical === "down")? Math.floor(Math.random() * 1)
