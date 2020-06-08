@@ -328,35 +328,41 @@ async function generateInput({fileContainer, target}){
             })
             fileContainer.appendChild(itemData);
     }
-    // change-size
+
+    if(blockDetails.spawnerHiddenId){
+        innerText = `<h3>Set target spawner id</h3>
+        <lable>
+            <p>id of hidden spawner</p>
+            <input type="number" id="hidden-spawner-id-${currentDescriptionId}"  min="1" value=${(blockDetails.spawnerHiddenId)? blockDetails.spawnerHiddenId : 1} >
+        </lable>
+        <button data-target='save-hidden-spawn-id-btn' class="main-btn">Save spawn hidden id</button> <hr>`;
+        itemData = elementCreator({
+            tagname: "div",
+            classList: 'single-block-description',
+            innerText: innerText,
+            idName: 'object-spawn-'+ currentDescriptionId
+        })
+        fileContainer.appendChild(itemData);
+    }
+    if(blockDetails.targetSpawnerId){
+        innerText = `<h3>Set spawn hidden id</h3>
+        <p>1, 2, 3 ....</p>
+        <lable>
+            <p>array of all target hidden spawner id</p>
+            <input type="text" id="target-hidden-spawner-id-${currentDescriptionId}"  min="1" value=${(blockDetails.targetSpawnerId)? blockDetails.targetSpawnerId : '1, 2'} >
+        </lable>
+        <button data-target='save-target-hidden-spawn-id-btn' class="main-btn">Save hidden spawner data</button> <hr>`;
+        itemData = elementCreator({
+            tagname: "div",
+            classList: 'single-block-description',
+            innerText: innerText,
+            idName: 'object-spawn-'+ currentDescriptionId
+        })
+        fileContainer.appendChild(itemData);
+    }
+
     fileContainer.addEventListener('click', async function(event){
-        //console.log('sdfd', event.target.dataset.target)
-        /*
 
-.toDataURL();
-
-// convert to base url
-let canvas = document.createElement('canvas');
-            canvas.width = 100;
-            canvas.height = 100;
-            let ctx = canvas.getContext('2d');
-            let img = new Image();
-            img.src = picture;
-
-        mg.onload = () =>{
-                ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height)
-                var dataURL = canvas.toDataURL();
-
-                let getPictureBase = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
-                let pictureBaseUrl = 'data:image/png;base64,' + getPictureBase;
-
-
-
-
-    "valueOfMove": 150,
-        "currentValueOfMove": 150,
-        "constructorValueOfMove": 150,
-    */
         let fieldName = '';
         let fieldResults: boolean;
         switch(event.target.dataset.target){ // save-elevator-range-btn
@@ -528,6 +534,20 @@ let canvas = document.createElement('canvas');
                 fieldResults = await changeDataInBlock({
                     key: 'maxNumberOfItem',
                     fieldSelector: '#next-number-of-items-id-'+ currentDescriptionId,
+                    target: target.details
+                })
+                break;
+            case 'save-hidden-spawn-id-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'spawnerHiddenId',
+                    fieldSelector: '#hidden-spawner-id-' + currentDescriptionId,
+                    target: target.details
+                })
+                break;
+            case 'save-target-hidden-spawn-id-btn':
+                fieldResults = await changeDataInBlock({
+                    key: 'targetSpawnerId',
+                    fieldSelector: '#target-hidden-spawner-id-' + currentDescriptionId,
                     target: target.details
                 })
                 break;

@@ -212,8 +212,8 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
 
     for(let item of nearMapObjects){
         if(!item) continue
-        if(!item || item.x > window.innerWidth + item.width || item.x < (item.width * -1) ||
-            item.y > window.innerHeight + 200 || item.y < (item.height * -1)) continue
+        if(!item || item.x > window.innerWidth + 200 || item.x < (item.width * -1) ||
+            item.y > window.innerHeight + 200 || item.y < (200 * -1)) continue
 
 
         let collision = objectIntersectionDetect({object: item, target: targetObject })
@@ -584,7 +584,7 @@ function dynamicLevelGrappleObjects({ mainGameObject, groundPlayer, target, expl
     groundPlayer.objectOwner === "groundPlayer" && target.details.type === "laptop_with_data" && target.details.display ||
     groundPlayer.objectOwner === "groundPlayer" && target.details.type === "scenario_object" && target.details.display){
         if(target.details.scripts){
-            respawnEnemy({ mainGameObject: mainGameObject, constructors: constructors })
+            respawnEnemy({ mainGameObject: mainGameObject, constructors: constructors, costumeBlocks: null })
         }
         saveObjectToBackPack({
             groundPlayer: groundPlayer,

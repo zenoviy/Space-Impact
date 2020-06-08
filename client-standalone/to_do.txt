@@ -30,6 +30,17 @@ Rebuild App to standalone version
 		V - /api/game-result
 
 
+static/shop/misc
+
+V - level-data
+V - level-objects
+V - grapple-objects
+V - user-ship
+V - enemy-ship
+V - get-ground-characters
+V- api/shop/guns api/grapple-objects
+V - api/shop/shipyard
+- api/shop/store-items
 ///////////////////////////////////
 
 webpack-builder-version
@@ -66,5 +77,6 @@ webpack-builder-version
 
 
 	src/engine/dynamicLevels/dynamicLevelEnemyModules	- loadLevelEnemy()  remove  process.env.HOST
-
 	src/engine/gameModules/save_load/loadGameData.ts
+
+	src/engine/enguneModules.ts		

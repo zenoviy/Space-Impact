@@ -301,20 +301,15 @@ function gameChangeEngineFunction({ gameObject }){
 function gameDynamicLevelBoxRender({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
-
     if(!allBlocks) return false
-
     let allElevators = allBlocks.filter(block => block.details.type === 'elevator')
     let allBackgrounds = allBlocks.filter(block => !block.details.collision || block.backgroundTexture)
 
     for(let background of allBackgrounds){
-        //if(!background) continue
         if(!background || background.x > window.innerWidth + background.width || background.x + 50 < background.width * -1 ||
             background.y > window.innerHeight + background.height || background.y + 50 < (background.height * -1)) continue
-        respawnEnemyByTimer({mainGameObject: gameObject, constructors: constructors, currentBlock: background});
+            respawnEnemyByTimer({mainGameObject: gameObject, constructors: constructors, currentBlock: background});
         if(background.backgroundTexture){
-            
-            //console.log(block)
            displayObjectAtScene.call({
                 x: background.x,
                 y: background.y,
@@ -348,14 +343,12 @@ function gameDynamicLevelBoxRender({ gameObject }){
     }
 
     for(let elevator of allElevators){
-        /*if(!elevator || elevator.x > window.innerWidth + elevator.width || elevator.x < elevator.width * -1 ||
-            elevator.y > window.innerHeight + elevator.height || elevator.y < elevator.height * -1) continue*/
         if(!gameObject.gameInitData.gamePause) elevator.elevatorMove({ mainGameObject: gameObject })
         elevator.displayObjectAtScene(gameObject)
     }
     for(let block of allBlocks){
-        if(!block || block.x > window.innerWidth + block.width || block.x + 50 < block.width * -1 ||
-            block.y > window.innerHeight + block.height + 200 || block.y + 50 < (block.height * -1)) continue
+        if(!block || block.x > window.innerWidth + block.width || block.x < block.width * -1 ||
+            block.y > window.innerHeight + block.height + 220 || block.y  < 0 - block.height ) continue
         if(!block) continue
             if(block.details.type === 'enemy_spawner' ||  block.details.type === 'hidden_enemy_spawner' || block.details.type === 'timer_enemy_spawner' ||
             block.details.type === 'npc_spawner' || block.details.type === 'elevator' ||
@@ -393,14 +386,12 @@ async function gameDynamicEnemyRender({ gameObject }){
             if(block.details.collision) return block
         }
     });
-    let extraSeconds = gameObject.gameInitData.gameExtraSeconds;
     groundPlayer.isRun = false;
-    //levelInformation.jumpImpuls;
     if(!allEnemy) return false
 
     for(let enemy of allEnemy){
-        if(!enemy || enemy.x > window.innerWidth + enemy.width   || enemy.x < (enemy.width * -1) ||
-            enemy.y > window.innerHeight + enemy.height || enemy.y < (enemy.height * -1)) continue
+        if(!enemy || enemy.x > window.innerWidth || enemy.x < (enemy.width * -1) ||
+            enemy.y > window.innerHeight || enemy.y < (enemy.height * -1)) continue
             enemy.displayObjectAtScene(gameObject)
             enemy.changeVerticalAnimationPicture()
             if(!enemy.objectPresent ){
@@ -409,7 +400,6 @@ async function gameDynamicEnemyRender({ gameObject }){
                 continue
             }
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
-                //deleteObjectsOnDemand({object: enemy, mainGameObject: gameObject, target: 'dynamicLevelEnemy' })
                 enemy.spriteObjectsAnimation()
                 enemy.groundEnemyMove({
                     mainGameObject: gameObject,
@@ -461,13 +451,11 @@ async function gameDynamicEnemyRender({ gameObject }){
                     callback: shot,
                     constructors: constructors
                 })
-
                 npcCollisionDetect({ mainGameObject: gameObject, enemy: enemy });
             }
             displayObjectLifeSign({ mainGameObject: gameObject, targetObject: enemy });
             enemy.onLeader = false;
     }
-   // groundPlayer.xPos = 0;
 }
 
 
@@ -477,12 +465,10 @@ async function gameDynamicEnemyRender({ gameObject }){
 async function gameDynamicPlayer({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     if(!gameObject.gameInitData.gameOver && gameObject.gameInitData.gameStatus){
-        //   відмальовувати плеєра
             let extraSeconds = gameObject.gameInitData.gameExtraSeconds;
             let groundPlayer = gameObject.gameInitData.gameData.groundPlayerCharacter;
             let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
             let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
-            //await syncKeyControl({ mainGameObject: gameObject })
             groundPlayer.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
 
@@ -492,12 +478,10 @@ async function gameDynamicPlayer({ gameObject }){
                     groundPlayer.spriteObjectsAnimation()
                 }
                 groundPlayer.changeVerticalAnimationPicture()
-                /*groundPlayer.detectObjectsAsMap({
-                    mainGameObject: gameObject,
-                    objectIntersectionDetect: objectIntersectionDetect
-                })*/
+                if(process.env.GROUND_CHARACTERS_INVENTORY === 'false'){
+                    groundPlayer.detectObjectsAsMap({mainGameObject: gameObject})
+                }
                 if(groundPlayer.shotState && extraSeconds % 10 === 0 && (groundPlayer.shotAngle || groundPlayer.shotAngle === 0)){
-                    //if(process.env.GROUND_NPC_DIALOG_ACTIVE === 'false'){
                         let anglerandimize = (groundPlayer.playerDirectionVertical === "down")? Math.floor(Math.random() * 1)
                         : (!groundPlayer.groundTouch)? Math.floor(Math.random() * 10)
                         : Math.floor(Math.random() * 5);
@@ -513,7 +497,6 @@ async function gameDynamicPlayer({ gameObject }){
                             constructors.SoundCreator,
                             "player",
                             "allGroundGameBullets")
-                    //}
                 }
                 await blockCollision({
                     objectsToCollide: allBlocks,
@@ -523,35 +506,26 @@ async function gameDynamicPlayer({ gameObject }){
                     explosionFire: explosionFire,
                     constructors: constructors
                 })
-
                 await computersDialog({ mainGameObject: gameObject, allBlocks: allBlocks })
-                // syncKeyControl({ mainGameObject: gameObject })
-                //console.log(groundPlayer.leftWallTouch, groundPlayer.rightWallTouch, groundPlayer.groundTouch)
-
-                //console.log(groundPlayer.groundTouch, "||11")
                 await mapGravityInit({
                     mainGameObject: gameObject,
                     mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
                     targetObject: groundPlayer,
                     constructors: constructors
                 })
-                //syncKeyControl({ mainGameObject: gameObject })
+
                 await gameObject.hitDetection({
                     object1: groundPlayer,
                     objectsArr: gameObject.gameInitData.allGameSideObjects,
                     mainGameObject: gameObject,
                     GrappleObject : constructors.GrappleObject
                 })
-                //doorFunctionality.call(groundPlayer)
                 groundPlayer.xPos = 0;
         }
     }
 
 }
 
-
-
-// спавн модуля ворогів на майбутнє
 
 
 function gameUiGameStats({ gameObject }){

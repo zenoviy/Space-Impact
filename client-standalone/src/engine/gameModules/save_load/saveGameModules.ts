@@ -168,7 +168,6 @@ async function overwriteSaveData({currentSave, mainGameObject}){
     await fs.unlinkSync(storage.getDataPath() + '/' +  currentSave.saveName + '.json');
     await writeElectronLocalData({fileName: (currentSave.saveName)? currentSave.saveName: saveTime, data: JSON.stringify(saveGameData)})
     allData = await showSaveData();
-    console.log('overwrite')
     displaySavesOnScreen({
         saveScreen: getContext.saveScreen,
         saveData: allData,

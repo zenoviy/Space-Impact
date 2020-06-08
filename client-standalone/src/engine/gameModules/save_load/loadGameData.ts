@@ -46,7 +46,6 @@ async function loadSavesFromFolder(){
             if(fileName[1]){
                 if(fileName[0] != '"game-saves' && fileName[0] != '"game-settings' && fileName[0] != '"gameResults'){
                     numberOfSaves += 1;
-                    console.log(numberOfSaves);
                     process.env.NUMBER_OF_SAVES = numberOfSaves.toString();
                 }
 
@@ -117,7 +116,6 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
             let pictureURL = save.savePicture; //await storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
             img.src = (pictureURL)? pictureURL : null;
             await new Promise((resolve, reject) => {
-                console.log(save)
                 img.src = (save.savePicture)? save.savePicture : null;
                 img.onload = () => {
                     resolve({pictureURL: save.savePicture})

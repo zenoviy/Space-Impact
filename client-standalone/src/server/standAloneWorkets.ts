@@ -4,7 +4,6 @@ var storage = require('electron-json-storage');
 import { writeElectronLocalData } from './serverRequestModules';
 
 async function searchDataInFile({url, headers, method, data}){
-    //let promise = new Promise(async (resolve, reject) => {
         let resultData = null;
         switch(url){
             case 'api/level-data':
@@ -32,7 +31,7 @@ async function searchDataInFile({url, headers, method, data}){
                 break
             case 'api/shop/guns':
                 if(method === "GET") resultData = await shopGunsWorker({url: url, headers: headers});
-                if(method === "PUT") resultData = await shopGunsWorkerPut({url: url, headers: headers});//console.log("shop put")
+                if(method === "PUT") resultData = await shopGunsWorkerPut({url: url, headers: headers});
                 break
             case 'api/shop/shipyard':
                 if(method === "GET") resultData = await shipYardWorker({url: url, headers: headers});
@@ -52,23 +51,14 @@ async function searchDataInFile({url, headers, method, data}){
     if(resultData) return resultData
 }
 
-
-
-async function postGameResultWorker(){
-
-}
-
-
-
 async function levelDataWorker({url, headers}){
         return new Promise(async (resolve, reject) => {
             fs.readFile(path.join(__dirname, './public/db/gameLevelData.json'), (err, data) => {
                 if(err){
                     return console.log(err)
                 };
-                if(!headers['maplevel']) return resolve({message: "no-level-identificator"});
+                if(!headers['maplevel'] && headers['maplevel'] != 0) return resolve({message: "no-level-identificator"});
 
-                console.log(headers)
                 let readObject = JSON.parse(data)
                 let responseItem = readObject.find((data) => { return data.level == headers['maplevel']})
                 if(!responseItem) return resolve({message: "no-level-found"});
@@ -84,22 +74,23 @@ async function levelDataWorker({url, headers}){
 
 
 async function levelObjectsWorker({url, headers}){
-    return new Promise(async (resolve, reject) => {    
+    return new Promise(async (resolve, reject) => {
         fs.readFile(path.join(__dirname, './public/db/gameLevelObject.json'), (err, data) => {
             if(err){
                 return console.log(err)
             };
             let readObject = JSON.parse(data)
             let objectType = headers.mapObject;
-            if(!objectType && objectType != 0) reject({message: "no-map-object-identificator"});
-            if(objectType.length < 1) reject({ message: "object type is empty" })
+            if(!objectType && objectType != 0){
+                resolve(null);
+                return false
+            }
+            //if(objectType.length < 1) resolve([])
             objectType = headers.mapObject.map(item => item);
 
             let responseItem = readObject.filter(item => {
                     return headers.mapObject.some(obj => obj == item.id)
             });
-
-            //res.send(responseItem);
             if(responseItem) resolve(responseItem)
             else reject(err)
         })
@@ -114,8 +105,11 @@ async function grappleObjectsWorker({url, headers}){
             let readObject = JSON.parse(data)
 
             let objectType = headers.grappleObject;
-            if(!objectType && objectType != 0) return reject({message: "no-grapple-objects-identificator"});
-            if(objectType.length < 1) return reject({ message: "object type is empty" });
+            if(!objectType && objectType != 0) {
+                resolve([]);
+                return false
+            };
+            if(objectType.length < 1) return resolve([]);
             objectType = (objectType instanceof Object)? objectType.map(item => item) : objectType;
 
             let responseItem = readObject.filter(item => {
@@ -160,7 +154,7 @@ async function enemyShipWorker({url, headers}){
             let readObject = JSON.parse(data)
             let enemyType = headers['ship-type-number'];
             if(!enemyType){
-                reject({ message: "there is no enemy ship type" });
+                resolve([]);
                 return console.log("there is no enemy ship type")
             }
             enemyType = enemyType.map(item => item);
@@ -241,7 +235,6 @@ async function shopGunsWorkerPut({url, headers}){
                 resolve({message: 'there is no data yet'})
                 return
             }
-            console.log(headers)
             let userCoins = headers['usercoins'];
             let itemName = headers['itemName'];
 
@@ -264,7 +257,6 @@ async function shipYardWorker({url, headers}){
                 resolve({message: 'there is no data yet'})
                 return
             }
-            console.log('Shipyard')
             let readObject = JSON.parse(data).map((obj) => { return {
                 loadImage: obj.hangarImage,
                 background: obj.background,
@@ -333,7 +325,6 @@ function storeItemsWorkerGet({url, headers}){
                 resolve({message: 'there is no data yet'})
                 return
             }
-            console.log('Store')
             let readObject = JSON.parse(data).map((obj) => { return {
                 loadImage: obj.loadImage,
                 background: obj.background,
@@ -385,12 +376,10 @@ async function getResultlData ({url, headers}) {
                 storage.setDataPath(dir);
                 await writeElectronLocalData({fileName: 'gameResults', data: "[]"});
                 resolve({message: 'there is no data yet'});
-                console.log(fs.existsSync(dir + '/' + 'gameResults.json'), dir + '/' + 'gameResults.json');
                 return
             }
 
             let readObject = JSON.parse(data);
-            console.log(readObject)
             if(readObject.length === 0){
                 resolve({message: 'there is no data yet'});
                 return
@@ -559,73 +548,8 @@ async function updateResultlData ({url, headers, saveData}) {
             return {data: data, status: "wrong-password", name: null}
         }else return {data: data, status: "not-exist", name: null}
     }
-   /* let dir = __dirname + '../../../public/userData/';
-    if (!fs.existsSync(dir + 'gameResults.json')){
-        await dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify([])})
-    }
-    fs.readFile(__dirname + '../../../public/userData/gameResults.json', "utf8", (err, data) => {
-        if(err){ res.send(`We cant find such file ${err}`); return console.log(err)};
-
-        if(!req.body.userEmail || typeof req.body.userEmail != 'string'){
-            res.send({message: "Email field is incorrect, must be max 30 character min 3", status: "warning"})
-                return
-        }
-
-        if(!req.body.userPassword || typeof req.body.userPassword != 'string'){
-            res.send({message: "Password field is incorrect, must be max 30 character min 3", status: "warning"})
-                return
-        }
-
-        let readObject = null, dataArr = [];
-        if(data && req.body.gamePoints && req.body.userPassword && req.body.userEmail && req.body.gameCoins){
-            readObject = JSON.parse(data)
-            let findUser = dataUpdater(readObject, req.body)
-            let messageText = "", status;
-            switch(findUser.status){
-                case "replace":
-                    messageText = `Congratulation ${findUser.name} your score is saved`;
-                    status = "success";
-                    break
-                case "lo-result":
-                    messageText = `Your score is less than existing one`;
-                    status = "warning";
-                    break
-                case "equal-result":
-                    messageText = `Your score the same as existing one`;
-                    status = "warning";
-                    break
-                case "wrong-password":
-                    messageText = `Wrong password try again`;
-                    status = "reject";
-                    break
-                case "not-exist":
-                    messageText = `There is no such email`;
-                    status = "reject";
-                    break
-                default:
-                    messageText = `There is no such user`;
-                    status = "reject"
-            }
-            res.send({message: messageText, status: status})
-            if( status != "reject") dataWriter({fileName: '../../../public/userData/gameResults.json', data:JSON.stringify(findUser.data)})
-            return
-        }
-    })*/
 }
 
-/*
-static/shop/misc
-
-V - level-data
-V - level-objects
-V - grapple-objects
-V - user-ship
-V - enemy-ship
-V - get-ground-characters
-V- api/shop/guns api/grapple-objects
-V - api/shop/shipyard
-- api/shop/store-items
-*/
 
 export {
     searchDataInFile

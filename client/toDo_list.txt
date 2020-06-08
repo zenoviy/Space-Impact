@@ -195,6 +195,7 @@ V- add NPC set behavior
 V- add enemy spawner by time
 	V- number
 	V- timer
+		- based on id or on screen data
 V- display life
 V- background move separatly
 V- collect points

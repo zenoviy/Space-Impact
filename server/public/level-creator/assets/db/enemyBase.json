@@ -59,6 +59,7 @@
         "width": 50,
         "height": 50,
         "name": "enemy-soldier-1",
+        "spawnerHiddenId": 1,
         "rules": {
             "tips": "",
             "require": null,
@@ -84,6 +85,7 @@
         "maxNumberOfItem": 1,
         "spawnSeconds": 5,
         "name": "enemy-soldier-1",
+        "targetSpawnerId": "1, 2",
         "rules": {
             "tips": "",
             "require": null,

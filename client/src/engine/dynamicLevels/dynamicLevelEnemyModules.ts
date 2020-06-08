@@ -549,8 +549,8 @@ function groundEnemyShot({ mainGameObject, allBlocks, callback, constructors }){
 
 
 
-function respawnEnemy ({ mainGameObject, constructors }){
-    let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+function respawnEnemy ({ mainGameObject, constructors, costumeBlocks }){
+    let allBlocks = (costumeBlocks)? costumeBlocks : mainGameObject.gameInitData.dynamicLevelMapBlocks;
     loadEnemyToObjectArray({
         mainGameObject: mainGameObject,
         levelDynamicMapBlocks: allBlocks,
@@ -564,16 +564,28 @@ function respawnEnemyByTimer({ mainGameObject, constructors, currentBlock }){
     if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy.filter(enemy => {
-        if(enemy.details.type != 'npc_spawner' && enemy.healthPoint > 0 ) return enemy
+        if(enemy.details.type != 'npc_spawner' && enemy.healthPoint > 0
+        && enemy.x > 0 - 500 && enemy.y > 0 -500 && enemy.x < window.innerWidth + 500 && enemy.x < window.innerHeight + 500) return enemy
     });
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     if(currentBlock.details.type === 'timer_enemy_spawner' ){
         if(extraSeconds % (parseInt(currentBlock.details.spawnSeconds)* 100) === 0  && allEnemy.length < currentBlock.details.maxNumberOfItem){
-            respawnEnemy({ mainGameObject, constructors })
+
+
+            let targetId = (currentBlock.details.targetSpawnerId)? currentBlock.details.targetSpawnerId.split(',') : 1;
+            let costumeBlocks = allBlocks.filter(block => {
+                if(block.details.type ===  "hidden_enemy_spawner"){
+                    console.log(block.spawnerHiddenId)
+                    if(targetId.some(obj => obj == block.details.spawnerHiddenId)) return block
+                }
+            })
+            respawnEnemy({ mainGameObject, constructors, costumeBlocks: costumeBlocks })
         }
     }
     deleteOldEnemy({ mainGameObject: mainGameObject })
 }
+
+
 
 
 function deleteOldEnemy({ mainGameObject }){

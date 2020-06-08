@@ -100,7 +100,7 @@ V- add NPC
         mainObject.clearView()
         //console.log(mainObject.allRedactorBlock)
         for(let block of mainObject.allRedactorBlock){
-            if(block.xMove > 0 -100 && block.xMove < window.innerWidth + 100 &&  block.yMove > 0 -100 && block.yMove < window.innerHeight + 100){
+            if(block.xMove > 0 - block.width && block.xMove < window.innerWidth + block.width &&  block.yMove > 0 - block.height && block.yMove < window.innerHeight + block.height){
                 await block.renderBlockBox({ mainObject: mainObject })
                await block.elevatorMove()
                await blockAnimationRender({ block: block })

@@ -2109,6 +2109,50 @@
         "imageWidth": 59,
         "imageHeight": 58
     },{
+        "id": "block_space-station-floor-15b",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-17b.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-15c",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-17c.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-15d",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-17d.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_space-station-floor-15e",
+        "collision": true,
+        "texture": "/level-creator/assets/block/station-floor-17e.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#483816",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
         "id": "block_space-station-floor-16",
         "collision": true,
         "texture": "/level-creator/assets/block/station-floor-18.png",
@@ -2317,10 +2361,102 @@
         "isDestroy": false,
         "type": "ground",
         "backgroundTexture": null,
-        "mapColor": "#483816",
+        "mapColor": "#EDFAFF",
         "imageWidth": 59,
         "imageHeight": 58
     },{
+        "id": "block_alien-station-floor-3a",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-6.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3b",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-7.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3c",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-8.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3d",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-9.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3e",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-10.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3f",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-11.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3g",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-12.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    },{
+        "id": "block_alien-station-floor-3h",
+        "collision": true,
+        "texture": "/level-creator/assets/block/alien-wall-13.png",
+        "description": "Solid block",
+        "isDestroy": false,
+        "type": "ground",
+        "backgroundTexture": null,
+        "mapColor": "#EDFAFF",
+        "imageWidth": 59,
+        "imageHeight": 58
+    }
+
+
+
+    ,{
         "id": "block_alien-station-floor-4",
         "collision": true,
         "texture": "/level-creator/assets/block/alien-wall-4.png",

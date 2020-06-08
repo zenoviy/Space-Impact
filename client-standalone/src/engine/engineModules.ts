@@ -96,6 +96,7 @@ async function levelInit (GameBackground, ctx, mainGameObject){
     }
 
     function loadMapBackgroud ( backgroundElementsArr, yPosition , height){
+        
         for(let mapObject of backgroundElementsArr){
 
             let mapItem = new GameBackground({
@@ -494,22 +495,18 @@ function angleFinder({object, target}){
     let finalAngle = 0
     if(x1 < 0 && y1 < 0){
         finalAngle = 90 - rotateAngle;
-        //console.log('0 - 90')
     }
     if(x1 > 0 && y1 < 0){
         finalAngle = 90 - rotateAngle;
-        //console.log('180 - 90')
     }
     if(x1 > 0 && y1 > 0){
         finalAngle = 270 - rotateAngle;
-        //console.log('180 - 270')
     }
     if(x1 < 0 && y1 > 0){
         finalAngle = 270 + rotateAngle * -1;
-        //console.log('270 - 360')
     }
 
-    return finalAngle//rotateAngle
+    return finalAngle
 }
 
 
