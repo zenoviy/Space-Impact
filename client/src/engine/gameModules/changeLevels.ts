@@ -57,6 +57,7 @@ async function nextLevelDataReload(levelData, constructors){
         context.gameInitData.levelChange = false;
         context.gameInitData.levelWindowDescription = false;
         process.env.BOSS_LOAD_AT_LEVEL = "false";
+        process.env.GROUND_PLAYER_ALLOW_MOVE = 'false';
         fillJournalDefaultData({mainGameObject: context})
     }, 5000)
 

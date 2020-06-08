@@ -6,7 +6,6 @@ function openJournal ({ mainGameObject, userShipData }){
     let userShipJournal = userShipData.journal;
     let backpackBody = document.querySelector('#backpack-body');
     backpackBody.innerHTML = '';
-    console.log(userShipJournal, '||')
     if(process.env.GROUND_CHARACTERS_INVENTORY === 'false'){
         fillJournalDefaultData({mainGameObject: mainGameObject})
         displayJournalData({userShipJournal: userShipJournal, backpackBody: backpackBody, mainGameObject: mainGameObject})
@@ -22,9 +21,7 @@ function fillJournalDefaultData ({mainGameObject}){
     let gameInfo = mainGameObject.showGameInfo();
     let userShipData = mainGameObject.gameInitData.gameData.playerObject;
     let userShipJournal = userShipData.journal;
-    console.log(userShipJournal, 'start journal')
     if(userShipJournal.levelTasks && !userShipJournal.levelTasks[gameInfo.gameData.levelData.level] && gameInfo.gameData.levelData.level){
-         console.log('fill default data', gameInfo.gameData.levelData.level)
         let levelDataDescription = gameInfo.gameData.levelData.description;
         let cureentLevalTasks = {
             levelName: gameInfo.gameData.levelData.description.name,
@@ -44,7 +41,6 @@ function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
     let gameInfo = mainGameObject.showGameInfo();
     let journalLevelElement = '';
     let journalData = Object.assign([], userShipJournal.levelTasks).reverse();
-    console.log(userShipJournal)
     for(let task of journalData){
         if(!task) continue
 
@@ -68,7 +64,6 @@ function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
         let innerTasks = '';
         if(!levelTasks) return innerTasks
         for(let detailTask of levelTasks){
-            console.log(userShipJournal)
             let localTask = (detailTask.numberOfItems)? `${detailTask.dialogOwner} require: ${detailTask.numberOfItems} ${detailTask.requireObject}`:
             (detailTask.requireObject)? detailTask.requireObject: null;
 
@@ -96,8 +91,6 @@ function writeDataToJournal({ mainGameObject, dialogArea, requireData, npcDetail
     }
 
     if(userShipJournal.levelTasks[gameInfo.gameData.levelData.level]){
-        console.log(npcDialog.default.name)
-        console.log(npcDialog)
         let checkTask = userShipJournal.levelTasks[gameInfo.gameData.levelData.level].levelTasks.find(task => task.id === requireObject);
         if(checkTask) return false
 

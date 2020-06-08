@@ -34,6 +34,7 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         return block.details.type != 'enemy_spawner' && block.details.type != 'npc_spawner' &&
         block.details.type != 'hidden_enemy_spawner' && block.details.type === 'timer_enemy_spawner';
     })
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'true';
     return dynamicEnemy
 }
 

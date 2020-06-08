@@ -17,6 +17,7 @@ function initAppGlobalVariable(){
     process.env.GROUND_CHARACTERS_INVENTORY = 'false';
     process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
     process.env.GROUND_NPC_DIALOG_ACTIVE = 'false';
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'false';
 
 
     process.env.SHOP_GUNS_URL = 'api/shop/guns';
