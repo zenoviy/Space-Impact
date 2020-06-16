@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+body{
+    background: #000;
+}
+canvas{
+    background: #fff;
+}
+</style>
+<body>
+    <img width="100%" src="../images/spaceShips/enemy_ship_1.png">
+    <canvas id="display"></canvas>
+
+
+    <section>
+        <img src="https://imagevars.gulfnews.com/2020/03/11/Reader-picture_170c9c539d6_original-ratio.jpg" id="default-pic" alt="pic" width="100">
+        <img src="" alt="picture" id="preload-picture" width="100">
+        <input id="picture-load" type="file" accept="image/png, image/jpeg" >
+    </section>
+</body>
+<script>
+    var display = document.querySelector("#display");
+    var ctx = display.getContext('2d');
+    display = Object.assign(display, {width: 1000, height: 500});
+
+    var shipInformation = {
+        imageInfo: {
+            animationSteps: 5,
+            numberOfItems: 44,
+            imageHeight: 294,
+            imageWidth: 12891,
+            singleFrame: this.imageWidth/this.numberOfItems
+        },
+        width: 70,
+        height: 70,
+        x: 100,
+        y: 50,
+        sx: 0,
+        sy: 0,
+        sWidth:  294,
+        sHeight: 12891/44,
+        img: new Image(),
+        texture: '../images/misc/fire/explosion.png',
+        animation: setInterval(animateShip, 20),
+        detectFrame: 0
+    }
+    crateShip.call(shipInformation)
+    function crateShip(){
+        this.imageInfo.singleFrame = this.imageInfo.imageWidth/this.imageInfo.numberOfItems;
+        this.sWidth = this.imageInfo.singleFrame;
+        this.sHeight = this.imageInfo.imageHeight;
+
+        this.img.src = this.texture;
+        this.img.addEventListener("load", (e) => {
+            initLoad.call(this)
+        })
+    }
+    function initLoad(){
+         draw(
+                ctx,
+                'drawImage',
+                this.img,
+                this.sx,
+                this.sy,
+                this.sWidth,
+                this.sHeight,
+                this.x,
+                this.y,
+                this.width,
+                this.height)
+    }
+    function animateShip(obj){
+        clear()
+        shipInformation.detectFrame += 1;
+        if(shipInformation.detectFrame % shipInformation.imageInfo.animationSteps == 0){
+            shipInformation.sx += shipInformation.imageInfo.singleFrame;
+            if(shipInformation.sx >= shipInformation.imageInfo.imageWidth){
+                shipInformation.sx = 0;
+            };
+        }
+        initLoad.call(shipInformation)
+    }
+    function clear(){
+        ctx.fillStyle = "rgba(22,44,11,1)";
+        draw(ctx, 'clearRect', 0, 0, display.width, display.height);
+        ctx.fill()
+    }
+    document.addEventListener("mousemove", (e) => {
+        shipInformation.x = e.pageX;
+        shipInformation.y = e.pageY;
+
+    })
+    function draw(context, propName, ...rest){
+        context[propName](...rest);
+    }
+
+
+/*============================ load image =================================*/
+
+let pic = 'data:image/png;base64,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';
+const pictureLoad = document.querySelector('#picture-load');
+const defaultPicture = document.querySelector('#default-pic');
+
+
+pictureLoad.addEventListener('change', function(){loadPicture.call(this) })
+
+//defaultPicture.addEventListener('load', function(){loadPicture.call(this)})
+setPicture({ url: pic })
+
+
+    function loadPicture(){
+        const reader = new FileReader();
+
+        console.log(this)
+
+        reader.addEventListener('load', function(){
+
+            setPicture({ url: reader.result })
+        }, false)
+
+        if (this.files) {
+            console.log(this.files[0])
+            reader.readAsDataURL(this.files[0]);
+        }else if(this.src){
+            let canvas = document.createElement('canvas');
+            canvas.width = this.width;
+            canvas.height = this.height;
+            let ctx = canvas.getContext('2d');
+            let img = new Image();
+            img.src = this.src;
+
+
+            img.onload = () =>{
+                console.log(this)
+                ctx.drawImage(this, 33, 71, 104, 124, 21, 20, 87, 104)
+
+                var dataURL = canvas.toDataURL();
+
+                let finalRes = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+                setPicture({ url: finalRes })/**/
+            }
+        }
+    }
+
+    function setPicture({ url }){
+        let imageArea = document.querySelector('#preload-picture');
+        console.log(url)
+
+        imageArea.src = url
+    }
+</script>
+</html>
