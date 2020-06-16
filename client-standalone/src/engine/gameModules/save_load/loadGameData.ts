@@ -304,10 +304,12 @@ function backToObject({data, constructor}){
 
 
 function loadedScreenActive(){
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'false';
     let object = document.querySelector("#wait-screen");
     show(object);
 }
-function loadedScreenDective(){
+function loadedScreenDeactive(){
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'true';
     let object = document.querySelector("#wait-screen");
     hide(object);
 }
@@ -453,6 +455,7 @@ function loadSaveProcedure({mainGameObject, currentSave}){
     process.env.SHOP_STORE_WINDOW = 'false';
     process.env.GROUND_CHARACTERS_INVENTORY = 'false';
     process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'true';
 
 
     process.env.OVERWRITE_SAVE = 'false';
@@ -487,5 +490,5 @@ export {
     showSaveData,
     displaySavesOnScreen,
     loadedScreenActive,
-    loadedScreenDective
+    loadedScreenDeactive
 }

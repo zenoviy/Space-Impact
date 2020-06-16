@@ -615,7 +615,7 @@ function gameUiEngineFunction({ gameObject }){
     const gameObject = await mainGameObject.gameObject;
     const playerShipData = await mainGameObject.playerShipData;
 
-
+    process.env.GROUND_PLAYER_ALLOW_MOVE = (gameObject.gameInitData.gameData.levelData.dynamicLevelsActive)? 'false' : 'true';
 
     const navigation: any = await appMenuAndSoundInit({gameObject: gameObject});
     await appSoundInit({gameObject: gameObject})

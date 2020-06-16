@@ -28,6 +28,7 @@ function uiController(){
     let gameObject = this;
 
     document.addEventListener("keydown",(event: any)=>{
+        if(process.env.GROUND_PLAYER_ALLOW_MOVE === 'false') return false
         if(controlKeys.escape.some(o => event.keyCode == o) ) gameObject.gameUiMenu(this.gameInitData.gameUiPause);
         if(controlKeys.pause.some(o => event.keyCode == o) ) gameObject.gameUiPause();
     })

@@ -1,4 +1,5 @@
 import { positionReducer } from './blockDataRedactorModule';
+import { sidePanelItemsSelectProcess } from '../ui/view';
 
 
 function collisionDetector({object, target}){
@@ -47,8 +48,11 @@ function changeObjectModel({ result, mainObject }){
 
     let selectedBlockPanelItem = Object.assign({}, mainObject.selectedBlockPanelItem);
     //console.log( mainObject.selectedBlockPanelItem, selectedBlockPanelItem, currentBlock )
-   // console.log(mainObject.selectedBlockPanelItem, "|")
-    if(!mainObject.selectedBlockPanelItem.destroyer){
+    //console.log(mainObject.selectedBlockPanelItem, "|")
+   if(mainObject.selectedBlockPanelItem.copyBlock){
+        if(!currentBlock.details) return false
+        sidePanelItemsSelectProcess({mainObject: mainObject, blockItem: currentBlock.details})
+   }else if(!mainObject.selectedBlockPanelItem.destroyer){
 
         if(mainObject.selectedBlockPanelItem.type === "background-wall" && currentBlock.details){
             selectedBlockPanelItem.width = mainObject.blockSize;

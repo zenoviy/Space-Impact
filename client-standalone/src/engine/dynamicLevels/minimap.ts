@@ -10,7 +10,20 @@ function detectObjectsAsMap({ mainGameObject }){
             if(block.x > 0 && block.x < window.innerWidth && block.y > 0 && block.y < window.innerHeight){
                 let compareBlock = this.mapFinder.find(object => object.index === block.index)
                 if(!compareBlock){
-                    this.mapFinder = this.mapFinder.concat(block)
+                    if(!block.details) continue
+                    if(!block.details.collision) continue
+                    var newBlock = Object.assign({}, {
+                        index: block.index,
+                        defaultMapX: (block.defaultMapX)? block.defaultMapX : 0,
+                        defaultMapY: (block.defaultMapY)? block.defaultMapY : 0,
+                        x: (block.x)? block.x : 0,
+                        y: (block.y)? block.y : 0,
+                        details: {
+                            collision: (block.details.collision)? block.details.collision : null,
+                            mapColor: (block.details.mapColor)? block.details.mapColor : null
+                        }
+                    })
+                    this.mapFinder = this.mapFinder.concat(newBlock)
                 }
             }
         }
@@ -68,15 +81,8 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
         objectToRender.appendChild(canvas);
         objectToRender.prepend(mapName);
 
-    var solidBlock = mapProps.inventoryMap.filter(block => {
-        if(block.details){
-            if(block.details.collision){
-                return block
-            }
-        }
-    })
     var mapEngine = setInterval(function(){
-        let mapBlock = groundPlayer.detectObjectsAsMap({
+       let mapBlock = groundPlayer.detectObjectsAsMap({
             mainGameObject: mainGameObject
         }).filter(block => {
             if(block.details){
@@ -85,6 +91,8 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
                 }
             }
         })
+         //groundPlayer.mapFinder;
+        //console.log(mapBlock, )
         if(process.env.GROUND_CHARACTERS_INVENTORY === 'false' || process.env.GROUND_NPC_DIALOG_ACTIVE === 'true'){
             clearInterval(mapEngine)
         }
@@ -100,7 +108,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
             ctx.fillRect( xPos * blockIndex,  (yPos * blockIndex)+50,  mapPixelIndex, mapPixelIndex);
             ctx.restore();
 
-        }/**/
+        }
 
             counting += 1;
 

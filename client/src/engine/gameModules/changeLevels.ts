@@ -57,10 +57,9 @@ async function nextLevelDataReload(levelData, constructors){
         context.gameInitData.levelChange = false;
         context.gameInitData.levelWindowDescription = false;
         process.env.BOSS_LOAD_AT_LEVEL = "false";
-        process.env.GROUND_PLAYER_ALLOW_MOVE = 'false';
         fillJournalDefaultData({mainGameObject: context})
     }, 5000)
-
+    process.env.GROUND_PLAYER_ALLOW_MOVE = (serverNewData.levelData.dynamicLevelsActive)? 'false' : 'true';
     horizontalVerticalSearch.call(this, this.gameInitData, refreshLevel)
     this.gameInitData.dynamicLevelsActive = (serverNewData.levelData.dynamicLevelsActive)? true : false;
     this.gameInitData.dynamicLevelMapBlocks = (serverNewData.levelData.dynamicLevelsActive)? await loadLevelMap({

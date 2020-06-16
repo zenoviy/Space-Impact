@@ -274,7 +274,7 @@
                 "picturesWidth": 405,
                 "imageWidth": 405,
                 "imageHeight": 92,
-                "animationSteps": 10,
+                "animationSteps": 8,
                 "numberOfItems": 9
             },
             "runAndShotTop": {
@@ -282,7 +282,7 @@
                 "picturesWidth": 510,
                 "imageWidth": 510,
                 "imageHeight": 90,
-                "animationSteps": 10,
+                "animationSteps": 8,
                 "numberOfItems": 15
             },
             "runAndShotBottom": {
@@ -385,7 +385,7 @@
                 "picturesWidth": 1631,
                 "imageWidth": 1631,
                 "imageHeight": 500,
-                "animationSteps": 10,
+                "animationSteps": 5,
                 "numberOfItems": 7
             },
             "run": {
@@ -393,7 +393,7 @@
                 "picturesWidth": 1631,
                 "imageWidth": 1631,
                 "imageHeight": 500,
-                "animationSteps": 10,
+                "animationSteps": 5,
                 "numberOfItems": 7
             },
             "runAndShotTop": {
@@ -401,7 +401,7 @@
                 "picturesWidth": 1631,
                 "imageWidth": 1631,
                 "imageHeight": 500,
-                "animationSteps": 10,
+                "animationSteps": 5,
                 "numberOfItems": 7
             },
             "runAndShotBottom": {
@@ -417,7 +417,7 @@
                 "picturesWidth": 1631,
                 "imageWidth": 1631,
                 "imageHeight": 500,
-                "animationSteps": 10,
+                "animationSteps": 5,
                 "numberOfItems": 7
             },
             "death": {
@@ -550,15 +550,10 @@
                     "animationSteps": 5,
                     "numberOfItems": 16,
                     "numberOfVerticalItems": 1,
-                    "defaultAngle": {
-                        "max": 195,
-                        "min": 120,
-                        "isRandom": true
-                    },
                     "sWidth": 148.0625,
                     "sHeight": 109,
-                    "damage": 30,
-                    "firePosition": 60,
+                    "damage": 90,
+                    "firePosition": 10,
                     "firePositionX": 80
                 }
             ]
@@ -598,7 +593,7 @@
                 "picturesWidth": 213,
                 "imageWidth": 213,
                 "imageHeight": 158,
-                "animationSteps": 15,
+                "animationSteps": 10,
                 "numberOfItems": 6
             },
             "runAndShotTop": {
@@ -681,7 +676,7 @@
                 "picturesWidth": 96,
                 "imageWidth": 96,
                 "imageHeight": 70,
-                "animationSteps": 15,
+                "animationSteps": 5,
                 "numberOfItems": 4
             },
             "runAndShotTop": {
@@ -705,7 +700,7 @@
                 "picturesWidth": 96,
                 "imageWidth": 96,
                 "imageHeight": 70,
-                "animationSteps": 15,
+                "animationSteps": 10,
                 "numberOfItems": 4
             },
             "death": {
@@ -1805,10 +1800,10 @@
         "playerDirectionHorizontal": "left",
         "detectRange": 650,
         "speed": 0,
-        "healthPoint": 350,
+        "healthPoint": 650,
         "jumpSpeed": 5,
         "pointsPerUnit": 10,
-        "shotProbability": 10,
+        "shotProbability": 1,
         "animations": {
             "stand": {
                 "innerTexture": "/public/images/characters/alliance-turret-1/stand.png",

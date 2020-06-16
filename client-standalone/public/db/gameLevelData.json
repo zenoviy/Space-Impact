@@ -1061,11 +1061,13 @@
         },{
             "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
             "speed": 0.2,
-            "description": "first frame"
+            "description": "first frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/skyCity/clouds_map.png",
             "speed": 0.2,
-            "description": "second frame"
+            "description": "second frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 0.8,
@@ -1105,8 +1107,8 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "In the sky cloud",
-            "description": "One of the space impactors try to escape "
+            "name": "City cloud",
+            "description": "Destroy the signal blocker ship"
         },
         "levelSound": "/public/sound/ambient/05 Peter Gunn Theme.mp3",
         "levelMap" : "skyClouds.png",
@@ -2370,11 +2372,12 @@
                 "description": "second frame"
             },{
                 "levelMap" : "/public/images/locations/Jupiter/europe.png",
-                "speed": 0.0,
+                "speed": 0.01,
                 "description": "first frame",
                 "extraMap": "/public/images/locations/space/empty.png",
                 "timeToExtraMapSeconds": 30,
-                "timeToExtraMapMinutes": 1
+                "timeToExtraMapMinutes": 1,
+                "alwaysMove": true
             },{
                 "levelMap" : "/public/images/locations/space/empty.png",
                 "speed": 0.0,
@@ -2384,8 +2387,9 @@
                 "timeToExtraMapMinutes": 1
             },{
                 "levelMap" : "/public/images/locations/Jupiter/planets_jupiter.png",
-                "speed": 0.0,
-                "description": "first frame"
+                "speed": 0.001,
+                "description": "first frame",
+                "alwaysMove": true
             },{
                 "levelMap" : "/public/images/locations/space/empty.png",
                 "speed": 0.0,
@@ -2405,24 +2409,22 @@
                 "speed": 0.2,
                 "description": "second frame"
             },{
-                "levelMap" : "/public/images/locations/Jupiter/io.png",
-                "speed": 0.056,
-                "description": "first frame"
-            },{
                 "levelMap" : "/public/images/locations/space/empty.png",
-                "speed": 0.05,
+                "speed": -0.056,
+                "description": "first frame",
+                "alwaysMove": true
+            },{
+                "levelMap" : "/public/images/locations/Jupiter/io.png",
+                "speed": -0.056,
                 "description": "second frame",
-                "extraMap": "/public/images/locations/Jupiter/io.png",
-                "timeToExtraMapSeconds": 30,
-                "timeToExtraMapMinutes": 2
+                "alwaysMove": true
             }],
             "levelDetails" : {
                 "levelMinutes": 4,
                 "levelSeconds": 30
             }
         },
-    
-    
+
     {
         "level" : 24,
         "enemyType" : ["Chaser", "Grisle", "hunter"],
@@ -2656,8 +2658,7 @@
         },{
             "levelMap" : "/public/images/locations/space/space.png",
             "speed": 0,
-            "description": "second frame",
-            "alwaysMove": true
+            "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/Neptune/Neptune_background_map.png",
             "speed": 0.02,
@@ -2666,7 +2667,8 @@
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 0.02,
-            "description": "second frame"
+            "description": "second frame",
+            "alwaysMove": true
         },{
             "levelMap" : "/public/images/locations/space/empty.png",
             "speed": 0.1,

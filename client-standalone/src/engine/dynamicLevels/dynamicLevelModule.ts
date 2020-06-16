@@ -204,8 +204,8 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
     targetObject.onElevator = false;
 
     let nearMapObjects = objectsToCollide.filter(object => {
-        if(Math.max(targetObject.x, object.x) - Math.min(targetObject.x, object.x) <= 200 &&
-        Math.max(targetObject.y, targetObject.y) - Math.min(targetObject.y, object.y) <= 200){
+        if((Math.max(targetObject.x, object.x) - Math.min(targetObject.x, object.x)) <= 200 &&
+        (Math.max(targetObject.y, targetObject.y) - Math.min(targetObject.y, object.y)) <= 200){
             return object
         }
     })
@@ -214,7 +214,6 @@ async function blockCollision({objectsToCollide, targetObject, objectIntersectio
         if(!item) continue
         if(!item || item.x > window.innerWidth + 200 || item.x < (item.width * -1) ||
             item.y > window.innerHeight + 200 || item.y < (200 * -1)) continue
-
 
         let collision = objectIntersectionDetect({object: item, target: targetObject })
         if(collision){

@@ -16,7 +16,54 @@ async function generateInput({fileContainer, target}){
 
 
     /*  ==============================    Blocks settings & Parameters  ===================== */
+    if(blockDetails.renderType){
+        innerText = `
+        <h1>Block size</h1>
+        <h3>Block width</h3>
+            <p>Size of block width in pixels</p>
+            <input type='number' min="1" id=${'width-property-'+ currentDescriptionId} value=${(target.width)? target.width : 0} />
+            <button data-target='save-width-btn' class="main-btn">Save width</button>
 
+            <h3>Block height</h3>
+            <p>Size of block height in pixels</p>
+            <input type='number' min="1" id=${'height-property-'+ currentDescriptionId} value=${(target.height)? target.height : 0} />
+            <button data-target='save-height-btn' class="main-btn">Save height</button>
+            `
+            itemData = elementCreator({
+                tagname: "div",
+                classList: 'single-block-description',
+                innerText: innerText,
+                idName: 'block-width-'+ currentDescriptionId
+            })
+            blockPreviewImage['width'] = target.width;
+        fileContainer.appendChild(itemData);
+
+
+
+
+        innerText = `
+            <h1>Block Position</h1>
+            <h3>Block X</h3>
+            <p>X position of block</p>
+            <input type='number' min="-50" max="50" id=${'x-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeXPos)? target.blockRelativeXPos : 0} />
+            <button data-target='save-x-pos-btn' class="main-btn">Save X Position</button>
+
+            <h3>Block Y</h3>
+            <p>Y position of block</p>
+            <input type='number' min="-50" max="50" id=${'y-pos-property-'+ currentDescriptionId} value=${(target.blockRelativeYPos)? target.blockRelativeYPos : 0} />
+            <button data-target='save-y-pos-btn' class="main-btn">Save Y Position</button>
+            `
+            itemData = elementCreator({
+                tagname: "div",
+                classList: 'single-block-description',
+                innerText: innerText,
+                idName: 'block-x-pos-'+ currentDescriptionId
+            })
+            blockPreviewImage['height'] = target.height;
+        fileContainer.appendChild(itemData);
+
+        console.log(blockDetails)
+    }else{
         innerText = `
         <h1>Block size</h1>
         <h3>Block width</h3>
@@ -63,6 +110,8 @@ async function generateInput({fileContainer, target}){
         fileContainer.appendChild(itemData);
 
         console.log(blockDetails)
+    }
+        
     if(blockDetails.type === 'elevator'){
         innerText = `
         <h1>Elevator range</h1>
@@ -76,11 +125,6 @@ async function generateInput({fileContainer, target}){
         })
         fileContainer.appendChild(itemData);
     }
-    /*
-    "valueOfMove": 150,
-        "currentValueOfMove": 150,
-        "constructorValueOfMove": 150,
-    */
 
     /*  ==============================    Description  ===================== */
     if(blockDetails.description){
@@ -154,6 +198,16 @@ async function generateInput({fileContainer, target}){
             <span>plane_key</span>
             <span>special_access</span>
             <span>data_card</span>
+            <span>blue_crystal</span>
+            <span>red_crystal</span>
+            <span>green_crystal</span>
+            <span>yellow_crystal</span>
+            <span>electric_details</span>
+            <span>power_cube</span>
+            <span>power_cube</span>
+            <span>access_badge</span>
+            <span>ammunition</span>
+            <span>server_data</span>
             </p>
             <textarea type='text' id=${'require-field-'+ currentDescriptionId} >${(blockDetails.rules.require)? blockDetails.rules.require : ''}</textarea>
             <button data-target='save-require-btn' class="main-btn">Save Require Object</button> <hr>`;
@@ -189,6 +243,16 @@ async function generateInput({fileContainer, target}){
             <span>plane_key</span>
             <span>special_access</span>
             <span>data_card</span>
+            <span>blue_crystal</span>
+            <span>red_crystal</span>
+            <span>green_crystal</span>
+            <span>yellow_crystal</span>
+            <span>electric_details</span>
+            <span>power_cube</span>
+            <span>power_cube</span>
+            <span>access_badge</span>
+            <span>ammunition</span>
+            <span>server_data</span>
             </p>
 
             <textarea type='text' id=${'contain-field-'+ currentDescriptionId} >${(blockDetails.rules.contain)? blockDetails.rules.contain : ''}</textarea>
@@ -210,6 +274,15 @@ async function generateInput({fileContainer, target}){
                 <option value="enemy-guns.png">Enemy gun</option>
                 <option value="plane-key.png">Plane key</option>
                 <option value="importent-data.png">Importent data</option>
+                <option value="cube.png">space box 1</option>
+                <option value="black-box-1.png">box 2</option>
+                <option value="black-box-2.png">box 3</option>
+                <option value="access-2.png">access card 2</option>
+                <option value="blue-crystal.png">blue crystal</option>
+                <option value="red-crystal.png">red crystal</option>
+                <option value="green-crystal.png">green crystal</option>
+                <option value="yellow-crystal.png">yellow crystal</option>
+                <option value="block_details.png">Details</option>
             </select>
             <button data-target='save-contain-btn' class="main-btn">Save</button> <hr>`;
             itemData = elementCreator({

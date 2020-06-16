@@ -384,11 +384,12 @@ function groundBulletCollision({hitObject, mainGameObject}){
             let angleFinder = this.degree - 180;
 
             if(hitObject.details.role != "military" && hitObject.objectOwner != "groundEnemy"){
-                hitObject.playerDirectionHorizontal = (angleFinder > 90 && angleFinder < 270)? 'right' : 'left';
+                hitObject.playerDirectionHorizontal = (angleFinder > 90 && angleFinder < 270)? 'left' : 'right';
                 hitObject.currentBehavior = (hitObject.currentBehavior === "static")? "static":"patrol";
             }else {
                 hitObject.currentBehavior = (hitObject.currentBehavior === "static")? "static": "destroy";
                 hitObject.playerInRange = true;
+                hitObject.playerDirectionHorizontal = (angleFinder > 90 && angleFinder < 270)? 'right' : 'leftt';
                 hitObject.targetAngle = (Math.sign(angleFinder) < 0)? 360 + angleFinder: angleFinder;
             }
         };

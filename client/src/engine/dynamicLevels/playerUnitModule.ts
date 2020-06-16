@@ -300,8 +300,14 @@ function positionToSpawner({mainGameObject, allBlocks}){
 function playerChangeMapPosition({newSpawnPoint, mainGameObject}){
     if(!newSpawnPoint) return false
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
-    let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
+
+    let allGroundGameBullets = mainGameObject.gameInitData.allGroundGameBullets;
+    let allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects;
+
+
+    let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy, allGroundGameBullets, allGameSideObjects);
     let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
+    
     let allGamesObject = [].concat(allGameBackgroundElements)
     let xRangeCompensation = window.innerWidth/2 - (newSpawnPoint.x + newSpawnPoint.width/2);
     let yRangeCompensation = window.innerHeight/2 - newSpawnPoint.y;
@@ -314,8 +320,8 @@ function playerChangeMapPosition({newSpawnPoint, mainGameObject}){
            // map.y = map.defaultY;
         }
         for(let enemy of allEnemy){
-            allEnemy.isRun = false;
-            allEnemy.groundTouch = true;
+            enemy.isRun = false;
+            enemy.groundTouch = true;
         }
         return {xRangeCompensation: xRangeCompensation, yRangeCompensation: yRangeCompensation}
 }
@@ -363,16 +369,13 @@ function findSpawnPoint({allBlocks, mainGameObject}){
             let posX = Math.max(spawner.x, groundPlayer.x) - Math.min(spawner.x, groundPlayer.x);
             let posY = Math.max(spawner.y, groundPlayer.y) - Math.min(spawner.y, groundPlayer.y);
 
-            //console.log(posX, posY)
             if(posX <= nearestBlockX && posY <= nearestBlockY){
                 nearestBlockX = posX;
                 nearestBlockY = posY;
                 nearestSpawnPoint = spawner;
             }
-
         }
     }
-    //console.log(allSpawner ,nearestSpawnPoint, groundPlayer.x, groundPlayer.y)
     if(!nearestSpawnPoint){
         return allBlocks.find(obj => {
             if(obj.details) return obj.details.type === "spawner";
@@ -382,12 +385,8 @@ function findSpawnPoint({allBlocks, mainGameObject}){
 
 function groundPlayerCheckpointActivate({block, mainGameObject}){
     if(!block.details) return false
-        //console.log(block)
         if(block.details.active === "not-active" && block.details.type === 'spawner'){
             let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
-            /*let allSpawner = allBlocks.filter(obj => {
-                if(obj.details) return obj.details.type === "spawner" && obj.details.active === "active";
-            })*/
             for(let block of allBlocks){
                 if(!block.details) continue
                 if(block.details.type === "spawner" && block.details.active === "active"){
@@ -395,12 +394,7 @@ function groundPlayerCheckpointActivate({block, mainGameObject}){
                     block.sy = 0;
                 }
             }
-
-            /*allSpawner.forEach(spawn => {
-                spawn.
-            })*/
             block.details.active = "active";
-            //console.log(block)
             block.sy += block.sHeight;
         }
 }

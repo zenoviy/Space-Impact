@@ -174,6 +174,15 @@ async function teleportFunctionality({ mainGameObject }){
     if(!teleportDoor) return false
     if(!teleportDoor.details ) return false
     if(teleportDoor.details.type === "teleport_door"){
+        if(teleportDoor.details.rules.require){
+            let searchObject = searchInPlayerInventory({
+                data: this.inventory,
+                searchTarget: teleportDoor.details.rules.require
+            })
+            if(!searchObject){
+                return false
+            }
+        }
         let doorId = teleportDoor.details.rules.doorId
         let targetId = teleportDoor.details.rules.targetId
 

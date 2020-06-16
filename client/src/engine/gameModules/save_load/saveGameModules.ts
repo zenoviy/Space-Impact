@@ -6,7 +6,7 @@ import {
     showSaveData,
     displaySavesOnScreen,
     loadedScreenActive,
-    loadedScreenDective
+    loadedScreenDeactive
 } from './loadGameData';
 
 
@@ -39,7 +39,7 @@ function saveDialog({text, typeOfWarning}){
 async function createSave({saveName, saveData, mainGameObject}){
     if(!saveName || !saveData) return console.error('There is no saveName or saveData');
     if(parseInt(process.env.NUMBER_OF_SAVES) >= 10){
-        loadedScreenDective()
+        loadedScreenDeactive()
         return saveDialog({text: "You have 10 saves it`s maximum", typeOfWarning: "warning-text"})
     }
     loadedScreenActive();
@@ -79,7 +79,7 @@ async function createSave({saveName, saveData, mainGameObject}){
         saveData: allData,
         mainGameObject: mainGameObject
     })
-    loadedScreenDective()
+    loadedScreenDeactive()
 }
 
 
@@ -122,7 +122,7 @@ async function deleteSaveData({currentSave, mainGameObject}){
         saveData: allData,
         mainGameObject: mainGameObject
     })
-    loadedScreenDective();
+    loadedScreenDeactive();
 }
 
 
@@ -174,7 +174,7 @@ async function overwriteSaveData({currentSave, mainGameObject}){
         saveData: allData,
         mainGameObject: mainGameObject
     })
-    loadedScreenDective();
+    loadedScreenDeactive();
 }
 
 

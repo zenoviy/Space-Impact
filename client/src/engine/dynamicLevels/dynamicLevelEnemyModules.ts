@@ -32,7 +32,10 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         let prepareData = Object.assign(enemyBlock, currentEnemyServerData )
         prepareData.texture = currentEnemyServerData.texture;
         enemyBlock.details.collision = false;
-        return new constructors.DynamicEnemyConstructor({...prepareData})
+
+        let newCharacter = new constructors.DynamicEnemyConstructor({...prepareData});
+        newCharacter.y -= 10;
+        return newCharacter
     })
 
     for(let enemy of dynamicEnemy){
@@ -43,7 +46,7 @@ async function loadLevelEnemy({ levelDynamicMapBlocks, constructors }){
         block.details.type != 'hidden_enemy_spawner' && block.details.type === 'timer_enemy_spawner';
     })
     process.env.GROUND_PLAYER_ALLOW_MOVE = 'true';
-    return dynamicEnemy
+    return dynamicEnemy 
 }
 
 
@@ -72,7 +75,9 @@ async function loadEnemyToObjectArray ({ mainGameObject, levelDynamicMapBlocks, 
         let prepareData = Object.assign(enemyBlock, currentEnemyServerData )
         prepareData.texture = currentEnemyServerData.texture;
         enemyBlock.details.collision = false;
-        return new constructors.DynamicEnemyConstructor({...prepareData})
+        let newCharacter = new constructors.DynamicEnemyConstructor({...prepareData});
+        newCharacter.y -= 10;
+        return newCharacter
     })
     for(let enemy of dynamicEnemy){
         enemy.extraObjects = (enemy.extraObjects)? await loadExtraObjectToGroundEnemy ( enemy.extraObjects, enemy): false;
@@ -236,8 +241,8 @@ async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectInters
     if(this.playerInRange) return false
     //if(this.details.type != 'npc_spawner'){
         for(let person of npcData){
-            if( !person || person.x > window.innerWidth + 100 || person.x < -100 ||
-                person.y > window.innerHeight + 100 || person.y < -100) continue
+            if( !person || person.x > window.innerWidth + person.width || person.x < -100 ||
+                person.y > window.innerHeight + person.height || person.y < -100) continue
             if(this.details.type === 'enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'enemy_spawner' && person.objectPresent ||
             this.details.type === 'npc_spawner' && person.details.type === 'hidden_enemy_spawner' && person.objectPresent ||
@@ -245,7 +250,10 @@ async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectInters
             this.detailstype === 'timer_enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ){
                let findUnit = await detectPlayer.call(this, {mainGameObject: mainGameObject, groundPlayer: person, allBlocks: allBlocks, objectIntersectionDetect: objectIntersectionDetect})
                 if(findUnit){
-                    //console.log(this.details.type, person.details.type)
+                    if(this.details.type === 'npc_spawner'){
+                        //console.log(this.details.type, person.details.type)
+                    }
+                    //
                     return findUnit
                 }
             }
@@ -268,16 +276,17 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let distanceX = Math.max(this.x, groundPlayer.x) - Math.min(this.x, groundPlayer.x);
     let distanceY = Math.max(this.y, groundPlayer.y) - Math.min(this.y, groundPlayer.y);
 
-
+    
 
     if(this.detectRange < distanceX || this.detectRange < distanceY) return false
 
     let angle = this.findAngleToShip({closestUnit: groundPlayer});
+    angle = (angle === 0)? 1 : angle;
     if(this.currentBehavior === "destroy" || this.currentBehavior === "static" && this.playerInRange){
-        this.targetAngle = (angle < 360)? angle + 2 : angle;
+        this.targetAngle = (angle < 360)? angle + 1 : angle;
     }
+    
     let findBarrier = {};
-
     let directionX = (this.x >= groundPlayer.x)? true : false;
     let directionY = (this.y >= groundPlayer.y)? true : false;
 
@@ -285,7 +294,7 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     if(extraSeconds % randomizerCheck != 0) return false
     let searchSteps = 20;
 
-    if(distanceX && distanceY && !this.playerInRange){
+    if((distanceX || distanceX == 0) && (distanceY || distanceY == 0) && !this.playerInRange){
         let localXRayIndex = 0, localYRayIndex = 0;
         let localXRay = this.x, localYRay = this.y;
         let decreaseValue = distanceY/distanceX;
@@ -308,8 +317,8 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
                 localYRay -= decreaseValue * searchSteps;
             }
             findBarrier = allBlocks.find(block => {
-                if(Math.max(localXRay, block.x) - Math.min(localXRay, block.x) < 200 ||
-                Math.max(localYRay, block.y) - Math.min(localYRay, block.y) < 200){
+                if((Math.max(localXRay, block.x) - Math.min(localXRay, block.x)) < 100 &&
+                (Math.max(localYRay, block.y) - Math.min(localYRay, block.y)) < 100){
                     let searchCollision = objectIntersectionDetect({
                         object: {
                             x: localXRay,
@@ -345,13 +354,6 @@ function groundEnemyDecided({mainGameObject, allBlocks}){
     }
 }
 
-function groundEnemyPatrol(){
-
-}
-
-function groundEnemyDestroy(){
-
-}
 
 function groundEnemyFind({ findBottomBlock }){
     if(this.currentBehavior === "find" && findBottomBlock && !this.isRun && !this.leftWallTouch ||

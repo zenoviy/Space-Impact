@@ -39,6 +39,7 @@ function playerShipTextureChange(){
 
 function userKeyAction({ mainGameObject, controlKeys, event}){
     let userShipData = mainGameObject.gameInitData.gameData.playerObject
+    if(process.env.GROUND_PLAYER_ALLOW_MOVE === 'false') return false
 
     if(!mainGameObject.gameInitData.dynamicLevelsActive){
         if(controlKeys.inventory.some(obj => event.keyCode == obj) ) openInventory({ mainGameObject: mainGameObject})

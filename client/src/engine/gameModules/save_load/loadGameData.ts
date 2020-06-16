@@ -79,6 +79,8 @@ function delateClassSelectorField({target}){
 }
 
 
+
+
 async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
     let customPageFlags = ['save-screen', 'load-screen'];
     let menuArea = Array.prototype.slice.call(document.querySelectorAll(".save-load-wrapper")).map(((item, i) => {
@@ -303,12 +305,13 @@ function backToObject({data, constructor}){
 
 
 
-
 function loadedScreenActive(){
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'false';
     let object = document.querySelector("#wait-screen");
     show(object);
 }
-function loadedScreenDective(){
+function loadedScreenDeactive(){
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'true';
     let object = document.querySelector("#wait-screen");
     hide(object);
 }
@@ -454,8 +457,9 @@ function loadSaveProcedure({mainGameObject, currentSave}){
     process.env.SHOP_STORE_WINDOW = 'false';
     process.env.GROUND_CHARACTERS_INVENTORY = 'false';
     process.env.GROUND_ACTIVE_BLOCK_IN_RANGE = 'false';
+    process.env.GROUND_PLAYER_ALLOW_MOVE = 'true';
 
-
+save.gameInitData
     process.env.OVERWRITE_SAVE = 'false';
 
     let changedShip = save.gameInitData.gameData.playerObject
@@ -488,5 +492,5 @@ export {
     showSaveData,
     displaySavesOnScreen,
     loadedScreenActive,
-    loadedScreenDective
+    loadedScreenDeactive
 }

@@ -122,6 +122,7 @@ function renderItemsToSideList({ mainObject, dataBase, selectItem }){
         target.appendChild(obj)
     }
     target.prepend(createDestroyBlock({ mainObject: mainObject, selectItem: selectItem }))
+    target.prepend(createCopyBlock({ mainObject: mainObject, selectItem: selectItem }))
 }
 
 
@@ -148,11 +149,11 @@ function sidePanelItemsSelectProcess({ mainObject, blockItem }){
 function createDestroyBlock({ mainObject, selectItem }){
     let obj = document.createElement('div');
     obj.className = 'single-block-item destroy-block-wrapper';
-    obj.innerHTML = `<img title="${(selectItem === "redactorDecoration")? 'Delete only background': 'Delete block item'}" width="100%" src='${ globalVariable.__HOST + '/level-creator/assets/block/destroy.png' }'>`;
+    obj.innerHTML = `<img title="Copy selected object" width="100%" src='${ globalVariable.__HOST + '/level-creator/assets/block/destroy.png' }'>`;
     obj.addEventListener('click', (event) => {
         sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: {
             id: 'destroyer',
-            destroyer: (selectItem)? selectItem :'destroyer',
+            destroyer: 'destroyer',
             texture: '/level-creator/assets/block/destroy.png'
         } })
     })
@@ -161,7 +162,19 @@ function createDestroyBlock({ mainObject, selectItem }){
 
 
 
-
+function createCopyBlock({ mainObject, selectItem }){
+    let obj = document.createElement('div');
+    obj.className = 'single-block-item copy-block-wrapper';
+    obj.innerHTML = `<img title="Copy selected object" width="100%" src='${ globalVariable.__HOST + '/level-creator/assets/block/copy-block.png' }'>`;
+    obj.addEventListener('click', (event) => {
+        sidePanelItemsSelectProcess({ mainObject: mainObject, blockItem: {
+            id: 'copy',
+            copyBlock: 'copy-block',
+            texture: '/level-creator/assets/block/copy-block.png'
+        } })
+    })
+    return obj
+}
 
 
 
@@ -244,4 +257,5 @@ export {
     renderItemsToSideList,
     createBlockPicture,
     backgroundRender,
+    sidePanelItemsSelectProcess
 }
