@@ -1,0 +1,321 @@
+[
+    {
+        "name": "extralife",
+            "loadImage": "static/shop/store/ruby.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 15000,
+            "title": "Extra life",
+            "status": "instant apply object",
+            "description": "Energy cell with nanorobots, it can fixed you armor on ground and in space, it give an 'Extra life'",
+            "type": "power",
+            "grapplePower": {
+                "name": "life",
+                "description": "add 1 life for player",
+                "value": 1,
+                "methodName": "addPlayerLife"
+            }
+    },
+    {
+        "name": "extraSpeed",
+            "loadImage": "static/shop/store/speedbox.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 8000,
+            "speed": 2,
+            "title": "Extra Speed",
+            "status": "inventory object",
+            "description": "Power booster to you ship add extra speed to you spacecraft, you need to mount it on you ship in empty cell",
+            "type": "object",
+            "grapplePower": {
+                "name": "add_speed",
+                "description": "add box to inventory",
+                "value": 2,
+                "methodName": "addVehicleSpeed"
+            }
+    },
+    {
+        "name": "Defence Shield",
+            "loadImage": "static/shop/store/shieldbox.png",
+            "displayImage": "static/shop/store/shield_card.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 5000,
+            "speed": 10,
+            "damage": "defence ship for 10seconds",
+            "title": "Defence Shield",
+            "status": "inventory static",
+            "description": "1 shield for the ship, technology of plasma shield allow to create a thick layer of polarized hi-speed particles around ship, press < E > key to activate",
+            "type": "inventory weapon",
+            "grapplePower": {
+                "name": "defence shield",
+                "description": "Spaceship shield for 10 seconds",
+                "number": 1,
+                "maxNumber": 30,
+                "duration": 10,
+                "value": {
+                    "status": "defence shield",
+                    "description": "Spaceship shield for 10seconds",
+                    "texture": "/public/images/misc/bullets/round-shield.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 150,
+                        "height": 150,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/rocket1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "defence_shield",
+                    "fireRepead": 3,
+                    "speed": 8,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 10,
+                    "height": 10,
+                    "sx": 0,
+                    "sy": 0,
+                    "imageWidth": 1322,
+                    "imageHeight": 128,
+                    "animationSteps": 10,
+                    "numberOfItems": 10,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 132.2,
+                    "sHeight": 128,
+                    "damage": 100,
+                    "firePosition": 15,
+                    "activateButton": "E"
+                },
+                "methodName": "addVehicleSpeed"
+            }
+    },
+
+    {
+        "name": "rocket",
+            "loadImage": "static/shop/store/rocket.png",
+            "displayImage": "static/shop/store/rocket_card.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 300,
+            "speed": 2,
+            "damage": 300,
+            "title": "Rocket",
+            "status": "inventory static",
+            "description": "1 Rocket, damage 300, A Powerful rocket to you ship, it has no control but can destroy everything in radius of 30m, press < R > key to launch the rocket",
+            "type": "inventory weapon",
+            "grapplePower": {
+                "name": "rocket",
+                "description": "heavy rocket",
+                "number": 1,
+                "maxNumber": 100,
+                "value": {
+                    "status": "rocket gun",
+                    "description": "A Powerful rocket to you ship, it has no control but can destroy everything in radius of 30m",
+                    "texture": "/public/images/misc/bullets/rocket-gun.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 150,
+                        "height": 150,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "smoke": {
+                        "texture": "/public/images/misc/fire/animated-rocket-smoke.png",
+                        "imageWidth": 3660,
+                        "imageHeight":212,
+                        "animationSteps": 2,
+                        "numberOfItems": 15,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 20,
+                        "height": 20,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/rocket_steam1.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/rocket1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "rocket",
+                    "radius": 150,
+                    "fireRepead": 3,
+                    "speed": 8,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 1723,
+                    "imageHeight":98,
+                    "animationSteps": 10,
+                    "numberOfItems": 3,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 574.33,
+                    "sHeight": 98,
+                    "damage": 300,
+                    "firePosition": 15,
+                    "activateButton": "R"
+                },
+                "methodName": "addVehicleSpeed"
+            }
+    },
+
+    {
+        "name": "Homing Rocket",
+            "loadImage": "static/shop/store/homingRocket.png",
+            "displayImage": "static/shop/store/homing_rocket_card.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 500,
+            "speed": 2,
+            "damage": 300,
+            "title": "Homing Rocket",
+            "status": "inventory static",
+            "description": "1 Homing rocket, damage 300, Self direction, powerful rocket to you ship, can find the target and chase it, press < H > key to launch rocket",
+            "type": "inventory weapon",
+            "grapplePower": {
+                "name": "homing rocket",
+                "description": "homing heavy rocket, pursuit target",
+                "number": 1,
+                "maxNumber": 100,
+                "value": {
+                    "status": "homing rocket gun",
+                    "description": "Self direction powerful rocket to you ship, can find the target and chase it, use <H> key to launch rocket",
+                    "texture": "/public/images/misc/bullets/homing-rocket-gun.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 150,
+                        "height": 150,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "smoke": {
+                        "texture": "/public/images/misc/fire/animated-rocket-smoke.png",
+                        "imageWidth": 3660,
+                        "imageHeight":212,
+                        "animationSteps": 2,
+                        "numberOfItems": 15,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 20,
+                        "height": 20,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/rocket_steam1.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/rocket1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "homing_rocket",
+                    "radius": 150,
+                    "fireRepead": 3,
+                    "speed": 8,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 45,
+                    "height": 20,
+                    "sx": 0,
+                    "sy": 20,
+                    "imageWidth": 1723,
+                    "imageHeight":98,
+                    "animationSteps": 10,
+                    "numberOfItems": 3,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 574.33,
+                    "sHeight": 98,
+                    "damage": 300,
+                    "firePosition": 15,
+                    "activateButton": "H"
+                },
+                "methodName": "addVehicleSpeed"
+            }
+    },
+
+    {
+        "name": "Nuclear Blast",
+            "loadImage": "static/shop/store/nuclearBlast.png",
+            "displayImage": "static/shop/store/nuclearBlast_card.png",
+            "background": "static/shop/misc/red-card.png",
+            "price": 10000,
+            "speed": 10,
+            "damage": "20000 damage/per sec.",
+            "title": "Nuclear Blast",
+            "status": "inventory static",
+            "description": "1 Nuclear bomb damage 20000, a small overloaded nuclear reactor, destroy almost everything near you ship, press < T > to detonate",
+            "type": "inventory weapon",
+            "grapplePower": {
+                "name": "nuclear blast",
+                "description": "Nuclear blast damage 20000 expending and destroy all units except large ship",
+                "number": 1,
+                "maxNumber": 4,
+                "value": {
+                    "status": "nuclear blast",
+                    "description": "Nuclear blast damage 1000 expending and destroy all units except large ship",
+                    "texture": "/public/images/misc/bullets/round-blast.png",
+                    "explosionAnimation": {
+                        "texture": "/public/images/misc/fire/explosion.png",
+                        "imageWidth": 12891,
+                        "imageHeight":294,
+                        "animationSteps": 2,
+                        "numberOfItems": 44,
+                        "sx": 0,
+                        "sy": 0,
+                        "width": 150,
+                        "height": 150,
+                        "sound": {
+                            "levelSound": "/public/sound/weapons/explosions/Explosion+8.mp3",
+                            "soundLoop": false
+                        }
+                    },
+                    "sound": {
+                        "levelSound": "/public/sound/weapons/rocket1.mp3",
+                        "soundLoop": false
+                    },
+                    "type": "nuclear_blast",
+                    "fireRepead": 3,
+                    "speed": 8,
+                    "color": "rgba(81, 255, 0, 1)",
+                    "width": 10,
+                    "height": 10,
+                    "sx": 0,
+                    "sy": 0,
+                    "imageWidth": 1322,
+                    "imageHeight": 128,
+                    "animationSteps": 10,
+                    "numberOfItems": 10,
+                    "numberOfVerticalItems": 1,
+                    "sWidth": 132.2,
+                    "sHeight": 128,
+                    "damage": 100,
+                    "firePosition": 15,
+                    "activateButton": "T"
+                },
+                "methodName": "addVehicleSpeed"
+            }
+    }
+
+
+]

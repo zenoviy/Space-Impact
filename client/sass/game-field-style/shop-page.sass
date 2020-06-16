@@ -1,0 +1,213 @@
+@import '~/../../page-style/page-asets.sass'
+@import '~/../buttons.sass'
+
+
+.shop-wrapper
+    z-index: 1000
+    width: 90%
+    border-radius: 10px
+    padding: 20px
+    max-height: 72vh
+    background-size: cover
+    height: 550px
+    .shop-frame
+      position: absolute
+      width: 62%
+      height: 570px
+    h1
+      text-align: center
+    .hangar-body-wrapper
+      z-index: 1000
+      position: relative
+      p
+        text-align: center
+    .shop-header
+      margin-top: -48px
+      position: absolute
+      width: 62%
+      background-repeat: no-repeat
+      z-index: 200
+    .external-btn
+      position: absolute
+      z-index: 2000
+      min-width: 160px
+      height: 38px
+      margin-top: 534px
+      margin-left: 147px
+      width: 100px
+      color: #ffffff
+      text-transform: uppercase
+
+    .shop-menu-wrapper
+      display: flex
+      justify-content: space-around
+      margin-top: -12px
+      padding: 20px
+    .item-description
+      width: 100px
+      height: fit-content
+      font-size: 10px
+      background: rgba(47, 24, 51, 0.81)
+      position: absolute
+      padding: 5px
+      border-radius: 5px
+      z-index: 2500
+
+    .item-dragable-picture
+      width: 120px
+      height: 94px
+      font-size: 10px
+      position: absolute
+      z-index: 2500
+
+    .shop-sale-part
+      width: 100%
+      height: 67px
+      background-size: cover
+
+      .sale-inner-item
+        img
+          width: 100%
+    .inner-shop-wrapper
+      display: flex
+    .display-area-wrapper
+      background-repeat-x: no-repeat
+      width: 70%
+      height: 527px
+      canvas
+        background-size: cover
+    .right-side-inventory
+      width: 245px
+      height: fit-content
+      justify-content: center
+      display: flex
+      flex-wrap: wrap
+      right: 50px
+      background-size: contain
+      margin: 0 auto
+      .inventory-selected-items
+        background: orange
+
+      .inventory-item
+        height: 93px
+        width: 44%
+        padding: 5px
+        .inventory-inner-item
+          width: 100%
+          height: 100%
+          background: rgba(43, 31, 40, 0.8)
+          border-radius: 7px
+          display: flex
+          justify-content: center
+          span
+            position: absolute
+            padding: 2px
+          img
+            justify-self: center
+            width: 80%
+            height: 84%
+            align-self: center
+
+    .display-shop-items
+
+        display: flex
+        flex-flow: wrap
+        transform: scale(0.90)
+        margin: 0 auto
+        margin-top: 88px
+        min-height: 485px
+        .current-ship
+          border: 2px solid rebeccapurple
+          box-sizing: border-box
+        .card-regular-description-wrapper
+          font-size: 12px
+
+        .shipyard-item
+            width: 100%
+            margin: 1%
+            background-size: cover
+            max-height: 405px
+            overflow-y: scroll
+            border-radius: 5px
+            img
+              width: 55
+        h2
+          display: flex
+
+        .current-ship-label
+          width: 120px
+          padding-left: 10%
+
+        .card-body
+          display: flex
+          flex-flow: wrap
+          flex-wrap: wrap
+          justify-content: space-evenly
+          background: #330044
+          font-size: 12px
+
+        .shop-card
+            width: calc(#{100%}/4.4)
+            margin: 1%
+            background-size: cover
+            height: 406px
+        .inner-card
+            padding: 10px
+        img
+          width: 55%
+          margin: 0 auto
+          display: block
+        .shipyard-item
+          .card-main-data
+            width: 50%
+
+.botoom-shop-navigation-area
+  z-index: 1000
+  position: relative
+.selected-shop-btn
+  background: $orange-color
+
+.selected-shop-btn:hover
+  background: $orange-color-selected
+
+.shop-button
+  margin-top: 21%
+  position: relative
+button .shop-button
+  width: 10px
+  min-width: 10px
+.btn-to-right
+  float: right
+
+.btn-to-left
+  float: left
+
+.shipyard-item::-webkit-scrollbar
+  width: 12px
+
+
+.shipyard-item::-webkit-scrollbar-track
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0)
+  border-radius: 10px
+
+
+.shipyard-item::-webkit-scrollbar-thumb
+  border-radius: 10px
+  background: rgba(71,6,83,0.8)
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,1)
+
+.shipyard-item::-webkit-scrollbar-thumb:window-inactive
+	background: rgba(255,0,0,0.1)
+
+.shop-dialog
+    z-index: 1010
+    background: #292c35
+    position: absolute
+    align-self: center
+    padding: 20px
+    width: 400px
+    text-align: center
+    border-radius: $border-radius
+    box-shadow: $main-shadow-box
+
+

@@ -1,0 +1,24 @@
+<template class="section-template">
+    <section id="save" class="menu-pages-wrapper">
+        <h1 id="save">save</h1>
+
+            <form name="main-save-form" action="" class="save-form">
+                <div class="inner-save-form-wrapper">
+                    <div class="save-field-group">
+                        <div class="save-field-input-wrapper">
+                            <input name="saveName" type="text" maxlength="30"  placeholder="Save name" required>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn-main">new save</button>
+                        </div>
+                        <div>
+                            <p>All saves stored in /appData in game folder</p>
+                        </div>
+                    </div>
+                    <p class="save-dialog-window"></p>
+                </div>
+            </form>
+            <ul id="save-screen" class="save-load-wrapper show-result-area"></ul>
+            <button data-button-id="close" class="close-button btn-main btn-sticky">close</button>
+    </section>
+</template>

@@ -34,7 +34,17 @@ function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, 
         return element
     }
 
+function createSimpleElements({tagname, classList, innerText, idName}){
+    let newDocument = document.createElement(tagname);
+    newDocument.className = (classList)? classList: false;
+    newDocument.innerHTML = innerText;
+    if(idName) newDocument.setAttribute("id", idName)
+
+    return newDocument
+}
+
 export {
     pageBuilder,
-    createElements
+    createElements,
+    createSimpleElements
 }

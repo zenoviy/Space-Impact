@@ -1,0 +1,54 @@
+<aside>
+    <div id="select-files" class="main-banner-cover" style="display: none">
+        <button class="close-dialog" id="closeDialog">&#10006;</button>
+        <div id="inner-content" class="inner-content"></div>
+    </div>
+    <div id="selected-item" class="selected-item-preview" style="display: none;">
+        test
+    </div>
+    <div class="side-menu-wrapper">
+        <div class="side-menu-top">
+            <form name="new-map">
+                <fieldset>
+                    <legend>
+                        <h3>Map</h3>
+                    </legend>
+                    <label for="" >
+                        <p>Map name</p>
+                        <p id="save-map-error" class="error-window"></p>
+                        <input name="name" type="text" required maxlength="30" minlength="5">
+                    </label>
+                    <button id="save-map-button" type="submit" class="main-btn">Save map</button>
+                </fieldset>
+            </form>
+            <button id="openMap" class="main-btn">Load Map</button>
+            <button id="createMap" class="main-btn">New Map</button>
+        </div>
+        <div>
+            <form name="map-size">
+                <fieldset>
+                    <legend>
+                        <h3>Set map size</h3>
+                    </legend>
+                    <div id="map-size-error"></div>
+                    <label for="">
+                        <p>number of horizontal blocks </p>
+                        <input name="horizontalBlock" type="number" required>
+                    </label>
+                    <label for="">
+                        <p>number of vertical blocks </p>
+                        <input name="verticalBlock" type="number" required>
+                    </label>
+                    <button id="set-map-size" type="submit" class="main-btn">Set Map size</button>
+                </fieldset>
+            </form>
+        </div>
+        <div class="buttons-area">
+            <button data-button-id="redactorBlocks" class="main-btn">Solid Blocks</button>
+            <button data-button-id="redactorDecoration" class="main-btn">Backgrounds</button>
+            <button data-button-id="redactorCharacters" class="main-btn">Use Objects</button>
+            <button data-button-id="redactorEnemy" class="main-btn">NPC</button>
+        </div>
+        <div id="side-instrumental-panel" class="side-instrumental-panel"></div>
+    </div>
+</aside>

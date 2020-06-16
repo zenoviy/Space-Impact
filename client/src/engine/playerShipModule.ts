@@ -1,15 +1,22 @@
 
 
-import * as methods from '../engine';
-
 import * as constructors from '../constructors/';
-import { initSoundObject } from './soundModules';
-import * as view from '../view/';
+import { shot, bulletsCreateModule } from '../enemies/animationHitBoxModules';
+import { inventoryColisionEvent, findIntInventory } from '../ui/shop/shopEvents/shopEventsModules';
+import { replaceItemFromStorage } from '../ui/shop/gameInventoryModules';
+import { enterToTheShopDialog, leaveShop } from '../ui/shop/gameShopModule';
+import { show, hide } from '../appMenu/appMenu';
+import { showGroundPlayerInventory, playerAnimation, groundPlayerShot } from '../engine/dynamicLevels/playerUnitModule';
+import { backgroundMoveDuringMove, mapGravityInit } from '../engine/dynamicLevels/dynamicLevelModule';
+import { interactWithObjects } from '../engine/dynamicLevels/dynamicDialog';
+import { leadersFunctionality } from '../engine/dynamicLevels/dynamicLevelInteractiveElements';
+import { createMapRenderField } from '../engine/dynamicLevels/minimap';
+import { openJournal } from '../engine/dynamicLevels/journalModules';
+import { groundPlayerMinusLife } from './dynamicLevels/playerUnitModule';
+import { initSoundObject } from '../engine/soundModules';
 
-function initPlayerShip(mainGameObject: any){
+function initPlayerShip(){
     if(this.ctx){
-        let image = this.data.texture,
-        imageLocation = mainGameObject.showGameInfo().imageDirrection;
         this.img = new Image();
         this.img.onload = () => {
             if(this.placePlayerShip){
@@ -17,64 +24,227 @@ function initPlayerShip(mainGameObject: any){
             }
             return this.img
         }
-        this.img.src = imageLocation + image;
+        this.playerShipTextureChange()
+    }
+}
+function playerShipTextureChange(){
+    this.img.src = __dirname + this.data.texture;
+}
+
+
+
+
+
+
+
+function userKeyAction({ mainGameObject, controlKeys, event}){
+    let userShipData = mainGameObject.gameInitData.gameData.playerObject;
+    if(process.env.GROUND_PLAYER_ALLOW_MOVE === 'false') return false
+
+    if(!mainGameObject.gameInitData.dynamicLevelsActive){
+        if(controlKeys.inventory.some(obj => event.keyCode == obj) ) openInventory({ mainGameObject: mainGameObject})
+
+        if(mainGameObject.gameInitData.gamePause) return false;
+        if(controlKeys.down.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed});
+        if(controlKeys.left.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed * -1, yPos: 0});
+        if(controlKeys.right.some(obj => event.keyCode == obj) ) userShipData.moveShip({xPos: userShipData.data.speed, yPos:0}) ;
+        if(controlKeys.up.some(obj => event.keyCode == obj) )  userShipData.moveShip({xPos: 0, yPos: userShipData.data.speed * -1});
+        if(controlKeys.rocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'rocket'});
+        if(controlKeys.homingRocket.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Homing Rocket'});
+        if(controlKeys.destroyEnemy.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Nuclear Blast'});
+        if(controlKeys.shield.some(obj => event.keyCode == obj) ) activeInventoryEffects({ userShipData: userShipData, mainGameObject: mainGameObject, name: 'Defence Shield'});
+        if(controlKeys.journal.some(obj => event.keyCode == obj) ) openJournal({ mainGameObject: mainGameObject, userShipData: userShipData });
+    }else{
+        if(controlKeys.inventory.some(obj => event.keyCode == obj) ) showGroundPlayerInventory({mainGameObject: mainGameObject});
+        if(controlKeys.useKey.some(obj => event.keyCode == obj) ) interactWithObjects({mainGameObject: mainGameObject, constructors: constructors});
+        if(controlKeys.miniMap.some(obj => event.keyCode == obj) ) createMapRenderField({ mainGameObject: mainGameObject });
+        if(controlKeys.journal.some(obj => event.keyCode == obj) ) openJournal({ mainGameObject: mainGameObject, userShipData: userShipData });
     }
 }
 
+
+async function syncKeyControl({ mainGameObject: mainGameObject }){
+    if(!mainGameObject.gameInitData || !mainGameObject.gameInitData.dynamicLevelsActive ) return false
+    let mapKeyCode = mainGameObject.gameInitData.mapKeyCode;
+    let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
+
+    if(!mapKeyCode ) return false
+    for(let [key, value] of Object.entries(mapKeyCode)){
+        if(!key || !value) return false
+        if(key === '68' && mapKeyCode['65'] || key === '65' && mapKeyCode['68']) continue
+        if(controlKeys.down.some(obj => key == obj) ){
+            moveUnit({xPos: 0, yPos: 0.5, mainGameObject: mainGameObject, playerDirection: "down"});
+        }
+        if(controlKeys.left.some(obj => key == obj) ){
+            if(!preventSitMove({key: key, mapKeyCode: mapKeyCode})) continue
+            moveUnit({xPos: 2 * -1, yPos: 0, mainGameObject: mainGameObject, playerDirection: "left"});
+        }
+        if(controlKeys.right.some(obj => key == obj) ){
+            if(!preventSitMove({key: key, mapKeyCode: mapKeyCode})) continue
+            moveUnit({xPos: 2, yPos:0, mainGameObject: mainGameObject, playerDirection: "right"});
+        }
+        if(controlKeys.up.some(obj => key == obj) ){
+            moveUnit({xPos: 0, yPos: -60, mainGameObject: mainGameObject, playerDirection: "up"});
+        }
+    }
+}
+
+
+
+function preventSitMove({key, mapKeyCode}){
+    if(key === '83' && mapKeyCode['68'] || key === '68' && mapKeyCode['83'] ||
+        key === '83' && mapKeyCode['65'] || key === '65' && mapKeyCode['83']) return false
+    return true
+}
+
+
+
+
+
 function shipControl(mainGameObject: any){
     let controlKeys = mainGameObject.gameInitData.gameData.gameSetings.keyControls;
-    document.addEventListener("keydown",(e: any)=>{
-        if(mainGameObject.gameInitData.gamePause) return false;
-        if(controlKeys.down.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed});
-        if(controlKeys.left.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed * -1, yPos: 0}) ;
-        if(controlKeys.right.some(o => e.keyCode == o) ) this.moveShip({xPos: this.data.speed, yPos:0}) ;
-        if(controlKeys.up.some(o => e.keyCode == o) )  this.moveShip({xPos: 0, yPos: this.data.speed * -1}) ;
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+    document.addEventListener("keydown",(event: any)=>{
+        mainGameObject.gameInitData.mapKeyCode[event.keyCode] = event.type == 'keydown';
+        userKeyAction({ mainGameObject: mainGameObject, controlKeys: controlKeys, event: event})
+    })
+    document.addEventListener("keyup",(event: any)=>{
+        delete mainGameObject.gameInitData.mapKeyCode[event.keyCode];
     })
 
-    document.addEventListener("mousemove", (e: any) => {
-        if(mainGameObject.gameInitData.gamePause) return false;
-        if(e.target.tagName === "CANVAS"
+    document.addEventListener("mousemove", (event: any) => {
+        let userShipData = mainGameObject.gameInitData.gameData.playerObject
+        if(mainGameObject.gameInitData.gamePause ) return false;
+        if(event.target.tagName === "CANVAS"
         && !mainGameObject.gameInitData.gamePause
         && mainGameObject.gameInitData.gameStatus){
-            let x = e.clientX - e.target.offsetLeft, y = e.clientY - e.target.offsetTop;
-            this.xFinal = ((x % this.data.speed == 0)? x  : this.data.speed* Math.floor(x/this.data.speed)) - (this.width/2);
-            this.yFinal = ((y % this.data.speed == 0)? y : this.data.speed* Math.floor(y/this.data.speed)) - (this.height/2);
+            let x = event.clientX - event.target.offsetLeft, y = event.clientY - event.target.offsetTop;
+            userShipData.xFinal = ((x % userShipData.data.speed == 0)? x  : userShipData.data.speed* Math.floor(x/userShipData.data.speed)) - (userShipData.width/2);
+            userShipData.yFinal = ((y % userShipData.data.speed == 0)? y : userShipData.data.speed* Math.floor(y/userShipData.data.speed)) - (userShipData.height/2);
         }
     })
-    document.addEventListener("click", (e: any) => {
-        if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
-        let guns = this.data.guns;
-        for(let item of guns){
-            let context = this;
-            let bullet = new constructors.BulletConstruct({
-                x: context.x, y: context.y + item.firePosition,
-                bulletType: item.name, bulletTexture: item.color,
-                objectOwner: "player", bulletSpeed: item.speed + context.xAdj,
-                width: item.width, height: item.height,
-                damage: item.damage, type: item.type, texture: item.texture,
-                sx: item.sx, sy: item.sy, sWidth: item.sWidth, sHeight: item.sHeight,
-                explosion: item.explosionAnimation, imageWidth: item.imageWidth, imageHeight: item.imageHeight,
-                animationSteps: item.animationSteps, numberOfItems: item.numberOfItems, numberOfVerticalItems: item.numberOfVerticalItems,
-                sound: item.sound
-            });
 
-            let soundProps = {
-                soundUrl: bullet.sound.levelSound,
-                soundLoop: bullet.sound.soundLoop,
-            }
-            bullet.sound.soundObject = initSoundObject({SoundCreator: constructors.SoundCreator, mainGameObject: mainGameObject, soundProps: soundProps})
-            bullet.img.src = bullet.texture;
-            bullet.img.onload = () => {
-                mainGameObject.gameInitData.allGameBullets = mainGameObject.gameInitData.allGameBullets.concat(bullet)
-            }
+
+
+
+    document.addEventListener("click", (event: any) => {
+        let userShipData = mainGameObject.gameInitData.gameData.playerObject
+        let data = mainGameObject.getLevelUserData();
+
+        if(mainGameObject.gameInitData.dynamicLevelsActive || data.currentLevel === 0) return false
+
+        if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus) return false;
+        if(mainGameObject.gameInitData.shopActive) return
+        shot.call(userShipData, constructors.BulletConstruct, mainGameObject, constructors.SoundCreator, "player", "allGameBullets")
+    })
+
+
+
+
+
+    document.addEventListener("mousemove", (event: any) => {
+        if(mainGameObject.gameInitData.dynamicLevelsActive){
+            let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+            groundPlayer.shotAngle = groundPlayerShot({ groundPlayer: groundPlayer, event: event});
+        }
+    })
+
+
+
+    document.addEventListener("mousedown", (event: any) => {
+
+        if(mainGameObject.gameInitData.dynamicLevelsActive){
+            let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+            groundPlayer.shotState = true;
+        }
+    })
+    document.addEventListener("mouseup", (event: any) => {
+        if(mainGameObject.gameInitData.dynamicLevelsActive){
+            let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+            groundPlayer.shotState = false;
         }
     })
 }
+
+
+
+
+
+function activeInventoryEffects({userShipData, mainGameObject, name}){
+    let inventory = userShipData.data.inventory;
+    let objectPresent = findIntInventory({inventory: inventory, searchObject: { name: name }});
+    if(!objectPresent) return false
+    playerGunsOperate({ userShipData: userShipData, mainGameObject: mainGameObject, rocketPresent: objectPresent })
+}
+
+
+
+
+
+
+function playerGunsOperate({ userShipData, mainGameObject, rocketPresent }){
+    userShipData.data.inventory[rocketPresent.index].grapplePower.number -= 1;
+    bulletsCreateModule.call(userShipData, {
+        item: userShipData.data.inventory[rocketPresent.index].grapplePower.value,
+        mainGameObject: mainGameObject,
+        owner: 'player',
+        BulletConstruct: constructors.BulletConstruct,
+        SoundCreator: constructors.SoundCreator,
+        bulletArray: "allGameBullets"
+    })
+    if(userShipData.data.inventory[rocketPresent.index].grapplePower.number <= 0){
+        replaceItemFromStorage({index: rocketPresent.index, storage: userShipData.data.inventory, value: null})
+    }
+}
+
+
+
+
+
+function openInventory({ mainGameObject }){
+    if(!mainGameObject.gameInitData.gameStatus || mainGameObject.gameInitData.gameOver ||
+        mainGameObject.gameInitData.gameWin ||
+        mainGameObject.gameInitData.levelChange) return false
+
+
+    if( !mainGameObject.gameInitData.inventoryActive && !mainGameObject.gameInitData.gamePause ){
+        mainGameObject.gameInitData.inventoryActive = true;
+        mainGameObject.gameInitData.gamePause = true;
+        enterToTheShopDialog({ mainGameObject: mainGameObject, tradePropertyes: null })
+        hide(mainGameObject.shopArea.shopArea)
+    }else if(mainGameObject.gameInitData.inventoryActive){
+        mainGameObject.gameInitData.inventoryActive = false;
+        leaveShop({
+            element: mainGameObject.shopArea,
+            mainGameObject: mainGameObject,
+            text: 'Return to game?'
+        })
+    }
+}
+
+
+
+
+
+function addVehicleSpeed({value, flag}){
+    if(flag) this.data.minSpeed += value;
+    if(!flag && this.data.minSpeed > this.defaultSpeed) this.data.minSpeed -= value;
+}
+
+
+
 
 
 function setContext(context){
     this.ctx = context;
 }
+
+
+
+
+
+
+
 function placeShip(){
 
     let xAdj = (this.xFinal - this.x)/this.data.speed;
@@ -94,15 +264,168 @@ function placeShip(){
 }
 
 
+
+
+
+
+
 function moveShip({xPos=0, yPos=0}){
     this.x += xPos;
     this.y += yPos;
 }
+
+
+
+
+
+
+
+
+function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
+    if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus || process.env.GROUND_PLAYER_ALLOW_MOVE === 'false') return false
+    let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
+    let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
+    let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+
+    let lastActionVertical = groundPlayer.playerDirectionVertical;
+    switch (playerDirection){
+        case "down":
+            groundPlayer.playerDirectionVertical = playerDirection;
+            break
+        case "left":
+            groundPlayer.playerDirectionHorizontal = playerDirection;
+            groundPlayer.playerDirectionVertical = "stand";
+            break
+        case "right":
+            groundPlayer.playerDirectionHorizontal = playerDirection;
+            groundPlayer.playerDirectionVertical = "stand";
+            break
+        case "up":
+            groundPlayer.playerDirectionVertical = playerDirection;
+            break
+    }
+    groundPlayer.xPos =  (xPos)? xPos : groundPlayer.xPos;
+
+
+    if(!groundPlayer.onLeader && !groundPlayer.leaderClimb && groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up"){
+        characterSound({
+            mainGameObject: mainGameObject,
+            timing: extraSeconds,
+            soundUrl: groundPlayer.sound.jump,
+            soundLoop: false
+        })
+    }
+
+    //console.log(groundPlayer.leftWallTouch, groundPlayer.rightWallTouch, groundPlayer.groundTouch)
+    for(let block of dynamicLevelMapBlocks){
+        if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch  ||
+        groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch ){
+            groundPlayer.isRun = true;
+                mainGameObject.gameInitData.gameData.levelData.horizontalSpeed = xPos;
+                block.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;
+        }
+        if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" || 
+        yPos  && groundPlayer.onElevator){
+            if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
+                // (4 + ((lastActionVertical === "down")? 1 : 0))/mainGameObject.gameInitData.gameData.levelData.gravityIndex;
+                let gravity = mainGameObject.gameInitData.gameData.levelData.gravity;
+                let gravityIndex = mainGameObject.gameInitData.gameData.levelData.gravityIndex
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls += (gravity/gravityIndex) + ((lastActionVertical === "down")? 1 : 0);// 1.4  2.5
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
+                groundPlayer.groundTouch = false;
+            }
+            if(groundPlayer.onElevator && groundPlayer.playerDirectionVertical === "up"){
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6 + ((lastActionVertical === "down")? 1 : 0);
+                mainGameObject.gameInitData.gameData.levelData.jumpImpuls *= -1;
+
+                groundPlayer.groundTouch = false;
+            }
+            block.verticalSpeed = yPos;
+        }
+    }
+    if(groundPlayer.onLeader){
+        groundPlayer.leaderClimb = true;
+        if(groundPlayer.playerDirectionVertical === "up"){
+            groundPlayer.groundTouch = false;
+        }else if(groundPlayer.playerDirectionVertical === "down"){
+            mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 6;
+            let downBlock = leadersFunctionality.call(groundPlayer)
+            groundPlayer.groundTouch = (downBlock)? true : false;
+        }
+    }
+    if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "down" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 0.1){
+        mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 3;
+    }
+    if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 0.1){
+        mainGameObject.gameInitData.gameData.levelData.jumpImpuls = -3;
+    }
+    if(playerDirection === "down" && !groundPlayer.onLeader){
+        groundPlayer.isRun = false;
+    }
+    for(let enemy of allEnemy){
+        if(groundPlayer.rightWallTouch || groundPlayer.leftWallTouch) continue
+        enemy.x -= mainGameObject.gameInitData.gameData.levelData.horizontalSpeed;
+    }
+    mainGameObject.mapNearActiveElement = null;
+    playerAnimation({ groundPlayer: groundPlayer, mainGameObject: mainGameObject })
+
+
+    if(groundPlayer.onLeader && groundPlayer.leaderClimb){
+        characterSound({
+            mainGameObject: mainGameObject,
+            timing: 20,
+            soundUrl: groundPlayer.sound.leaderClimb,
+            soundLoop: false
+        })
+    }
+    if(playerDirection === 'right' && groundPlayer.isRun && groundPlayer.groundTouch ||
+    playerDirection === 'left' && groundPlayer.isRun && groundPlayer.groundTouch){
+        characterSound({
+            mainGameObject: mainGameObject,
+            timing: 20,
+            soundUrl: groundPlayer.sound.run,
+            soundLoop: false
+        })
+    }
+}
+
+
+function characterSound({mainGameObject, timing, soundUrl, soundLoop }){
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+        if(extraSeconds % timing === 0){
+            initSoundObject({
+                SoundCreator: constructors.SoundCreator,
+                mainGameObject: mainGameObject,
+                soundProps: {
+                    soundUrl: (soundUrl)? soundUrl : null,
+                    soundLoop: soundLoop
+                }
+            })
+        }
+}
+
+
+
+function shipInSpace({mainGameObject, playerShip, constructors}){
+    let levelInformation = mainGameObject.gameInitData.gameData.levelData;
+    let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
+    if(extraSeconds % 1000 === 0){
+        if(playerShip.data.status === "small fighter" && levelInformation.space){
+            groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})
+        }
+    }
+}
+
 
 export {
     initPlayerShip,
     shipControl,
     moveShip,
     placeShip,
-    setContext
+    setContext,
+    playerShipTextureChange,
+    addVehicleSpeed,
+    syncKeyControl,
+    shipInSpace
 }

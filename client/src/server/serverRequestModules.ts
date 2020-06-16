@@ -1,9 +1,10 @@
 import { text } from "body-parser";
 const remote = require('electron').remote;
 var fs = require('fs');
-const storage = require('electron-json-storage');
-//const dataPath = storage.getDataPath();
-const dataPath =  storage.getDefaultDataPath(__dirname + "dbs")
+var path = require('path');
+var storage = require('electron-json-storage');
+
+
 
 function getData({url, method, data, headers}){
     let resultHeader = Object.assign({
@@ -13,11 +14,21 @@ function getData({url, method, data, headers}){
         mode: 'cors',
         headers: resultHeader,
         body: (data)? JSON.stringify(data) : null
-    }).then(res =>  res.json())
+    }).then(res => {
+        if(res.status != 200){
+            return { status: 'reject', message: res.statusText}
+        }
+        return res.json()
+    })
     .then(data => data)
-    .catch( err => {
-        console.log(err)
-        if(err){
+    .catch( error => {
+        console.log(error)
+        if(error.response){
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        }
+        if(error){
             return {message: "500 No server connection!", status: "error"}
         }
     })
@@ -38,8 +49,8 @@ async function getLocalData({fileName}){
 
 function getDefaultSettings(){
     const defaultData = {
-        "soundLevel":"40",
-        "soundEffect":"40",
+        "soundLevel":"5",
+        "soundEffect":"20",
         "soundOn":true,
         "autoshoot":false,
         "fullScreen":true,
@@ -49,7 +60,16 @@ function getDefaultSettings(){
             "down":[83,40,98],
             "left":[65,37,100],
             "escape":[27],
-            "pause":[80]},
+            "pause":[80],
+            "rocket":[82],
+            "homingRocket":[72],
+            "destroyEnemy":[84],
+            "shield":[69],
+            "inventory":[73],
+            "useKey": [69],
+            "miniMap": [77],
+            "journal": [74]
+        },
         "screenResolution":{
             "title":"800x600",
             "width":800,
@@ -68,16 +88,49 @@ function getDefaultSettings(){
         ]}
         return JSON.stringify(defaultData)
 }
-function getElectronLocalData({fileName}){
+
+function getElectronLocalSaves({fileName}){
     if(!fileName) throw Error("no local files");
     let res = new Promise((resolve, reject) => {
         storage.get(fileName, function(err, data) {
-            if (Object.keys(data).length <= 0){
+
+            var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY : __dirname + process.env.APP_SAVE_DIRECTORY;
+            if (!fs.existsSync(dir) ){
+                fs.mkdirSync(dir);
+                storage.setDataPath(dir);
+            }
+            if (!fs.existsSync(dir + fileName) && Object.keys(data).length <= 0){
+                writeElectronLocalData({fileName: fileName, data: "[]"})
+                resolve([])
+                return {message: "no save"}
+            }
+
+            if(err) throw Error(err)
+            console.log(2)
+            let info = JSON.parse(data);
+            if(info) resolve(info)
+            else reject("got some problem here")
+        })
+    })
+    return res
+}
+
+function getElectronLocalData({fileName}){
+    if(!fileName) throw Error("no local files");
+    var dir = (process.env.NODE_ENV === 'production')? path.join(__dirname, '../../') + process.env.APP_SAVE_DIRECTORY:__dirname + process.env.APP_SAVE_DIRECTORY;
+    storage.setDataPath(dir);
+    let res = new Promise((resolve, reject) => {
+        storage.get(fileName, function(err, data) {
+            if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir);
+            }
+            if (!fs.existsSync(dir + fileName) && Object.keys(data).length <= 0){
                 writeElectronLocalData({fileName: fileName, data: getDefaultSettings()})
                 resolve(JSON.parse(getDefaultSettings()))
                 return
             }
             if(err) throw Error(err)
+
             let info = JSON.parse(data);
             if(info) resolve(info)
             else reject("got some problem here")
@@ -87,10 +140,10 @@ function getElectronLocalData({fileName}){
 }
 
 function writeElectronLocalData({fileName, data}){
-
+    if(!fileName || !data) return console.error('no data or filename at serverRequestModule')
     let res = new Promise((resolve, reject) => {
         storage.set(fileName, data, function(error) {
-            if (error) throw error;
+            if (error) reject(error);
             resolve({message: 'Settings saved'})
             return
         })
@@ -127,6 +180,7 @@ export {
     getLocalData,
     writeLocalData,
     postData,
+    getElectronLocalSaves,
     getElectronLocalData,
     writeElectronLocalData
 };

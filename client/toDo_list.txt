@@ -1,0 +1,481 @@
+======  Complete tasks
+	V- webpack build
+		V- typescript
+		V- sass
+		V- static files
+		V- product/development
+	V- Electron
+		V- view size
+		V- integration js/css/html/static folders
+		V- platform build
+	V- main game object access from all side of the app
+		V- storage
+			V- player
+			V- enemy
+			V- bullets
+			V- side objects
+			V- level data
+			V- game data
+		V- game flags
+	V- generate canvas fields
+		V- get data from server .json format
+		V- create picture in canvas
+			V- animate picture
+			V- change picture
+	V- add background maps
+		V- map move
+		V- map change	
+		V- map different layers
+	V- different levels
+		V- game time
+		V- Earth
+			- night city
+			- canyon
+			- desert
+			- cloud city
+			- cloud
+		V- Moon
+		V- Sun
+		V- Venus
+		V- Mars
+			- city
+		V- Asteroid fields
+		V- Jupiter
+		V- Neptune
+	V- player ship generate
+		V- life
+			V- ifepoints
+			V- number of life
+		V- points
+		V- money
+		V- texture
+			V- animation
+		V- move
+			V- speed
+	V- enemy ship
+		V- life
+		V- behavior
+	V- side Objects
+		V- fire
+		V- modeny
+		V- life	
+		V- buildings on map
+			V- collision
+		V- shop on map
+			V- shop load
+			V- buy ship
+				V- user ship change
+			V- buy/sell guns 
+			V- buy/sell objects
+				V- rocket
+				V- homing rocket
+				V- shield
+				V- nuclear blast
+				V- accelerator
+			V- hangar
+				V- replace items
+			V- inventory
+	V- sounds
+		V- objects
+		V- ambiant
+	V- shot logic
+	V- canvas UI
+		V- pause
+		V- lose screen
+		V- win screen
+	V- save/load
+		V- create saves
+			V- all game objects and data convert to .json format
+			V- create screenshots (base64)
+		V- save in static folder
+		V- overwrite
+		V- delate
+		V- load save
+			V- dsiplay all saves
+			V- convert save data to object (Class constructor)
+			V- replace current object by saves
+	V- HTML UI
+		V- SPA
+			V- settings
+			V- about
+			V- game result
+			V- save
+			V- load
+		V- exit
+		V- shop UI
+		V- load screen
+		V- waiting screen
+	
+
+
+
+
+================================
+
+=======  Fly part Game (bug and fix)
+	V - fixed buttons in shop
+	V - finish desription of shop items
+	V - fixed ship name in shop
+	V - fixed Journal
+	V - fixed game end stop collect points
+	V - fixed object spawn during shop screen
+	V - add space destruction for plane
+	Ì - coins to credits
+	
+====== Ground Game tasks
+
+     V- ai logic
+     v- patrol
+     V   - when detect attack
+     V  - shot when in sight
+   V - level constructor
+       V - create level
+       V - save level
+       V - load level
+       V - place characters
+       V - player collect data
+       V - player shoot
+       V - place enemy
+
+    V - change Game mechanics using current level data
+    V- fetch level array with all level blocks
+      V  - display all blocks on screen
+       V - place player at particular location ( level started )
+   V - change background move and level timing
+       V - enemy moves waiting and attack player
+           V - enemy detect empty blocks and stop
+           V - switch behavior
+           V - !maybe load parts of map!
+       V - everything depends on player move
+           V - Player on center Map move  right, up or down
+           V - simulation of gravity
+		V- 1g - 0g
+            V- Player Jump
+            V- player shoot using mouse direction
+            V- complicated player animation
+               V - change textures
+                   V - add leader animation
+                    V - shoot up down
+                   V - death
+    V - Level ends when player reach the dor or final object
+        V- grapple coin
+        V- grapple life
+        V - grapple card
+        V - add minimap
+        V - add inventory elements
+           V - stack elements
+        V - add script to element activate script
+    V - one hit - one life
+V - Deadly block
+V - spawn checkpoints
+    V - dialog
+        V - scientists
+        V - military
+        V - civil
+            V - add tasks
+            V - quest journal
+	V - fixed pause/nogame movement
+	V - fixed ingame different dirrection movement
+	V -- fixed elevator wall
+	V - add teleport door
+	V - reduce enemy search source
+	V - inventory object name
+
+================================ // Ground Game (bug and fix / changes)  
+
+V - fixed journal when ship renew
+V - fixed saves Too many properties to enumerate
+	V - each save to file?
+- count saving citizen
+V- counting enemy
+X- enemy damage animation
+V- map fix
+V- add NPC tasks
+V- add NPC set behavior
+V- add enemy spawner by time
+	V- number
+	V- timer
+		V- based on id or on screen data
+V- display life
+V- background move separatly
+V- collect points
+V- dialog reaction
+	V- default text id when task is set
+	V- default text id when task complete
+	
+
+	- add sound
+		V - jump
+		V - run
+		V - door
+		V- leaders
+		 - new level music	
+	
+	- create level 6-7
+		- Earth
+			V - Hangar 
+				- (find ship story begin)
+				- data => 5 heads  data => med kit  med kit => access card 
+				- dialog = > blue card => bunker door
+				- repair tool => main bunker door
+				- shoot down enemy ship/gun => green card
+			- Command Center
+				- (target, continue path)
+			V - Desert    6
+				- (find alien communicator, position of alien base on Mars)
+			- Sky city
+		- Moon
+			- Moon base
+				- (fixed transportation system jump gate) 
+		- Venus 
+			- cloud factory
+				- (recharge spccraft, fixed jump gate)
+		- Mars
+			- Alpha side
+				- (find another comunicator target Nepturne)
+		- Io ?	23
+			- fixedd Gate recharge spacecraft	
+		- Neptune
+			- Data center 
+				- Destroy superboss
+
+======  UI
+	V - button tips in pause or level change but not in game
+	V - add buttons style to history
+	- add pages for game desription
+	- finished game story
+	- button sound
+======  Code
+	- change name of methods  
+		V- enemy
+
+
+
+
+
++ Level 1	Night City ground level, square/subway/airforce base 
++ Level 2 Night City 5:20
++ level 3 Night City communication center landing side/ruins/comunication center/ground research facility
+
++ level 4 Canyon   4:30
+
++ level 5 Desert	4:13
++ level 6 Desert ground level, landing side/ruins/undeground tunels
+
++ level 7  Cloud City  4:43
++ level 8  Cloud City ground level  landing side/street/palace
++ level 9  In the sky cloud  Boss level
+
++ level 10  Earth orbit  5:50
++ level 11  Moon outpost approach	4:30
++ level 12  Moon outpost   landing side, controll room/generator/machine
+
++ level 13 Solar Power Station	4:30  Mini Boss
++ level 14 Venus space  3:30
++ level 15 Venus Clouds  4:30
++ level 16 Venus Plant  ground level  landing side/controll room/machine room
+
++ level 17 Road to Mars	4:30
++ level 18 Mars Alpha side  2:30
+- level 19 Mars Research center ground level   docking station/living section/undeground facility
++ level 20 Mars  Mars Alpha side	Boss level
+
++ level 21 Asteroid field 3:30
++ level 22 Jupiter fly By 4:30
+- level 23 Jupiter station  ground level  docking port/living quarters/command center
+
++ level 24 Neptune approach 2:30
++ level 25 Nepune ice  Boss level
+- level 26 Neptune enemy base ground level last boss 	landing side/creating room/boss room
+
+
+
+///////////////////////////////////
+
+webpack-builder-version
+
+--platform=linux  
+--arch=armv7l 
+
+--platform=linux  
+--arch=ia32 
+
+--platform=linux  
+--arch=x64
+
+
+--platform=win32  
+--arch=arm64
+
+--platform=win32  
+--arch=ia32
+
+--platform=win32  
+--arch=x64/
+
+
+
+////////////////  
+
+initSoundObject({SoundCreator, mainGameObject, soundProps})	 - method to createSound
+
+	SoundCreator - constructor of sound
+	mainGameObject - game controller object, store all data
+	soundProps - {
+        		soundUrl: 'url .mp3',
+        		soundLoop: 'boolean',
+    	}
+///////////////
+
+mainGameObject - game root object store all data and state  based on constructor (class Game)
+
+
+
+
+
+intervalCount: 20,	- game speed of frame change
+enemyType: null,
+allGameSideObjects: [],
+allGameEnemies: [],
+allGameBullets: [],
+allGroundGameBullets: [],
+mapBackgroundObjects: [],
+warpObjects: [],
+mapKeyCode: {},
+dynamicLevelMapBlocks:  dynamicLevelMapBlocks,
+dynamicLevelEnemy: dynamicLevelEnemy,
+timeToEressLevel: 6,
+levelChange: false,
+gamePause: false,
+gameUiPause: false,
+backScreenPause: true,
+gameStatus: false,
+gameOver: false,
+gameWin: false,
+subBossPresent: false,
+gatePresent: false,
+levelWindowDescription: false,
+grappleObjectOnScreen: false,
+dynamicLevelsActive: (levelData.dynamicLevelsActive)? true : false,
+tradepostInRange: false,
+inventoryActive: false,
+shopActive: false,
+gameExtraSeconds: 0,
+tradeShipTimeToUndock: 0
+
+
+
+let mapFileName = `${req.body.name}.json`;
+    let writeableStream = await fs.createWriteStream(__dirname + '../../../public/level-creator/complete-maps/'+ mapFileName);
+
+    writeableStream.write(JSON.stringify(req.body));
+    writeableStream.end();
+
+    let writableDemoData = await fs.createWriteStream(__dirname + '../../../public/temp/mapData.json');
+    writableDemoData.write(JSON.stringify(req.body));
+    writableDemoData.end();
+
+
+
+
+
+============================================================================  How it works
+1) entry point    index.ts
+	- Invoke async  IIFE function in the bottom of the file
+	- prevent drag & drop
+	- initiate global variables initAppGlobalVariable()    process.env
+	- init main game object  calling initGameObject()
+		- constructors.Game
+			- gameDataInit()	- main method to build game objects database    ./engine/ameModules/startGame.ts
+		- constructors.PlayerShip
+		- convert all data and request to gameObject
+	- init menu and sound appMenuAndSoundInit({gameObject: gameObject})		// appMenu()
+		- appMenu()  - build all side panels html sections based on templates   // document.importNode(template.content, true)
+	- init sound based  appSoundInit({gameObject: gameObject})
+	- gameObjectStart() 
+		- build ui controller , 
+		- set game fields based on canvas, 
+		- set screen size  (window.innerWidth...)
+		- set 2d context 
+			- app has 3 canvas fields 
+				-this.gameInitData.ctx = this.gameInitData.gameField.getContext('2d');	- for background elements
+    				-this.gameInitData.ctxActionField = this.gameInitData.gameActionField.getContext('2d');	- for ship and interact objects
+    				-this.gameInitData.ctxUIField = this.gameInitData.gameUIField.getContext('2d');  - for UI score, life, time...
+		- initPlayerShip()
+		- ship controll (buttons event, mouse event)
+		- loadShopArea()	- build shop interface bsed on .json data, build shop items, inventory 
+
+2) Start engine using setInterval in the index.ts: 
+	 var engine = await setInterval(gameInterval, gameObject.gameInitData.intervalCount)  - main engine point at this point everithig started
+		-  clearField(ctx, width, height)	function to erress ctx field
+		- gameObject.levelInit([[constructors.GameBackground], [ctx], [gameObject]])	- load background build background map, save to gameObjects
+		- enemyEngineFunction({ gameObject: gameObject })  - unction to display enemy build enemy based on level data, and enemy .json files
+			- displayObjectAtScene()	- main method to display pictures in canvas,		/enemyes/animationHitBoxModules.ts
+			- moveEnemyes()			- method to move enemy					/enemyes/animationHitBoxModules.ts
+			- enemyShipLogicVertical()	- method to deside how to move enemy 			/ai/regularEnemyAiModules.ts
+				- 'patrool', 'find', 'attack', 'comeEndFind', 'rush'
+			- gameObject.deleteObjects({ object: enemy, target: ''} )	- method to delete enemy ship	
+			- shot([constructors.BulletConstruct], [gameObject], [constructors.SoundCreator], ["enemy"], ["allGameBullets"])	- method to create bullets
+			- gameObject.hitDetection([[object1],[objectsArr],[mainGameObject],[GrappleObject]]) 	- method to find collision
+		- bulletEngineFunction({ gameObject: gameObject })	- function to display bullets based on created bullets
+			- hit detection
+			- move bullet
+			- display
+			- delete bullets
+		- await gameDynamicLevelBoxRender({ gameObject: gameObject })	- method to display ground level based on .json data and level data file
+			
+			- 3 cycles 
+				- 1) display backgroundblocks
+				- 2) display elevator
+				- 3) display ground solid blocks
+					- stop collision vith grappe objects
+			- display objects on screen
+			- openClosedDoorAnimation()		- display door animation
+			
+        	- groundBulletEngineFunction({ gameObject: gameObject })	- function for ground bullets
+			- hit detection with ground enemy and blocks and fly enemy
+			- delete bullets
+			- move bullet
+			- display
+
+        	- gameDynamicPlayer({ gameObject: gameObject })	 // async
+			/engine/dynamicLevels/
+			- .displayObjectAtScene(gameObject) display object on screen
+			- .spriteObjectsAnimation() animation
+			- .changeVerticalAnimationPicture()	- change animation based on move
+				- run, jump, sit, death, leader climb, mouse position
+			- .detectObjectsAsMap()	- save objects for minimapmap
+			- shot
+			- computersDialog	- dialog with wals panel and computers
+			- mapGravityInit(mainGameObject, mapObjects, targetObject)
+        	- gameDynamicEnemyRender({ gameObject: gameObject })   - function of ground enemy and NPC logics  - based on ground player class 	
+			/engine/dynamicLevels/
+			- animation changed
+			- blockCollision() - map block colision unit stop, move...
+			- groundEnemyMove() -  move
+			- detectPlayer() - only for enemy to find player in range
+				- (invisible ray from enemy to target, if there is no object on the way - then object in range)
+			- blockCollision()
+			- enemyDetectNpc()
+			- groundEnemyPathFinder()	- detectt nearest block and deside go/no go/ turn around/jump/stop   - behavior
+			- groundPlayerJump()	- climb on leader up
+			- jumpDown()		- climb on leader down
+			- npcCollisionDetect()	- interact with player
+
+        	- syncKeyControl({ mainGameObject: gameObject })	- active keyboard keys
+			/engine/playerShipModules.ts
+			- cycle to save group of buttons active
+			[left/right/up/down]
+
+        	- spaceShipEngineFunction({ gameObject: gameObject })	- function for player flying spacecraft
+        	- sideObjectsEngineFunction({ gameObject: gameObject })	- all graple objects, all explosion, all map collision objects
+        	- gameChangeEngineFunction({ gameObject: gameObject })	- function to change game process from flyght to ground
+        	- gameBackgroundEngineFunction({ gameObject: gameObject })	- moving background and all elements
+
+        	///   game UI load
+        	- gameUiEngineFunction({ gameObject: gameObject })
+			- .gameUiGameStats()	- fire when game started show money, life, time...
+			- .gameOverWindow()	- fire when player have no lifepoints
+			- .gameWinWindow()	- fire ehen player complite all levels
+        	- hideShowMenu(mainMenu, navigation.menu, gameObject.gameInitData.gameWin, gameObject.gameInitData.gameStatus, gameObject.gameInitData.gameUiPause)
+				./appMenu/appMenu

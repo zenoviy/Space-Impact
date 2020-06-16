@@ -4,7 +4,7 @@ function dataValidator(data){
 
 }
 function dataFinder(data, finderData){
-    if(!data.length || !data || !finderData) return false
+    if( !data || !finderData) return false
 
     let resuletEmail = data.find( (element) => {return element.userEmail === finderData.userEmail})
     let resuletName = data.find( (element) => {return element.userName === finderData.userName})
@@ -27,6 +27,7 @@ function dataUpdater(data, finderData){
 
         resulet.gamePoints = finderData.gamePoints;
         resulet.gameCoins = finderData.gameCoins;
+        resulet.userAvatar = (finderData.userAvatar)? finderData.userAvatar : (resulet.userAvatar)? resulet.userAvatar : null;
         data[index] = resulet;
         return {data: data, status: "replace", name: resulet.userName}
 
@@ -36,7 +37,7 @@ function dataUpdater(data, finderData){
 
     }else if(resulet && resulet.gamePoints === finderData.gamePoints &&
         resulet.userPassword === finderData.userPassword){
-        return {data: data, status: "equil-result", name: null}
+        return {data: data, status: "equal-result", name: null}
 
     }else if(resulet && resulet.userPassword != finderData.userPassword){
         return {data: data, status: "wrong-password", name: null}
