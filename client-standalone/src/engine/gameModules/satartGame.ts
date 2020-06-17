@@ -66,6 +66,8 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
         const userData = res.userData;
         const enemyData = res.enemyData;
 
+        process.env.GROUND_PLAYER_ALLOW_MOVE = (levelData.dynamicLevelsActive)? 'false' : 'true';
+
         if(levelData['status'] === "error" || levelObjects === "error" || grappleObjects === "error" ||
         levelData['gameSetings'] === "error" || userData === "error" || enemyData === "error"){
             loadWindow({loadStatus: "serverError"})

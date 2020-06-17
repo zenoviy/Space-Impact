@@ -49,7 +49,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
-    let level = 0, shipType = 3, shipLife = 15;
+    let level = 19, shipType = 3, shipLife = 15;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameDialogField = document.querySelector('#gameActionDialogfield'),
@@ -65,7 +65,9 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
         const userData = res.userData;
         const enemyData = res.enemyData;
 
-        //console.log(levelData)
+
+        process.env.GROUND_PLAYER_ALLOW_MOVE = (levelData.dynamicLevelsActive)? 'false' : 'true';
+
         if(levelData.status === "error" || levelObjects === "error" || grappleObjects === "error" ||
         levelData.gameSetings === "error" || userData === "error" || enemyData === "error"){
             loadWindow({loadStatus: "serverError"})
