@@ -108,7 +108,7 @@ function gameWinScreen(data: any,ctx: any, width: number, height: number, pictur
             getObjectPosition: getUIObjectPosition
         }, {
             name: "Button end game",
-            text: "go to start",
+            text: "to start",
             description: "back to start screen",
             fontSize: "25px Roboto",
             clicked: false,

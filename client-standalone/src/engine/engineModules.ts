@@ -268,7 +268,7 @@ function deleteObjectsOnDemand({ object, mainGameObject, target }){
 
 function delateSideObject(object){
     limitationOfbullets({ mainGameObject: this })
-    if(!object.objectPresent || object.x < -300 - object.width){
+    if(!object.objectPresent || (!this.gameInitData.dynamicLevelsActive && object.x < -300 - object.width)){
         let index = this.gameInitData.allGameSideObjects.indexOf(object);
         this.gameInitData.allGameSideObjects.splice(index, 1);
         if(object.objectOwner == 'hangar'){

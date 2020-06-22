@@ -277,7 +277,7 @@ V- dialog reaction
 
 + level 17 Road to Mars	4:30
 + level 18 Mars Alpha side  2:30
-- level 19 Mars Research center ground level   docking station/living section/undeground facility
++ level 19 Mars Research center ground level   docking station/living section/undeground facility
 + level 20 Mars  Mars Alpha side	Boss level
 
 + level 21 Asteroid field 3:30

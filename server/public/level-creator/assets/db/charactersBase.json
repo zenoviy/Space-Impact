@@ -414,6 +414,66 @@
         "detectFrame": 0
     },
 
+    {
+        "id": "wardrobe_with_data",
+        "texture": "/level-creator/assets/charactersObjects/wardrobe.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/wardrobe.png",
+        "description": "computer with data",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Press 'E' to collect the data",
+            "require": null,
+            "contain": "computer_data",
+            "requireText": null,
+            "successText": "You get computer Data now you can continue you journey",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },{
+        "id": "wardrobe_with_data_2",
+        "texture": "/level-creator/assets/charactersObjects/panel-code-animation.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/panel-code.png",
+        "description": "computer with data",
+        "type": "terminal_object",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Press 'E' to collect the data",
+            "require": null,
+            "contain": "computer_data",
+            "requireText": null,
+            "successText": "You get computer Data now you can continue you journey",
+            "innerObject": null
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 1,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },
+
 
     {
         "id": "computer_with_text_1",
@@ -511,6 +571,52 @@
         "id": "computer_with_text_3",
         "texture": "/level-creator/assets/charactersObjects/panel-7-animation.png",
         "previewTexture": "/level-creator/assets/charactersObjects/panel-7.png",
+        "description": "computer with data",
+        "type": "read_terminal",
+        "collision": false,
+        "backgroundTexture": null,
+        "rules": {
+            "tips": "Press 'E' to read",
+            "require": null,
+            "contain": null,
+            "requireText": null,
+            "successText": "",
+            "innerObject": null
+        },
+        "dialog": {
+            "default": {
+                "name": "Computer",
+                "facePicture": "/level-creator/assets/enemyObject/avatar/face-3.png",
+                "facePictureAbsolute": null
+            },
+            "dialogAnswers": [
+                {
+                    "id": 0,
+                    "text": "How can i help?",
+                    "action": "none",
+                    "numberOfRequireItems": 0,
+                    "questions": [
+                    ]
+                }
+            ]
+        },
+        "mapColor": "#2200FF",
+        "imageWidth": 236,
+        "imageHeight": 58,
+        "picturesWidth": 236,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 4,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0
+    },{
+        "id": "computer_with_text_4",
+        "texture": "/level-creator/assets/charactersObjects/panel-8.png",
+        "previewTexture": "/level-creator/assets/charactersObjects/panel-8-prew.png",
         "description": "computer with data",
         "type": "read_terminal",
         "collision": false,

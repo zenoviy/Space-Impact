@@ -285,7 +285,11 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     if(mainGameObject.gameInitData.gamePause || !mainGameObject.gameInitData.gameStatus || process.env.GROUND_PLAYER_ALLOW_MOVE === 'false') return false
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
+    let allGroundGameBullets = mainGameObject.gameInitData.allGroundGameBullets;
+    let allGameSideObjects = mainGameObject.gameInitData.allGameSideObjects;
     let dynamicLevelMapBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
+
+    let allGameSceneObjects = [].concat(dynamicLevelMapBlocks, allGameSideObjects, allGroundGameBullets)
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
 
     let lastActionVertical = groundPlayer.playerDirectionVertical;
@@ -318,7 +322,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
     }
 
     //console.log(groundPlayer.leftWallTouch, groundPlayer.rightWallTouch, groundPlayer.groundTouch)
-    for(let block of dynamicLevelMapBlocks){
+    for(let block of allGameSceneObjects){
         if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch  ||
         groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch ){
             groundPlayer.isRun = true;

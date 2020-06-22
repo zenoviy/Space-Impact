@@ -989,6 +989,26 @@
         "numberOfVerticalItems": 1,
         "detectFrame": 0,
         "mapColor": "#eeeeee"
+    },{
+        "id": "city_wall_hospital-label",
+        "collision": false,
+        "texture": "/level-creator/assets/block/background/hospital-label.png",
+        "description": "background block",
+        "isDestroy": false,
+        "type": "background-wall",
+        "imageWidth": 59,
+        "imageHeight": 58,
+        "picturesWidth": 59,
+        "picturesHeight": 58,
+        "animationSteps": 10,
+        "sx": 0,
+        "sy": 0,
+        "sWidth": 59,
+        "sHeight": 58,
+        "numberOfItems": 1,
+        "numberOfVerticalItems": 1,
+        "detectFrame": 0,
+        "mapColor": "#eeeeee"
     }
     
     

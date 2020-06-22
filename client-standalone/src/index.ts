@@ -464,10 +464,17 @@ async function gameDynamicEnemyRender({ gameObject }){
 async function gameDynamicPlayer({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     if(!gameObject.gameInitData.gameOver && gameObject.gameInitData.gameStatus){
+        let allBullets = gameObject.gameInitData.allGameBullets;
+        let allGroundGameBullets = gameObject.gameInitData.allGroundGameBullets;
+        let allGameSideObjects = gameObject.gameInitData.allGameSideObjects;
+
+
             let extraSeconds = gameObject.gameInitData.gameExtraSeconds;
             let groundPlayer = gameObject.gameInitData.gameData.groundPlayerCharacter;
             let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
             let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
+
+            let allMapObjects = [].concat(allGroundGameBullets, allGameSideObjects, allBullets, allBlocks, allEnemy)
             groundPlayer.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
 
@@ -508,7 +515,7 @@ async function gameDynamicPlayer({ gameObject }){
                 await computersDialog({ mainGameObject: gameObject, allBlocks: allBlocks })
                 await mapGravityInit({
                     mainGameObject: gameObject,
-                    mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
+                    mapObjects: allMapObjects,
                     targetObject: groundPlayer,
                     constructors: constructors
                 })

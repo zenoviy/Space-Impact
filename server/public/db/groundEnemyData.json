@@ -389,11 +389,11 @@
                 "numberOfItems": 7
             },
             "run": {
-                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-run.png",
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-stand.png",
                 "picturesWidth": 1631,
                 "imageWidth": 1631,
                 "imageHeight": 500,
-                "animationSteps": 5,
+                "animationSteps": 2,
                 "numberOfItems": 7
             },
             "runAndShotTop": {
@@ -409,11 +409,11 @@
                 "picturesWidth": 1631,
                 "imageWidth": 1631,
                 "imageHeight": 500,
-                "animationSteps": 10,
+                "animationSteps": 2,
                 "numberOfItems": 7
             },
             "jump": {
-                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-run.png",
+                "innerTexture": "/public/images/groundEnemy/enemy-2-boss/enemy-1-stand.png",
                 "picturesWidth": 1631,
                 "imageWidth": 1631,
                 "imageHeight": 500,

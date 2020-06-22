@@ -194,7 +194,7 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
                     <p>seconds: ${(saveDataItem.playerInformation.seconds)? saveDataItem.playerInformation.seconds : 0}</p>
                     <p>Life: ${saveDataItem.playerInformation.playerLife}</p>
                     <p>Points: ${saveDataItem.playerInformation.points}</p>
-                    <p>Coins: ${saveDataItem.playerInformation.coins}</p>
+                    <p>Credits: ${saveDataItem.playerInformation.coins}</p>
                 </div>
             </div>
             ${(flag === 'save-screen')? saveButtons: loadButtons}

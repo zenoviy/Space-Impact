@@ -127,10 +127,10 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
         item.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
         item.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
     }
-    for(let enemy of allEnemy){
+    /*for(let enemy of allEnemy){
         enemy.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
         enemy.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
-    }
+    }*/
     backToTheMapAgain({ mainGameObject: mainGameObject, player: groundPlayer, constructors: constructors })
     groundPlayer.onStairs = 0;
 }
@@ -332,7 +332,6 @@ async function findPointOfCollision({object, target, mainGameObject, explosionFi
         isBottomWall: isBottomWall,
         y: y
     })
-    
     if(target.details.type === "leader"){
         this.onLeader = true;
     }
@@ -700,7 +699,7 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
             }
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch) item.y += ((jumpImpuls * 0.50)* -1)
         }
-        if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject || item instanceof constructors.GrappleObject ){
+        /*if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject || item instanceof constructors.GrappleObject ){
                 if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
                     item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPos:
                     ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
@@ -719,7 +718,7 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
                 let jumpImpulsVertical = jumpImpuls;
                 item.y = (item.Grapple)?  item.y - jumpImpulsVertical : item.y + jumpImpulsVertical * -1;
             }
-        }
+        }*/
     }
 }
 

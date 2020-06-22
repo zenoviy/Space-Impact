@@ -46,13 +46,14 @@ async function createSave({saveName, saveData, mainGameObject}){
     let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject});
     let saveTime = new Date().getTime();
     let pleyerInformation = mainGameObject.showGameInfo();
+    //let userShipJournal = leyerInformation.playerObject.journal;
     let informationToShow = {
         currentLevel: pleyerInformation.gameData.currentLevel,
         points: pleyerInformation.gameData.currentPoint,
         coins: pleyerInformation.gameData.gameCoins,
         minutes: pleyerInformation.gameData.levelData.levelDetails.levelMinutes,
         seconds: pleyerInformation.gameData.levelData.levelDetails.levelSeconds,
-        playerLife: pleyerInformation.playerObject.numberOflife
+        playerLife: pleyerInformation.playerObject.numberOflif
     }
 
     let saveGameData = {
@@ -62,14 +63,10 @@ async function createSave({saveName, saveData, mainGameObject}){
         playerInformation: informationToShow,
         saveData: JSON.stringify(saveData)
     }
-    //let allowToSave = compareSaveName({allData: allData, saveGameData: saveGameData});
 
-    //if(!allowToSave) return false
     let image = await mainGameObject.getImageFromFields({saveGameData: saveGameData, screenshot: false});
 
     saveGameData.savePicture = image;
-    //allData = allData.concat(saveGameData);
-    //await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)});
     await writeElectronLocalData({fileName: (saveName.saveName)? saveName.saveName: saveTime, data: JSON.stringify(saveGameData)})
     let allData: any = await showSaveData();
 

@@ -23,7 +23,9 @@ async function getResultlData (req, res) {
             gamePoints: item.gamePoints,
             time: item.id,
             gameCoins: item.gameCoins,
-            userAvatar: item.userAvatar
+            userAvatar: item.userAvatar,
+            destroyShip: (item.destroyShip)? item.destroyShip: null,
+            destroyEnemy: (item.destroyEnemy)? item.destroyEnemy: null
         }})
         res.send(publicData)
     })

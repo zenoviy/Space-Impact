@@ -390,7 +390,9 @@ async function getResultlData ({url, headers}) {
                 gamePoints: item.gamePoints,
                 time: item.id,
                 gameCoins: item.gameCoins,
-                userAvatar: item.userAvatar
+                userAvatar: item.userAvatar,
+                destroyShip: (item.destroyShip)? item.destroyShip: null,
+                destroyEnemy: (item.destroyEnemy)? item.destroyEnemy: null
             }})
             resolve(publicData)
         })
