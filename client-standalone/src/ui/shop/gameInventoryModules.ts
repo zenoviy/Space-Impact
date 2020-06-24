@@ -1,12 +1,11 @@
 import { show,
     hide,
-    toggler,
     addClassList,
     removeClassList } from '../../appMenu/appMenu';
-import { pageBuilder, createElements } from '../../appMenu/pagesBuilder';
+import { createElements } from '../../appMenu/pagesBuilder';
 import { loadHangar } from './gameHangarModules';
 import { leaveShop, saleBoxLabelChange } from './gameShopModule';
-import { saleBoxEvent } from './shopEvents/shopEventsModules';
+
 
 
 
@@ -21,7 +20,6 @@ function shopInventory({element, mainGameObject}){
         innerContent: (playerObjectData.inventory[index])?`<div class="inventory-inner-item">
             ${(playerObjectData.inventory[index].type === "inventory weapon")?
             '<span>'+ playerObjectData.inventory[index].grapplePower.number +'</span>': ''}
-            
             <img src="${(playerObjectData.inventory[index].loadImage)? process.env.HOST + playerObjectData.inventory[index].loadImage : ""}">
             </div>` : `<div class="inventory-inner-item"></div>`,
         attribute: null, attributeName: null,

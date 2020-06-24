@@ -336,8 +336,8 @@
             }
         ],
         "levelDetails" : {
-            "levelMinutes": 1,
-            "levelSeconds": 10
+            "levelMinutes": 3,
+            "levelSeconds": 40
         }
     },
 
@@ -345,7 +345,7 @@
     {
         "level" : 3,
         "enemyType" : ["dart", "mine", "mine", "mine"],
-        "grappleObject": ["lifepoint"],
+        "grappleObject": [],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
         "dynamicBlockMap": "2-map-level-night-city-2",
         "enemyProbability" : 900,
@@ -1738,7 +1738,7 @@
         "level" : 17,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["gate_1"],
+        "levelOBjects" : [],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -2270,7 +2270,7 @@
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "bossPresent": true,
+        "bossPresent": false,
         "space": false,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
@@ -2364,8 +2364,8 @@
             "gravityIndex": 0.01,
             "jumpImpuls": 4,
             "horizontalSpeed": 2,
-            "bossPresent": true,
-            "space": false,
+            "bossPresent": false,
+            "space": true,
             "enemyMaxNumber": 2,
             "enemyRandomizerIndex": 5,
             "levelStandartMap": {

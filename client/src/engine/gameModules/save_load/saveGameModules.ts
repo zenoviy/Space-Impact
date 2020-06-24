@@ -46,7 +46,6 @@ async function createSave({saveName, saveData, mainGameObject}){
     let getContext = await initSaveLoadScreen({mainGameObject: mainGameObject});
     let saveTime = new Date().getTime();
     let pleyerInformation = mainGameObject.showGameInfo();
-    //let userShipJournal = leyerInformation.playerObject.journal;
     let informationToShow = {
         currentLevel: pleyerInformation.gameData.currentLevel,
         points: pleyerInformation.gameData.currentPoint,
@@ -112,7 +111,6 @@ async function deleteSaveData({currentSave, mainGameObject}){
     }
 
     saveDialog({text: `You just delete save ${currentSave.saveName}`, typeOfWarning: "success-text"});
-    //await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)});
     await fs.unlinkSync(storage.getDataPath() + '/' +  currentSave.saveName + '.json')
     displaySavesOnScreen({
         saveScreen: getContext.saveScreen,
@@ -158,10 +156,7 @@ async function overwriteSaveData({currentSave, mainGameObject}){
     }
 
     saveDialog({text: "Save overwrite successfully", typeOfWarning: "success-text"});
-    //allData.splice(index, 1, saveGameData);
     let image = await mainGameObject.getImageFromFields({saveGameData: saveGameData, screenshot: false});
-    saveGameData.savePicture = image;
-    //await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     await fs.unlinkSync(storage.getDataPath() + '/' +  currentSave.saveName + '.json');
     await writeElectronLocalData({fileName: (currentSave.saveName)? currentSave.saveName: saveTime, data: JSON.stringify(saveGameData)})
     allData = await showSaveData();

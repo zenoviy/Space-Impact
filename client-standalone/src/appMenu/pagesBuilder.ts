@@ -2,6 +2,7 @@ async function pageBuilder( {target, data}){
     if(await !target || await !data) throw Error("cant fetch the data");
 
     let targetNode = document.querySelector(target);
+    if(!targetNode) return false
     targetNode.innerHTML = "";
 
     data.then(data => {
@@ -22,10 +23,9 @@ async function pageBuilder( {target, data}){
     })
 }
 function createElements({tagName, styleClass, inlineStyle, pictureUrl, linkUrl, text, innerContent, attributeName, attribute, attributeName1, attribute1}, ...rest){
-    //console.log(inlineStyle)    
-    let element = document.createElement(tagName);
+        let element = document.createElement(tagName);
          (styleClass)? element.className = styleClass : false;
-         (inlineStyle)? element.style = inlineStyle : false;
+         (inlineStyle)? element.style =inlineStyle : false;
          (tagName === "img" && pictureUrl)? element.src = __dirname + pictureUrl : false;
          (text)? element.innerText = text: false;
          (innerContent)? element.innerHTML = innerContent: false;

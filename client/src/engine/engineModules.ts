@@ -1,6 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var storage = require('electron-json-storage');
 import mergeImages from 'merge-images';
 import { draw } from '../view/displayModules';
 import { addClassList, removeClassList } from '../appMenu/appMenu';
@@ -386,7 +385,6 @@ async function getImageFromFields({saveGameData, screenshot }){
                 filename: new Date().getTime(), screenshot: screenshot})
             return reducePreviewImageSize({ picUrl: 'data:image/png;base64,' + pic.replace(/^data:image\/png;base64,/, "")})
             .then( resolve => {
-                //console.log('resolve', resolve)
                 return  resolve
             })
         })
@@ -474,7 +472,6 @@ function fullScreenSwitch({fullscreen}){
 
 
 function angleFinder({object, target}){
-    let distanceX = (target.x  > object.x)? target.x - object.x : object.x - target.x;
 
     let targetX = ((Math.sign(target.x) > 0)? target.x : 0) + target.width/3;
     let targetY = ((Math.sign(target.y) > 0)? target.y : 0) + target.height/2;
@@ -482,9 +479,6 @@ function angleFinder({object, target}){
     let objectX = (Math.sign(object.x) > 0)? object.x: 0,
     objectY = (Math.sign(object.y) > 0)? object.y: 0
 
-    let item = (targetY - objectY)/(targetX - objectX);
-
-    //let rotateAngle = Math.atan2(targetY  - objectY, targetX + (distanceX / target.speed) - objectX) * 180 / Math.PI;
     let rotateAngle = Math.atan((objectX - targetX)/(objectY - targetY))/(Math.PI/180)
     let x1 = objectX - targetX;
     let y1 = objectY - targetY;

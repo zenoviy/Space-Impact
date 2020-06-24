@@ -259,7 +259,7 @@ function deadlyBlocks({mainGameObject, curentBlock, constructors}){
     let extraSeconds = mainGameObject.gameInitData.gameExtraSeconds;
     if(this.objectOwner != "groundEnemy" && this.objectOwner != "groundNPC" && curentBlock.details.deadly){
         let allEnemy = mainGameObject.gameInitData.dynamicLevelEnemy;
-        if(extraSeconds % 50 === 0){
+        if((extraSeconds % 50 === 0 && curentBlock.details.id != "deadly-spikes") || curentBlock.details.id === "deadly-spikes"){
              let allBlocks = [].concat(mainGameObject.gameInitData.dynamicLevelMapBlocks, allEnemy);
             positionToSpawner({mainGameObject: mainGameObject, allBlocks: allBlocks})
             groundPlayerMinusLife({mainGameObject: mainGameObject, constructors: constructors})

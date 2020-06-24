@@ -1,14 +1,6 @@
-import { show, hide, removeClassList, addClassList } from '../../../appMenu/appMenu';
+import { hide, removeClassList, addClassList } from '../../../appMenu/appMenu';
 import { shopInventory,
-    selectInventoryItem,
-    inventoryFreeItem,
-    putInsideInventory,
-    putItemToStorage,
-    saleItem,
-    hideDescriptionArea,
-    showDescriptionArea,
-    salePercentAddToPrice,
-    assignEffectsToShip } from '../gameInventoryModules';
+    saleItem} from '../gameInventoryModules';
 import { loadHangar } from '../gameHangarModules';
 import { buyShip,
     buyItem, showShopData,

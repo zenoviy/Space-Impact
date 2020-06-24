@@ -127,10 +127,10 @@
         "title": "Navigator",
         "status": "small ship",
         "description": "Suborbital ship, this ship is not maneuverable and fast, but it can carry two type of weapons and has extended inventory",
-        "healthPoint": 150,
+        "healthPoint": 350,
         "armor": 15,
         "speed": 10,
-        "minSpeed": 3,
+        "minSpeed": 3.5,
         "inventoryCapacity": 4,
         "inventory": [null, null, null, null],
         "firespot": [

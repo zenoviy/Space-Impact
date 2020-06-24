@@ -62,14 +62,10 @@ async function createSave({saveName, saveData, mainGameObject}){
         playerInformation: informationToShow,
         saveData: JSON.stringify(saveData)
     }
-    //let allowToSave = compareSaveName({allData: allData, saveGameData: saveGameData});
-
-    //if(!allowToSave) return false
+ 
     let image = await mainGameObject.getImageFromFields({saveGameData: saveGameData, screenshot: false});
 
     saveGameData.savePicture = image;
-    //allData = allData.concat(saveGameData);
-    //await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)});
     await writeElectronLocalData({fileName: (saveName.saveName)? saveName.saveName: saveTime, data: JSON.stringify(saveGameData)})
     let allData: any = await showSaveData();
 
@@ -115,7 +111,6 @@ async function deleteSaveData({currentSave, mainGameObject}){
     }
 
     saveDialog({text: `You just delete save ${currentSave.saveName}`, typeOfWarning: "success-text"});
-    //await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)});
     await fs.unlinkSync(storage.getDataPath() + '/' +  currentSave.saveName + '.json')
     displaySavesOnScreen({
         saveScreen: getContext.saveScreen,
@@ -161,10 +156,8 @@ async function overwriteSaveData({currentSave, mainGameObject}){
     }
 
     saveDialog({text: "Save overwrite successfully", typeOfWarning: "success-text"});
-    //allData.splice(index, 1, saveGameData);
     let image = await mainGameObject.getImageFromFields({saveGameData: saveGameData, screenshot: false});
     saveGameData.savePicture = image;
-    //await writeElectronLocalData({fileName: process.env.SAVE_DATA_FILE, data: JSON.stringify(allData)})
     await fs.unlinkSync(storage.getDataPath() + '/' +  currentSave.saveName + '.json');
     await writeElectronLocalData({fileName: (currentSave.saveName)? currentSave.saveName: saveTime, data: JSON.stringify(saveGameData)})
     allData = await showSaveData();

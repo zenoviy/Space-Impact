@@ -2,6 +2,7 @@ async function pageBuilder( {target, data}){
     if(await !target || await !data) throw Error("cant fetch the data");
 
     let targetNode = document.querySelector(target);
+    if(!targetNode) return false
     targetNode.innerHTML = "";
 
     data.then(data => {

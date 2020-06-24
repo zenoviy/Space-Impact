@@ -127,10 +127,6 @@ async function mapGravityInit({mainGameObject, mapObjects, targetObject, constru
         item.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
         item.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
     }
-    /*for(let enemy of allEnemy){
-        enemy.y -= (levelInformation.jumpImpuls)? levelInformation.jumpImpuls : 0;
-        enemy.x -= (levelInformation.horizontalSpeed)? levelInformation.horizontalSpeed : 0;
-    }*/
     backToTheMapAgain({ mainGameObject: mainGameObject, player: groundPlayer, constructors: constructors })
     groundPlayer.onStairs = 0;
 }
@@ -416,7 +412,6 @@ async function groundBlockCollision({mainGameObject, target, targetX, targetY, l
     }
     if(this.y + this.height < targetY + target.height/2 && collision && !isWall &&
         target.details.type != "stairs-left" && target.details.type != "stairs-right"){
-         //console.log("Ground", isBottomWall, isWall)
         if(target.details ){
            if(target.details.type === 'elevator' ){
                 this.onElevator = true;
@@ -699,26 +694,6 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
             }
             if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch) item.y += ((jumpImpuls * 0.50)* -1)
         }
-        /*if(item instanceof constructors.BulletConstruct || item instanceof constructors.SideObject || item instanceof constructors.GrappleObject ){
-                if(!groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch && xPos){
-                    item.x = (item.Grapple && groundPlayer.playerDirectionHorizontal === 'right')? item.x + xPos:
-                    ( item.Grapple && groundPlayer.playerDirectionHorizontal === 'left' )?  item.x - xPos :
-                    ( groundPlayer.playerDirectionHorizontal === 'right' )? item.x - xPos  : item.x - xPos ;
-                }
-                if(!groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject) && !groundPlayer.ceilingTouch){
-                    item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
-                    item.x += xPosGround * -1;
-                    jumpImpuls = 0;
-                }else if(groundPlayer.groundTouch && (item instanceof constructors.BulletConstruct || item instanceof constructors.GrappleObject || item instanceof constructors.SideObject) && xPos && !groundPlayer.leftWallTouch && !groundPlayer.rightWallTouch  && !groundPlayer.ceilingTouch){
-                    //item.y += (Math.sign(levelInformation.jumpImpuls) > 0)? (levelInformation.jumpImpuls * -1) : (levelInformation.jumpImpuls * -1) - 0.40;
-                    item.x += xPos * -1;
-                    jumpImpuls = 0;
-                }
-            if(item.speed != 0 && !groundPlayer.groundTouch && !groundPlayer.ceilingTouch || !groundPlayer.groundTouch){
-                let jumpImpulsVertical = jumpImpuls;
-                item.y = (item.Grapple)?  item.y - jumpImpulsVertical : item.y + jumpImpulsVertical * -1;
-            }
-        }*/
     }
 }
 
@@ -726,13 +701,13 @@ function backgroundMoveDuringMove({mainGameObject, jumpImpuls, xPos, groundPlaye
 
 
 function backgroundAdjustment({mainGameObject}){
-    //console.log("map-position", mainGameObject.gameInitData.dynamicLevelsActive, mainGameObject.gameInitData.mapBackgroundObjects)
     if(!mainGameObject.gameInitData.dynamicLevelsActive || mainGameObject.gameInitData.mapBackgroundObjects.length === 0) return false
     let allGameBackgroundElements = mainGameObject.gameInitData.mapBackgroundObjects;
     let allBlocks = mainGameObject.gameInitData.dynamicLevelMapBlocks;
     let groundPlayer = mainGameObject.gameInitData.gameData.groundPlayerCharacter;
     let levelInformation = mainGameObject.gameInitData.gameData.levelData;
 
+    if(levelInformation.space) return
     let upperObjectYNumber = {
         y: Infinity,
         object: null
@@ -750,7 +725,6 @@ function backgroundAdjustment({mainGameObject}){
         background.y -= background.defaultSpeed*(userUpperWidth/(levelInformation.gravity*2)) - 100;//-100//(background.defaultSpeed/(levelInformation.jumpImpuls ))
         background.defaultY = background.y;
     }
-    //item.y -= (!groundPlayer.currentGroundBlock.details.currentDirection)? (item.defaultSpeed/(jumpImpuls ) * (elevatorSpeed/10)) : 0;
 }
 
 export {

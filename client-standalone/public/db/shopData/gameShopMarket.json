@@ -42,7 +42,7 @@
             "damage": "defence ship for 10seconds",
             "title": "Defence Shield",
             "status": "inventory static",
-            "description": "1 shield for the ship, technology of plasma shield allow to create a thick layer of polarized hi-speed particles around ship, press < E > key to activate",
+            "description": "1 shield for the ship, technology of plasma shield allow to create a thick layer of polarized hi-speed particles around ship, press < E > key to activate, Shield work for 10 seconds",
             "type": "inventory weapon",
             "grapplePower": {
                 "name": "defence shield",

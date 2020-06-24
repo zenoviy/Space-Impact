@@ -204,46 +204,46 @@ V- dialog reaction
 	V- default text id when task complete
 	
 
-	- add sound
+	V- add sound
 		V - jump
 		V - run
 		V - door
 		V- leaders
-		 - new level music	
+		 V- new level music	
 	
-	- create level 6-7
-		- Earth
+	V- create level 6-7
+		V- Earth
 			V - Hangar 
 				- (find ship story begin)
 				- data => 5 heads  data => med kit  med kit => access card 
 				- dialog = > blue card => bunker door
 				- repair tool => main bunker door
 				- shoot down enemy ship/gun => green card
-			- Command Center
+			V- Command Center
 				- (target, continue path)
 			V - Desert    6
 				- (find alien communicator, position of alien base on Mars)
-			- Sky city
-		- Moon
+			V- Sky city
+		V- Moon
 			- Moon base
 				- (fixed transportation system jump gate) 
-		- Venus 
+		V- Venus 
 			- cloud factory
 				- (recharge spccraft, fixed jump gate)
-		- Mars
+		V- Mars
 			- Alpha side
 				- (find another comunicator target Nepturne)
-		- Io ?	23
+		V- Io ?	23
 			- fixedd Gate recharge spacecraft	
-		- Neptune
-			- Data center 
-				- Destroy superboss
+		V- Neptune
+			V- Data center 
+				V- Destroy superboss
 
 ======  UI
 	V - button tips in pause or level change but not in game
 	V - add buttons style to history
-	- add pages for game desription
-	- finished game story
+	V - add pages for game desription
+	V - finished game story
 	- button sound
 ======  Code
 	- change name of methods  
@@ -313,7 +313,17 @@ webpack-builder-version
 --platform=win32  
 --arch=x64/
 
+===========================  Bug list (Release test) ================
+----- Fly leveln 
+	Vwhen get the graple object (shield) -money
 
+----------------- Ground level
+	V Somethimes/not traced/ quest object failure during 2nd dialog (write the object is given but task didnt compleate) (Venus Factory Computer) (Cloud City worker)
+	V Fixed Spike - fire
+	26 level text , delete background texture
+	
+	add advice (always check inventory (after dialogue) and jurnall, compare data, always save)
+======================================================
 
 ////////////////  
 

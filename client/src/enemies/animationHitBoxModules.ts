@@ -558,6 +558,7 @@ function grappleObjectCollision({ hitObject, mainGameObject }){
             SideObject: constructors.SideObject,
             explosion: "explosion"
         });
+       // console.log("By rockets", this.grapplePower.methodName)
         this[this.grapplePower.methodName]({allGameSideObjects: mainGameObject, playerShipData: hitObject, mainGameObject: mainGameObject})
     }
 }

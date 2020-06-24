@@ -2079,7 +2079,7 @@
             "isShot": true,
             "isBoss": true,
             "spotDistance": 1000,
-            "healthPoint": 41500,
+            "healthPoint": 415000,
             "bulletType": 1,
             "rapidFire": 5,
             "imageWidth": 3802,

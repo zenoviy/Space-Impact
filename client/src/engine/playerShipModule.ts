@@ -2,12 +2,11 @@
 
 import * as constructors from '../constructors/';
 import { shot, bulletsCreateModule } from '../enemies/animationHitBoxModules';
-import { inventoryColisionEvent, findIntInventory } from '../ui/shop/shopEvents/shopEventsModules';
+import { findIntInventory } from '../ui/shop/shopEvents/shopEventsModules';
 import { replaceItemFromStorage } from '../ui/shop/gameInventoryModules';
 import { enterToTheShopDialog, leaveShop } from '../ui/shop/gameShopModule';
 import { show, hide } from '../appMenu/appMenu';
 import { showGroundPlayerInventory, playerAnimation, groundPlayerShot } from '../engine/dynamicLevels/playerUnitModule';
-import { backgroundMoveDuringMove, mapGravityInit } from '../engine/dynamicLevels/dynamicLevelModule';
 import { interactWithObjects } from '../engine/dynamicLevels/dynamicDialog';
 import { leadersFunctionality } from '../engine/dynamicLevels/dynamicLevelInteractiveElements';
 import { createMapRenderField } from '../engine/dynamicLevels/minimap';
@@ -321,7 +320,6 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
         })
     }
 
-    //console.log(groundPlayer.leftWallTouch, groundPlayer.rightWallTouch, groundPlayer.groundTouch)
     for(let block of allGameSceneObjects){
         if(groundPlayer.playerDirectionHorizontal === "left" && !groundPlayer.leftWallTouch  ||
         groundPlayer.playerDirectionHorizontal === "right" && !groundPlayer.rightWallTouch ){
@@ -332,7 +330,6 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
         if(!groundPlayer.ceilingTouch && yPos && groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" || 
         yPos  && groundPlayer.onElevator){
             if(Math.sign(mainGameObject.gameInitData.gameData.levelData.jumpImpuls) > 0 && groundPlayer.groundTouch){
-                // (4 + ((lastActionVertical === "down")? 1 : 0))/mainGameObject.gameInitData.gameData.levelData.gravityIndex;
                 let gravity = mainGameObject.gameInitData.gameData.levelData.gravity;
                 let gravityIndex = mainGameObject.gameInitData.gameData.levelData.gravityIndex
                 mainGameObject.gameInitData.gameData.levelData.jumpImpuls += (gravity/gravityIndex) + ((lastActionVertical === "down")? 1 : 0);// 1.4  2.5

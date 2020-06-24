@@ -193,7 +193,7 @@
                     "numberOfVerticalItems": 1,
                     "sWidth": 301,
                     "sHeight": 31,
-                    "damage": 10,
+                    "damage": 12.5,
                     "firePosition": 10,
                     "firePositionX": 0,
                     "defaultAngle": 0

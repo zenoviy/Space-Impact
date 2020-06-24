@@ -182,9 +182,6 @@ async function writeLocalData({fileName, data}){
 
 
 function postData({url, method, data, headers}){
-
-    //console.log('Save smth')
-
     let resultHeader = Object.assign({
         'Content-Type': 'application/json'}, headers || false)
     return fetch(url, {

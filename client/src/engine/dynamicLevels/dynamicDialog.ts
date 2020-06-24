@@ -132,12 +132,12 @@ function displayDialog({ currentDialogCharacter, currentDialog, data, searchTarg
             })
 
             if(selecteDialog.action === "give_object"){
+                
                 currentDialogCharacter.idStartDialog = (currentDialogCharacter.details.defaultSuccessDialogId)? currentDialogCharacter.details.defaultSuccessDialogId : 0;
                 requireData = searchInPlayerInventory({
                     data: groundPlayer.inventory,
                     searchTarget: mainGameObject.mapNearActiveElement.details.rules.require
                 })
-
                 activateInteractObjectData({
                     mainGameObject: mainGameObject,
                     requireData: requireData,
@@ -170,7 +170,7 @@ function checkDialogTaskConditions({ currentDialogCharacter, inventory, targetDi
             searchTarget: requireObject
         })
     let taskCompleate = true;
-    console.log(dialogArea, npcDetails.dialog.dialogAnswers)
+
     if(dialogArea && requireObject ){
         if(dialogArea.numberOfRequireItems){
             writeDataToJournal({
@@ -301,7 +301,6 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
         let objectDetails = mainGameObject.mapNearActiveElement.details;
         let previewPicture = (objectDetails.rules.objectPicture)? objectDetails.rules.objectPicture :  process.env.HOST + objectDetails.texture;
         if(mainGameObject.mapNearActiveElement.details.rules.contain && groundPlayer && previewPicture){
-            console.log(mainGameObject.mapNearActiveElement, groundPlayer)
             deleteInventoryObject({
                 currentDialogCharacter: currentDialogCharacter,
                 requireData: requireData,
@@ -336,7 +335,6 @@ function activateInteractObjectData({mainGameObject, requireData, constructors, 
 
 
 function deleteInventoryObject ({ currentDialogCharacter, requireData, groundPlayer, mainGameObject, deleteSingleItem = false }){
-     console.log(deleteSingleItem, "Test")
     if(!currentDialogCharacter) return false
     let requireStatment = currentDialogCharacter.details.rules.require;
     if(!requireStatment) return false
@@ -356,12 +354,10 @@ function deleteInventoryObject ({ currentDialogCharacter, requireData, groundPla
 function deleteSingleObjectFromInventory ({groundPlayer, allRequireObjects}){
     let inventory = groundPlayer.inventory;
     let index = inventory.indexOf(allRequireObjects)
-    console.log(inventory[index])
     if(inventory[index].numberOfItems){
         if(inventory[index].numberOfItems > 0) inventory[index].numberOfItems -= 1;
         if(inventory[index].numberOfItems === 0) groundPlayer.inventory.splice(inventory.indexOf(allRequireObjects), 1)
     }
-    // numberOfItems
 }
 
 

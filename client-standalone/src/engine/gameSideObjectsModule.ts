@@ -207,7 +207,6 @@ function findAngleToShip({ closestUnit }){
 }
 
 function sideObjectShot(BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies){
-    //this.shotAngle = findCloseObjectAngle.call(this, BulletConstruct, mainGameObject, SoundCreator, owner, allGameEnemies);
     if(allGameEnemies.length < 0) return false
     let closestUnit = findCloseObject.call(this, {allGameEnemies: allGameEnemies})
     if(!closestUnit || closestUnit.x > window.innerWidth) return false
