@@ -1,19 +1,14 @@
-var path = require('path');
 import { show, hide, addClassList, removeClassList } from '../../appMenu/appMenu';
 import { getData } from '../../server/serverRequestModules';
 import { createElements } from '../../appMenu/pagesBuilder';
 import { objectIntersectionDetect } from '../../enemies/animationHitBoxModules';
-import { loadHangar } from './gameHangarModules';
 import { shopInventory,
     selectInventoryItem,
     inventoryFreeItem,
     putInsideInventory,
-    putItemToStorage,
-    saleItem,
     hideDescriptionArea,
     showDescriptionArea,
-    salePercentAddToPrice,
-    assignEffectsToShip } from './gameInventoryModules';
+    salePercentAddToPrice} from './gameInventoryModules';
 import { replaceShipData } from './gameShopShipyard';
 import { addPlayerLife } from '../../engine/gameGrappleObjectsModule';
 import { hangarMouseMoveEvent, inventoryColisionEvent, findIntInventory } from './shopEvents/shopEventsModules';
@@ -44,7 +39,6 @@ function enterToTheShopDialog({mainGameObject, tradePropertyes}){
 function leaveShop({element, mainGameObject, text}){
     element.shopDialogText.innerHTML = text;
     element.shopErrorMessage.innerHTML = '';
-    //mainGameObject.gameInitData.inventoryActive = false;
     show(element.shopDialog)
 }
 
@@ -210,15 +204,12 @@ function changePage({mainGameObject, flag}){
 
 
 function buyStoreItem({mainGameObject, data, targetData}){
-    let playerObject = mainGameObject.gameInitData.gameData.playerObject;
-    //if( playerObject.data.inventory[targetData.index].grapplePower.maxNumber <= playerObject.data.inventory[targetData.index].grapplePower.number ) return false
     if(!data) return false
-    
-    inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data, targetData: targetData })
+    inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data, targetData: targetData, buying: true })
 }
 
 
-function inventoryItemGunsAssign({ mainGameObject, data, targetData }){
+function inventoryItemGunsAssign({ mainGameObject, data, targetData, buying }){
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;
     if(data.type === "power" && data.name === 'extralife'){
         addPlayerLife.call(data, {
@@ -227,14 +218,13 @@ function inventoryItemGunsAssign({ mainGameObject, data, targetData }){
             mainGameObject: mainGameObject
         })
         mainGameObject.gameInitData.gameData.gameCoins -= data.price;
-        //hide(mainGameObject.shopArea.shopDialog)
     }else if(data.type === "inventory weapon"){
         if( targetData ){
              if( playerObject.data.inventory[targetData.index].grapplePower.maxNumber <= playerObject.data.inventory[targetData.index].grapplePower.number ){
                 mainGameObject.shopArea.shopErrorMessage.innerHTML = 'you reach a limit of this item';
                 return false
              }
-            mainGameObject.gameInitData.gameData.gameCoins -= data.price;
+            if(buying) mainGameObject.gameInitData.gameData.gameCoins -= data.price;
             playerObject.data.inventory[targetData.index].grapplePower.number += 1;
         }
         shopInventory({element: mainGameObject.shopArea, mainGameObject: mainGameObject})
@@ -325,10 +315,7 @@ function compareTitle({ listNotToDisplay, item }){
 function createCard({ card, customWrapperClass, playerObject, mainGameObject, element }){
         let shipDescription = (customWrapperClass === 'shipyard-item')? shipCardDescription({shipData: card}) : weaponsCardDescription({card: card});
         let currentShip = labelShip({playerObject: playerObject, card: card, mainGameObject: mainGameObject});
-        //console.log(path.join(process.env.HOST + card.background))
         let backgroundImage = `background-image: url('${'./'+ card.background}');`;
-        //backgroundImage.replace(" ", "%")
-        console.log(backgroundImage)
         let cardRender = createElements({tagName: 'div',
         styleClass: (customWrapperClass)? `${customWrapperClass} ${(playerObject.data.title === card.title)? 'current-ship' : ''}` : 'shop-card',
         inlineStyle: `${backgroundImage}' `,

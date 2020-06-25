@@ -39,12 +39,12 @@ function fillJournalDefaultData ({mainGameObject}){
 
 function displayJournalData({userShipJournal, backpackBody, mainGameObject}){
     let gameInfo = mainGameObject.showGameInfo();
-    let journalLevelElement = '';
+    let journalLevelElement = '<h3 class="side-panel-name">Journal<p>Press J to close</p></h3>';
     let journalData = Object.assign([], userShipJournal.levelTasks).reverse();
     for(let task of journalData){
         if(!task) continue
 
-        journalLevelElement += `<h3 class="side-panel-name">Journal</h3>
+        journalLevelElement += `
         <div class="game-ranked-data">
             <h4>Enemy log</h4>
             <p>enemy ships: ${userShipJournal.defaultData.numberFlyOfEnemy}</p>
@@ -87,7 +87,6 @@ function writeDataToJournal({ mainGameObject, dialogArea, requireData, npcDetail
 
     if(userShipJournal.levelTasks && !userShipJournal.levelTasks[gameInfo.gameData.levelData.level]){
         fillJournalDefaultData({mainGameObject: mainGameObject});
-        console.log(userShipJournal.levelTasks, 'write data to journal')
     }
 
     if(userShipJournal.levelTasks[gameInfo.gameData.levelData.level]){

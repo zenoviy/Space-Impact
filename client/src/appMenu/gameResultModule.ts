@@ -35,6 +35,8 @@ async function showResultScreen(){
                 innerContent: `<p class="single-item"><span class="rate-number">${index}</span>
                 <span>${  "<img class='small-avatar' src=" + img.src + " width='30' alt='avatar'>" }</span>
                 <span>name:</span> <span class="item-name"> ${item.userName}</span>
+                ${(item.destroyEnemy)? "<span>Destroy Ground Units:</span>": ""} <span class="item-coin"> ${(item.destroyEnemy)? item.destroyEnemy:'' }</span>
+                ${(item.destroyShip)? "<span>Destroy Flying Units:</span>": ""} <span class="item-coin"> ${(item.destroyShip)? item.destroyShip:'' }</span>
                 <span>credits:</span> <span class="item-coin"> ${item.gameCoins}</span>
                 <span>score:</span> <span class="item-points"> ${item.gamePoints}</span>
                 <span class="item-date"> ${year}/${month}/${day}</span></p>`,
@@ -93,18 +95,6 @@ function initResultScreen(mainGameObject){
         formBtnSwitcherArea.appendChild(item)
     }
 
-/*
-
-    V- add button with avatar chose
-    V- render all avatars from remote file/or array with pictures
-    V- display pictures as choose
-    V- select pictures from computer or url!
-
-    V- save avatar picture as base_64 encoding
-    V- display this picture as small avatar in "Game Results"
-    V- display picture while update current user
-
-*/
     const formState = {
         avatarSectionShowState: false,
         avatarPicture: null
@@ -343,11 +333,24 @@ interface resultData {
     userAvatar: string,
     gamePoints: number,
     gameCoins: number,
-    userPassword: string
+    userPassword: string,
+    destroyShip: number,
+    destroyEnemy: number
 }
 function transferDataToObject(data: any, mainGameObject: any, formState: any){
     if(!data) throw Error("No data to transform")
-    var obj: resultData = {userName: null, userEmail: null, userAvatar: null, gamePoints: null, gameCoins: null, userPassword: null};
+    var obj: resultData = {
+        userName: null,
+        userEmail: null,
+        userAvatar: null,
+        gamePoints: null,
+        gameCoins: null,
+        userPassword: null,
+        destroyShip: null,
+        destroyEnemy: null
+    };
+    let userShipData = mainGameObject.gameInitData.gameData.playerObject;
+    let userShipJournal = userShipData.journal;
 
     for(let item of data){
         if(item.name && item.value){
@@ -361,6 +364,8 @@ function transferDataToObject(data: any, mainGameObject: any, formState: any){
     obj.gamePoints = gameData.points;
     obj.gameCoins = gameData.gameCoins;
     obj.userAvatar = formState.avatarPicture;
+    obj.destroyShip = userShipJournal.defaultData.numberFlyOfEnemy;
+    obj.destroyEnemy = userShipJournal.defaultData.numberOfGroundEnemy;
 
     return obj
 }

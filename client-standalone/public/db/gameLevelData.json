@@ -17,7 +17,7 @@
             "numberOfItems": 1,
             "numberOfVerticalItems": 1
         },
-        "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
+        "levelSound": "/public/sound/ambient/night-city-1.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBackgroundElements" : [
             {
@@ -119,10 +119,10 @@
         },
         "description": {
             "name": "City\n operation",
-            "description": "Take control of this area",
-            "levelMainTask": "find the ship"
+            "description": "Take control of city area",
+            "levelMainTask": "You are a Major of National AirForce Squad 1 in Limebrook city, You task is to find and protect General McAlister at Air force base and take aircraft, Talk to the people, do their tasks"
         },
-        "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
+        "levelSound": "/public/sound/ambient/night-city-1.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBottomPart" : [
             {
@@ -148,20 +148,12 @@
         ],
         "levelBackgroundElements" : [
             {
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
                 "description": "first frame"
             },{
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
-                "description": "second frame"
-            },{
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
-                "description": "first frame"
-            },{
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
                 "description": "second frame"
             },{
                 "levelMap" : "/public/images/locations/night city/mountains.png",
@@ -246,8 +238,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Night City Battle",
-            "description": "Reach communication center"
+            "name": "Night City Fire",
+            "description": "Fly to Tower-15 research complex",
+            "levelMainTask": "Fly through the Limebrook city sky under enemy attack to the Tower-15 research center"
         },
         "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
         "levelMap" : "vhoa0.jpg",
@@ -335,8 +328,8 @@
             }
         ],
         "levelDetails" : {
-            "levelMinutes": 1,
-            "levelSeconds": 10
+            "levelMinutes": 3,
+            "levelSeconds": 40
         }
     },
 
@@ -344,7 +337,7 @@
     {
         "level" : 3,
         "enemyType" : ["dart", "mine", "mine", "mine"],
-        "grappleObject": ["lifepoint"],
+        "grappleObject": [],
         "levelOBjects" : ["trade_post_night_city", "ground_turret_city"],
         "dynamicBlockMap": "2-map-level-night-city-2",
         "enemyProbability" : 900,
@@ -366,10 +359,11 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Communication Center",
-            "description": "Find important data"
+            "name": "Tower-15 Research Center",
+            "description": "Find Tower-15 research center, find more about project 'Oasis'",
+            "levelMainTask": "Find the way inside the research complex, find more about project 'Oasis', Talk to the people, do their tasks (get the 'Sphere №1')"
         },
-        "levelSound": "/public/sound/ambient/03 Highway Star.mp3",
+        "levelSound": "/public/sound/ambient/night-city-2.mp3",
         "levelMap" : "vhoa0.jpg",
         "levelBottomPart" : [
             {
@@ -394,22 +388,14 @@
             }
         ],
         "levelBackgroundElements" : [
+
             {
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
                 "description": "first frame"
             },{
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
-                "description": "second frame"
-            },
-            {
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
-                "description": "first frame"
-            },{
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
                 "description": "second frame"
             },{
                 "levelMap" : "/public/images/locations/night city/mountains.png",
@@ -515,10 +501,11 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Battle in canyon",
-            "description": "Battlefield"
+            "name": "Limebrook Grand Canyon",
+            "description": "A Canyon 40 miles East of city Limebrook",
+            "levelMainTask": "Fly through battlefield, to leave the dangerous region, and reach the White Sands"
         },
-        "levelSound": "/public/sound/ambient/Guitar-Mayhem.mp3",
+        "levelSound": "/public/sound/ambient/battle-field.mp3",
         "levelMap" : "canyon.png",
         "levelBackgroundElements" : [ {
             "levelMap" : "/public/images/locations/canyon/canyon.png",
@@ -606,8 +593,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "White sands",
-            "description": "Huge desert area with lost city"
+            "name": "White Sands Desert",
+            "description": "Large desert, you must fly through",
+            "levelMainTask": "Fly through the desert to reach the Ancient ruins"
         },
         "levelSound": "/public/sound/ambient/desert_theme.mp3",
         "levelMap" : "desert.png",
@@ -731,10 +719,11 @@
                 }
             ],
             "description": {
-                "name": "Temple ruins",
-                "description": "lost city"
+                "name": "Temple Ruins",
+                "description": "Find the Object: 'Sphere №2' somewhere in this area",
+                "levelMainTask": "You must find the 'Sphere №2' somewhere in this area, and take it to the Cloud-City-1"
             },
-            "levelSound": "/public/sound/ambient/desert_theme.mp3",
+            "levelSound": "/public/sound/ambient/ruins.mp3",
             "levelMap" : "desert.png",
             "levelBackgroundElements" : [{
                 "levelMap" : "/public/images/locations/desert/desert-sky.png",
@@ -831,8 +820,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Cloud city",
-            "description": "One of the largest and and modern city of the world"
+            "name": "Cloud City 1",
+            "description": "One of the largest and the modern city in the world",
+            "levelMainTask": "You must break through the enemy blockade, and reach the government tower"
         },
         "levelSound": "/public/sound/ambient/02_Main Theme.mp3",
         "levelMap" : "skyCity.png",
@@ -968,10 +958,11 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Cloud city rooms",
-            "description": "Talk with the commanders"
+            "name": "City Government Tower",
+            "description": "Talk to the government about situation",
+            "levelMainTask": "Find the way to the government hall, Talk to Minister, Talk to the Science Doctor Edward (get the 'Special Permission')"
         },
-        "levelSound": "/public/sound/ambient/02_Main Theme.mp3",
+        "levelSound": "/public/sound/ambient/Sky-city-Easy Ride.mp3",
         "levelMap" : "skyCity.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/skyCity/city_background_map.png",
@@ -1107,8 +1098,8 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "City cloud",
-            "description": "Destroy the signal blocker ship"
+            "name": "Above the City",
+            "description": "Destroy the enemy signal blocker ship, to fly in space and reach the Moon Gate"
         },
         "levelSound": "/public/sound/ambient/05 Peter Gunn Theme.mp3",
         "levelMap" : "skyClouds.png",
@@ -1192,8 +1183,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Earth orbit",
-            "description": "Leave Earth"
+            "name": "Earth Orbit",
+            "description": "Leave the Earth",
+            "levelMainTask": "Break through the Enemy blockade, on Earth orbit, reach the Moon orbit"
         },
         "levelSound": "/public/sound/ambient/gaseous tethanus_earth.mp3",
         "levelMap" : "Earth_orbit_map.png",
@@ -1241,7 +1233,7 @@
         "level" : 11,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_space_moon", "gate_1"],
+        "levelOBjects" : ["tradepost_space_moon"],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -1258,8 +1250,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Moon outpost approach",
-            "description": "Leave Earth"
+            "name": "Moon outpost-gate approach",
+            "description": "Fly through the Moon hills",
+            "levelMainTask": "Fly through the Moon hills, approach to the Outpost-Gate-1"
         },
         "levelSound": "/public/sound/ambient/final battle_moon.mp3",
         "levelMap" : "Earth_orbit_map.png",
@@ -1322,7 +1315,7 @@
         "dynamicBlockMap": "5-map-moon-alpha-side",
         "dynamicLevelsActive": true,
         "gravity": 2,
-        "gravityIndex": 0.7,
+        "gravityIndex": 1,
         "jumpImpuls": 6,
         "horizontalSpeed": 2,
         "bossPresent": false,
@@ -1337,8 +1330,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Moon outpost",
-            "description": "Leave Earth"
+            "name": "Moon Outpost-Gate-1",
+            "description": "You must reboot the reactor and launch quantum gate",
+            "levelMainTask": "Find the way through the Moon Outpost, reboot reactor, talk to the worker, launch quantum gate and fly to the new point to get to the Venus"
         },
         "levelBottomPart" : [
             {
@@ -1362,7 +1356,7 @@
                 "numberOfVerticalItems": 1
             }
         ],
-        "levelSound": "/public/sound/ambient/final battle_moon.mp3",
+        "levelSound": "/public/sound/ambient/moon-base.mp3",
         "levelMap" : "Earth_orbit_map.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -1417,7 +1411,8 @@
         },
         "description": {
             "name": "Solar Power Station",
-            "description": "Power station near Mercury orbit"
+            "description": "Fly through the station and reach the Venus Quantum Gate",
+            "levelMainTask": "Solar Power Station - is the 'Midway' of the Quantum Gate system, Fly through the station and reach the Venus Quantum Gate"
         },
         "levelSound": "/public/sound/ambient/high in the mountains_sun.mp3",
         "levelMap" : "sun.png",
@@ -1499,7 +1494,7 @@
         "level" : 14,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["gate_1"],
+        "levelOBjects" : [],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -1516,8 +1511,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Venus",
-            "description": "Arrive to Venus"
+            "name": "Venus Orbit",
+            "description": "Venus orbit insertion, and enter the atmosphere",
+            "levelMainTask": "Break through Venus blockade, and land on the platform near Ishtar Terra Region"
         },
         "levelSound": "/public/sound/ambient/endless sands_space2.mp3",
         "levelMap" : "sun.png",
@@ -1546,15 +1542,12 @@
             "levelSeconds": 30
         }
     },
-    
-    
-    
-    
+
     {
         "level" : 15,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_venus", "gate_1"],
+        "levelOBjects" : ["tradepost_venus"],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -1572,7 +1565,8 @@
         },
         "description": {
             "name": "Venus Clouds",
-            "description": "Venus flying industrial city"
+            "description": "Fly to the factory platform",
+            "levelMainTask": "Fly through the clouds and land on factory platform, near Ishtar Terra"
         },
         "levelSound": "/public/sound/ambient/underground cavern venus.mp3",
         "levelMap" : "sun.png",
@@ -1630,7 +1624,6 @@
             "levelSeconds": 30
         }
     },
-    
         {
             "level" : 16,
             "enemyType" : [],
@@ -1659,9 +1652,10 @@
             },
             "description": {
                 "name": "Venus Plant",
-                "description": "Venus flying Carbon Processing Plant"
+                "description": "Find Signal of Sphere №4 using Venus flying Carbon Processing Plant",
+                "levelMainTask": "You must detect (Sphere №4) and transmit it's signal to the Earth, talk to the platform workers"
             },
-            "levelSound": "/public/sound/ambient/underground cavern venus.mp3",
+            "levelSound": "/public/sound/ambient/Venus-base.mp3",
             "levelMap" : "sun.png",
             "levelBackgroundElements" : [{
                 "levelMap" : "/public/images/locations/space/space.png",
@@ -1724,7 +1718,7 @@
         "level" : 17,
         "enemyType" : ["scorpio", "moscit"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["gate_1"],
+        "levelOBjects" : [],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -1742,7 +1736,8 @@
         },
         "description": {
             "name": "Road to Mars",
-            "description": "Fly to Mars"
+            "description": "Mars orbit insertion",
+            "levelMainTask": "Fly to the Mars to find Object № 3"
         },
         "levelSound": "/public/sound/ambient/ship interior_space_1.mp3",
         "levelMap" : "sun.png",
@@ -1806,18 +1801,19 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Mars Alpha side",
-            "description": "Mars colony largest city"
+            "name": "Mars Alpha Side",
+            "description": "Approach the Mars colony",
+            "levelMainTask": "Fly through the Mars hills to land on the Alpha Side"
         },
         "levelSound": "/public/sound/ambient/lava city_mars.mp3",
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
-            "speed": 0.05,
+            "speed": 0,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/space/space.png",
-            "speed": 0.05,
+            "speed": 0,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/Mars/mars_atmosphere.png",
@@ -1929,8 +1925,9 @@
                     "numberOfVerticalItems": 1
                 },
                 "description": {
-                    "name": "Mars Research center",
-                    "description": "Mars colony largest city"
+                    "name": "Mars Research Facility",
+                    "description": "Find the Entrance to the Facility",
+                    "levelMainTask": "Find the way to the colony, find workers, talk to scientists, (get the 'Sphere №3') send Sphere №3 signal to Earth"
                 },
                 "levelBottomPart" : [
                     {
@@ -1954,7 +1951,7 @@
                         "numberOfVerticalItems": 1
                     }
                 ],
-                "levelSound": "/public/sound/ambient/lava city_mars.mp3",
+                "levelSound": "/public/sound/ambient/mars-city-1.mp3",
                 "levelMap" : "sun.png",
                 "levelBackgroundElements" : [{
                     "levelMap" : "/public/images/locations/space/space.png",
@@ -2062,7 +2059,8 @@
         },
         "description": {
             "name": "Mars City 1",
-            "description": "Mars colony largest city"
+            "description": "Destroy Enemy keeper to escape the planet",
+            "levelMainTask": "Destroy Enemy keeper to fly to the Asteroid field Quantum gate"
         },
         "levelSound": "/public/sound/ambient/running wild_mars boss2.mp3",
         "levelMap" : "sun.png",
@@ -2176,8 +2174,8 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Asteroid field",
-            "description": "Asteroids"
+            "name": "Asteroid Field",
+            "description": "Reach the next Quantum gate to the Jupiter"
         },
         "levelSound": "/public/sound/ambient/die vonstantine_asteroids.mp3",
         "levelMap" : "sun.png",
@@ -2252,7 +2250,7 @@
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
         "objectMinTimeSpawn": 200,
-        "bossPresent": true,
+        "bossPresent": false,
         "space": false,
         "enemyMaxNumber": 2,
         "enemyRandomizerIndex": 5,
@@ -2264,8 +2262,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Jupiter fly By",
-            "description": "Jupiter"
+            "name": "Jupiter System",
+            "description": "Jupiter orbit insertion",
+            "levelMainTask": "Entrance the Jupiter orbit, align and docking to the Odyssey station"
         },
         "levelSound": "/public/sound/ambient/stone fortress Jupiter.mp3",
         "levelMap" : "sun.png",
@@ -2345,8 +2344,8 @@
             "gravityIndex": 0.01,
             "jumpImpuls": 4,
             "horizontalSpeed": 2,
-            "bossPresent": true,
-            "space": false,
+            "bossPresent": false,
+            "space": true,
             "enemyMaxNumber": 2,
             "enemyRandomizerIndex": 5,
             "levelStandartMap": {
@@ -2357,10 +2356,11 @@
                 "numberOfVerticalItems": 1
             },
             "description": {
-                "name": "Jupiter station",
-                "description": "Jupiter"
+                "name": "Jupiter Odyssey Station",
+                "description": "Repair the system",
+                "levelMainTask": "Repair the system (get the 'Gate Coordinate Access'), talk to the Captain, align Quantum system  to the Neptune moon Triton (enemy base)"
             },
-            "levelSound": "/public/sound/ambient/stone fortress Jupiter.mp3",
+            "levelSound": "/public/sound/ambient/station.mp3",
             "levelMap" : "sun.png",
             "levelBackgroundElements" : [{
                 "levelMap" : "/public/images/locations/space/space.png",
@@ -2415,7 +2415,7 @@
                 "alwaysMove": true
             },{
                 "levelMap" : "/public/images/locations/Jupiter/io.png",
-                "speed": -0.056,
+                "speed": -0.036,
                 "description": "second frame",
                 "alwaysMove": true
             }],
@@ -2429,7 +2429,7 @@
         "level" : 24,
         "enemyType" : ["Chaser", "Grisle", "hunter"],
         "grappleObject": ["lifepoint"],
-        "levelOBjects" : ["tradepost_venus", "gate_1"],
+        "levelOBjects" : ["tradepost_venus"],
         "enemyProbability" : 950,
         "objectProbability": 900,
         "grapleObjectProbability": 1500,
@@ -2446,8 +2446,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Neptune approach",
-            "description": "Neptune orbit"
+            "name": "Triton Approach",
+            "description": "Break through the enemy defence",
+            "levelMainTask": "Break through the enemy defence and land on the Triton surface"
         },
         "levelSound": "/public/sound/ambient/the end_neptune.mp3",
         "levelMap" : "sun.png",
@@ -2529,10 +2530,10 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Neptune ice",
-            "description": "Final fight in the hart of enemy"
+            "name": "Triton Monad Region",
+            "description": "Destroy the Base keeper"
         },
-        "levelSound": "/public/sound/ambient/Guitar-Mayhem-5.mp3",
+        "levelSound": "/public/sound/ambient/Boss theme.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
@@ -2609,7 +2610,7 @@
         "dynamicBlockMap": "9-Neptune-enemy-base",
         "dynamicLevelsActive": true,
         "gravity": 4,
-        "gravityIndex": 1,
+        "gravityIndex": 0.9,
         "jumpImpuls": 4,
         "horizontalSpeed": 2,
         "bossPresent": true,
@@ -2624,8 +2625,9 @@
             "numberOfVerticalItems": 1
         },
         "description": {
-            "name": "Neptune enemy base",
-            "description": "Final fight in the hart of enemy"
+            "name": "Triton enemy base",
+            "description": "Find and Destroy 'Prime Builder' super mind and escape",
+            "levelMainTask": "Find Entrance to the base, find and destroy 'Prime Builder' super mind, take the control 'Sphere', escape the base"
         },
         "levelBottomPart" : [
             {
@@ -2649,7 +2651,7 @@
                 "numberOfVerticalItems": 1
             }
         ],
-        "levelSound": "/public/sound/ambient/Guitar-Mayhem-5.mp3",
+        "levelSound": "/public/sound/ambient/triton-theme.mp3",
         "levelMap" : "skyClouds.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",

@@ -13,14 +13,14 @@ function createWindow(){
         minHeight: 600,
         backgroundColor: '#312450',
         show: false,
-        //frame: false,
+        frame: false,
         webPreferences: {
             nodeIntegration: true
         },
         icon: path.join(__dirname, 'public/icons/png/64x64.png')
     })
     win.loadURL(`file://${__dirname}/index.html`);
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 
     win.on('closed', function () {
         win = null

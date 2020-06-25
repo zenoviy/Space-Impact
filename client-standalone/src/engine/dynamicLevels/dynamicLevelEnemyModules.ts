@@ -231,7 +231,6 @@ init detect NPC and player
  ========================== */
  async function enemyDetectNpc({ mainGameObject, npcData, allBlocks, objectIntersectionDetect }){
     if(this.playerInRange) return false
-    //if(this.details.type != 'npc_spawner'){
         for(let person of npcData){
             if( !person || person.x > window.innerWidth + person.width || person.x < -100 ||
                 person.y > window.innerHeight + person.height || person.y < -100) continue
@@ -242,15 +241,10 @@ init detect NPC and player
             this.detailstype === 'timer_enemy_spawner' && person.details.type === 'npc_spawner' && person.objectPresent ){
                let findUnit = await detectPlayer.call(this, {mainGameObject: mainGameObject, groundPlayer: person, allBlocks: allBlocks, objectIntersectionDetect: objectIntersectionDetect})
                 if(findUnit){
-                    if(this.details.type === 'npc_spawner'){
-                        //console.log(this.details.type, person.details.type)
-                    }
-                    //
                     return findUnit
                 }
             }
         }
-    //}
 }
 
 
@@ -268,16 +262,15 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let distanceX = Math.max(this.x, groundPlayer.x) - Math.min(this.x, groundPlayer.x);
     let distanceY = Math.max(this.y, groundPlayer.y) - Math.min(this.y, groundPlayer.y);
 
-    
 
     if(this.detectRange < distanceX || this.detectRange < distanceY) return false
 
     let angle = this.findAngleToShip({closestUnit: groundPlayer});
     angle = (angle === 0)? 1 : angle;
-    if(this.currentBehavior === "destroy" || this.currentBehavior === "static" && this.playerInRange){
+    if(this.currentBehavior === "destroy" || (this.currentBehavior === "static" && this.playerInRange)){
         this.targetAngle = (angle < 360)? angle + 1 : angle;
     }
-    
+
     let findBarrier = {};
     let directionX = (this.x >= groundPlayer.x)? true : false;
     let directionY = (this.y >= groundPlayer.y)? true : false;
@@ -287,7 +280,6 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
     let searchSteps = 20;
 
     if((distanceX || distanceX == 0) && (distanceY || distanceY == 0) && !this.playerInRange){
-        let localXRayIndex = 0, localYRayIndex = 0;
         let localXRay = this.x, localYRay = this.y;
         let decreaseValue = distanceY/distanceX;
 
@@ -311,21 +303,23 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
             findBarrier = allBlocks.find(block => {
                 if((Math.max(localXRay, block.x) - Math.min(localXRay, block.x)) < 100 &&
                 (Math.max(localYRay, block.y) - Math.min(localYRay, block.y)) < 100){
-                    let searchCollision = objectIntersectionDetect({
-                        object: {
-                            x: localXRay,
-                            y: localYRay,
-                            width: 30,
-                            height: 30
-                        },
-                        target: {
-                            x: block.x,
-                            y: block.y,
-                            width: block.width,
-                            height: block.height
-                        }
-                    })
-                    if(searchCollision && block.details.collision) return block
+                    if(block.details.collision){
+                        let searchCollision = objectIntersectionDetect({
+                            object: {
+                                x: localXRay,
+                                y: localYRay,
+                                width: 40,
+                                height: 40
+                            },
+                            target: {
+                                x: block.x,
+                                y: block.y,
+                                width: block.width,
+                                height: block.height
+                            }
+                        })
+                        if(searchCollision ) return block
+                    }
                 }
             })
             if(findBarrier) break
@@ -334,7 +328,6 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
         this.playerInRange = true;
         this.currentBehavior = (this.currentBehavior === "static")? "static": "destroy";
         this.targetAngle = angle;
-        //console.log(groundPlayer, this.objectOwner, "|||")
         return true
     }
 }
@@ -342,8 +335,6 @@ async function detectPlayer({mainGameObject, groundPlayer, allBlocks, objectInte
 
 function groundEnemyDecided({mainGameObject, allBlocks}){
     if(!this.currentBehavior){
-        //console.log(this.behavior)
-        //this.currentBehavior = this.behavior[Math.floor(Math.random() * this.behavior.length)];
     }
 }
 
@@ -359,7 +350,6 @@ function groundEnemyFind({ findBottomBlock }){
 }
 
 function groundEnemyPursuit({ findBottomBlock }){
-     // if see target continue walk
      if(this.playerInRange && findBottomBlock && !this.leftWallTouch ||
         this.playerInRange && findBottomBlock && !this.rightWallTouch ||
         this.playerInRange && this.nextGroundBlock && !this.leftWallTouch ||
@@ -482,14 +472,11 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
         }
         if(this.playerInRange && this.targetAngle && this.onLeader){
             if(this.targetAngle > 20 && this.targetAngle < 160){
-                //console.log("on leader Enemy", this.targetAngle)
                 this.isJumpDown = true;
                 this.isRun = false;
             }
         }
 
-        // deadly block detected
-        //console.log(this.jumpBlock)
         if(this.nextGroundBlock && this.currentGroundBlock && !this.jumpBlock ){
             for(let blockNumber = 1; blockNumber <= maxBoxToMove; blockNumber++){
                 deadlyBlock = allBlocks.find(block =>{
@@ -500,9 +487,7 @@ function groundEnemyPathFinder({ mainGameObject, allBlocks }){
                 })
                 if(deadlyBlock) break
             }
-            //console.log(deadlyBlock)
             if(deadlyBlock)  this.isRun = false;
-            //this.nextBottomBlock = (findBottomBlock)? findBottomBlock: null;
         }
 
 
@@ -571,7 +556,6 @@ function respawnEnemyByTimer({ mainGameObject, constructors, currentBlock }){
             let targetId = (currentBlock.details.targetSpawnerId)? currentBlock.details.targetSpawnerId.split(',') : 1;
             let costumeBlocks = allBlocks.filter(block => {
                 if(block.details.type ===  "hidden_enemy_spawner"){
-                    console.log(block.spawnerHiddenId)
                     if(targetId.some(obj => obj == block.details.spawnerHiddenId)) return block
                 }
             })

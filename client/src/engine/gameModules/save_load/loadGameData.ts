@@ -1,6 +1,6 @@
 var fs = require('fs');
 var storage = require('electron-json-storage');
-import { writeElectronLocalData, getElectronLocalSaves } from '../../../server/serverRequestModules';
+import { getElectronLocalSaves } from '../../../server/serverRequestModules';
 import { createElements} from '../../../appMenu/pagesBuilder';
 import { renewPlayerShip } from '../changeLevels';
 import * as constructor from '../../../constructors';
@@ -9,9 +9,7 @@ import { deleteSaveData, overwriteSaveData, saveDialog } from './saveGameModules
 import {
     show,
     hide,
-    toggler,
-    addClassList,
-    removeClassList } from '../../../appMenu/appMenu';
+    addClassList } from '../../../appMenu/appMenu';
 import { hideLoadScreen } from '../../../ui/loadScreen';
 
 
@@ -26,11 +24,6 @@ async function showSaveData(){
         let localAltData = await getElectronLocalSaves({ fileName: altData.name });
         alternateData = alternateData.concat(localAltData);
     }
-    //if(!alternateData || alternateData.length === 0) return []
-    //let saveData = await getElectronLocalSaves({ fileName: process.env.SAVE_DATA_FILE })
-    //if(!saveData || saveData === 0) return false
-    // cycle load all saves from folder   except "game-settings.json"
-
     return alternateData
 }
 
@@ -116,7 +109,7 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
             seconds = time.getSeconds();
 
             let img = new Image();
-            let pictureURL = save.savePicture; //await storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
+            let pictureURL = save.savePicture;
             img.src = (pictureURL)? pictureURL : null;
             await new Promise((resolve, reject) => {
                 img.src = (save.savePicture)? save.savePicture : null;
@@ -150,7 +143,7 @@ async function displaySavesOnScreen({saveScreen, saveData, mainGameObject}){
                 newElement.addEventListener('click', function(e) {
                     saveDialog({text: null, typeOfWarning: ""})
                     let image: any = document.querySelector(`#preview-img-${save.saveTime}`);
-                    let pictureURL = save.savePicture; //storage.getDataPath() + '/' + save.saveName + '.png'  + "?t=" + new Date().getTime() + 1;
+                    let pictureURL = save.savePicture;
                     image.src = (pictureURL)? pictureURL : null;
                     showAcceptButtons.call(this, {mainGameObject: mainGameObject, saveDataItem: save, flag: item.indexFlag})
                 })
@@ -176,7 +169,7 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
         <button data-button-id="overwrite-save" class="btn-main">Overwrite</button>
         <button data-button-id="delete-save" class="btn-main btn-orange-reject">Delete</button>
     </div>`;
-    let pictureURL = saveDataItem.savePicture;  //storage.getDataPath() + '/' + saveDataItem.saveName + '.png' + "?t=" + new Date().getTime();
+    let pictureURL = saveDataItem.savePicture;
     let img = new Image();
     img.src = (pictureURL)? pictureURL : null;
     img.onload = () => {
@@ -197,7 +190,7 @@ function showAcceptButtons({mainGameObject, saveDataItem, flag}){
                     <p>seconds: ${(saveDataItem.playerInformation.seconds)? saveDataItem.playerInformation.seconds : 0}</p>
                     <p>Life: ${saveDataItem.playerInformation.playerLife}</p>
                     <p>Points: ${saveDataItem.playerInformation.points}</p>
-                    <p>Coins: ${saveDataItem.playerInformation.coins}</p>
+                    <p>Credits: ${saveDataItem.playerInformation.coins}</p>
                 </div>
             </div>
             ${(flag === 'save-screen')? saveButtons: loadButtons}
@@ -378,7 +371,6 @@ function loadSaveProcedure({mainGameObject, currentSave}){
             });
         }
 
-//////
 
         if(save.gameInitData.allGroundGameBullets){
             save.gameInitData.allGroundGameBullets = save.gameInitData.allGroundGameBullets.map( item => {
@@ -398,7 +390,7 @@ function loadSaveProcedure({mainGameObject, currentSave}){
             });
         }
 
-//////
+
         save.gameInitData.mapBackgroundObjects = save.gameInitData.mapBackgroundObjects.map( item => {
             let loadMapElement = backToObject({data: item, constructor: constructor.GameBackground})
             loadMapElement.x = (loadMapElement.partOfScreenStatus)? 0 - 1: window.innerWidth + 1;

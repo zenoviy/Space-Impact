@@ -1,15 +1,7 @@
-import { getData } from '../server/serverRequestModules';
 import { getShopServerData } from '../server/gameDataRequestsServicesModule';
-import { shopInventory,
-    selectInventoryItem,
+import {
     inventoryFreeItem,
-    putInsideInventory,
-    replaceItemFromStorage,
-    putItemToStorage,
-    saleItem,
-    hideDescriptionArea,
-    showDescriptionArea,
-    salePercentAddToPrice } from '../ui/shop/gameInventoryModules';
+    putInsideInventory } from '../ui/shop/gameInventoryModules';
 import { findIntInventory } from '../ui/shop/shopEvents/shopEventsModules';
 import { inventoryItemGunsAssign } from '../ui/shop/gameShopModule';
 
@@ -68,6 +60,8 @@ async function initGrappleObject(GrappleObject, playerShipData){
     let spawnProbability = this.gameRandomizer(levelData.grapleObjectProbability);
     if(spawnProbability < 1){
         let randomObject = grappleData[this.gameRandomizer(grappleData.length)];
+        if(!randomObject) return false
+        if(!randomObject.grapplePower) return false
         switch (randomObject.grapplePower.name){
             case "life":
                 if(playerShipData.numberOflife >= playerShipData.maxOfLife - 1) return
@@ -87,18 +81,15 @@ function addPlayerLife({ allGameSideObjects, playerShipData, mainGameObject }){
 
 function collectCoin({ allGameSideObjects = null, playerShipData = null, mainGameObject }){
     let gameInfo = mainGameObject.showGameInfo(),
-    gameData = gameInfo.gameData,
-    levelData = gameData.levelData,
-    grappleData = gameData.grappleObjects
+    gameData = gameInfo.gameData;
 
     gameData.gameCoins += this.grapplePower.value;
 }
 
 
 async function collectObjectsToInventory ({allGameSideObjects, playerShipData, mainGameObject}){
-    let shopAreaItems = mainGameObject.shopArea.selectedShopItem;
-        let playerObject = mainGameObject.gameInitData.gameData.playerObject
-        let playerObjectData = playerObject.data;
+    let playerObject = mainGameObject.gameInitData.gameData.playerObject
+    let playerObjectData = playerObject.data;
     let inventoryInformation = inventoryFreeItem({inventory: playerObjectData.inventory, inventoryCapacity: playerObjectData.inventoryCapacity})
     let headers = {"usercoins" : Infinity,
         "itemName": this.grapplePower.content.name}
@@ -116,7 +107,7 @@ async function collectObjectsToInventory ({allGameSideObjects, playerShipData, m
     });
     if(this.grapplePower.type === "inventory weapon"){
         let searchItem: any = findIntInventory({ inventory: playerObjectData.inventory, searchObject: data.data})
-        inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data.data, targetData: searchItem })
+        inventoryItemGunsAssign({ mainGameObject: mainGameObject, data: data.data, targetData: searchItem, buying: false })
         if(searchItem) return
     }
     putInsideInventory({mainGameObject, saveItem: data.data, inventoryItem: inventoryInformation['firstEmptyItem']})

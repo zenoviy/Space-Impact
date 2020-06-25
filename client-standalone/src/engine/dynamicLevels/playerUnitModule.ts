@@ -61,8 +61,7 @@ function loadItemsToGroundInventory({groundPlayer}){
 
 
 function loadPlayerCharacter({ playerInventory }){
-    let items = '';
-    console.log(playerInventory)
+    let items = '<h3 class="side-panel-name">Inventory<p>Press I to close</p></h3>';
     for(let item of playerInventory){
         items += `<div class="backpack-item-wrapper">
         <span class="number-of-items">${item.numberOfItems}</span>

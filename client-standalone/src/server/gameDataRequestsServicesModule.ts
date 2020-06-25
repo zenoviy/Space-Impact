@@ -2,7 +2,7 @@ import { getData, getLocalData, getElectronLocalData } from './serverRequestModu
 
 async function getExtraObjects ({ randomObject }){
     return await getData({
-        url: "api/grapple-objects",      // change to process.env
+        url: "api/grapple-objects",
         method: "GET",
         data: null,
         headers: { 'grappleObject': randomObject.object}})
@@ -18,7 +18,6 @@ async function getGameResultData ({method, data}){
 }
 
 async function getShopServerData ({shopUrl, headers}){
-    
     return await getData({
         url: shopUrl,
         method: 'PUT',
@@ -50,7 +49,7 @@ async function loadGroundPlayer(){
 /* Game start data */
 
 async function serverDataRequest(gameInformation){
-    console.log(process.env.NODE_ENV, process.env.HOST)
+    //console.log(process.env.NODE_ENV, process.env.HOST)
 
     const levelData = await getData({
         url:  process.env.LEVEL_DATA_URL,
@@ -78,7 +77,7 @@ async function serverDataRequest(gameInformation){
         method: 'GET',
         data: null,
         headers:{ 'usership': gameInformation.shipConfiguration}
-    })/**/
+    })
     const enemyData = await getData({
         url: process.env.ENEMY_SHIP_URL,
         method: 'GET',
@@ -86,9 +85,6 @@ async function serverDataRequest(gameInformation){
         headers:{ 'ship-type-number': levelData['enemyType']}
     })
 
-    /*preloadImage(enemyData)
-    preloadImage(levelData)
-    preloadImage(levelObjects)*/
     return {
         levelData: levelData,
         levelObjects: levelObjects,

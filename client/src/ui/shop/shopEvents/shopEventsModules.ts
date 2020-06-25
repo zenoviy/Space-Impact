@@ -1,12 +1,7 @@
 import { shopHitObjectsDetection, leaveShop } from '../gameShopModule';
 import { loadHangar } from '../gameHangarModules';
-import { shopInventory,
-    selectInventoryItem,
-    inventoryFreeItem,
-    putInsideInventory,
+import {
     putItemToStorage,
-    saleItem,
-    hideDescriptionArea,
     showDescriptionArea,
     salePercentAddToPrice,
     assignEffectsToShip } from '../gameInventoryModules';

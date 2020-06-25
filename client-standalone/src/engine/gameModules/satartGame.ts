@@ -49,7 +49,7 @@ function newPlayerShipConstruct({ PlayerShip, userData, shipLife }){
 }
 async function gameDataInit(PlayerShip, soundObject, constructors){
     loadWindow({loadStatus: "load"})
-    let level = 2, shipType = 1, shipLife = 5;
+    let level = 0, shipType = 1, shipLife = 5;
     let gameField = document.querySelector('#gamefield'),
         gameActionField = document.querySelector('#gameObjectsfield'),
         gameDialogField = document.querySelector('#gameActionDialogfield'),
@@ -65,6 +65,8 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
         const gameSetings = res.gameSetings;
         const userData = res.userData;
         const enemyData = res.enemyData;
+
+        process.env.GROUND_PLAYER_ALLOW_MOVE = (levelData.dynamicLevelsActive)? 'false' : 'true';
 
         if(levelData['status'] === "error" || levelObjects === "error" || grappleObjects === "error" ||
         levelData['gameSetings'] === "error" || userData === "error" || enemyData === "error"){
@@ -104,7 +106,7 @@ async function gameDataInit(PlayerShip, soundObject, constructors){
             gameData:{
                 currentLevel: level,
                 currentPoint: 0,
-                gameCoins: 1000000,
+                gameCoins: 0,
                 playerObject: playerShipData,
                 groundPlayerCharacter: await initGroundPlayer({
                     DynamicUserConstructor: constructors.DynamicUserConstructor
@@ -203,13 +205,11 @@ async function backToStartScreen(constructors){
     let soundObject = this.showGameInfo().gameData.levelSounds;
     let newInitdata = await gameDataInit.call(this, constructors.PlayerShip, soundObject, constructors);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
-    console.log(newInitdata)
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
             this.gameInitData[key] = value;
         };
     }
-    console.log(newInitdata)
     this.mapSoundChanger({soundStatus:'start_screen'})
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = false;

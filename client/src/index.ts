@@ -383,7 +383,11 @@ async function gameDynamicEnemyRender({ gameObject }){
     let groundPlayer = gameObject.gameInitData.gameData.groundPlayerCharacter;
     let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks.filter(block => {
         if(block.details){
-            if(block.details.collision) return block
+            if(!block || block.x > window.innerWidth + block.width || block.x < block.width * -1 ||
+                block.y > window.innerHeight + block.height + 220 || block.y  < 0 - block.height ){
+                }else{
+                    if(block.details.collision) return block
+                }
         }
     });
     groundPlayer.isRun = false;
@@ -465,10 +469,17 @@ async function gameDynamicEnemyRender({ gameObject }){
 async function gameDynamicPlayer({ gameObject }){
     if(!gameObject.gameInitData.dynamicLevelsActive) return false
     if(!gameObject.gameInitData.gameOver && gameObject.gameInitData.gameStatus){
+        let allBullets = gameObject.gameInitData.allGameBullets;
+        let allGroundGameBullets = gameObject.gameInitData.allGroundGameBullets;
+        let allGameSideObjects = gameObject.gameInitData.allGameSideObjects;
+
+
             let extraSeconds = gameObject.gameInitData.gameExtraSeconds;
             let groundPlayer = gameObject.gameInitData.gameData.groundPlayerCharacter;
             let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks;
             let allEnemy = gameObject.gameInitData.dynamicLevelEnemy;
+
+            let allMapObjects = [].concat(allGroundGameBullets, allGameSideObjects, allBullets, allBlocks, allEnemy)
             groundPlayer.displayObjectAtScene(gameObject)
             if(!gameObject.gameInitData.gamePause && gameObject.gameInitData.gameStatus){
 
@@ -509,7 +520,7 @@ async function gameDynamicPlayer({ gameObject }){
                 await computersDialog({ mainGameObject: gameObject, allBlocks: allBlocks })
                 await mapGravityInit({
                     mainGameObject: gameObject,
-                    mapObjects: gameObject.gameInitData.dynamicLevelMapBlocks,
+                    mapObjects: allMapObjects,
                     targetObject: groundPlayer,
                     constructors: constructors
                 })
@@ -615,7 +626,7 @@ function gameUiEngineFunction({ gameObject }){
     const gameObject = await mainGameObject.gameObject;
     const playerShipData = await mainGameObject.playerShipData;
 
-    process.env.GROUND_PLAYER_ALLOW_MOVE = (gameObject.gameInitData.gameData.levelData.dynamicLevelsActive)? 'false' : 'true';
+    //process.env.GROUND_PLAYER_ALLOW_MOVE = (gameObject.gameInitData.gameData.levelData.dynamicLevelsActive)? 'false' : 'true';
 
     const navigation: any = await appMenuAndSoundInit({gameObject: gameObject});
     await appSoundInit({gameObject: gameObject})

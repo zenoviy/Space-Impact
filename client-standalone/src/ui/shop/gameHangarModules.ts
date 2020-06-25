@@ -1,13 +1,9 @@
-import { createImage, createWindow, draw } from '../../view/displayModules';
-import { shopHitObjectsDetection,
-    showDescriptionArea } from './gameShopModule';
-import { toggleShopButtonStyle } from './shopEvents/shopActivityDetectorModules';
+import { createImage } from '../../view/displayModules';
 
 
 function loadHangar({element, mainGameObject}){
     let hangarTextArea = document.querySelector("#hangar-text");
     let playerObject = mainGameObject.gameInitData.gameData.playerObject;
-    let shopArea = mainGameObject.shopArea;
     let playerObjectData = playerObject.data
     let ctx = element.hangarShipArea.getContext('2d');
     let img = new Image()
