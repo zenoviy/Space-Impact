@@ -120,7 +120,7 @@
         "description": {
             "name": "City\n operation",
             "description": "Take control of city area",
-            "levelMainTask": "You are a Major of National AirForce Squad 1 in Limebrook city, You task is to find and protect General McAlister at Air force base and fly on aircraft, Talk to the people, do their tasks"
+            "levelMainTask": "You are a Major of National AirForce Squad 1 in Limebrook city, You task is to find and protect General McAlister at Air force base and take aircraft, Talk to the people, do their tasks"
         },
         "levelSound": "/public/sound/ambient/night-city-1.mp3",
         "levelMap" : "vhoa0.jpg",
@@ -148,20 +148,12 @@
         ],
         "levelBackgroundElements" : [
             {
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
                 "description": "first frame"
             },{
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
-                "description": "second frame"
-            },{
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
-                "description": "first frame"
-            },{
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
                 "description": "second frame"
             },{
                 "levelMap" : "/public/images/locations/night city/mountains.png",
@@ -369,7 +361,7 @@
         "description": {
             "name": "Tower-15 Research Center",
             "description": "Find Tower-15 research center, find more about project 'Oasis'",
-            "levelMainTask": "Find the way inside the research complex, find more about project 'Oasis', Talk to the people, do their tasks"
+            "levelMainTask": "Find the way inside the research complex, find more about project 'Oasis', Talk to the people, do their tasks (get the 'Sphere №1')"
         },
         "levelSound": "/public/sound/ambient/night-city-2.mp3",
         "levelMap" : "vhoa0.jpg",
@@ -396,22 +388,14 @@
             }
         ],
         "levelBackgroundElements" : [
+
             {
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
                 "description": "first frame"
             },{
-                "levelMap" : "/public/images/locations/night city/back.png",
+                "levelMap" : "/public/images/locations/night city/vhoa0.png",
                 "speed": 0,
-                "description": "second frame"
-            },
-            {
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
-                "description": "first frame"
-            },{
-                "levelMap" : "/public/images/locations/night city/vhoa0.png",
-                "speed": 0.2,
                 "description": "second frame"
             },{
                 "levelMap" : "/public/images/locations/night city/mountains.png",
@@ -976,7 +960,7 @@
         "description": {
             "name": "City Government Tower",
             "description": "Talk to the government about situation",
-            "levelMainTask": "Find the way to the government hall, Talk to Minister, Talk to the Science Doctor Edward"
+            "levelMainTask": "Find the way to the government hall, Talk to Minister, Talk to the Science Doctor Edward (get the 'Special Permission')"
         },
         "levelSound": "/public/sound/ambient/Sky-city-Easy Ride.mp3",
         "levelMap" : "skyCity.png",
@@ -1331,7 +1315,7 @@
         "dynamicBlockMap": "5-map-moon-alpha-side",
         "dynamicLevelsActive": true,
         "gravity": 2,
-        "gravityIndex": 0.7,
+        "gravityIndex": 1,
         "jumpImpuls": 6,
         "horizontalSpeed": 2,
         "bossPresent": false,
@@ -1558,10 +1542,7 @@
             "levelSeconds": 30
         }
     },
-    
-    
-    
-    
+
     {
         "level" : 15,
         "enemyType" : ["scorpio", "moscit"],
@@ -1643,7 +1624,6 @@
             "levelSeconds": 30
         }
     },
-    
         {
             "level" : 16,
             "enemyType" : [],
@@ -1673,7 +1653,7 @@
             "description": {
                 "name": "Venus Plant",
                 "description": "Find Signal of Sphere №4 using Venus flying Carbon Processing Plant",
-                "levelMainTask": "You must detect and transmit to Earth the Sphere №4 signal data, talk to the platform workers"
+                "levelMainTask": "You must detect (Sphere №4) and transmit it's signal to the Earth, talk to the platform workers"
             },
             "levelSound": "/public/sound/ambient/Venus-base.mp3",
             "levelMap" : "sun.png",
@@ -1829,11 +1809,11 @@
         "levelMap" : "sun.png",
         "levelBackgroundElements" : [{
             "levelMap" : "/public/images/locations/space/space.png",
-            "speed": 0.05,
+            "speed": 0,
             "description": "first frame"
         },{
             "levelMap" : "/public/images/locations/space/space.png",
-            "speed": 0.05,
+            "speed": 0,
             "description": "second frame"
         },{
             "levelMap" : "/public/images/locations/Mars/mars_atmosphere.png",
@@ -1947,7 +1927,7 @@
                 "description": {
                     "name": "Mars Research Facility",
                     "description": "Find the Entrance to the Facility",
-                    "levelMainTask": "Find the way to the colony, find workers, talk to scientists, get 'Sphere №3' send sphere signal to Earth"
+                    "levelMainTask": "Find the way to the colony, find workers, talk to scientists, (get the 'Sphere №3') send Sphere №3 signal to Earth"
                 },
                 "levelBottomPart" : [
                     {
@@ -2378,7 +2358,7 @@
             "description": {
                 "name": "Jupiter Odyssey Station",
                 "description": "Repair the system",
-                "levelMainTask": "Repair the system, talk to the Captain, align Quantum stream to the Neptune moon Triton (enemy base)"
+                "levelMainTask": "Repair the system (get the 'Gate Coordinate Access'), talk to the Captain, align Quantum system  to the Neptune moon Triton (enemy base)"
             },
             "levelSound": "/public/sound/ambient/station.mp3",
             "levelMap" : "sun.png",
@@ -2630,7 +2610,7 @@
         "dynamicBlockMap": "9-Neptune-enemy-base",
         "dynamicLevelsActive": true,
         "gravity": 4,
-        "gravityIndex": 1,
+        "gravityIndex": 0.9,
         "jumpImpuls": 4,
         "horizontalSpeed": 2,
         "bossPresent": true,
@@ -2647,7 +2627,7 @@
         "description": {
             "name": "Triton enemy base",
             "description": "Find and Destroy 'Prime Builder' super mind and escape",
-            "levelMainTask": "Find Entrance to the base, find 'Prime Builder' super mind and destroy him, take the control 'Builder' sphere, escape the base"
+            "levelMainTask": "Find Entrance to the base, find and destroy 'Prime Builder' super mind, take the control 'Sphere', escape the base"
         },
         "levelBottomPart" : [
             {

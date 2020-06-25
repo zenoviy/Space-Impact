@@ -205,13 +205,11 @@ async function backToStartScreen(constructors){
     let soundObject = this.showGameInfo().gameData.levelSounds;
     let newInitdata = await gameDataInit.call(this, constructors.PlayerShip, soundObject, constructors);
     if(!newInitdata.data) throw new Error("No 'newInitdata.data'");
-    console.log(newInitdata)
     for(let [key, value] of Object.entries( newInitdata.data)){
         if(value !== null) {
             this.gameInitData[key] = value;
         };
     }
-    console.log(newInitdata)
     this.mapSoundChanger({soundStatus:'start_screen'})
     this.gameInitData.gameOver = false;
     this.gameInitData.gameStatus = false;

@@ -66,7 +66,7 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
     let mapName = createSimpleElements({
         tagname: 'h3',
         classList: "side-panel-name",
-        innerText: 'Level Map',
+        innerText: 'Level Map <p>Press M to close</p>',
         idName: null
     })
     var canvas = document.createElement('canvas');
@@ -91,8 +91,6 @@ function createMapContext({ mainGameObject, allBlocks, mapProps, groundPlayer })
                 }
             }
         })
-         //groundPlayer.mapFinder;
-        //console.log(mapBlock, )
         if(process.env.GROUND_CHARACTERS_INVENTORY === 'false' || process.env.GROUND_NPC_DIALOG_ACTIVE === 'true'){
             clearInterval(mapEngine)
         }

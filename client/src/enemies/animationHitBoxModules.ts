@@ -478,7 +478,7 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     }
     function damageProcedure(){
         if(this.details){
-            if(this.details.healthPoint && this.details.isDestroy && this.details.type === "ground-destruct"){
+            if((this.details.healthPoint || this.details.healthPoint == 0) && this.details.isDestroy && this.details.type === "ground-destruct"){
                 if(this.details.healthPoint <= 0 && this.details.isDestroy && this.details.type){
                     let objectWithFire = Object.assign(this, {
                             explosion: this.explosionAnimation,

@@ -349,7 +349,6 @@ and bullets player, groundEnemyBullet
 function groundBulletCollision({hitObject, mainGameObject}){
     if(!hitObject.objectPresent && hitObject.objectOwner) return false
     if(this.objectPresent && this.hasOwnProperty('bulletType') && this.objectOwner == "groundEnemyBullet" && hitObject.objectOwner == "groundPlayer"){
-        // if(this.details.type == "hidden_enemy_spawner" && hitObject.objectOwner == "groundEnemy") return false
         return bulletExplosion.call(this)
     }
 
@@ -364,7 +363,6 @@ function groundBulletCollision({hitObject, mainGameObject}){
                 if(hitObject.details){
                     if(hitObject.details.type == "hidden_enemy_spawner" && hitObject.objectOwner == "groundEnemy"
                      && this.objectOwner == "groundEnemyBullet") return false
-                //console.log(1, hitObject.details.type, hitObject.objectOwner, this.objectOwner)
                 }
             return bulletExplosion.call(this)
         }
@@ -463,10 +461,9 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "player" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundEnemy" && hitObject.objectOwner == "groundNPC" ||
     this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "groundEnemyBullet" ||
-    //this.objectPresent && this.hasOwnProperty('healthPoint') &&  this.objectOwner == "groundNPC" && hitObject.objectOwner == "player" ||
     !this.objectOwner && this.details && hitObject.objectOwner == "player" ||
     !this.objectOwner && this.details && hitObject.objectOwner == "groundNPC" ||
-    !this.objectOwner && this.details && hitObject.objectOwner == "groundEnemyBullet"){  // groundNPC ground-destruct  
+    !this.objectOwner && this.details && hitObject.objectOwner == "groundEnemyBullet"){
 
         if(this.details){if(
             this.details.type == "hidden_enemy_spawner" && hitObject.objectOwner == "groundEnemyBullet") return false
@@ -478,7 +475,7 @@ function groundUnitsDamage({hitObject, mainGameObject, constructors}){
     }
     function damageProcedure(){
         if(this.details){
-            if(this.details.healthPoint && this.details.isDestroy && this.details.type === "ground-destruct"){
+            if((this.details.healthPoint || this.details.healthPoint == 0) && this.details.isDestroy && this.details.type === "ground-destruct"){
                 if(this.details.healthPoint <= 0 && this.details.isDestroy && this.details.type){
                     let objectWithFire = Object.assign(this, {
                             explosion: this.explosionAnimation,
@@ -701,7 +698,6 @@ async function takeDamage(damage: number, hitObject, mainGameObject, GrappleObje
 
 
 function unitDamage({data, mainGameObject, damage, hitObject}){
-    //if(mainGameObject.gameInitData.gameWin) return false
     this.healthPoint -= damage;
     if(this.healthPoint <= 0){
         if(data && data.life > 0 && !mainGameObject.gameInitData.gameWin){
@@ -739,7 +735,6 @@ function bossEnemyDestruction({ mainGameObject }){
 }
 
 function spawnCoin(mainGameObject, GrappleObject){
-    //console.log("coin",  this.extraObjects)
     if(this.hasOwnProperty('extraObjects')){
         for(let coin of this.extraObjects){
             coin.x = this.x;

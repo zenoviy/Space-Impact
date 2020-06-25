@@ -355,7 +355,7 @@ function moveUnit({xPos=0, yPos=0, mainGameObject, playerDirection}){
             groundPlayer.groundTouch = (downBlock)? true : false;
         }
     }
-    if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "down" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 0.1){
+    if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "down" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 1){
         mainGameObject.gameInitData.gameData.levelData.jumpImpuls = 3;
     }
     if(!groundPlayer.groundTouch && groundPlayer.playerDirectionVertical === "up" && mainGameObject.gameInitData.gameData.levelData.gravityIndex < 0.1){

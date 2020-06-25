@@ -10,6 +10,8 @@
     "build": "npx webpack --mode production --config webpack.config.js",
     "serve": "electron .",
     "windowsBuild": "electron-packager . space-attack --overwrite --asar=true --platform=win32 --arch=ia32 --icon=public/icons/win/icon.ico --prune=true --out=release-builds-win --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Space attack'",
+    "linuxBuilder": "electron-packager . space-attack --overwrite --asar=true --platform=linux --arch=x64 --icon=public/icons/win/icon.ico --prune=true --out=release-builds-lin --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Space attack'",
+    "macBuilder": "electron-packager . space-attack --overwrite --asar=true --platform=mac --arch=ia32 --icon=public/icons/win/icon.ico --prune=true --out=release-builds-mac --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Space attack'",
     "allPlatformBuild": "electron-packager . space-attack --overwrite --asar=true --platform=all --arch=all --icon=public/icons/win/icon.ico --prune=true --out=release-builds-all --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Space attack'"
   },
   "repository": {

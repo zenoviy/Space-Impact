@@ -49,7 +49,7 @@ async function loadGroundPlayer(){
 /* Game start data */
 
 async function serverDataRequest(gameInformation){
-    console.log(process.env.NODE_ENV, process.env.HOST)
+    //console.log(process.env.NODE_ENV, process.env.HOST)
 
     const levelData = await getData({
         url:  process.env.LEVEL_DATA_URL,

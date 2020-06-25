@@ -246,9 +246,7 @@ function initResultScreen(mainGameObject){
         }
     }
     function removeButtonClass(){
-        //let obj = document.querySelectorAll(this + " button");
         let buttons = document.querySelectorAll(".selected-form");
-
         Array.prototype.slice.call(buttons).forEach(item => {
             removeClassList(item, "selected-form")
         })
@@ -267,15 +265,10 @@ function initResultScreen(mainGameObject){
     }
     async function formActionWrite(event, formState){
         event.preventDefault()
-        console.log(this, mainGameObject, formState, '<<<')
         let formResult = transferDataToObject(this, mainGameObject, formState)
 
         if(formResult){
-            let res = await getGameResultData({ method: 'POST', data: formResult }) /* await getData({
-            url: process.env.HOST + 'api/game-result',
-            method: 'POST',
-            data: formResult,
-            headers: null})*/
+            let res = await getGameResultData({ method: 'POST', data: formResult })
             errorFormMessage({message: res.message, status: res.status})
             return
         }else{

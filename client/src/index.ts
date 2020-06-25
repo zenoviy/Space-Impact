@@ -383,7 +383,11 @@ async function gameDynamicEnemyRender({ gameObject }){
     let groundPlayer = gameObject.gameInitData.gameData.groundPlayerCharacter;
     let allBlocks = gameObject.gameInitData.dynamicLevelMapBlocks.filter(block => {
         if(block.details){
-            if(block.details.collision) return block
+            if(!block || block.x > window.innerWidth + block.width || block.x < block.width * -1 ||
+                block.y > window.innerHeight + block.height + 220 || block.y  < 0 - block.height ){
+                }else{
+                    if(block.details.collision) return block
+                }
         }
     });
     groundPlayer.isRun = false;

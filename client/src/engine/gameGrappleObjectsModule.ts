@@ -59,6 +59,7 @@ async function initGrappleObject(GrappleObject, playerShipData){
     let spawnProbability = this.gameRandomizer(levelData.grapleObjectProbability);
     if(spawnProbability < 1){
         let randomObject = grappleData[this.gameRandomizer(grappleData.length)];
+        if(!randomObject) return false
         if(!randomObject.grapplePower) return false
         switch (randomObject.grapplePower.name){
             case "life":

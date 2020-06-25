@@ -49,6 +49,8 @@ appData/
 script-test-area/
 space-attack-client-win32-ia32/
 release-builds-win/
+release-builds-all/
+
 
 # TypeScript v1 declaration files
 typings/
